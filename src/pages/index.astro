@@ -1,7 +1,12 @@
 ---
+import "../styles/styles.css";
 
+import ReactEg from "../components/react-eg";
+import Heading from "../components/heading/heading.astro";
+import CountJS from "../components/count-js/count-js";
+import Count from "../components/vanilla-js-eg/count.astro";
+import Promises from "../components/promises/promises.astro";
 ---
-
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
@@ -11,6 +16,27 @@
 		<title>Astro</title>
 	</head>
 	<body>
-		<h1>Astro</h1>
+        <div class="w-8/12 mx-auto py-24">
+            <h1 class="text-4xl font-bold mb-24">Astro</h1>
+            <ReactEg client:load/>
+
+            <div class="prose">
+                <h2>Now some Astro component examples</h2>
+                <Heading>This is a level 1 heading</Heading>
+                <Heading level="2">This is a level 2 heading</Heading>
+                <Heading level="3">This is a level 3 heading</Heading>
+                <Heading level="4">This is a level 4 heading</Heading>
+                <Heading level="5">This is a level 5 heading</Heading>
+                <Heading level="6">This is a level 6 heading</Heading>
+            </div>
+
+            <h2>and finally some vanilla javascript examples</h2>
+            <Count />
+
+            <p>vanilla js promises</p>
+            <Promises />
+
+            <p>vanilla js async/await</p>
+        </div>
 	</body>
 </html>
