@@ -9,12 +9,14 @@ import '../styles/styles.css'
 		<meta name="generator" content={Astro.generator} />
 		<title>Btn Builder</title>
         <style id="achilles-styles">
-            #achilles {
+            :root {
                 --achilles-padding-left: var(--spacing-base);
                 --achilles-padding-right: var(--spacing-base);
                 --achilles-padding-top: var(--spacing-sm);
                 --achilles-padding-bottom: var(--spacing-sm);
+            }
 
+            #achilles {
                 padding-left: var(--achilles-padding-left);
                 padding-right: var(--achilles-padding-right);
                 padding-top: var(--achilles-padding-top);
@@ -220,12 +222,8 @@ import '../styles/styles.css'
             const spacing = spacingScale[index];
             const tailwindRef = pxToTailwind[spacing.px] || spacing.px.toString();
 
-            // Update CSS custom property on the element itself
-            // This keeps the CSS variables scoped to the element, clean and semantic
-            if (btn) {
-                btn.style.setProperty(sideToCSSVar[side], `var(${spacing.var})`);
-                console.log(`Updated ${sideToCSSVar[side]} to var(${spacing.var})`);
-            }
+            // Update CSS custom property on :root (no inline styles!)
+            document.documentElement.style.setProperty(sideToCSSVar[side], `var(${spacing.var})`);
 
             // Update display with spacing name and Tailwind reference
             if (valueSpan) {
