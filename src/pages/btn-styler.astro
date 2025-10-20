@@ -28,6 +28,13 @@ import '../styles/styles.css'
         <p>So while we call it a button style, it's a visual flair that applies to two different HTML elements.</p>
 
         <div class="controls space-y-4 max-w-2xl">
+            <!-- Save/Reset Controls -->
+            <div class="flex gap-2 mb-6">
+                <button id="save-styles" class="px-4 py-2 bg-green-500 text-white rounded">Save Styles</button>
+                <button id="reset-styles" class="px-4 py-2 bg-red-500 text-white rounded">Reset to Default</button>
+                <span id="save-status" class="px-4 py-2 text-sm text-gray-600"></span>
+            </div>
+
             <!-- Padding Left -->
             <div class="flex items-center gap-2">
                 <button id="decrease-pl" class="px-2 py-1 border">-</button>
@@ -124,6 +131,16 @@ import '../styles/styles.css'
 
     const btn = document.getElementById('achilles') as HTMLElement;
 
+    // Define defaults (these are your design system defaults)
+    const DEFAULTS = {
+        'pl': 4,  // base (16px)
+        'pr': 4,  // base (16px)
+        'pt': 2,  // sm (8px)
+        'pb': 2,  // sm (8px)
+    };
+
+    const STORAGE_KEY = 'achilles-button-styles';
+
     // Map side to CSS custom property
     const sideToCSSVar: Record<string, string> = {
         'pl': '--achilles-padding-left',
@@ -132,14 +149,58 @@ import '../styles/styles.css'
         'pb': '--achilles-padding-bottom',
     };
 
+    // Load saved styles from localStorage or use defaults
+    const loadSavedStyles = (): Record<string, number> => {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+            try {
+                return JSON.parse(saved);
+            } catch (e) {
+                console.error('Failed to parse saved styles', e);
+            }
+        }
+        return { ...DEFAULTS };
+    };
+
+    // Save current styles to localStorage
+    const saveStyles = () => {
+        const currentIndices: Record<string, number> = {};
+        sides.forEach(side => {
+            const range = document.getElementById(`${side}-range`) as HTMLInputElement;
+            if (range) {
+                currentIndices[side] = parseInt(range.value);
+            }
+        });
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(currentIndices));
+
+        const status = document.getElementById('save-status');
+        if (status) {
+            status.textContent = '✓ Saved!';
+            setTimeout(() => status.textContent = '', 2000);
+        }
+    };
+
+    // Reset to defaults
+    const resetToDefaults = () => {
+        localStorage.removeItem(STORAGE_KEY);
+        sides.forEach(side => {
+            const range = document.getElementById(`${side}-range`) as HTMLInputElement;
+            if (range) {
+                range.value = DEFAULTS[side].toString();
+                range.dispatchEvent(new Event('input'));
+            }
+        });
+
+        const status = document.getElementById('save-status');
+        if (status) {
+            status.textContent = '✓ Reset to defaults!';
+            setTimeout(() => status.textContent = '', 2000);
+        }
+    };
+
     // Initialize all range inputs
     const sides = ['pl', 'pr', 'pt', 'pb'] as const;
-    const defaultIndices: Record<string, number> = {
-        'pl': 4,  // base (16px)
-        'pr': 4,  // base (16px)
-        'pt': 2,  // sm (8px)
-        'pb': 2,  // sm (8px)
-    };
+    const defaultIndices = loadSavedStyles();
 
     sides.forEach(side => {
         const range = document.getElementById(`${side}-range`) as HTMLInputElement;
@@ -195,4 +256,17 @@ import '../styles/styles.css'
         // Initialize display on page load
         range?.dispatchEvent(new Event('input'));
     });
+
+    // Wire up save and reset buttons
+    document.getElementById('save-styles')?.addEventListener('click', saveStyles);
+    document.getElementById('reset-styles')?.addEventListener('click', resetToDefaults);
+
+    // Show saved indicator on page load if there are saved styles
+    const hasSavedStyles = localStorage.getItem(STORAGE_KEY) !== null;
+    if (hasSavedStyles) {
+        const status = document.getElementById('save-status');
+        if (status) {
+            status.textContent = '(using saved styles)';
+        }
+    }
 </script>
