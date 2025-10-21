@@ -13,6 +13,7 @@ import BorderRadiusInput from '../components/border-radius-input/border-radius-i
 		<title>Btn Builder</title>
         <style is:global>
             :root {
+                /* Default state */
                 --achilles-padding-left: var(--spacing-16);
                 --achilles-padding-right: var(--spacing-16);
                 --achilles-padding-top: var(--spacing-8);
@@ -22,9 +23,14 @@ import BorderRadiusInput from '../components/border-radius-input/border-radius-i
                 --achilles-border-width: var(--spacing-2);
                 --achilles-border-radius: var(--spacing-4);
                 --achilles-text-color: var(--color-white);
+
+                /* Hover state - initialized with green for visual distinction */
+                --achilles-hover-bg-color: var(--color-green-500);
+                --achilles-hover-border-color: var(--color-green-700);
+                --achilles-hover-text-color: var(--color-white);
             }
 
-            #achilles {
+            .achilles-btn {
                 padding-left: var(--achilles-padding-left);
                 padding-right: var(--achilles-padding-right);
                 padding-top: var(--achilles-padding-top);
@@ -35,9 +41,47 @@ import BorderRadiusInput from '../components/border-radius-input/border-radius-i
                 border-color: var(--achilles-border-color);
                 border-radius: var(--achilles-border-radius);
                 color: var(--achilles-text-color);
+                cursor: pointer;
+                text-decoration: none;
+                display: inline-block;
+
+                /* Optimized transitions - only animate changing properties */
+                transition-property: background-color, border-color, color, transform;
+                transition-duration: 150ms;
+                transition-timing-function: ease-out;
             }
 
-            .layout-container {
+            .achilles-btn:hover,
+            .achilles-btn.is-hover {
+                /* Hover state with slower exit transition */
+                transition-duration: 250ms;
+                transition-timing-function: ease-in-out;
+            }
+
+            .achilles-btn:hover,
+            .achilles-btn.is-hover {
+                background-color: var(--achilles-hover-bg-color);
+                border-color: var(--achilles-hover-border-color);
+                color: var(--achilles-hover-text-color);
+
+                /* Hover state with slower exit transition */
+                transition-duration: 250ms;
+                transition-timing-function: ease-in-out;
+            }
+
+            /* Preview state labels */
+            .state-preview {
+                margin-bottom: 1rem;
+            }
+
+            .state-label {
+                font-size: 0.75rem;
+                font-weight: 600;
+                color: #6b7280;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                margin-bottom: 0.5rem;
+            }            .layout-container {
                 display: grid;
                 grid-template-columns: 400px 1fr;
                 gap: 2rem;
@@ -55,6 +99,39 @@ import BorderRadiusInput from '../components/border-radius-input/border-radius-i
             .controls-column {
                 min-width: 0;
             }
+
+            /* State Selector */
+            .state-selector {
+                background: white;
+                border-radius: 0.5rem;
+                padding: 1rem;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            }
+
+            .state-tab {
+                padding: 0.75rem 1.5rem;
+                background: none;
+                border: none;
+                border-bottom: 3px solid transparent;
+                cursor: pointer;
+                color: #6b7280;
+                font-weight: 600;
+                font-size: 0.875rem;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                transition: all 0.2s;
+                margin-bottom: -2px;
+            }
+
+            .state-tab:hover {
+                color: #111827;
+                background: #f9fafb;
+            }
+
+            .state-tab.active {
+                color: #2563eb;
+                border-bottom-color: #2563eb;
+            }
         </style>
 	</head>
 	<body>
@@ -67,8 +144,22 @@ import BorderRadiusInput from '../components/border-radius-input/border-radius-i
         <div class="layout-container">
             <!-- Left Column: Preview -->
             <div class="preview-column">
-                <div class="border rounded-lg p-8 bg-gray-50 flex items-center justify-center min-h-[400px]">
-                    <a id="achilles" href="" class="btn text-white">Hello, world!</a>
+                <div class="border rounded-lg p-8 bg-gray-50 space-y-6">
+                    <!-- Default State -->
+                    <div class="state-preview">
+                        <div class="state-label">Default</div>
+                        <div class="flex items-center justify-center p-4">
+                            <a id="achilles-default" href="#" class="achilles-btn">Hello, world!</a>
+                        </div>
+                    </div>
+
+                    <!-- Hover State -->
+                    <div class="state-preview">
+                        <div class="state-label">Hover</div>
+                        <div class="flex items-center justify-center p-4">
+                            <a id="achilles-hover" href="#" class="achilles-btn is-hover">Hello, world!</a>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Save/Reset Controls -->
@@ -83,6 +174,21 @@ import BorderRadiusInput from '../components/border-radius-input/border-radius-i
             <!-- Right Column: Controls -->
             <div class="controls-column">
                 <div class="space-y-4 max-w-2xl">
+
+            <!-- State Selector -->
+            <div class="state-selector mb-8">
+                <div class="flex gap-2 border-b-2 border-gray-200">
+                    <button class="state-tab active" data-state="default">
+                        Default
+                    </button>
+                    <button class="state-tab" data-state="hover">
+                        Hover
+                    </button>
+                </div>
+            </div>
+
+            <!-- Default State Controls -->
+            <div class="state-controls" data-state-controls="default">
             <!-- Background Color -->
             <div class="mb-6">
                 <label class="block mb-2 font-semibold">Background Color</label>
@@ -194,6 +300,47 @@ import BorderRadiusInput from '../components/border-radius-input/border-radius-i
                 />
                 <button id="increase-pb" class="px-2 py-1 border">+</button>
             </div>
+            </div>
+            <!-- End Default State Controls -->
+
+            <!-- Hover State Controls -->
+            <div class="state-controls" data-state-controls="hover" style="display: none;">
+                <p class="text-sm text-gray-600 mb-4 italic">
+                    Hover state starts by inheriting default styles. Change any property to customize the hover appearance:
+                </p>
+
+                <!-- Background Color -->
+                <div class="mb-6">
+                    <label class="block mb-2 font-semibold">Background Color (Hover)</label>
+                    <ColorPicker
+                        id="hover-bg-color-picker"
+                        name="hover-bg-color"
+                        defaultColor="--color-green-500"
+                    />
+                </div>
+
+                <!-- Border Color -->
+                <div class="mb-6">
+                    <label class="block mb-2 font-semibold">Border Color (Hover)</label>
+                    <ColorPicker
+                        id="hover-border-color-picker"
+                        name="hover-border-color"
+                        defaultColor="--color-green-700"
+                    />
+                </div>
+
+                <!-- Text Color -->
+                <div class="mb-6">
+                    <label class="block mb-2 font-semibold">Text Color (Hover)</label>
+                    <ColorPicker
+                        id="hover-text-color-picker"
+                        name="hover-text-color"
+                        defaultColor="--color-white"
+                    />
+                </div>
+            </div>
+            <!-- End Hover State Controls -->
+
                 </div>
             </div>
         </div>
@@ -548,4 +695,46 @@ import BorderRadiusInput from '../components/border-radius-input/border-radius-i
             status.textContent = '(using saved styles)';
         }
     }
+
+    // ===== STATE SWITCHING =====
+    const stateTabs = document.querySelectorAll('.state-tab');
+    const stateControls = document.querySelectorAll<HTMLElement>('.state-controls');
+
+    stateTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const targetState = tab.getAttribute('data-state');
+
+            // Update tabs
+            stateTabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            // Show/hide state controls
+            stateControls.forEach(controls => {
+                const controlsState = controls.getAttribute('data-state-controls');
+                if (controlsState === targetState) {
+                    controls.style.display = 'block';
+                } else {
+                    controls.style.display = 'none';
+                }
+            });
+        });
+    });
+
+    // ===== HOVER STATE CONTROLS =====
+    const hoverColorConfigs = [
+        { name: 'hover-bg-color', cssVariable: '--achilles-hover-bg-color' },
+        { name: 'hover-border-color', cssVariable: '--achilles-hover-border-color' },
+        { name: 'hover-text-color', cssVariable: '--achilles-hover-text-color' }
+    ];
+
+    hoverColorConfigs.forEach(config => {
+        const radios = document.querySelectorAll(`input[name="${config.name}"]`);
+        radios.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                const target = e.target as HTMLInputElement;
+                const colorVar = target.value;
+                updateRootVariable(config.cssVariable, `var(${colorVar})`);
+            });
+        });
+    });
 </script>
