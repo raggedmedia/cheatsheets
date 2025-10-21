@@ -1,11 +1,5 @@
 ---
-import "../styles/styles.css";
 
-import ReactEg from "../components/react-eg";
-import Heading from "../components/heading/heading.astro";
-import CountJS from "../components/count-js/count-js";
-import Count from "../components/vanilla-js-eg/count.astro";
-import Promises from "../components/promises/promises.astro";
 ---
 <html lang="en">
 	<head>
@@ -16,27 +10,106 @@ import Promises from "../components/promises/promises.astro";
 		<title>Astro</title>
 	</head>
 	<body>
-        <div class="w-8/12 mx-auto py-24">
-            <h1 class="text-4xl font-bold mb-24">Astro</h1>
-            <ReactEg client:load/>
+        <h1>Hello World - Auth0 Demo</h1>
 
-            <div class="prose">
-                <h2>Now some Astro component examples</h2>
-                <Heading>This is a level 1 heading</Heading>
-                <Heading level="2">This is a level 2 heading</Heading>
-                <Heading level="3">This is a level 3 heading</Heading>
-                <Heading level="4">This is a level 4 heading</Heading>
-                <Heading level="5">This is a level 5 heading</Heading>
-                <Heading level="6">This is a level 6 heading</Heading>
-            </div>
+        <div id="auth-section">
+            <button id="login">Login with Auth0</button>
+            <button id="logout" style="display: none;">Logout</button>
+        </div>
 
-            <h2>and finally some vanilla javascript examples</h2>
-            <Count />
-
-            <p>vanilla js promises</p>
-            <Promises />
-
-            <p>vanilla js async/await</p>
+        <div id="user-info" style="display: none;">
+            <!-- User info will be populated here -->
         </div>
 	</body>
 </html>
+
+<script>
+    import { initAuth0 } from '../lib/auth0-client.js';
+
+    let auth0Client = null;
+
+    // Initialize Auth0 when the page loads
+    document.addEventListener('DOMContentLoaded', async () => {
+        try {
+            auth0Client = await initAuth0();
+
+            // Check if we're returning from Auth0 (has code and state in URL)
+            const query = window.location.search;
+            if (query.includes('code=') && query.includes('state=')) {
+                try {
+                    await auth0Client.handleRedirectCallback();
+                    // Clean up the URL
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                    // Get user info
+                    const user = await auth0Client.getUser();
+                    console.log('Logged in user:', user);
+                    updateUI(user);
+                } catch (error) {
+                    console.error('Error handling redirect callback:', error);
+                }
+            } else {
+                // Check if user is already authenticated
+                const isAuthenticated = await auth0Client.isAuthenticated();
+                if (isAuthenticated) {
+                    const user = await auth0Client.getUser();
+                    console.log('Already logged in:', user);
+                    updateUI(user);
+                }
+            }
+        } catch (error) {
+            console.error('Error initializing Auth0:', error);
+        }
+    });
+
+    // Login button click handler
+    document.getElementById('login')?.addEventListener('click', async () => {
+        if (!auth0Client) {
+            console.error('Auth0 client not initialized');
+            return;
+        }
+
+        try {
+            await auth0Client.loginWithRedirect();
+        } catch (error) {
+            console.error('Login error:', error);
+        }
+    });
+
+    // Logout button click handler
+    document.getElementById('logout')?.addEventListener('click', async () => {
+        if (!auth0Client) return;
+
+        try {
+            await auth0Client.logout({
+                logoutParams: {
+                    returnTo: window.location.origin
+                }
+            });
+        } catch (error) {
+            console.error('Logout error:', error);
+        }
+    });
+
+    // Update UI based on authentication status
+    function updateUI(user) {
+        const loginBtn = document.getElementById('login');
+        const logoutBtn = document.getElementById('logout');
+        const userInfo = document.getElementById('user-info');
+
+        if (user) {
+            loginBtn.style.display = 'none';
+            logoutBtn.style.display = 'block';
+            userInfo.style.display = 'block';
+            userInfo.innerHTML = `
+                <h2>Welcome!</h2>
+                <p>Email: ${user.email}</p>
+                <p>Name: ${user.name}</p>
+                <pre>${JSON.stringify(user, null, 2)}</pre>
+            `;
+        } else {
+            loginBtn.style.display = 'block';
+            logoutBtn.style.display = 'none';
+            userInfo.style.display = 'none';
+        }
+    }
+</script>

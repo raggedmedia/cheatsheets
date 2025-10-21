@@ -1,0 +1,36 @@
+#root {
+  font-family: sans-serif;
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  grid-template-rows: 50px 1fr;
+  grid-template-areas: "header header" "main sidebar";
+}
+
+.header {
+  grid-area: header;
+  background-color: blue;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  grid-area: main;
+}
+
+.sidebar {
+  grid-area: sidebar;
+  padding: 10px;
+}
+
+.sticky {
+  position: sticky;
+  top: 10px;
+}
+
+/* use this to "activate" link */
+.active {
+  color: red;
+  font-weight: bold;
+}
