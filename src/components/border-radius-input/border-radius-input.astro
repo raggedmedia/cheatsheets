@@ -69,40 +69,105 @@ const simpleOptions = [
     }
 
     .border-radius-input .simple-options {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 0.75rem;
+    }
+
+    .border-radius-input .simple-option {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem;
+        border: 2px solid #e5e7eb;
+        border-radius: 0.375rem;
+        cursor: pointer;
+        transition: all 0.2s;
+        background: white;
+    }
+
+    .border-radius-input .simple-option:hover {
+        border-color: #d1d5db;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .border-radius-input .simple-option input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .border-radius-input .simple-option input[type="radio"]:checked + .radius-preview-box {
+        border-color: #2563eb;
+        background: #dbeafe;
+    }
+
+    .border-radius-input .simple-option:has(input[type="radio"]:checked) {
+        border-color: #2563eb;
+        background: #eff6ff;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .border-radius-input .simple-option:has(input[type="radio"]:checked) .radius-label {
+        color: #2563eb;
+        font-weight: 600;
+    }
+
+    .border-radius-input .radius-preview-box {
+        width: 60px;
+        height: 60px;
+        background: #f3f4f6;
+        border: 2px solid #d1d5db;
+        transition: all 0.2s;
+    }
+
+    .border-radius-input .radius-label {
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: #374151;
+        text-align: center;
+        transition: all 0.2s;
+    }
+
+    .border-radius-input .per-corner-controls {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+
+    .border-radius-input .corner-control {
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
     }
 
-    .border-radius-input .simple-option {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.5rem;
-        border-radius: 0.25rem;
-        cursor: pointer;
-        transition: background 0.2s;
+    .border-radius-input .corner-control.top-left {
+        grid-column: 1;
+        grid-row: 1;
     }
 
-    .border-radius-input .simple-option:hover {
-        background: #f3f4f6;
+    .border-radius-input .corner-control.top-right {
+        grid-column: 2;
+        grid-row: 1;
     }
 
-    .border-radius-input .simple-option input[type="radio"] {
-        cursor: pointer;
+    .border-radius-input .corner-control.bottom-left {
+        grid-column: 1;
+        grid-row: 2;
     }
 
-    .border-radius-input .per-corner-controls {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        gap: 0.75rem;
-        align-items: center;
-        margin-top: 1rem;
+    .border-radius-input .corner-control.bottom-right {
+        grid-column: 2;
+        grid-row: 2;
     }
 
     .border-radius-input .per-corner-controls label {
         font-size: 0.875rem;
         color: #374151;
+        font-weight: 500;
     }
 
     .border-radius-input .per-corner-select {
@@ -154,8 +219,8 @@ const simpleOptions = [
 
 <div class="border-radius-input">
     <div class="mode-tabs">
-        <button class="mode-tab active" data-mode="simple">Simple</button>
-        <button class="mode-tab" data-mode="advanced">Advanced</button>
+        <button class="mode-tab active" data-mode="simple">All Corners</button>
+        <button class="mode-tab" data-mode="advanced">Per Corner</button>
         <button class="mode-tab" data-mode="css">CSS Input</button>
     </div>
 
@@ -174,7 +239,8 @@ const simpleOptions = [
                             value={option.value}
                             checked={isDefault}
                         />
-                        <span>{option.label}</span>
+                        <div class="radius-preview-box" style={`border-radius: ${option.value}`}></div>
+                        <span class="radius-label">{option.label}</span>
                     </label>
                 );
             })}
@@ -184,37 +250,45 @@ const simpleOptions = [
     <!-- Advanced Mode (Per-Corner) -->
     <div class="mode-content" data-mode-content="advanced">
         <div class="per-corner-controls">
-            <label for="border-radius-top-left">Top-Left:</label>
-            <select id="border-radius-top-left" class="per-corner-select">
-                <option value="" selected>Select radius</option>
-                {simpleOptions.map((option) => (
-                    <option value={option.value}>{option.label}</option>
-                ))}
-            </select>
+            <div class="corner-control top-left">
+                <label for="border-radius-top-left">Top-Left:</label>
+                <select id="border-radius-top-left" class="per-corner-select">
+                    <option value="" selected>Select radius</option>
+                    {simpleOptions.map((option) => (
+                        <option value={option.value}>{option.label}</option>
+                    ))}
+                </select>
+            </div>
 
-            <label for="border-radius-top-right">Top-Right:</label>
-            <select id="border-radius-top-right" class="per-corner-select">
-                <option value="" selected>Select radius</option>
-                {simpleOptions.map((option) => (
-                    <option value={option.value}>{option.label}</option>
-                ))}
-            </select>
+            <div class="corner-control top-right">
+                <label for="border-radius-top-right">Top-Right:</label>
+                <select id="border-radius-top-right" class="per-corner-select">
+                    <option value="" selected>Select radius</option>
+                    {simpleOptions.map((option) => (
+                        <option value={option.value}>{option.label}</option>
+                    ))}
+                </select>
+            </div>
 
-            <label for="border-radius-bottom-right">Bottom-Right:</label>
-            <select id="border-radius-bottom-right" class="per-corner-select">
-                <option value="" selected>Select radius</option>
-                {simpleOptions.map((option) => (
-                    <option value={option.value}>{option.label}</option>
-                ))}
-            </select>
+            <div class="corner-control bottom-left">
+                <label for="border-radius-bottom-left">Bottom-Left:</label>
+                <select id="border-radius-bottom-left" class="per-corner-select">
+                    <option value="" selected>Select radius</option>
+                    {simpleOptions.map((option) => (
+                        <option value={option.value}>{option.label}</option>
+                    ))}
+                </select>
+            </div>
 
-            <label for="border-radius-bottom-left">Bottom-Left:</label>
-            <select id="border-radius-bottom-left" class="per-corner-select">
-                <option value="" selected>Select radius</option>
-                {simpleOptions.map((option) => (
-                    <option value={option.value}>{option.label}</option>
-                ))}
-            </select>
+            <div class="corner-control bottom-right">
+                <label for="border-radius-bottom-right">Bottom-Right:</label>
+                <select id="border-radius-bottom-right" class="per-corner-select">
+                    <option value="" selected>Select radius</option>
+                    {simpleOptions.map((option) => (
+                        <option value={option.value}>{option.label}</option>
+                    ))}
+                </select>
+            </div>
         </div>
     </div>
 
@@ -265,6 +339,9 @@ const simpleOptions = [
     const corners = ['top-left', 'top-right', 'bottom-right', 'bottom-left'];
     const perCornerSelects = corners.map(corner => document.getElementById(`border-radius-${corner}`));
 
+    // Track if we're in initialization to prevent clearing modes
+    let isInitializing = true;
+
     // Sync CSS Input field
     const syncCSSInput = (value) => {
         if (cssInput) {
@@ -276,7 +353,9 @@ const simpleOptions = [
 
     // Clear Simple mode
     const clearSimpleMode = () => {
-        simpleRadios.forEach(radio => radio.checked = false);
+        if (!isInitializing) {
+            simpleRadios.forEach(radio => radio.checked = false);
+        }
     };
 
     // Reset Advanced mode
@@ -333,4 +412,9 @@ const simpleOptions = [
 
     // Initialize
     updateCSSVariable(defaultValue);
+
+    // Mark initialization as complete after a short delay to ensure all initial events have fired
+    setTimeout(() => {
+        isInitializing = false;
+    }, 100);
 </script>
