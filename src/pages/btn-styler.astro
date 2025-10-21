@@ -68,6 +68,15 @@ import '../styles/styles.css'
                 transform: scale(1.15);
             }
 
+            /* Transparent color swatch pattern */
+            label[for="grouped-transparent"] {
+                background:
+                    linear-gradient(0deg, #e0e0e0 50%, transparent 50%),
+                    linear-gradient(90deg, #fff 50%, #e0e0e0 50%) !important;
+                background-size: 10px 10px !important;
+                background-position: 0 0 !important;
+            }
+
             .color-group {
                 margin-bottom: 1.5rem;
             }
@@ -321,10 +330,53 @@ import '../styles/styles.css'
     // Generate grouped color swatches (Figma-style)
     const colorFamilies = ['red', 'orange', 'amber', 'yellow', 'lime', 'green', 'emerald', 'teal', 'cyan', 'sky', 'blue', 'indigo', 'violet', 'purple', 'fuchsia', 'pink', 'rose', 'slate', 'gray', 'zinc', 'neutral', 'stone'];
     const shades = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950'];
+    const miscColors = [
+        { name: 'Black', var: '--color-black' },
+        { name: 'White', var: '--color-white' },
+        { name: 'Transparent', var: '--color-transparent' }
+    ];
 
     const groupedColorsContainer = document.getElementById('grouped-colors');
 
     if (groupedColorsContainer) {
+        // Add misc colors group first
+        const miscGroupDiv = document.createElement('div');
+        miscGroupDiv.className = 'color-group mb-4';
+
+        const miscLabelDiv = document.createElement('div');
+        miscLabelDiv.className = 'text-sm font-semibold mb-2';
+        miscLabelDiv.textContent = 'Misc';
+
+        const miscShadesDiv = document.createElement('div');
+        miscShadesDiv.className = 'flex gap-1 flex-wrap';
+
+        miscColors.forEach(color => {
+            const swatchDiv = document.createElement('div');
+            swatchDiv.className = 'color-swatch';
+
+            const colorId = color.var.replace('--color-', '');
+            swatchDiv.innerHTML = `
+                <input type="radio" name="bg-color" value="${color.var}" id="grouped-${colorId}" />
+                <label for="grouped-${colorId}"
+                       style="background: var(${color.var});"
+                       title="${color.name}">
+                </label>
+            `;
+
+            const radio = swatchDiv.querySelector('input') as HTMLInputElement;
+            radio.addEventListener('change', () => {
+                updateRootVariable('--achilles-bg-color', `var(${color.var})`);
+                console.log(`Updated background color to ${color.var}`);
+            });
+
+            miscShadesDiv.appendChild(swatchDiv);
+        });
+
+        miscGroupDiv.appendChild(miscLabelDiv);
+        miscGroupDiv.appendChild(miscShadesDiv);
+        groupedColorsContainer.appendChild(miscGroupDiv);
+
+        // Add regular color families
         colorFamilies.forEach(family => {
             const groupDiv = document.createElement('div');
             groupDiv.className = 'color-group mb-4';
