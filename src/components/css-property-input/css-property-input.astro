@@ -36,6 +36,17 @@ const spacingOptions = [
 ];
 
 const finalSimpleOptions = useSpacingSystem ? spacingOptions : simpleOptions;
+
+// Determine if this is a radius property (uses corners instead of sides)
+const isRadius = property.includes('radius');
+
+// Labels for per-side controls
+const sideLabels = isRadius
+    ? ['Top-Left:', 'Top-Right:', 'Bottom-Right:', 'Bottom-Left:']
+    : ['Top:', 'Right:', 'Bottom:', 'Left:'];
+
+// Placeholder text
+const placeholderText = isRadius ? 'Select radius' : 'Select width';
 ---
 <style is:global>
     .css-property-input {
@@ -197,10 +208,10 @@ const finalSimpleOptions = useSpacingSystem ? spacingOptions : simpleOptions;
     {supportsPerSide && (
         <div class="mode-content" data-mode-content="advanced">
             <div class="per-side-controls">
-                <!-- Top -->
-                <label for={`${property}-top`}>Top:</label>
+                <!-- Top / Top-Left -->
+                <label for={`${property}-top`}>{sideLabels[0]}</label>
                 <select id={`${property}-top`} class="per-side-select">
-                    <option value="" selected>Select width</option>
+                    <option value="" selected>{placeholderText}</option>
                     {finalSimpleOptions.map((option) => (
                         <option value={option.value}>
                             {option.label}
@@ -208,10 +219,10 @@ const finalSimpleOptions = useSpacingSystem ? spacingOptions : simpleOptions;
                     ))}
                 </select>
 
-                <!-- Right -->
-                <label for={`${property}-right`}>Right:</label>
+                <!-- Right / Top-Right -->
+                <label for={`${property}-right`}>{sideLabels[1]}</label>
                 <select id={`${property}-right`} class="per-side-select">
-                    <option value="" selected>Select width</option>
+                    <option value="" selected>{placeholderText}</option>
                     {finalSimpleOptions.map((option) => (
                         <option value={option.value}>
                             {option.label}
@@ -219,10 +230,10 @@ const finalSimpleOptions = useSpacingSystem ? spacingOptions : simpleOptions;
                     ))}
                 </select>
 
-                <!-- Bottom -->
-                <label for={`${property}-bottom`}>Bottom:</label>
+                <!-- Bottom / Bottom-Right -->
+                <label for={`${property}-bottom`}>{sideLabels[2]}</label>
                 <select id={`${property}-bottom`} class="per-side-select">
-                    <option value="" selected>Select width</option>
+                    <option value="" selected>{placeholderText}</option>
                     {finalSimpleOptions.map((option) => (
                         <option value={option.value}>
                             {option.label}
@@ -230,10 +241,10 @@ const finalSimpleOptions = useSpacingSystem ? spacingOptions : simpleOptions;
                     ))}
                 </select>
 
-                <!-- Left -->
-                <label for={`${property}-left`}>Left:</label>
+                <!-- Left / Bottom-Left -->
+                <label for={`${property}-left`}>{sideLabels[3]}</label>
                 <select id={`${property}-left`} class="per-side-select">
-                    <option value="" selected>Select width</option>
+                    <option value="" selected>{placeholderText}</option>
                     {finalSimpleOptions.map((option) => (
                         <option value={option.value}>
                             {option.label}

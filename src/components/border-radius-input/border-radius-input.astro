@@ -1,0 +1,335 @@
+---
+interface Props {
+    cssVariable: string;
+    defaultValue?: string;
+}
+
+const {
+    cssVariable,
+    defaultValue = 'var(--spacing-4)'
+} = Astro.props;
+
+const property = 'border-radius';
+const inputId = `${property}-input`;
+const radioGroupName = `${property}-simple`;
+
+// Curated options for border radius
+const simpleOptions = [
+    { label: 'None (0)', value: 'var(--spacing-0)' },
+    { label: 'Subtle (2px)', value: 'var(--spacing-2)' },
+    { label: 'Gentle (4px)', value: 'var(--spacing-4)' },
+    { label: 'Standard (8px)', value: 'var(--spacing-8)' },
+    { label: 'Rounded (12px)', value: 'var(--spacing-12)' },
+    { label: 'Very Rounded (16px)', value: 'var(--spacing-16)' },
+    { label: 'Extra Rounded (24px)', value: 'var(--spacing-24)' },
+    { label: 'Pill (9999px)', value: '9999px' },
+];
+---
+<style is:global>
+    .border-radius-input {
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+        padding: 1rem;
+    }
+
+    .border-radius-input .mode-tabs {
+        display: flex;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+        border-bottom: 2px solid #e5e7eb;
+    }
+
+    .border-radius-input .mode-tab {
+        padding: 0.5rem 1rem;
+        background: none;
+        border: none;
+        border-bottom: 2px solid transparent;
+        margin-bottom: -2px;
+        cursor: pointer;
+        color: #6b7280;
+        font-weight: 500;
+        transition: all 0.2s;
+    }
+
+    .border-radius-input .mode-tab:hover {
+        color: #111827;
+    }
+
+    .border-radius-input .mode-tab.active {
+        color: #2563eb;
+        border-bottom-color: #2563eb;
+    }
+
+    .border-radius-input .mode-content {
+        display: none;
+    }
+
+    .border-radius-input .mode-content.active {
+        display: block;
+    }
+
+    .border-radius-input .simple-options {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .border-radius-input .simple-option {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem;
+        border-radius: 0.25rem;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    .border-radius-input .simple-option:hover {
+        background: #f3f4f6;
+    }
+
+    .border-radius-input .simple-option input[type="radio"] {
+        cursor: pointer;
+    }
+
+    .border-radius-input .per-corner-controls {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 0.75rem;
+        align-items: center;
+        margin-top: 1rem;
+    }
+
+    .border-radius-input .per-corner-controls label {
+        font-size: 0.875rem;
+        color: #374151;
+    }
+
+    .border-radius-input .per-corner-select {
+        padding: 0.5rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.25rem;
+        font-size: 0.875rem;
+        background-color: white;
+        cursor: pointer;
+    }
+
+    .border-radius-input .per-corner-select:focus {
+        outline: none;
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .border-radius-input .css-input-box {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.375rem;
+        font-family: 'Monaco', 'Courier New', monospace;
+        font-size: 0.875rem;
+    }
+
+    .border-radius-input .css-input-box:focus {
+        outline: none;
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .border-radius-input .validation-message {
+        margin-top: 0.5rem;
+        font-size: 0.875rem;
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+    }
+
+    .border-radius-input .validation-message.valid {
+        color: #059669;
+    }
+
+    .border-radius-input .validation-message.invalid {
+        color: #dc2626;
+    }
+</style>
+
+<div class="border-radius-input">
+    <div class="mode-tabs">
+        <button class="mode-tab active" data-mode="simple">Simple</button>
+        <button class="mode-tab" data-mode="advanced">Advanced</button>
+        <button class="mode-tab" data-mode="css">CSS Input</button>
+    </div>
+
+    <!-- Simple Mode -->
+    <div class="mode-content active" data-mode-content="simple">
+        <div class="simple-options">
+            {simpleOptions.map((option, index) => {
+                const optionId = `${property}-simple-${index}`;
+                const isDefault = option.value === defaultValue;
+                return (
+                    <label class="simple-option" for={optionId}>
+                        <input
+                            type="radio"
+                            name={radioGroupName}
+                            id={optionId}
+                            value={option.value}
+                            checked={isDefault}
+                        />
+                        <span>{option.label}</span>
+                    </label>
+                );
+            })}
+        </div>
+    </div>
+
+    <!-- Advanced Mode (Per-Corner) -->
+    <div class="mode-content" data-mode-content="advanced">
+        <div class="per-corner-controls">
+            <label for="border-radius-top-left">Top-Left:</label>
+            <select id="border-radius-top-left" class="per-corner-select">
+                <option value="" selected>Select radius</option>
+                {simpleOptions.map((option) => (
+                    <option value={option.value}>{option.label}</option>
+                ))}
+            </select>
+
+            <label for="border-radius-top-right">Top-Right:</label>
+            <select id="border-radius-top-right" class="per-corner-select">
+                <option value="" selected>Select radius</option>
+                {simpleOptions.map((option) => (
+                    <option value={option.value}>{option.label}</option>
+                ))}
+            </select>
+
+            <label for="border-radius-bottom-right">Bottom-Right:</label>
+            <select id="border-radius-bottom-right" class="per-corner-select">
+                <option value="" selected>Select radius</option>
+                {simpleOptions.map((option) => (
+                    <option value={option.value}>{option.label}</option>
+                ))}
+            </select>
+
+            <label for="border-radius-bottom-left">Bottom-Left:</label>
+            <select id="border-radius-bottom-left" class="per-corner-select">
+                <option value="" selected>Select radius</option>
+                {simpleOptions.map((option) => (
+                    <option value={option.value}>{option.label}</option>
+                ))}
+            </select>
+        </div>
+    </div>
+
+    <!-- CSS Input Mode -->
+    <div class="mode-content" data-mode-content="css">
+        <input
+            type="text"
+            id={inputId}
+            class="css-input-box"
+            placeholder="e.g., 8px or 4px 8px 12px 0 or 50%"
+            value={defaultValue}
+        />
+        <div class="validation-message valid" id="border-radius-validation">
+            <span>✓</span> Valid CSS
+        </div>
+    </div>
+</div>
+
+<script define:vars={{ cssVariable, defaultValue }}>
+    const container = document.querySelector('.border-radius-input');
+    if (!container) throw new Error('Border radius input container not found');
+
+    const modeTabs = container.querySelectorAll('.mode-tab');
+    const modeContents = container.querySelectorAll('.mode-content');
+
+    // Mode switching
+    modeTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const mode = tab.getAttribute('data-mode');
+            modeTabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            modeContents.forEach(content => {
+                content.classList.toggle('active', content.getAttribute('data-mode-content') === mode);
+            });
+        });
+    });
+
+    // Helper to update CSS variable
+    const updateCSSVariable = (value) => {
+        document.documentElement.style.setProperty(cssVariable, value);
+        console.log(`Updated ${cssVariable} to ${value}`);
+    };
+
+    // Get references
+    const simpleRadios = container.querySelectorAll('input[type="radio"][name="border-radius-simple"]');
+    const cssInput = document.getElementById('border-radius-input');
+    const validation = document.getElementById('border-radius-validation');
+    const corners = ['top-left', 'top-right', 'bottom-right', 'bottom-left'];
+    const perCornerSelects = corners.map(corner => document.getElementById(`border-radius-${corner}`));
+
+    // Sync CSS Input field
+    const syncCSSInput = (value) => {
+        if (cssInput) {
+            cssInput.value = value;
+            validation.className = 'validation-message valid';
+            validation.innerHTML = '<span>✓</span> Valid CSS';
+        }
+    };
+
+    // Clear Simple mode
+    const clearSimpleMode = () => {
+        simpleRadios.forEach(radio => radio.checked = false);
+    };
+
+    // Reset Advanced mode
+    const resetAdvancedMode = () => {
+        perCornerSelects.forEach(select => {
+            if (select) select.value = '';
+        });
+    };
+
+    // Simple mode - radio buttons
+    simpleRadios.forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            const value = e.target.value;
+            updateCSSVariable(value);
+            syncCSSInput(value);
+            resetAdvancedMode();
+        });
+    });
+
+    // Advanced mode - per-corner dropdowns
+    perCornerSelects.forEach(select => {
+        select?.addEventListener('change', () => {
+            const values = corners.map(corner => {
+                const cornerSelect = document.getElementById(`border-radius-${corner}`);
+                return cornerSelect.value;
+            });
+            const combinedValue = values.join(' ');
+            updateCSSVariable(combinedValue);
+            syncCSSInput(combinedValue);
+            clearSimpleMode();
+        });
+    });
+
+    // CSS Input mode
+    cssInput?.addEventListener('input', (e) => {
+        const value = e.target.value.trim();
+        // Accept radius values: px, %, em, rem, var(), and up to 4 values
+        const isValid = /^([\d.]+px|[\d.]+%|[\d.]+em|[\d.]+rem|0|var\([^)]+\))(\s+([\d.]+px|[\d.]+%|[\d.]+em|[\d.]+rem|0|var\([^)]+\))){0,3}(\/\s*([\d.]+px|[\d.]+%|[\d.]+em|[\d.]+rem|0|var\([^)]+\))(\s+([\d.]+px|[\d.]+%|[\d.]+em|[\d.]+rem|0|var\([^)]+\))){0,3})?$/.test(value);
+
+        if (isValid || value === '') {
+            validation.className = 'validation-message valid';
+            validation.innerHTML = '<span>✓</span> Valid CSS';
+            if (value) {
+                updateCSSVariable(value);
+                clearSimpleMode();
+                resetAdvancedMode();
+            }
+        } else {
+            validation.className = 'validation-message invalid';
+            validation.innerHTML = '<span>✗</span> Invalid CSS';
+        }
+    });
+
+    // Initialize
+    updateCSSVariable(defaultValue);
+</script>

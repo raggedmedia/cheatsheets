@@ -1,0 +1,330 @@
+---
+interface Props {
+    cssVariable: string;
+    defaultValue?: string;
+}
+
+const {
+    cssVariable,
+    defaultValue = 'var(--spacing-2)'
+} = Astro.props;
+
+const property = 'border-width';
+const inputId = `${property}-input`;
+const radioGroupName = `${property}-simple`;
+
+// Simplified options for border width (0-3px is most common for buttons)
+const simpleOptions = [
+    { label: 'None (0px)', value: 'var(--spacing-0)' },
+    { label: 'Hairline (1px)', value: 'var(--spacing-1)' },
+    { label: 'Thin (2px)', value: 'var(--spacing-2)' },
+    { label: 'Medium (3px)', value: '3px' },
+];
+---
+<style is:global>
+    .border-width-input {
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+        padding: 1rem;
+    }
+
+    .border-width-input .mode-tabs {
+        display: flex;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+        border-bottom: 2px solid #e5e7eb;
+    }
+
+    .border-width-input .mode-tab {
+        padding: 0.5rem 1rem;
+        background: none;
+        border: none;
+        border-bottom: 2px solid transparent;
+        margin-bottom: -2px;
+        cursor: pointer;
+        color: #6b7280;
+        font-weight: 500;
+        transition: all 0.2s;
+    }
+
+    .border-width-input .mode-tab:hover {
+        color: #111827;
+    }
+
+    .border-width-input .mode-tab.active {
+        color: #2563eb;
+        border-bottom-color: #2563eb;
+    }
+
+    .border-width-input .mode-content {
+        display: none;
+    }
+
+    .border-width-input .mode-content.active {
+        display: block;
+    }
+
+    .border-width-input .simple-options {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .border-width-input .simple-option {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem;
+        border-radius: 0.25rem;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    .border-width-input .simple-option:hover {
+        background: #f3f4f6;
+    }
+
+    .border-width-input .simple-option input[type="radio"] {
+        cursor: pointer;
+    }
+
+    .border-width-input .per-side-controls {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 0.75rem;
+        align-items: center;
+        margin-top: 1rem;
+    }
+
+    .border-width-input .per-side-controls label {
+        font-size: 0.875rem;
+        color: #374151;
+    }
+
+    .border-width-input .per-side-select {
+        padding: 0.5rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.25rem;
+        font-size: 0.875rem;
+        background-color: white;
+        cursor: pointer;
+    }
+
+    .border-width-input .per-side-select:focus {
+        outline: none;
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .border-width-input .css-input-box {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.375rem;
+        font-family: 'Monaco', 'Courier New', monospace;
+        font-size: 0.875rem;
+    }
+
+    .border-width-input .css-input-box:focus {
+        outline: none;
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .border-width-input .validation-message {
+        margin-top: 0.5rem;
+        font-size: 0.875rem;
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+    }
+
+    .border-width-input .validation-message.valid {
+        color: #059669;
+    }
+
+    .border-width-input .validation-message.invalid {
+        color: #dc2626;
+    }
+</style>
+
+<div class="border-width-input">
+    <div class="mode-tabs">
+        <button class="mode-tab active" data-mode="simple">Simple</button>
+        <button class="mode-tab" data-mode="advanced">Advanced</button>
+        <button class="mode-tab" data-mode="css">CSS Input</button>
+    </div>
+
+    <!-- Simple Mode -->
+    <div class="mode-content active" data-mode-content="simple">
+        <div class="simple-options">
+            {simpleOptions.map((option, index) => {
+                const optionId = `${property}-simple-${index}`;
+                const isDefault = option.value === defaultValue;
+                return (
+                    <label class="simple-option" for={optionId}>
+                        <input
+                            type="radio"
+                            name={radioGroupName}
+                            id={optionId}
+                            value={option.value}
+                            checked={isDefault}
+                        />
+                        <span>{option.label}</span>
+                    </label>
+                );
+            })}
+        </div>
+    </div>
+
+    <!-- Advanced Mode (Per-Side) -->
+    <div class="mode-content" data-mode-content="advanced">
+        <div class="per-side-controls">
+            <label for="border-width-top">Top:</label>
+            <select id="border-width-top" class="per-side-select">
+                <option value="" selected>Select width</option>
+                {simpleOptions.map((option) => (
+                    <option value={option.value}>{option.label}</option>
+                ))}
+            </select>
+
+            <label for="border-width-right">Right:</label>
+            <select id="border-width-right" class="per-side-select">
+                <option value="" selected>Select width</option>
+                {simpleOptions.map((option) => (
+                    <option value={option.value}>{option.label}</option>
+                ))}
+            </select>
+
+            <label for="border-width-bottom">Bottom:</label>
+            <select id="border-width-bottom" class="per-side-select">
+                <option value="" selected>Select width</option>
+                {simpleOptions.map((option) => (
+                    <option value={option.value}>{option.label}</option>
+                ))}
+            </select>
+
+            <label for="border-width-left">Left:</label>
+            <select id="border-width-left" class="per-side-select">
+                <option value="" selected>Select width</option>
+                {simpleOptions.map((option) => (
+                    <option value={option.value}>{option.label}</option>
+                ))}
+            </select>
+        </div>
+    </div>
+
+    <!-- CSS Input Mode -->
+    <div class="mode-content" data-mode-content="css">
+        <input
+            type="text"
+            id={inputId}
+            class="css-input-box"
+            placeholder="e.g., 2px or 1px 2px 3px 0"
+            value={defaultValue}
+        />
+        <div class="validation-message valid" id="border-width-validation">
+            <span>✓</span> Valid CSS
+        </div>
+    </div>
+</div>
+
+<script define:vars={{ cssVariable, defaultValue }}>
+    const container = document.querySelector('.border-width-input');
+    if (!container) throw new Error('Border width input container not found');
+
+    const modeTabs = container.querySelectorAll('.mode-tab');
+    const modeContents = container.querySelectorAll('.mode-content');
+
+    // Mode switching
+    modeTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const mode = tab.getAttribute('data-mode');
+            modeTabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            modeContents.forEach(content => {
+                content.classList.toggle('active', content.getAttribute('data-mode-content') === mode);
+            });
+        });
+    });
+
+    // Helper to update CSS variable
+    const updateCSSVariable = (value) => {
+        document.documentElement.style.setProperty(cssVariable, value);
+        console.log(`Updated ${cssVariable} to ${value}`);
+    };
+
+    // Get references
+    const simpleRadios = container.querySelectorAll('input[type="radio"][name="border-width-simple"]');
+    const cssInput = document.getElementById('border-width-input');
+    const validation = document.getElementById('border-width-validation');
+    const sides = ['top', 'right', 'bottom', 'left'];
+    const perSideSelects = sides.map(side => document.getElementById(`border-width-${side}`));
+
+    // Sync CSS Input field
+    const syncCSSInput = (value) => {
+        if (cssInput) {
+            cssInput.value = value;
+            validation.className = 'validation-message valid';
+            validation.innerHTML = '<span>✓</span> Valid CSS';
+        }
+    };
+
+    // Clear Simple mode
+    const clearSimpleMode = () => {
+        simpleRadios.forEach(radio => radio.checked = false);
+    };
+
+    // Reset Advanced mode
+    const resetAdvancedMode = () => {
+        perSideSelects.forEach(select => {
+            if (select) select.value = '';
+        });
+    };
+
+    // Simple mode - radio buttons
+    simpleRadios.forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            const value = e.target.value;
+            updateCSSVariable(value);
+            syncCSSInput(value);
+            resetAdvancedMode();
+        });
+    });
+
+    // Advanced mode - per-side dropdowns
+    perSideSelects.forEach(select => {
+        select?.addEventListener('change', () => {
+            const values = sides.map(side => {
+                const sideSelect = document.getElementById(`border-width-${side}`);
+                return sideSelect.value;
+            });
+            const combinedValue = values.join(' ');
+            updateCSSVariable(combinedValue);
+            syncCSSInput(combinedValue);
+            clearSimpleMode();
+        });
+    });
+
+    // CSS Input mode
+    cssInput?.addEventListener('input', (e) => {
+        const value = e.target.value.trim();
+        const isValid = /^(thin|medium|thick|[\d.]+px|[\d.]+em|[\d.]+rem|0|var\([^)]+\))(\s+(thin|medium|thick|[\d.]+px|[\d.]+em|[\d.]+rem|0|var\([^)]+\))){0,3}$/.test(value);
+
+        if (isValid || value === '') {
+            validation.className = 'validation-message valid';
+            validation.innerHTML = '<span>✓</span> Valid CSS';
+            if (value) {
+                updateCSSVariable(value);
+                clearSimpleMode();
+                resetAdvancedMode();
+            }
+        } else {
+            validation.className = 'validation-message invalid';
+            validation.innerHTML = '<span>✗</span> Invalid CSS';
+        }
+    });
+
+    // Initialize
+    updateCSSVariable(defaultValue);
+</script>

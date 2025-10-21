@@ -1,7 +1,8 @@
 ---
 import '../styles/styles.css'
 import ColorPicker from '../components/color-picker/color-picker.astro'
-import CSSPropertyInput from '../components/css-property-input/css-property-input.astro'
+import BorderWidthInput from '../components/border-width-input/border-width-input.astro'
+import BorderRadiusInput from '../components/border-radius-input/border-radius-input.astro'
 ---
 <html lang="en">
 	<head>
@@ -19,6 +20,7 @@ import CSSPropertyInput from '../components/css-property-input/css-property-inpu
                 --achilles-bg-color: var(--color-blue-500);
                 --achilles-border-color: var(--color-blue-700);
                 --achilles-border-width: var(--spacing-2);
+                --achilles-border-radius: var(--spacing-4);
                 --achilles-text-color: var(--color-white);
             }
 
@@ -31,6 +33,7 @@ import CSSPropertyInput from '../components/css-property-input/css-property-inpu
                 border-width: var(--achilles-border-width);
                 border-style: solid;
                 border-color: var(--achilles-border-color);
+                border-radius: var(--achilles-border-radius);
                 color: var(--achilles-text-color);
             }
 
@@ -103,13 +106,18 @@ import CSSPropertyInput from '../components/css-property-input/css-property-inpu
             <!-- Border Width -->
             <div class="mb-6">
                 <label class="block mb-2 font-semibold">Border Width</label>
-                <CSSPropertyInput
-                    property="border-width"
-                    label="Border Width"
+                <BorderWidthInput
                     cssVariable="--achilles-border-width"
                     defaultValue="var(--spacing-2)"
-                    useSpacingSystem={true}
-                    supportsPerSide={true}
+                />
+            </div>
+
+            <!-- Border Radius -->
+            <div class="mb-6">
+                <label class="block mb-2 font-semibold">Border Radius</label>
+                <BorderRadiusInput
+                    cssVariable="--achilles-border-radius"
+                    defaultValue="var(--spacing-4)"
                 />
             </div>
 
@@ -228,7 +236,8 @@ import CSSPropertyInput from '../components/css-property-input/css-property-inpu
         'bgColor': '--color-blue-500',
         'borderColor': '--color-blue-700',
         'textColor': '--color-white',
-        'borderWidth': 'var(--spacing-2)'
+        'borderWidth': 'var(--spacing-2)',
+        'borderRadius': 'var(--spacing-4)'
     };
 
     const STORAGE_KEY = 'achilles-button-styles';
@@ -260,7 +269,7 @@ import CSSPropertyInput from '../components/css-property-input/css-property-inpu
     const saveStyles = () => {
         const currentStyles: typeof DEFAULTS = {
             pl: 0, pr: 0, pt: 0, pb: 0,
-            bgColor: '', borderColor: '', textColor: '', borderWidth: ''
+            bgColor: '', borderColor: '', textColor: '', borderWidth: '', borderRadius: ''
         };
 
         // Save padding indices
@@ -284,6 +293,10 @@ import CSSPropertyInput from '../components/css-property-input/css-property-inpu
         // Save border width from CSS Input field
         const borderWidthInput = document.getElementById('border-width-input') as HTMLInputElement;
         if (borderWidthInput) currentStyles.borderWidth = borderWidthInput.value;
+
+        // Save border radius from CSS Input field
+        const borderRadiusInput = document.getElementById('border-radius-input') as HTMLInputElement;
+        if (borderRadiusInput) currentStyles.borderRadius = borderRadiusInput.value;
 
         localStorage.setItem(STORAGE_KEY, JSON.stringify(currentStyles));
 
@@ -351,6 +364,15 @@ import CSSPropertyInput from '../components/css-property-input/css-property-inpu
             }
         }
 
+        // Restore border radius
+        if (savedStyles.borderRadius) {
+            const borderRadiusInput = document.getElementById('border-radius-input') as HTMLInputElement;
+            if (borderRadiusInput) {
+                borderRadiusInput.value = savedStyles.borderRadius;
+                borderRadiusInput.dispatchEvent(new Event('input'));
+            }
+        }
+
         const status = document.getElementById('save-status');
         if (status) {
             status.textContent = '✓ Reset to saved styles!';
@@ -393,6 +415,13 @@ import CSSPropertyInput from '../components/css-property-input/css-property-inpu
         if (borderWidthInput) {
             borderWidthInput.value = DEFAULTS.borderWidth;
             borderWidthInput.dispatchEvent(new Event('input'));
+        }
+
+        // Reset border radius
+        const borderRadiusInput = document.getElementById('border-radius-input') as HTMLInputElement;
+        if (borderRadiusInput) {
+            borderRadiusInput.value = DEFAULTS.borderRadius;
+            borderRadiusInput.dispatchEvent(new Event('input'));
         }
 
         const status = document.getElementById('save-status');
@@ -497,6 +526,13 @@ import CSSPropertyInput from '../components/css-property-input/css-property-inpu
     if (borderWidthInput && defaultIndices.borderWidth) {
         borderWidthInput.value = defaultIndices.borderWidth;
         borderWidthInput.dispatchEvent(new Event('input'));
+    }
+
+    // Initialize border radius with saved or default value
+    const borderRadiusInput = document.getElementById('border-radius-input') as HTMLInputElement;
+    if (borderRadiusInput && defaultIndices.borderRadius) {
+        borderRadiusInput.value = defaultIndices.borderRadius;
+        borderRadiusInput.dispatchEvent(new Event('input'));
     }
 
     // Wire up save and reset buttons
