@@ -110,53 +110,6 @@ import BorderRadiusInput from '../components/border-radius-input/border-radius-i
                 margin-bottom: 0.5rem;
             }
 
-            .design-tips {
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                color: white;
-                padding: 2rem;
-                border-radius: 0.75rem;
-                margin-bottom: 2rem;
-                max-width: 1600px;
-                margin-left: auto;
-                margin-right: auto;
-            }
-
-            .design-tips h2 {
-                font-size: 1.5rem;
-                font-weight: 700;
-                margin-bottom: 1rem;
-                color: white;
-            }
-
-            .design-tips-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-                gap: 1.5rem;
-                margin-top: 1.5rem;
-            }
-
-            .design-tip {
-                background: rgba(255, 255, 255, 0.1);
-                backdrop-filter: blur(10px);
-                padding: 1.25rem;
-                border-radius: 0.5rem;
-                border: 1px solid rgba(255, 255, 255, 0.2);
-            }
-
-            .design-tip h3 {
-                font-size: 1rem;
-                font-weight: 600;
-                margin-bottom: 0.5rem;
-                color: white;
-            }
-
-            .design-tip p {
-                font-size: 0.875rem;
-                line-height: 1.6;
-                color: rgba(255, 255, 255, 0.9);
-                margin: 0;
-            }
-
             .layout-container {
                 display: grid;
                 grid-template-columns: 300px 1fr;
@@ -396,49 +349,25 @@ import BorderRadiusInput from '../components/border-radius-input/border-radius-i
         </style>
 	</head>
 	<body>
-        <div class="px-4 py-6 max-w-7xl mx-auto">
-            <h1>Btn Builder</h1>
-            <p>Use a <code>a</code> for navigation and a <code>button</code> for actions. Links are for 'going', buttons are for 'doing'.</p>
-            <p>So while we call it a button style, it's a visual flair that applies to two different HTML elements.</p>
-        </div>
+        <div class="px-4 max-w-7xl mx-auto mb-8">
+            <article class="prose" style="max-width: clamp(55ch, 100%, 75ch);">
+                <h1>Button Style Builder</h1>
+                <p>A "button style" is a visual treatment that signals a <strong>clickable action</strong> to users. Through visual weight (solid fills, borders, shadows), prominent colors, and interactive states, button styles create <strong>visual affordance</strong>. Users immediately know "this thing is interactive, I can click it."</p>
 
-        <div class="px-4 max-w-7xl mx-auto">
-            <div class="design-tips">
+                <p>This is different from a plain link style (typically just colored, underlined text), which signals navigation without the same emphasis on "action."</p>
+
+                <p><strong>Button styles are separate from the underlying HTML.</strong> You can apply button styling to both <code>&lt;a&gt;</code> tags (for navigation) and <code>&lt;button&gt;</code> tags (for form actions or JavaScript interactions). Sometimes navigation needs emphasis (like "Sign Up Now") and sometimes form actions need it (like "Submit Order"). By using the same visual treatment, we create consistency. Users recognize "this is an important action" regardless of the technical implementation.</p>
+
                 <h2>💡 Button State Design Tips</h2>
-                <p>Great button design provides clear visual feedback at every stage of interaction. Here are key principles to follow:</p>
-
-                <div class="design-tips-grid">
-                    <div class="design-tip">
-                        <h3>🎯 Default State</h3>
-                        <p>Should clearly signal "I'm clickable!" through visual weight. Use shadows, borders, or solid fills to make buttons appear raised off the page. Sufficient contrast ensures accessibility.</p>
-                    </div>
-
-                    <div class="design-tip">
-                        <h3>🖱️ Hover State</h3>
-                        <p>Confirms the button is interactive (desktop only). Typically brightens or darkens colors slightly. The change should be noticeable but not jarring—think subtle, not dramatic.</p>
-                    </div>
-
-                    <div class="design-tip">
-                        <h3>👇 Active/Pressed State</h3>
-                        <p>Provides tactile feedback during the click. Often uses darker colors and a scale-down effect (like our scale(0.98)) to simulate the button being "pressed into" the page.</p>
-                    </div>
-
-                    <div class="design-tip">
-                        <h3>🚫 Disabled State</h3>
-                        <p>Should look obviously non-interactive. Use muted colors (grays), reduced opacity (0.5-0.7), and cursor: not-allowed. The button should appear "ghosted" or faded out.</p>
-                    </div>
-
-                    <div class="design-tip">
-                        <h3>🎨 Color Relationships</h3>
-                        <p>Create a logical progression: Default → Hover (slightly different) → Active (most intense). Each state should build on the previous one while remaining part of the same visual family.</p>
-                    </div>
-
-                    <div class="design-tip">
-                        <h3>⚡ Smooth Transitions</h3>
-                        <p>Fast transitions (150-200ms) on hover-in feel responsive. Slightly slower exits (250ms) prevent jarring changes. Animate only the properties that change to keep it snappy.</p>
-                    </div>
-                </div>
-            </div>
+                <ul>
+                    <li><strong>🎯 Default State:</strong> Should clearly signal "I'm clickable!" through visual weight. Use shadows, borders, or solid fills to make buttons appear raised off the page. Sufficient contrast ensures accessibility.</li>
+                    <li><strong>🖱️ Hover State:</strong> (Desktop only) Reinforces that this element responds to interaction. A subtle change hints to users "yes, this actually does something when you click it."</li>
+                    <li><strong>👇 Active/Pressed State:</strong> Provides tactile feedback during the click. Often uses darker colors and a scale-down effect (like our scale(0.98)) to simulate the button being "pressed into" the page.</li>
+                    <li><strong>🚫 Disabled State:</strong> Should look obviously non-interactive. Use muted colors (grays), reduced opacity (0.5-0.7), and cursor: not-allowed. The button should appear "ghosted" or faded out.</li>
+                    <li><strong>🎨 Color Relationships:</strong> Create a logical progression: Default → Hover (slightly different) → Active (most intense). Each state should build on the previous one while remaining part of the same visual family.</li>
+                    <li><strong>⚡ Smooth Transitions:</strong> Fast transitions (150-200ms) on hover-in feel responsive. Slightly slower exits (250ms) prevent jarring changes. Animate only the properties that change to keep it snappy.</li>
+                </ul>
+            </article>
         </div>
 
         <div class="layout-container">
