@@ -166,13 +166,20 @@ import BorderRadiusInput from '../components/border-radius-input/border-radius-i
         .state-columns {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr 1fr;
-            gap: var(--spacing-24);
+            grid-template-rows: auto auto auto auto auto; /* header, description, bg, border, text */
+            column-gap: var(--spacing-24);
+            row-gap: var(--spacing-12);
             margin-bottom: var(--spacing-32);
-        }            .state-column {
+        }
+
+            .state-column {
                 background: white;
                 border-radius: 0.5rem;
                 padding: 1rem;
                 box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                display: grid;
+                grid-template-rows: subgrid;
+                grid-row: span 5; /* Span all 5 rows: header, description, bg, border, text */
             }
 
             .state-column-header {
@@ -181,9 +188,16 @@ import BorderRadiusInput from '../components/border-radius-input/border-radius-i
                 color: #6b7280;
                 text-transform: uppercase;
                 letter-spacing: 0.05em;
-                margin-bottom: 1rem;
+                margin-bottom: 0.5rem;
                 padding-bottom: 0.5rem;
                 border-bottom: 2px solid #e5e7eb;
+            }
+
+            .state-description {
+                font-size: 0.6875rem;
+                line-height: 1.4;
+                color: #9ca3af;
+                font-style: italic;
             }
 
             /* Color swatch button */
@@ -289,7 +303,7 @@ import BorderRadiusInput from '../components/border-radius-input/border-radius-i
             }
 
             .property-row {
-                margin-bottom: 1.5rem;
+                /* margin removed - now using subgrid gap */
             }
 
             .property-label {
@@ -363,6 +377,7 @@ import BorderRadiusInput from '../components/border-radius-input/border-radius-i
                 <!-- Default State Column -->
                 <div class="state-column">
                     <div class="state-column-header">Default</div>
+                    <div class="state-description">The button's normal, resting appearance</div>
 
                     <!-- Background Color -->
                     <div class="property-row">
@@ -395,6 +410,7 @@ import BorderRadiusInput from '../components/border-radius-input/border-radius-i
                 <!-- Hover State Column -->
                 <div class="state-column">
                     <div class="state-column-header">Hover</div>
+                    <div class="state-description">When the mouse cursor is over the button (desktop only)</div>
 
                     <!-- Background Color -->
                     <div class="property-row">
@@ -427,6 +443,7 @@ import BorderRadiusInput from '../components/border-radius-input/border-radius-i
                 <!-- Active State Column -->
                 <div class="state-column">
                     <div class="state-column-header">Active</div>
+                    <div class="state-description">While being clicked (mouse held down or touch tap)</div>
 
                     <!-- Background Color -->
                     <div class="property-row">
@@ -459,6 +476,7 @@ import BorderRadiusInput from '../components/border-radius-input/border-radius-i
                 <!-- Disabled State Column -->
                 <div class="state-column">
                     <div class="state-column-header">Disabled</div>
+                    <div class="state-description">When the button cannot be clicked (non-interactive)</div>
 
                     <!-- Background Color -->
                     <div class="property-row">
