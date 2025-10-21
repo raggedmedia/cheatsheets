@@ -1,6 +1,7 @@
 ---
 import '../styles/styles.css'
 import ColorPicker from '../components/color-picker/color-picker.astro'
+import CSSPropertyInput from '../components/css-property-input/css-property-input.astro'
 ---
 <html lang="en">
 	<head>
@@ -11,12 +12,13 @@ import ColorPicker from '../components/color-picker/color-picker.astro'
 		<title>Btn Builder</title>
         <style is:global>
             :root {
-                --achilles-padding-left: var(--spacing-base);
-                --achilles-padding-right: var(--spacing-base);
-                --achilles-padding-top: var(--spacing-sm);
-                --achilles-padding-bottom: var(--spacing-sm);
+                --achilles-padding-left: var(--spacing-16);
+                --achilles-padding-right: var(--spacing-16);
+                --achilles-padding-top: var(--spacing-8);
+                --achilles-padding-bottom: var(--spacing-8);
                 --achilles-bg-color: var(--color-blue-500);
                 --achilles-border-color: var(--color-blue-700);
+                --achilles-border-width: var(--spacing-2);
                 --achilles-text-color: var(--color-white);
             }
 
@@ -26,24 +28,58 @@ import ColorPicker from '../components/color-picker/color-picker.astro'
                 padding-top: var(--achilles-padding-top);
                 padding-bottom: var(--achilles-padding-bottom);
                 background-color: var(--achilles-bg-color);
-                border: 2px solid var(--achilles-border-color);
+                border-width: var(--achilles-border-width);
+                border-style: solid;
+                border-color: var(--achilles-border-color);
                 color: var(--achilles-text-color);
+            }
+
+            .layout-container {
+                display: grid;
+                grid-template-columns: 400px 1fr;
+                gap: 2rem;
+                max-width: 1600px;
+                margin: 0 auto;
+                padding: 2rem;
+            }
+
+            .preview-column {
+                position: sticky;
+                top: 2rem;
+                height: fit-content;
+            }
+
+            .controls-column {
+                min-width: 0;
             }
         </style>
 	</head>
 	<body>
-        <h1>Btn Builder</h1>
-        <p>Use a <code>a</code> for navigation and a <code>button</code> for actions. Links are for 'going', buttons are for 'doing'.</p>
-        <p>So while we call it a button style, it's a visual flair that applies to two different HTML elements.</p>
+        <div class="px-4 py-6 max-w-7xl mx-auto">
+            <h1>Btn Builder</h1>
+            <p>Use a <code>a</code> for navigation and a <code>button</code> for actions. Links are for 'going', buttons are for 'doing'.</p>
+            <p>So while we call it a button style, it's a visual flair that applies to two different HTML elements.</p>
+        </div>
 
-        <div class="controls space-y-4 max-w-2xl">
-            <!-- Save/Reset Controls -->
-            <div class="flex gap-2 mb-6">
-                <button id="save-styles" class="px-4 py-2 bg-green-500 text-white rounded">Save Styles</button>
-                <button id="reset-styles" class="px-4 py-2 bg-red-500 text-white rounded">Reset to Default</button>
-                <span id="save-status" class="px-4 py-2 text-sm text-gray-600"></span>
+        <div class="layout-container">
+            <!-- Left Column: Preview -->
+            <div class="preview-column">
+                <div class="border rounded-lg p-8 bg-gray-50 flex items-center justify-center min-h-[400px]">
+                    <a id="achilles" href="" class="btn text-white">Hello, world!</a>
+                </div>
+
+                <!-- Save/Reset Controls -->
+                <div class="flex flex-col gap-2 mt-6">
+                    <button id="save-styles" class="px-4 py-2 bg-green-500 text-white rounded">Save Styles</button>
+                    <button id="reset-to-saved" class="px-4 py-2 bg-blue-500 text-white rounded">Reset to Saved</button>
+                    <button id="reset-styles" class="px-4 py-2 bg-red-500 text-white rounded">Reset to Default</button>
+                    <span id="save-status" class="px-4 py-2 text-sm text-gray-600"></span>
+                </div>
             </div>
 
+            <!-- Right Column: Controls -->
+            <div class="controls-column">
+                <div class="space-y-4 max-w-2xl">
             <!-- Background Color -->
             <div class="mb-6">
                 <label class="block mb-2 font-semibold">Background Color</label>
@@ -61,6 +97,19 @@ import ColorPicker from '../components/color-picker/color-picker.astro'
                     id="border-color-picker"
                     name="border-color"
                     defaultColor="--color-blue-700"
+                />
+            </div>
+
+            <!-- Border Width -->
+            <div class="mb-6">
+                <label class="block mb-2 font-semibold">Border Width</label>
+                <CSSPropertyInput
+                    property="border-width"
+                    label="Border Width"
+                    cssVariable="--achilles-border-width"
+                    defaultValue="var(--spacing-2)"
+                    useSpacingSystem={true}
+                    supportsPerSide={true}
                 />
             </div>
 
@@ -137,17 +186,15 @@ import ColorPicker from '../components/color-picker/color-picker.astro'
                 />
                 <button id="increase-pb" class="px-2 py-1 border">+</button>
             </div>
-        </div>
-
-        <div class="example mx-auto mt-8 flex justify-center">
-            <a id="achilles" href="" class="btn text-white">Hello, world!</a>
+                </div>
+            </div>
         </div>
 	</body>
 </html>
 
 <script>
     // Read spacing scale dynamically from CSS custom properties
-    const spacingNames = ['none', 'xs', 'sm', 'md', 'base', 'lg', '1xl', '2xl', '3xl', '4xl', '5xl', '6xl', '7xl', '8xl', '9xl'];
+    const spacingNames = ['0', '1', '2', '4', '6', '8', '10', '12', '14', '16', '20', '24', '28', '32', '36', '40', '44', '48', '52', '56', '60', '64', '72', '80', '96', '128', '160', '192', '224', '256'];
     const spacingScale: Array<{ name: string, var: string, px: number }> = [];
 
     spacingNames.forEach(name => {
@@ -156,7 +203,7 @@ import ColorPicker from '../components/color-picker/color-picker.astro'
         const px = parseInt(value);
 
         if (!isNaN(px)) {
-            spacingScale.push({ name, var: varName, px });
+            spacingScale.push({ name: `${name}px`, var: varName, px });
         }
     });
 
@@ -164,18 +211,24 @@ import ColorPicker from '../components/color-picker/color-picker.astro'
 
     // Map to Tailwind reference for display (approximate)
     const pxToTailwind: Record<number, string> = {
-        0: '0', 4: '1', 8: '2', 12: '3', 16: '4', 20: '5', 24: '6', 32: '8',
-        40: '10', 48: '12', 64: '16', 80: '20', 96: '24', 128: '32', 160: '40'
+        0: '0', 1: 'px', 2: '0.5', 4: '1', 6: '1.5', 8: '2', 10: '2.5', 12: '3', 14: '3.5', 16: '4', 20: '5', 24: '6', 28: '7', 32: '8',
+        36: '9', 40: '10', 44: '11', 48: '12', 52: '13', 56: '14', 60: '15', 64: '16', 72: '18', 80: '20', 96: '24', 128: '32', 160: '40'
     };
 
     const btn = document.getElementById('achilles') as HTMLElement;
 
     // Define defaults (these are your design system defaults)
+    // Array indices: ['0', '1', '2', '4', '6', '8', '10', '12', '14', '16', '20'...]
+    //                  0     1     2     3     4     5      6      7      8      9     10
     const DEFAULTS = {
-        'pl': 4,  // base (16px)
-        'pr': 4,  // base (16px)
-        'pt': 2,  // sm (8px)
-        'pb': 2,  // sm (8px)
+        'pl': 9,  // 16px (index 9 in array)
+        'pr': 9,  // 16px
+        'pt': 5,  // 8px (index 5 in array)
+        'pb': 5,  // 8px
+        'bgColor': '--color-blue-500',
+        'borderColor': '--color-blue-700',
+        'textColor': '--color-white',
+        'borderWidth': 'var(--spacing-2)'
     };
 
     const STORAGE_KEY = 'achilles-button-styles';
@@ -189,11 +242,13 @@ import ColorPicker from '../components/color-picker/color-picker.astro'
     };
 
     // Load saved styles from localStorage or use defaults
-    const loadSavedStyles = (): Record<string, number> => {
+    const loadSavedStyles = (): typeof DEFAULTS => {
         const saved = localStorage.getItem(STORAGE_KEY);
         if (saved) {
             try {
-                return JSON.parse(saved);
+                const parsed = JSON.parse(saved);
+                // Merge with defaults to ensure all properties exist
+                return { ...DEFAULTS, ...parsed };
             } catch (e) {
                 console.error('Failed to parse saved styles', e);
             }
@@ -203,14 +258,34 @@ import ColorPicker from '../components/color-picker/color-picker.astro'
 
     // Save current styles to localStorage
     const saveStyles = () => {
-        const currentIndices: Record<string, number> = {};
+        const currentStyles: typeof DEFAULTS = {
+            pl: 0, pr: 0, pt: 0, pb: 0,
+            bgColor: '', borderColor: '', textColor: '', borderWidth: ''
+        };
+
+        // Save padding indices
         sides.forEach(side => {
             const range = document.getElementById(`${side}-range`) as HTMLInputElement;
             if (range) {
-                currentIndices[side] = parseInt(range.value);
+                currentStyles[side] = parseInt(range.value);
             }
         });
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(currentIndices));
+
+        // Save color selections
+        const bgColorRadio = document.querySelector('input[name="bg-color"]:checked') as HTMLInputElement;
+        if (bgColorRadio) currentStyles.bgColor = bgColorRadio.value;
+
+        const borderColorRadio = document.querySelector('input[name="border-color"]:checked') as HTMLInputElement;
+        if (borderColorRadio) currentStyles.borderColor = borderColorRadio.value;
+
+        const textColorRadio = document.querySelector('input[name="text-color"]:checked') as HTMLInputElement;
+        if (textColorRadio) currentStyles.textColor = textColorRadio.value;
+
+        // Save border width from CSS Input field
+        const borderWidthInput = document.getElementById('border-width-input') as HTMLInputElement;
+        if (borderWidthInput) currentStyles.borderWidth = borderWidthInput.value;
+
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(currentStyles));
 
         const status = document.getElementById('save-status');
         if (status) {
@@ -219,9 +294,73 @@ import ColorPicker from '../components/color-picker/color-picker.astro'
         }
     };
 
+    // Reset to saved styles
+    const resetToSaved = () => {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (!saved) {
+            const status = document.getElementById('save-status');
+            if (status) {
+                status.textContent = '⚠ No saved styles found!';
+                setTimeout(() => status.textContent = '', 2000);
+            }
+            return;
+        }
+
+        const savedStyles: typeof DEFAULTS = JSON.parse(saved);
+
+        // Restore padding values
+        sides.forEach(side => {
+            const range = document.getElementById(`${side}-range`) as HTMLInputElement;
+            if (range && savedStyles[side] !== undefined) {
+                range.value = savedStyles[side].toString();
+                range.dispatchEvent(new Event('input'));
+            }
+        });
+
+        // Restore color selections
+        if (savedStyles.bgColor) {
+            const bgColorRadio = document.querySelector(`input[name="bg-color"][value="${savedStyles.bgColor}"]`) as HTMLInputElement;
+            if (bgColorRadio) {
+                bgColorRadio.checked = true;
+                bgColorRadio.dispatchEvent(new Event('change'));
+            }
+        }
+
+        if (savedStyles.borderColor) {
+            const borderColorRadio = document.querySelector(`input[name="border-color"][value="${savedStyles.borderColor}"]`) as HTMLInputElement;
+            if (borderColorRadio) {
+                borderColorRadio.checked = true;
+                borderColorRadio.dispatchEvent(new Event('change'));
+            }
+        }
+
+        if (savedStyles.textColor) {
+            const textColorRadio = document.querySelector(`input[name="text-color"][value="${savedStyles.textColor}"]`) as HTMLInputElement;
+            if (textColorRadio) {
+                textColorRadio.checked = true;
+                textColorRadio.dispatchEvent(new Event('change'));
+            }
+        }
+
+        // Restore border width
+        if (savedStyles.borderWidth) {
+            const borderWidthInput = document.getElementById('border-width-input') as HTMLInputElement;
+            if (borderWidthInput) {
+                borderWidthInput.value = savedStyles.borderWidth;
+                borderWidthInput.dispatchEvent(new Event('input'));
+            }
+        }
+
+        const status = document.getElementById('save-status');
+        if (status) {
+            status.textContent = '✓ Reset to saved styles!';
+            setTimeout(() => status.textContent = '', 2000);
+        }
+    };
+
     // Reset to defaults
     const resetToDefaults = () => {
-        localStorage.removeItem(STORAGE_KEY);
+        // Reset padding values
         sides.forEach(side => {
             const range = document.getElementById(`${side}-range`) as HTMLInputElement;
             if (range) {
@@ -229,6 +368,32 @@ import ColorPicker from '../components/color-picker/color-picker.astro'
                 range.dispatchEvent(new Event('input'));
             }
         });
+
+        // Reset color selections to defaults
+        const bgColorRadio = document.querySelector(`input[name="bg-color"][value="${DEFAULTS.bgColor}"]`) as HTMLInputElement;
+        if (bgColorRadio) {
+            bgColorRadio.checked = true;
+            bgColorRadio.dispatchEvent(new Event('change'));
+        }
+
+        const borderColorRadio = document.querySelector(`input[name="border-color"][value="${DEFAULTS.borderColor}"]`) as HTMLInputElement;
+        if (borderColorRadio) {
+            borderColorRadio.checked = true;
+            borderColorRadio.dispatchEvent(new Event('change'));
+        }
+
+        const textColorRadio = document.querySelector(`input[name="text-color"][value="${DEFAULTS.textColor}"]`) as HTMLInputElement;
+        if (textColorRadio) {
+            textColorRadio.checked = true;
+            textColorRadio.dispatchEvent(new Event('change'));
+        }
+
+        // Reset border width
+        const borderWidthInput = document.getElementById('border-width-input') as HTMLInputElement;
+        if (borderWidthInput) {
+            borderWidthInput.value = DEFAULTS.borderWidth;
+            borderWidthInput.dispatchEvent(new Event('input'));
+        }
 
         const status = document.getElementById('save-status');
         if (status) {
@@ -300,9 +465,9 @@ import ColorPicker from '../components/color-picker/color-picker.astro'
 
     // Set up color picker event listeners
     const colorPickerConfigs = [
-        { name: 'bg-color', cssVariable: '--achilles-bg-color' },
-        { name: 'border-color', cssVariable: '--achilles-border-color' },
-        { name: 'text-color', cssVariable: '--achilles-text-color' }
+        { name: 'bg-color', cssVariable: '--achilles-bg-color', defaultKey: 'bgColor' as const },
+        { name: 'border-color', cssVariable: '--achilles-border-color', defaultKey: 'borderColor' as const },
+        { name: 'text-color', cssVariable: '--achilles-text-color', defaultKey: 'textColor' as const }
     ];
 
     colorPickerConfigs.forEach(config => {
@@ -315,10 +480,28 @@ import ColorPicker from '../components/color-picker/color-picker.astro'
                 console.log(`Updated ${config.cssVariable} to ${colorVar}`);
             });
         });
+
+        // Initialize with saved or default color
+        const savedColor = defaultIndices[config.defaultKey];
+        if (savedColor) {
+            const colorRadio = document.querySelector(`input[name="${config.name}"][value="${savedColor}"]`) as HTMLInputElement;
+            if (colorRadio) {
+                colorRadio.checked = true;
+                colorRadio.dispatchEvent(new Event('change'));
+            }
+        }
     });
+
+    // Initialize border width with saved or default value
+    const borderWidthInput = document.getElementById('border-width-input') as HTMLInputElement;
+    if (borderWidthInput && defaultIndices.borderWidth) {
+        borderWidthInput.value = defaultIndices.borderWidth;
+        borderWidthInput.dispatchEvent(new Event('input'));
+    }
 
     // Wire up save and reset buttons
     document.getElementById('save-styles')?.addEventListener('click', saveStyles);
+    document.getElementById('reset-to-saved')?.addEventListener('click', resetToSaved);
     document.getElementById('reset-styles')?.addEventListener('click', resetToDefaults);
 
     // Show saved indicator on page load if there are saved styles
