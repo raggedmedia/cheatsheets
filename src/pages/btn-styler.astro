@@ -28,6 +28,16 @@ import BorderRadiusInput from '../components/border-radius-input/border-radius-i
                 --achilles-hover-bg-color: var(--color-green-500);
                 --achilles-hover-border-color: var(--color-green-700);
                 --achilles-hover-text-color: var(--color-white);
+
+                /* Active state - typically darker than hover */
+                --achilles-active-bg-color: var(--color-green-700);
+                --achilles-active-border-color: var(--color-green-900);
+                --achilles-active-text-color: var(--color-white);
+
+                /* Disabled state - muted appearance */
+                --achilles-disabled-bg-color: var(--color-gray-300);
+                --achilles-disabled-border-color: var(--color-gray-400);
+                --achilles-disabled-text-color: var(--color-gray-500);
             }
 
             .achilles-btn {
@@ -69,6 +79,23 @@ import BorderRadiusInput from '../components/border-radius-input/border-radius-i
                 transition-timing-function: ease-in-out;
             }
 
+            .achilles-btn:active,
+            .achilles-btn.is-active {
+                background-color: var(--achilles-active-bg-color);
+                border-color: var(--achilles-active-border-color);
+                color: var(--achilles-active-text-color);
+                transform: scale(0.98);
+            }
+
+            .achilles-btn:disabled,
+            .achilles-btn.is-disabled {
+                background-color: var(--achilles-disabled-bg-color);
+                border-color: var(--achilles-disabled-border-color);
+                color: var(--achilles-disabled-text-color);
+                cursor: not-allowed;
+                opacity: 0.6;
+            }
+
             /* Preview state labels */
             .state-preview {
                 margin-bottom: 1rem;
@@ -81,9 +108,11 @@ import BorderRadiusInput from '../components/border-radius-input/border-radius-i
                 text-transform: uppercase;
                 letter-spacing: 0.05em;
                 margin-bottom: 0.5rem;
-            }            .layout-container {
+            }
+
+            .layout-container {
                 display: grid;
-                grid-template-columns: 400px 1fr;
+                grid-template-columns: 300px 1fr;
                 gap: 2rem;
                 max-width: 1600px;
                 margin: 0 auto;
@@ -134,14 +163,12 @@ import BorderRadiusInput from '../components/border-radius-input/border-radius-i
             }
 
             /* Two-column state layout */
-            .state-columns {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 1rem;
-                margin-bottom: 2rem;
-            }
-
-            .state-column {
+        .state-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: var(--spacing-24);
+            margin-bottom: var(--spacing-32);
+        }            .state-column {
                 background: white;
                 border-radius: 0.5rem;
                 padding: 1rem;
@@ -300,6 +327,22 @@ import BorderRadiusInput from '../components/border-radius-input/border-radius-i
                             <a id="achilles-hover" href="#" class="achilles-btn is-hover">Hello, world!</a>
                         </div>
                     </div>
+
+                    <!-- Active State -->
+                    <div class="state-preview">
+                        <div class="state-label">Active</div>
+                        <div class="flex items-center justify-center p-4">
+                            <a id="achilles-active" href="#" class="achilles-btn is-active">Hello, world!</a>
+                        </div>
+                    </div>
+
+                    <!-- Disabled State -->
+                    <div class="state-preview">
+                        <div class="state-label">Disabled</div>
+                        <div class="flex items-center justify-center p-4">
+                            <button id="achilles-disabled" class="achilles-btn is-disabled" disabled>Hello, world!</button>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Save/Reset Controls -->
@@ -313,7 +356,7 @@ import BorderRadiusInput from '../components/border-radius-input/border-radius-i
 
             <!-- Right Column: Controls -->
             <div class="controls-column">
-                <div class="space-y-4 max-w-2xl">
+                <div class="space-y-4 w-full">
 
             <!-- Color Properties - Two Column Layout -->
             <div class="state-columns">
@@ -377,6 +420,70 @@ import BorderRadiusInput from '../components/border-radius-input/border-radius-i
                         <button class="color-swatch-btn" data-color-type="text-color" data-state="hover">
                             <div class="color-swatch" data-swatch="text-color-hover"></div>
                             <span class="color-swatch-label" data-label="text-color-hover">White</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Active State Column -->
+                <div class="state-column">
+                    <div class="state-column-header">Active</div>
+
+                    <!-- Background Color -->
+                    <div class="property-row">
+                        <label class="property-label">Background Color</label>
+                        <button class="color-swatch-btn" data-color-type="bg-color" data-state="active">
+                            <div class="color-swatch" data-swatch="bg-color-active"></div>
+                            <span class="color-swatch-label" data-label="bg-color-active">Green 700</span>
+                        </button>
+                    </div>
+
+                    <!-- Border Color -->
+                    <div class="property-row">
+                        <label class="property-label">Border Color</label>
+                        <button class="color-swatch-btn" data-color-type="border-color" data-state="active">
+                            <div class="color-swatch" data-swatch="border-color-active"></div>
+                            <span class="color-swatch-label" data-label="border-color-active">Green 900</span>
+                        </button>
+                    </div>
+
+                    <!-- Text Color -->
+                    <div class="property-row">
+                        <label class="property-label">Text Color</label>
+                        <button class="color-swatch-btn" data-color-type="text-color" data-state="active">
+                            <div class="color-swatch" data-swatch="text-color-active"></div>
+                            <span class="color-swatch-label" data-label="text-color-active">White</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Disabled State Column -->
+                <div class="state-column">
+                    <div class="state-column-header">Disabled</div>
+
+                    <!-- Background Color -->
+                    <div class="property-row">
+                        <label class="property-label">Background Color</label>
+                        <button class="color-swatch-btn" data-color-type="bg-color" data-state="disabled">
+                            <div class="color-swatch" data-swatch="bg-color-disabled"></div>
+                            <span class="color-swatch-label" data-label="bg-color-disabled">Gray 300</span>
+                        </button>
+                    </div>
+
+                    <!-- Border Color -->
+                    <div class="property-row">
+                        <label class="property-label">Border Color</label>
+                        <button class="color-swatch-btn" data-color-type="border-color" data-state="disabled">
+                            <div class="color-swatch" data-swatch="border-color-disabled"></div>
+                            <span class="color-swatch-label" data-label="border-color-disabled">Gray 400</span>
+                        </button>
+                    </div>
+
+                    <!-- Text Color -->
+                    <div class="property-row">
+                        <label class="property-label">Text Color</label>
+                        <button class="color-swatch-btn" data-color-type="text-color" data-state="disabled">
+                            <div class="color-swatch" data-swatch="text-color-disabled"></div>
+                            <span class="color-swatch-label" data-label="text-color-disabled">Gray 500</span>
                         </button>
                     </div>
                 </div>
@@ -537,7 +644,17 @@ import BorderRadiusInput from '../components/border-radius-input/border-radius-i
         // Hover state defaults
         'hoverBgColor': '--color-green-500',
         'hoverBorderColor': '--color-green-700',
-        'hoverTextColor': '--color-white'
+        'hoverTextColor': '--color-white',
+
+        // Active state defaults
+        'activeBgColor': '--color-green-700',
+        'activeBorderColor': '--color-green-900',
+        'activeTextColor': '--color-white',
+
+        // Disabled state defaults
+        'disabledBgColor': '--color-gray-300',
+        'disabledBorderColor': '--color-gray-400',
+        'disabledTextColor': '--color-gray-500'
     };
 
     const STORAGE_KEY = 'achilles-button-styles';
@@ -570,7 +687,9 @@ import BorderRadiusInput from '../components/border-radius-input/border-radius-i
         const currentStyles: typeof DEFAULTS = {
             pl: 0, pr: 0, pt: 0, pb: 0,
             bgColor: '', borderColor: '', textColor: '', borderWidth: '', borderRadius: '',
-            hoverBgColor: '', hoverBorderColor: '', hoverTextColor: ''
+            hoverBgColor: '', hoverBorderColor: '', hoverTextColor: '',
+            activeBgColor: '', activeBorderColor: '', activeTextColor: '',
+            disabledBgColor: '', disabledBorderColor: '', disabledTextColor: ''
         };
 
         // Save padding indices
@@ -600,6 +719,24 @@ import BorderRadiusInput from '../components/border-radius-input/border-radius-i
         currentStyles.hoverBgColor = hoverBgColor.match(/var\((--color-[^)]+)\)/)?.[1] || hoverBgColor;
         currentStyles.hoverBorderColor = hoverBorderColor.match(/var\((--color-[^)]+)\)/)?.[1] || hoverBorderColor;
         currentStyles.hoverTextColor = hoverTextColor.match(/var\((--color-[^)]+)\)/)?.[1] || hoverTextColor;
+
+        // Save active color selections
+        const activeBgColor = rootStyles.getPropertyValue('--achilles-active-bg-color').trim();
+        const activeBorderColor = rootStyles.getPropertyValue('--achilles-active-border-color').trim();
+        const activeTextColor = rootStyles.getPropertyValue('--achilles-active-text-color').trim();
+
+        currentStyles.activeBgColor = activeBgColor.match(/var\((--color-[^)]+)\)/)?.[1] || activeBgColor;
+        currentStyles.activeBorderColor = activeBorderColor.match(/var\((--color-[^)]+)\)/)?.[1] || activeBorderColor;
+        currentStyles.activeTextColor = activeTextColor.match(/var\((--color-[^)]+)\)/)?.[1] || activeTextColor;
+
+        // Save disabled color selections
+        const disabledBgColor = rootStyles.getPropertyValue('--achilles-disabled-bg-color').trim();
+        const disabledBorderColor = rootStyles.getPropertyValue('--achilles-disabled-border-color').trim();
+        const disabledTextColor = rootStyles.getPropertyValue('--achilles-disabled-text-color').trim();
+
+        currentStyles.disabledBgColor = disabledBgColor.match(/var\((--color-[^)]+)\)/)?.[1] || disabledBgColor;
+        currentStyles.disabledBorderColor = disabledBorderColor.match(/var\((--color-[^)]+)\)/)?.[1] || disabledBorderColor;
+        currentStyles.disabledTextColor = disabledTextColor.match(/var\((--color-[^)]+)\)/)?.[1] || disabledTextColor;
 
         // Save border width from CSS Input field
         const borderWidthInput = document.getElementById('border-width-input') as HTMLInputElement;
@@ -703,6 +840,44 @@ import BorderRadiusInput from '../components/border-radius-input/border-radius-i
             updateSwatch('text-color', 'hover', savedStyles.hoverTextColor, colorValue);
         }
 
+        // Restore active colors
+        if (savedStyles.activeBgColor) {
+            updateRootVariable('--achilles-active-bg-color', `var(${savedStyles.activeBgColor})`);
+            const colorValue = getComputedStyle(document.documentElement).getPropertyValue(savedStyles.activeBgColor);
+            updateSwatch('bg-color', 'active', savedStyles.activeBgColor, colorValue);
+        }
+
+        if (savedStyles.activeBorderColor) {
+            updateRootVariable('--achilles-active-border-color', `var(${savedStyles.activeBorderColor})`);
+            const colorValue = getComputedStyle(document.documentElement).getPropertyValue(savedStyles.activeBorderColor);
+            updateSwatch('border-color', 'active', savedStyles.activeBorderColor, colorValue);
+        }
+
+        if (savedStyles.activeTextColor) {
+            updateRootVariable('--achilles-active-text-color', `var(${savedStyles.activeTextColor})`);
+            const colorValue = getComputedStyle(document.documentElement).getPropertyValue(savedStyles.activeTextColor);
+            updateSwatch('text-color', 'active', savedStyles.activeTextColor, colorValue);
+        }
+
+        // Restore disabled colors
+        if (savedStyles.disabledBgColor) {
+            updateRootVariable('--achilles-disabled-bg-color', `var(${savedStyles.disabledBgColor})`);
+            const colorValue = getComputedStyle(document.documentElement).getPropertyValue(savedStyles.disabledBgColor);
+            updateSwatch('bg-color', 'disabled', savedStyles.disabledBgColor, colorValue);
+        }
+
+        if (savedStyles.disabledBorderColor) {
+            updateRootVariable('--achilles-disabled-border-color', `var(${savedStyles.disabledBorderColor})`);
+            const colorValue = getComputedStyle(document.documentElement).getPropertyValue(savedStyles.disabledBorderColor);
+            updateSwatch('border-color', 'disabled', savedStyles.disabledBorderColor, colorValue);
+        }
+
+        if (savedStyles.disabledTextColor) {
+            updateRootVariable('--achilles-disabled-text-color', `var(${savedStyles.disabledTextColor})`);
+            const colorValue = getComputedStyle(document.documentElement).getPropertyValue(savedStyles.disabledTextColor);
+            updateSwatch('text-color', 'disabled', savedStyles.disabledTextColor, colorValue);
+        }
+
         const status = document.getElementById('save-status');
         if (status) {
             status.textContent = '✓ Reset to saved styles!';
@@ -767,6 +942,34 @@ import BorderRadiusInput from '../components/border-radius-input/border-radius-i
         updateSwatch('bg-color', 'hover', DEFAULTS.hoverBgColor, hoverBgValue);
         updateSwatch('border-color', 'hover', DEFAULTS.hoverBorderColor, hoverBorderValue);
         updateSwatch('text-color', 'hover', DEFAULTS.hoverTextColor, hoverTextValue);
+
+        // Reset active colors to defaults
+        updateRootVariable('--achilles-active-bg-color', `var(${DEFAULTS.activeBgColor})`);
+        updateRootVariable('--achilles-active-border-color', `var(${DEFAULTS.activeBorderColor})`);
+        updateRootVariable('--achilles-active-text-color', `var(${DEFAULTS.activeTextColor})`);
+
+        // Update swatches to show default active colors
+        const activeBgValue = getComputedStyle(document.documentElement).getPropertyValue(DEFAULTS.activeBgColor);
+        const activeBorderValue = getComputedStyle(document.documentElement).getPropertyValue(DEFAULTS.activeBorderColor);
+        const activeTextValue = getComputedStyle(document.documentElement).getPropertyValue(DEFAULTS.activeTextColor);
+
+        updateSwatch('bg-color', 'active', DEFAULTS.activeBgColor, activeBgValue);
+        updateSwatch('border-color', 'active', DEFAULTS.activeBorderColor, activeBorderValue);
+        updateSwatch('text-color', 'active', DEFAULTS.activeTextColor, activeTextValue);
+
+        // Reset disabled colors to defaults
+        updateRootVariable('--achilles-disabled-bg-color', `var(${DEFAULTS.disabledBgColor})`);
+        updateRootVariable('--achilles-disabled-border-color', `var(${DEFAULTS.disabledBorderColor})`);
+        updateRootVariable('--achilles-disabled-text-color', `var(${DEFAULTS.disabledTextColor})`);
+
+        // Update swatches to show default disabled colors
+        const disabledBgValue = getComputedStyle(document.documentElement).getPropertyValue(DEFAULTS.disabledBgColor);
+        const disabledBorderValue = getComputedStyle(document.documentElement).getPropertyValue(DEFAULTS.disabledBorderColor);
+        const disabledTextValue = getComputedStyle(document.documentElement).getPropertyValue(DEFAULTS.disabledTextColor);
+
+        updateSwatch('bg-color', 'disabled', DEFAULTS.disabledBgColor, disabledBgValue);
+        updateSwatch('border-color', 'disabled', DEFAULTS.disabledBorderColor, disabledBorderValue);
+        updateSwatch('text-color', 'disabled', DEFAULTS.disabledTextColor, disabledTextValue);
 
         const status = document.getElementById('save-status');
         if (status) {
@@ -930,15 +1133,21 @@ import BorderRadiusInput from '../components/border-radius-input/border-radius-i
     const colorTypeToVariable = {
         'bg-color': {
             default: '--achilles-bg-color',
-            hover: '--achilles-hover-bg-color'
+            hover: '--achilles-hover-bg-color',
+            active: '--achilles-active-bg-color',
+            disabled: '--achilles-disabled-bg-color'
         },
         'border-color': {
             default: '--achilles-border-color',
-            hover: '--achilles-hover-border-color'
+            hover: '--achilles-hover-border-color',
+            active: '--achilles-active-border-color',
+            disabled: '--achilles-disabled-border-color'
         },
         'text-color': {
             default: '--achilles-text-color',
-            hover: '--achilles-hover-text-color'
+            hover: '--achilles-hover-text-color',
+            active: '--achilles-active-text-color',
+            disabled: '--achilles-disabled-text-color'
         }
     };
 
@@ -981,10 +1190,16 @@ import BorderRadiusInput from '../components/border-radius-input/border-radius-i
         const colors = {
             'bg-color-default': getComputedStyle(document.documentElement).getPropertyValue('--achilles-bg-color'),
             'bg-color-hover': getComputedStyle(document.documentElement).getPropertyValue('--achilles-hover-bg-color'),
+            'bg-color-active': getComputedStyle(document.documentElement).getPropertyValue('--achilles-active-bg-color'),
+            'bg-color-disabled': getComputedStyle(document.documentElement).getPropertyValue('--achilles-disabled-bg-color'),
             'border-color-default': getComputedStyle(document.documentElement).getPropertyValue('--achilles-border-color'),
             'border-color-hover': getComputedStyle(document.documentElement).getPropertyValue('--achilles-hover-border-color'),
+            'border-color-active': getComputedStyle(document.documentElement).getPropertyValue('--achilles-active-border-color'),
+            'border-color-disabled': getComputedStyle(document.documentElement).getPropertyValue('--achilles-disabled-border-color'),
             'text-color-default': getComputedStyle(document.documentElement).getPropertyValue('--achilles-text-color'),
-            'text-color-hover': getComputedStyle(document.documentElement).getPropertyValue('--achilles-hover-text-color')
+            'text-color-hover': getComputedStyle(document.documentElement).getPropertyValue('--achilles-hover-text-color'),
+            'text-color-active': getComputedStyle(document.documentElement).getPropertyValue('--achilles-active-text-color'),
+            'text-color-disabled': getComputedStyle(document.documentElement).getPropertyValue('--achilles-disabled-text-color')
         };
 
         // Update swatch displays
