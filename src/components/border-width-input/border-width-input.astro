@@ -297,7 +297,8 @@ const simpleOptions = [
         select?.addEventListener('change', () => {
             const values = sides.map(side => {
                 const sideSelect = document.getElementById(`border-width-${side}`);
-                return sideSelect.value;
+                // Use '0' for empty/placeholder selections
+                return sideSelect.value || '0';
             });
             const combinedValue = values.join(' ');
             updateCSSVariable(combinedValue);

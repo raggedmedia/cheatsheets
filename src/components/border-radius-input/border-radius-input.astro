@@ -301,7 +301,8 @@ const simpleOptions = [
         select?.addEventListener('change', () => {
             const values = corners.map(corner => {
                 const cornerSelect = document.getElementById(`border-radius-${corner}`);
-                return cornerSelect.value;
+                // Use '0' for empty/placeholder selections
+                return cornerSelect.value || '0';
             });
             const combinedValue = values.join(' ');
             updateCSSVariable(combinedValue);
