@@ -8,7 +8,7 @@ import '../styles/styles.css'
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<title>Btn Builder</title>
-        <style id="achilles-styles">
+        <style is:global>
             :root {
                 --achilles-padding-left: var(--spacing-base);
                 --achilles-padding-right: var(--spacing-base);
@@ -28,6 +28,7 @@ import '../styles/styles.css'
             /* Color swatch radio button styling */
             .color-swatch {
                 position: relative;
+                display: inline-block;
             }
 
             .color-swatch input[type="radio"] {
@@ -35,6 +36,7 @@ import '../styles/styles.css'
                 opacity: 0;
                 width: 0;
                 height: 0;
+                pointer-events: none;
             }
 
             .color-swatch label {
@@ -43,22 +45,31 @@ import '../styles/styles.css'
                 height: 36px;
                 border-radius: 0.25rem;
                 cursor: pointer;
-                border: 2px solid transparent;
-                transition: all 0.2s;
+                border: 1px solid rgba(0, 0, 0, 0.15);
+                box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+                transition: all 0.15s ease;
+                position: relative;
             }
 
             .color-swatch input[type="radio"]:checked + label {
-                border-color: #000;
-                box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
-                transform: scale(1.1);
+                border: 3px solid #000;
+                box-shadow: 0 0 0 1px #000, 0 2px 8px rgba(0, 0, 0, 0.2);
+                transform: scale(1.15);
+                z-index: 10;
             }
 
             .color-swatch label:hover {
-                transform: scale(1.05);
+                transform: scale(1.08);
+                border-color: rgba(0, 0, 0, 0.3);
+                z-index: 5;
+            }
+
+            .color-swatch input[type="radio"]:checked + label:hover {
+                transform: scale(1.15);
             }
 
             .color-group {
-                margin-bottom: 1rem;
+                margin-bottom: 1.5rem;
             }
         </style>
 	</head>
@@ -336,7 +347,7 @@ import '../styles/styles.css'
                 swatchDiv.innerHTML = `
                     <input type="radio" name="bg-color" value="${colorVar}" id="grouped-${family}-${shade}" ${isDefault ? 'checked' : ''} />
                     <label for="grouped-${family}-${shade}"
-                           style="background: var(${colorVar}); width: 36px; height: 36px; display: block; border-radius: 0.25rem; cursor: pointer; border: 2px solid transparent;"
+                           style="background: var(${colorVar});"
                            title="${family}-${shade}">
                     </label>
                 `;
