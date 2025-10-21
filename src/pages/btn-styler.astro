@@ -14,6 +14,7 @@ import '../styles/styles.css'
                 --achilles-padding-right: var(--spacing-base);
                 --achilles-padding-top: var(--spacing-sm);
                 --achilles-padding-bottom: var(--spacing-sm);
+                --achilles-bg-color: var(--color-blue-500);
             }
 
             #achilles {
@@ -21,6 +22,43 @@ import '../styles/styles.css'
                 padding-right: var(--achilles-padding-right);
                 padding-top: var(--achilles-padding-top);
                 padding-bottom: var(--achilles-padding-bottom);
+                background-color: var(--achilles-bg-color);
+            }
+
+            /* Color swatch radio button styling */
+            .color-swatch {
+                position: relative;
+            }
+
+            .color-swatch input[type="radio"] {
+                position: absolute;
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+
+            .color-swatch label {
+                display: block;
+                width: 36px;
+                height: 36px;
+                border-radius: 0.25rem;
+                cursor: pointer;
+                border: 2px solid transparent;
+                transition: all 0.2s;
+            }
+
+            .color-swatch input[type="radio"]:checked + label {
+                border-color: #000;
+                box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+                transform: scale(1.1);
+            }
+
+            .color-swatch label:hover {
+                transform: scale(1.05);
+            }
+
+            .color-group {
+                margin-bottom: 1rem;
             }
         </style>
 	</head>
@@ -35,6 +73,14 @@ import '../styles/styles.css'
                 <button id="save-styles" class="px-4 py-2 bg-green-500 text-white rounded">Save Styles</button>
                 <button id="reset-styles" class="px-4 py-2 bg-red-500 text-white rounded">Reset to Default</button>
                 <span id="save-status" class="px-4 py-2 text-sm text-gray-600"></span>
+            </div>
+
+            <!-- Background Color -->
+            <div class="mb-6">
+                <label class="block mb-2 font-semibold">Background Color</label>
+                <div class="border rounded p-4" style="max-height: 400px; overflow-y: auto;">
+                    <div id="grouped-colors"></div>
+                </div>
             </div>
 
             <!-- Padding Left -->
@@ -103,7 +149,7 @@ import '../styles/styles.css'
         </div>
 
         <div class="example mx-auto mt-8 flex justify-center">
-            <a id="achilles" href="" class="btn bg-blue-500 text-white">Hello, world!</a>
+            <a id="achilles" href="" class="btn text-white">Hello, world!</a>
         </div>
 	</body>
 </html>
@@ -200,6 +246,12 @@ import '../styles/styles.css'
         }
     };
 
+    // Helper function to update CSS variables on :root
+    const updateRootVariable = (varName: string, value: string) => {
+        document.documentElement.style.setProperty(varName, value);
+        console.log(`Updated ${varName} to ${value}`);
+    };
+
     // Initialize all range inputs
     const sides = ['pl', 'pr', 'pt', 'pb'] as const;
     const defaultIndices = loadSavedStyles();
@@ -222,8 +274,8 @@ import '../styles/styles.css'
             const spacing = spacingScale[index];
             const tailwindRef = pxToTailwind[spacing.px] || spacing.px.toString();
 
-            // Update CSS custom property on :root (no inline styles!)
-            document.documentElement.style.setProperty(sideToCSSVar[side], `var(${spacing.var})`);
+            // Update CSS custom property in the :root rule
+            updateRootVariable(sideToCSSVar[side], `var(${spacing.var})`);
 
             // Update display with spacing name and Tailwind reference
             if (valueSpan) {
@@ -254,6 +306,56 @@ import '../styles/styles.css'
         // Initialize display on page load
         range?.dispatchEvent(new Event('input'));
     });
+
+    // Generate grouped color swatches (Figma-style)
+    const colorFamilies = ['red', 'orange', 'amber', 'yellow', 'lime', 'green', 'emerald', 'teal', 'cyan', 'sky', 'blue', 'indigo', 'violet', 'purple', 'fuchsia', 'pink', 'rose', 'slate', 'gray', 'zinc', 'neutral', 'stone'];
+    const shades = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950'];
+
+    const groupedColorsContainer = document.getElementById('grouped-colors');
+
+    if (groupedColorsContainer) {
+        colorFamilies.forEach(family => {
+            const groupDiv = document.createElement('div');
+            groupDiv.className = 'color-group mb-4';
+
+            const labelDiv = document.createElement('div');
+            labelDiv.className = 'text-sm font-semibold mb-2 capitalize';
+            labelDiv.textContent = family;
+
+            const shadesDiv = document.createElement('div');
+            shadesDiv.className = 'flex gap-1 flex-wrap';
+
+            shades.forEach(shade => {
+                const colorVar = `--color-${family}-${shade}`;
+                const swatchDiv = document.createElement('div');
+                swatchDiv.className = 'color-swatch';
+
+                // Check if this should be the default selected (blue-500)
+                const isDefault = family === 'blue' && shade === '500';
+
+                swatchDiv.innerHTML = `
+                    <input type="radio" name="bg-color" value="${colorVar}" id="grouped-${family}-${shade}" ${isDefault ? 'checked' : ''} />
+                    <label for="grouped-${family}-${shade}"
+                           style="background: var(${colorVar}); width: 36px; height: 36px; display: block; border-radius: 0.25rem; cursor: pointer; border: 2px solid transparent;"
+                           title="${family}-${shade}">
+                    </label>
+                `;
+
+                const radio = swatchDiv.querySelector('input') as HTMLInputElement;
+                radio.addEventListener('change', () => {
+                    // Update the CSS custom property in the :root rule
+                    updateRootVariable('--achilles-bg-color', `var(${colorVar})`);
+                    console.log(`Updated background color to ${colorVar}`);
+                });
+
+                shadesDiv.appendChild(swatchDiv);
+            });
+
+            groupDiv.appendChild(labelDiv);
+            groupDiv.appendChild(shadesDiv);
+            groupedColorsContainer.appendChild(groupDiv);
+        });
+    }
 
     // Wire up save and reset buttons
     document.getElementById('save-styles')?.addEventListener('click', saveStyles);
