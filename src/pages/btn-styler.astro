@@ -132,6 +132,146 @@ import BorderRadiusInput from '../components/border-radius-input/border-radius-i
                 color: #2563eb;
                 border-bottom-color: #2563eb;
             }
+
+            /* Two-column state layout */
+            .state-columns {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+                margin-bottom: 2rem;
+            }
+
+            .state-column {
+                background: white;
+                border-radius: 0.5rem;
+                padding: 1rem;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            }
+
+            .state-column-header {
+                font-size: 0.75rem;
+                font-weight: 600;
+                color: #6b7280;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                margin-bottom: 1rem;
+                padding-bottom: 0.5rem;
+                border-bottom: 2px solid #e5e7eb;
+            }
+
+            /* Color swatch button */
+            .color-swatch-btn {
+                width: 100%;
+                height: 48px;
+                border-radius: 0.375rem;
+                border: 2px solid #e5e7eb;
+                cursor: pointer;
+                position: relative;
+                transition: all 150ms ease-out;
+                display: flex;
+                align-items: center;
+                padding: 0.5rem;
+                gap: 0.75rem;
+            }
+
+            .color-swatch-btn:hover {
+                border-color: #2563eb;
+                box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            }
+
+            .color-swatch {
+                width: 32px;
+                height: 32px;
+                border-radius: 0.25rem;
+                border: 1px solid rgba(0, 0, 0, 0.1);
+                flex-shrink: 0;
+            }
+
+            .color-swatch-label {
+                font-size: 0.875rem;
+                color: #374151;
+                font-weight: 500;
+            }
+
+            /* Color picker popup */
+            .color-picker-popup {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: white;
+                border-radius: 0.5rem;
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+                max-height: 80vh;
+                overflow-y: auto;
+                z-index: 1000;
+                padding: 1.5rem;
+                min-width: 400px;
+                display: none;
+            }
+
+            .color-picker-popup.active {
+                display: block;
+            }
+
+            .color-picker-popup-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 1rem;
+                padding-bottom: 1rem;
+                border-bottom: 1px solid #e5e7eb;
+            }
+
+            .color-picker-popup-title {
+                font-weight: 600;
+                font-size: 1rem;
+                color: #111827;
+            }
+
+            .color-picker-close {
+                background: none;
+                border: none;
+                font-size: 1.5rem;
+                color: #6b7280;
+                cursor: pointer;
+                width: 32px;
+                height: 32px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 0.25rem;
+                transition: all 150ms;
+            }
+
+            .color-picker-close:hover {
+                background: #f3f4f6;
+                color: #111827;
+            }
+
+            .color-picker-overlay {
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 999;
+                display: none;
+            }
+
+            .color-picker-overlay.active {
+                display: block;
+            }
+
+            .property-row {
+                margin-bottom: 1.5rem;
+            }
+
+            .property-label {
+                font-size: 0.875rem;
+                font-weight: 600;
+                color: #374151;
+                margin-bottom: 0.5rem;
+                display: block;
+            }
         </style>
 	</head>
 	<body>
@@ -175,40 +315,74 @@ import BorderRadiusInput from '../components/border-radius-input/border-radius-i
             <div class="controls-column">
                 <div class="space-y-4 max-w-2xl">
 
-            <!-- State Selector -->
-            <div class="state-selector mb-8">
-                <div class="flex gap-2 border-b-2 border-gray-200">
-                    <button class="state-tab active" data-state="default">
-                        Default
-                    </button>
-                    <button class="state-tab" data-state="hover">
-                        Hover
-                    </button>
+            <!-- Color Properties - Two Column Layout -->
+            <div class="state-columns">
+                <!-- Default State Column -->
+                <div class="state-column">
+                    <div class="state-column-header">Default</div>
+
+                    <!-- Background Color -->
+                    <div class="property-row">
+                        <label class="property-label">Background Color</label>
+                        <button class="color-swatch-btn" data-color-type="bg-color" data-state="default">
+                            <div class="color-swatch" data-swatch="bg-color-default"></div>
+                            <span class="color-swatch-label" data-label="bg-color-default">Blue 500</span>
+                        </button>
+                    </div>
+
+                    <!-- Border Color -->
+                    <div class="property-row">
+                        <label class="property-label">Border Color</label>
+                        <button class="color-swatch-btn" data-color-type="border-color" data-state="default">
+                            <div class="color-swatch" data-swatch="border-color-default"></div>
+                            <span class="color-swatch-label" data-label="border-color-default">Blue 700</span>
+                        </button>
+                    </div>
+
+                    <!-- Text Color -->
+                    <div class="property-row">
+                        <label class="property-label">Text Color</label>
+                        <button class="color-swatch-btn" data-color-type="text-color" data-state="default">
+                            <div class="color-swatch" data-swatch="text-color-default"></div>
+                            <span class="color-swatch-label" data-label="text-color-default">White</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Hover State Column -->
+                <div class="state-column">
+                    <div class="state-column-header">Hover</div>
+
+                    <!-- Background Color -->
+                    <div class="property-row">
+                        <label class="property-label">Background Color</label>
+                        <button class="color-swatch-btn" data-color-type="bg-color" data-state="hover">
+                            <div class="color-swatch" data-swatch="bg-color-hover"></div>
+                            <span class="color-swatch-label" data-label="bg-color-hover">Green 500</span>
+                        </button>
+                    </div>
+
+                    <!-- Border Color -->
+                    <div class="property-row">
+                        <label class="property-label">Border Color</label>
+                        <button class="color-swatch-btn" data-color-type="border-color" data-state="hover">
+                            <div class="color-swatch" data-swatch="border-color-hover"></div>
+                            <span class="color-swatch-label" data-label="border-color-hover">Green 700</span>
+                        </button>
+                    </div>
+
+                    <!-- Text Color -->
+                    <div class="property-row">
+                        <label class="property-label">Text Color</label>
+                        <button class="color-swatch-btn" data-color-type="text-color" data-state="hover">
+                            <div class="color-swatch" data-swatch="text-color-hover"></div>
+                            <span class="color-swatch-label" data-label="text-color-hover">White</span>
+                        </button>
+                    </div>
                 </div>
             </div>
 
-            <!-- Default State Controls -->
-            <div class="state-controls" data-state-controls="default">
-            <!-- Background Color -->
-            <div class="mb-6">
-                <label class="block mb-2 font-semibold">Background Color</label>
-                <ColorPicker
-                    id="bg-color-picker"
-                    name="bg-color"
-                    defaultColor="--color-blue-500"
-                />
-            </div>
-
-            <!-- Border Color -->
-            <div class="mb-6">
-                <label class="block mb-2 font-semibold">Border Color</label>
-                <ColorPicker
-                    id="border-color-picker"
-                    name="border-color"
-                    defaultColor="--color-blue-700"
-                />
-            </div>
-
+            <!-- Other Properties -->
             <!-- Border Width -->
             <div class="mb-6">
                 <label class="block mb-2 font-semibold">Border Width</label>
@@ -227,15 +401,7 @@ import BorderRadiusInput from '../components/border-radius-input/border-radius-i
                 />
             </div>
 
-            <!-- Text Color -->
-            <div class="mb-6">
-                <label class="block mb-2 font-semibold">Text Color</label>
-                <ColorPicker
-                    id="text-color-picker"
-                    name="text-color"
-                    defaultColor="--color-white"
-                />
-            </div>
+
 
             <!-- Padding Left -->
             <div class="flex items-center gap-2">
@@ -301,47 +467,26 @@ import BorderRadiusInput from '../components/border-radius-input/border-radius-i
                 <button id="increase-pb" class="px-2 py-1 border">+</button>
             </div>
             </div>
-            <!-- End Default State Controls -->
 
-            <!-- Hover State Controls -->
-            <div class="state-controls" data-state-controls="hover" style="display: none;">
-                <p class="text-sm text-gray-600 mb-4 italic">
-                    Hover state starts by inheriting default styles. Change any property to customize the hover appearance:
-                </p>
-
-                <!-- Background Color -->
-                <div class="mb-6">
-                    <label class="block mb-2 font-semibold">Background Color (Hover)</label>
-                    <ColorPicker
-                        id="hover-bg-color-picker"
-                        name="hover-bg-color"
-                        defaultColor="--color-green-500"
-                    />
-                </div>
-
-                <!-- Border Color -->
-                <div class="mb-6">
-                    <label class="block mb-2 font-semibold">Border Color (Hover)</label>
-                    <ColorPicker
-                        id="hover-border-color-picker"
-                        name="hover-border-color"
-                        defaultColor="--color-green-700"
-                    />
-                </div>
-
-                <!-- Text Color -->
-                <div class="mb-6">
-                    <label class="block mb-2 font-semibold">Text Color (Hover)</label>
-                    <ColorPicker
-                        id="hover-text-color-picker"
-                        name="hover-text-color"
-                        defaultColor="--color-white"
-                    />
                 </div>
             </div>
-            <!-- End Hover State Controls -->
+        </div>
 
-                </div>
+        <!-- Color Picker Popup Overlay -->
+        <div class="color-picker-overlay" id="color-picker-overlay"></div>
+
+        <!-- Color Picker Popup -->
+        <div class="color-picker-popup" id="color-picker-popup">
+            <div class="color-picker-popup-header">
+                <h3 class="color-picker-popup-title" id="popup-title">Select Color</h3>
+                <button class="color-picker-close" id="close-popup">&times;</button>
+            </div>
+            <div id="popup-color-picker">
+                <ColorPicker
+                    id="popup-color-picker-component"
+                    name="popup-color"
+                    defaultColor="--color-blue-500"
+                />
             </div>
         </div>
 	</body>
@@ -373,18 +518,26 @@ import BorderRadiusInput from '../components/border-radius-input/border-radius-i
     const btn = document.getElementById('achilles') as HTMLElement;
 
     // Define defaults (these are your design system defaults)
-    // Array indices: ['0', '1', '2', '4', '6', '8', '10', '12', '14', '16', '20'...]
-    //                  0     1     2     3     4     5      6      7      8      9     10
     const DEFAULTS = {
-        'pl': 9,  // 16px (index 9 in array)
-        'pr': 9,  // 16px
-        'pt': 5,  // 8px (index 5 in array)
-        'pb': 5,  // 8px
+        // Padding: stored as spacing scale indices (for range slider controls)
+        'pl': spacingScale.findIndex(s => s.px === 16),  // 16px
+        'pr': spacingScale.findIndex(s => s.px === 16),  // 16px
+        'pt': spacingScale.findIndex(s => s.px === 8),   // 8px
+        'pb': spacingScale.findIndex(s => s.px === 8),   // 8px
+
+        // Colors: stored as CSS variable names
         'bgColor': '--color-blue-500',
         'borderColor': '--color-blue-700',
         'textColor': '--color-white',
+
+        // Border: stored as full CSS values (used by BorderWidthInput/BorderRadiusInput components)
         'borderWidth': 'var(--spacing-2)',
-        'borderRadius': 'var(--spacing-4)'
+        'borderRadius': 'var(--spacing-4)',
+
+        // Hover state defaults
+        'hoverBgColor': '--color-green-500',
+        'hoverBorderColor': '--color-green-700',
+        'hoverTextColor': '--color-white'
     };
 
     const STORAGE_KEY = 'achilles-button-styles';
@@ -416,7 +569,8 @@ import BorderRadiusInput from '../components/border-radius-input/border-radius-i
     const saveStyles = () => {
         const currentStyles: typeof DEFAULTS = {
             pl: 0, pr: 0, pt: 0, pb: 0,
-            bgColor: '', borderColor: '', textColor: '', borderWidth: '', borderRadius: ''
+            bgColor: '', borderColor: '', textColor: '', borderWidth: '', borderRadius: '',
+            hoverBgColor: '', hoverBorderColor: '', hoverTextColor: ''
         };
 
         // Save padding indices
@@ -427,15 +581,25 @@ import BorderRadiusInput from '../components/border-radius-input/border-radius-i
             }
         });
 
-        // Save color selections
-        const bgColorRadio = document.querySelector('input[name="bg-color"]:checked') as HTMLInputElement;
-        if (bgColorRadio) currentStyles.bgColor = bgColorRadio.value;
+        // Save default color selections by reading from CSS variables
+        const rootStyles = getComputedStyle(document.documentElement);
+        const bgColor = rootStyles.getPropertyValue('--achilles-bg-color').trim();
+        const borderColor = rootStyles.getPropertyValue('--achilles-border-color').trim();
+        const textColor = rootStyles.getPropertyValue('--achilles-text-color').trim();
 
-        const borderColorRadio = document.querySelector('input[name="border-color"]:checked') as HTMLInputElement;
-        if (borderColorRadio) currentStyles.borderColor = borderColorRadio.value;
+        // Extract variable name from var() syntax
+        currentStyles.bgColor = bgColor.match(/var\((--color-[^)]+)\)/)?.[1] || bgColor;
+        currentStyles.borderColor = borderColor.match(/var\((--color-[^)]+)\)/)?.[1] || borderColor;
+        currentStyles.textColor = textColor.match(/var\((--color-[^)]+)\)/)?.[1] || textColor;
 
-        const textColorRadio = document.querySelector('input[name="text-color"]:checked') as HTMLInputElement;
-        if (textColorRadio) currentStyles.textColor = textColorRadio.value;
+        // Save hover color selections
+        const hoverBgColor = rootStyles.getPropertyValue('--achilles-hover-bg-color').trim();
+        const hoverBorderColor = rootStyles.getPropertyValue('--achilles-hover-border-color').trim();
+        const hoverTextColor = rootStyles.getPropertyValue('--achilles-hover-text-color').trim();
+
+        currentStyles.hoverBgColor = hoverBgColor.match(/var\((--color-[^)]+)\)/)?.[1] || hoverBgColor;
+        currentStyles.hoverBorderColor = hoverBorderColor.match(/var\((--color-[^)]+)\)/)?.[1] || hoverBorderColor;
+        currentStyles.hoverTextColor = hoverTextColor.match(/var\((--color-[^)]+)\)/)?.[1] || hoverTextColor;
 
         // Save border width from CSS Input field
         const borderWidthInput = document.getElementById('border-width-input') as HTMLInputElement;
@@ -520,6 +684,25 @@ import BorderRadiusInput from '../components/border-radius-input/border-radius-i
             }
         }
 
+        // Restore hover colors
+        if (savedStyles.hoverBgColor) {
+            updateRootVariable('--achilles-hover-bg-color', `var(${savedStyles.hoverBgColor})`);
+            const colorValue = getComputedStyle(document.documentElement).getPropertyValue(savedStyles.hoverBgColor);
+            updateSwatch('bg-color', 'hover', savedStyles.hoverBgColor, colorValue);
+        }
+
+        if (savedStyles.hoverBorderColor) {
+            updateRootVariable('--achilles-hover-border-color', `var(${savedStyles.hoverBorderColor})`);
+            const colorValue = getComputedStyle(document.documentElement).getPropertyValue(savedStyles.hoverBorderColor);
+            updateSwatch('border-color', 'hover', savedStyles.hoverBorderColor, colorValue);
+        }
+
+        if (savedStyles.hoverTextColor) {
+            updateRootVariable('--achilles-hover-text-color', `var(${savedStyles.hoverTextColor})`);
+            const colorValue = getComputedStyle(document.documentElement).getPropertyValue(savedStyles.hoverTextColor);
+            updateSwatch('text-color', 'hover', savedStyles.hoverTextColor, colorValue);
+        }
+
         const status = document.getElementById('save-status');
         if (status) {
             status.textContent = '✓ Reset to saved styles!';
@@ -571,6 +754,20 @@ import BorderRadiusInput from '../components/border-radius-input/border-radius-i
             borderRadiusInput.dispatchEvent(new Event('input'));
         }
 
+        // Reset hover colors to defaults
+        updateRootVariable('--achilles-hover-bg-color', `var(${DEFAULTS.hoverBgColor})`);
+        updateRootVariable('--achilles-hover-border-color', `var(${DEFAULTS.hoverBorderColor})`);
+        updateRootVariable('--achilles-hover-text-color', `var(${DEFAULTS.hoverTextColor})`);
+
+        // Update swatches to show default hover colors
+        const hoverBgValue = getComputedStyle(document.documentElement).getPropertyValue(DEFAULTS.hoverBgColor);
+        const hoverBorderValue = getComputedStyle(document.documentElement).getPropertyValue(DEFAULTS.hoverBorderColor);
+        const hoverTextValue = getComputedStyle(document.documentElement).getPropertyValue(DEFAULTS.hoverTextColor);
+
+        updateSwatch('bg-color', 'hover', DEFAULTS.hoverBgColor, hoverBgValue);
+        updateSwatch('border-color', 'hover', DEFAULTS.hoverBorderColor, hoverBorderValue);
+        updateSwatch('text-color', 'hover', DEFAULTS.hoverTextColor, hoverTextValue);
+
         const status = document.getElementById('save-status');
         if (status) {
             status.textContent = '✓ Reset to defaults!';
@@ -582,6 +779,27 @@ import BorderRadiusInput from '../components/border-radius-input/border-radius-i
     const updateRootVariable = (varName: string, value: string) => {
         document.documentElement.style.setProperty(varName, value);
         console.log(`Updated ${varName} to ${value}`);
+    };
+
+    // Update swatch when color changes
+    const updateSwatch = (colorType: string, state: string, colorVar: string, colorValue: string) => {
+        const swatchKey = `${colorType}-${state}`;
+        const swatch = document.querySelector(`[data-swatch="${swatchKey}"]`) as HTMLElement;
+        const label = document.querySelector(`[data-label="${swatchKey}"]`) as HTMLElement;
+
+        if (swatch) {
+            swatch.style.backgroundColor = colorValue;
+        }
+
+        if (label) {
+            // Extract color name from variable (e.g., --color-blue-500 -> Blue 500)
+            const colorName = colorVar
+                .replace('--color-', '')
+                .split('-')
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(' ');
+            label.textContent = colorName;
+        }
     };
 
     // Initialize all range inputs
@@ -696,45 +914,125 @@ import BorderRadiusInput from '../components/border-radius-input/border-radius-i
         }
     }
 
-    // ===== STATE SWITCHING =====
-    const stateTabs = document.querySelectorAll('.state-tab');
-    const stateControls = document.querySelectorAll<HTMLElement>('.state-controls');
+    // ===== COLOR SWATCH POPUP SYSTEM =====
+    const colorPopup = document.getElementById('color-picker-popup');
+    const colorOverlay = document.getElementById('color-picker-overlay');
+    const closePopupBtn = document.getElementById('close-popup');
+    const popupTitle = document.getElementById('popup-title');
 
-    stateTabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            const targetState = tab.getAttribute('data-state');
+    let currentColorContext: {
+        colorType: string;
+        state: string;
+        cssVariable: string;
+    } | null = null;
 
-            // Update tabs
-            stateTabs.forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
+    // Map color types to CSS variables
+    const colorTypeToVariable = {
+        'bg-color': {
+            default: '--achilles-bg-color',
+            hover: '--achilles-hover-bg-color'
+        },
+        'border-color': {
+            default: '--achilles-border-color',
+            hover: '--achilles-hover-border-color'
+        },
+        'text-color': {
+            default: '--achilles-text-color',
+            hover: '--achilles-hover-text-color'
+        }
+    };
 
-            // Show/hide state controls
-            stateControls.forEach(controls => {
-                const controlsState = controls.getAttribute('data-state-controls');
-                if (controlsState === targetState) {
-                    controls.style.display = 'block';
-                } else {
-                    controls.style.display = 'none';
-                }
-            });
+    // Open color picker popup
+    const openColorPicker = (colorType: string, state: string) => {
+        const variableMap = colorTypeToVariable[colorType as keyof typeof colorTypeToVariable];
+        if (!variableMap) return;
+
+        currentColorContext = {
+            colorType,
+            state,
+            cssVariable: variableMap[state as keyof typeof variableMap]
+        };
+
+        // Update popup title
+        const labels = {
+            'bg-color': 'Background Color',
+            'border-color': 'Border Color',
+            'text-color': 'Text Color'
+        };
+        if (popupTitle) {
+            popupTitle.textContent = `Select ${labels[colorType as keyof typeof labels]} (${state.charAt(0).toUpperCase() + state.slice(1)})`;
+        }
+
+        // Show popup
+        colorPopup?.classList.add('active');
+        colorOverlay?.classList.add('active');
+    };
+
+    // Close color picker popup
+    const closeColorPicker = () => {
+        colorPopup?.classList.remove('active');
+        colorOverlay?.classList.remove('active');
+        currentColorContext = null;
+    };
+
+    // Initialize color swatches
+    const initializeColorSwatches = () => {
+        // Get initial colors from CSS variables
+        const colors = {
+            'bg-color-default': getComputedStyle(document.documentElement).getPropertyValue('--achilles-bg-color'),
+            'bg-color-hover': getComputedStyle(document.documentElement).getPropertyValue('--achilles-hover-bg-color'),
+            'border-color-default': getComputedStyle(document.documentElement).getPropertyValue('--achilles-border-color'),
+            'border-color-hover': getComputedStyle(document.documentElement).getPropertyValue('--achilles-hover-border-color'),
+            'text-color-default': getComputedStyle(document.documentElement).getPropertyValue('--achilles-text-color'),
+            'text-color-hover': getComputedStyle(document.documentElement).getPropertyValue('--achilles-hover-text-color')
+        };
+
+        // Update swatch displays
+        Object.keys(colors).forEach(key => {
+            const swatch = document.querySelector(`[data-swatch="${key}"]`) as HTMLElement;
+            if (swatch) {
+                swatch.style.backgroundColor = colors[key as keyof typeof colors];
+            }
+        });
+    };
+
+    // Set up swatch button click handlers
+    const swatchBtns = document.querySelectorAll('.color-swatch-btn');
+    swatchBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const colorType = btn.getAttribute('data-color-type');
+            const state = btn.getAttribute('data-state');
+            if (colorType && state) {
+                openColorPicker(colorType, state);
+            }
         });
     });
 
-    // ===== HOVER STATE CONTROLS =====
-    const hoverColorConfigs = [
-        { name: 'hover-bg-color', cssVariable: '--achilles-hover-bg-color' },
-        { name: 'hover-border-color', cssVariable: '--achilles-hover-border-color' },
-        { name: 'hover-text-color', cssVariable: '--achilles-hover-text-color' }
-    ];
+    // Close popup handlers
+    closePopupBtn?.addEventListener('click', closeColorPicker);
+    colorOverlay?.addEventListener('click', closeColorPicker);
 
-    hoverColorConfigs.forEach(config => {
-        const radios = document.querySelectorAll(`input[name="${config.name}"]`);
-        radios.forEach(radio => {
-            radio.addEventListener('change', (e) => {
-                const target = e.target as HTMLInputElement;
-                const colorVar = target.value;
-                updateRootVariable(config.cssVariable, `var(${colorVar})`);
-            });
+    // Handle color selection in popup
+    const popupColorRadios = document.querySelectorAll('input[name="popup-color"]');
+    popupColorRadios.forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            if (!currentColorContext) return;
+
+            const target = e.target as HTMLInputElement;
+            const colorVar = target.value;
+            const colorValue = getComputedStyle(document.documentElement).getPropertyValue(colorVar);
+
+            // Update CSS variable
+            updateRootVariable(currentColorContext.cssVariable, `var(${colorVar})`);
+
+            // Update swatch display
+            updateSwatch(currentColorContext.colorType, currentColorContext.state, colorVar, colorValue);
+
+            // Close popup
+            closeColorPicker();
         });
     });
+
+    // Initialize swatches on page load
+    initializeColorSwatches();
 </script>
