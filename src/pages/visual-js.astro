@@ -672,7 +672,7 @@ import ProTip from '../components/visual-js/ProTip.astro'
 
                 <ProTip>
                     <div>Insert without deleting by setting deleteCount to 0:</div>
-                    <div class="pl-2 border-l-2 border-purple-500/30 font-mono text-[10px]">
+                    <div class="pl-2 border-l-2 border-yellow-500/60 font-mono text-[10px]">
                         arr.splice(2, 0, 'x', 'y') → inserts 'x', 'y' at index 2
                     </div>
                 </ProTip>
@@ -715,14 +715,14 @@ import ProTip from '../components/visual-js/ProTip.astro'
                 <ProTip>
                     <div>Without a compare function, sort treats values as strings!</div>
 
-                    <div class="pl-2 border-l-2 border-purple-500/30">
+                    <div class="pl-2 border-l-2 border-yellow-500/60">
                         <div class="font-mono text-[10px]">['b','d','a','c'].sort() → ['a','b','c','d']</div>
                         <div class="font-mono text-[10px]">['b','d','a','c'].sort().reverse() → ['d','c','b','a']</div>
                     </div>
 
                     <div>For numbers, use compare function:</div>
 
-                    <div class="pl-2 border-l-2 border-purple-500/30">
+                    <div class="pl-2 border-l-2 border-yellow-500/60">
                         <div class="font-mono text-[10px]">[2,4,1,3].sort((a,b) => a-b) → [1,2,3,4] <span class="text-gray-400">// ascending</span></div>
                         <div class="font-mono text-[10px]">[2,4,1,3].sort((a,b) => b-a) → [4,3,2,1] <span class="text-gray-400">// descending</span></div>
                         <div class="font-mono text-[10px] text-gray-400">// OR: .sort((a,b) => a-b).reverse() → [4,3,2,1]</div>
@@ -795,6 +795,14 @@ import ProTip from '../components/visual-js/ProTip.astro'
                         <InfoBox mutates={true} message="">
                             Overwrites in place. Returns the <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">same array</code>. End index is exclusive.
                         </InfoBox>
+
+                        <ProTip>
+                            <div>Useful for filling array holes (empty slots):</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/60 space-y-0.5">
+                                <div class="font-mono text-[10px]">Array(5).fill(0) → [0, 0, 0, 0, 0] <span class="text-gray-400">// no holes!</span></div>
+                                <div class="font-mono text-[10px]">Array(5) → [empty × 5] <span class="text-gray-400">// has holes, methods skip these</span></div>
+                            </div>
+                        </ProTip>
                     </MethodCard>
                 </div>
 
@@ -836,6 +844,14 @@ import ProTip from '../components/visual-js/ProTip.astro'
                     🚫 Does Not Mutate (returns new value)
                 </h2>
 
+                <ProTip>
+                    <div>💪 Chain immutable methods together for cleaner, functional code:</div>
+                    <div class="pl-2 border-l-2 border-yellow-500/60 space-y-0.5">
+                        <div class="font-mono text-[10px]">users.filter(u =&gt; u.active).map(u =&gt; u.name).slice(0, 10)</div>
+                        <div class="font-mono text-[10px] text-gray-400">// Filter → transform → take first 10 (all chainable!)</div>
+                    </div>
+                </ProTip>
+
                 <!-- === BUILD NEW ARRAYS === -->
                 <h3 id="build-arrays" class="text-gray-300 text-lg mt-4 mb-2">Build New Arrays</h3>
 
@@ -871,7 +887,7 @@ import ProTip from '../components/visual-js/ProTip.astro'
 
                 <ProTip>
                     <div>Need the results? Use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">map()</code>. Just doing side effects? Use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">forEach()</code>.</div>
-                    <div class="pl-2 border-l-2 border-purple-500/30 font-mono text-[10px]">
+                    <div class="pl-2 border-l-2 border-yellow-500/60 font-mono text-[10px]">
                         const ids = users.map(u => u.id) ✅<br/>
                         users.forEach(u => console.log(u)) ✅
                     </div>
@@ -911,7 +927,7 @@ import ProTip from '../components/visual-js/ProTip.astro'
 
                 <ProTip>
                     <div>Use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">filter(Boolean)</code> to remove all falsy values in one go!</div>
-                    <div class="pl-2 border-l-2 border-purple-500/30 font-mono text-[10px]">
+                    <div class="pl-2 border-l-2 border-yellow-500/60 font-mono text-[10px]">
                         [0, 1, false, 2, '', 3, null].filter(Boolean) → [1, 2, 3]
                     </div>
                 </ProTip>
@@ -949,10 +965,31 @@ import ProTip from '../components/visual-js/ProTip.astro'
                 </InfoBox>
 
                 <ProTip>
-                    <div class="pl-2 border-l-2 border-purple-500/30">
+                    <div class="pl-2 border-l-2 border-yellow-500/60">
                         <div class="font-mono text-[10px]">slice(1, -1) → removes first & last item</div>
                         <div class="font-mono text-[10px]">slice(-3) → gets last 3 items</div>
-                        <div class="font-mono text-[10px]">slice(0) → shallow copy entire array</div>
+                        <div class="font-mono text-[10px]">slice(0) or [...arr] → shallow copy entire array</div>
+                    </div>
+                    <div class="mt-1.5 text-[10px]">
+                        ⚠️ <strong>Shallow vs Deep Copy:</strong>
+                    </div>
+                    <div class="pl-2 border-l-2 border-yellow-500/60 mt-1 space-y-1">
+                        <div class="font-mono text-[10px]">
+                            <span class="text-gray-400">// Simple values (strings/numbers) - shallow copy is fine:</span><br/>
+                            const copy = [1, 2, 3].slice(0)<br/>
+                            copy[0] = 999 → original unaffected ✅
+                        </div>
+                        <div class="font-mono text-[10px]">
+                            <span class="text-gray-400">// Nested objects - shallow copy shares references!</span><br/>
+                            const users = [&lbrace;id:1&rbrace;, &lbrace;id:2&rbrace;]<br/>
+                            const copy = users.slice(0)<br/>
+                            copy[0].id = 999 → original[0].id is also 999 ❌
+                        </div>
+                        <div class="font-mono text-[10px]">
+                            <span class="text-gray-400">// Deep copy - fully independent:</span><br/>
+                            const deep = structuredClone(users)<br/>
+                            deep[0].id = 999 → original unaffected ✅
+                        </div>
                     </div>
                 </ProTip>
             </MethodCard>
@@ -990,7 +1027,7 @@ import ProTip from '../components/visual-js/ProTip.astro'
 
                 <ProTip>
                     <div>Merge multiple arrays at once:</div>
-                    <div class="pl-2 border-l-2 border-purple-500/30 font-mono text-[10px]">
+                    <div class="pl-2 border-l-2 border-yellow-500/60 font-mono text-[10px]">
                         arr1.concat(arr2, arr3, arr4) → combines all in one call
                     </div>
                 </ProTip>
@@ -1029,7 +1066,7 @@ import ProTip from '../components/visual-js/ProTip.astro'
 
                         <ProTip>
                             <div>For deeply nested arrays, use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">flat(Infinity)</code> to flatten all levels:</div>
-                            <div class="pl-2 border-l-2 border-purple-500/30 font-mono text-[10px]">
+                            <div class="pl-2 border-l-2 border-yellow-500/60 font-mono text-[10px]">
                                 [1, [2, [3, [4]]]].flat(Infinity) → [1, 2, 3, 4]
                             </div>
                         </ProTip>
@@ -1452,6 +1489,14 @@ import ProTip from '../components/visual-js/ProTip.astro'
                         <InfoBox mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">index</code> of first match or -1 if not found. ⚠️ Cannot be chained.
                         </InfoBox>
+
+                        <ProTip>
+                            <div>Common pattern: Find and remove an item by combining with splice:</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/60 space-y-0.5">
+                                <div class="font-mono text-[10px]">const idx = users.findIndex(u =&gt; u.id === 5)</div>
+                                <div class="font-mono text-[10px]">if (idx !== -1) users.splice(idx, 1) <span class="text-gray-400">// removes user</span></div>
+                            </div>
+                        </ProTip>
                     </MethodCard>
                 </div>
 
@@ -1519,7 +1564,7 @@ import ProTip from '../components/visual-js/ProTip.astro'
 
                         <ProTip>
                             <div>Much cleaner than <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">arr[arr.length - 1]</code> for getting the last item:</div>
-                            <div class="pl-2 border-l-2 border-purple-500/30 font-mono text-[10px]">
+                            <div class="pl-2 border-l-2 border-yellow-500/60 font-mono text-[10px]">
                                 arr.at(-1) → last item, arr.at(-2) → second to last
                             </div>
                         </ProTip>
@@ -1561,7 +1606,7 @@ import ProTip from '../components/visual-js/ProTip.astro'
 
                 <ProTip>
                     <div>Reduce is super versatile! Common patterns:</div>
-                    <div class="pl-2 border-l-2 border-purple-500/30 space-y-1">
+                    <div class="pl-2 border-l-2 border-yellow-500/60 space-y-1">
                         <div class="font-mono text-[10px]"><span class="text-gray-400">// Count occurrences</span><br/>items.reduce((acc,v) =&gt; (&lbrace;...acc, [v]: (acc[v]||0)+1&rbrace;), &lbrace;&rbrace;)</div>
                         <div class="font-mono text-[10px]"><span class="text-gray-400">// Group by property</span><br/>users.reduce((acc,u) =&gt; (&lbrace;...acc, [u.role]: [...(acc[u.role]||[]),u]&rbrace;), &lbrace;&rbrace;)</div>
                         <div class="font-mono text-[10px]"><span class="text-gray-400">// Build object from array</span><br/>arr.reduce((acc,v,i) =&gt; (&lbrace;...acc, [i]: v&rbrace;), &lbrace;&rbrace;)</div>
@@ -1634,6 +1679,14 @@ import ProTip from '../components/visual-js/ProTip.astro'
                         <InfoBox mutates={false} message="">
                             Always returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">undefined</code>. Cannot be chained. Use for side effects only.
                         </InfoBox>
+
+                        <ProTip>
+                            <div>For large arrays (10,000+ items), regular <code class="bg-black/30 px-1 py-0.5 rounded font-mono text-yellow-400">for</code> loops are faster:</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/60 space-y-0.5">
+                                <div class="font-mono text-[10px]">for (let i = 0; i &lt; arr.length; i++) &lbrace; ... &rbrace; <span class="text-gray-400">// fastest</span></div>
+                                <div class="font-mono text-[10px]">arr.forEach(item =&gt; &lbrace; ... &rbrace;) <span class="text-gray-400">// cleaner, slightly slower</span></div>
+                            </div>
+                        </ProTip>
                     </MethodCard>
                 </div>
 
