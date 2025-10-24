@@ -16,6 +16,12 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
 		<meta name="generator" content={Astro.generator} />
 		<title>JS Array Methods - Blueprint Style</title>
         <style>
+            /* Smooth scrolling */
+            html {
+                scroll-behavior: smooth;
+                scroll-padding-top: 20px;
+            }
+
             /* Blueprint Card */
             .blueprint {
                 background: #252936;
@@ -284,28 +290,31 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
         </style>
 	</head>
 	<body class="m-0 p-4 bg-[#1a1d29] text-gray-200">
-        <div class="max-w-7xl mx-auto">
-            <h1 class="text-white mb-1 text-2xl font-bold">JavaScript Array Methods</h1>
-            <p class="text-gray-400 mb-6 text-sm">Visual blueprint-style reference for array operations</p>
+        <div class="flex gap-6 max-w-[1600px] mx-auto">
+            <!-- Main Content -->
+            <main class="flex-1 min-w-0">
+                <h1 class="text-white mb-1 text-2xl font-bold">JavaScript Array Methods</h1>
+                <p class="text-gray-400 mb-6 text-sm">Visual blueprint-style reference for array operations</p>
 
-            <!-- ============================================ -->
-            <!-- 🛠 MUTATES THE ARRAY -->
-            <!-- ============================================ -->
+                <!-- ============================================ -->
+                <!-- 🛠 MUTATES THE ARRAY -->
+                <!-- ============================================ -->
 
-            <h2 class="text-red-300 text-xl my-4 pb-2 border-b-2 border-red-500">
-                🛠 Mutates the Array
-            </h2>
+                <h2 id="mutates" class="text-red-300 text-xl my-4 pb-2 border-b-2 border-red-500">
+                    🛠 Mutates the Array
+                </h2>
 
-            <!-- === INSERT / REMOVE === -->
-            <h3 class="text-gray-300 text-lg mt-4 mb-2">Insert / Remove</h3>
+                <!-- === INSERT / REMOVE === -->
+                <h3 id="insert-remove" class="text-gray-300 text-lg mt-4 mb-2">Insert / Remove</h3>
 
-            <!-- PUSH -->
-            <MethodCard
-                methodName="push()"
-                signature="arr.push(...items)"
-                description="Adds elements to the end of an array and returns the new length"
-                mutates={true}
-            >
+                <!-- PUSH -->
+                <div id="push">
+                    <MethodCard
+                        methodName="push()"
+                        signature="arr.push(...items)"
+                        description="Adds elements to the end of an array and returns the new length"
+                        mutates={true}
+                    >
                 <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                     <Node label="Input Array" type="input">
                         <ArrayDisplay values={['a', 'b', 'c']} />
@@ -330,13 +339,15 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                     </Node>
                 </div>
 
-                <InfoBox mutates={true} message="">
-                    The original array is modified in place. Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">number</code> (new length), not the array.
-                </InfoBox>
-            </MethodCard>
+                        <InfoBox mutates={true} message="">
+                            The original array is modified in place. Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">number</code> (new length), not the array.
+                        </InfoBox>
+                    </MethodCard>
+                </div>
 
-            <!-- POP -->
-            <MethodCard
+                <!-- POP -->
+                <div id="pop">
+                    <MethodCard
                 methodName="pop()"
                 signature="arr.pop()"
                 description="Removes and returns the last element from an array"
@@ -370,8 +381,10 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                     The original array is shortened. Returns the removed element or <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">undefined</code> if array is empty.
                 </InfoBox>
             </MethodCard>
+                </div>
 
-            <!-- UNSHIFT -->
+                <!-- UNSHIFT -->
+                <div id="unshift">
             <MethodCard
                 methodName="unshift()"
                 signature="arr.unshift(...items)"
@@ -406,8 +419,10 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                     The original array is modified in place. All existing elements shift to higher indices. Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">number</code> (new length).
                 </InfoBox>
             </MethodCard>
+                </div>
 
-            <!-- SHIFT -->
+                <!-- SHIFT -->
+                <div id="shift">
             <MethodCard
                 methodName="shift()"
                 signature="arr.shift()"
@@ -442,8 +457,10 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                     The original array is shortened. All remaining elements shift to lower indices. Returns the removed element or <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">undefined</code> if array is empty.
                 </InfoBox>
             </MethodCard>
+                </div>
 
-            <!-- SPLICE -->
+                <!-- SPLICE -->
+                <div id="splice">
             <MethodCard
                 methodName="splice()"
                 signature="arr.splice(start, deleteCount, ...items)"
@@ -478,11 +495,13 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                     The Swiss Army knife of array methods. Returns an <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">array</code> of removed elements. Can remove, add, or replace items at any index.
                 </InfoBox>
             </MethodCard>
+                </div>
 
             <!-- === REORDER === -->
-            <h3 class="text-gray-300 text-lg mt-4 mb-2">Reorder</h3>
+            <h3 id="reorder" class="text-gray-300 text-lg mt-4 mb-2">Reorder</h3>
 
-            <!-- SORT -->
+                <!-- SORT -->
+                <div id="sort">
             <MethodCard
                 methodName="sort()"
                 signature="arr.sort(compareFn?)"
@@ -511,8 +530,10 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                     Sorts in place. Returns the <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">same array</code> (not a copy). Without a compare function, sorts as strings! Use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">(a, b) => a - b</code> for ascending numbers.
                 </InfoBox>
             </MethodCard>
+                </div>
 
-            <!-- REVERSE -->
+                <!-- REVERSE -->
+                <div id="reverse">
             <MethodCard
                 methodName="reverse()"
                 signature="arr.reverse()"
@@ -541,19 +562,21 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                     Reverses in place. Returns the <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">same array</code> (not a copy).
                 </InfoBox>
             </MethodCard>
+                </div>
 
             <!-- ============================================ -->
-            <!-- 🚫 DOES NOT MUTATE (returns new value) -->
-            <!-- ============================================ -->
+                <!-- 🚫 DOES NOT MUTATE (returns new value) -->
+                <!-- ============================================ -->
 
-            <h2 class="text-green-300 text-xl my-4 pb-2 border-b-2 border-green-600">
-                🚫 Does Not Mutate (returns new value)
-            </h2>
+                <h2 id="immutable" class="text-green-300 text-xl my-4 pb-2 border-b-2 border-green-600">
+                    🚫 Does Not Mutate (returns new value)
+                </h2>
 
-            <!-- === BUILD NEW ARRAYS === -->
-            <h3 class="text-gray-300 text-lg mt-4 mb-2">Build New Arrays</h3>
+                <!-- === BUILD NEW ARRAYS === -->
+                <h3 id="build-arrays" class="text-gray-300 text-lg mt-4 mb-2">Build New Arrays</h3>
 
-            <!-- MAP -->
+                <!-- MAP -->
+                <div id="map">
             <MethodCard
                 methodName="map()"
                 signature="arr.map(fn)"
@@ -582,8 +605,10 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                     Original array remains unchanged. Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> with same length, transformed values.
                 </InfoBox>
             </MethodCard>
+                </div>
 
-            <!-- FILTER -->
+                <!-- FILTER -->
+                <div id="filter">
             <MethodCard
                 methodName="filter()"
                 signature="arr.filter(fn)"
@@ -612,8 +637,10 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                     Original array remains unchanged. Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> (may be shorter) with only passing items.
                 </InfoBox>
             </MethodCard>
+                </div>
 
-            <!-- SLICE -->
+                <!-- SLICE -->
+                <div id="slice">
             <MethodCard
                 methodName="slice()"
                 signature="arr.slice(start, end)"
@@ -642,8 +669,10 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                     Original array remains unchanged. Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> containing the extracted section. End index is exclusive. Supports negative indices.
                 </InfoBox>
             </MethodCard>
+                </div>
 
-            <!-- CONCAT -->
+                <!-- CONCAT -->
+                <div id="concat">
             <MethodCard
                 methodName="concat()"
                 signature="arr.concat(...items)"
@@ -672,11 +701,13 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                     Original array remains unchanged. Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> with all items combined.
                 </InfoBox>
             </MethodCard>
+                </div>
 
             <!-- === FIND / TEST === -->
-            <h3 class="text-gray-300 text-lg mt-4 mb-2">Find / Test</h3>
+            <h3 id="find-test" class="text-gray-300 text-lg mt-4 mb-2">Find / Test</h3>
 
-            <!-- FIND -->
+                <!-- FIND -->
+                <div id="find">
             <MethodCard
                 methodName="find()"
                 signature="arr.find(fn)"
@@ -705,8 +736,10 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                     Original array remains unchanged. Returns the <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">first matching item</code> or <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">undefined</code> if none found.
                 </InfoBox>
             </MethodCard>
+                </div>
 
-            <!-- INCLUDES -->
+                <!-- INCLUDES -->
+                <div id="includes">
             <MethodCard
                 methodName="includes()"
                 signature="arr.includes(value)"
@@ -735,11 +768,13 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                     Original array remains unchanged. Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">boolean</code>. Works with <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">NaN</code> unlike <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">indexOf()</code>.
                 </InfoBox>
             </MethodCard>
+                </div>
 
             <!-- === REDUCE === -->
-            <h3 class="text-gray-300 text-lg mt-4 mb-2">Reduce</h3>
+            <h3 id="reduce-section" class="text-gray-300 text-lg mt-4 mb-2">Reduce</h3>
 
-            <!-- REDUCE -->
+                <!-- REDUCE -->
+                <div id="reduce">
             <MethodCard
                 methodName="reduce()"
                 signature="arr.reduce(fn, initialValue)"
@@ -768,7 +803,69 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                     Original array remains unchanged. Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">single value</code> of any type. The accumulator carries forward through each iteration.
                 </InfoBox>
             </MethodCard>
+                </div>
+            </main>
 
+            <!-- Sidebar Navigation -->
+            <aside class="w-64 shrink-0 sticky top-4 self-start hidden lg:block">
+                <nav class="bg-[#252936] rounded-lg p-4 border border-gray-700">
+                    <h3 class="text-white text-sm font-bold mb-3 uppercase tracking-wide">Navigation</h3>
+                    <ul class="space-y-2 text-xs">
+                        <!-- Mutates Section -->
+                        <li>
+                            <a href="#mutates" class="text-red-300 font-semibold hover:text-red-200 block py-1">🛠 Mutates</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-red-500/30 pl-2">
+                                <li>
+                                    <span class="text-gray-400 text-[10px] uppercase">Insert / Remove</span>
+                                    <ul class="ml-2 mt-0.5 space-y-0.5">
+                                        <li><a href="#push" class="text-gray-300 hover:text-blue-400 block">push()</a></li>
+                                        <li><a href="#pop" class="text-gray-300 hover:text-blue-400 block">pop()</a></li>
+                                        <li><a href="#unshift" class="text-gray-300 hover:text-blue-400 block">unshift()</a></li>
+                                        <li><a href="#shift" class="text-gray-300 hover:text-blue-400 block">shift()</a></li>
+                                        <li><a href="#splice" class="text-gray-300 hover:text-blue-400 block">splice()</a></li>
+                                    </ul>
+                                </li>
+                                <li class="mt-2">
+                                    <span class="text-gray-400 text-[10px] uppercase">Reorder</span>
+                                    <ul class="ml-2 mt-0.5 space-y-0.5">
+                                        <li><a href="#sort" class="text-gray-300 hover:text-blue-400 block">sort()</a></li>
+                                        <li><a href="#reverse" class="text-gray-300 hover:text-blue-400 block">reverse()</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <!-- Immutable Section -->
+                        <li class="mt-4">
+                            <a href="#immutable" class="text-green-300 font-semibold hover:text-green-200 block py-1">🚫 Immutable</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-green-500/30 pl-2">
+                                <li>
+                                    <span class="text-gray-400 text-[10px] uppercase">Build Arrays</span>
+                                    <ul class="ml-2 mt-0.5 space-y-0.5">
+                                        <li><a href="#map" class="text-gray-300 hover:text-blue-400 block">map()</a></li>
+                                        <li><a href="#filter" class="text-gray-300 hover:text-blue-400 block">filter()</a></li>
+                                        <li><a href="#slice" class="text-gray-300 hover:text-blue-400 block">slice()</a></li>
+                                        <li><a href="#concat" class="text-gray-300 hover:text-blue-400 block">concat()</a></li>
+                                    </ul>
+                                </li>
+                                <li class="mt-2">
+                                    <span class="text-gray-400 text-[10px] uppercase">Find / Test</span>
+                                    <ul class="ml-2 mt-0.5 space-y-0.5">
+                                        <li><a href="#find" class="text-gray-300 hover:text-blue-400 block">find()</a></li>
+                                        <li><a href="#includes" class="text-gray-300 hover:text-blue-400 block">includes()</a></li>
+                                    </ul>
+                                </li>
+                                <li class="mt-2">
+                                    <span class="text-gray-400 text-[10px] uppercase">Reduce</span>
+                                    <ul class="ml-2 mt-0.5 space-y-0.5">
+                                        <li><a href="#reduce" class="text-gray-300 hover:text-blue-400 block">reduce()</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
         </div>
 	</body>
 </html>
