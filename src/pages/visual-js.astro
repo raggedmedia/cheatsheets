@@ -564,11 +564,76 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
             </MethodCard>
                 </div>
 
-            <!-- ============================================ -->
-                <!-- 🚫 DOES NOT MUTATE (returns new value) -->
-                <!-- ============================================ -->
+                <!-- === OVERWRITE / MOVE === -->
+                <h3 id="overwrite-move" class="text-gray-300 text-lg mt-4 mb-2">Overwrite / Move</h3>
 
-                <h2 id="immutable" class="text-green-300 text-xl my-4 pb-2 border-b-2 border-green-600">
+                <!-- FILL -->
+                <div id="fill">
+                    <MethodCard
+                        methodName="fill()"
+                        signature="arr.fill(value, start?, end?)"
+                        description="Overwrites a section of the array with a static value"
+                        mutates={true}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input Array" type="input">
+                                <ArrayDisplay values={[1, 2, 3, 4, 5]} />
+                            </Node>
+
+                            <Arrow label="mutates" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="fill(0, 1, 4)" description="Fill indices 1-3 with 0" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="Same Array (Modified)" type="output">
+                                <ArrayDisplay values={[1, 0, 0, 0, 5]} highlightIndices={[1, 2, 3]} highlightType="transformed" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={true} message="">
+                            Overwrites in place. Returns the <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">same array</code>. End index is exclusive.
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
+                <!-- COPYWITHIN -->
+                <div id="copyWithin">
+                    <MethodCard
+                        methodName="copyWithin()"
+                        signature="arr.copyWithin(target, start, end?)"
+                        description="Copies part of array to another location within same array"
+                        mutates={true}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input Array" type="input">
+                                <ArrayDisplay values={[1, 2, 3, 4, 5]} />
+                            </Node>
+
+                            <Arrow label="mutates" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="copyWithin(0, 3)" description="Copy from index 3 to start" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="Same Array (Modified)" type="output">
+                                <ArrayDisplay values={[4, 5, 3, 4, 5]} highlightIndices={[0, 1]} highlightType="transformed" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={true} message="">
+                            Copies within the same array. Returns the <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">same array</code>. Doesn't change array length.
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
+                <!-- ============================================ -->
+                <!-- 🚫 DOES NOT MUTATE (returns new value) -->
+                <!-- ============================================ -->                <h2 id="immutable" class="text-green-300 text-xl my-4 pb-2 border-b-2 border-green-600">
                     🚫 Does Not Mutate (returns new value)
                 </h2>
 
@@ -703,6 +768,198 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
             </MethodCard>
                 </div>
 
+                <!-- FLAT -->
+                <div id="flat">
+                    <MethodCard
+                        methodName="flat()"
+                        signature="arr.flat(depth?)"
+                        description="Flattens nested arrays into a single level"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input Array" type="input">
+                                <div class="text-center text-sm font-mono">[1, [2, 3], [4, 5]]</div>
+                            </Node>
+
+                            <Arrow label="flattens" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="flat()" description="Flatten 1 level deep" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="New Array" type="output">
+                                <ArrayDisplay values={[1, 2, 3, 4, 5]} highlightIndices={[0, 1, 2, 3, 4]} highlightType="transformed" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> with sub-arrays flattened. Default depth is 1.
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
+                <!-- FLATMAP -->
+                <div id="flatMap">
+                    <MethodCard
+                        methodName="flatMap()"
+                        signature="arr.flatMap(fn)"
+                        description="Maps each element then flattens result by one level"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input Array" type="input">
+                                <ArrayDisplay values={[1, 2, 3]} />
+                            </Node>
+
+                            <Arrow label="transforms" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="flatMap(n => [n, n*2])" description="Map then flatten" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="New Array" type="output">
+                                <ArrayDisplay values={[1, 2, 2, 4, 3, 6]} highlightIndices={[0, 1, 2, 3, 4, 5]} highlightType="added" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code>. Equivalent to map() followed by flat(1).
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
+                <!-- WITH -->
+                <div id="with">
+                    <MethodCard
+                        methodName="with()"
+                        signature="arr.with(index, value)"
+                        description="Returns a copy with one element replaced"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input Array" type="input">
+                                <ArrayDisplay values={['a', 'b', 'c']} />
+                            </Node>
+
+                            <Arrow label="copies" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="with(1, 'X')" description="Replace index 1" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="New Array" type="output">
+                                <ArrayDisplay values={['a', 'X', 'c']} highlightIndices={[1]} highlightType="transformed" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> with one element changed. Original array unchanged.
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
+                <!-- TOSPLICED -->
+                <div id="toSpliced">
+                    <MethodCard
+                        methodName="toSpliced()"
+                        signature="arr.toSpliced(start, deleteCount, ...items)"
+                        description="Immutable version of splice - returns new array"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input Array" type="input">
+                                <ArrayDisplay values={['a', 'b', 'c', 'd']} />
+                            </Node>
+
+                            <Arrow label="copies" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="toSpliced(1, 2, 'X')" description="Remove 2, add 'X'" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="New Array" type="output">
+                                <ArrayDisplay values={['a', 'X', 'd']} highlightIndices={[1]} highlightType="transformed" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code>. Like splice() but doesn't mutate original.
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
+                <!-- TOSORTED -->
+                <div id="toSorted">
+                    <MethodCard
+                        methodName="toSorted()"
+                        signature="arr.toSorted(compareFn?)"
+                        description="Immutable version of sort - returns new sorted array"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input Array" type="input">
+                                <ArrayDisplay values={[3, 1, 4, 2]} />
+                            </Node>
+
+                            <Arrow label="copies" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="toSorted((a, b) => a - b)" description="Sort ascending" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="New Array" type="output">
+                                <ArrayDisplay values={[1, 2, 3, 4]} highlightIndices={[0, 1, 2, 3]} highlightType="transformed" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new sorted array</code>. Original array remains unchanged.
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
+                <!-- TOREVERSED -->
+                <div id="toReversed">
+                    <MethodCard
+                        methodName="toReversed()"
+                        signature="arr.toReversed()"
+                        description="Immutable version of reverse - returns new reversed array"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input Array" type="input">
+                                <ArrayDisplay values={['a', 'b', 'c']} />
+                            </Node>
+
+                            <Arrow label="copies" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="toReversed()" description="Reverse order" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="New Array" type="output">
+                                <ArrayDisplay values={['c', 'b', 'a']} highlightIndices={[0, 1, 2]} highlightType="transformed" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new reversed array</code>. Original array remains unchanged.
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
             <!-- === FIND / TEST === -->
             <h3 id="find-test" class="text-gray-300 text-lg mt-4 mb-2">Find / Test</h3>
 
@@ -770,6 +1027,262 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
             </MethodCard>
                 </div>
 
+                <!-- INDEXOF -->
+                <div id="indexOf">
+                    <MethodCard
+                        methodName="indexOf()"
+                        signature="arr.indexOf(value)"
+                        description="Returns the first index at which a value is found"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input Array" type="input">
+                                <ArrayDisplay values={['a', 'b', 'c', 'b']} />
+                            </Node>
+
+                            <Arrow label="searches" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="indexOf('b')" description="Find first 'b'" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="Index" type="output">
+                                <ReturnValue value={1} type="number | -1" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">number</code> (index) or <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">-1</code> if not found. Doesn't work with NaN.
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
+                <!-- SOME -->
+                <div id="some">
+                    <MethodCard
+                        methodName="some()"
+                        signature="arr.some(fn)"
+                        description="Tests whether at least one element passes the test"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input Array" type="input">
+                                <ArrayDisplay values={[1, 2, 3, 4, 5]} />
+                            </Node>
+
+                            <Arrow label="tests" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="some(n => n > 3)" description="Any item > 3?" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="Boolean Result" type="output">
+                                <ReturnValue value="true" type="boolean" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">boolean</code>. Returns true if ANY element passes the test.
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
+                <!-- EVERY -->
+                <div id="every">
+                    <MethodCard
+                        methodName="every()"
+                        signature="arr.every(fn)"
+                        description="Tests whether all elements pass the test"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input Array" type="input">
+                                <ArrayDisplay values={[2, 4, 6, 8]} />
+                            </Node>
+
+                            <Arrow label="tests" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="every(n => n % 2 === 0)" description="All even?" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="Boolean Result" type="output">
+                                <ReturnValue value="true" type="boolean" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">boolean</code>. Returns true only if ALL elements pass the test.
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
+                <!-- LASTINDEXOF -->
+                <div id="lastIndexOf">
+                    <MethodCard
+                        methodName="lastIndexOf()"
+                        signature="arr.lastIndexOf(value)"
+                        description="Returns the last index at which a value is found"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input Array" type="input">
+                                <ArrayDisplay values={['a', 'b', 'c', 'b']} />
+                            </Node>
+
+                            <Arrow label="searches" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="lastIndexOf('b')" description="Find last 'b'" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="Index" type="output">
+                                <ReturnValue value={3} type="number | -1" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">number</code> (last index) or <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">-1</code> if not found.
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
+                <!-- FINDLAST -->
+                <div id="findLast">
+                    <MethodCard
+                        methodName="findLast()"
+                        signature="arr.findLast(fn)"
+                        description="Returns the last element that passes a test function"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input Array" type="input">
+                                <ArrayDisplay values={[1, 5, 8, 12, 7]} />
+                            </Node>
+
+                            <Arrow label="searches" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="findLast(n => n > 10)" description="Last item > 10" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="Last Match" type="output">
+                                <ReturnValue value={12} type="item | undefined" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns the <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">last matching item</code> or <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">undefined</code>. Searches from end to start.
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
+                <!-- FINDINDEX -->
+                <div id="findIndex">
+                    <MethodCard
+                        methodName="findIndex()"
+                        signature="arr.findIndex(fn)"
+                        description="Returns the index of first element that passes test"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input Array" type="input">
+                                <ArrayDisplay values={[1, 5, 8, 12]} />
+                            </Node>
+
+                            <Arrow label="searches" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="findIndex(n => n > 10)" description="Index of first > 10" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="Index" type="output">
+                                <ReturnValue value={3} type="number | -1" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">index</code> of first match or <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">-1</code> if not found.
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
+                <!-- FINDLASTINDEX -->
+                <div id="findLastIndex">
+                    <MethodCard
+                        methodName="findLastIndex()"
+                        signature="arr.findLastIndex(fn)"
+                        description="Returns the index of last element that passes test"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input Array" type="input">
+                                <ArrayDisplay values={[1, 5, 8, 12, 7]} />
+                            </Node>
+
+                            <Arrow label="searches" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="findLastIndex(n => n > 10)" description="Index of last > 10" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="Index" type="output">
+                                <ReturnValue value={3} type="number | -1" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">index</code> of last match or <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">-1</code>. Searches from end to start.
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
+                <!-- AT -->
+                <div id="at">
+                    <MethodCard
+                        methodName="at()"
+                        signature="arr.at(index)"
+                        description="Returns element at given index (supports negative indices)"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input Array" type="input">
+                                <ArrayDisplay values={['a', 'b', 'c', 'd']} />
+                            </Node>
+
+                            <Arrow label="accesses" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="at(-1)" description="Get last item" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="Item" type="output">
+                                <ReturnValue value="'d'" type="item | undefined" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">item</code> at index. Negative indices count from end (-1 = last item).
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
             <!-- === REDUCE === -->
             <h3 id="reduce-section" class="text-gray-300 text-lg mt-4 mb-2">Reduce</h3>
 
@@ -804,10 +1317,272 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                 </InfoBox>
             </MethodCard>
                 </div>
+
+                <!-- REDUCERIGHT -->
+                <div id="reduceRight">
+                    <MethodCard
+                        methodName="reduceRight()"
+                        signature="arr.reduceRight(fn, initialValue)"
+                        description="Reduces array from right to left with an accumulator"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input Array" type="input">
+                                <ArrayDisplay values={['a', 'b', 'c']} />
+                            </Node>
+
+                            <Arrow label="reduces →" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="reduceRight((acc, v) => acc + v)" description="Concat from right: c+b+a" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="Single Value" type="output">
+                                <ReturnValue value="'cba'" type="string" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Like reduce() but processes from <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">right to left</code>. Returns a single value of any type.
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
+                <!-- === ITERATE / INSPECT === -->
+                <h3 id="iterate-inspect" class="text-gray-300 text-lg mt-4 mb-2">Iterate / Inspect</h3>
+
+                <!-- FOREACH -->
+                <div id="forEach">
+                    <MethodCard
+                        methodName="forEach()"
+                        signature="arr.forEach(fn)"
+                        description="Executes a function for each array element"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input Array" type="input">
+                                <ArrayDisplay values={['a', 'b', 'c']} />
+                            </Node>
+
+                            <Arrow label="iterates" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="forEach(console.log)" description="Run function on each" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="Return Value" type="output">
+                                <ReturnValue value="undefined" type="undefined" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Always returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">undefined</code>. Cannot be chained. Use for side effects only.
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
+                <!-- ENTRIES -->
+                <div id="entries">
+                    <MethodCard
+                        methodName="entries()"
+                        signature="arr.entries()"
+                        description="Returns an iterator of [index, value] pairs"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input Array" type="input">
+                                <ArrayDisplay values={['a', 'b', 'c']} />
+                            </Node>
+
+                            <Arrow label="iterates" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="entries()" description="Get [index, value] pairs" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="Iterator" type="output">
+                                <div class="text-center text-xs font-mono">[0,'a'], [1,'b'], [2,'c']</div>
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns an <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">iterator</code>. Use with for...of or Array.from().
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
+                <!-- KEYS -->
+                <div id="keys">
+                    <MethodCard
+                        methodName="keys()"
+                        signature="arr.keys()"
+                        description="Returns an iterator of array indices"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input Array" type="input">
+                                <ArrayDisplay values={['a', 'b', 'c']} />
+                            </Node>
+
+                            <Arrow label="iterates" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="keys()" description="Get indices" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="Iterator" type="output">
+                                <div class="text-center text-xs font-mono">0, 1, 2</div>
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns an <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">iterator</code> of array indices.
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
+                <!-- VALUES -->
+                <div id="values">
+                    <MethodCard
+                        methodName="values()"
+                        signature="arr.values()"
+                        description="Returns an iterator of array values"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input Array" type="input">
+                                <ArrayDisplay values={['a', 'b', 'c']} />
+                            </Node>
+
+                            <Arrow label="iterates" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="values()" description="Get values" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="Iterator" type="output">
+                                <div class="text-center text-xs font-mono">'a', 'b', 'c'</div>
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns an <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">iterator</code> of array values.
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
+                <!-- === STRINGIFY === -->
+                <h3 id="stringify" class="text-gray-300 text-lg mt-4 mb-2">Stringify</h3>
+
+                <!-- JOIN -->
+                <div id="join">
+                    <MethodCard
+                        methodName="join()"
+                        signature="arr.join(separator?)"
+                        description="Joins all elements into a string"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input Array" type="input">
+                                <ArrayDisplay values={['a', 'b', 'c']} />
+                            </Node>
+
+                            <Arrow label="joins" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="join('-')" description="Join with '-'" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="String" type="output">
+                                <ReturnValue value="'a-b-c'" type="string" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. Default separator is comma.
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
+                <!-- TOSTRING -->
+                <div id="toString">
+                    <MethodCard
+                        methodName="toString()"
+                        signature="arr.toString()"
+                        description="Converts array to comma-separated string"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input Array" type="input">
+                                <ArrayDisplay values={[1, 2, 3]} />
+                            </Node>
+
+                            <Arrow label="converts" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="toString()" description="Convert to string" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="String" type="output">
+                                <ReturnValue value="'1,2,3'" type="string" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. Equivalent to join() without separator.
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
+                <!-- TOLOCALESTRING -->
+                <div id="toLocaleString">
+                    <MethodCard
+                        methodName="toLocaleString()"
+                        signature="arr.toLocaleString()"
+                        description="Converts array to locale-specific string"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input Array" type="input">
+                                <ArrayDisplay values={[1000, 2000]} />
+                            </Node>
+
+                            <Arrow label="converts" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="toLocaleString()" description="Locale-aware convert" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="String" type="output">
+                                <ReturnValue value="'1,000, 2,000'" type="string" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code> with locale-specific formatting for numbers, dates, etc.
+                        </InfoBox>
+                    </MethodCard>
+                </div>
             </main>
 
             <!-- Sidebar Navigation -->
-            <aside class="w-64 shrink-0 sticky top-4 self-start hidden lg:block">
+            <aside class="w-64 shrink-0 sticky top-4 self-start hidden lg:block max-h-[calc(100vh-2rem)] overflow-y-auto">
                 <nav class="bg-[#252936] rounded-lg p-4 border border-gray-700">
                     <h3 class="text-white text-sm font-bold mb-3 uppercase tracking-wide">Navigation</h3>
                     <ul class="space-y-2 text-xs">
@@ -832,6 +1607,13 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                                         <li><a href="#reverse" class="text-gray-300 hover:text-blue-400 block">reverse()</a></li>
                                     </ul>
                                 </li>
+                                <li class="mt-2">
+                                    <span class="text-gray-400 text-[10px] uppercase">Overwrite / Move</span>
+                                    <ul class="ml-2 mt-0.5 space-y-0.5">
+                                        <li><a href="#fill" class="text-gray-300 hover:text-blue-400 block">fill()</a></li>
+                                        <li><a href="#copyWithin" class="text-gray-300 hover:text-blue-400 block">copyWithin()</a></li>
+                                    </ul>
+                                </li>
                             </ul>
                         </li>
 
@@ -846,6 +1628,12 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                                         <li><a href="#filter" class="text-gray-300 hover:text-blue-400 block">filter()</a></li>
                                         <li><a href="#slice" class="text-gray-300 hover:text-blue-400 block">slice()</a></li>
                                         <li><a href="#concat" class="text-gray-300 hover:text-blue-400 block">concat()</a></li>
+                                        <li><a href="#flat" class="text-gray-300 hover:text-blue-400 block">flat()</a></li>
+                                        <li><a href="#flatMap" class="text-gray-300 hover:text-blue-400 block">flatMap()</a></li>
+                                        <li><a href="#with" class="text-gray-300 hover:text-blue-400 block">with()</a></li>
+                                        <li><a href="#toSpliced" class="text-gray-300 hover:text-blue-400 block">toSpliced()</a></li>
+                                        <li><a href="#toSorted" class="text-gray-300 hover:text-blue-400 block">toSorted()</a></li>
+                                        <li><a href="#toReversed" class="text-gray-300 hover:text-blue-400 block">toReversed()</a></li>
                                     </ul>
                                 </li>
                                 <li class="mt-2">
@@ -853,12 +1641,38 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                                     <ul class="ml-2 mt-0.5 space-y-0.5">
                                         <li><a href="#find" class="text-gray-300 hover:text-blue-400 block">find()</a></li>
                                         <li><a href="#includes" class="text-gray-300 hover:text-blue-400 block">includes()</a></li>
+                                        <li><a href="#indexOf" class="text-gray-300 hover:text-blue-400 block">indexOf()</a></li>
+                                        <li><a href="#some" class="text-gray-300 hover:text-blue-400 block">some()</a></li>
+                                        <li><a href="#every" class="text-gray-300 hover:text-blue-400 block">every()</a></li>
+                                        <li><a href="#lastIndexOf" class="text-gray-300 hover:text-blue-400 block">lastIndexOf()</a></li>
+                                        <li><a href="#findLast" class="text-gray-300 hover:text-blue-400 block">findLast()</a></li>
+                                        <li><a href="#findIndex" class="text-gray-300 hover:text-blue-400 block">findIndex()</a></li>
+                                        <li><a href="#findLastIndex" class="text-gray-300 hover:text-blue-400 block">findLastIndex()</a></li>
+                                        <li><a href="#at" class="text-gray-300 hover:text-blue-400 block">at()</a></li>
                                     </ul>
                                 </li>
                                 <li class="mt-2">
                                     <span class="text-gray-400 text-[10px] uppercase">Reduce</span>
                                     <ul class="ml-2 mt-0.5 space-y-0.5">
                                         <li><a href="#reduce" class="text-gray-300 hover:text-blue-400 block">reduce()</a></li>
+                                        <li><a href="#reduceRight" class="text-gray-300 hover:text-blue-400 block">reduceRight()</a></li>
+                                    </ul>
+                                </li>
+                                <li class="mt-2">
+                                    <span class="text-gray-400 text-[10px] uppercase">Iterate / Inspect</span>
+                                    <ul class="ml-2 mt-0.5 space-y-0.5">
+                                        <li><a href="#forEach" class="text-gray-300 hover:text-blue-400 block">forEach()</a></li>
+                                        <li><a href="#entries" class="text-gray-300 hover:text-blue-400 block">entries()</a></li>
+                                        <li><a href="#keys" class="text-gray-300 hover:text-blue-400 block">keys()</a></li>
+                                        <li><a href="#values" class="text-gray-300 hover:text-blue-400 block">values()</a></li>
+                                    </ul>
+                                </li>
+                                <li class="mt-2">
+                                    <span class="text-gray-400 text-[10px] uppercase">Stringify</span>
+                                    <ul class="ml-2 mt-0.5 space-y-0.5">
+                                        <li><a href="#join" class="text-gray-300 hover:text-blue-400 block">join()</a></li>
+                                        <li><a href="#toString" class="text-gray-300 hover:text-blue-400 block">toString()</a></li>
+                                        <li><a href="#toLocaleString" class="text-gray-300 hover:text-blue-400 block">toLocaleString()</a></li>
                                     </ul>
                                 </li>
                             </ul>
