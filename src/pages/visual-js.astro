@@ -514,7 +514,7 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                 </div>
 
                         <InfoBox mutates={true} message="">
-                            The original array is modified in place. Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">number</code> (new length), not the array.
+                            The original array is modified in place. Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">number</code> (new length), not the array. ⚠️ Cannot be chained with other array methods.
                         </InfoBox>
                     </MethodCard>
                 </div>
@@ -552,7 +552,7 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                 </div>
 
                 <InfoBox mutates={true} message="">
-                    The original array is shortened. Returns the removed element or <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">undefined</code> if array is empty.
+                    The original array is shortened. Returns the removed <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">element</code> (or undefined if empty). ⚠️ Cannot be chained with other array methods.
                 </InfoBox>
             </MethodCard>
                 </div>
@@ -590,7 +590,7 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                 </div>
 
                 <InfoBox mutates={true} message="">
-                    The original array is modified in place. All existing elements shift to higher indices. Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">number</code> (new length).
+                    The original array is modified in place. All existing elements shift to higher indices. Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">number</code> (new length). ⚠️ Cannot be chained with other array methods.
                 </InfoBox>
             </MethodCard>
                 </div>
@@ -628,7 +628,7 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                 </div>
 
                 <InfoBox mutates={true} message="">
-                    The original array is shortened. All remaining elements shift to lower indices. Returns the removed element or <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">undefined</code> if array is empty.
+                    The original array is shortened. All remaining elements shift to lower indices. Returns the removed <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">element</code> (or undefined if empty). ⚠️ Cannot be chained with other array methods.
                 </InfoBox>
             </MethodCard>
                 </div>
@@ -668,6 +668,16 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                 <InfoBox mutates={true} message="">
                     The Swiss Army knife of array methods. Returns an <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">array</code> of removed elements. Can remove, add, or replace items at any index.
                 </InfoBox>
+
+                <div class="mt-2 p-2 bg-purple-900/20 border border-purple-500/30 rounded text-[11px] leading-snug">
+                    <div class="text-purple-300 font-bold mb-1">💡 Pro tip:</div>
+                    <div class="text-gray-300 space-y-1">
+                        <div>Insert without deleting by setting deleteCount to 0:</div>
+                        <div class="pl-2 border-l-2 border-purple-500/30 font-mono text-[10px]">
+                            arr.splice(2, 0, 'x', 'y') → inserts 'x', 'y' at index 2
+                        </div>
+                    </div>
+                </div>
             </MethodCard>
                 </div>
 
@@ -701,8 +711,28 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                 </div>
 
                 <InfoBox mutates={true} message="">
-                    Sorts in place. Returns the <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">same array</code> (not a copy). Without a compare function, sorts as strings! Use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">(a, b) => a - b</code> for ascending numbers.
+                    Sorts in place. Returns the <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">same array</code> (not a copy).
                 </InfoBox>
+
+                <div class="mt-2 p-2 bg-purple-900/20 border border-purple-500/30 rounded text-[11px] leading-snug">
+                    <div class="text-purple-300 font-bold mb-1">💡 Pro tip:</div>
+                    <div class="text-gray-300 space-y-1.5">
+                        <div>Without a compare function, sort treats values as strings!</div>
+
+                        <div class="pl-2 border-l-2 border-purple-500/30">
+                            <div class="font-mono text-[10px]">['b','d','a','c'].sort() → ['a','b','c','d']</div>
+                            <div class="font-mono text-[10px]">['b','d','a','c'].sort().reverse() → ['d','c','b','a']</div>
+                        </div>
+
+                        <div>For numbers, use compare function:</div>
+
+                        <div class="pl-2 border-l-2 border-purple-500/30">
+                            <div class="font-mono text-[10px]">[2,4,1,3].sort((a,b) => a-b) → [1,2,3,4] <span class="text-gray-400">// ascending</span></div>
+                            <div class="font-mono text-[10px]">[2,4,1,3].sort((a,b) => b-a) → [4,3,2,1] <span class="text-gray-400">// descending</span></div>
+                            <div class="font-mono text-[10px] text-gray-400">// OR: .sort((a,b) => a-b).reverse() → [4,3,2,1]</div>
+                        </div>
+                    </div>
+                </div>
             </MethodCard>
                 </div>
 
@@ -843,6 +873,17 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                 <InfoBox mutates={false} message="">
                     Original array remains unchanged. Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> with same length, transformed values.
                 </InfoBox>
+
+                <div class="mt-2 p-2 bg-purple-900/20 border border-purple-500/30 rounded text-[11px] leading-snug">
+                    <div class="text-purple-300 font-bold mb-1">💡 Pro tip:</div>
+                    <div class="text-gray-300 space-y-1">
+                        <div>Need the results? Use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">map()</code>. Just doing side effects? Use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">forEach()</code>.</div>
+                        <div class="pl-2 border-l-2 border-purple-500/30 font-mono text-[10px]">
+                            const ids = users.map(u => u.id) ✅<br/>
+                            users.forEach(u => console.log(u)) ✅
+                        </div>
+                    </div>
+                </div>
             </MethodCard>
                 </div>
 
@@ -875,6 +916,16 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                 <InfoBox mutates={false} message="">
                     Original array remains unchanged. Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> (may be shorter) with only passing items.
                 </InfoBox>
+
+                <div class="mt-2 p-2 bg-purple-900/20 border border-purple-500/30 rounded text-[11px] leading-snug">
+                    <div class="text-purple-300 font-bold mb-1">💡 Pro tip:</div>
+                    <div class="text-gray-300 space-y-1">
+                        <div>Use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">filter(Boolean)</code> to remove all falsy values in one go!</div>
+                        <div class="pl-2 border-l-2 border-purple-500/30 font-mono text-[10px]">
+                            [0, 1, false, 2, '', 3, null].filter(Boolean) → [1, 2, 3]
+                        </div>
+                    </div>
+                </div>
             </MethodCard>
                 </div>
 
@@ -907,6 +958,17 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                 <InfoBox mutates={false} message="">
                     Original array remains unchanged. Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> containing the extracted section. End index is exclusive. Supports negative indices.
                 </InfoBox>
+
+                <div class="mt-2 p-2 bg-purple-900/20 border border-purple-500/30 rounded text-[11px] leading-snug">
+                    <div class="text-purple-300 font-bold mb-1">💡 Pro tip:</div>
+                    <div class="text-gray-300 space-y-1.5">
+                        <div class="pl-2 border-l-2 border-purple-500/30">
+                            <div class="font-mono text-[10px]">slice(1, -1) → removes first & last item</div>
+                            <div class="font-mono text-[10px]">slice(-3) → gets last 3 items</div>
+                            <div class="font-mono text-[10px]">slice(0) → shallow copy entire array</div>
+                        </div>
+                    </div>
+                </div>
             </MethodCard>
                 </div>
 
@@ -939,6 +1001,16 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                 <InfoBox mutates={false} message="">
                     Original array remains unchanged. Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> with all items combined.
                 </InfoBox>
+
+                <div class="mt-2 p-2 bg-purple-900/20 border border-purple-500/30 rounded text-[11px] leading-snug">
+                    <div class="text-purple-300 font-bold mb-1">💡 Pro tip:</div>
+                    <div class="text-gray-300 space-y-1">
+                        <div>Merge multiple arrays at once:</div>
+                        <div class="pl-2 border-l-2 border-purple-500/30 font-mono text-[10px]">
+                            arr1.concat(arr2, arr3, arr4) → combines all in one call
+                        </div>
+                    </div>
+                </div>
             </MethodCard>
                 </div>
 
@@ -971,6 +1043,16 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                         <InfoBox mutates={false} message="">
                             Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> with sub-arrays flattened. Default depth is 1.
                         </InfoBox>
+
+                        <div class="mt-2 p-2 bg-purple-900/20 border border-purple-500/30 rounded text-[11px] leading-snug">
+                            <div class="text-purple-300 font-bold mb-1">💡 Pro tip:</div>
+                            <div class="text-gray-300 space-y-1">
+                                <div>For deeply nested arrays, use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">flat(Infinity)</code> to flatten all levels:</div>
+                                <div class="pl-2 border-l-2 border-purple-500/30 font-mono text-[10px]">
+                                    [1, [2, [3, [4]]]].flat(Infinity) → [1, 2, 3, 4]
+                                </div>
+                            </div>
+                        </div>
                     </MethodCard>
                 </div>
 
@@ -1164,7 +1246,7 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                 </div>
 
                 <InfoBox mutates={false} message="">
-                    Original array remains unchanged. Returns the <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">first matching item</code> or <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">undefined</code> if none found.
+                    Returns the <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">first matching item</code> or undefined if none found. ⚠️ Cannot be chained.
                 </InfoBox>
             </MethodCard>
                 </div>
@@ -1196,7 +1278,7 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                 </div>
 
                 <InfoBox mutates={false} message="">
-                    Original array remains unchanged. Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">boolean</code>. Works with <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">NaN</code> unlike <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">indexOf()</code>.
+                    Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">boolean</code>. ⚠️ Cannot be chained. Works with NaN unlike indexOf().
                 </InfoBox>
             </MethodCard>
                 </div>
@@ -1228,7 +1310,7 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                         </div>
 
                         <InfoBox mutates={false} message="">
-                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">number</code> (index) or <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">-1</code> if not found. Doesn't work with NaN.
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">number</code> (index) or -1 if not found. ⚠️ Cannot be chained. Doesn't work with NaN.
                         </InfoBox>
                     </MethodCard>
                 </div>
@@ -1260,7 +1342,7 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                         </div>
 
                         <InfoBox mutates={false} message="">
-                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">boolean</code>. Returns true if ANY element passes the test.
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">boolean</code>. ⚠️ Cannot be chained. Returns true if ANY element passes the test.
                         </InfoBox>
                     </MethodCard>
                 </div>
@@ -1292,7 +1374,7 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                         </div>
 
                         <InfoBox mutates={false} message="">
-                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">boolean</code>. Returns true only if ALL elements pass the test.
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">boolean</code>. ⚠️ Cannot be chained. Returns true only if ALL elements pass the test.
                         </InfoBox>
                     </MethodCard>
                 </div>
@@ -1324,7 +1406,7 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                         </div>
 
                         <InfoBox mutates={false} message="">
-                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">number</code> (last index) or <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">-1</code> if not found.
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">number</code> (last index) or -1 if not found. ⚠️ Cannot be chained.
                         </InfoBox>
                     </MethodCard>
                 </div>
@@ -1356,7 +1438,7 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                         </div>
 
                         <InfoBox mutates={false} message="">
-                            Returns the <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">last matching item</code> or <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">undefined</code>. Searches from end to start.
+                            Returns the <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">last matching item</code> or undefined. ⚠️ Cannot be chained. Searches from end to start.
                         </InfoBox>
                     </MethodCard>
                 </div>
@@ -1388,7 +1470,7 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                         </div>
 
                         <InfoBox mutates={false} message="">
-                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">index</code> of first match or <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">-1</code> if not found.
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">index</code> of first match or -1 if not found. ⚠️ Cannot be chained.
                         </InfoBox>
                     </MethodCard>
                 </div>
@@ -1420,7 +1502,7 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                         </div>
 
                         <InfoBox mutates={false} message="">
-                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">index</code> of last match or <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">-1</code>. Searches from end to start.
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">index</code> of last match or -1. ⚠️ Cannot be chained. Searches from end to start.
                         </InfoBox>
                     </MethodCard>
                 </div>
@@ -1452,8 +1534,18 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                         </div>
 
                         <InfoBox mutates={false} message="">
-                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">item</code> at index. Negative indices count from end (-1 = last item).
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">item</code> at index. ⚠️ Cannot be chained. Negative indices count from end (-1 = last item).
                         </InfoBox>
+
+                        <div class="mt-2 p-2 bg-purple-900/20 border border-purple-500/30 rounded text-[11px] leading-snug">
+                            <div class="text-purple-300 font-bold mb-1">💡 Pro tip:</div>
+                            <div class="text-gray-300 space-y-1">
+                                <div>Much cleaner than <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">arr[arr.length - 1]</code> for getting the last item:</div>
+                                <div class="pl-2 border-l-2 border-purple-500/30 font-mono text-[10px]">
+                                    arr.at(-1) → last item, arr.at(-2) → second to last
+                                </div>
+                            </div>
+                        </div>
                     </MethodCard>
                 </div>
 
@@ -1487,8 +1579,20 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                 </div>
 
                 <InfoBox mutates={false} message="">
-                    Original array remains unchanged. Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">single value</code> of any type. The accumulator carries forward through each iteration.
+                    Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">single value</code> of any type. ⚠️ Cannot be chained. The accumulator carries forward through each iteration.
                 </InfoBox>
+
+                <div class="mt-2 p-2 bg-purple-900/20 border border-purple-500/30 rounded text-[11px] leading-snug">
+                    <div class="text-purple-300 font-bold mb-1">💡 Pro tip:</div>
+                    <div class="text-gray-300 space-y-1.5">
+                        <div>Reduce is super versatile! Common patterns:</div>
+                        <div class="pl-2 border-l-2 border-purple-500/30 space-y-1">
+                            <div class="font-mono text-[10px]"><span class="text-gray-400">// Count occurrences</span><br/>items.reduce((acc,v) =&gt; (&lbrace;...acc, [v]: (acc[v]||0)+1&rbrace;), &lbrace;&rbrace;)</div>
+                            <div class="font-mono text-[10px]"><span class="text-gray-400">// Group by property</span><br/>users.reduce((acc,u) =&gt; (&lbrace;...acc, [u.role]: [...(acc[u.role]||[]),u]&rbrace;), &lbrace;&rbrace;)</div>
+                            <div class="font-mono text-[10px]"><span class="text-gray-400">// Build object from array</span><br/>arr.reduce((acc,v,i) =&gt; (&lbrace;...acc, [i]: v&rbrace;), &lbrace;&rbrace;)</div>
+                        </div>
+                    </div>
+                </div>
             </MethodCard>
                 </div>
 
@@ -1519,7 +1623,7 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                         </div>
 
                         <InfoBox mutates={false} message="">
-                            Like reduce() but processes from <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">right to left</code>. Returns a single value of any type.
+                            Like reduce() but processes from <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">right to left</code>. Returns a single value. ⚠️ Cannot be chained.
                         </InfoBox>
                     </MethodCard>
                 </div>
@@ -1586,7 +1690,7 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                         </div>
 
                         <InfoBox mutates={false} message="">
-                            Returns an <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">iterator</code>. Use with for...of or Array.from().
+                            Returns an <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">iterator</code>. ⚠️ Cannot be chained directly. Use with for...of or Array.from().
                         </InfoBox>
                     </MethodCard>
                 </div>
@@ -1618,7 +1722,7 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                         </div>
 
                         <InfoBox mutates={false} message="">
-                            Returns an <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">iterator</code> of array indices.
+                            Returns an <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">iterator</code> of array indices. ⚠️ Cannot be chained directly.
                         </InfoBox>
                     </MethodCard>
                 </div>
@@ -1650,7 +1754,7 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                         </div>
 
                         <InfoBox mutates={false} message="">
-                            Returns an <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">iterator</code> of array values.
+                            Returns an <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">iterator</code> of array values. ⚠️ Cannot be chained directly.
                         </InfoBox>
                     </MethodCard>
                 </div>
@@ -1685,7 +1789,7 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                         </div>
 
                         <InfoBox mutates={false} message="">
-                            Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. Default separator is comma.
+                            Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. ⚠️ Cannot be chained. Default separator is comma.
                         </InfoBox>
                     </MethodCard>
                 </div>
@@ -1717,7 +1821,7 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                         </div>
 
                         <InfoBox mutates={false} message="">
-                            Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. Equivalent to join() without separator.
+                            Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. ⚠️ Cannot be chained. Equivalent to join() without separator.
                         </InfoBox>
                     </MethodCard>
                 </div>
@@ -1749,7 +1853,7 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                         </div>
 
                         <InfoBox mutates={false} message="">
-                            Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code> with locale-specific formatting for numbers, dates, etc.
+                            Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code> with locale-specific formatting. ⚠️ Cannot be chained.
                         </InfoBox>
                     </MethodCard>
                 </div>
