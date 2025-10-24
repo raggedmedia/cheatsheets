@@ -7,6 +7,7 @@ import Arrow from '../components/visual-js/Arrow.astro'
 import ReturnValue from '../components/visual-js/ReturnValue.astro'
 import InfoBox from '../components/visual-js/InfoBox.astro'
 import ProcessContent from '../components/visual-js/ProcessContent.astro'
+import ProTip from '../components/visual-js/ProTip.astro'
 ---
 <html lang="en">
 	<head>
@@ -669,15 +670,12 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                     The Swiss Army knife of array methods. Returns an <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">array</code> of removed elements. Can remove, add, or replace items at any index.
                 </InfoBox>
 
-                <div class="mt-2 p-2 bg-purple-900/20 border border-purple-500/30 rounded text-[11px] leading-snug">
-                    <div class="text-purple-300 font-bold mb-1">💡 Pro tip:</div>
-                    <div class="text-gray-300 space-y-1">
-                        <div>Insert without deleting by setting deleteCount to 0:</div>
-                        <div class="pl-2 border-l-2 border-purple-500/30 font-mono text-[10px]">
-                            arr.splice(2, 0, 'x', 'y') → inserts 'x', 'y' at index 2
-                        </div>
+                <ProTip>
+                    <div>Insert without deleting by setting deleteCount to 0:</div>
+                    <div class="pl-2 border-l-2 border-purple-500/30 font-mono text-[10px]">
+                        arr.splice(2, 0, 'x', 'y') → inserts 'x', 'y' at index 2
                     </div>
-                </div>
+                </ProTip>
             </MethodCard>
                 </div>
 
@@ -714,25 +712,22 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                     Sorts in place. Returns the <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">same array</code> (not a copy).
                 </InfoBox>
 
-                <div class="mt-2 p-2 bg-purple-900/20 border border-purple-500/30 rounded text-[11px] leading-snug">
-                    <div class="text-purple-300 font-bold mb-1">💡 Pro tip:</div>
-                    <div class="text-gray-300 space-y-1.5">
-                        <div>Without a compare function, sort treats values as strings!</div>
+                <ProTip>
+                    <div>Without a compare function, sort treats values as strings!</div>
 
-                        <div class="pl-2 border-l-2 border-purple-500/30">
-                            <div class="font-mono text-[10px]">['b','d','a','c'].sort() → ['a','b','c','d']</div>
-                            <div class="font-mono text-[10px]">['b','d','a','c'].sort().reverse() → ['d','c','b','a']</div>
-                        </div>
-
-                        <div>For numbers, use compare function:</div>
-
-                        <div class="pl-2 border-l-2 border-purple-500/30">
-                            <div class="font-mono text-[10px]">[2,4,1,3].sort((a,b) => a-b) → [1,2,3,4] <span class="text-gray-400">// ascending</span></div>
-                            <div class="font-mono text-[10px]">[2,4,1,3].sort((a,b) => b-a) → [4,3,2,1] <span class="text-gray-400">// descending</span></div>
-                            <div class="font-mono text-[10px] text-gray-400">// OR: .sort((a,b) => a-b).reverse() → [4,3,2,1]</div>
-                        </div>
+                    <div class="pl-2 border-l-2 border-purple-500/30">
+                        <div class="font-mono text-[10px]">['b','d','a','c'].sort() → ['a','b','c','d']</div>
+                        <div class="font-mono text-[10px]">['b','d','a','c'].sort().reverse() → ['d','c','b','a']</div>
                     </div>
-                </div>
+
+                    <div>For numbers, use compare function:</div>
+
+                    <div class="pl-2 border-l-2 border-purple-500/30">
+                        <div class="font-mono text-[10px]">[2,4,1,3].sort((a,b) => a-b) → [1,2,3,4] <span class="text-gray-400">// ascending</span></div>
+                        <div class="font-mono text-[10px]">[2,4,1,3].sort((a,b) => b-a) → [4,3,2,1] <span class="text-gray-400">// descending</span></div>
+                        <div class="font-mono text-[10px] text-gray-400">// OR: .sort((a,b) => a-b).reverse() → [4,3,2,1]</div>
+                    </div>
+                </ProTip>
             </MethodCard>
                 </div>
 
@@ -874,16 +869,13 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                     Original array remains unchanged. Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> with same length, transformed values.
                 </InfoBox>
 
-                <div class="mt-2 p-2 bg-purple-900/20 border border-purple-500/30 rounded text-[11px] leading-snug">
-                    <div class="text-purple-300 font-bold mb-1">💡 Pro tip:</div>
-                    <div class="text-gray-300 space-y-1">
-                        <div>Need the results? Use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">map()</code>. Just doing side effects? Use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">forEach()</code>.</div>
-                        <div class="pl-2 border-l-2 border-purple-500/30 font-mono text-[10px]">
-                            const ids = users.map(u => u.id) ✅<br/>
-                            users.forEach(u => console.log(u)) ✅
-                        </div>
+                <ProTip>
+                    <div>Need the results? Use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">map()</code>. Just doing side effects? Use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">forEach()</code>.</div>
+                    <div class="pl-2 border-l-2 border-purple-500/30 font-mono text-[10px]">
+                        const ids = users.map(u => u.id) ✅<br/>
+                        users.forEach(u => console.log(u)) ✅
                     </div>
-                </div>
+                </ProTip>
             </MethodCard>
                 </div>
 
@@ -917,15 +909,12 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                     Original array remains unchanged. Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> (may be shorter) with only passing items.
                 </InfoBox>
 
-                <div class="mt-2 p-2 bg-purple-900/20 border border-purple-500/30 rounded text-[11px] leading-snug">
-                    <div class="text-purple-300 font-bold mb-1">💡 Pro tip:</div>
-                    <div class="text-gray-300 space-y-1">
-                        <div>Use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">filter(Boolean)</code> to remove all falsy values in one go!</div>
-                        <div class="pl-2 border-l-2 border-purple-500/30 font-mono text-[10px]">
-                            [0, 1, false, 2, '', 3, null].filter(Boolean) → [1, 2, 3]
-                        </div>
+                <ProTip>
+                    <div>Use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">filter(Boolean)</code> to remove all falsy values in one go!</div>
+                    <div class="pl-2 border-l-2 border-purple-500/30 font-mono text-[10px]">
+                        [0, 1, false, 2, '', 3, null].filter(Boolean) → [1, 2, 3]
                     </div>
-                </div>
+                </ProTip>
             </MethodCard>
                 </div>
 
@@ -959,16 +948,13 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                     Original array remains unchanged. Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> containing the extracted section. End index is exclusive. Supports negative indices.
                 </InfoBox>
 
-                <div class="mt-2 p-2 bg-purple-900/20 border border-purple-500/30 rounded text-[11px] leading-snug">
-                    <div class="text-purple-300 font-bold mb-1">💡 Pro tip:</div>
-                    <div class="text-gray-300 space-y-1.5">
-                        <div class="pl-2 border-l-2 border-purple-500/30">
-                            <div class="font-mono text-[10px]">slice(1, -1) → removes first & last item</div>
-                            <div class="font-mono text-[10px]">slice(-3) → gets last 3 items</div>
-                            <div class="font-mono text-[10px]">slice(0) → shallow copy entire array</div>
-                        </div>
+                <ProTip>
+                    <div class="pl-2 border-l-2 border-purple-500/30">
+                        <div class="font-mono text-[10px]">slice(1, -1) → removes first & last item</div>
+                        <div class="font-mono text-[10px]">slice(-3) → gets last 3 items</div>
+                        <div class="font-mono text-[10px]">slice(0) → shallow copy entire array</div>
                     </div>
-                </div>
+                </ProTip>
             </MethodCard>
                 </div>
 
@@ -1002,15 +988,12 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                     Original array remains unchanged. Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> with all items combined.
                 </InfoBox>
 
-                <div class="mt-2 p-2 bg-purple-900/20 border border-purple-500/30 rounded text-[11px] leading-snug">
-                    <div class="text-purple-300 font-bold mb-1">💡 Pro tip:</div>
-                    <div class="text-gray-300 space-y-1">
-                        <div>Merge multiple arrays at once:</div>
-                        <div class="pl-2 border-l-2 border-purple-500/30 font-mono text-[10px]">
-                            arr1.concat(arr2, arr3, arr4) → combines all in one call
-                        </div>
+                <ProTip>
+                    <div>Merge multiple arrays at once:</div>
+                    <div class="pl-2 border-l-2 border-purple-500/30 font-mono text-[10px]">
+                        arr1.concat(arr2, arr3, arr4) → combines all in one call
                     </div>
-                </div>
+                </ProTip>
             </MethodCard>
                 </div>
 
@@ -1044,15 +1027,12 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                             Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> with sub-arrays flattened. Default depth is 1.
                         </InfoBox>
 
-                        <div class="mt-2 p-2 bg-purple-900/20 border border-purple-500/30 rounded text-[11px] leading-snug">
-                            <div class="text-purple-300 font-bold mb-1">💡 Pro tip:</div>
-                            <div class="text-gray-300 space-y-1">
-                                <div>For deeply nested arrays, use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">flat(Infinity)</code> to flatten all levels:</div>
-                                <div class="pl-2 border-l-2 border-purple-500/30 font-mono text-[10px]">
-                                    [1, [2, [3, [4]]]].flat(Infinity) → [1, 2, 3, 4]
-                                </div>
+                        <ProTip>
+                            <div>For deeply nested arrays, use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">flat(Infinity)</code> to flatten all levels:</div>
+                            <div class="pl-2 border-l-2 border-purple-500/30 font-mono text-[10px]">
+                                [1, [2, [3, [4]]]].flat(Infinity) → [1, 2, 3, 4]
                             </div>
-                        </div>
+                        </ProTip>
                     </MethodCard>
                 </div>
 
@@ -1537,15 +1517,12 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">item</code> at index. ⚠️ Cannot be chained. Negative indices count from end (-1 = last item).
                         </InfoBox>
 
-                        <div class="mt-2 p-2 bg-purple-900/20 border border-purple-500/30 rounded text-[11px] leading-snug">
-                            <div class="text-purple-300 font-bold mb-1">💡 Pro tip:</div>
-                            <div class="text-gray-300 space-y-1">
-                                <div>Much cleaner than <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">arr[arr.length - 1]</code> for getting the last item:</div>
-                                <div class="pl-2 border-l-2 border-purple-500/30 font-mono text-[10px]">
-                                    arr.at(-1) → last item, arr.at(-2) → second to last
-                                </div>
+                        <ProTip>
+                            <div>Much cleaner than <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">arr[arr.length - 1]</code> for getting the last item:</div>
+                            <div class="pl-2 border-l-2 border-purple-500/30 font-mono text-[10px]">
+                                arr.at(-1) → last item, arr.at(-2) → second to last
                             </div>
-                        </div>
+                        </ProTip>
                     </MethodCard>
                 </div>
 
@@ -1582,17 +1559,14 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                     Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">single value</code> of any type. ⚠️ Cannot be chained. The accumulator carries forward through each iteration.
                 </InfoBox>
 
-                <div class="mt-2 p-2 bg-purple-900/20 border border-purple-500/30 rounded text-[11px] leading-snug">
-                    <div class="text-purple-300 font-bold mb-1">💡 Pro tip:</div>
-                    <div class="text-gray-300 space-y-1.5">
-                        <div>Reduce is super versatile! Common patterns:</div>
-                        <div class="pl-2 border-l-2 border-purple-500/30 space-y-1">
-                            <div class="font-mono text-[10px]"><span class="text-gray-400">// Count occurrences</span><br/>items.reduce((acc,v) =&gt; (&lbrace;...acc, [v]: (acc[v]||0)+1&rbrace;), &lbrace;&rbrace;)</div>
-                            <div class="font-mono text-[10px]"><span class="text-gray-400">// Group by property</span><br/>users.reduce((acc,u) =&gt; (&lbrace;...acc, [u.role]: [...(acc[u.role]||[]),u]&rbrace;), &lbrace;&rbrace;)</div>
-                            <div class="font-mono text-[10px]"><span class="text-gray-400">// Build object from array</span><br/>arr.reduce((acc,v,i) =&gt; (&lbrace;...acc, [i]: v&rbrace;), &lbrace;&rbrace;)</div>
-                        </div>
+                <ProTip>
+                    <div>Reduce is super versatile! Common patterns:</div>
+                    <div class="pl-2 border-l-2 border-purple-500/30 space-y-1">
+                        <div class="font-mono text-[10px]"><span class="text-gray-400">// Count occurrences</span><br/>items.reduce((acc,v) =&gt; (&lbrace;...acc, [v]: (acc[v]||0)+1&rbrace;), &lbrace;&rbrace;)</div>
+                        <div class="font-mono text-[10px]"><span class="text-gray-400">// Group by property</span><br/>users.reduce((acc,u) =&gt; (&lbrace;...acc, [u.role]: [...(acc[u.role]||[]),u]&rbrace;), &lbrace;&rbrace;)</div>
+                        <div class="font-mono text-[10px]"><span class="text-gray-400">// Build object from array</span><br/>arr.reduce((acc,v,i) =&gt; (&lbrace;...acc, [i]: v&rbrace;), &lbrace;&rbrace;)</div>
                     </div>
-                </div>
+                </ProTip>
             </MethodCard>
                 </div>
 

@@ -1,0 +1,16 @@
+---
+interface Props {
+    /**
+     * The content of the pro tip. Can include HTML/JSX.
+     */
+}
+
+const { } = Astro.props;
+---
+
+<div class="mt-2 p-2 bg-purple-900/20 border border-purple-500/30 rounded text-[11px] leading-snug">
+    <div class="text-purple-300 font-bold mb-1">💡 Pro tip:</div>
+    <div class="text-gray-300 space-y-1.5">
+        <slot />
+    </div>
+</div>
