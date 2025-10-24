@@ -1,0 +1,774 @@
+---
+import '../styles/styles.css'
+import MethodCard from '../components/visual-js/MethodCard.astro'
+import Node from '../components/visual-js/Node.astro'
+import ArrayDisplay from '../components/visual-js/ArrayDisplay.astro'
+import Arrow from '../components/visual-js/Arrow.astro'
+import ReturnValue from '../components/visual-js/ReturnValue.astro'
+import InfoBox from '../components/visual-js/InfoBox.astro'
+import ProcessContent from '../components/visual-js/ProcessContent.astro'
+---
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>JS Array Methods - Blueprint Style</title>
+        <style>
+            /* Blueprint Card */
+            .blueprint {
+                background: #252936;
+                border-radius: 0.75rem;
+                padding: 2rem;
+                margin-bottom: 2.5rem;
+                border: 1px solid #374151;
+                position: relative;
+            }
+
+            .blueprint-header {
+                margin-bottom: 2rem;
+                padding-bottom: 1rem;
+                border-bottom: 2px solid #374151;
+            }
+
+            .method-name {
+                font-family: 'Monaco', 'Courier New', monospace;
+                font-size: 1.8rem;
+                font-weight: 700;
+                color: #60a5fa;
+                margin-bottom: 0.5rem;
+            }
+
+            .method-signature {
+                font-family: 'Monaco', 'Courier New', monospace;
+                font-size: 0.95rem;
+                color: #9ca3af;
+                margin-bottom: 0.75rem;
+            }
+
+            .method-desc {
+                color: #d1d5db;
+                font-size: 0.95rem;
+                line-height: 1.6;
+            }
+
+            .badge {
+                display: inline-block;
+                padding: 0.25rem 0.75rem;
+                border-radius: 0.25rem;
+                font-size: 0.75rem;
+                font-weight: 600;
+                text-transform: uppercase;
+                margin-left: 1rem;
+            }
+
+            .badge-mutates {
+                background: rgba(239, 68, 68, 0.2);
+                color: #fca5a5;
+                border: 1px solid #ef4444;
+            }
+
+            .badge-immutable {
+                background: rgba(34, 197, 94, 0.2);
+                color: #86efac;
+                border: 1px solid #22c55e;
+            }
+
+            /* Flow Diagram */
+            .flow-diagram {
+                display: flex;
+                align-items: center;
+                gap: 2rem;
+                padding: 2rem;
+                background: #1f2937;
+                border-radius: 0.5rem;
+                overflow-x: auto;
+            }
+
+            /* Nodes */
+            .node {
+                position: relative;
+                min-width: 180px;
+                flex-shrink: 0;
+            }
+
+            .node-label {
+                font-size: 0.75rem;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                color: #9ca3af;
+                margin-bottom: 0.5rem;
+                text-align: center;
+            }
+
+            .node-content {
+                background: #374151;
+                border: 2px solid #4b5563;
+                border-radius: 0.25rem;
+                padding: 0.5rem;
+                position: relative;
+            }
+
+            /* Custom gradient backgrounds */
+            .node-input .node-content {
+                background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+                border-color: #3b82f6;
+            }
+
+            .node-process .node-content {
+                background: linear-gradient(135deg, #4c1d95 0%, #5b21b6 100%);
+                border-color: #8b5cf6;
+                padding: 0.75rem 0.5rem;
+            }
+
+            .node-output .node-content {
+                background: linear-gradient(135deg, #166534 0%, #15803d 100%);
+                border-color: #22c55e;
+            }
+
+            .process-name {
+                font-family: 'Monaco', 'Courier New', monospace;
+                font-weight: 700;
+                font-size: 0.875rem;
+                color: #fff;
+                text-align: center;
+                margin-bottom: 0.25rem;
+            }
+
+            .process-desc {
+                font-size: 0.688rem;
+                color: #e9d5ff;
+                text-align: center;
+                line-height: 1.3;
+            }
+
+            /* Array Display */
+            .array-display {
+                display: flex;
+                gap: 0.375rem;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .array-item {
+                min-width: 32px;
+                padding: 0.375rem 0.5rem;
+                background: rgba(255, 255, 255, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.3);
+                border-radius: 0.25rem;
+                text-align: center;
+                font-family: 'Monaco', 'Courier New', monospace;
+                font-weight: 600;
+                font-size: 0.813rem;
+                position: relative;
+            }
+
+            .array-index {
+                position: absolute;
+                top: -6px;
+                left: 50%;
+                transform: translateX(-50%);
+                font-size: 0.563rem;
+                color: #9ca3af;
+                background: #1f2937;
+                padding: 0 0.25rem;
+            }
+
+            /* Value Display */
+            .value-display {
+                padding: 0.5rem 0.75rem;
+                background: rgba(255, 255, 255, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.3);
+                border-radius: 0.25rem;
+                text-align: center;
+                font-family: 'Monaco', 'Courier New', monospace;
+                font-weight: 600;
+                font-size: 0.875rem;
+            }
+
+            .value-type {
+                font-size: 0.625rem;
+                color: #9ca3af;
+                margin-top: 0.125rem;
+            }
+
+            /* Arrow styling */
+            .arrow {
+                flex-shrink: 0;
+                width: 40px;
+                height: 2px;
+                background: #4b5563;
+                position: relative;
+            }
+
+            .arrow::after {
+                content: '';
+                position: absolute;
+                right: -5px;
+                top: -3px;
+                width: 0;
+                height: 0;
+                border-left: 8px solid #4b5563;
+                border-top: 4px solid transparent;
+                border-bottom: 4px solid transparent;
+            }
+
+            .arrow-label {
+                position: absolute;
+                top: -14px;
+                left: 50%;
+                transform: translateX(-50%);
+                font-size: 0.563rem;
+                color: #6b7280;
+                white-space: nowrap;
+            }
+
+            /* Special highlights */
+            .highlight-added {
+                background: rgba(34, 197, 94, 0.4) !important;
+                border-color: #22c55e !important;
+                box-shadow: 0 0 6px rgba(34, 197, 94, 0.3);
+                animation: pulse 1s ease-in-out infinite;
+            }
+
+            .highlight-removed {
+                background: rgba(239, 68, 68, 0.3) !important;
+                border-color: #ef4444 !important;
+                opacity: 0.6;
+                text-decoration: line-through;
+            }
+
+            .highlight-transformed {
+                background: rgba(251, 146, 60, 0.4) !important;
+                border-color: #fb923c !important;
+                box-shadow: 0 0 6px rgba(251, 146, 60, 0.3);
+            }
+
+            /* Pulse animation */
+            @keyframes pulse {
+                0%, 100% { opacity: 1; }
+                50% { opacity: 0.7; }
+            }
+
+            /* Info box */
+            .info-box {
+                background: rgba(59, 130, 246, 0.1);
+                border: 1px solid #3b82f6;
+                border-radius: 0.5rem;
+                padding: 1rem;
+                margin-top: 1.5rem;
+            }
+
+            .info-title {
+                font-weight: 600;
+                color: #60a5fa;
+                margin-bottom: 0.5rem;
+                font-size: 0.9rem;
+            }
+
+            .info-content {
+                font-size: 0.85rem;
+                color: #d1d5db;
+                line-height: 1.5;
+            }
+
+            .info-content code {
+                background: rgba(0, 0, 0, 0.3);
+                padding: 0.125rem 0.375rem;
+                border-radius: 0.25rem;
+                font-family: 'Monaco', 'Courier New', monospace;
+                color: #fbbf24;
+            }
+        </style>
+	</head>
+	<body class="m-0 p-4 bg-[#1a1d29] text-gray-200">
+        <div class="max-w-7xl mx-auto">
+            <h1 class="text-white mb-1 text-2xl font-bold">JavaScript Array Methods</h1>
+            <p class="text-gray-400 mb-6 text-sm">Visual blueprint-style reference for array operations</p>
+
+            <!-- ============================================ -->
+            <!-- 🛠 MUTATES THE ARRAY -->
+            <!-- ============================================ -->
+
+            <h2 class="text-red-300 text-xl my-4 pb-2 border-b-2 border-red-500">
+                🛠 Mutates the Array
+            </h2>
+
+            <!-- === INSERT / REMOVE === -->
+            <h3 class="text-gray-300 text-lg mt-4 mb-2">Insert / Remove</h3>
+
+            <!-- PUSH -->
+            <MethodCard
+                methodName="push()"
+                signature="arr.push(...items)"
+                description="Adds elements to the end of an array and returns the new length"
+                mutates={true}
+            >
+                <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                    <Node label="Input Array" type="input">
+                        <ArrayDisplay values={['a', 'b', 'c']} />
+                    </Node>
+
+                    <Arrow label="mutates" />
+
+                    <Node label="Method" type="process">
+                        <ProcessContent name="push('d')" description="Add to end" />
+                    </Node>
+
+                    <Arrow />
+
+                    <Node label="Modified Array" type="output">
+                        <ArrayDisplay values={['a', 'b', 'c', 'd']} highlightIndices={[3]} highlightType="added" />
+                    </Node>
+
+                    <Arrow label="returns" />
+
+                    <Node label="Return Value" type="output">
+                        <ReturnValue value={4} type="new length" />
+                    </Node>
+                </div>
+
+                <InfoBox mutates={true} message="">
+                    The original array is modified in place. Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">number</code> (new length), not the array.
+                </InfoBox>
+            </MethodCard>
+
+            <!-- POP -->
+            <MethodCard
+                methodName="pop()"
+                signature="arr.pop()"
+                description="Removes and returns the last element from an array"
+                mutates={true}
+            >
+                <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                    <Node label="Input Array" type="input">
+                        <ArrayDisplay values={['a', 'b', 'c']} />
+                    </Node>
+
+                    <Arrow label="mutates" />
+
+                    <Node label="Method" type="process">
+                        <ProcessContent name="pop()" description="Remove last" />
+                    </Node>
+
+                    <Arrow />
+
+                    <Node label="Modified Array" type="output">
+                        <ArrayDisplay values={['a', 'b']} />
+                    </Node>
+
+                    <Arrow label="returns" />
+
+                    <Node label="Return Value" type="output">
+                        <ReturnValue value="'c'" type="removed item" />
+                    </Node>
+                </div>
+
+                <InfoBox mutates={true} message="">
+                    The original array is shortened. Returns the removed element or <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">undefined</code> if array is empty.
+                </InfoBox>
+            </MethodCard>
+
+            <!-- UNSHIFT -->
+            <MethodCard
+                methodName="unshift()"
+                signature="arr.unshift(...items)"
+                description="Adds elements to the beginning of an array and returns the new length"
+                mutates={true}
+            >
+                <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                    <Node label="Input Array" type="input">
+                        <ArrayDisplay values={['b', 'c', 'd']} />
+                    </Node>
+
+                    <Arrow label="mutates" />
+
+                    <Node label="Method" type="process">
+                        <ProcessContent name="unshift('a')" description="Add to beginning" />
+                    </Node>
+
+                    <Arrow />
+
+                    <Node label="Modified Array" type="output">
+                        <ArrayDisplay values={['a', 'b', 'c', 'd']} highlightIndices={[0]} highlightType="added" />
+                    </Node>
+
+                    <Arrow label="returns" />
+
+                    <Node label="Return Value" type="output">
+                        <ReturnValue value={4} type="new length" />
+                    </Node>
+                </div>
+
+                <InfoBox mutates={true} message="">
+                    The original array is modified in place. All existing elements shift to higher indices. Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">number</code> (new length).
+                </InfoBox>
+            </MethodCard>
+
+            <!-- SHIFT -->
+            <MethodCard
+                methodName="shift()"
+                signature="arr.shift()"
+                description="Removes and returns the first element from an array"
+                mutates={true}
+            >
+                <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                    <Node label="Input Array" type="input">
+                        <ArrayDisplay values={['a', 'b', 'c']} />
+                    </Node>
+
+                    <Arrow label="mutates" />
+
+                    <Node label="Method" type="process">
+                        <ProcessContent name="shift()" description="Remove first" />
+                    </Node>
+
+                    <Arrow />
+
+                    <Node label="Modified Array" type="output">
+                        <ArrayDisplay values={['b', 'c']} />
+                    </Node>
+
+                    <Arrow label="returns" />
+
+                    <Node label="Return Value" type="output">
+                        <ReturnValue value="'a'" type="removed item" />
+                    </Node>
+                </div>
+
+                <InfoBox mutates={true} message="">
+                    The original array is shortened. All remaining elements shift to lower indices. Returns the removed element or <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">undefined</code> if array is empty.
+                </InfoBox>
+            </MethodCard>
+
+            <!-- SPLICE -->
+            <MethodCard
+                methodName="splice()"
+                signature="arr.splice(start, deleteCount, ...items)"
+                description="Removes, replaces, or adds elements at any position in the array"
+                mutates={true}
+            >
+                <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                    <Node label="Input Array" type="input">
+                        <ArrayDisplay values={['a', 'b', 'c', 'd']} />
+                    </Node>
+
+                    <Arrow label="mutates" />
+
+                    <Node label="Method" type="process">
+                        <ProcessContent name="splice(1, 2, 'X', 'Y')" description="At index 1, remove 2, insert 'X', 'Y'" />
+                    </Node>
+
+                    <Arrow />
+
+                    <Node label="Modified Array" type="output">
+                        <ArrayDisplay values={['a', 'X', 'Y', 'd']} highlightIndices={[1, 2]} highlightType="added" />
+                    </Node>
+
+                    <Arrow label="returns" />
+
+                    <Node label="Return Value" type="output">
+                        <ArrayDisplay values={['b', 'c']} highlightIndices={[0, 1]} highlightType="removed" />
+                    </Node>
+                </div>
+
+                <InfoBox mutates={true} message="">
+                    The Swiss Army knife of array methods. Returns an <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">array</code> of removed elements. Can remove, add, or replace items at any index.
+                </InfoBox>
+            </MethodCard>
+
+            <!-- === REORDER === -->
+            <h3 class="text-gray-300 text-lg mt-4 mb-2">Reorder</h3>
+
+            <!-- SORT -->
+            <MethodCard
+                methodName="sort()"
+                signature="arr.sort(compareFn?)"
+                description="Sorts the array in place and returns the same array"
+                mutates={true}
+            >
+                <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                    <Node label="Input Array" type="input">
+                        <ArrayDisplay values={[3, 1, 4, 2]} />
+                    </Node>
+
+                    <Arrow label="mutates" />
+
+                    <Node label="Method" type="process">
+                        <ProcessContent name="sort((a, b) => a - b)" description="Ascending order" />
+                    </Node>
+
+                    <Arrow label="returns" />
+
+                    <Node label="Same Array (Sorted)" type="output">
+                        <ArrayDisplay values={[1, 2, 3, 4]} highlightIndices={[0, 1, 2, 3]} highlightType="transformed" />
+                    </Node>
+                </div>
+
+                <InfoBox mutates={true} message="">
+                    Sorts in place. Returns the <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">same array</code> (not a copy). Without a compare function, sorts as strings! Use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">(a, b) => a - b</code> for ascending numbers.
+                </InfoBox>
+            </MethodCard>
+
+            <!-- REVERSE -->
+            <MethodCard
+                methodName="reverse()"
+                signature="arr.reverse()"
+                description="Reverses the array in place and returns the same array"
+                mutates={true}
+            >
+                <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                    <Node label="Input Array" type="input">
+                        <ArrayDisplay values={['a', 'b', 'c']} />
+                    </Node>
+
+                    <Arrow label="mutates" />
+
+                    <Node label="Method" type="process">
+                        <ProcessContent name="reverse()" description="Flip order" />
+                    </Node>
+
+                    <Arrow label="returns" />
+
+                    <Node label="Same Array (Reversed)" type="output">
+                        <ArrayDisplay values={['c', 'b', 'a']} highlightIndices={[0, 1, 2]} highlightType="transformed" />
+                    </Node>
+                </div>
+
+                <InfoBox mutates={true} message="">
+                    Reverses in place. Returns the <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">same array</code> (not a copy).
+                </InfoBox>
+            </MethodCard>
+
+            <!-- ============================================ -->
+            <!-- 🚫 DOES NOT MUTATE (returns new value) -->
+            <!-- ============================================ -->
+
+            <h2 class="text-green-300 text-xl my-4 pb-2 border-b-2 border-green-600">
+                🚫 Does Not Mutate (returns new value)
+            </h2>
+
+            <!-- === BUILD NEW ARRAYS === -->
+            <h3 class="text-gray-300 text-lg mt-4 mb-2">Build New Arrays</h3>
+
+            <!-- MAP -->
+            <MethodCard
+                methodName="map()"
+                signature="arr.map(fn)"
+                description="Creates a new array by transforming each element with a function"
+                mutates={false}
+            >
+                <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                    <Node label="Input Array" type="input">
+                        <ArrayDisplay values={[1, 2, 3]} />
+                    </Node>
+
+                    <Arrow label="transforms" />
+
+                    <Node label="Method" type="process">
+                        <ProcessContent name="map(n => n * 2)" description="Double each value" />
+                    </Node>
+
+                    <Arrow label="returns" />
+
+                    <Node label="New Array" type="output">
+                        <ArrayDisplay values={[2, 4, 6]} highlightIndices={[0, 1, 2]} highlightType="transformed" />
+                    </Node>
+                </div>
+
+                <InfoBox mutates={false} message="">
+                    Original array remains unchanged. Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> with same length, transformed values.
+                </InfoBox>
+            </MethodCard>
+
+            <!-- FILTER -->
+            <MethodCard
+                methodName="filter()"
+                signature="arr.filter(fn)"
+                description="Creates a new array with elements that pass a test function"
+                mutates={false}
+            >
+                <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                    <Node label="Input Array" type="input">
+                        <ArrayDisplay values={[1, 2, 3, 4, 5]} />
+                    </Node>
+
+                    <Arrow label="filters" />
+
+                    <Node label="Method" type="process">
+                        <ProcessContent name="filter(n => n % 2 === 0)" description="Keep even numbers" />
+                    </Node>
+
+                    <Arrow label="returns" />
+
+                    <Node label="New Array" type="output">
+                        <ArrayDisplay values={[2, 4]} highlightIndices={[0, 1]} highlightType="added" />
+                    </Node>
+                </div>
+
+                <InfoBox mutates={false} message="">
+                    Original array remains unchanged. Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> (may be shorter) with only passing items.
+                </InfoBox>
+            </MethodCard>
+
+            <!-- SLICE -->
+            <MethodCard
+                methodName="slice()"
+                signature="arr.slice(start, end)"
+                description="Returns a shallow copy of a portion of an array"
+                mutates={false}
+            >
+                <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                    <Node label="Input Array" type="input">
+                        <ArrayDisplay values={['a', 'b', 'c', 'd', 'e']} />
+                    </Node>
+
+                    <Arrow label="extracts" />
+
+                    <Node label="Method" type="process">
+                        <ProcessContent name="slice(1, 4)" description="Copy indices 1-3" />
+                    </Node>
+
+                    <Arrow label="returns" />
+
+                    <Node label="New Array" type="output">
+                        <ArrayDisplay values={['b', 'c', 'd']} highlightIndices={[0, 1, 2]} highlightType="added" />
+                    </Node>
+                </div>
+
+                <InfoBox mutates={false} message="">
+                    Original array remains unchanged. Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> containing the extracted section. End index is exclusive. Supports negative indices.
+                </InfoBox>
+            </MethodCard>
+
+            <!-- CONCAT -->
+            <MethodCard
+                methodName="concat()"
+                signature="arr.concat(...items)"
+                description="Merges two or more arrays into a new array"
+                mutates={false}
+            >
+                <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                    <Node label="Input Array" type="input">
+                        <ArrayDisplay values={['a', 'b']} />
+                    </Node>
+
+                    <Arrow label="merges with" />
+
+                    <Node label="Method" type="process">
+                        <ProcessContent name="concat(['c', 'd'])" description="Glue arrays together" />
+                    </Node>
+
+                    <Arrow label="returns" />
+
+                    <Node label="New Array" type="output">
+                        <ArrayDisplay values={['a', 'b', 'c', 'd']} highlightIndices={[2, 3]} highlightType="added" />
+                    </Node>
+                </div>
+
+                <InfoBox mutates={false} message="">
+                    Original array remains unchanged. Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> with all items combined.
+                </InfoBox>
+            </MethodCard>
+
+            <!-- === FIND / TEST === -->
+            <h3 class="text-gray-300 text-lg mt-4 mb-2">Find / Test</h3>
+
+            <!-- FIND -->
+            <MethodCard
+                methodName="find()"
+                signature="arr.find(fn)"
+                description="Returns the first element that passes a test function"
+                mutates={false}
+            >
+                <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                    <Node label="Input Array" type="input">
+                        <ArrayDisplay values={[1, 5, 8, 12]} />
+                    </Node>
+
+                    <Arrow label="searches" />
+
+                    <Node label="Method" type="process">
+                        <ProcessContent name="find(n => n > 10)" description="First item > 10" />
+                    </Node>
+
+                    <Arrow label="returns" />
+
+                    <Node label="First Match" type="output">
+                        <ReturnValue value={12} type="item | undefined" />
+                    </Node>
+                </div>
+
+                <InfoBox mutates={false} message="">
+                    Original array remains unchanged. Returns the <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">first matching item</code> or <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">undefined</code> if none found.
+                </InfoBox>
+            </MethodCard>
+
+            <!-- INCLUDES -->
+            <MethodCard
+                methodName="includes()"
+                signature="arr.includes(value)"
+                description="Checks if array contains a specific value"
+                mutates={false}
+            >
+                <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                    <Node label="Input Array" type="input">
+                        <ArrayDisplay values={['a', 'b', 'c']} />
+                    </Node>
+
+                    <Arrow label="checks for" />
+
+                    <Node label="Method" type="process">
+                        <ProcessContent name="includes('b')" description="Is 'b' present?" />
+                    </Node>
+
+                    <Arrow label="returns" />
+
+                    <Node label="Boolean Result" type="output">
+                        <ReturnValue value="true" type="boolean" />
+                    </Node>
+                </div>
+
+                <InfoBox mutates={false} message="">
+                    Original array remains unchanged. Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">boolean</code>. Works with <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">NaN</code> unlike <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">indexOf()</code>.
+                </InfoBox>
+            </MethodCard>
+
+            <!-- === REDUCE === -->
+            <h3 class="text-gray-300 text-lg mt-4 mb-2">Reduce</h3>
+
+            <!-- REDUCE -->
+            <MethodCard
+                methodName="reduce()"
+                signature="arr.reduce(fn, initialValue)"
+                description="Reduces array to a single value by applying function with accumulator"
+                mutates={false}
+            >
+                <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                    <Node label="Input Array" type="input">
+                        <ArrayDisplay values={[1, 2, 3, 4]} />
+                    </Node>
+
+                    <Arrow label="reduces" />
+
+                    <Node label="Method" type="process">
+                        <ProcessContent name="reduce((sum, n) => sum + n, 0)" description="Sum all values: 0 + 1 + 2 + 3 + 4" />
+                    </Node>
+
+                    <Arrow label="returns" />
+
+                    <Node label="Single Value" type="output">
+                        <ReturnValue value={10} type="accumulated result" />
+                    </Node>
+                </div>
+
+                <InfoBox mutates={false} message="">
+                    Original array remains unchanged. Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">single value</code> of any type. The accumulator carries forward through each iteration.
+                </InfoBox>
+            </MethodCard>
+
+        </div>
+	</body>
+</html>

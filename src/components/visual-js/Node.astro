@@ -1,0 +1,31 @@
+---
+interface Props {
+    label: string;
+    type: 'input' | 'process' | 'output';
+}
+
+const { label, type } = Astro.props;
+
+const borderColors = {
+    input: 'border-blue-500',
+    process: 'border-purple-500',
+    output: 'border-green-500'
+};
+
+const nodeClass = {
+    input: 'node-input',
+    process: 'node-process',
+    output: 'node-output'
+};
+
+const paddingClass = type === 'process' ? 'py-3 px-2' : 'p-2';
+---
+
+<div class="relative min-w-[140px] shrink-0">
+    <div class="text-[10px] font-semibold uppercase tracking-wide text-gray-400 mb-1 text-center">{label}</div>
+    <div class={nodeClass[type]}>
+        <div class={`node-content border-2 ${borderColors[type]} rounded ${paddingClass} relative`}>
+            <slot />
+        </div>
+    </div>
+</div>

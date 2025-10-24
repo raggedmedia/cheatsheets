@@ -1,0 +1,15 @@
+---
+interface Props {
+    label?: string;
+}
+
+const { label } = Astro.props;
+---
+
+<div class="arrow shrink-0 w-[40px] h-[2px] bg-gray-600 relative">
+    {label && (
+        <div class="absolute -top-3 left-1/2 -translate-x-1/2 text-[9px] text-gray-500 whitespace-nowrap">
+            {label}
+        </div>
+    )}
+</div>

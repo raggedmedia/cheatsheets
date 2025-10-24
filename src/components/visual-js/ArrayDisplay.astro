@@ -1,0 +1,30 @@
+---
+interface Props {
+    values: (string | number)[];
+    highlightIndices?: number[];
+    highlightType?: 'added' | 'removed' | 'transformed';
+}
+
+const { values, highlightIndices = [], highlightType = 'added' } = Astro.props;
+
+const highlightClasses = {
+    added: 'bg-green-500/40 border-green-500 shadow-[0_0_8px_rgba(34,197,94,0.3)] highlight-added',
+    removed: 'bg-red-500/30 border-red-500 opacity-60 line-through',
+    transformed: 'bg-orange-500/40 border-orange-500 shadow-[0_0_8px_rgba(251,146,60,0.3)]'
+};
+---
+
+<div class="flex gap-2 justify-center flex-wrap">
+    {values.map((value, index) => (
+        <div class={`min-w-[40px] px-3 py-2 border rounded text-center font-mono font-semibold text-base relative ${
+            highlightIndices.includes(index)
+                ? highlightClasses[highlightType]
+                : 'bg-white/10 border-white/30'
+        }`}>
+            <div class="absolute -top-2 left-1/2 -translate-x-1/2 text-[0.65rem] text-gray-400 bg-gray-800 px-1">
+                {index}
+            </div>
+            {typeof value === 'string' ? `'${value}'` : value}
+        </div>
+    ))}
+</div>
