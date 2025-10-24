@@ -1,0 +1,772 @@
+---
+import '~styles/styles.css'
+import MethodCard from '~components/visual-js/MethodCard.astro';
+import ProTip from '~components/visual-js/ProTip.astro';
+import GlobalNav from '~components/visual-js/GlobalNav.astro';
+---
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>JavaScript Form Handling & Validation - Visual Cheatsheet</title>
+    </head>
+    <body class="m-0 p-4 bg-[#1a1d29] text-gray-200">
+        <div class="flex gap-6 max-w-[1600px] mx-auto">
+            <!-- Main Content -->
+            <main class="flex-1 min-w-0">
+                <h1 class="text-white mb-1 text-2xl font-bold">JavaScript Form Handling & Validation</h1>
+                <p class="text-gray-400 mb-6 text-sm">Visual blueprint-style reference for working with forms</p>
+
+                <ProTip>
+                    <div>💡 <strong>Forms 101:</strong></div>
+                    <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                        <div class="text-[10px]">Forms collect user input and submit data. JavaScript lets you validate input before submission and handle the data dynamically.</div>
+                        <div class="text-[10px] mt-1"><strong>Two main tasks:</strong> (1) Validate user input, (2) Handle form submission</div>
+                    </div>
+                </ProTip>
+
+                <ProTip>
+                    <div>📝 <strong>Example form (used in all examples below):</strong></div>
+                    <div class="pl-2 border-l-2 border-blue-500/30 space-y-0.5 mt-1">
+                        <div class="bg-gray-800/50 border border-gray-700 rounded p-3 mt-1">
+                            <div class="text-gray-300 font-mono text-[10px] space-y-0.5">
+                                <div>&lt;form id="signup-form"&gt;</div>
+                                <div>&nbsp;&nbsp;&lt;input type="text" name="username" /&gt;</div>
+                                <div>&nbsp;&nbsp;&lt;input type="email" name="email" /&gt;</div>
+                                <div>&nbsp;&nbsp;&lt;input type="password" name="password" /&gt;</div>
+                                <div>&nbsp;&nbsp;</div>
+                                <div>&nbsp;&nbsp;<span class="text-gray-400">&lt;!-- Radio buttons: same name, only one selected --&gt;</span></div>
+                                <div>&nbsp;&nbsp;&lt;input type="radio" name="plan" value="free" /&gt;</div>
+                                <div>&nbsp;&nbsp;&lt;input type="radio" name="plan" value="pro" /&gt;</div>
+                                <div>&nbsp;&nbsp;&lt;input type="radio" name="plan" value="enterprise" /&gt;</div>
+                                <div>&nbsp;&nbsp;</div>
+                                <div>&nbsp;&nbsp;<span class="text-gray-400">&lt;!-- Checkboxes: same name, multiple can be selected --&gt;</span></div>
+                                <div>&nbsp;&nbsp;&lt;input type="checkbox" name="hobbies" value="reading" /&gt;</div>
+                                <div>&nbsp;&nbsp;&lt;input type="checkbox" name="hobbies" value="gaming" /&gt;</div>
+                                <div>&nbsp;&nbsp;&lt;input type="checkbox" name="hobbies" value="cooking" /&gt;</div>
+                                <div>&nbsp;&nbsp;</div>
+                                <div>&nbsp;&nbsp;&lt;select name="country"&gt;</div>
+                                <div>&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value="us"&gt;USA&lt;/option&gt;</div>
+                                <div>&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value="uk"&gt;UK&lt;/option&gt;</div>
+                                <div>&nbsp;&nbsp;&lt;/select&gt;</div>
+                                <div>&nbsp;&nbsp;</div>
+                                <div>&nbsp;&nbsp;&lt;button type="submit"&gt;Sign Up&lt;/button&gt;</div>
+                                <div>&lt;/form&gt;</div>
+                            </div>
+                        </div>
+                        <div class="text-[10px] mt-1"><strong>Key point:</strong> The <code>name</code> attribute is what JavaScript uses to access the values!</div>
+                    </div>
+                </ProTip>
+
+                <!-- ============================================ -->
+                <!-- 📋 GETTING FORM DATA -->
+                <!-- ============================================ -->
+
+                <h2 id="form-data" class="text-blue-300 text-xl my-4 pb-2 border-b-2 border-blue-600">
+                    📋 Getting Form Data
+                </h2>
+
+                <!-- FORMDATA API -->
+                <div id="formdata-api">
+                    <MethodCard
+                        methodName="FormData API"
+                        signature="new FormData(form)"
+                        description="Easy way to get all form values at once"
+                        mutates={false}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-4">
+                                <!-- Flow -->
+                                <div class="flex items-center gap-3">
+                                    <div class="bg-blue-500/20 border border-blue-400 rounded px-4 py-2 flex-1">
+                                        <div class="text-blue-300 font-mono text-xs">&lt;form&gt;</div>
+                                        <div class="text-gray-400 text-[10px] mt-0.5">HTML form element</div>
+                                    </div>
+                                    <div class="text-gray-400 text-xl">→</div>
+                                    <div class="bg-purple-500/20 border border-purple-400 rounded px-4 py-2 flex-1">
+                                        <div class="text-purple-300 font-mono text-xs">new FormData(form)</div>
+                                        <div class="text-gray-400 text-[10px] mt-0.5">Constructor</div>
+                                    </div>
+                                    <div class="text-gray-400 text-xl">→</div>
+                                    <div class="bg-green-500/20 border border-green-500 rounded px-4 py-2 flex-1">
+                                        <div class="text-green-300 font-mono text-xs">FormData object</div>
+                                        <div class="text-gray-400 text-[10px] mt-0.5">Key-value pairs</div>
+                                    </div>
+                                </div>
+
+                                <!-- Usage -->
+                                <div class="bg-gray-800/50 border border-gray-700 rounded p-3">
+                                    <div class="text-gray-300 font-mono text-[10px] space-y-0.5">
+                                        <div>const form = document.querySelector('form')</div>
+                                        <div>const formData = new FormData(form)</div>
+                                        <div class="mt-2"><span class="text-gray-400">// Get values</span></div>
+                                        <div>formData.get('email') <span class="text-gray-400">// single value</span></div>
+                                        <div>formData.getAll('hobbies') <span class="text-gray-400">// multiple (checkboxes)</span></div>
+                                        <div class="mt-2"><span class="text-gray-400">// Convert to object</span></div>
+                                        <div>const data = Object.fromEntries(formData)</div>
+                                        <div><span class="text-gray-400">// {`{`} email: 'user@example.com', name: 'John' {`}`}</span></div>
+                                    </div>
+                                </div>
+
+                                <!-- Methods -->
+                                <div class="bg-cyan-500/20 border border-cyan-400 rounded p-3">
+                                    <div class="text-cyan-300 font-mono text-[10px] space-y-0.5">
+                                        <div class="text-yellow-400 mb-1">FormData methods:</div>
+                                        <div>formData.get('name') <span class="text-gray-400">// get first value</span></div>
+                                        <div>formData.getAll('name') <span class="text-gray-400">// get all values as array</span></div>
+                                        <div>formData.set('name', 'value') <span class="text-gray-400">// set/replace (removes duplicates)</span></div>
+                                        <div>formData.append('name', 'value') <span class="text-gray-400">// add value (allows duplicates)</span></div>
+                                        <div>formData.delete('name') <span class="text-gray-400">// remove all values for name</span></div>
+                                        <div>formData.has('name') <span class="text-gray-400">// check existence</span></div>
+                                    </div>
+                                </div>
+
+                                <!-- set vs append -->
+                                <div class="bg-orange-500/20 border border-orange-400 rounded p-3">
+                                    <div class="text-orange-300 font-mono text-[10px] space-y-0.5">
+                                        <div class="text-yellow-400 mb-1">set() vs append() with multiple values:</div>
+                                        <div><span class="text-gray-400">// Start: hobbies = ['reading', 'gaming']</span></div>
+                                        <div class="mt-1">formData.set('hobbies', 'cooking')</div>
+                                        <div><span class="text-gray-400">// Result: hobbies = ['cooking'] (replaced all!)</span></div>
+                                        <div class="mt-1">formData.append('hobbies', 'cooking')</div>
+                                        <div><span class="text-gray-400">// Result: hobbies = ['reading', 'gaming', 'cooking'] (added)</span></div>
+                                        <div class="mt-1">formData.delete('hobbies')</div>
+                                        <div><span class="text-gray-400">// Result: hobbies = [] (removed all)</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>⚠️ <strong>set() vs append():</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">formData.set('name', 'value') <span class="text-gray-400">// replaces ALL existing values</span></div>
+                                <div class="font-mono text-[10px]">formData.append('name', 'value') <span class="text-gray-400">// adds to existing values</span></div>
+                                <div class="text-[10px] mt-1"><strong>Use set()</strong> for single values (email, username)</div>
+                                <div class="text-[10px]"><strong>Use append()</strong> when you want multiple values (building a list)</div>
+                            </div>
+                        </ProTip>
+
+                        <ProTip>
+                            <div>⚠️ <strong>Important: inputs need a "name" attribute!</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-red-400">// ❌ Won't appear in FormData</span></div>
+                                <div class="font-mono text-[10px]">&lt;input type="text" id="email" /&gt;</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-green-400">// ✅ Will appear in FormData</span></div>
+                                <div class="font-mono text-[10px]">&lt;input type="text" name="email" id="email" /&gt;</div>
+                                <div class="text-[10px] mt-1">FormData uses the <strong>name</strong> attribute as the key, not the id!</div>
+                            </div>
+                        </ProTip>
+
+                        <ProTip>
+                            <div>💡 <strong>get() vs getAll():</strong></div>
+                            <div class="pl-2 border-l-2 border-blue-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">formData.get('email') <span class="text-gray-400">// 'user@example.com' (single value)</span></div>
+                                <div class="font-mono text-[10px]">formData.getAll('email') <span class="text-gray-400">// ['user@example.com'] (array with one item)</span></div>
+                                <div class="font-mono text-[10px] mt-1">formData.get('plan') <span class="text-gray-400">// 'pro' (single radio selection)</span></div>
+                                <div class="font-mono text-[10px]">formData.get('hobbies') <span class="text-gray-400">// 'reading' (first checked value only!)</span></div>
+                                <div class="font-mono text-[10px]">formData.getAll('hobbies') <span class="text-gray-400">// ['reading', 'gaming'] (all checked)</span></div>
+                                <div class="text-[10px] mt-1"><strong>Rule of thumb:</strong></div>
+                                <div class="text-[10px]">• Radio buttons → use <code>get()</code> (only one can be selected)</div>
+                                <div class="text-[10px]">• Checkboxes → use <code>getAll()</code> (multiple can be selected)</div>
+                            </div>
+                        </ProTip>
+
+                        <ProTip>
+                            <div>💡 <strong>FormData is perfect for file uploads:</strong></div>
+                            <div class="pl-2 border-l-2 border-blue-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">const formData = new FormData(form)</div>
+                                <div class="font-mono text-[10px]">await fetch('/upload', {`{`}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;method: 'POST',</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;body: formData <span class="text-gray-400">// automatically includes files!</span></div>
+                                <div class="font-mono text-[10px]">{`}`})</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- MANUAL VALUE ACCESS -->
+                <div id="manual-values">
+                    <MethodCard
+                        methodName="Manual Value Access"
+                        signature="input.value, checkbox.checked, etc."
+                        description="Direct access to form input values"
+                        mutates={false}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-3">
+                                <!-- Text inputs -->
+                                <div class="bg-blue-500/20 border border-blue-400 rounded p-3">
+                                    <div class="text-blue-300 font-mono text-[10px] space-y-0.5">
+                                        <div class="text-yellow-400 mb-1">Text inputs:</div>
+                                        <div>input.value <span class="text-gray-400">// text, email, password, number, etc.</span></div>
+                                        <div>textarea.value <span class="text-gray-400">// textarea content</span></div>
+                                    </div>
+                                </div>
+
+                                <!-- Checkboxes & Radio -->
+                                <div class="bg-green-500/20 border border-green-500 rounded p-3">
+                                    <div class="text-green-300 font-mono text-[10px] space-y-0.5">
+                                        <div class="text-yellow-400 mb-1">Checkboxes & Radio buttons:</div>
+                                        <div>checkbox.checked <span class="text-gray-400">// true/false</span></div>
+                                        <div>radio.checked <span class="text-gray-400">// true if selected</span></div>
+                                        <div class="mt-1"><span class="text-gray-400">// Get checked radio value in group</span></div>
+                                        <div>const selected = document.querySelector('input[name="size"]:checked')</div>
+                                        <div>const value = selected?.value</div>
+                                    </div>
+                                </div>
+
+                                <!-- Select -->
+                                <div class="bg-purple-500/20 border border-purple-400 rounded p-3">
+                                    <div class="text-purple-300 font-mono text-[10px] space-y-0.5">
+                                        <div class="text-yellow-400 mb-1">Select dropdowns:</div>
+                                        <div>select.value <span class="text-gray-400">// selected option value</span></div>
+                                        <div>select.selectedIndex <span class="text-gray-400">// index of selected option</span></div>
+                                        <div>select.options[0].selected <span class="text-gray-400">// check if option selected</span></div>
+                                    </div>
+                                </div>
+
+                                <!-- Files -->
+                                <div class="bg-orange-500/20 border border-orange-400 rounded p-3">
+                                    <div class="text-orange-300 font-mono text-[10px] space-y-0.5">
+                                        <div class="text-yellow-400 mb-1">File inputs:</div>
+                                        <div>fileInput.files <span class="text-gray-400">// FileList (array-like)</span></div>
+                                        <div>fileInput.files[0] <span class="text-gray-400">// first File object</span></div>
+                                        <div>fileInput.files[0].name <span class="text-gray-400">// filename</span></div>
+                                        <div>fileInput.files[0].size <span class="text-gray-400">// size in bytes</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>💡 <strong>Multiple checkboxes with same name:</strong></div>
+                            <div class="pl-2 border-l-2 border-blue-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-gray-400">// Get all checked values</span></div>
+                                <div class="font-mono text-[10px]">const checkboxes = document.querySelectorAll('input[name="hobbies"]:checked')</div>
+                                <div class="font-mono text-[10px]">const values = [...checkboxes].map(cb =&gt; cb.value)</div>
+                                <div class="font-mono text-[10px]"><span class="text-gray-400">// ['reading', 'gaming', 'cooking']</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- ============================================ -->
+                <!-- ✅ FORM VALIDATION -->
+                <!-- ============================================ -->
+
+                <h2 id="validation" class="text-green-300 text-xl my-4 pb-2 border-b-2 border-green-600">
+                    ✅ Form Validation
+                </h2>
+
+                <div class="bg-blue-500/10 border-l-4 border-blue-500 p-4 mb-6 rounded">
+                    <div class="text-blue-200 font-bold text-sm mb-2">📚 Validation Strategy - Best Practices</div>
+                    <div class="text-gray-300 text-[11px] space-y-2">
+                        <div><strong>Layer 1: HTML5 Attributes (required, pattern, etc.)</strong></div>
+                        <div class="pl-3">✅ Free, works without JavaScript, good baseline</div>
+                        <div class="pl-3">❌ Limited customization, can't be bypassed</div>
+
+                        <div class="mt-3"><strong>Layer 2: JavaScript Validation (Constraint Validation API)</strong></div>
+                        <div class="pl-3">✅ Custom error messages, cross-field validation (e.g., password match)</div>
+                        <div class="pl-3">✅ Better UX with real-time feedback</div>
+                        <div class="pl-3">❌ Can be bypassed by disabling JavaScript</div>
+
+                        <div class="mt-3"><strong>Layer 3: Server-side Validation (ALWAYS REQUIRED)</strong></div>
+                        <div class="pl-3">✅ Can't be bypassed, final security check</div>
+                        <div class="pl-3">❌ Slower feedback (network round-trip)</div>
+
+                        <div class="mt-3"><strong>🎯 Recommended approach:</strong></div>
+                        <div class="pl-3">1. Use HTML5 attributes for basic validation</div>
+                        <div class="pl-3">2. Add JavaScript for custom rules & better UX</div>
+                        <div class="pl-3">3. ALWAYS validate on the server (never trust client-side)</div>
+                    </div>
+                </div>
+
+                <div class="bg-yellow-500/10 border-l-4 border-yellow-500 p-4 mb-6 rounded">
+                    <div class="text-yellow-200 font-bold text-sm mb-2">⏰ When to show validation errors</div>
+                    <div class="text-gray-300 text-[11px] space-y-2">
+                        <div><strong>❌ Bad: Validate on every keystroke (input event)</strong></div>
+                        <div class="pl-3">Shows errors immediately while user is still typing - annoying!</div>
+
+                        <div class="mt-3"><strong>✅ Good: Validate when user leaves field (blur event)</strong></div>
+                        <div class="pl-3">User finishes typing, then sees errors - better UX</div>
+
+                        <div class="mt-3"><strong>✅ Better: Progressive enhancement</strong></div>
+                        <div class="pl-3">• Initial check: on blur (when leaving field)</div>
+                        <div class="pl-3">• Once error shown: on input (help them fix it in real-time)</div>
+                        <div class="pl-3">• Final check: on submit (catch everything before sending)</div>
+
+                        <div class="mt-3"><strong>💡 Also consider:</strong> Disable submit button until form is valid (instant visual feedback)</div>
+                    </div>
+                </div>
+
+                <!-- HTML5 VALIDATION -->
+                <div id="html5-validation">
+                    <MethodCard
+                        methodName="HTML5 Validation Attributes"
+                        signature="Built-in browser validation"
+                        description="Validation without JavaScript"
+                        mutates={false}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-3">
+                                <!-- Common attributes -->
+                                <div class="bg-blue-500/20 border border-blue-400 rounded p-3">
+                                    <div class="text-blue-300 font-mono text-[10px] space-y-0.5">
+                                        <div class="text-yellow-400 mb-1">Validation attributes:</div>
+                                        <div>required <span class="text-gray-400">// must have a value</span></div>
+                                        <div>minlength="5" maxlength="20" <span class="text-gray-400">// string length</span></div>
+                                        <div>min="18" max="100" <span class="text-gray-400">// number range</span></div>
+                                        <div>step="5" <span class="text-gray-400">// number increment (e.g., 0, 5, 10, 15)</span></div>
+                                        <div>pattern="[A-Za-z]{`{`}3,{`}`}" <span class="text-gray-400">// regex validation</span></div>
+                                        <div>type="email" <span class="text-gray-400">// validates email format</span></div>
+                                        <div>type="url" <span class="text-gray-400">// validates URL format</span></div>
+                                        <div>type="number" <span class="text-gray-400">// validates numeric input</span></div>
+                                        <div>type="date" / "time" / "datetime-local" <span class="text-gray-400">// date/time validation</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>💡 <strong>Use "title" attribute for custom error messages:</strong></div>
+                            <div class="pl-2 border-l-2 border-blue-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">&lt;input type="text" pattern="[A-Z]{`{`}2{`}`}[0-9]{`{`}4{`}`}"</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title="Format: XX1234 (2 letters, 4 numbers)" /&gt;</div>
+                                <div class="text-[10px] mt-1">The title shows as the validation error message</div>
+                            </div>
+                        </ProTip>
+
+                        <ProTip>
+                            <div>⚠️ <strong>Disable HTML5 validation for custom validation:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">&lt;form novalidate&gt; <span class="text-gray-400">// disables browser validation</span></div>
+                                <div class="text-[10px] mt-1">Use this when you want full control with JavaScript validation</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- CONSTRAINT VALIDATION API -->
+                <div id="constraint-validation">
+                    <MethodCard
+                        methodName="Constraint Validation API"
+                        signature="checkValidity(), setCustomValidity(), etc."
+                        description="JavaScript API for validation"
+                        mutates={false}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-4">
+                                <!-- checkValidity -->
+                                <div class="flex items-center gap-3">
+                                    <div class="bg-blue-500/20 border border-blue-400 rounded px-4 py-2 flex-1">
+                                        <div class="text-blue-300 font-mono text-xs">input.checkValidity()</div>
+                                        <div class="text-gray-400 text-[10px] mt-0.5">Check if input is valid (silent)</div>
+                                    </div>
+                                    <div class="text-gray-400 text-xl">→</div>
+                                    <div class="bg-green-500/20 border border-green-500 rounded px-4 py-2 w-32">
+                                        <div class="text-green-300 font-mono text-[10px]">true/false</div>
+                                    </div>
+                                </div>
+
+                                <!-- reportValidity -->
+                                <div class="flex items-center gap-3">
+                                    <div class="bg-purple-500/20 border border-purple-400 rounded px-4 py-2 flex-1">
+                                        <div class="text-purple-300 font-mono text-xs">input.reportValidity()</div>
+                                        <div class="text-gray-400 text-[10px] mt-0.5">Check & show browser error message</div>
+                                    </div>
+                                    <div class="text-gray-400 text-xl">→</div>
+                                    <div class="bg-green-500/20 border border-green-500 rounded px-4 py-2 w-32">
+                                        <div class="text-green-300 font-mono text-[10px]">true/false</div>
+                                    </div>
+                                </div>
+
+                                <!-- setCustomValidity -->
+                                <div class="flex items-center gap-3">
+                                    <div class="bg-orange-500/20 border border-orange-400 rounded px-4 py-2 flex-1">
+                                        <div class="text-orange-300 font-mono text-xs">input.setCustomValidity('msg')</div>
+                                        <div class="text-gray-400 text-[10px] mt-0.5">Set custom error (empty string clears)</div>
+                                    </div>
+                                    <div class="text-gray-400 text-xl">→</div>
+                                    <div class="bg-red-500/20 border border-red-500 rounded px-4 py-2 w-32">
+                                        <div class="text-red-300 font-mono text-[10px]">void</div>
+                                    </div>
+                                </div>
+
+                                <!-- Properties -->
+                                <div class="bg-gray-800/50 border border-gray-700 rounded p-3">
+                                    <div class="text-gray-300 font-mono text-[10px] space-y-0.5">
+                                        <div class="text-yellow-400 mb-1">Validation state properties (readonly):</div>
+                                        <div>input.validity.valid <span class="text-gray-400">// true if all checks pass</span></div>
+                                        <div>input.validity.valueMissing <span class="text-gray-400">// required field empty</span></div>
+                                        <div>input.validity.typeMismatch <span class="text-gray-400">// wrong type (email, url)</span></div>
+                                        <div>input.validity.patternMismatch <span class="text-gray-400">// doesn't match pattern</span></div>
+                                        <div>input.validity.tooShort / tooLong <span class="text-gray-400">// violates minlength/maxlength</span></div>
+                                        <div>input.validity.rangeOverflow / rangeUnderflow <span class="text-gray-400">// violates min/max</span></div>
+                                        <div>input.validity.stepMismatch <span class="text-gray-400">// doesn't match step value</span></div>
+                                        <div>input.validity.badInput <span class="text-gray-400">// browser can't parse input</span></div>
+                                        <div>input.validity.customError <span class="text-gray-400">// setCustomValidity() was used</span></div>
+                                        <div class="mt-1">input.validationMessage <span class="text-gray-400">// error message string</span></div>
+                                        <div>input.willValidate <span class="text-gray-400">// true if input will be validated</span></div>
+                                    </div>
+                                </div>
+
+                                <!-- Real-world example -->
+                                <div class="bg-cyan-500/20 border border-cyan-400 rounded p-3">
+                                    <div class="text-cyan-300 font-mono text-[10px] space-y-0.5">
+                                        <div class="text-yellow-400 mb-1">Real-world example (password confirmation):</div>
+                                        <div>const form = document.querySelector('#signup-form')</div>
+                                        <div>const password = form.querySelector('[name="password"]')</div>
+                                        <div>const email = form.querySelector('[name="email"]')</div>
+                                        <div class="mt-1"><span class="text-gray-400">// Check specific validation errors</span></div>
+                                        <div>if (email.validity.typeMismatch) {`{`}</div>
+                                        <div>&nbsp;&nbsp;console.log('Not a valid email format')</div>
+                                        <div>{`}`}</div>
+                                        <div class="mt-1">if (password.validity.tooShort) {`{`}</div>
+                                        <div>&nbsp;&nbsp;console.log(`Password must be at least {"{"}password.minLength{"}"} chars`)</div>
+                                        <div>{`}`}</div>
+                                        <div class="mt-1"><span class="text-gray-400">// Custom validation: username can't contain spaces</span></div>
+                                        <div>const username = form.querySelector('[name="username"]')</div>
+                                        <div>username.addEventListener('input', () =&gt; {`{`}</div>
+                                        <div>&nbsp;&nbsp;if (username.value.includes(' ')) {`{`}</div>
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;username.setCustomValidity('Username cannot contain spaces')</div>
+                                        <div>&nbsp;&nbsp;{`}`} else {`{`}</div>
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;username.setCustomValidity('') <span class="text-gray-400">// clear error</span></div>
+                                        <div>&nbsp;&nbsp;{`}`}</div>
+                                        <div>{`}`})</div>
+                                        <div class="mt-1"><span class="text-gray-400">// Validate entire form before submit</span></div>
+                                        <div>if (!form.checkValidity()) {`{`}</div>
+                                        <div>&nbsp;&nbsp;form.reportValidity() <span class="text-gray-400">// show all errors</span></div>
+                                        <div>{`}`}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>⚠️ <strong>Clear custom validity to mark as valid:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">input.setCustomValidity('Error!') <span class="text-gray-400">// marks as invalid</span></div>
+                                <div class="font-mono text-[10px]">input.setCustomValidity('') <span class="text-gray-400">// clears error, marks as valid</span></div>
+                                <div class="text-[10px] mt-1">Empty string = valid. Any string = invalid with that message.</div>
+                            </div>
+                        </ProTip>
+
+                        <ProTip>
+                            <div>💡 <strong>Validate entire form at once:</strong></div>
+                            <div class="pl-2 border-l-2 border-blue-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">form.checkValidity() <span class="text-gray-400">// returns true if all inputs valid</span></div>
+                                <div class="font-mono text-[10px]">form.reportValidity() <span class="text-gray-400">// checks & shows errors</span></div>
+                                <div class="text-[10px] mt-1">These methods also work on the form element to validate all inputs at once</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- ============================================ -->
+                <!-- 📤 FORM SUBMISSION -->
+                <!-- ============================================ -->
+
+                <h2 id="submission" class="text-purple-300 text-xl my-4 pb-2 border-b-2 border-purple-600">
+                    📤 Form Submission
+                </h2>
+
+                <!-- SUBMIT EVENT -->
+                <div id="submit-event">
+                    <MethodCard
+                        methodName="Form Submit Event"
+                        signature="form.addEventListener('submit', handler)"
+                        description="Handle form submission with JavaScript"
+                        mutates={false}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-4">
+                                <!-- Basic pattern -->
+                                <div class="bg-purple-500/20 border border-purple-400 rounded p-3">
+                                    <div class="text-purple-300 font-mono text-[10px] space-y-0.5">
+                                        <div class="text-yellow-400 mb-1">Basic pattern:</div>
+                                        <div>form.addEventListener('submit', (e) =&gt; {`{`}</div>
+                                        <div>&nbsp;&nbsp;e.preventDefault() <span class="text-gray-400">// stop default submission</span></div>
+                                        <div>&nbsp;&nbsp;</div>
+                                        <div>&nbsp;&nbsp;<span class="text-gray-400">// Get form data</span></div>
+                                        <div>&nbsp;&nbsp;const formData = new FormData(form)</div>
+                                        <div>&nbsp;&nbsp;const data = Object.fromEntries(formData)</div>
+                                        <div>&nbsp;&nbsp;</div>
+                                        <div>&nbsp;&nbsp;<span class="text-gray-400">// Send to server</span></div>
+                                        <div>&nbsp;&nbsp;await fetch('/api/submit', {`{`}</div>
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;method: 'POST',</div>
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;headers: {`{`} 'Content-Type': 'application/json' {`}`},</div>
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;body: JSON.stringify(data)</div>
+                                        <div>&nbsp;&nbsp;{`}`})</div>
+                                        <div>{`}`})</div>
+                                    </div>
+                                </div>
+
+                                <!-- With validation -->
+                                <div class="bg-green-500/20 border border-green-500 rounded p-3">
+                                    <div class="text-green-300 font-mono text-[10px] space-y-0.5">
+                                        <div class="text-yellow-400 mb-1">With validation:</div>
+                                        <div>form.addEventListener('submit', async (e) =&gt; {`{`}</div>
+                                        <div>&nbsp;&nbsp;e.preventDefault()</div>
+                                        <div>&nbsp;&nbsp;</div>
+                                        <div>&nbsp;&nbsp;<span class="text-gray-400">// Validate</span></div>
+                                        <div>&nbsp;&nbsp;if (!form.checkValidity()) {`{`}</div>
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;form.reportValidity() <span class="text-gray-400">// show errors</span></div>
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;return</div>
+                                        <div>&nbsp;&nbsp;{`}`}</div>
+                                        <div>&nbsp;&nbsp;</div>
+                                        <div>&nbsp;&nbsp;<span class="text-gray-400">// Show loading state</span></div>
+                                        <div>&nbsp;&nbsp;submitBtn.disabled = true</div>
+                                        <div>&nbsp;&nbsp;submitBtn.textContent = 'Submitting...'</div>
+                                        <div>&nbsp;&nbsp;</div>
+                                        <div>&nbsp;&nbsp;try {`{`}</div>
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;const formData = new FormData(form)</div>
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;const response = await fetch('/api/submit', {`{`}</div>
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;method: 'POST',</div>
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;body: formData</div>
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;{`}`})</div>
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;if (response.ok) {`{`}</div>
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;form.reset() <span class="text-gray-400">// clear form</span></div>
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;{`}`}</div>
+                                        <div>&nbsp;&nbsp;{`}`} catch (error) {`{`}</div>
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;console.error('Submission failed:', error)</div>
+                                        <div>&nbsp;&nbsp;{`}`} finally {`{`}</div>
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;submitBtn.disabled = false</div>
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;submitBtn.textContent = 'Submit'</div>
+                                        <div>&nbsp;&nbsp;{`}`}</div>
+                                        <div>{`}`})</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>⚠️ <strong>Always call preventDefault()!</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">e.preventDefault() <span class="text-gray-400">// stops browser from submitting</span></div>
+                                <div class="text-[10px] mt-1">Without this, the browser will submit the form traditionally (page reload)</div>
+                                <div class="text-[10px]">Call it at the start of your handler to prevent default behavior</div>
+                            </div>
+                        </ProTip>
+
+                        <ProTip>
+                            <div>💡 <strong>Form submission can be triggered multiple ways:</strong></div>
+                            <div class="pl-2 border-l-2 border-blue-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-gray-400">// User clicks submit button</span></div>
+                                <div class="font-mono text-[10px]"><span class="text-gray-400">// User presses Enter in an input</span></div>
+                                <div class="font-mono text-[10px]"><span class="text-gray-400">// JavaScript calls form.submit() (doesn't trigger event!)</span></div>
+                                <div class="text-[10px] mt-1">The submit event catches all user submissions, but not form.submit()</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- FORM RESET -->
+                <div id="form-reset">
+                    <MethodCard
+                        methodName="Form Reset & Clear"
+                        signature="form.reset()"
+                        description="Reset form to initial state or clear it"
+                        mutates={true}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-3">
+                                <!-- reset -->
+                                <div class="bg-blue-500/20 border border-blue-400 rounded p-3">
+                                    <div class="text-blue-300 font-mono text-[10px] space-y-0.5">
+                                        <div>form.reset() <span class="text-gray-400">// resets to initial values</span></div>
+                                        <div class="mt-1"><span class="text-gray-400">// Triggers 'reset' event</span></div>
+                                        <div>form.addEventListener('reset', (e) =&gt; {`{`}</div>
+                                        <div>&nbsp;&nbsp;console.log('Form reset')</div>
+                                        <div>{`}`})</div>
+                                    </div>
+                                </div>
+
+                                <!-- Manual clear -->
+                                <div class="bg-green-500/20 border border-green-500 rounded p-3">
+                                    <div class="text-green-300 font-mono text-[10px] space-y-0.5">
+                                        <div><span class="text-gray-400">// Clear all inputs manually</span></div>
+                                        <div>form.querySelectorAll('input, textarea, select').forEach(input =&gt; {`{`}</div>
+                                        <div>&nbsp;&nbsp;if (input.type === 'checkbox' || input.type === 'radio') {`{`}</div>
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;input.checked = false</div>
+                                        <div>&nbsp;&nbsp;{`}`} else {`{`}</div>
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;input.value = ''</div>
+                                        <div>&nbsp;&nbsp;{`}`}</div>
+                                        <div>{`}`})</div>
+                                    </div>
+                                </div>
+
+                                <!-- Clear errors -->
+                                <div class="bg-purple-500/20 border border-purple-400 rounded p-3">
+                                    <div class="text-purple-300 font-mono text-[10px] space-y-0.5">
+                                        <div><span class="text-gray-400">// Clear validation errors</span></div>
+                                        <div>form.querySelectorAll('input').forEach(input =&gt; {`{`}</div>
+                                        <div>&nbsp;&nbsp;input.setCustomValidity('')</div>
+                                        <div>{`}`})</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>⚠️ <strong>reset() vs clearing manually:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">form.reset() <span class="text-gray-400">// restores to initial HTML values</span></div>
+                                <div class="text-[10px] mt-1">If your HTML has &lt;input value="default"&gt;, reset() will restore "default"</div>
+                                <div class="text-[10px]">To truly clear everything, manually set all values to empty strings</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- ============================================ -->
+                <!-- 🎯 COMMON PATTERNS -->
+                <!-- ============================================ -->
+
+                <h2 id="patterns" class="text-orange-300 text-xl my-4 pb-2 border-b-2 border-orange-600">
+                    🎯 Common Patterns
+                </h2>
+
+                <!-- REAL-TIME VALIDATION -->
+                <div id="realtime-validation">
+                    <MethodCard
+                        methodName="Real-time Validation"
+                        signature="Validate as user types"
+                        description="Provide immediate feedback on input"
+                        mutates={false}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-3">
+                                <!-- input event -->
+                                <div class="bg-blue-500/20 border border-blue-400 rounded p-3">
+                                    <div class="text-blue-300 font-mono text-[10px] space-y-0.5">
+                                        <div><span class="text-gray-400">// Validate on every keystroke</span></div>
+                                        <div>input.addEventListener('input', () =&gt; {`{`}</div>
+                                        <div>&nbsp;&nbsp;if (input.validity.valid) {`{`}</div>
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;errorMsg.textContent = ''</div>
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;input.classList.remove('error')</div>
+                                        <div>&nbsp;&nbsp;{`}`} else {`{`}</div>
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;errorMsg.textContent = input.validationMessage</div>
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;input.classList.add('error')</div>
+                                        <div>&nbsp;&nbsp;{`}`}</div>
+                                        <div>{`}`})</div>
+                                    </div>
+                                </div>
+
+                                <!-- blur event -->
+                                <div class="bg-green-500/20 border border-green-500 rounded p-3">
+                                    <div class="text-green-300 font-mono text-[10px] space-y-0.5">
+                                        <div><span class="text-gray-400">// Validate when user leaves field (less aggressive)</span></div>
+                                        <div>input.addEventListener('blur', () =&gt; {`{`}</div>
+                                        <div>&nbsp;&nbsp;if (!input.checkValidity()) {`{`}</div>
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;showError(input, input.validationMessage)</div>
+                                        <div>&nbsp;&nbsp;{`}`}</div>
+                                        <div>{`}`})</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>💡 <strong>Best practice: validate on blur, not input:</strong></div>
+                            <div class="pl-2 border-l-2 border-blue-500/30 space-y-0.5 mt-1">
+                                <div class="text-[10px]"><strong>input</strong> event fires on every keystroke (annoying for users)</div>
+                                <div class="text-[10px]"><strong>blur</strong> event fires when leaving the field (better UX)</div>
+                                <div class="text-[10px] mt-1">Validate on <strong>blur</strong> for initial check, then switch to <strong>input</strong> once there's an error</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- DISABLE SUBMIT -->
+                <div id="disable-submit">
+                    <MethodCard
+                        methodName="Disable Submit Until Valid"
+                        signature="Keep submit button disabled until form is valid"
+                        description="Prevent submission of invalid forms"
+                        mutates={true}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-3">
+                                <div class="bg-purple-500/20 border border-purple-400 rounded p-3">
+                                    <div class="text-purple-300 font-mono text-[10px] space-y-0.5">
+                                        <div>const updateSubmitButton = () =&gt; {`{`}</div>
+                                        <div>&nbsp;&nbsp;submitBtn.disabled = !form.checkValidity()</div>
+                                        <div>{`}`}</div>
+                                        <div class="mt-1"><span class="text-gray-400">// Update on any input change</span></div>
+                                        <div>form.addEventListener('input', updateSubmitButton)</div>
+                                        <div>form.addEventListener('change', updateSubmitButton)</div>
+                                        <div class="mt-1"><span class="text-gray-400">// Initial check</span></div>
+                                        <div>updateSubmitButton()</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>⚠️ <strong>Don't rely solely on disabled button:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="text-[10px]">Disabling the submit button is a UX enhancement, not security</div>
+                                <div class="text-[10px]">Always validate on the server side too!</div>
+                                <div class="text-[10px]">Users can enable disabled buttons via DevTools</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+            </main>
+
+            <!-- Sidebar Navigation -->
+            <aside class="w-64 shrink-0 sticky top-4 self-start hidden lg:block max-h-[calc(100vh-2rem)] overflow-y-auto">
+                <!-- Global Navigation -->
+                <GlobalNav />
+
+                <!-- Page Navigation -->
+                <nav class="bg-[#252936] rounded-lg p-4 border border-gray-700">
+                    <h3 class="text-white text-sm font-bold mb-3 uppercase tracking-wide">On This Page</h3>
+                    <ul class="space-y-2 text-xs">
+                        <li>
+                            <a href="#form-data" class="text-blue-300 font-semibold hover:text-blue-200 block py-1">📋 Getting Form Data</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-blue-500/30 pl-2">
+                                <li><a href="#formdata-api" class="text-gray-300 hover:text-blue-400 block">FormData API</a></li>
+                                <li><a href="#manual-values" class="text-gray-300 hover:text-blue-400 block">Manual Value Access</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="mt-4">
+                            <a href="#validation" class="text-green-300 font-semibold hover:text-green-200 block py-1">✅ Form Validation</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-green-500/30 pl-2">
+                                <li><a href="#html5-validation" class="text-gray-300 hover:text-blue-400 block">HTML5 Validation</a></li>
+                                <li><a href="#constraint-validation" class="text-gray-300 hover:text-blue-400 block">Constraint Validation API</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="mt-4">
+                            <a href="#submission" class="text-purple-300 font-semibold hover:text-purple-200 block py-1">📤 Form Submission</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-purple-500/30 pl-2">
+                                <li><a href="#submit-event" class="text-gray-300 hover:text-blue-400 block">Submit Event</a></li>
+                                <li><a href="#form-reset" class="text-gray-300 hover:text-blue-400 block">Reset & Clear</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="mt-4">
+                            <a href="#patterns" class="text-orange-300 font-semibold hover:text-orange-200 block py-1">🎯 Common Patterns</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-orange-500/30 pl-2">
+                                <li><a href="#realtime-validation" class="text-gray-300 hover:text-blue-400 block">Real-time Validation</a></li>
+                                <li><a href="#disable-submit" class="text-gray-300 hover:text-blue-400 block">Disable Submit Until Valid</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+        </div>
+
+        <style>
+            html {
+                scroll-behavior: smooth;
+                scroll-padding-top: 20px;
+            }
+        </style>
+    </body>
+</html>
