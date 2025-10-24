@@ -1,0 +1,1180 @@
+---
+import '../../styles/styles.css'
+import MethodCard from '../../components/visual-js/MethodCard.astro';
+import Node from '../../components/visual-js/Node.astro';
+import ArrayDisplay from '../../components/visual-js/ArrayDisplay.astro';
+import Arrow from '../../components/visual-js/Arrow.astro';
+import ReturnValue from '../../components/visual-js/ReturnValue.astro';
+import InfoBox from '../../components/visual-js/InfoBox.astro';
+import ProcessContent from '../../components/visual-js/ProcessContent.astro';
+import ProTip from '../../components/visual-js/ProTip.astro';
+---
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>JavaScript String Methods - Visual Cheatsheet</title>
+    </head>
+    <body class="m-0 p-4 bg-[#1a1d29] text-gray-200">
+        <div class="flex gap-6 max-w-[1600px] mx-auto">
+            <!-- Main Content -->
+            <main class="flex-1 min-w-0">
+                <h1 class="text-white mb-1 text-2xl font-bold">JavaScript String Methods</h1>
+                <p class="text-gray-400 mb-6 text-sm">Visual blueprint-style reference for string operations</p>
+
+                <ProTip>
+                    <div>⚡ <strong>Strings are immutable!</strong> All methods return a new string — the original never changes.</div>
+                    <div class="pl-2 border-l-2 border-yellow-500/30 font-mono text-[10px] mt-1">
+                        const str = 'hello'<br/>
+                        str.toUpperCase() <span class="text-red-400">// returns 'HELLO' but str stays 'hello'</span><br/>
+                        const upper = str.toUpperCase() ✅ <span class="text-gray-400">// always save the result!</span>
+                    </div>
+                </ProTip>
+
+                <!-- ============================================ -->
+                <!-- 🔍 INSPECT / CHECK -->
+                <!-- ============================================ -->
+
+                <h2 id="inspect" class="text-blue-300 text-xl my-4 pb-2 border-b-2 border-blue-600">
+                    🔍 Inspect / Check
+                </h2>
+
+                <!-- CHARAT -->
+                <div id="charAt">
+                    <MethodCard
+                        methodName="charAt()"
+                        signature="str.charAt(index)"
+                        description="Get character at position"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input String" type="input">
+                                <div class="text-center text-sm font-mono">'hello'</div>
+                            </Node>
+
+                            <Arrow label="access" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="str.charAt(1)" description="Get char at index" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="Character" type="output">
+                                <ReturnValue value="'e'" type="string" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code> (length 1). <strong>Index starts at 0.</strong> Returns empty string if out of bounds.
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
+                <!-- INCLUDES -->
+                <div id="includes">
+                    <MethodCard
+                        methodName="includes()"
+                        signature="str.includes(substring)"
+                        description="Check if substring exists"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input String" type="input">
+                                <div class="text-center text-sm font-mono">'hello world'</div>
+                            </Node>
+
+                            <Arrow label="search" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="str.includes('world')" description="Contains substring?" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="Boolean" type="output">
+                                <ReturnValue value="true" type="boolean" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">boolean</code>. ⚠️ Cannot be chained. Case-sensitive.
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
+                <!-- INDEXOF -->
+                <div id="indexOf">
+                    <MethodCard
+                        methodName="indexOf()"
+                        signature="str.indexOf(substring)"
+                        description="Find first occurrence index"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input String" type="input">
+                                <div class="text-center text-sm font-mono">'hello'</div>
+                            </Node>
+
+                            <Arrow label="search" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="str.indexOf('l')" description="First 'l' position" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="Index" type="output">
+                                <ReturnValue value="2" type="number" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">number</code> (index) or <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">-1</code> if not found. ⚠️ Cannot be chained.
+                        </InfoBox>
+
+                    </MethodCard>
+                </div>
+
+                <!-- LASTINDEXOF -->
+                <div id="lastIndexOf">
+                    <MethodCard
+                        methodName="lastIndexOf()"
+                        signature="str.lastIndexOf(substring)"
+                        description="Find last occurrence index"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input String" type="input">
+                                <div class="text-center text-sm font-mono">'hello'</div>
+                            </Node>
+
+                            <Arrow label="search" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="str.lastIndexOf('l')" description="Last 'l' position" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="Index" type="output">
+                                <ReturnValue value="3" type="number" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">number</code> (index) or <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">-1</code> if not found. ⚠️ Cannot be chained. Searches from the end.
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
+                <!-- STARTSWITH -->
+                <div id="startsWith">
+                    <MethodCard
+                        methodName="startsWith()"
+                        signature="str.startsWith(substring)"
+                        description="Check if string starts with substring"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input String" type="input">
+                                <div class="text-center text-sm font-mono">'hello world'</div>
+                            </Node>
+
+                            <Arrow label="check" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="str.startsWith('hello')" description="Starts with?" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="Boolean" type="output">
+                                <ReturnValue value="true" type="boolean" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">boolean</code>. ⚠️ Cannot be chained.
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
+                <!-- ENDSWITH -->
+                <div id="endsWith">
+                    <MethodCard
+                        methodName="endsWith()"
+                        signature="str.endsWith(substring)"
+                        description="Check if string ends with substring"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input String" type="input">
+                                <div class="text-center text-sm font-mono">'hello world'</div>
+                            </Node>
+
+                            <Arrow label="check" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="str.endsWith('world')" description="Ends with?" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="Boolean" type="output">
+                                <ReturnValue value="true" type="boolean" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">boolean</code>. ⚠️ Cannot be chained. Opposite of <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">startsWith()</code>.
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
+                <!-- ============================================ -->
+                <!-- ✂️ EXTRACT PIECES -->
+                <!-- ============================================ -->
+
+                <h2 id="extract" class="text-purple-300 text-xl my-4 pb-2 border-b-2 border-purple-600">
+                    ✂️ Extract Pieces
+                </h2>
+
+                <!-- SLICE -->
+                <div id="slice">
+                    <MethodCard
+                        methodName="slice()"
+                        signature="str.slice(start, end?)"
+                        description="Extract substring by indexes"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input String" type="input">
+                                <div class="text-center text-sm font-mono">'hello world'</div>
+                            </Node>
+
+                            <Arrow label="extract" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="str.slice(0, 5)" description="From 0 to 5" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="New String" type="output">
+                                <ReturnValue value="'hello'" type="string" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. Accepts negative indexes (counts from end).
+                        </InfoBox>
+
+                        <ProTip>
+                            <div>💡 <strong>Negative indexes are super useful:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">'hello'.slice(-2) → 'lo' <span class="text-gray-400">// last 2 chars</span></div>
+                                <div class="font-mono text-[10px]">'hello'.slice(1, -1) → 'ell' <span class="text-gray-400">// remove first and last</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- SUBSTRING -->
+                <div id="substring">
+                    <MethodCard
+                        methodName="substring()"
+                        signature="str.substring(start, end?)"
+                        description="Extract substring (swaps args if wrong order)"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input String" type="input">
+                                <div class="text-center text-sm font-mono">'hello'</div>
+                            </Node>
+
+                            <Arrow label="extract" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="str.substring(1, 4)" description="From 1 to 4" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="New String" type="output">
+                                <ReturnValue value="'ell'" type="string" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. Does NOT accept negative indexes. Prefer <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">slice()</code> for consistency.
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
+                <!-- SPLIT -->
+                <div id="split">
+                    <MethodCard
+                        methodName="split()"
+                        signature="str.split(separator)"
+                        description="Break string into array"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input String" type="input">
+                                <div class="text-center text-sm font-mono">'a,b,c'</div>
+                            </Node>
+
+                            <Arrow label="split by" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="str.split(',')" description="Split on comma" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="Array" type="output">
+                                <ArrayDisplay values={['a', 'b', 'c']} />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">array</code> of strings. ⚠️ Cannot be chained with string methods.
+                        </InfoBox>
+
+                        <ProTip>
+                            <div>Common patterns:</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">'hello'.split('') → ['h','e','l','l','o'] <span class="text-gray-400">// split into chars</span></div>
+                                <div class="font-mono text-[10px]">'a b c'.split(' ') → ['a','b','c'] <span class="text-gray-400">// split on space</span></div>
+                                <div class="font-mono text-[10px]">Array.from('hello') <span class="text-green-400">// better for Unicode (emoji safe)</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- ============================================ -->
+                <!-- 🔁 CHANGE CASE -->
+                <!-- ============================================ -->
+
+                <h2 id="case" class="text-orange-300 text-xl my-4 pb-2 border-b-2 border-orange-600">
+                    🔁 Change Case
+                </h2>
+
+                <!-- TOUPPERCASE -->
+                <div id="toUpperCase">
+                    <MethodCard
+                        methodName="toUpperCase()"
+                        signature="str.toUpperCase()"
+                        description="Convert to uppercase"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input String" type="input">
+                                <div class="text-center text-sm font-mono">'hello'</div>
+                            </Node>
+
+                            <Arrow label="convert" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="str.toUpperCase()" description="Make uppercase" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="New String" type="output">
+                                <ReturnValue value="'HELLO'" type="string" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. Converts all characters to uppercase.
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
+                <!-- TOLOWERCASE -->
+                <div id="toLowerCase">
+                    <MethodCard
+                        methodName="toLowerCase()"
+                        signature="str.toLowerCase()"
+                        description="Convert to lowercase"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input String" type="input">
+                                <div class="text-center text-sm font-mono">'HELLO'</div>
+                            </Node>
+
+                            <Arrow label="convert" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="str.toLowerCase()" description="Make lowercase" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="New String" type="output">
+                                <ReturnValue value="'hello'" type="string" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. Converts all characters to lowercase.
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
+                <!-- CAPITALIZE WORDS -->
+                <div id="capitalize">
+                    <MethodCard
+                        methodName="Capitalize Words"
+                        signature="str.replace(/\\b\\w/g, c => c.toUpperCase())"
+                        description="Capitalize first letter of each word"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input String" type="input">
+                                <div class="text-center text-sm font-mono">'hello world'</div>
+                            </Node>
+
+                            <Arrow label="transform" />
+
+                            <Node label="Regex Replace" type="process">
+                                <ProcessContent name="replace(/\\b\\w/g, ...)" description="Cap each word" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="New String" type="output">
+                                <ReturnValue value="'Hello World'" type="string" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. No built-in method for this - requires regex.
+                        </InfoBox>
+
+                        <ProTip>
+                            <div>Breaking down the regex:</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">\b <span class="text-gray-400">// word boundary</span></div>
+                                <div class="font-mono text-[10px]">\w <span class="text-gray-400">// first character of word</span></div>
+                                <div class="font-mono text-[10px]">/g <span class="text-gray-400">// global (all matches)</span></div>
+                                <div class="font-mono text-[10px]">c =&gt; c.toUpperCase() <span class="text-gray-400">// capitalize it</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- ============================================ -->
+                <!-- 🧹 TRIM / PAD -->
+                <!-- ============================================ -->
+
+                <h2 id="trim-pad" class="text-green-300 text-xl my-4 pb-2 border-b-2 border-green-600">
+                    🧹 Trim / Pad
+                </h2>
+
+                <!-- TRIM -->
+                <div id="trim">
+                    <MethodCard
+                        methodName="trim()"
+                        signature="str.trim()"
+                        description="Remove whitespace from both ends"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input String" type="input">
+                                <div class="text-center text-sm font-mono">'  hello  '</div>
+                            </Node>
+
+                            <Arrow label="clean" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="str.trim()" description="Remove spaces" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="New String" type="output">
+                                <ReturnValue value="'hello'" type="string" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. Use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">trimStart()</code> or <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">trimEnd()</code> for one side only.
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
+                <!-- PADSTART -->
+                <div id="padStart">
+                    <MethodCard
+                        methodName="padStart()"
+                        signature="str.padStart(targetLength, padString)"
+                        description="Pad string to target length (adds padding to the left)"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input String" type="input">
+                                <div class="text-center text-sm font-mono">'5'</div>
+                            </Node>
+
+                            <Arrow label="pad" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="str.padStart(3, '0')" description="Pad left with 0s" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="New String" type="output">
+                                <ReturnValue value="'005'" type="string" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. Use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">padEnd()</code> for right padding.
+                        </InfoBox>
+
+                        <ProTip>
+                            <div>Common real-world use cases:</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-gray-400">// Time formatting: display '5' as '05' in times like 05:30</span></div>
+                                <div class="font-mono text-[10px]">'5'.padStart(2, '0') → '05'</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Leading zeros for IDs/invoice numbers</span></div>
+                                <div class="font-mono text-[10px]">'123'.padStart(6, '0') → '000123'</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Right padding with padEnd()</span></div>
+                                <div class="font-mono text-[10px]">'hi'.padEnd(5, '.') → 'hi...'</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- ============================================ -->
+                <!-- 🔨 MANIPULATION -->
+                <!-- ============================================ -->
+
+                <h2 id="manipulation" class="text-red-300 text-xl my-4 pb-2 border-b-2 border-red-600">
+                    🔨 Manipulation
+                </h2>
+
+                <!-- CONCAT -->
+                <div id="concat">
+                    <MethodCard
+                        methodName="concat()"
+                        signature="str.concat(str2, str3, ...)"
+                        description="Join strings together"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input Strings" type="input">
+                                <div class="text-center text-sm font-mono">'hello', ' ', 'world'</div>
+                            </Node>
+
+                            <Arrow label="join" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="str.concat(' ', 'world')" description="Concatenate" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="New String" type="output">
+                                <ReturnValue value="'hello world'" type="string" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. Prefer template literals <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">`$&lbrace;a&rbrace; $&lbrace;b&rbrace;`</code> for readability.
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
+                <!-- REPEAT -->
+                <div id="repeat">
+                    <MethodCard
+                        methodName="repeat()"
+                        signature="str.repeat(count)"
+                        description="Repeat string n times"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input String" type="input">
+                                <div class="text-center text-sm font-mono">'ha'</div>
+                            </Node>
+
+                            <Arrow label="repeat" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="str.repeat(3)" description="Repeat 3 times" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="New String" type="output">
+                                <ReturnValue value="'hahaha'" type="string" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. Useful for creating patterns or dividers.
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
+                <!-- REPLACE -->
+                <div id="replace">
+                    <MethodCard
+                        methodName="replace()"
+                        signature="str.replace(search, replacement)"
+                        description="Replace first match"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input String" type="input">
+                                <div class="text-center text-sm font-mono">'hello hello'</div>
+                            </Node>
+
+                            <Arrow label="replace" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="str.replace('hello', 'hi')" description="First match only" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="New String" type="output">
+                                <ReturnValue value="'hi hello'" type="string" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. Only replaces FIRST match. Use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">replaceAll()</code> for all matches.
+                        </InfoBox>
+
+                        <ProTip>
+                            <div>⚠️ <strong>Gotcha:</strong> Only replaces first match!</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">'a a a'.replace('a', 'b') → 'b a a' <span class="text-red-400">// only first!</span></div>
+                                <div class="font-mono text-[10px]">'a a a'.replaceAll('a', 'b') → 'b b b' ✅ <span class="text-green-400">// all matches</span></div>
+                                <div class="font-mono text-[10px]">'a a a'.replace(/a/g, 'b') → 'b b b' ✅ <span class="text-gray-400">// regex global flag</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- REPLACEALL -->
+                <div id="replaceAll">
+                    <MethodCard
+                        methodName="replaceAll()"
+                        signature="str.replaceAll(search, replacement)"
+                        description="Replace all matches"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input String" type="input">
+                                <div class="text-center text-sm font-mono">'a a a'</div>
+                            </Node>
+
+                            <Arrow label="replace" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="str.replaceAll('a', 'b')" description="All matches" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="New String" type="output">
+                                <ReturnValue value="'b b b'" type="string" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. Replaces ALL occurrences. Modern browsers only (ES2021).
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
+                <!-- ============================================ -->
+                <!-- 🔍 PATTERN MATCHING -->
+                <!-- ============================================ -->
+
+                <h2 id="pattern" class="text-pink-300 text-xl my-4 pb-2 border-b-2 border-pink-600">
+                    🔍 Pattern Matching
+                </h2>
+
+                <!-- MATCH -->
+                <div id="match">
+                    <MethodCard
+                        methodName="match()"
+                        signature="str.match(regex)"
+                        description="Find matches using regex"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input String" type="input">
+                                <div class="text-center text-sm font-mono">'hello123'</div>
+                            </Node>
+
+                            <Arrow label="match" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="str.match(/\d+/g)" description="Find all digits" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="Array or null" type="output">
+                                <ArrayDisplay values={['123']} />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">array</code> of matches or <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">null</code>. ⚠️ Cannot be chained.
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
+                <!-- SEARCH -->
+                <div id="search">
+                    <MethodCard
+                        methodName="search()"
+                        signature="str.search(regex)"
+                        description="Find index of first regex match"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input String" type="input">
+                                <div class="text-center text-sm font-mono">'hello123'</div>
+                            </Node>
+
+                            <Arrow label="search" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="str.search(/\d/)" description="First digit position" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="Index" type="output">
+                                <ReturnValue value="5" type="number" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">number</code> (index) or <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">-1</code> if not found. ⚠️ Cannot be chained.
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
+                <!-- ============================================ -->
+                <!-- 🔄 CONVERTING TO STRINGS -->
+                <!-- ============================================ -->
+
+                <h2 id="converting" class="text-yellow-300 text-xl my-4 pb-2 border-b-2 border-yellow-600">
+                    🔄 Converting to Strings
+                </h2>
+
+                <!-- ARRAY TO STRING -->
+                <div id="array-to-string">
+                    <MethodCard
+                        methodName="Array to String"
+                        signature="arr.join(separator)"
+                        description="Convert array to string with separator"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input Array" type="input">
+                                <ArrayDisplay values={['a', 'b', 'c']} />
+                            </Node>
+
+                            <Arrow label="join" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="arr.join(',')" description="Join with comma" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="String" type="output">
+                                <ReturnValue value="'a,b,c'" type="string" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. Default separator is comma. Use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">''</code> to concatenate without separator.
+                        </InfoBox>
+
+                        <ProTip>
+                            <div>Common use cases:</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">['a','b','c'].join(', ') → 'a, b, c' <span class="text-gray-400">// comma + space</span></div>
+                                <div class="font-mono text-[10px]">['hi','there'].join(' ') → 'hi there' <span class="text-gray-400">// words with spaces</span></div>
+                                <div class="font-mono text-[10px]">['h','i'].join('') → 'hi' <span class="text-gray-400">// no separator</span></div>
+                                <div class="font-mono text-[10px]">arr.toString() → 'a,b,c' <span class="text-gray-400">// same as join() with comma</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- NUMBER TO STRING -->
+                <div id="number-to-string">
+                    <MethodCard
+                        methodName="Number to String"
+                        signature="String(num) or num.toString()"
+                        description="Convert number to string"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input Number" type="input">
+                                <div class="text-center text-sm font-mono">123</div>
+                            </Node>
+
+                            <Arrow label="convert" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="String(123)" description="To string" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="String" type="output">
+                                <ReturnValue value="'123'" type="string" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. Both <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">String(num)</code> and <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">num.toString()</code> work.
+                        </InfoBox>
+
+                        <ProTip>
+                            <div>Three ways to convert numbers:</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">String(123) → '123' ✅ <span class="text-gray-400">// recommended</span></div>
+                                <div class="font-mono text-[10px]">(123).toString() → '123' ✅ <span class="text-gray-400">// works too</span></div>
+                                <div class="font-mono text-[10px]">'' + 123 → '123' <span class="text-gray-400">// quick but less readable</span></div>
+                                <div class="font-mono text-[10px] mt-1">(42).toString(2) → '101010' <span class="text-green-400">// binary! (base 2)</span></div>
+                                <div class="font-mono text-[10px]">(255).toString(16) → 'ff' <span class="text-green-400">// hexadecimal! (base 16)</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- OBJECT TO STRING -->
+                <div id="object-to-string">
+                    <MethodCard
+                        methodName="Object to String"
+                        signature="JSON.stringify(obj)"
+                        description="Convert object to JSON string"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input Object" type="input">
+                                <div class="text-center text-sm font-mono">&lbrace;a: 1, b: 2&rbrace;</div>
+                            </Node>
+
+                            <Arrow label="stringify" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="JSON.stringify(obj)" description="To JSON string" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="JSON String" type="output">
+                                <ReturnValue value='{"a":1,"b":2}' type="string" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code> (JSON format). Use for serialization, API requests, localStorage, etc.
+                        </InfoBox>
+
+                        <ProTip>
+                            <div>Formatting options:</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">JSON.stringify(obj) → '&lbrace;"a":1&rbrace;' <span class="text-gray-400">// compact</span></div>
+                                <div class="font-mono text-[10px]">JSON.stringify(obj, null, 2) <span class="text-gray-400">// pretty-print with 2-space indent</span></div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-red-400">⚠️ Drops: functions, undefined, symbols</span></div>
+                                <div class="font-mono text-[10px]"><span class="text-red-400">⚠️ Circular references throw errors</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- ============================================ -->
+                <!-- 🧩 COMMON PATTERNS -->
+                <!-- ============================================ -->
+
+                <h2 id="patterns" class="text-cyan-300 text-xl my-4 pb-2 border-b-2 border-cyan-600">
+                    🧩 Common Patterns
+                </h2>
+
+                <!-- PREPEND/APPEND -->
+                <div id="prepend-append">
+                    <MethodCard
+                        methodName="Prepend / Append"
+                        signature="`prefix${str}suffix`"
+                        description="Add text before or after string"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input String" type="input">
+                                <div class="text-center text-sm font-mono">'hello'</div>
+                            </Node>
+
+                            <Arrow label="wrap" />
+
+                            <Node label="Template Literal" type="process">
+                                <ProcessContent name="`#${str}-end`" description="Add prefix & suffix" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="New String" type="output">
+                                <ReturnValue value="'#hello-end'" type="string" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. No built-in prepend/append - use template literals or <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">concat()</code>.
+                        </InfoBox>
+
+                        <ProTip>
+                            <div>Common use cases:</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">`#$&lbrace;hashtag&rbrace;` <span class="text-gray-400">// add # prefix</span></div>
+                                <div class="font-mono text-[10px]">`$&lbrace;url&rbrace;?v=123` <span class="text-gray-400">// add query param</span></div>
+                                <div class="font-mono text-[10px]">`$&lbrace;name&rbrace;.js` <span class="text-gray-400">// add file extension</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- REVERSE STRING -->
+                <div id="reverse">
+                    <MethodCard
+                        methodName="Reverse String"
+                        signature="str.split('').reverse().join('')"
+                        description="Reverse character order"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input String" type="input">
+                                <div class="text-center text-sm font-mono">'hello'</div>
+                            </Node>
+
+                            <Arrow label="split" />
+
+                            <Node label="Step 1" type="process">
+                                <ProcessContent name=".split('')" description="['h','e','l','l','o']" />
+                            </Node>
+
+                            <Arrow label="reverse" />
+
+                            <Node label="Step 2" type="process">
+                                <ProcessContent name=".reverse()" description="['o','l','l','e','h']" />
+                            </Node>
+
+                            <Arrow label="join" />
+
+                            <Node label="Result" type="output">
+                                <ReturnValue value="'olleh'" type="string" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. No built-in reverse - chain array methods.
+                        </InfoBox>
+
+                        <ProTip>
+                            <div>⚠️ <strong>Not Unicode-safe!</strong> Use for simple ASCII only:</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">'hello'.split('').reverse().join('') → 'olleh' ✅</div>
+                                <div class="font-mono text-[10px]">'👨‍👩‍👧'.split('').reverse().join('') <span class="text-red-400">// breaks emoji! ❌</span></div>
+                                <div class="font-mono text-[10px]">Array.from('👨‍👩‍👧').reverse().join('') <span class="text-green-400">// better for Unicode</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- CHECK IF EMPTY -->
+                <div id="is-empty">
+                    <MethodCard
+                        methodName="Check if Empty"
+                        signature="str.trim() === ''"
+                        description="Check if string is empty or only whitespace"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input String" type="input">
+                                <div class="text-center text-sm font-mono">'   '</div>
+                            </Node>
+
+                            <Arrow label="check" />
+
+                            <Node label="Pattern" type="process">
+                                <ProcessContent name="str.trim() === ''" description="Empty after trim?" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="Boolean" type="output">
+                                <ReturnValue value="true" type="boolean" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">boolean</code>. Trim first to catch whitespace-only strings.
+                        </InfoBox>
+
+                        <ProTip>
+                            <div>Different empty checks:</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">str === '' <span class="text-gray-400">// truly empty</span></div>
+                                <div class="font-mono text-[10px]">str.length === 0 <span class="text-gray-400">// same as above</span></div>
+                                <div class="font-mono text-[10px]">str.trim() === '' <span class="text-gray-400">// empty or whitespace only</span></div>
+                                <div class="font-mono text-[10px]">!str <span class="text-gray-400">// falsy (includes empty string)</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+            </main>
+
+            <!-- Sidebar Navigation -->
+            <aside class="w-64 shrink-0 sticky top-4 self-start hidden lg:block max-h-[calc(100vh-2rem)] overflow-y-auto">
+                <nav class="bg-[#252936] rounded-lg p-4 border border-gray-700">
+                    <h3 class="text-white text-sm font-bold mb-3 uppercase tracking-wide">Navigation</h3>
+                    <ul class="space-y-2 text-xs">
+                        <li>
+                            <a href="#inspect" class="text-blue-300 font-semibold hover:text-blue-200 block py-1">🔍 Inspect / Check</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-blue-500/30 pl-2">
+                                <li><a href="#charAt" class="text-gray-300 hover:text-blue-400 block">charAt()</a></li>
+                                <li><a href="#includes" class="text-gray-300 hover:text-blue-400 block">includes()</a></li>
+                                <li><a href="#indexOf" class="text-gray-300 hover:text-blue-400 block">indexOf()</a></li>
+                                <li><a href="#lastIndexOf" class="text-gray-300 hover:text-blue-400 block">lastIndexOf()</a></li>
+                                <li><a href="#startsWith" class="text-gray-300 hover:text-blue-400 block">startsWith()</a></li>
+                                <li><a href="#endsWith" class="text-gray-300 hover:text-blue-400 block">endsWith()</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="mt-4">
+                            <a href="#extract" class="text-purple-300 font-semibold hover:text-purple-200 block py-1">✂️ Extract Pieces</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-purple-500/30 pl-2">
+                                <li><a href="#slice" class="text-gray-300 hover:text-blue-400 block">slice()</a></li>
+                                <li><a href="#substring" class="text-gray-300 hover:text-blue-400 block">substring()</a></li>
+                                <li><a href="#split" class="text-gray-300 hover:text-blue-400 block">split()</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="mt-4">
+                            <a href="#case" class="text-orange-300 font-semibold hover:text-orange-200 block py-1">🔁 Change Case</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-orange-500/30 pl-2">
+                                <li><a href="#toUpperCase" class="text-gray-300 hover:text-blue-400 block">toUpperCase()</a></li>
+                                <li><a href="#toLowerCase" class="text-gray-300 hover:text-blue-400 block">toLowerCase()</a></li>
+                                <li><a href="#capitalize" class="text-gray-300 hover:text-blue-400 block">Capitalize Words</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="mt-4">
+                            <a href="#trim-pad" class="text-green-300 font-semibold hover:text-green-200 block py-1">🧹 Trim / Pad</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-green-500/30 pl-2">
+                                <li><a href="#trim" class="text-gray-300 hover:text-blue-400 block">trim()</a></li>
+                                <li><a href="#padStart" class="text-gray-300 hover:text-blue-400 block">padStart()</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="mt-4">
+                            <a href="#manipulation" class="text-red-300 font-semibold hover:text-red-200 block py-1">🔨 Manipulation</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-red-500/30 pl-2">
+                                <li><a href="#concat" class="text-gray-300 hover:text-blue-400 block">concat()</a></li>
+                                <li><a href="#repeat" class="text-gray-300 hover:text-blue-400 block">repeat()</a></li>
+                                <li><a href="#replace" class="text-gray-300 hover:text-blue-400 block">replace()</a></li>
+                                <li><a href="#replaceAll" class="text-gray-300 hover:text-blue-400 block">replaceAll()</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="mt-4">
+                            <a href="#pattern" class="text-pink-300 font-semibold hover:text-pink-200 block py-1">🔍 Pattern Matching</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-pink-500/30 pl-2">
+                                <li><a href="#match" class="text-gray-300 hover:text-blue-400 block">match()</a></li>
+                                <li><a href="#search" class="text-gray-300 hover:text-blue-400 block">search()</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="mt-4">
+                            <a href="#converting" class="text-yellow-300 font-semibold hover:text-yellow-200 block py-1">🔄 Converting to Strings</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-yellow-500/30 pl-2">
+                                <li><a href="#array-to-string" class="text-gray-300 hover:text-blue-400 block">Array to String</a></li>
+                                <li><a href="#number-to-string" class="text-gray-300 hover:text-blue-400 block">Number to String</a></li>
+                                <li><a href="#object-to-string" class="text-gray-300 hover:text-blue-400 block">Object to String</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="mt-4">
+                            <a href="#patterns" class="text-cyan-300 font-semibold hover:text-cyan-200 block py-1">🧩 Common Patterns</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-cyan-500/30 pl-2">
+                                <li><a href="#prepend-append" class="text-gray-300 hover:text-blue-400 block">Prepend / Append</a></li>
+                                <li><a href="#reverse" class="text-gray-300 hover:text-blue-400 block">Reverse String</a></li>
+                                <li><a href="#is-empty" class="text-gray-300 hover:text-blue-400 block">Check if Empty</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+        </div>
+
+        <style>
+            html {
+                scroll-behavior: smooth;
+                scroll-padding-top: 20px;
+            }
+
+            /* Node gradient backgrounds */
+            .node-input {
+                background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+            }
+
+            .node-process {
+                background: linear-gradient(135deg, #4c1d95 0%, #5b21b6 100%);
+            }
+
+            .node-output {
+                background: linear-gradient(135deg, #166534 0%, #15803d 100%);
+            }
+
+            /* Arrow styling */
+            .arrow {
+                position: relative;
+                height: 2px;
+                background: linear-gradient(90deg, #4b5563 0%, #6b7280 100%);
+            }
+
+            .arrow::after {
+                content: '';
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 0;
+                height: 0;
+                border-left: 8px solid #6b7280;
+                border-top: 5px solid transparent;
+                border-bottom: 5px solid transparent;
+            }
+
+            /* Pulse animation for highlights */
+            @keyframes pulse {
+                0%, 100% { opacity: 1; }
+                50% { opacity: 0.6; }
+            }
+
+            .animate-pulse {
+                animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            }
+        </style>
+    </body>
+</html>
