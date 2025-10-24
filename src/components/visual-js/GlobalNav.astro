@@ -1,0 +1,86 @@
+---
+interface NavItem {
+    label: string;
+    href: string;
+}
+
+const primitivePages: NavItem[] = [
+    { label: 'Arrays', href: '/visual/primitives/arrays' },
+    { label: 'Objects', href: '/visual/primitives/objects' },
+    { label: 'Strings', href: '/visual/primitives/strings' },
+    { label: 'Numbers', href: '/visual/primitives/numbers' },
+];
+
+const topLevelPages: NavItem[] = [
+    { label: 'Functions', href: '/visual/functions' },
+    { label: 'Loops', href: '/visual/loops' },
+    { label: 'Conditionals', href: '/visual/conditionals' },
+    { label: 'Promises', href: '/visual/promises' },
+    { label: 'Errors', href: '/visual/errors' },
+    { label: 'DOM', href: '/visual/dom' },
+];
+
+// Get current path to highlight active page
+const currentPath = Astro.url.pathname;
+
+const isActive = (href: string) => {
+    return currentPath.startsWith(href);
+};
+
+const isPrimitivesActive = primitivePages.some(page => isActive(page.href));
+const isTopLevelActive = topLevelPages.some(page => isActive(page.href));
+---
+
+<nav class="bg-[#1f2937] rounded-lg p-4 mb-4 border border-gray-600">
+    <h3 class="text-white text-xs font-bold mb-3 uppercase tracking-wide flex items-center gap-2">
+        <span class="text-lg">🗺️</span>
+        <span>Visual Cheatsheets</span>
+    </h3>
+
+    <ul class="space-y-2 text-xs">
+        <!-- Primitives Section -->
+        <li>
+            <div class={`font-semibold block py-1 ${isPrimitivesActive ? 'text-blue-300' : 'text-gray-300'}`}>
+                📦 Primitives
+            </div>
+            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-blue-500/30 pl-2">
+                {primitivePages.map(page => (
+                    <li>
+                        <a
+                            href={page.href}
+                            class={`block ${isActive(page.href) ? 'text-blue-400 font-medium' : 'text-gray-300 hover:text-blue-400'}`}
+                        >
+                            {page.label}
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        </li>
+
+        <!-- Core Concepts Section -->
+        <li>
+            <div class={`font-semibold block py-1 ${isTopLevelActive ? 'text-purple-300' : 'text-gray-300'}`}>
+                ⚡ Core Concepts
+            </div>
+            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-purple-500/30 pl-2">
+                {topLevelPages.map(page => (
+                    <li>
+                        <a
+                            href={page.href}
+                            class={`block ${isActive(page.href) ? 'text-purple-400 font-medium' : 'text-gray-300 hover:text-purple-400'}`}
+                        >
+                            {page.label}
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+<style>
+    /* Smooth transition for hover states */
+    a {
+        transition: all 0.2s ease;
+    }
+</style>

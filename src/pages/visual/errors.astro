@@ -1,7 +1,8 @@
 ---
-import '../../styles/styles.css'
-import MethodCard from '../../components/visual-js/MethodCard.astro';
-import ProTip from '../../components/visual-js/ProTip.astro';
+import '~styles/styles.css'
+import MethodCard from '~components/visual-js/MethodCard.astro';
+import ProTip from '~components/visual-js/ProTip.astro';
+import GlobalNav from '~components/visual-js/GlobalNav.astro';
 ---
 
 <html lang="en">
@@ -624,8 +625,12 @@ import ProTip from '../../components/visual-js/ProTip.astro';
 
             <!-- Sidebar Navigation -->
             <aside class="w-64 shrink-0 sticky top-4 self-start hidden lg:block max-h-[calc(100vh-2rem)] overflow-y-auto">
+                <!-- Global Navigation -->
+                <GlobalNav />
+
+                <!-- Page Navigation -->
                 <nav class="bg-[#252936] rounded-lg p-4 border border-gray-700">
-                    <h3 class="text-white text-sm font-bold mb-3 uppercase tracking-wide">Navigation</h3>
+                    <h3 class="text-white text-sm font-bold mb-3 uppercase tracking-wide">On This Page</h3>
                     <ul class="space-y-2 text-xs">
                         <li>
                             <a href="#try-catch" class="text-blue-300 font-semibold hover:text-blue-200 block py-1">🛡️ Try / Catch / Finally</a>

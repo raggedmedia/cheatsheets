@@ -1,13 +1,14 @@
 ---
-import '../../styles/styles.css'
-import MethodCard from '../../components/visual-js/MethodCard.astro';
-import Node from '../../components/visual-js/Node.astro';
-import ArrayDisplay from '../../components/visual-js/ArrayDisplay.astro';
-import Arrow from '../../components/visual-js/Arrow.astro';
-import ReturnValue from '../../components/visual-js/ReturnValue.astro';
-import InfoBox from '../../components/visual-js/InfoBox.astro';
-import ProcessContent from '../../components/visual-js/ProcessContent.astro';
-import ProTip from '../../components/visual-js/ProTip.astro';
+import '~styles/styles.css'
+import MethodCard from '~components/visual-js/MethodCard.astro';
+import Node from '~components/visual-js/Node.astro';
+import ArrayDisplay from '~components/visual-js/ArrayDisplay.astro';
+import Arrow from '~components/visual-js/Arrow.astro';
+import ReturnValue from '~components/visual-js/ReturnValue.astro';
+import InfoBox from '~components/visual-js/InfoBox.astro';
+import ProcessContent from '~components/visual-js/ProcessContent.astro';
+import ProTip from '~components/visual-js/ProTip.astro';
+import GlobalNav from '~components/visual-js/GlobalNav.astro';
 ---
 
 <html lang="en">
@@ -55,22 +56,36 @@ import ProTip from '../../components/visual-js/ProTip.astro';
                         description="Execute code if condition is truthy"
                         mutates={false}
                     >
-                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                            <Node label="Condition" type="input">
-                                <div class="text-center text-sm font-mono">age &gt;= 18</div>
-                            </Node>
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-3">
+                                <!-- Visual flow diagram -->
+                                <div class="bg-gray-900/50 border-2 border-blue-500 rounded-lg p-4 font-mono text-sm">
+                                    <div class="flex items-center gap-3 mb-3">
+                                        <div class="text-blue-400 font-bold">if</div>
+                                        <div class="bg-blue-500/20 px-3 py-1.5 rounded border border-blue-400">
+                                            <span class="text-blue-300">condition</span>
+                                        </div>
+                                    </div>
+                                    <div class="ml-8 pl-4 border-l-4 border-green-500 space-y-1">
+                                        <div class="text-gray-400 text-xs mb-1">↳ if <span class="text-green-400">true</span>, runs:</div>
+                                        <div class="text-green-300">doSomething()</div>
+                                        <div class="text-green-300">console.log('success')</div>
+                                    </div>
+                                    <div class="ml-8 mt-3 text-gray-500 text-xs">
+                                        ↳ if <span class="text-red-400">false</span>, skips block entirely
+                                    </div>
+                                </div>
 
-                            <Arrow label="evaluate" />
-
-                            <Node label="Check" type="process">
-                                <ProcessContent name="if (condition)" description="Is truthy?" />
-                            </Node>
-
-                            <Arrow label="true" />
-
-                            <Node label="Execute" type="output">
-                                <div class="text-center text-sm font-mono">Run code block</div>
-                            </Node>
+                                <!-- Example -->
+                                <div class="bg-gray-800/50 border border-gray-700 rounded p-3">
+                                    <div class="text-gray-400 text-xs mb-2">Example:</div>
+                                    <div class="font-mono text-xs text-gray-300 space-y-0.5">
+                                        <div><span class="text-blue-400">if</span> (age &gt;= 18) &lbrace;</div>
+                                        <div class="ml-4 text-green-300">console.log('Can vote')</div>
+                                        <div>&rbrace;</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700">
@@ -99,29 +114,39 @@ import ProTip from '../../components/visual-js/ProTip.astro';
                         description="Execute one of two code paths"
                         mutates={false}
                     >
-                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                            <Node label="Condition" type="input">
-                                <div class="text-center text-sm font-mono">age &gt;= 18</div>
-                            </Node>
-
-                            <Arrow label="evaluate" />
-
-                            <Node label="Check" type="process">
-                                <ProcessContent name="if/else" description="Branch" />
-                            </Node>
-
-                            <div class="flex flex-col gap-2">
-                                <div class="flex items-center gap-2">
-                                    <Arrow label="true" />
-                                    <Node label="If Block" type="output">
-                                        <div class="text-center text-sm font-mono">Run if code</div>
-                                    </Node>
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-3">
+                                <!-- Visual flow diagram -->
+                                <div class="bg-gray-900/50 border-2 border-blue-500 rounded-lg p-4 font-mono text-sm">
+                                    <div class="flex items-center gap-3 mb-3">
+                                        <div class="text-blue-400 font-bold">if</div>
+                                        <div class="bg-blue-500/20 px-3 py-1.5 rounded border border-blue-400">
+                                            <span class="text-blue-300">condition</span>
+                                        </div>
+                                    </div>
+                                    <div class="ml-8 pl-4 border-l-4 border-green-500 space-y-1 mb-3">
+                                        <div class="text-gray-400 text-xs mb-1">↳ if <span class="text-green-400">true</span>:</div>
+                                        <div class="text-green-300">doThisThing()</div>
+                                    </div>
+                                    <div class="flex items-center gap-3 mb-3">
+                                        <div class="text-orange-400 font-bold">else</div>
+                                    </div>
+                                    <div class="ml-8 pl-4 border-l-4 border-orange-500 space-y-1">
+                                        <div class="text-gray-400 text-xs mb-1">↳ if <span class="text-red-400">false</span>:</div>
+                                        <div class="text-orange-300">doOtherThing()</div>
+                                    </div>
                                 </div>
-                                <div class="flex items-center gap-2">
-                                    <Arrow label="false" />
-                                    <Node label="Else Block" type="output">
-                                        <div class="text-center text-sm font-mono">Run else code</div>
-                                    </Node>
+
+                                <!-- Example -->
+                                <div class="bg-gray-800/50 border border-gray-700 rounded p-3">
+                                    <div class="text-gray-400 text-xs mb-2">Example:</div>
+                                    <div class="font-mono text-xs text-gray-300 space-y-0.5">
+                                        <div><span class="text-blue-400">if</span> (age &gt;= 18) &lbrace;</div>
+                                        <div class="ml-4 text-green-300">console.log('Adult')</div>
+                                        <div>&rbrace; <span class="text-orange-400">else</span> &lbrace;</div>
+                                        <div class="ml-4 text-orange-300">console.log('Minor')</div>
+                                        <div>&rbrace;</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -140,41 +165,91 @@ import ProTip from '../../components/visual-js/ProTip.astro';
                         description="Chain multiple conditions"
                         mutates={false}
                     >
-                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                            <Node label="Conditions" type="input">
-                                <div class="text-center text-[10px] font-mono">Multiple checks</div>
-                            </Node>
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-3">
+                                <!-- Visual cascade diagram -->
+                                <div class="bg-gray-900/50 border-2 border-blue-500 rounded-lg p-4 font-mono text-sm">
+                                    <!-- First if -->
+                                    <div class="flex items-center gap-3 mb-2">
+                                        <div class="text-blue-400 font-bold">if</div>
+                                        <div class="bg-blue-500/20 px-3 py-1.5 rounded border border-blue-400">
+                                            <span class="text-blue-300">condition1</span>
+                                        </div>
+                                        <div class="text-xs text-gray-500">← checks first</div>
+                                    </div>
+                                    <div class="ml-8 pl-4 border-l-4 border-green-500 mb-4">
+                                        <div class="text-green-300">executeThis()</div>
+                                        <div class="text-xs text-gray-500 mt-1">✓ done, skip rest</div>
+                                    </div>
 
-                            <Arrow label="evaluate" />
+                                    <!-- else if 1 -->
+                                    <div class="flex items-center gap-3 mb-2">
+                                        <div class="text-purple-400 font-bold">else if</div>
+                                        <div class="bg-purple-500/20 px-3 py-1.5 rounded border border-purple-400">
+                                            <span class="text-purple-300">condition2</span>
+                                        </div>
+                                        <div class="text-xs text-gray-500">← if first was false</div>
+                                    </div>
+                                    <div class="ml-8 pl-4 border-l-4 border-purple-500 mb-4">
+                                        <div class="text-purple-300">executeThat()</div>
+                                        <div class="text-xs text-gray-500 mt-1">✓ done, skip rest</div>
+                                    </div>
 
-                            <Node label="Chain" type="process">
-                                <ProcessContent name="if/else if/else" description="Check in order" />
-                            </Node>
+                                    <!-- else if 2 -->
+                                    <div class="flex items-center gap-3 mb-2">
+                                        <div class="text-purple-400 font-bold">else if</div>
+                                        <div class="bg-purple-500/20 px-3 py-1.5 rounded border border-purple-400">
+                                            <span class="text-purple-300">condition3</span>
+                                        </div>
+                                        <div class="text-xs text-gray-500">← if previous were false</div>
+                                    </div>
+                                    <div class="ml-8 pl-4 border-l-4 border-purple-500 mb-4">
+                                        <div class="text-purple-300">executeOther()</div>
+                                        <div class="text-xs text-gray-500 mt-1">✓ done, skip rest</div>
+                                    </div>
 
-                            <Arrow label="first match" />
+                                    <!-- else -->
+                                    <div class="flex items-center gap-3 mb-2">
+                                        <div class="text-orange-400 font-bold">else</div>
+                                        <div class="text-xs text-gray-500">← if ALL above were false</div>
+                                    </div>
+                                    <div class="ml-8 pl-4 border-l-4 border-orange-500">
+                                        <div class="text-orange-300">fallback()</div>
+                                        <div class="text-xs text-gray-500 mt-1">default case</div>
+                                    </div>
+                                </div>
 
-                            <Node label="Execute" type="output">
-                                <div class="text-center text-sm font-mono">First true block</div>
-                            </Node>
+                                <!-- Example -->
+                                <div class="bg-gray-800/50 border border-gray-700 rounded p-3">
+                                    <div class="text-gray-400 text-xs mb-2">Example - Grade Calculator:</div>
+                                    <div class="font-mono text-xs text-gray-300 space-y-0.5">
+                                        <div><span class="text-blue-400">if</span> (score &gt;= 90) &lbrace;</div>
+                                        <div class="ml-4 text-green-300">grade = 'A'</div>
+                                        <div>&rbrace; <span class="text-purple-400">else if</span> (score &gt;= 80) &lbrace;</div>
+                                        <div class="ml-4 text-purple-300">grade = 'B'</div>
+                                        <div>&rbrace; <span class="text-purple-400">else if</span> (score &gt;= 70) &lbrace;</div>
+                                        <div class="ml-4 text-purple-300">grade = 'C'</div>
+                                        <div>&rbrace; <span class="text-orange-400">else</span> &lbrace;</div>
+                                        <div class="ml-4 text-orange-300">grade = 'F'</div>
+                                        <div>&rbrace;</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700">
-                            Checks conditions in order. <strong>Stops at first true condition.</strong> Use else for default case.
+                            Checks conditions in order. <strong>Stops at first true condition.</strong> Only one block ever executes.
                         </div>
 
                         <ProTip>
-                            <div>Order matters:</div>
+                            <div>⚠️ Order matters - put most specific conditions first:</div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                                <div class="font-mono text-[10px]">if (score &gt;= 90) &lbrace;</div>
-                                <div class="font-mono text-[10px]">&nbsp;&nbsp;grade = 'A'</div>
-                                <div class="font-mono text-[10px]">&rbrace; else if (score &gt;= 80) &lbrace;</div>
-                                <div class="font-mono text-[10px]">&nbsp;&nbsp;grade = 'B'</div>
-                                <div class="font-mono text-[10px]">&rbrace; else if (score &gt;= 70) &lbrace;</div>
-                                <div class="font-mono text-[10px]">&nbsp;&nbsp;grade = 'C'</div>
-                                <div class="font-mono text-[10px]">&rbrace; else &lbrace;</div>
-                                <div class="font-mono text-[10px]">&nbsp;&nbsp;grade = 'F'</div>
-                                <div class="font-mono text-[10px]">&rbrace;</div>
-                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Check most specific condition first</span></div>
+                                <div class="font-mono text-[10px] text-red-400"><span class="text-gray-400">// ❌ Wrong order:</span></div>
+                                <div class="font-mono text-[10px]">if (score &gt;= 70) &lbrace; grade = 'C' &rbrace; <span class="text-gray-400">// catches 90 too!</span></div>
+                                <div class="font-mono text-[10px]">else if (score &gt;= 90) &lbrace; grade = 'A' &rbrace; <span class="text-gray-400">// never runs</span></div>
+                                <div class="font-mono text-[10px] mt-1 text-green-400"><span class="text-gray-400">// ✅ Correct order:</span></div>
+                                <div class="font-mono text-[10px]">if (score &gt;= 90) &lbrace; grade = 'A' &rbrace; <span class="text-gray-400">// most specific first</span></div>
+                                <div class="font-mono text-[10px]">else if (score &gt;= 70) &lbrace; grade = 'C' &rbrace;</div>
                             </div>
                         </ProTip>
                     </MethodCard>
@@ -196,22 +271,81 @@ import ProTip from '../../components/visual-js/ProTip.astro';
                         description="Match value against multiple cases with fallback"
                         mutates={false}
                     >
-                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                            <Node label="Value" type="input">
-                                <div class="text-center text-sm font-mono">day</div>
-                            </Node>
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-3">
+                                <!-- Visual switch diagram -->
+                                <div class="bg-gray-900/50 border-2 border-purple-500 rounded-lg p-4 font-mono text-sm">
+                                    <div class="flex items-center gap-3 mb-3">
+                                        <div class="text-purple-400 font-bold">switch</div>
+                                        <div class="bg-purple-500/20 px-3 py-1.5 rounded border border-purple-400">
+                                            <span class="text-purple-300">value</span>
+                                        </div>
+                                        <span class="text-gray-500 text-xs">← match against cases</span>
+                                    </div>
 
-                            <Arrow label="match" />
+                                    <!-- Cases -->
+                                    <div class="space-y-3 ml-4">
+                                        <!-- Case 1 -->
+                                        <div>
+                                            <div class="flex items-center gap-2 mb-1">
+                                                <div class="text-blue-400">case</div>
+                                                <div class="bg-blue-500/20 px-2 py-0.5 rounded text-xs border border-blue-400">
+                                                    <span class="text-blue-300">'value1'</span>
+                                                </div>
+                                                <span class="text-gray-500 text-xs">:</span>
+                                            </div>
+                                            <div class="ml-6 pl-3 border-l-2 border-blue-500 space-y-0.5">
+                                                <div class="text-blue-300 text-xs">doSomething()</div>
+                                                <div class="text-yellow-400 text-xs">break <span class="text-gray-500">← stops here</span></div>
+                                            </div>
+                                        </div>
 
-                            <Node label="Switch" type="process">
-                                <ProcessContent name="switch (value)" description="Find matching case" />
-                            </Node>
+                                        <!-- Case 2 -->
+                                        <div>
+                                            <div class="flex items-center gap-2 mb-1">
+                                                <div class="text-blue-400">case</div>
+                                                <div class="bg-blue-500/20 px-2 py-0.5 rounded text-xs border border-blue-400">
+                                                    <span class="text-blue-300">'value2'</span>
+                                                </div>
+                                                <span class="text-gray-500 text-xs">:</span>
+                                            </div>
+                                            <div class="ml-6 pl-3 border-l-2 border-blue-500 space-y-0.5">
+                                                <div class="text-blue-300 text-xs">doOtherThing()</div>
+                                                <div class="text-yellow-400 text-xs">break</div>
+                                            </div>
+                                        </div>
 
-                            <Arrow label="execute" />
+                                        <!-- Default -->
+                                        <div>
+                                            <div class="flex items-center gap-2 mb-1">
+                                                <div class="text-orange-400">default</div>
+                                                <span class="text-gray-500 text-xs">: ← if no matches</span>
+                                            </div>
+                                            <div class="ml-6 pl-3 border-l-2 border-orange-500 space-y-0.5">
+                                                <div class="text-orange-300 text-xs">fallback()</div>
+                                                <div class="text-gray-500 text-xs">no break needed (last)</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-                            <Node label="Case/Default" type="output">
-                                <div class="text-center text-sm font-mono">Run matching code</div>
-                            </Node>
+                                <!-- Example -->
+                                <div class="bg-gray-800/50 border border-gray-700 rounded p-3">
+                                    <div class="text-gray-400 text-xs mb-2">Example:</div>
+                                    <div class="font-mono text-xs text-gray-300 space-y-0.5">
+                                        <div><span class="text-purple-400">switch</span> (day) &lbrace;</div>
+                                        <div class="ml-4"><span class="text-blue-400">case</span> 'Mon':</div>
+                                        <div class="ml-8">console.log('Start of week')</div>
+                                        <div class="ml-8"><span class="text-yellow-400">break</span></div>
+                                        <div class="ml-4"><span class="text-blue-400">case</span> 'Fri':</div>
+                                        <div class="ml-8">console.log('Almost weekend!')</div>
+                                        <div class="ml-8"><span class="text-yellow-400">break</span></div>
+                                        <div class="ml-4"><span class="text-orange-400">default</span>:</div>
+                                        <div class="ml-8">console.log('Regular day')</div>
+                                        <div>&rbrace;</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700">
@@ -283,29 +417,38 @@ import ProTip from '../../components/visual-js/ProTip.astro';
                         description="Inline conditional expression (returns value)"
                         mutates={false}
                     >
-                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                            <Node label="Condition" type="input">
-                                <div class="text-center text-sm font-mono">age &gt;= 18</div>
-                            </Node>
+                        <div class="p-4 bg-gray-800 rounded border border-gray-700">
+                            <!-- Inline expression -->
+                            <div class="font-mono text-sm mb-4">
+                                <span class="text-gray-400">const</span> <span class="text-blue-300">status</span> =
+                                <span class="text-orange-300 ml-2">age &gt;= 18</span>
+                                <span class="text-purple-300 mx-2">?</span>
+                                <span class="text-green-300">'Adult'</span>
+                                <span class="text-purple-300 mx-2">:</span>
+                                <span class="text-yellow-300">'Minor'</span>
+                            </div>
 
-                            <Arrow label="evaluate" />
-
-                            <Node label="Ternary" type="process">
-                                <ProcessContent name="condition ? a : b" description="Pick value" />
-                            </Node>
-
-                            <div class="flex flex-col gap-2">
+                            <!-- Visual breakdown -->
+                            <div class="space-y-2">
                                 <div class="flex items-center gap-2">
-                                    <Arrow label="true" />
-                                    <Node label="Value A" type="output">
-                                        <div class="text-center text-sm font-mono">'adult'</div>
-                                    </Node>
+                                    <div class="w-24 text-xs text-gray-400">Condition</div>
+                                    <div class="flex-1 p-2 bg-orange-500/10 border border-orange-500/30 rounded font-mono text-xs text-orange-300">
+                                        age &gt;= 18
+                                    </div>
                                 </div>
+
                                 <div class="flex items-center gap-2">
-                                    <Arrow label="false" />
-                                    <Node label="Value B" type="output">
-                                        <div class="text-center text-sm font-mono">'minor'</div>
-                                    </Node>
+                                    <div class="w-24 text-xs text-gray-400">If true <span class="text-purple-300">?</span></div>
+                                    <div class="flex-1 p-2 bg-green-500/10 border border-green-500/30 rounded font-mono text-xs text-green-300">
+                                        'Adult'
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center gap-2">
+                                    <div class="w-24 text-xs text-gray-400">If false <span class="text-purple-300">:</span></div>
+                                    <div class="flex-1 p-2 bg-yellow-500/10 border border-yellow-500/30 rounded font-mono text-xs text-yellow-300">
+                                        'Minor'
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -344,22 +487,37 @@ import ProTip from '../../components/visual-js/ProTip.astro';
                         description="Return fallback only if value is null or undefined"
                         mutates={false}
                     >
-                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                            <Node label="Value" type="input">
-                                <div class="text-center text-sm font-mono">null / undefined</div>
-                            </Node>
+                        <div class="p-4 bg-gray-800 rounded border border-gray-700">
+                            <!-- Inline expression -->
+                            <div class="font-mono text-sm mb-4">
+                                <span class="text-gray-400">const</span> <span class="text-blue-300">name</span> =
+                                <span class="text-orange-300 ml-2">username</span>
+                                <span class="text-purple-300 mx-2">??</span>
+                                <span class="text-green-300">'Guest'</span>
+                            </div>
 
-                            <Arrow label="check" />
+                            <!-- Comparison with || -->
+                            <div class="space-y-3">
+                                <div class="p-3 bg-cyan-500/5 border border-cyan-500/30 rounded">
+                                    <div class="text-xs text-cyan-300 font-bold mb-2">?? (Nullish Coalescing)</div>
+                                    <div class="text-[10px] text-gray-300 space-y-1">
+                                        <div>Returns fallback <strong>only</strong> if value is:</div>
+                                        <div class="ml-3">• <code class="text-yellow-300">null</code></div>
+                                        <div class="ml-3">• <code class="text-yellow-300">undefined</code></div>
+                                        <div class="mt-2 text-green-300">✅ Keeps: <code>0</code>, <code>false</code>, <code>""</code></div>
+                                    </div>
+                                </div>
 
-                            <Node label="Operator" type="process">
-                                <ProcessContent name="value ?? fallback" description="Nullish?" />
-                            </Node>
-
-                            <Arrow label="return" />
-
-                            <Node label="Result" type="output">
-                                <div class="text-center text-sm font-mono">value or fallback</div>
-                            </Node>
+                                <div class="p-3 bg-orange-500/5 border border-orange-500/30 rounded">
+                                    <div class="text-xs text-orange-300 font-bold mb-2">|| (Logical OR)</div>
+                                    <div class="text-[10px] text-gray-300 space-y-1">
+                                        <div>Returns fallback if value is <strong>any falsy</strong> value:</div>
+                                        <div class="ml-3">• <code class="text-yellow-300">null</code>, <code class="text-yellow-300">undefined</code></div>
+                                        <div class="ml-3">• <code class="text-yellow-300">0</code>, <code class="text-yellow-300">false</code>, <code class="text-yellow-300">""</code>, <code class="text-yellow-300">NaN</code></div>
+                                        <div class="mt-2 text-red-300">⚠️ Replaces ALL falsy values</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700">
@@ -389,22 +547,46 @@ import ProTip from '../../components/visual-js/ProTip.astro';
                         description="Safely access nested properties (returns undefined if null)"
                         mutates={false}
                     >
-                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                            <Node label="Object" type="input">
-                                <div class="text-center text-sm font-mono">user?.address</div>
-                            </Node>
+                        <div class="p-4 bg-gray-800 rounded border border-gray-700">
+                            <!-- Chain visualization -->
+                            <div class="font-mono text-sm mb-4">
+                                <span class="text-gray-400">const</span> <span class="text-blue-300">city</span> =
+                                <span class="text-orange-300 ml-2">user</span><span class="text-purple-300">?.</span><span class="text-orange-300">address</span><span class="text-purple-300">?.</span><span class="text-orange-300">city</span>
+                            </div>
 
-                            <Arrow label="check" />
+                            <!-- Step-by-step evaluation -->
+                            <div class="space-y-2 text-xs">
+                                <div class="p-2 bg-gray-700/30 rounded border-l-4 border-cyan-500">
+                                    <div class="text-cyan-300 font-bold mb-1">1. Check user</div>
+                                    <div class="text-gray-300">If <code class="text-yellow-300">null</code> or <code class="text-yellow-300">undefined</code> → return <code class="text-yellow-300">undefined</code></div>
+                                    <div class="text-gray-300">Otherwise → continue to next property</div>
+                                </div>
 
-                            <Node label="Operator" type="process">
-                                <ProcessContent name="obj?.prop" description="Exists?" />
-                            </Node>
+                                <div class="p-2 bg-gray-700/30 rounded border-l-4 border-cyan-500">
+                                    <div class="text-cyan-300 font-bold mb-1">2. Check user.address</div>
+                                    <div class="text-gray-300">If <code class="text-yellow-300">null</code> or <code class="text-yellow-300">undefined</code> → return <code class="text-yellow-300">undefined</code></div>
+                                    <div class="text-gray-300">Otherwise → continue to next property</div>
+                                </div>
 
-                            <Arrow label="return" />
+                                <div class="p-2 bg-green-500/10 rounded border-l-4 border-green-500">
+                                    <div class="text-green-300 font-bold mb-1">3. Access city</div>
+                                    <div class="text-gray-300">Return the value (or <code class="text-yellow-300">undefined</code> if doesn't exist)</div>
+                                </div>
+                            </div>
 
-                            <Node label="Result" type="output">
-                                <div class="text-center text-sm font-mono">value or undefined</div>
-                            </Node>
+                            <!-- Without vs With -->
+                            <div class="mt-4 pt-4 border-t border-gray-700">
+                                <div class="text-xs space-y-2">
+                                    <div>
+                                        <span class="text-red-300">❌ Without:</span>
+                                        <div class="font-mono text-[10px] text-gray-400 mt-1">user && user.address && user.address.city</div>
+                                    </div>
+                                    <div>
+                                        <span class="text-green-300">✅ With:</span>
+                                        <div class="font-mono text-[10px] text-gray-400 mt-1">user?.address?.city</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700">
@@ -414,14 +596,12 @@ import ProTip from '../../components/visual-js/ProTip.astro';
                         <ProTip>
                             <div>🛡️ <strong>Safe property access:</strong></div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                                <div class="font-mono text-[10px]"><span class="text-red-400">// Without optional chaining ❌</span></div>
-                                <div class="font-mono text-[10px]">const city = user && user.address && user.address.city</div>
-                                <div class="font-mono text-[10px] mt-1"><span class="text-green-400">// With optional chaining ✅</span></div>
-                                <div class="font-mono text-[10px]">const city = user?.address?.city</div>
-                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Works with methods too</span></div>
+                                <div class="font-mono text-[10px]"><span class="text-gray-400">// Works with methods too</span></div>
                                 <div class="font-mono text-[10px]">user?.getName?.()</div>
                                 <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// And array indexes</span></div>
-                                <div class="font-mono text-[10px]">arr?.[0]</div>
+                                <div class="font-mono text-[10px]">arr?.[0]?.property</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Combine with function calls</span></div>
+                                <div class="font-mono text-[10px]">obj.method?.() <span class="text-gray-400">// only call if method exists</span></div>
                             </div>
                         </ProTip>
                     </MethodCard>
@@ -435,26 +615,46 @@ import ProTip from '../../components/visual-js/ProTip.astro';
                         description="Safe access with fallback"
                         mutates={false}
                     >
-                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                            <Node label="Access" type="input">
-                                <div class="text-center text-sm font-mono">user?.name</div>
-                            </Node>
+                        <div class="p-4 bg-gray-800 rounded border border-gray-700">
+                            <!-- Full expression -->
+                            <div class="font-mono text-sm mb-4">
+                                <span class="text-gray-400">const</span> <span class="text-blue-300">city</span> =
+                                <span class="text-orange-300 ml-2">user</span><span class="text-cyan-300">?.</span><span class="text-orange-300">address</span><span class="text-cyan-300">?.</span><span class="text-orange-300">city</span>
+                                <span class="text-purple-300 mx-2">??</span>
+                                <span class="text-green-300">'Unknown'</span>
+                            </div>
 
-                            <Arrow label="if nullish" />
+                            <!-- Two operators working together -->
+                            <div class="space-y-3">
+                                <div class="p-3 bg-cyan-500/5 border border-cyan-500/30 rounded">
+                                    <div class="text-xs text-cyan-300 font-bold mb-2">Step 1: Optional Chaining (?.) → Safe Navigation</div>
+                                    <div class="text-[10px] text-gray-300 space-y-1">
+                                        <div class="font-mono">user<span class="text-cyan-300">?.</span>address<span class="text-cyan-300">?.</span>city</div>
+                                        <div class="ml-3 mt-1">
+                                            <div>• If any part is null/undefined → <code class="text-yellow-300">undefined</code></div>
+                                            <div>• Otherwise → the actual value</div>
+                                        </div>
+                                    </div>
+                                </div>
 
-                            <Node label="Fallback" type="process">
-                                <ProcessContent name="?? 'Guest'" description="Use default" />
-                            </Node>
+                                <div class="flex items-center justify-center text-purple-300 text-2xl">↓</div>
 
-                            <Arrow label="return" />
-
-                            <Node label="Result" type="output">
-                                <div class="text-center text-sm font-mono">name or 'Guest'</div>
-                            </Node>
+                                <div class="p-3 bg-purple-500/5 border border-purple-500/30 rounded">
+                                    <div class="text-xs text-purple-300 font-bold mb-2">Step 2: Nullish Coalescing (??) → Provide Fallback</div>
+                                    <div class="text-[10px] text-gray-300 space-y-1">
+                                        <div class="font-mono">(result) <span class="text-purple-300">??</span> 'Unknown'</div>
+                                        <div class="ml-3 mt-1">
+                                            <div>• If result is null/undefined → <code class="text-green-300">'Unknown'</code></div>
+                                            <div>• Otherwise → keep the result</div>
+                                            <div class="text-cyan-300 mt-1">✨ Preserves <code>0</code>, <code>false</code>, <code>""</code></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700">
-                            Powerful pattern: safely access nested property, provide fallback if nullish.
+                            Powerful pattern: safely access nested property <span class="text-cyan-300">(?.)span>, provide fallback if nullish <span class="text-purple-300">(??)</span>.
                         </div>
 
                         <ProTip>
@@ -482,26 +682,54 @@ import ProTip from '../../components/visual-js/ProTip.astro';
                 <div id="and">
                     <MethodCard
                         methodName="AND (&&)"
-                        signature="condition1 && condition2"
+                        signature="value1 && value2"
                         description="Return first falsy value, or last value if all truthy"
                         mutates={false}
                     >
-                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                            <Node label="Left" type="input">
-                                <div class="text-center text-sm font-mono">condition1</div>
-                            </Node>
+                        <div class="p-4 bg-gray-800 rounded border border-gray-700">
+                            <!-- Expression -->
+                            <div class="font-mono text-sm mb-4">
+                                <span class="text-orange-300">value1</span>
+                                <span class="text-purple-300 mx-2">&&</span>
+                                <span class="text-orange-300">value2</span>
+                            </div>
 
-                            <Arrow label="evaluate" />
+                            <!-- Evaluation logic -->
+                            <div class="space-y-2 text-xs">
+                                <div class="p-3 bg-orange-500/5 border border-orange-500/30 rounded">
+                                    <div class="text-orange-300 font-bold mb-1">1. Evaluate left side (value1)</div>
+                                    <div class="text-gray-300">Check if truthy or falsy</div>
+                                </div>
 
-                            <Node label="Operator" type="process">
-                                <ProcessContent name="&&" description="Both truthy?" />
-                            </Node>
+                                <div class="flex items-center justify-center gap-4">
+                                    <div class="flex-1 p-2 bg-red-500/10 border border-red-500/30 rounded text-center">
+                                        <div class="text-red-300 font-mono text-[10px] mb-1">If FALSY</div>
+                                        <div class="text-gray-300 text-[10px]">Return <strong>value1</strong></div>
+                                        <div class="text-gray-400 text-[10px] mt-1">(short-circuit)</div>
+                                    </div>
+                                    <div class="flex-1 p-2 bg-green-500/10 border border-green-500/30 rounded text-center">
+                                        <div class="text-green-300 font-mono text-[10px] mb-1">If TRUTHY</div>
+                                        <div class="text-gray-300 text-[10px]">Return <strong>value2</strong></div>
+                                        <div class="text-gray-400 text-[10px] mt-1">(evaluate & return)</div>
+                                    </div>
+                                </div>
 
-                            <Arrow label="return" />
-
-                            <Node label="Result" type="output">
-                                <div class="text-center text-sm font-mono">first falsy or last</div>
-                            </Node>
+                                <!-- Examples -->
+                                <div class="mt-3 p-3 bg-gray-700/30 rounded space-y-1">
+                                    <div class="font-mono text-[10px]">
+                                        <span class="text-green-300">true</span> <span class="text-purple-300">&&</span> <span class="text-green-300">'hello'</span>
+                                        <span class="text-gray-400 ml-3">→ 'hello'</span>
+                                    </div>
+                                    <div class="font-mono text-[10px]">
+                                        <span class="text-red-300">false</span> <span class="text-purple-300">&&</span> <span class="text-green-300">'hello'</span>
+                                        <span class="text-gray-400 ml-3">→ false</span>
+                                    </div>
+                                    <div class="font-mono text-[10px]">
+                                        <span class="text-red-300">0</span> <span class="text-purple-300">&&</span> <span class="text-green-300">'hello'</span>
+                                        <span class="text-gray-400 ml-3">→ 0</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700">
@@ -530,22 +758,50 @@ import ProTip from '../../components/visual-js/ProTip.astro';
                         description="Return first truthy value, or last value if all falsy"
                         mutates={false}
                     >
-                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                            <Node label="Left" type="input">
-                                <div class="text-center text-sm font-mono">value1</div>
-                            </Node>
+                        <div class="p-4 bg-gray-800 rounded border border-gray-700">
+                            <!-- Expression -->
+                            <div class="font-mono text-sm mb-4">
+                                <span class="text-orange-300">value1</span>
+                                <span class="text-purple-300 mx-2">||</span>
+                                <span class="text-orange-300">value2</span>
+                            </div>
 
-                            <Arrow label="evaluate" />
+                            <!-- Evaluation logic -->
+                            <div class="space-y-2 text-xs">
+                                <div class="p-3 bg-orange-500/5 border border-orange-500/30 rounded">
+                                    <div class="text-orange-300 font-bold mb-1">1. Evaluate left side (value1)</div>
+                                    <div class="text-gray-300">Check if truthy or falsy</div>
+                                </div>
 
-                            <Node label="Operator" type="process">
-                                <ProcessContent name="||" description="Any truthy?" />
-                            </Node>
+                                <div class="flex items-center justify-center gap-4">
+                                    <div class="flex-1 p-2 bg-green-500/10 border border-green-500/30 rounded text-center">
+                                        <div class="text-green-300 font-mono text-[10px] mb-1">If TRUTHY</div>
+                                        <div class="text-gray-300 text-[10px]">Return <strong>value1</strong></div>
+                                        <div class="text-gray-400 text-[10px] mt-1">(short-circuit)</div>
+                                    </div>
+                                    <div class="flex-1 p-2 bg-yellow-500/10 border border-yellow-500/30 rounded text-center">
+                                        <div class="text-yellow-300 font-mono text-[10px] mb-1">If FALSY</div>
+                                        <div class="text-gray-300 text-[10px]">Return <strong>value2</strong></div>
+                                        <div class="text-gray-400 text-[10px] mt-1">(evaluate & return)</div>
+                                    </div>
+                                </div>
 
-                            <Arrow label="return" />
-
-                            <Node label="Result" type="output">
-                                <div class="text-center text-sm font-mono">first truthy or last</div>
-                            </Node>
+                                <!-- Examples -->
+                                <div class="mt-3 p-3 bg-gray-700/30 rounded space-y-1">
+                                    <div class="font-mono text-[10px]">
+                                        <span class="text-green-300">'hello'</span> <span class="text-purple-300">||</span> <span class="text-green-300">'world'</span>
+                                        <span class="text-gray-400 ml-3">→ 'hello'</span>
+                                    </div>
+                                    <div class="font-mono text-[10px]">
+                                        <span class="text-red-300">null</span> <span class="text-purple-300">||</span> <span class="text-green-300">'default'</span>
+                                        <span class="text-gray-400 ml-3">→ 'default'</span>
+                                    </div>
+                                    <div class="font-mono text-[10px]">
+                                        <span class="text-red-300">0</span> <span class="text-purple-300">||</span> <span class="text-green-300">10</span>
+                                        <span class="text-gray-400 ml-3">→ 10 <span class="text-red-300">(watch out!)</span></span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700">
@@ -574,22 +830,50 @@ import ProTip from '../../components/visual-js/ProTip.astro';
                         description="Flip boolean (convert to boolean and negate)"
                         mutates={false}
                     >
-                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                            <Node label="Value" type="input">
-                                <div class="text-center text-sm font-mono">truthy/falsy</div>
-                            </Node>
+                        <div class="p-4 bg-gray-800 rounded border border-gray-700">
+                            <!-- Expression -->
+                            <div class="font-mono text-sm mb-4">
+                                <span class="text-purple-300">!</span><span class="text-orange-300">value</span>
+                            </div>
 
-                            <Arrow label="convert" />
+                            <!-- Conversion table -->
+                            <div class="space-y-3">
+                                <div class="text-xs text-gray-300 mb-2">Converts to boolean, then negates:</div>
 
-                            <Node label="Operator" type="process">
-                                <ProcessContent name="!" description="Negate" />
-                            </Node>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <!-- Truthy values -->
+                                    <div class="p-2 bg-green-500/5 border border-green-500/30 rounded">
+                                        <div class="text-green-300 text-[10px] font-bold mb-1">Truthy → false</div>
+                                        <div class="font-mono text-[10px] space-y-0.5 text-gray-300">
+                                            <div>!<span class="text-green-300">true</span> → <span class="text-red-300">false</span></div>
+                                            <div>!<span class="text-green-300">'hello'</span> → <span class="text-red-300">false</span></div>
+                                            <div>!<span class="text-green-300">42</span> → <span class="text-red-300">false</span></div>
+                                            <div>!<span class="text-green-300">&lbrace;&rbrace;</span> → <span class="text-red-300">false</span></div>
+                                        </div>
+                                    </div>
 
-                            <Arrow label="return" />
+                                    <!-- Falsy values -->
+                                    <div class="p-2 bg-red-500/5 border border-red-500/30 rounded">
+                                        <div class="text-red-300 text-[10px] font-bold mb-1">Falsy → true</div>
+                                        <div class="font-mono text-[10px] space-y-0.5 text-gray-300">
+                                            <div>!<span class="text-red-300">false</span> → <span class="text-green-300">true</span></div>
+                                            <div>!<span class="text-red-300">null</span> → <span class="text-green-300">true</span></div>
+                                            <div>!<span class="text-red-300">0</span> → <span class="text-green-300">true</span></div>
+                                            <div>!<span class="text-red-300">''</span> → <span class="text-green-300">true</span></div>
+                                        </div>
+                                    </div>
+                                </div>
 
-                            <Node label="Boolean" type="output">
-                                <div class="text-center text-sm font-mono">true or false</div>
-                            </Node>
+                                <!-- Double negation -->
+                                <div class="p-3 bg-purple-500/5 border border-purple-500/30 rounded mt-3">
+                                    <div class="text-purple-300 text-xs font-bold mb-1">Double Negation (!!) = Boolean Conversion</div>
+                                    <div class="font-mono text-[10px] space-y-0.5 text-gray-300">
+                                        <div>!!<span class="text-green-300">'hello'</span> → <span class="text-green-300">true</span></div>
+                                        <div>!!<span class="text-red-300">0</span> → <span class="text-red-300">false</span></div>
+                                        <div>!!<span class="text-green-300">[1,2,3]</span> → <span class="text-green-300">true</span></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700">
@@ -614,8 +898,12 @@ import ProTip from '../../components/visual-js/ProTip.astro';
 
             <!-- Sidebar Navigation -->
             <aside class="w-64 shrink-0 sticky top-4 self-start hidden lg:block max-h-[calc(100vh-2rem)] overflow-y-auto">
+                <!-- Global Navigation -->
+                <GlobalNav />
+
+                <!-- Page Navigation -->
                 <nav class="bg-[#252936] rounded-lg p-4 border border-gray-700">
-                    <h3 class="text-white text-sm font-bold mb-3 uppercase tracking-wide">Navigation</h3>
+                    <h3 class="text-white text-sm font-bold mb-3 uppercase tracking-wide">On This Page</h3>
                     <ul class="space-y-2 text-xs">
                         <li>
                             <a href="#if-else" class="text-blue-300 font-semibold hover:text-blue-200 block py-1">🔀 If/Else</a>
