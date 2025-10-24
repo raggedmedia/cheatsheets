@@ -687,6 +687,136 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                     </MethodCard>
                 </div>
 
+                <!-- FINDINDEX -->
+                <div id="findIndex">
+                    <MethodCard
+                        methodName="findIndex()"
+                        signature="arr.findIndex(item => boolean)"
+                        description="Returns index of first matching element, or -1"
+                        mutates={false}
+                    >
+                        <div class="p-4 bg-gray-800 rounded border border-gray-700">
+                            <!-- Code -->
+                            <div class="font-mono text-sm mb-4">
+                                <span class="text-gray-400">const</span> <span class="text-blue-300">users</span> = <span class="text-orange-300">[</span>
+                                <div class="ml-4"><span class="text-orange-300">&lbrace; id: 10, name: 'Alice' &rbrace;,</span></div>
+                                <div class="ml-4"><span class="text-orange-300">&lbrace; id: 20, name: 'Bob' &rbrace;,</span></div>
+                                <div class="ml-4"><span class="text-orange-300">&lbrace; id: 30, name: 'Charlie' &rbrace;</span></div>
+                                <span class="text-orange-300">]</span>
+                                <div class="mt-2"><span class="text-blue-300">users</span><span class="text-purple-300">.findIndex(</span><span class="text-gray-400">u</span> <span class="text-purple-300">=&gt;</span> <span class="text-gray-400">u.id</span> <span class="text-purple-300">===</span> <span class="text-green-300">20</span><span class="text-purple-300">)</span></div>
+                            </div>
+
+                            <!-- Flow visualization -->
+                            <div class="space-y-2 text-xs">
+                                <div class="text-gray-400 mb-2">Tests each item until match found, returns index:</div>
+
+                                <div class="flex items-center gap-2">
+                                    <div class="w-12 p-1.5 bg-cyan-500/10 border border-cyan-500/30 rounded text-center font-mono text-[10px]">i = 0</div>
+                                    <div class="flex-1 p-2 bg-blue-500/10 border border-blue-500/30 rounded font-mono text-sm">&lbrace;id: 10&rbrace;</div>
+                                    <div class="text-gray-400">→ 10 === 20?</div>
+                                    <div class="w-16 p-2 bg-red-500/10 border border-red-500/30 rounded text-center font-mono text-red-300 text-[10px]">false</div>
+                                </div>
+
+                                <div class="flex items-center gap-2">
+                                    <div class="w-12 p-1.5 bg-cyan-500/10 border border-cyan-500/30 rounded text-center font-mono text-[10px]">i = 1</div>
+                                    <div class="flex-1 p-2 bg-blue-500/10 border border-blue-500/30 rounded font-mono text-sm">&lbrace;id: 20&rbrace;</div>
+                                    <div class="text-gray-400">→ 20 === 20?</div>
+                                    <div class="w-16 p-2 bg-green-500/10 border border-green-500/30 rounded text-center font-mono text-green-300 text-[10px]">true ✓</div>
+                                </div>
+
+                                <div class="flex items-center gap-2 opacity-40">
+                                    <div class="w-12 p-1.5 bg-gray-500/10 border border-gray-500/30 rounded text-center font-mono text-[10px]">i = 2</div>
+                                    <div class="flex-1 p-2 bg-gray-500/10 border border-gray-500/30 rounded font-mono text-sm text-gray-500">&lbrace;id: 30&rbrace;</div>
+                                    <div class="text-gray-500">not tested</div>
+                                </div>
+
+                                <div class="mt-3 p-3 bg-green-500/10 border border-green-500/30 rounded text-center">
+                                    <div class="font-mono text-lg text-green-300 font-bold">→ 1</div>
+                                    <div class="text-gray-400 text-[10px] mt-1">(index of matching element)</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns <strong>index</strong> of first match, or <strong>-1</strong> if not found. Use when you need the position, not the element itself.
+                        </InfoBox>
+
+                        <ProTip>
+                            <div>🎯 <strong>Common use cases:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-gray-400">// Remove item by condition</span></div>
+                                <div class="font-mono text-[10px]">const idx = arr.findIndex(x =&gt; x.id === targetId)</div>
+                                <div class="font-mono text-[10px]">if (idx !== -1) arr.splice(idx, 1)</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Update item by condition</span></div>
+                                <div class="font-mono text-[10px]">const idx = users.findIndex(u =&gt; u.id === 123)</div>
+                                <div class="font-mono text-[10px]">if (idx !== -1) users[idx].active = true</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- FLATMAP -->
+                <div id="flatMap">
+                    <MethodCard
+                        methodName="flatMap()"
+                        signature="arr.flatMap(item => [...result])"
+                        description="Maps then flattens result one level"
+                        mutates={false}
+                    >
+                        <div class="p-4 bg-gray-800 rounded border border-gray-700">
+                            <!-- Code -->
+                            <div class="font-mono text-sm mb-4">
+                                <span class="text-gray-400">const</span> <span class="text-blue-300">users</span> = <span class="text-orange-300">[</span>
+                                <div class="ml-4"><span class="text-orange-300">&lbrace; name: 'Alice', pets: ['dog', 'cat'] &rbrace;,</span></div>
+                                <div class="ml-4"><span class="text-orange-300">&lbrace; name: 'Bob', pets: ['fish'] &rbrace;</span></div>
+                                <span class="text-orange-300">]</span>
+                                <div class="mt-2"><span class="text-blue-300">users</span><span class="text-purple-300">.flatMap(</span><span class="text-gray-400">u</span> <span class="text-purple-300">=&gt;</span> <span class="text-gray-400">u.pets</span><span class="text-purple-300">)</span></div>
+                            </div>
+
+                            <!-- Flow visualization -->
+                            <div class="space-y-2 text-xs">
+                                <div class="text-gray-400 mb-2">Map each item to array, then flatten one level:</div>
+
+                                <div class="p-2 bg-blue-500/10 border border-blue-500/30 rounded">
+                                    <div class="font-mono text-sm">&lbrace;name: 'Alice', pets: <span class="text-orange-300">['dog', 'cat']</span>&rbrace;</div>
+                                    <div class="text-gray-400 text-[10px] mt-1">→ map: <span class="text-purple-300">['dog', 'cat']</span></div>
+                                </div>
+
+                                <div class="p-2 bg-blue-500/10 border border-blue-500/30 rounded">
+                                    <div class="font-mono text-sm">&lbrace;name: 'Bob', pets: <span class="text-orange-300">['fish']</span>&rbrace;</div>
+                                    <div class="text-gray-400 text-[10px] mt-1">→ map: <span class="text-purple-300">['fish']</span></div>
+                                </div>
+
+                                <div class="p-2 bg-purple-500/10 border border-purple-500/30 rounded">
+                                    <div class="text-gray-400 text-[10px] mb-1">Before flatten: <span class="text-purple-300">[['dog', 'cat'], ['fish']]</span></div>
+                                    <div class="text-gray-400 text-[10px]">After flatten: <span class="text-green-300">['dog', 'cat', 'fish']</span></div>
+                                </div>
+
+                                <div class="mt-3 p-3 bg-green-500/10 border border-green-500/30 rounded">
+                                    <div class="font-mono text-sm text-green-300">→ <span class="text-orange-300">['dog', 'cat', 'fish']</span></div>
+                                    <div class="text-gray-400 text-[10px] mt-1">All pets in one flat array</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Equivalent to <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">.map().flat()</code> but more efficient. Great for extracting nested arrays.
+                        </InfoBox>
+
+                        <ProTip>
+                            <div>🚀 <strong>Common patterns:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-gray-400">// Extract all tags from posts</span></div>
+                                <div class="font-mono text-[10px]">const allTags = posts.flatMap(p =&gt; p.tags)</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Split strings and flatten</span></div>
+                                <div class="font-mono text-[10px]">const words = sentences.flatMap(s =&gt; s.split(' '))</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Filter + map in one step</span></div>
+                                <div class="font-mono text-[10px]">const evens = arr.flatMap(x =&gt; x % 2 === 0 ? [x * 2] : [])</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
                 <!-- ============================================ -->
                 <!-- 🔑 OBJECT LOOPS -->
                 <!-- ============================================ -->
@@ -1295,6 +1425,8 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                 <li><a href="#reduce" class="text-gray-300 hover:text-blue-400 block">reduce()</a></li>
                                 <li><a href="#find" class="text-gray-300 hover:text-blue-400 block">find()</a></li>
                                 <li><a href="#some-every" class="text-gray-300 hover:text-blue-400 block">some() / every()</a></li>
+                                <li><a href="#findIndex" class="text-gray-300 hover:text-blue-400 block">findIndex()</a></li>
+                                <li><a href="#flatMap" class="text-gray-300 hover:text-blue-400 block">flatMap()</a></li>
                             </ul>
                         </li>
 
