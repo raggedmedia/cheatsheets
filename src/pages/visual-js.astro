@@ -297,7 +297,181 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                 <p class="text-gray-400 mb-6 text-sm">Visual blueprint-style reference for array operations</p>
 
                 <!-- ============================================ -->
-                <!-- 🛠 MUTATES THE ARRAY -->
+                <!-- � CONVERTING TO ARRAYS -->
+                <!-- ============================================ -->
+
+                <h2 id="converting" class="text-blue-300 text-xl my-4 pb-2 border-b-2 border-blue-500">
+                    🔄 Converting to Arrays
+                </h2>
+
+                <!-- === STRING TO ARRAY === -->
+                <h3 id="string-to-array" class="text-gray-300 text-lg mt-4 mb-2">String to Array</h3>
+
+                <!-- SPLIT -->
+                <div id="split">
+                    <MethodCard
+                        methodName="split()"
+                        signature="str.split(separator)"
+                        description="Splits a string into an array of substrings"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="String" type="input">
+                                <div class="text-center text-sm font-mono">"hello"</div>
+                            </Node>
+
+                            <Arrow label="splits" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="split('')" description="Split into chars" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="Array" type="output">
+                                <ArrayDisplay values={['h', 'e', 'l', 'l', 'o']} highlightIndices={[0, 1, 2, 3, 4]} highlightType="added" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code>. Use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">split('')</code> for chars, <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">split(' ')</code> for words.
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
+                <!-- ARRAY.FROM STRING -->
+                <div id="array-from-string">
+                    <MethodCard
+                        methodName="Array.from()"
+                        signature="Array.from(string)"
+                        description="Creates array from string or iterable"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="String" type="input">
+                                <div class="text-center text-sm font-mono">"abc"</div>
+                            </Node>
+
+                            <Arrow label="converts" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="Array.from(str)" description="String to array" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="Array" type="output">
+                                <ArrayDisplay values={['a', 'b', 'c']} highlightIndices={[0, 1, 2]} highlightType="added" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Static method. Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> from any iterable or array-like object.
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
+                <!-- SPREAD STRING -->
+                <div id="spread-string">
+                    <MethodCard
+                        methodName="Spread [...str]"
+                        signature="[...string]"
+                        description="Uses spread operator to convert string to array"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="String" type="input">
+                                <div class="text-center text-sm font-mono">"hello"</div>
+                            </Node>
+
+                            <Arrow label="spreads" />
+
+                            <Node label="Syntax" type="process">
+                                <ProcessContent name="[...str]" description="Spread into array" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="Array" type="output">
+                                <ArrayDisplay values={['h', 'e', 'l', 'l', 'o']} highlightIndices={[0, 1, 2, 3, 4]} highlightType="added" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Modern syntax. Creates a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> with each character as an element.
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
+                <!-- === NUMBER TO ARRAY === -->
+                <h3 id="number-to-array" class="text-gray-300 text-lg mt-4 mb-2">Number to Array</h3>
+
+                <!-- NUMBER TO DIGITS -->
+                <div id="number-to-digits">
+                    <MethodCard
+                        methodName="String() + split()"
+                        signature="String(num).split('')"
+                        description="Converts number to array of digit strings"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Number" type="input">
+                                <div class="text-center text-sm font-mono">12345</div>
+                            </Node>
+
+                            <Arrow label="converts" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="String(num).split('')" description="To string, then split" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="Array" type="output">
+                                <ArrayDisplay values={['1', '2', '3', '4', '5']} highlightIndices={[0, 1, 2, 3, 4]} highlightType="added" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns array of <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">digit strings</code>. Use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">.map(Number)</code> to convert to numbers.
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
+                <!-- ARRAY.FROM NUMBER -->
+                <div id="array-from-number">
+                    <MethodCard
+                        methodName="Array.from() + map"
+                        signature="Array.from(String(num), Number)"
+                        description="Converts number to array of digit numbers"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Number" type="input">
+                                <div class="text-center text-sm font-mono">123</div>
+                            </Node>
+
+                            <Arrow label="converts" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="Array.from(String(num), Number)" description="String then map to numbers" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="Array" type="output">
+                                <ArrayDisplay values={[1, 2, 3]} highlightIndices={[0, 1, 2]} highlightType="added" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns array of <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">digit numbers</code>. Second parameter is mapping function.
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
+                <!-- ============================================ -->
+                <!-- �🛠 MUTATES THE ARRAY -->
                 <!-- ============================================ -->
 
                 <h2 id="mutates" class="text-red-300 text-xl my-4 pb-2 border-b-2 border-red-500">
@@ -1586,8 +1760,30 @@ import ProcessContent from '../components/visual-js/ProcessContent.astro'
                 <nav class="bg-[#252936] rounded-lg p-4 border border-gray-700">
                     <h3 class="text-white text-sm font-bold mb-3 uppercase tracking-wide">Navigation</h3>
                     <ul class="space-y-2 text-xs">
-                        <!-- Mutates Section -->
+                        <!-- Converting Section -->
                         <li>
+                            <a href="#converting" class="text-blue-300 font-semibold hover:text-blue-200 block py-1">🔄 Converting</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-blue-500/30 pl-2">
+                                <li>
+                                    <span class="text-gray-400 text-[10px] uppercase">String to Array</span>
+                                    <ul class="ml-2 mt-0.5 space-y-0.5">
+                                        <li><a href="#split" class="text-gray-300 hover:text-blue-400 block">split()</a></li>
+                                        <li><a href="#array-from-string" class="text-gray-300 hover:text-blue-400 block">Array.from()</a></li>
+                                        <li><a href="#spread-string" class="text-gray-300 hover:text-blue-400 block">[...str]</a></li>
+                                    </ul>
+                                </li>
+                                <li class="mt-2">
+                                    <span class="text-gray-400 text-[10px] uppercase">Number to Array</span>
+                                    <ul class="ml-2 mt-0.5 space-y-0.5">
+                                        <li><a href="#number-to-digits" class="text-gray-300 hover:text-blue-400 block">String().split()</a></li>
+                                        <li><a href="#array-from-number" class="text-gray-300 hover:text-blue-400 block">Array.from() + map</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <!-- Mutates Section -->
+                        <li class="mt-4">
                             <a href="#mutates" class="text-red-300 font-semibold hover:text-red-200 block py-1">🛠 Mutates</a>
                             <ul class="ml-3 mt-1 space-y-1 border-l-2 border-red-500/30 pl-2">
                                 <li>
