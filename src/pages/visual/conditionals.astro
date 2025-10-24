@@ -1,0 +1,715 @@
+---
+import '../../styles/styles.css'
+import MethodCard from '../../components/visual-js/MethodCard.astro';
+import Node from '../../components/visual-js/Node.astro';
+import ArrayDisplay from '../../components/visual-js/ArrayDisplay.astro';
+import Arrow from '../../components/visual-js/Arrow.astro';
+import ReturnValue from '../../components/visual-js/ReturnValue.astro';
+import InfoBox from '../../components/visual-js/InfoBox.astro';
+import ProcessContent from '../../components/visual-js/ProcessContent.astro';
+import ProTip from '../../components/visual-js/ProTip.astro';
+---
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>JavaScript Conditionals - Visual Cheatsheet</title>
+    </head>
+    <body class="m-0 p-4 bg-[#1a1d29] text-gray-200">
+        <div class="flex gap-6 max-w-[1600px] mx-auto">
+            <!-- Main Content -->
+            <main class="flex-1 min-w-0">
+                <h1 class="text-white mb-1 text-2xl font-bold">JavaScript Conditionals</h1>
+                <p class="text-gray-400 mb-6 text-sm">Visual blueprint-style reference for conditional logic and branching</p>
+
+                <ProTip>
+                    <div>💡 <strong>true/false vs truthy/falsy - what's the difference?</strong></div>
+                    <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                        <div class="font-mono text-[10px] mt-1"><strong>false</strong> = the actual boolean value <code class="bg-black/30 px-1 py-0.5 rounded">false</code></div>
+                        <div class="font-mono text-[10px]"><strong>falsy</strong> = any value that <em>acts like false</em> in a boolean context (if statements, etc.)</div>
+                        <div class="font-mono text-[10px] mt-1"><span class="text-yellow-400">8 falsy values:</span> <code class="bg-black/30 px-1 py-0.5 rounded">false</code>, <code class="bg-black/30 px-1 py-0.5 rounded">0</code>, <code class="bg-black/30 px-1 py-0.5 rounded">-0</code>, <code class="bg-black/30 px-1 py-0.5 rounded">0n</code>, <code class="bg-black/30 px-1 py-0.5 rounded">""</code>, <code class="bg-black/30 px-1 py-0.5 rounded">null</code>, <code class="bg-black/30 px-1 py-0.5 rounded">undefined</code>, <code class="bg-black/30 px-1 py-0.5 rounded">NaN</code></div>
+                        <div class="font-mono text-[10px] mt-1"><strong>truthy</strong> = everything else acts like true!</div>
+                        <div class="font-mono text-[10px] mt-1"><span class="text-red-400">Common gotchas:</span></div>
+                        <div class="font-mono text-[10px]">if ([]) &lbrace; ... &rbrace; <span class="text-gray-400">// RUNS! [] is truthy even when empty</span></div>
+                        <div class="font-mono text-[10px]">if ("0") &lbrace; ... &rbrace; <span class="text-gray-400">// RUNS! string "0" is truthy</span></div>
+                        <div class="font-mono text-[10px]">if ("false") &lbrace; ... &rbrace; <span class="text-gray-400">// RUNS! string "false" is truthy</span></div>
+                        <div class="font-mono text-[10px] mt-1">0 === false <span class="text-red-400">// false</span> (different types, but both falsy)</div>
+                        <div class="font-mono text-[10px]">[] == true <span class="text-red-400">// false</span> ([] is truthy, but not equal to true)</div>
+                    </div>
+                </ProTip>
+
+                <!-- ============================================ -->
+                <!-- 🔀 IF/ELSE -->
+                <!-- ============================================ -->
+
+                <h2 id="if-else" class="text-blue-300 text-xl my-4 pb-2 border-b-2 border-blue-600">
+                    🔀 If/Else Statements
+                </h2>
+
+                <!-- IF -->
+                <div id="if">
+                    <MethodCard
+                        methodName="if"
+                        signature="if (condition) { }"
+                        description="Execute code if condition is truthy"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Condition" type="input">
+                                <div class="text-center text-sm font-mono">age &gt;= 18</div>
+                            </Node>
+
+                            <Arrow label="evaluate" />
+
+                            <Node label="Check" type="process">
+                                <ProcessContent name="if (condition)" description="Is truthy?" />
+                            </Node>
+
+                            <Arrow label="true" />
+
+                            <Node label="Execute" type="output">
+                                <div class="text-center text-sm font-mono">Run code block</div>
+                            </Node>
+                        </div>
+
+                        <div class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700">
+                            Executes block only if condition evaluates to truthy value. <strong>Condition is coerced to boolean.</strong>
+                        </div>
+
+                        <ProTip>
+                            <div>Common patterns:</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-gray-400">// Check existence</span></div>
+                                <div class="font-mono text-[10px]">if (user) &lbrace; ... &rbrace; <span class="text-gray-400">// truthy check</span></div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Check array has items</span></div>
+                                <div class="font-mono text-[10px]">if (arr.length) &lbrace; ... &rbrace; <span class="text-gray-400">// 0 is falsy</span></div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Early return pattern</span></div>
+                                <div class="font-mono text-[10px]">if (!user) return <span class="text-gray-400">// guard clause</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- IF...ELSE -->
+                <div id="if-else-statement">
+                    <MethodCard
+                        methodName="if...else"
+                        signature="if (condition) { } else { }"
+                        description="Execute one of two code paths"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Condition" type="input">
+                                <div class="text-center text-sm font-mono">age &gt;= 18</div>
+                            </Node>
+
+                            <Arrow label="evaluate" />
+
+                            <Node label="Check" type="process">
+                                <ProcessContent name="if/else" description="Branch" />
+                            </Node>
+
+                            <div class="flex flex-col gap-2">
+                                <div class="flex items-center gap-2">
+                                    <Arrow label="true" />
+                                    <Node label="If Block" type="output">
+                                        <div class="text-center text-sm font-mono">Run if code</div>
+                                    </Node>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <Arrow label="false" />
+                                    <Node label="Else Block" type="output">
+                                        <div class="text-center text-sm font-mono">Run else code</div>
+                                    </Node>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700">
+                            Exactly one block executes. Use when you have two mutually exclusive paths.
+                        </div>
+                    </MethodCard>
+                </div>
+
+                <!-- ELSE IF -->
+                <div id="else-if">
+                    <MethodCard
+                        methodName="else if"
+                        signature="if (cond1) { } else if (cond2) { } else { }"
+                        description="Chain multiple conditions"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Conditions" type="input">
+                                <div class="text-center text-[10px] font-mono">Multiple checks</div>
+                            </Node>
+
+                            <Arrow label="evaluate" />
+
+                            <Node label="Chain" type="process">
+                                <ProcessContent name="if/else if/else" description="Check in order" />
+                            </Node>
+
+                            <Arrow label="first match" />
+
+                            <Node label="Execute" type="output">
+                                <div class="text-center text-sm font-mono">First true block</div>
+                            </Node>
+                        </div>
+
+                        <div class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700">
+                            Checks conditions in order. <strong>Stops at first true condition.</strong> Use else for default case.
+                        </div>
+
+                        <ProTip>
+                            <div>Order matters:</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">if (score &gt;= 90) &lbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;grade = 'A'</div>
+                                <div class="font-mono text-[10px]">&rbrace; else if (score &gt;= 80) &lbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;grade = 'B'</div>
+                                <div class="font-mono text-[10px]">&rbrace; else if (score &gt;= 70) &lbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;grade = 'C'</div>
+                                <div class="font-mono text-[10px]">&rbrace; else &lbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;grade = 'F'</div>
+                                <div class="font-mono text-[10px]">&rbrace;</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Check most specific condition first</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- ============================================ -->
+                <!-- 🔄 SWITCH -->
+                <!-- ============================================ -->
+
+                <h2 id="switch" class="text-purple-300 text-xl my-4 pb-2 border-b-2 border-purple-600">
+                    🔄 Switch Statements
+                </h2>
+
+                <!-- SWITCH/CASE -->
+                <div id="switch-case">
+                    <MethodCard
+                        methodName="switch...case"
+                        signature="switch (value) { case x: ... break; default: ... }"
+                        description="Match value against multiple cases with fallback"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Value" type="input">
+                                <div class="text-center text-sm font-mono">day</div>
+                            </Node>
+
+                            <Arrow label="match" />
+
+                            <Node label="Switch" type="process">
+                                <ProcessContent name="switch (value)" description="Find matching case" />
+                            </Node>
+
+                            <Arrow label="execute" />
+
+                            <Node label="Case/Default" type="output">
+                                <div class="text-center text-sm font-mono">Run matching code</div>
+                            </Node>
+                        </div>
+
+                        <div class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700">
+                            Uses <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">===</code> strict equality. ⚠️ <strong>Don't forget break!</strong> Without it, execution "falls through" to next case.
+                        </div>
+
+                        <ProTip>
+                            <div>⚠️ <strong>The break gotcha:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">switch (day) &lbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;case 'Mon':</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;console.log('Monday')</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;break <span class="text-green-400">// stops here ✅</span></div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;case 'Tue':</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;console.log('Tuesday') <span class="text-red-400">// without break, runs this too! ❌</span></div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;break</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;default:</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;console.log('Other')</div>
+                                <div class="font-mono text-[10px]">&rbrace;</div>
+                            </div>
+                        </ProTip>
+
+                        <ProTip>
+                            <div>💡 <strong>Grouping multiple cases (fall-through pattern):</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">switch (day) &lbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;case 'Mon':</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;case 'Tue':</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;case 'Wed':</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;case 'Thu':</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;case 'Fri':</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;console.log('Weekday') <span class="text-gray-400">// shared code for all weekdays</span></div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;break</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;case 'Sat':</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;case 'Sun':</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;console.log('Weekend') <span class="text-gray-400">// shared code for weekend</span></div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;break</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;default:</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;console.error('Invalid day') <span class="text-green-400">// handle unexpected ✅</span></div>
+                                <div class="font-mono text-[10px]">&rbrace;</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Stack cases without break to share code - falls through until hitting break</span></div>
+                            </div>
+                        </ProTip>
+
+                        <ProTip>
+                            <div>✨ <strong>Always include default:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">default: <span class="text-gray-400">// optional but recommended (like 'else')</span></div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;console.error('Unknown value') <span class="text-gray-400">// catch unexpected values</span></div>
+                                <div class="font-mono text-[10px]"><span class="text-gray-400">// No break needed (it's last)</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- ============================================ -->
+                <!-- ⚡ TERNARY -->
+                <!-- ============================================ -->
+
+                <h2 id="ternary" class="text-green-300 text-xl my-4 pb-2 border-b-2 border-green-600">
+                    ⚡ Ternary Operator
+                </h2>
+
+                <!-- TERNARY -->
+                <div id="ternary-op">
+                    <MethodCard
+                        methodName="Ternary"
+                        signature="condition ? valueIfTrue : valueIfFalse"
+                        description="Inline conditional expression (returns value)"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Condition" type="input">
+                                <div class="text-center text-sm font-mono">age &gt;= 18</div>
+                            </Node>
+
+                            <Arrow label="evaluate" />
+
+                            <Node label="Ternary" type="process">
+                                <ProcessContent name="condition ? a : b" description="Pick value" />
+                            </Node>
+
+                            <div class="flex flex-col gap-2">
+                                <div class="flex items-center gap-2">
+                                    <Arrow label="true" />
+                                    <Node label="Value A" type="output">
+                                        <div class="text-center text-sm font-mono">'adult'</div>
+                                    </Node>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <Arrow label="false" />
+                                    <Node label="Value B" type="output">
+                                        <div class="text-center text-sm font-mono">'minor'</div>
+                                    </Node>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700">
+                            <strong>Returns a value</strong> (not a statement). Great for assignments, JSX, and short conditionals. Avoid nesting deeply.
+                        </div>
+
+                        <ProTip>
+                            <div>✨ <strong>When to use ternary:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-green-400">// Simple assignment ✅</span></div>
+                                <div class="font-mono text-[10px]">const status = isActive ? 'online' : 'offline'</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-green-400">// JSX conditionals ✅</span></div>
+                                <div class="font-mono text-[10px]">&lt;div&gt;&lbrace;isLoading ? 'Loading...' : data&rbrace;&lt;/div&gt;</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-red-400">// Avoid deep nesting ❌</span></div>
+                                <div class="font-mono text-[10px]">a ? b ? c : d : e ? f : g <span class="text-red-400">// hard to read!</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- ============================================ -->
+                <!-- 🛡️ NULLISH & OPTIONAL -->
+                <!-- ============================================ -->
+
+                <h2 id="nullish" class="text-cyan-300 text-xl my-4 pb-2 border-b-2 border-cyan-600">
+                    🛡️ Nullish & Optional
+                </h2>
+
+                <!-- NULLISH COALESCING -->
+                <div id="nullish-coalescing">
+                    <MethodCard
+                        methodName="Nullish Coalescing (??)"
+                        signature="value ?? fallback"
+                        description="Return fallback only if value is null or undefined"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Value" type="input">
+                                <div class="text-center text-sm font-mono">null / undefined</div>
+                            </Node>
+
+                            <Arrow label="check" />
+
+                            <Node label="Operator" type="process">
+                                <ProcessContent name="value ?? fallback" description="Nullish?" />
+                            </Node>
+
+                            <Arrow label="return" />
+
+                            <Node label="Result" type="output">
+                                <div class="text-center text-sm font-mono">value or fallback</div>
+                            </Node>
+                        </div>
+
+                        <div class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700">
+                            Only treats <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">null</code> and <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">undefined</code> as nullish. <strong>0, false, "" are valid values.</strong>
+                        </div>
+
+                        <ProTip>
+                            <div>💡 <strong>?? vs || difference:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">const count = 0</div>
+                                <div class="font-mono text-[10px] mt-1">count || 10 <span class="text-red-400">// 10 (0 is falsy) ❌</span></div>
+                                <div class="font-mono text-[10px]">count ?? 10 <span class="text-green-400">// 0 (0 is valid) ✅</span></div>
+                                <div class="font-mono text-[10px] mt-1">const name = ''</div>
+                                <div class="font-mono text-[10px]">name || 'Guest' <span class="text-red-400">// 'Guest' (empty string is falsy) ❌</span></div>
+                                <div class="font-mono text-[10px]">name ?? 'Guest' <span class="text-green-400">// '' (empty string is valid) ✅</span></div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Use ?? when 0, false, "" are meaningful values</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- OPTIONAL CHAINING -->
+                <div id="optional-chaining">
+                    <MethodCard
+                        methodName="Optional Chaining (?.)"
+                        signature="obj?.prop?.nested"
+                        description="Safely access nested properties (returns undefined if null)"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Object" type="input">
+                                <div class="text-center text-sm font-mono">user?.address</div>
+                            </Node>
+
+                            <Arrow label="check" />
+
+                            <Node label="Operator" type="process">
+                                <ProcessContent name="obj?.prop" description="Exists?" />
+                            </Node>
+
+                            <Arrow label="return" />
+
+                            <Node label="Result" type="output">
+                                <div class="text-center text-sm font-mono">value or undefined</div>
+                            </Node>
+                        </div>
+
+                        <div class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700">
+                            Stops evaluation and returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">undefined</code> if left side is nullish. <strong>Prevents "Cannot read property" errors.</strong>
+                        </div>
+
+                        <ProTip>
+                            <div>🛡️ <strong>Safe property access:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-red-400">// Without optional chaining ❌</span></div>
+                                <div class="font-mono text-[10px]">const city = user && user.address && user.address.city</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-green-400">// With optional chaining ✅</span></div>
+                                <div class="font-mono text-[10px]">const city = user?.address?.city</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Works with methods too</span></div>
+                                <div class="font-mono text-[10px]">user?.getName?.()</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// And array indexes</span></div>
+                                <div class="font-mono text-[10px]">arr?.[0]</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- COMBINING ?? AND ?. -->
+                <div id="combining">
+                    <MethodCard
+                        methodName="Combining ?? and ?."
+                        signature="obj?.prop ?? defaultValue"
+                        description="Safe access with fallback"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Access" type="input">
+                                <div class="text-center text-sm font-mono">user?.name</div>
+                            </Node>
+
+                            <Arrow label="if nullish" />
+
+                            <Node label="Fallback" type="process">
+                                <ProcessContent name="?? 'Guest'" description="Use default" />
+                            </Node>
+
+                            <Arrow label="return" />
+
+                            <Node label="Result" type="output">
+                                <div class="text-center text-sm font-mono">name or 'Guest'</div>
+                            </Node>
+                        </div>
+
+                        <div class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700">
+                            Powerful pattern: safely access nested property, provide fallback if nullish.
+                        </div>
+
+                        <ProTip>
+                            <div>🌟 <strong>Best pattern for nested access:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">const city = user?.address?.city ?? 'Unknown'</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Safe and readable:</span></div>
+                                <div class="font-mono text-[10px]">// 1. Safely navigates nested properties (?.)</div>
+                                <div class="font-mono text-[10px]">// 2. Provides fallback if undefined (??)</div>
+                                <div class="font-mono text-[10px]">// 3. Preserves valid falsy values like 0, false, ""</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- ============================================ -->
+                <!-- 🔗 LOGICAL OPERATORS -->
+                <!-- ============================================ -->
+
+                <h2 id="logical" class="text-orange-300 text-xl my-4 pb-2 border-b-2 border-orange-600">
+                    🔗 Logical Operators
+                </h2>
+
+                <!-- AND (&&) -->
+                <div id="and">
+                    <MethodCard
+                        methodName="AND (&&)"
+                        signature="condition1 && condition2"
+                        description="Return first falsy value, or last value if all truthy"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Left" type="input">
+                                <div class="text-center text-sm font-mono">condition1</div>
+                            </Node>
+
+                            <Arrow label="evaluate" />
+
+                            <Node label="Operator" type="process">
+                                <ProcessContent name="&&" description="Both truthy?" />
+                            </Node>
+
+                            <Arrow label="return" />
+
+                            <Node label="Result" type="output">
+                                <div class="text-center text-sm font-mono">first falsy or last</div>
+                            </Node>
+                        </div>
+
+                        <div class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700">
+                            Short-circuits: if left is falsy, <strong>doesn't evaluate right side</strong>. Returns actual values, not booleans.
+                        </div>
+
+                        <ProTip>
+                            <div>💡 <strong>Common patterns:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-gray-400">// Conditional execution</span></div>
+                                <div class="font-mono text-[10px]">user && console.log(user.name) <span class="text-gray-400">// only log if user exists</span></div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Conditional rendering (React)</span></div>
+                                <div class="font-mono text-[10px]">&lbrace;isLoggedIn && &lt;Dashboard /&gt;&rbrace;</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Guard with multiple conditions</span></div>
+                                <div class="font-mono text-[10px]">if (user && user.isActive && user.role === 'admin') &lbrace; ... &rbrace;</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- OR (||) -->
+                <div id="or">
+                    <MethodCard
+                        methodName="OR (||)"
+                        signature="value1 || value2"
+                        description="Return first truthy value, or last value if all falsy"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Left" type="input">
+                                <div class="text-center text-sm font-mono">value1</div>
+                            </Node>
+
+                            <Arrow label="evaluate" />
+
+                            <Node label="Operator" type="process">
+                                <ProcessContent name="||" description="Any truthy?" />
+                            </Node>
+
+                            <Arrow label="return" />
+
+                            <Node label="Result" type="output">
+                                <div class="text-center text-sm font-mono">first truthy or last</div>
+                            </Node>
+                        </div>
+
+                        <div class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700">
+                            Short-circuits: if left is truthy, <strong>doesn't evaluate right side</strong>. Used for defaults, but watch out for 0, false, "".
+                        </div>
+
+                        <ProTip>
+                            <div>⚠️ <strong>Default values (with gotcha):</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">const name = username || 'Guest'</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-red-400">// Gotcha with falsy values:</span></div>
+                                <div class="font-mono text-[10px]">const count = 0</div>
+                                <div class="font-mono text-[10px]">const display = count || 10 <span class="text-red-400">// 10 (not 0!) ❌</span></div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-green-400">// Use ?? for values where 0, false, "" matter:</span></div>
+                                <div class="font-mono text-[10px]">const display = count ?? 10 <span class="text-green-400">// 0 ✅</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- NOT (!) -->
+                <div id="not">
+                    <MethodCard
+                        methodName="NOT (!)"
+                        signature="!value"
+                        description="Flip boolean (convert to boolean and negate)"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Value" type="input">
+                                <div class="text-center text-sm font-mono">truthy/falsy</div>
+                            </Node>
+
+                            <Arrow label="convert" />
+
+                            <Node label="Operator" type="process">
+                                <ProcessContent name="!" description="Negate" />
+                            </Node>
+
+                            <Arrow label="return" />
+
+                            <Node label="Boolean" type="output">
+                                <div class="text-center text-sm font-mono">true or false</div>
+                            </Node>
+                        </div>
+
+                        <div class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700">
+                            Always returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">true</code> or <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">false</code>. Double negation (!!) converts to boolean.
+                        </div>
+
+                        <ProTip>
+                            <div>Common patterns:</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-gray-400">// Check if falsy</span></div>
+                                <div class="font-mono text-[10px]">if (!user) return <span class="text-gray-400">// guard clause</span></div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Toggle boolean</span></div>
+                                <div class="font-mono text-[10px]">isVisible = !isVisible</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Convert to boolean (double negation)</span></div>
+                                <div class="font-mono text-[10px]">const hasItems = !!arr.length <span class="text-gray-400">// true/false</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+            </main>
+
+            <!-- Sidebar Navigation -->
+            <aside class="w-64 shrink-0 sticky top-4 self-start hidden lg:block max-h-[calc(100vh-2rem)] overflow-y-auto">
+                <nav class="bg-[#252936] rounded-lg p-4 border border-gray-700">
+                    <h3 class="text-white text-sm font-bold mb-3 uppercase tracking-wide">Navigation</h3>
+                    <ul class="space-y-2 text-xs">
+                        <li>
+                            <a href="#if-else" class="text-blue-300 font-semibold hover:text-blue-200 block py-1">🔀 If/Else</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-blue-500/30 pl-2">
+                                <li><a href="#if" class="text-gray-300 hover:text-blue-400 block">if</a></li>
+                                <li><a href="#if-else-statement" class="text-gray-300 hover:text-blue-400 block">if...else</a></li>
+                                <li><a href="#else-if" class="text-gray-300 hover:text-blue-400 block">else if</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="mt-4">
+                            <a href="#switch" class="text-purple-300 font-semibold hover:text-purple-200 block py-1">🔄 Switch</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-purple-500/30 pl-2">
+                                <li><a href="#switch-case" class="text-gray-300 hover:text-blue-400 block">switch...case (+ multiple cases + default)</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="mt-4">
+                            <a href="#ternary" class="text-green-300 font-semibold hover:text-green-200 block py-1">⚡ Ternary</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-green-500/30 pl-2">
+                                <li><a href="#ternary-op" class="text-gray-300 hover:text-blue-400 block">Ternary Operator</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="mt-4">
+                            <a href="#nullish" class="text-cyan-300 font-semibold hover:text-cyan-200 block py-1">🛡️ Nullish & Optional</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-cyan-500/30 pl-2">
+                                <li><a href="#nullish-coalescing" class="text-gray-300 hover:text-blue-400 block">?? (Nullish Coalescing)</a></li>
+                                <li><a href="#optional-chaining" class="text-gray-300 hover:text-blue-400 block">?. (Optional Chaining)</a></li>
+                                <li><a href="#combining" class="text-gray-300 hover:text-blue-400 block">Combining ?? and ?.</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="mt-4">
+                            <a href="#logical" class="text-orange-300 font-semibold hover:text-orange-200 block py-1">🔗 Logical Operators</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-orange-500/30 pl-2">
+                                <li><a href="#and" class="text-gray-300 hover:text-blue-400 block">&& (AND)</a></li>
+                                <li><a href="#or" class="text-gray-300 hover:text-blue-400 block">|| (OR)</a></li>
+                                <li><a href="#not" class="text-gray-300 hover:text-blue-400 block">! (NOT)</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+        </div>
+
+        <style>
+            html {
+                scroll-behavior: smooth;
+                scroll-padding-top: 20px;
+            }
+
+            /* Node gradient backgrounds */
+            .node-input {
+                background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+            }
+
+            .node-process {
+                background: linear-gradient(135deg, #4c1d95 0%, #5b21b6 100%);
+            }
+
+            .node-output {
+                background: linear-gradient(135deg, #166534 0%, #15803d 100%);
+            }
+
+            /* Arrow styling */
+            .arrow {
+                position: relative;
+                height: 2px;
+                background: linear-gradient(90deg, #4b5563 0%, #6b7280 100%);
+            }
+
+            .arrow::after {
+                content: '';
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 0;
+                height: 0;
+                border-left: 8px solid #6b7280;
+                border-top: 5px solid transparent;
+                border-bottom: 5px solid transparent;
+            }
+
+            /* Pulse animation for highlights */
+            @keyframes pulse {
+                0%, 100% { opacity: 1; }
+                50% { opacity: 0.6; }
+            }
+
+            .animate-pulse {
+                animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            }
+        </style>
+    </body>
+</html>

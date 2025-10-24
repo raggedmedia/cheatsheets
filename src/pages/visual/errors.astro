@@ -1,0 +1,675 @@
+---
+import '../../styles/styles.css'
+import MethodCard from '../../components/visual-js/MethodCard.astro';
+import ProTip from '../../components/visual-js/ProTip.astro';
+---
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>JavaScript Error Handling - Visual Cheatsheet</title>
+    </head>
+    <body class="m-0 p-4 bg-[#1a1d29] text-gray-200">
+        <div class="flex gap-6 max-w-[1600px] mx-auto">
+            <!-- Main Content -->
+            <main class="flex-1 min-w-0">
+                <h1 class="text-white mb-1 text-2xl font-bold">JavaScript Error Handling</h1>
+                <p class="text-gray-400 mb-6 text-sm">Visual blueprint-style reference for handling errors gracefully</p>
+
+                <ProTip>
+                    <div>💡 <strong>Error handling prevents crashes:</strong></div>
+                    <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                        <div class="font-mono text-[10px]"><span class="text-red-400">// Without error handling - app crashes ❌</span></div>
+                        <div class="font-mono text-[10px]">JSON.parse(invalidJSON)</div>
+                        <div class="font-mono text-[10px] mt-1"><span class="text-green-400">// With error handling - app continues ✅</span></div>
+                        <div class="font-mono text-[10px]">try &lbrace; JSON.parse(invalidJSON) &rbrace; catch (e) &lbrace; /* handle */ &rbrace;</div>
+                    </div>
+                </ProTip>
+
+                <!-- ============================================ -->
+                <!-- 🛡️ TRY/CATCH/FINALLY -->
+                <!-- ============================================ -->
+
+                <h2 id="try-catch" class="text-blue-300 text-xl my-4 pb-2 border-b-2 border-blue-600">
+                    🛡️ Try / Catch / Finally
+                </h2>
+
+                <!-- TRY/CATCH -->
+                <div id="try-catch-basic">
+                    <MethodCard
+                        methodName="try / catch"
+                        signature="try { ... } catch (error) { ... }"
+                        description="Catch and handle errors without crashing"
+                        mutates={false}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-4">
+                                <!-- Flow diagram -->
+                                <div class="space-y-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="flex-1 bg-blue-500/20 border border-blue-400 rounded p-3">
+                                            <div class="text-blue-300 font-mono text-xs space-y-0.5">
+                                                <div>try &lbrace;</div>
+                                                <div>&nbsp;&nbsp;// Code that might fail</div>
+                                                <div>&nbsp;&nbsp;riskyOperation()</div>
+                                                <div>&rbrace;</div>
+                                            </div>
+                                        </div>
+                                        <div class="text-gray-500">→</div>
+                                        <div class="text-xs text-gray-400">If succeeds, skip catch</div>
+                                    </div>
+
+                                    <div class="flex items-center gap-3">
+                                        <div class="flex-1 bg-red-500/20 border border-red-500 rounded p-3">
+                                            <div class="text-red-300 font-mono text-xs space-y-0.5">
+                                                <div>catch (error) &lbrace;</div>
+                                                <div>&nbsp;&nbsp;// Handle the error</div>
+                                                <div>&nbsp;&nbsp;console.error(error.message)</div>
+                                                <div>&rbrace;</div>
+                                            </div>
+                                        </div>
+                                        <div class="text-gray-500">→</div>
+                                        <div class="text-xs text-gray-400">If fails, catch runs</div>
+                                    </div>
+                                </div>
+
+                                <!-- Example -->
+                                <div class="bg-gray-800/50 border border-gray-700 rounded p-3">
+                                    <div class="text-gray-300 font-mono text-[10px] space-y-0.5">
+                                        <div>try &lbrace;</div>
+                                        <div>&nbsp;&nbsp;const data = JSON.parse(jsonString)</div>
+                                        <div>&nbsp;&nbsp;console.log(data)</div>
+                                        <div>&rbrace; catch (error) &lbrace;</div>
+                                        <div>&nbsp;&nbsp;console.error('Invalid JSON:', error.message)</div>
+                                        <div>&nbsp;&nbsp;// Provide fallback</div>
+                                        <div>&nbsp;&nbsp;const data = &lbrace;&rbrace;</div>
+                                        <div>&rbrace;</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>⚠️ <strong>Catch blocks are optional parameters:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">catch (error) &lbrace; ... &rbrace; <span class="text-gray-400">// named error</span></div>
+                                <div class="font-mono text-[10px]">catch &lbrace; ... &rbrace; <span class="text-gray-400">// ES2019: omit parameter</span></div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-yellow-400">// Name it if you need the error details!</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- FINALLY -->
+                <div id="finally">
+                    <MethodCard
+                        methodName="finally"
+                        signature="try { ... } catch { ... } finally { ... }"
+                        description="Always runs, whether error or not"
+                        mutates={false}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-4">
+                                <!-- Flow -->
+                                <div class="space-y-2">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-32 bg-blue-500/20 border border-blue-400 rounded px-2 py-1">
+                                            <div class="text-blue-300 font-mono text-xs">try block</div>
+                                        </div>
+                                        <div class="text-gray-500">→</div>
+                                        <div class="flex-1 text-xs text-gray-400">Success path</div>
+                                        <div class="text-gray-500">→</div>
+                                        <div class="w-32 bg-green-500/20 border border-green-500 rounded px-2 py-1">
+                                            <div class="text-green-300 font-mono text-xs">finally</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-32 bg-red-500/20 border border-red-500 rounded px-2 py-1">
+                                            <div class="text-red-300 font-mono text-xs">catch block</div>
+                                        </div>
+                                        <div class="text-gray-500">→</div>
+                                        <div class="flex-1 text-xs text-gray-400">Error path</div>
+                                        <div class="text-gray-500">→</div>
+                                        <div class="w-32 bg-green-500/20 border border-green-500 rounded px-2 py-1">
+                                            <div class="text-green-300 font-mono text-xs">finally</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Example -->
+                                <div class="bg-green-500/20 border border-green-500 rounded p-3">
+                                    <div class="text-green-300 font-mono text-xs space-y-0.5">
+                                        <div>let file</div>
+                                        <div>try &lbrace;</div>
+                                        <div>&nbsp;&nbsp;file = openFile('data.txt')</div>
+                                        <div>&nbsp;&nbsp;processFile(file)</div>
+                                        <div>&rbrace; catch (error) &lbrace;</div>
+                                        <div>&nbsp;&nbsp;console.error('File error:', error)</div>
+                                        <div>&rbrace; finally &lbrace;</div>
+                                        <div>&nbsp;&nbsp;if (file) file.close() <span class="text-gray-400">// always cleanup</span></div>
+                                        <div>&rbrace;</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>Use finally for cleanup:</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-green-400">// Perfect for:</span></div>
+                                <div class="font-mono text-[10px]">- Closing files or connections</div>
+                                <div class="font-mono text-[10px]">- Hiding loading spinners</div>
+                                <div class="font-mono text-[10px]">- Releasing resources</div>
+                                <div class="font-mono text-[10px]">- Resetting state</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- ============================================ -->
+                <!-- 💥 THROWING ERRORS -->
+                <!-- ============================================ -->
+
+                <h2 id="throwing" class="text-purple-300 text-xl my-4 pb-2 border-b-2 border-purple-600">
+                    💥 Throwing Errors
+                </h2>
+
+                <!-- THROW -->
+                <div id="throw">
+                    <MethodCard
+                        methodName="throw"
+                        signature="throw new Error(message)"
+                        description="Create and throw errors"
+                        mutates={false}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-4">
+                                <!-- Basic throw -->
+                                <div class="bg-red-500/20 border border-red-500 rounded p-3">
+                                    <div class="text-red-300 font-mono text-xs space-y-0.5">
+                                        <div>throw new Error('Something went wrong')</div>
+                                    </div>
+                                </div>
+
+                                <!-- Example with validation -->
+                                <div class="bg-purple-500/20 border border-purple-400 rounded p-3">
+                                    <div class="text-purple-300 font-mono text-xs space-y-0.5">
+                                        <div>function divide(a, b) &lbrace;</div>
+                                        <div>&nbsp;&nbsp;if (b === 0) &lbrace;</div>
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;throw new Error('Cannot divide by zero')</div>
+                                        <div>&nbsp;&nbsp;&rbrace;</div>
+                                        <div>&nbsp;&nbsp;return a / b</div>
+                                        <div>&rbrace;</div>
+                                    </div>
+                                </div>
+
+                                <!-- What you can throw -->
+                                <div class="bg-gray-800/50 border border-gray-700 rounded p-3">
+                                    <div class="text-gray-300 font-mono text-[10px] space-y-0.5">
+                                        <div>throw new Error('message') <span class="text-gray-400">// standard</span></div>
+                                        <div>throw new TypeError('wrong type')</div>
+                                        <div>throw new RangeError('out of range')</div>
+                                        <div>throw 'string' <span class="text-gray-400">// possible but bad practice</span></div>
+                                        <div>throw &lbrace; code: 404 &rbrace; <span class="text-gray-400">// custom object</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>Always throw Error objects:</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-red-400">// Bad - no stack trace ❌</span></div>
+                                <div class="font-mono text-[10px]">throw 'Error message'</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-green-400">// Good - includes stack trace ✅</span></div>
+                                <div class="font-mono text-[10px]">throw new Error('Error message')</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Stack trace helps debugging!</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- ERROR TYPES -->
+                <div id="error-types">
+                    <MethodCard
+                        methodName="Built-in Error Types"
+                        signature="new ErrorType(message)"
+                        description="Different error types for different situations"
+                        mutates={false}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-2">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-40 text-purple-300 font-mono text-xs">Error</div>
+                                    <div class="text-xs text-gray-400">Generic error (base class)</div>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <div class="w-40 text-purple-300 font-mono text-xs">TypeError</div>
+                                    <div class="text-xs text-gray-400">Wrong type (e.g., null.method())</div>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <div class="w-40 text-purple-300 font-mono text-xs">ReferenceError</div>
+                                    <div class="text-xs text-gray-400">Variable doesn't exist</div>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <div class="w-40 text-purple-300 font-mono text-xs">RangeError</div>
+                                    <div class="text-xs text-gray-400">Value out of valid range</div>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <div class="w-40 text-purple-300 font-mono text-xs">SyntaxError</div>
+                                    <div class="text-xs text-gray-400">Invalid syntax (JSON.parse)</div>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <div class="w-40 text-purple-300 font-mono text-xs">URIError</div>
+                                    <div class="text-xs text-gray-400">Invalid URI encoding</div>
+                                </div>
+                            </div>
+
+                            <div class="bg-purple-500/20 border border-purple-400 rounded p-3 mt-4">
+                                <div class="text-purple-300 font-mono text-xs space-y-0.5">
+                                    <div>if (typeof value !== 'number') &lbrace;</div>
+                                    <div>&nbsp;&nbsp;throw new TypeError('Expected a number')</div>
+                                    <div>&rbrace;</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>Catch specific error types:</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">try &lbrace; ... &rbrace; catch (error) &lbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;if (error instanceof TypeError) &lbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;// Handle type errors</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&rbrace; else &lbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;// Handle other errors</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&rbrace;</div>
+                                <div class="font-mono text-[10px]">&rbrace;</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- CUSTOM ERRORS -->
+                <div id="custom-errors">
+                    <MethodCard
+                        methodName="Custom Error Classes"
+                        signature="class MyError extends Error"
+                        description="Create your own error types"
+                        mutates={false}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-4">
+                                <!-- Custom error class -->
+                                <div class="bg-purple-500/20 border border-purple-400 rounded p-3">
+                                    <div class="text-purple-300 font-mono text-xs space-y-0.5">
+                                        <div>class ValidationError extends Error &lbrace;</div>
+                                        <div>&nbsp;&nbsp;constructor(message) &lbrace;</div>
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;super(message)</div>
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;this.name = 'ValidationError'</div>
+                                        <div>&nbsp;&nbsp;&rbrace;</div>
+                                        <div>&rbrace;</div>
+                                    </div>
+                                </div>
+
+                                <!-- Usage -->
+                                <div class="bg-gray-800/50 border border-gray-700 rounded p-3">
+                                    <div class="text-gray-300 font-mono text-[10px] space-y-0.5">
+                                        <div>throw new ValidationError('Invalid email')</div>
+                                        <div class="mt-2">// Catch it</div>
+                                        <div>catch (error) &lbrace;</div>
+                                        <div>&nbsp;&nbsp;if (error instanceof ValidationError) &lbrace;</div>
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;// Show user-friendly message</div>
+                                        <div>&nbsp;&nbsp;&rbrace;</div>
+                                        <div>&rbrace;</div>
+                                    </div>
+                                </div>
+
+                                <!-- With custom properties -->
+                                <div class="bg-green-500/20 border border-green-500 rounded p-3">
+                                    <div class="text-green-300 font-mono text-xs space-y-0.5">
+                                        <div>class HttpError extends Error &lbrace;</div>
+                                        <div>&nbsp;&nbsp;constructor(message, statusCode) &lbrace;</div>
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;super(message)</div>
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;this.name = 'HttpError'</div>
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;this.statusCode = statusCode</div>
+                                        <div>&nbsp;&nbsp;&rbrace;</div>
+                                        <div>&rbrace;</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>Why custom errors?</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-green-400">✅ More specific error handling</span></div>
+                                <div class="font-mono text-[10px]"><span class="text-green-400">✅ Add custom properties (code, data)</span></div>
+                                <div class="font-mono text-[10px]"><span class="text-green-400">✅ Better error messages for users</span></div>
+                                <div class="font-mono text-[10px]"><span class="text-green-400">✅ Easier to test specific errors</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- ============================================ -->
+                <!-- 🔄 ASYNC ERROR HANDLING -->
+                <!-- ============================================ -->
+
+                <h2 id="async-errors" class="text-green-300 text-xl my-4 pb-2 border-b-2 border-green-600">
+                    🔄 Async Error Handling
+                </h2>
+
+                <!-- ASYNC/AWAIT WITH TRY/CATCH -->
+                <div id="async-try-catch">
+                    <MethodCard
+                        methodName="try / catch with async/await"
+                        signature="async function() { try { await ... } catch { ... } }"
+                        description="Handle errors in async functions"
+                        mutates={false}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-4">
+                                <!-- Good example -->
+                                <div>
+                                    <div class="text-green-400 text-xs mb-2">✅ With error handling:</div>
+                                    <div class="bg-green-500/20 border border-green-500 rounded p-3">
+                                        <div class="text-green-300 font-mono text-xs space-y-0.5">
+                                            <div>async function fetchUser(id) &lbrace;</div>
+                                            <div>&nbsp;&nbsp;try &lbrace;</div>
+                                            <div>&nbsp;&nbsp;&nbsp;&nbsp;const response = await fetch(`/api/users/$&lbrace;id&rbrace;`)</div>
+                                            <div>&nbsp;&nbsp;&nbsp;&nbsp;if (!response.ok) throw new Error('User not found')</div>
+                                            <div>&nbsp;&nbsp;&nbsp;&nbsp;return await response.json()</div>
+                                            <div>&nbsp;&nbsp;&rbrace; catch (error) &lbrace;</div>
+                                            <div>&nbsp;&nbsp;&nbsp;&nbsp;console.error('Failed to fetch user:', error)</div>
+                                            <div>&nbsp;&nbsp;&nbsp;&nbsp;return null <span class="text-gray-400">// fallback</span></div>
+                                            <div>&nbsp;&nbsp;&rbrace;</div>
+                                            <div>&rbrace;</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Bad example -->
+                                <div>
+                                    <div class="text-red-400 text-xs mb-2">❌ Without error handling:</div>
+                                    <div class="bg-red-500/20 border border-red-500 rounded p-3">
+                                        <div class="text-red-300 font-mono text-xs space-y-0.5">
+                                            <div>async function fetchUser(id) &lbrace;</div>
+                                            <div>&nbsp;&nbsp;const response = await fetch(`/api/users/$&lbrace;id&rbrace;`)</div>
+                                            <div>&nbsp;&nbsp;return await response.json()</div>
+                                            <div>&nbsp;&nbsp;<span class="text-gray-400">// If fetch fails, error propagates up</span></div>
+                                            <div>&rbrace;</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>⚡ Async errors need try/catch or .catch():</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-gray-400">// Option 1: try/catch</span></div>
+                                <div class="font-mono text-[10px]">try &lbrace; await asyncFunc() &rbrace; catch (e) &lbrace; ... &rbrace;</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Option 2: .catch()</span></div>
+                                <div class="font-mono text-[10px]">asyncFunc().catch(e =&gt; ...)</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- PROMISE CATCH -->
+                <div id="promise-catch">
+                    <MethodCard
+                        methodName=".catch() for Promises"
+                        signature="promise.catch(error => { ... })"
+                        description="Handle rejected promises"
+                        mutates={false}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-4">
+                                <!-- Basic catch -->
+                                <div class="bg-green-500/20 border border-green-500 rounded p-3">
+                                    <div class="text-green-300 font-mono text-xs space-y-0.5">
+                                        <div>fetch('/api/data')</div>
+                                        <div>&nbsp;&nbsp;.then(response =&gt; response.json())</div>
+                                        <div>&nbsp;&nbsp;.then(data =&gt; console.log(data))</div>
+                                        <div>&nbsp;&nbsp;.catch(error =&gt; console.error('Failed:', error))</div>
+                                    </div>
+                                </div>
+
+                                <!-- Catch in chain -->
+                                <div class="bg-gray-800/50 border border-gray-700 rounded p-3">
+                                    <div class="text-gray-300 font-mono text-[10px] space-y-0.5">
+                                        <div><span class="text-gray-400">// Catch catches all errors in the chain</span></div>
+                                        <div>promise</div>
+                                        <div>&nbsp;&nbsp;.then(step1)</div>
+                                        <div>&nbsp;&nbsp;.then(step2)</div>
+                                        <div>&nbsp;&nbsp;.then(step3)</div>
+                                        <div>&nbsp;&nbsp;.catch(handleAnyError) <span class="text-gray-400">// catches all above</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>⚠️ <strong>Unhandled promise rejections:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-red-400">// Dangerous - silent failure ❌</span></div>
+                                <div class="font-mono text-[10px]">fetch('/api').then(r =&gt; r.json())</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-green-400">// Safe - errors handled ✅</span></div>
+                                <div class="font-mono text-[10px]">fetch('/api').then(...).catch(...)</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-yellow-400">// Always add .catch() to promises!</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- ============================================ -->
+                <!-- 📋 ERROR PATTERNS -->
+                <!-- ============================================ -->
+
+                <h2 id="patterns" class="text-orange-300 text-xl my-4 pb-2 border-b-2 border-orange-600">
+                    📋 Error Patterns
+                </h2>
+
+                <!-- ERROR OBJECT PROPERTIES -->
+                <div id="error-properties">
+                    <MethodCard
+                        methodName="Error Object Properties"
+                        signature="error.message / error.name / error.stack"
+                        description="Useful properties on error objects"
+                        mutates={false}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-3">
+                                <div class="bg-gray-800/50 border border-gray-700 rounded p-3">
+                                    <div class="text-gray-300 font-mono text-[10px] space-y-0.5">
+                                        <div>try &lbrace;</div>
+                                        <div>&nbsp;&nbsp;throw new TypeError('Invalid type')</div>
+                                        <div>&rbrace; catch (error) &lbrace;</div>
+                                        <div>&nbsp;&nbsp;error.message <span class="text-gray-400">// "Invalid type"</span></div>
+                                        <div>&nbsp;&nbsp;error.name <span class="text-gray-400">// "TypeError"</span></div>
+                                        <div>&nbsp;&nbsp;error.stack <span class="text-gray-400">// Full stack trace string</span></div>
+                                        <div>&rbrace;</div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-orange-500/20 border border-orange-400 rounded p-3">
+                                    <div class="text-orange-300 font-mono text-xs space-y-0.5">
+                                        <div>catch (error) &lbrace;</div>
+                                        <div>&nbsp;&nbsp;console.error(`$&lbrace;error.name&rbrace;: $&lbrace;error.message&rbrace;`)</div>
+                                        <div>&nbsp;&nbsp;console.debug(error.stack) <span class="text-gray-400">// for debugging</span></div>
+                                        <div>&rbrace;</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>Logging best practices:</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">console.error(error) <span class="text-gray-400">// shows full error</span></div>
+                                <div class="font-mono text-[10px]">console.error(error.message) <span class="text-gray-400">// message only</span></div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-green-400">// In production, send to logging service</span></div>
+                                <div class="font-mono text-[10px]">logger.error(&lbrace; message, stack, context &rbrace;)</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- GUARD CLAUSES -->
+                <div id="guard-clauses">
+                    <MethodCard
+                        methodName="Guard Clauses"
+                        signature="Validate early, fail fast"
+                        description="Check inputs at function start"
+                        mutates={false}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-4">
+                                <!-- Bad - nested -->
+                                <div>
+                                    <div class="text-red-400 text-xs mb-2">❌ Nested conditions:</div>
+                                    <div class="bg-red-500/20 border border-red-500 rounded p-3">
+                                        <div class="text-red-300 font-mono text-xs space-y-0.5">
+                                            <div>function processUser(user) &lbrace;</div>
+                                            <div>&nbsp;&nbsp;if (user) &lbrace;</div>
+                                            <div>&nbsp;&nbsp;&nbsp;&nbsp;if (user.age >= 18) &lbrace;</div>
+                                            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// do work</div>
+                                            <div>&nbsp;&nbsp;&nbsp;&nbsp;&rbrace;</div>
+                                            <div>&nbsp;&nbsp;&rbrace;</div>
+                                            <div>&rbrace;</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Good - guard clauses -->
+                                <div>
+                                    <div class="text-green-400 text-xs mb-2">✅ Guard clauses:</div>
+                                    <div class="bg-green-500/20 border border-green-500 rounded p-3">
+                                        <div class="text-green-300 font-mono text-xs space-y-0.5">
+                                            <div>function processUser(user) &lbrace;</div>
+                                            <div>&nbsp;&nbsp;if (!user) throw new Error('User required')</div>
+                                            <div>&nbsp;&nbsp;if (user.age &lt; 18) throw new Error('Must be 18+')</div>
+                                            <div>&nbsp;&nbsp;</div>
+                                            <div>&nbsp;&nbsp;// Happy path - no nesting!</div>
+                                            <div>&nbsp;&nbsp;// do work</div>
+                                            <div>&rbrace;</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>Benefits of guard clauses:</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-green-400">✅ Less nesting = easier to read</span></div>
+                                <div class="font-mono text-[10px]"><span class="text-green-400">✅ Fail fast with clear error messages</span></div>
+                                <div class="font-mono text-[10px]"><span class="text-green-400">✅ Happy path at function end</span></div>
+                                <div class="font-mono text-[10px]"><span class="text-green-400">✅ Easy to add more validations</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- RETHROWING -->
+                <div id="rethrowing">
+                    <MethodCard
+                        methodName="Re-throwing Errors"
+                        signature="catch (e) { throw e }"
+                        description="Catch, log, then propagate error"
+                        mutates={false}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-4">
+                                <div class="bg-orange-500/20 border border-orange-400 rounded p-3">
+                                    <div class="text-orange-300 font-mono text-xs space-y-0.5">
+                                        <div>try &lbrace;</div>
+                                        <div>&nbsp;&nbsp;await riskyOperation()</div>
+                                        <div>&rbrace; catch (error) &lbrace;</div>
+                                        <div>&nbsp;&nbsp;// Log for monitoring</div>
+                                        <div>&nbsp;&nbsp;logger.error('Operation failed', error)</div>
+                                        <div>&nbsp;&nbsp;</div>
+                                        <div>&nbsp;&nbsp;// Let caller handle it</div>
+                                        <div>&nbsp;&nbsp;throw error <span class="text-gray-400">// or throw new Error with context</span></div>
+                                        <div>&rbrace;</div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-purple-500/20 border border-purple-400 rounded p-3">
+                                    <div class="text-purple-300 font-mono text-xs space-y-0.5">
+                                        <div>// Add context when re-throwing</div>
+                                        <div>catch (error) &lbrace;</div>
+                                        <div>&nbsp;&nbsp;throw new Error(`Failed to load user $&lbrace;id&rbrace;: $&lbrace;error.message&rbrace;`)</div>
+                                        <div>&rbrace;</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>When to re-throw:</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-green-400">✅ After logging for monitoring</span></div>
+                                <div class="font-mono text-[10px]"><span class="text-green-400">✅ When you can't handle it properly</span></div>
+                                <div class="font-mono text-[10px]"><span class="text-green-400">✅ To add context to the error</span></div>
+                                <div class="font-mono text-[10px]"><span class="text-red-400">❌ Don't catch if you won't handle or rethrow</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+            </main>
+
+            <!-- Sidebar Navigation -->
+            <aside class="w-64 shrink-0 sticky top-4 self-start hidden lg:block max-h-[calc(100vh-2rem)] overflow-y-auto">
+                <nav class="bg-[#252936] rounded-lg p-4 border border-gray-700">
+                    <h3 class="text-white text-sm font-bold mb-3 uppercase tracking-wide">Navigation</h3>
+                    <ul class="space-y-2 text-xs">
+                        <li>
+                            <a href="#try-catch" class="text-blue-300 font-semibold hover:text-blue-200 block py-1">🛡️ Try / Catch / Finally</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-blue-500/30 pl-2">
+                                <li><a href="#try-catch-basic" class="text-gray-300 hover:text-blue-400 block">try / catch</a></li>
+                                <li><a href="#finally" class="text-gray-300 hover:text-blue-400 block">finally</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="mt-4">
+                            <a href="#throwing" class="text-purple-300 font-semibold hover:text-purple-200 block py-1">💥 Throwing Errors</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-purple-500/30 pl-2">
+                                <li><a href="#throw" class="text-gray-300 hover:text-blue-400 block">throw</a></li>
+                                <li><a href="#error-types" class="text-gray-300 hover:text-blue-400 block">Error Types</a></li>
+                                <li><a href="#custom-errors" class="text-gray-300 hover:text-blue-400 block">Custom Errors</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="mt-4">
+                            <a href="#async-errors" class="text-green-300 font-semibold hover:text-green-200 block py-1">🔄 Async Error Handling</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-green-500/30 pl-2">
+                                <li><a href="#async-try-catch" class="text-gray-300 hover:text-blue-400 block">async/await + try/catch</a></li>
+                                <li><a href="#promise-catch" class="text-gray-300 hover:text-blue-400 block">.catch()</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="mt-4">
+                            <a href="#patterns" class="text-orange-300 font-semibold hover:text-orange-200 block py-1">📋 Error Patterns</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-orange-500/30 pl-2">
+                                <li><a href="#error-properties" class="text-gray-300 hover:text-blue-400 block">Error Properties</a></li>
+                                <li><a href="#guard-clauses" class="text-gray-300 hover:text-blue-400 block">Guard Clauses</a></li>
+                                <li><a href="#rethrowing" class="text-gray-300 hover:text-blue-400 block">Re-throwing</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+        </div>
+
+        <style>
+            html {
+                scroll-behavior: smooth;
+                scroll-padding-top: 20px;
+            }
+        </style>
+    </body>
+</html>

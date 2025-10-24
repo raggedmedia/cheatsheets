@@ -1,0 +1,670 @@
+---
+import '../../styles/styles.css'
+import MethodCard from '../../components/visual-js/MethodCard.astro';
+import ProTip from '../../components/visual-js/ProTip.astro';
+---
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>JavaScript Functions - Visual Cheatsheet</title>
+    </head>
+    <body class="m-0 p-4 bg-[#1a1d29] text-gray-200">
+        <div class="flex gap-6 max-w-[1600px] mx-auto">
+            <!-- Main Content -->
+            <main class="flex-1 min-w-0">
+                <h1 class="text-white mb-1 text-2xl font-bold">JavaScript Functions</h1>
+                <p class="text-gray-400 mb-6 text-sm">Visual blueprint-style reference for functions, scope, and closures</p>
+
+                <ProTip>
+                    <div>💡 <strong>Functions are first-class citizens:</strong></div>
+                    <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                        <div class="font-mono text-[10px]"><span class="text-gray-400">// Can be assigned to variables, passed as arguments, returned from functions</span></div>
+                        <div class="font-mono text-[10px]">const fn = function() &lbrace; &rbrace; <span class="text-gray-400">// function expression</span></div>
+                        <div class="font-mono text-[10px]">array.map(fn) <span class="text-gray-400">// pass as argument</span></div>
+                        <div class="font-mono text-[10px]">function makeFunc() &lbrace; return fn &rbrace; <span class="text-gray-400">// return function</span></div>
+                    </div>
+                </ProTip>
+
+                <!-- ============================================ -->
+                <!-- 📝 FUNCTION TYPES -->
+                <!-- ============================================ -->
+
+                <h2 id="types" class="text-blue-300 text-xl my-4 pb-2 border-b-2 border-blue-600">
+                    📝 Function Types
+                </h2>
+
+                <!-- FUNCTION DECLARATION VS EXPRESSION -->
+                <div id="declaration-vs-expression">
+                    <MethodCard
+                        methodName="Declaration vs Expression"
+                        signature="function vs const fn ="
+                        description="Two ways to define functions"
+                        mutates={false}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-4">
+                                <!-- Declaration -->
+                                <div>
+                                    <div class="text-blue-400 font-bold text-sm mb-2">Function Declaration:</div>
+                                    <div class="bg-blue-500/20 border-2 border-blue-400 rounded-lg p-3">
+                                        <div class="text-blue-300 font-mono text-xs space-y-0.5">
+                                            <div>function greet(name) &lbrace;</div>
+                                            <div>&nbsp;&nbsp;return `Hello $&lbrace;name&rbrace;`</div>
+                                            <div>&rbrace;</div>
+                                        </div>
+                                        <div class="text-green-400 text-[10px] mt-2">✅ Hoisted - can call before declaration</div>
+                                    </div>
+                                </div>
+
+                                <!-- Expression -->
+                                <div>
+                                    <div class="text-purple-400 font-bold text-sm mb-2">Function Expression:</div>
+                                    <div class="bg-purple-500/20 border-2 border-purple-400 rounded-lg p-3">
+                                        <div class="text-purple-300 font-mono text-xs space-y-0.5">
+                                            <div>const greet = function(name) &lbrace;</div>
+                                            <div>&nbsp;&nbsp;return `Hello $&lbrace;name&rbrace;`</div>
+                                            <div>&rbrace;</div>
+                                        </div>
+                                        <div class="text-yellow-400 text-[10px] mt-2">⚠️ Not hoisted - must declare before calling</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>Hoisting example:</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-green-400">// Declaration - works ✅</span></div>
+                                <div class="font-mono text-[10px]">greet('Alice')</div>
+                                <div class="font-mono text-[10px]">function greet(name) &lbrace; return name &rbrace;</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-red-400">// Expression - error ❌</span></div>
+                                <div class="font-mono text-[10px]">greet('Alice') <span class="text-red-400">// ReferenceError</span></div>
+                                <div class="font-mono text-[10px]">const greet = function(name) &lbrace; return name &rbrace;</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- ARROW FUNCTIONS -->
+                <div id="arrow-functions">
+                    <MethodCard
+                        methodName="Arrow Functions"
+                        signature="() => {}"
+                        description="Concise function syntax with lexical this"
+                        mutates={false}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-3">
+                                <!-- Basic syntax -->
+                                <div class="bg-gray-800/50 border border-gray-700 rounded p-3">
+                                    <div class="text-gray-300 text-xs mb-1.5">Basic syntax:</div>
+                                    <div class="text-purple-300 font-mono text-xs space-y-0.5">
+                                        <div>const add = (a, b) =&gt; a + b</div>
+                                        <div class="text-gray-400 text-[10px]">// Same as: function(a, b) &lbrace; return a + b &rbrace;</div>
+                                    </div>
+                                </div>
+
+                                <!-- Single parameter -->
+                                <div class="bg-gray-800/50 border border-gray-700 rounded p-3">
+                                    <div class="text-gray-300 text-xs mb-1.5">Single param (no parens):</div>
+                                    <div class="text-purple-300 font-mono text-xs space-y-0.5">
+                                        <div>const double = n =&gt; n * 2</div>
+                                    </div>
+                                </div>
+
+                                <!-- Multi-line -->
+                                <div class="bg-gray-800/50 border border-gray-700 rounded p-3">
+                                    <div class="text-gray-300 text-xs mb-1.5">Multi-line (needs return):</div>
+                                    <div class="text-purple-300 font-mono text-xs space-y-0.5">
+                                        <div>const greet = name =&gt; &lbrace;</div>
+                                        <div>&nbsp;&nbsp;const msg = `Hello $&lbrace;name&rbrace;`</div>
+                                        <div>&nbsp;&nbsp;return msg</div>
+                                        <div>&rbrace;</div>
+                                    </div>
+                                </div>
+
+                                <!-- Return object -->
+                                <div class="bg-gray-800/50 border border-gray-700 rounded p-3">
+                                    <div class="text-gray-300 text-xs mb-1.5">Return object (wrap in parens):</div>
+                                    <div class="text-purple-300 font-mono text-xs space-y-0.5">
+                                        <div>const makePerson = name =&gt; (&lbrace; name, age: 0 &rbrace;)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700">
+                            Arrow functions don't have their own <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">this</code>, <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">arguments</code>, or <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">super</code>.
+                        </div>
+
+                        <ProTip>
+                            <div>⚠️ <strong>When NOT to use arrows:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-red-400">// Methods that need 'this' ❌</span></div>
+                                <div class="font-mono text-[10px]">const obj = &lbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;value: 42,</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;getValue: () =&gt; this.value <span class="text-red-400">// 'this' is wrong!</span></div>
+                                <div class="font-mono text-[10px]">&rbrace;</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-green-400">// Use regular function ✅</span></div>
+                                <div class="font-mono text-[10px]">getValue: function() &lbrace; return this.value &rbrace;</div>
+                                <div class="font-mono text-[10px]">getValue() &lbrace; return this.value &rbrace; <span class="text-gray-400">// shorthand</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- ============================================ -->
+                <!-- 🎯 PARAMETERS & ARGUMENTS -->
+                <!-- ============================================ -->
+
+                <h2 id="parameters" class="text-purple-300 text-xl my-4 pb-2 border-b-2 border-purple-600">
+                    🎯 Parameters & Arguments
+                </h2>
+
+                <!-- DEFAULT PARAMETERS -->
+                <div id="default-params">
+                    <MethodCard
+                        methodName="Default Parameters"
+                        signature="function(param = default)"
+                        description="Set default values for parameters"
+                        mutates={false}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-3">
+                                    <div class="flex-1 bg-blue-500/20 border border-blue-400 rounded px-3 py-2">
+                                        <div class="text-blue-300 font-mono text-xs">greet('Alice', 'Hello')</div>
+                                    </div>
+                                    <div class="text-lg">→</div>
+                                    <div class="flex-1 bg-green-500/20 border border-green-500 rounded px-3 py-2">
+                                        <div class="text-green-300 font-mono text-xs">'Hello Alice'</div>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center gap-3">
+                                    <div class="flex-1 bg-blue-500/20 border border-blue-400 rounded px-3 py-2">
+                                        <div class="text-blue-300 font-mono text-xs">greet('Bob')</div>
+                                    </div>
+                                    <div class="text-lg">→</div>
+                                    <div class="flex-1 bg-green-500/20 border border-green-500 rounded px-3 py-2">
+                                        <div class="text-green-300 font-mono text-xs">'Hi Bob' (default)</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-4 bg-purple-500/20 border border-purple-400 rounded p-3">
+                                <div class="text-purple-300 font-mono text-xs space-y-0.5">
+                                    <div>function greet(name, greeting = 'Hi') &lbrace;</div>
+                                    <div>&nbsp;&nbsp;return `$&lbrace;greeting&rbrace; $&lbrace;name&rbrace;`</div>
+                                    <div>&rbrace;</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>Default can be expression:</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">function log(msg, time = Date.now()) &lbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;console.log(`[$&lbrace;time&rbrace;] $&lbrace;msg&rbrace;`)</div>
+                                <div class="font-mono text-[10px]">&rbrace;</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Or call another function</span></div>
+                                <div class="font-mono text-[10px]">function greet(name = getName()) &lbrace; ... &rbrace;</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- REST PARAMETERS -->
+                <div id="rest-params">
+                    <MethodCard
+                        methodName="Rest Parameters"
+                        signature="function(...rest)"
+                        description="Collect remaining arguments into array"
+                        mutates={false}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-4">
+                                <div class="bg-purple-500/20 border border-purple-400 rounded p-3">
+                                    <div class="text-purple-300 font-mono text-xs space-y-0.5">
+                                        <div>function sum(...numbers) &lbrace;</div>
+                                        <div>&nbsp;&nbsp;return numbers.reduce((a, b) =&gt; a + b, 0)</div>
+                                        <div>&rbrace;</div>
+                                    </div>
+                                </div>
+
+                                <div class="space-y-2">
+                                    <div class="flex items-center gap-3">
+                                        <div class="flex-1 bg-blue-500/20 border border-blue-400 rounded px-3 py-2">
+                                            <div class="text-blue-300 font-mono text-xs">sum(1, 2, 3)</div>
+                                        </div>
+                                        <div class="text-lg">→</div>
+                                        <div class="flex-1 bg-green-500/20 border border-green-500 rounded px-3 py-2">
+                                            <div class="text-green-300 font-mono text-xs">6</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center gap-3">
+                                        <div class="flex-1 bg-blue-500/20 border border-blue-400 rounded px-3 py-2">
+                                            <div class="text-blue-300 font-mono text-xs">sum(1, 2, 3, 4, 5)</div>
+                                        </div>
+                                        <div class="text-lg">→</div>
+                                        <div class="flex-1 bg-green-500/20 border border-green-500 rounded px-3 py-2">
+                                            <div class="text-green-300 font-mono text-xs">15</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700">
+                            Rest parameter must be last. Creates real array (not array-like <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">arguments</code> object).
+                        </div>
+
+                        <ProTip>
+                            <div>Combine with regular params:</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">function log(level, ...messages) &lbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;console.log(`[$&lbrace;level&rbrace;]`, ...messages)</div>
+                                <div class="font-mono text-[10px]">&rbrace;</div>
+                                <div class="font-mono text-[10px] mt-1">log('ERROR', 'Failed', 'to', 'load')</div>
+                                <div class="font-mono text-[10px]"><span class="text-gray-400">// [ERROR] Failed to load</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- DESTRUCTURING PARAMETERS -->
+                <div id="destructuring-params">
+                    <MethodCard
+                        methodName="Destructuring Parameters"
+                        signature="function({ prop1, prop2 })"
+                        description="Extract properties from object parameters"
+                        mutates={false}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="text-gray-300 text-xs mb-2">Object destructuring:</div>
+                                    <div class="bg-purple-500/20 border border-purple-400 rounded p-3">
+                                        <div class="text-purple-300 font-mono text-xs space-y-0.5">
+                                            <div>function greet(&lbrace; name, age &rbrace;) &lbrace;</div>
+                                            <div>&nbsp;&nbsp;return `$&lbrace;name&rbrace; is $&lbrace;age&rbrace;`</div>
+                                            <div>&rbrace;</div>
+                                            <div class="mt-2">greet(&lbrace; name: 'Alice', age: 30 &rbrace;)</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="text-gray-300 text-xs mb-2">With defaults:</div>
+                                    <div class="bg-purple-500/20 border border-purple-400 rounded p-3">
+                                        <div class="text-purple-300 font-mono text-xs space-y-0.5">
+                                            <div>function draw(&lbrace; x = 0, y = 0, size = 1 &rbrace; = &lbrace;&rbrace;) &lbrace;</div>
+                                            <div>&nbsp;&nbsp;// All params optional</div>
+                                            <div>&rbrace;</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>Great for options objects:</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">function fetch(url, &lbrace; method = 'GET', headers = &lbrace;&rbrace; &rbrace; = &lbrace;&rbrace;) &lbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;// method and headers extracted with defaults</div>
+                                <div class="font-mono text-[10px]">&rbrace;</div>
+                                <div class="font-mono text-[10px] mt-1">fetch('/api', &lbrace; method: 'POST' &rbrace;)</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- ============================================ -->
+                <!-- 🔐 SCOPE & CLOSURES -->
+                <!-- ============================================ -->
+
+                <h2 id="scope" class="text-green-300 text-xl my-4 pb-2 border-b-2 border-green-600">
+                    🔐 Scope & Closures
+                </h2>
+
+                <!-- CLOSURES -->
+                <div id="closures">
+                    <MethodCard
+                        methodName="Closures"
+                        signature="function() returns function"
+                        description="Inner function accessing outer function's variables"
+                        mutates={false}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-4">
+                                <!-- Closure visualization -->
+                                <div class="bg-green-500/20 border-2 border-green-500 rounded p-4">
+                                    <div class="text-green-300 font-bold text-sm mb-3">Outer Function (makeCounter)</div>
+                                    <div class="bg-gray-900/50 rounded p-3 mb-3">
+                                        <div class="text-yellow-400 font-mono text-xs mb-2">let count = 0 <span class="text-gray-400">// captured in closure</span></div>
+                                    </div>
+
+                                    <div class="bg-blue-500/20 border-2 border-blue-400 rounded p-3">
+                                        <div class="text-blue-300 font-bold text-sm mb-2">Inner Function (returned)</div>
+                                        <div class="text-blue-300 font-mono text-xs space-y-0.5">
+                                            <div>return function() &lbrace;</div>
+                                            <div>&nbsp;&nbsp;count++ <span class="text-green-400">// accesses outer count</span></div>
+                                            <div>&nbsp;&nbsp;return count</div>
+                                            <div>&rbrace;</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Usage -->
+                                <div class="bg-gray-800/50 border border-gray-700 rounded p-3">
+                                    <div class="text-gray-300 font-mono text-xs space-y-0.5">
+                                        <div>const counter = makeCounter()</div>
+                                        <div>counter() <span class="text-gray-400">// 1</span></div>
+                                        <div>counter() <span class="text-gray-400">// 2</span></div>
+                                        <div>counter() <span class="text-gray-400">// 3</span></div>
+                                        <div class="mt-1 text-yellow-400">// count persists between calls!</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700">
+                            Closure = function + its lexical environment (variables it can access). The inner function "remembers" outer variables even after outer function returns.
+                        </div>
+
+                        <ProTip>
+                            <div>Common use case - private variables:</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">function createWallet() &lbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;let balance = 0 <span class="text-gray-400">// private!</span></div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;return &lbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;deposit: (amt) =&gt; balance += amt,</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;getBalance: () =&gt; balance</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&rbrace;</div>
+                                <div class="font-mono text-[10px]">&rbrace;</div>
+                                <div class="font-mono text-[10px] mt-1">const wallet = createWallet()</div>
+                                <div class="font-mono text-[10px]">wallet.balance <span class="text-red-400">// undefined (private!)</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- IIFE -->
+                <div id="iife">
+                    <MethodCard
+                        methodName="IIFE"
+                        signature="(function() {})() or (() => {})()"
+                        description="Immediately Invoked Function Expression"
+                        mutates={false}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-4">
+                                <!-- Classic IIFE -->
+                                <div>
+                                    <div class="text-gray-300 text-xs mb-2">Classic IIFE:</div>
+                                    <div class="bg-purple-500/20 border border-purple-400 rounded p-3">
+                                        <div class="text-purple-300 font-mono text-xs space-y-0.5">
+                                            <div>(function() &lbrace;</div>
+                                            <div>&nbsp;&nbsp;const secret = 'private'</div>
+                                            <div>&nbsp;&nbsp;console.log('Executed immediately!')</div>
+                                            <div>&rbrace;)()</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Arrow IIFE -->
+                                <div>
+                                    <div class="text-gray-300 text-xs mb-2">Arrow IIFE:</div>
+                                    <div class="bg-purple-500/20 border border-purple-400 rounded p-3">
+                                        <div class="text-purple-300 font-mono text-xs space-y-0.5">
+                                            <div>(() =&gt; &lbrace;</div>
+                                            <div>&nbsp;&nbsp;const secret = 'private'</div>
+                                            <div>&nbsp;&nbsp;console.log('Modern syntax')</div>
+                                            <div>&rbrace;)()</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- With params -->
+                                <div>
+                                    <div class="text-gray-300 text-xs mb-2">With parameters:</div>
+                                    <div class="bg-purple-500/20 border border-purple-400 rounded p-3">
+                                        <div class="text-purple-300 font-mono text-xs space-y-0.5">
+                                            <div>((name) =&gt; &lbrace;</div>
+                                            <div>&nbsp;&nbsp;console.log(`Hello $&lbrace;name&rbrace;`)</div>
+                                            <div>&rbrace;)('Alice')</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700">
+                            Creates isolated scope. Variables inside don't pollute global scope. Less common now with modules and block scope.
+                        </div>
+
+                        <ProTip>
+                            <div>Use case - avoid global pollution:</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-gray-400">// Before modules, used to create isolated scope</span></div>
+                                <div class="font-mono text-[10px]">(function() &lbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;const helper = () =&gt; &lbrace; ... &rbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;window.MyLib = &lbrace; helper &rbrace; <span class="text-gray-400">// expose only what's needed</span></div>
+                                <div class="font-mono text-[10px]">&rbrace;)()</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- ============================================ -->
+                <!-- 🎪 HIGHER-ORDER FUNCTIONS -->
+                <!-- ============================================ -->
+
+                <h2 id="higher-order" class="text-orange-300 text-xl my-4 pb-2 border-b-2 border-orange-600">
+                    🎪 Higher-Order Functions
+                </h2>
+
+                <!-- CALLBACKS -->
+                <div id="callbacks">
+                    <MethodCard
+                        methodName="Callbacks"
+                        signature="function takes function as argument"
+                        description="Pass function to be called later"
+                        mutates={false}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-4">
+                                <div class="bg-orange-500/20 border-2 border-orange-400 rounded p-4">
+                                    <div class="text-orange-300 font-mono text-xs space-y-1">
+                                        <div>function doAsync(callback) &lbrace;</div>
+                                        <div>&nbsp;&nbsp;setTimeout(() =&gt; &lbrace;</div>
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;callback('done') <span class="text-green-400">// call it later</span></div>
+                                        <div>&nbsp;&nbsp;&rbrace;, 1000)</div>
+                                        <div>&rbrace;</div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-gray-800/50 border border-gray-700 rounded p-3">
+                                    <div class="text-gray-300 font-mono text-xs space-y-0.5">
+                                        <div>doAsync((result) =&gt; &lbrace;</div>
+                                        <div>&nbsp;&nbsp;console.log(result) <span class="text-gray-400">// 'done'</span></div>
+                                        <div>&rbrace;)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>Common in array methods:</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">[1, 2, 3].map(n =&gt; n * 2) <span class="text-gray-400">// callback</span></div>
+                                <div class="font-mono text-[10px]">[1, 2, 3].filter(n =&gt; n &gt; 1) <span class="text-gray-400">// callback</span></div>
+                                <div class="font-mono text-[10px]">setTimeout(() =&gt; &lbrace; ... &rbrace;, 1000) <span class="text-gray-400">// callback</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- FUNCTION COMPOSITION -->
+                <div id="composition">
+                    <MethodCard
+                        methodName="Function Composition"
+                        signature="compose(f, g)(x) = f(g(x))"
+                        description="Combine multiple functions into one"
+                        mutates={false}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-4">
+                                <!-- Visualization -->
+                                <div class="flex items-center gap-3">
+                                    <div class="flex-1 text-center">
+                                        <div class="bg-blue-500/20 border border-blue-400 rounded p-2">
+                                            <div class="text-blue-300 font-mono text-xs">input</div>
+                                        </div>
+                                    </div>
+                                    <div class="text-lg">→</div>
+                                    <div class="flex-1 text-center">
+                                        <div class="bg-purple-500/20 border border-purple-400 rounded p-2">
+                                            <div class="text-purple-300 font-mono text-xs">func1()</div>
+                                        </div>
+                                    </div>
+                                    <div class="text-lg">→</div>
+                                    <div class="flex-1 text-center">
+                                        <div class="bg-purple-500/20 border border-purple-400 rounded p-2">
+                                            <div class="text-purple-300 font-mono text-xs">func2()</div>
+                                        </div>
+                                    </div>
+                                    <div class="text-lg">→</div>
+                                    <div class="flex-1 text-center">
+                                        <div class="bg-green-500/20 border border-green-500 rounded p-2">
+                                            <div class="text-green-300 font-mono text-xs">output</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-orange-500/20 border border-orange-400 rounded p-3">
+                                    <div class="text-orange-300 font-mono text-xs space-y-0.5">
+                                        <div>const double = n =&gt; n * 2</div>
+                                        <div>const addOne = n =&gt; n + 1</div>
+                                        <div class="mt-2">const doubleThenAdd = n =&gt; addOne(double(n))</div>
+                                        <div class="mt-2">doubleThenAdd(3) <span class="text-gray-400">// 7 (3*2 + 1)</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>Compose helper function:</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">const compose = (...fns) =&gt;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;x =&gt; fns.reduceRight((v, f) =&gt; f(v), x)</div>
+                                <div class="font-mono text-[10px] mt-1">const process = compose(addOne, double, Math.abs)</div>
+                                <div class="font-mono text-[10px]">process(-3) <span class="text-gray-400">// 7 (abs → double → addOne)</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- CURRYING -->
+                <div id="currying">
+                    <MethodCard
+                        methodName="Currying"
+                        signature="f(a, b) → f(a)(b)"
+                        description="Transform multi-arg function into sequence of single-arg functions"
+                        mutates={false}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-4">
+                                <!-- Before/After -->
+                                <div>
+                                    <div class="text-red-400 text-xs mb-2">Regular function:</div>
+                                    <div class="bg-gray-800/50 border border-gray-700 rounded p-3">
+                                        <div class="text-gray-300 font-mono text-xs space-y-0.5">
+                                            <div>const add = (a, b) =&gt; a + b</div>
+                                            <div>add(2, 3) <span class="text-gray-400">// 5</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="text-green-400 text-xs mb-2">Curried function:</div>
+                                    <div class="bg-green-500/20 border border-green-500 rounded p-3">
+                                        <div class="text-green-300 font-mono text-xs space-y-0.5">
+                                            <div>const add = a =&gt; b =&gt; a + b</div>
+                                            <div>add(2)(3) <span class="text-gray-400">// 5</span></div>
+                                            <div class="mt-1">const addTwo = add(2)</div>
+                                            <div>addTwo(3) <span class="text-gray-400">// 5 (reusable!)</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>Use case - reusable configs:</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">const multiply = a =&gt; b =&gt; a * b</div>
+                                <div class="font-mono text-[10px] mt-1">const double = multiply(2)</div>
+                                <div class="font-mono text-[10px]">const triple = multiply(3)</div>
+                                <div class="font-mono text-[10px] mt-1">double(5) <span class="text-gray-400">// 10</span></div>
+                                <div class="font-mono text-[10px]">triple(5) <span class="text-gray-400">// 15</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+            </main>
+
+            <!-- Sidebar Navigation -->
+            <aside class="w-64 shrink-0 sticky top-4 self-start hidden lg:block max-h-[calc(100vh-2rem)] overflow-y-auto">
+                <nav class="bg-[#252936] rounded-lg p-4 border border-gray-700">
+                    <h3 class="text-white text-sm font-bold mb-3 uppercase tracking-wide">Navigation</h3>
+                    <ul class="space-y-2 text-xs">
+                        <li>
+                            <a href="#types" class="text-blue-300 font-semibold hover:text-blue-200 block py-1">📝 Function Types</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-blue-500/30 pl-2">
+                                <li><a href="#declaration-vs-expression" class="text-gray-300 hover:text-blue-400 block">Declaration vs Expression</a></li>
+                                <li><a href="#arrow-functions" class="text-gray-300 hover:text-blue-400 block">Arrow Functions</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="mt-4">
+                            <a href="#parameters" class="text-purple-300 font-semibold hover:text-purple-200 block py-1">🎯 Parameters & Arguments</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-purple-500/30 pl-2">
+                                <li><a href="#default-params" class="text-gray-300 hover:text-blue-400 block">Default Parameters</a></li>
+                                <li><a href="#rest-params" class="text-gray-300 hover:text-blue-400 block">Rest Parameters</a></li>
+                                <li><a href="#destructuring-params" class="text-gray-300 hover:text-blue-400 block">Destructuring Parameters</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="mt-4">
+                            <a href="#scope" class="text-green-300 font-semibold hover:text-green-200 block py-1">🔐 Scope & Closures</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-green-500/30 pl-2">
+                                <li><a href="#closures" class="text-gray-300 hover:text-blue-400 block">Closures</a></li>
+                                <li><a href="#iife" class="text-gray-300 hover:text-blue-400 block">IIFE</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="mt-4">
+                            <a href="#higher-order" class="text-orange-300 font-semibold hover:text-orange-200 block py-1">🎪 Higher-Order Functions</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-orange-500/30 pl-2">
+                                <li><a href="#callbacks" class="text-gray-300 hover:text-blue-400 block">Callbacks</a></li>
+                                <li><a href="#composition" class="text-gray-300 hover:text-blue-400 block">Function Composition</a></li>
+                                <li><a href="#currying" class="text-gray-300 hover:text-blue-400 block">Currying</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+        </div>
+
+        <style>
+            html {
+                scroll-behavior: smooth;
+                scroll-padding-top: 20px;
+            }
+        </style>
+    </body>
+</html>
