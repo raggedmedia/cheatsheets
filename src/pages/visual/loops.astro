@@ -1,0 +1,653 @@
+---
+import '../../styles/styles.css'
+import MethodCard from '../../components/visual-js/MethodCard.astro';
+import Node from '../../components/visual-js/Node.astro';
+import ArrayDisplay from '../../components/visual-js/ArrayDisplay.astro';
+import Arrow from '../../components/visual-js/Arrow.astro';
+import ReturnValue from '../../components/visual-js/ReturnValue.astro';
+import InfoBox from '../../components/visual-js/InfoBox.astro';
+import ProcessContent from '../../components/visual-js/ProcessContent.astro';
+import ProTip from '../../components/visual-js/ProTip.astro';
+---
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>JavaScript Loops & Iteration - Visual Cheatsheet</title>
+    </head>
+    <body class="m-0 p-4 bg-[#1a1d29] text-gray-200">
+        <div class="flex gap-6 max-w-[1600px] mx-auto">
+            <!-- Main Content -->
+            <main class="flex-1 min-w-0">
+                <h1 class="text-white mb-1 text-2xl font-bold">JavaScript Loops & Iteration</h1>
+                <p class="text-gray-400 mb-6 text-sm">Visual blueprint-style reference for loops and iteration patterns</p>
+
+                <ProTip>
+                    <div>💡 <strong>Choose the right loop:</strong></div>
+                    <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                        <div class="font-mono text-[10px]"><strong>Arrays:</strong> use <code class="bg-black/30 px-1 py-0.5 rounded">for...of</code> or <code class="bg-black/30 px-1 py-0.5 rounded">.forEach()</code></div>
+                        <div class="font-mono text-[10px]"><strong>Objects:</strong> use <code class="bg-black/30 px-1 py-0.5 rounded">for...in</code> or <code class="bg-black/30 px-1 py-0.5 rounded">Object.keys()</code></div>
+                        <div class="font-mono text-[10px]"><strong>Need index:</strong> use <code class="bg-black/30 px-1 py-0.5 rounded">for</code> or <code class="bg-black/30 px-1 py-0.5 rounded">.forEach((item, i) => ...)</code></div>
+                        <div class="font-mono text-[10px]"><strong>Transform array:</strong> use <code class="bg-black/30 px-1 py-0.5 rounded">.map()</code></div>
+                    </div>
+                </ProTip>
+
+                <!-- ============================================ -->
+                <!-- 🔄 ARRAY LOOPS -->
+                <!-- ============================================ -->
+
+                <h2 id="array-loops" class="text-blue-300 text-xl my-4 pb-2 border-b-2 border-blue-600">
+                    🔄 Array Loops
+                </h2>
+
+                <!-- FOR...OF -->
+                <div id="for-of">
+                    <MethodCard
+                        methodName="for...of"
+                        signature="for (const item of array) { }"
+                        description="Loop over array values (modern, recommended)"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input Array" type="input">
+                                <ArrayDisplay values={['a', 'b', 'c']} />
+                            </Node>
+
+                            <Arrow label="iterate" />
+
+                            <Node label="Loop" type="process">
+                                <ProcessContent name="for (const item of arr)" description="Each value" />
+                            </Node>
+
+                            <Arrow label="access" />
+
+                            <Node label="Each Iteration" type="output">
+                                <div class="text-center text-sm font-mono">item → 'a', 'b', 'c'</div>
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Modern, clean syntax. Works with arrays, strings, Maps, Sets. <strong>Cannot access index directly.</strong>
+                        </InfoBox>
+
+                        <ProTip>
+                            <div>✨ <strong>Recommended for most array iteration:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">for (const item of arr) &lbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;console.log(item) <span class="text-gray-400">// clean & readable</span></div>
+                                <div class="font-mono text-[10px]">&rbrace;</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Get index with entries()</span></div>
+                                <div class="font-mono text-[10px]">for (const [i, item] of arr.entries()) &lbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;console.log(i, item)</div>
+                                <div class="font-mono text-[10px]">&rbrace;</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- FOREACH -->
+                <div id="forEach">
+                    <MethodCard
+                        methodName="forEach()"
+                        signature="arr.forEach((item, index) => { })"
+                        description="Execute function for each array element"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input Array" type="input">
+                                <ArrayDisplay values={['a', 'b', 'c']} />
+                            </Node>
+
+                            <Arrow label="iterate" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name=".forEach(fn)" description="Run function for each" />
+                            </Node>
+
+                            <Arrow label="callback" />
+
+                            <Node label="Each Iteration" type="output">
+                                <div class="text-center text-sm font-mono">(item, index, array)</div>
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">undefined</code>. ⚠️ Cannot break or return early. Cannot be chained.
+                        </InfoBox>
+
+                        <ProTip>
+                            <div>⚠️ <strong>Gotchas:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">arr.forEach(item =&gt; &lbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;if (item === 'stop') return <span class="text-red-400">// only exits callback, not loop! ⚠️</span></div>
+                                <div class="font-mono text-[10px]">&rbrace;)</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-green-400">// Use for...of if you need to break:</span></div>
+                                <div class="font-mono text-[10px]">for (const item of arr) &lbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;if (item === 'stop') break ✅ <span class="text-gray-400">// exits loop</span></div>
+                                <div class="font-mono text-[10px]">&rbrace;</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- CLASSIC FOR LOOP -->
+                <div id="for-loop">
+                    <MethodCard
+                        methodName="for loop"
+                        signature="for (let i = 0; i < arr.length; i++) { }"
+                        description="Classic indexed loop (C-style)"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input Array" type="input">
+                                <ArrayDisplay values={['a', 'b', 'c']} />
+                            </Node>
+
+                            <Arrow label="iterate" />
+
+                            <Node label="Loop" type="process">
+                                <ProcessContent name="for (let i = 0; ...)" description="Index-based" />
+                            </Node>
+
+                            <Arrow label="access" />
+
+                            <Node label="Each Iteration" type="output">
+                                <div class="text-center text-sm font-mono">i → 0, 1, 2</div>
+                                <div class="text-center text-[10px] text-gray-400 mt-1">arr[i] → 'a', 'b', 'c'</div>
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Full control over iteration. Can break/continue. Good for complex iteration patterns.
+                        </InfoBox>
+
+                        <ProTip>
+                            <div>When to use classic for loop:</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-gray-400">// Iterate backwards</span></div>
+                                <div class="font-mono text-[10px]">for (let i = arr.length - 1; i &gt;= 0; i--) &lbrace; ... &rbrace;</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Skip elements</span></div>
+                                <div class="font-mono text-[10px]">for (let i = 0; i &lt; arr.length; i += 2) &lbrace; ... &rbrace;</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Nested loops</span></div>
+                                <div class="font-mono text-[10px]">for (let i = 0; i &lt; rows; i++) &lbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;for (let j = 0; j &lt; cols; j++) &lbrace; ... &rbrace;</div>
+                                <div class="font-mono text-[10px]">&rbrace;</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- MAP -->
+                <div id="map">
+                    <MethodCard
+                        methodName="map()"
+                        signature="arr.map(item => newItem)"
+                        description="Transform each element, return new array"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input Array" type="input">
+                                <ArrayDisplay values={[1, 2, 3]} />
+                            </Node>
+
+                            <Arrow label="transform" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name=".map(x => x * 2)" description="Double each" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="New Array" type="output">
+                                <ArrayDisplay values={[2, 4, 6]} />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> with transformed elements. Original array unchanged. Can be chained.
+                        </InfoBox>
+
+                        <ProTip>
+                            <div>💡 <strong>Use map() when you need a transformed array:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">const doubled = arr.map(x =&gt; x * 2) ✅</div>
+                                <div class="font-mono text-[10px]">const names = users.map(u =&gt; u.name) ✅</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-red-400">// Don't use map if you don't need the result:</span></div>
+                                <div class="font-mono text-[10px]">arr.map(x =&gt; console.log(x)) ❌ <span class="text-gray-400">// use forEach instead</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- ============================================ -->
+                <!-- 🔑 OBJECT LOOPS -->
+                <!-- ============================================ -->
+
+                <h2 id="object-loops" class="text-purple-300 text-xl my-4 pb-2 border-b-2 border-purple-600">
+                    🔑 Object Loops
+                </h2>
+
+                <!-- FOR...IN -->
+                <div id="for-in">
+                    <MethodCard
+                        methodName="for...in"
+                        signature="for (const key in obj) { }"
+                        description="Loop over object keys (includes inherited)"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input Object" type="input">
+                                <div class="text-center text-sm font-mono">&lbrace;a: 1, b: 2&rbrace;</div>
+                            </Node>
+
+                            <Arrow label="iterate" />
+
+                            <Node label="Loop" type="process">
+                                <ProcessContent name="for (const key in obj)" description="Each key" />
+                            </Node>
+
+                            <Arrow label="access" />
+
+                            <Node label="Each Iteration" type="output">
+                                <div class="text-center text-sm font-mono">key → 'a', 'b'</div>
+                                <div class="text-center text-[10px] text-gray-400 mt-1">obj[key] → 1, 2</div>
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            ⚠️ Includes inherited properties from prototype chain. <strong>Always guard with Object.hasOwn().</strong>
+                        </InfoBox>
+
+                        <ProTip>
+                            <div>⚠️ <strong>The inherited properties problem:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">const obj = &lbrace;name: 'Alice', age: 30&rbrace;</div>
+                                <div class="font-mono text-[10px]">Object.prototype.debug = true <span class="text-red-400">// added to ALL objects</span></div>
+                                <div class="font-mono text-[10px] mt-1">for (const key in obj) &lbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;console.log(key) <span class="text-red-400">// 'name', 'age', 'debug' ❌</span></div>
+                                <div class="font-mono text-[10px]">&rbrace;</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-green-400">// Fix: Use hasOwn() to skip inherited properties</span></div>
+                                <div class="font-mono text-[10px]">for (const key in obj) &lbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;if (Object.hasOwn(obj, key)) &lbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;console.log(key) <span class="text-green-400">// 'name', 'age' ✅</span></div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&rbrace;</div>
+                                <div class="font-mono text-[10px]">&rbrace;</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-green-400">// Better: Object.keys() automatically skips inherited:</span></div>
+                                <div class="font-mono text-[10px]">Object.keys(obj).forEach(key =&gt; &lbrace; ... &rbrace;) ✅</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- OBJECT.KEYS -->
+                <div id="object-keys">
+                    <MethodCard
+                        methodName="Object.keys()"
+                        signature="Object.keys(obj).forEach(key => { })"
+                        description="Loop over own keys only (modern, safe)"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input Object" type="input">
+                                <div class="text-center text-sm font-mono">&lbrace;a: 1, b: 2&rbrace;</div>
+                            </Node>
+
+                            <Arrow label="get keys" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="Object.keys(obj)" description="Extract keys" />
+                            </Node>
+
+                            <Arrow label="iterate" />
+
+                            <Node label="Each Key" type="output">
+                                <div class="text-center text-sm font-mono">['a', 'b']</div>
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">array</code> of own keys. Safe - no inherited properties. Recommended over for...in.
+                        </InfoBox>
+
+                        <ProTip>
+                            <div>✨ <strong>Cleanest way to iterate objects:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">Object.keys(obj).forEach(key =&gt; &lbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;console.log(key, obj[key])</div>
+                                <div class="font-mono text-[10px]">&rbrace;)</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Or use Object.entries() for key+value:</span></div>
+                                <div class="font-mono text-[10px]">Object.entries(obj).forEach(([key, value]) =&gt; &lbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;console.log(key, value)</div>
+                                <div class="font-mono text-[10px]">&rbrace;)</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- OBJECT.ENTRIES -->
+                <div id="object-entries">
+                    <MethodCard
+                        methodName="Object.entries()"
+                        signature="for (const [key, value] of Object.entries(obj)) { }"
+                        description="Loop over key-value pairs (cleanest syntax)"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input Object" type="input">
+                                <div class="text-center text-sm font-mono">&lbrace;a: 1, b: 2&rbrace;</div>
+                            </Node>
+
+                            <Arrow label="convert" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="Object.entries(obj)" description="Get [k,v] pairs" />
+                            </Node>
+
+                            <Arrow label="iterate" />
+
+                            <Node label="Each Pair" type="output">
+                                <div class="text-center text-sm font-mono">[['a', 1], ['b', 2]]</div>
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">array</code> of [key, value] pairs. Combine with for...of for cleanest syntax.
+                        </InfoBox>
+
+                        <ProTip>
+                            <div>🌟 <strong>Best syntax for key+value access:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">for (const [key, value] of Object.entries(obj)) &lbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;console.log(key, value) <span class="text-gray-400">// both available!</span></div>
+                                <div class="font-mono text-[10px]">&rbrace;</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- ============================================ -->
+                <!-- 🔁 WHILE LOOPS -->
+                <!-- ============================================ -->
+
+                <h2 id="while-loops" class="text-orange-300 text-xl my-4 pb-2 border-b-2 border-orange-600">
+                    🔁 While Loops
+                </h2>
+
+                <!-- WHILE -->
+                <div id="while">
+                    <MethodCard
+                        methodName="while"
+                        signature="while (condition) { }"
+                        description="Loop while condition is true"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Condition" type="input">
+                                <div class="text-center text-sm font-mono">i &lt; 3</div>
+                            </Node>
+
+                            <Arrow label="check" />
+
+                            <Node label="Loop" type="process">
+                                <ProcessContent name="while (i < 3)" description="Repeat if true" />
+                            </Node>
+
+                            <Arrow label="iterate" />
+
+                            <Node label="Each Iteration" type="output">
+                                <div class="text-center text-sm font-mono">i → 0, 1, 2</div>
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Checks condition <strong>before</strong> each iteration. May not execute at all if condition is false initially.
+                        </InfoBox>
+
+                        <ProTip>
+                            <div>⚠️ <strong>Beware infinite loops:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">let i = 0</div>
+                                <div class="font-mono text-[10px]">while (i &lt; 3) &lbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;console.log(i)</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;i++ <span class="text-green-400">// don't forget to increment! ✅</span></div>
+                                <div class="font-mono text-[10px]">&rbrace;</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-red-400">// Forgetting i++ causes infinite loop! ❌</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- DO...WHILE -->
+                <div id="do-while">
+                    <MethodCard
+                        methodName="do...while"
+                        signature="do { } while (condition)"
+                        description="Execute once, then loop while condition is true"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Execute First" type="input">
+                                <div class="text-center text-sm font-mono">do &lbrace; ... &rbrace;</div>
+                            </Node>
+
+                            <Arrow label="then check" />
+
+                            <Node label="Condition" type="process">
+                                <ProcessContent name="while (condition)" description="Continue?" />
+                            </Node>
+
+                            <Arrow label="if true" />
+
+                            <Node label="Repeat" type="output">
+                                <div class="text-center text-sm font-mono">Loop again</div>
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Checks condition <strong>after</strong> each iteration. <strong>Always executes at least once.</strong>
+                        </InfoBox>
+
+                        <ProTip>
+                            <div>Use when you need at least one execution:</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">let input</div>
+                                <div class="font-mono text-[10px]">do &lbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;input = prompt('Enter a number:')</div>
+                                <div class="font-mono text-[10px]">&rbrace; while (isNaN(input)) <span class="text-gray-400">// prompt at least once</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- ============================================ -->
+                <!-- 🎛️ CONTROL FLOW -->
+                <!-- ============================================ -->
+
+                <h2 id="control" class="text-red-300 text-xl my-4 pb-2 border-b-2 border-red-600">
+                    🎛️ Control Flow
+                </h2>
+
+                <!-- BREAK -->
+                <div id="break">
+                    <MethodCard
+                        methodName="break"
+                        signature="break"
+                        description="Exit loop immediately"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Loop Running" type="input">
+                                <div class="text-center text-sm font-mono">for/while loop</div>
+                            </Node>
+
+                            <Arrow label="condition met" />
+
+                            <Node label="Statement" type="process">
+                                <ProcessContent name="break" description="Exit now" />
+                            </Node>
+
+                            <Arrow label="jumps to" />
+
+                            <Node label="After Loop" type="output">
+                                <div class="text-center text-sm font-mono">Continue code</div>
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Exits the innermost loop completely. Cannot be used in <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">forEach()</code>.
+                        </InfoBox>
+
+                        <ProTip>
+                            <div>Common use case - early exit:</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">for (const item of arr) &lbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;if (item === 'target') &lbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;console.log('Found it!')</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;break <span class="text-gray-400">// stop searching</span></div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&rbrace;</div>
+                                <div class="font-mono text-[10px]">&rbrace;</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- CONTINUE -->
+                <div id="continue">
+                    <MethodCard
+                        methodName="continue"
+                        signature="continue"
+                        description="Skip to next iteration"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Loop Running" type="input">
+                                <div class="text-center text-sm font-mono">Current iteration</div>
+                            </Node>
+
+                            <Arrow label="condition met" />
+
+                            <Node label="Statement" type="process">
+                                <ProcessContent name="continue" description="Skip rest" />
+                            </Node>
+
+                            <Arrow label="jumps to" />
+
+                            <Node label="Next Iteration" type="output">
+                                <div class="text-center text-sm font-mono">Continue loop</div>
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Skips remaining code in current iteration, proceeds to next. Cannot be used in <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">forEach()</code>.
+                        </InfoBox>
+
+                        <ProTip>
+                            <div>Common use case - skip unwanted items:</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">for (const item of arr) &lbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;if (item === null) continue <span class="text-gray-400">// skip nulls</span></div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;console.log(item) <span class="text-gray-400">// only runs for non-null</span></div>
+                                <div class="font-mono text-[10px]">&rbrace;</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+            </main>
+
+            <!-- Sidebar Navigation -->
+            <aside class="w-64 shrink-0 sticky top-4 self-start hidden lg:block max-h-[calc(100vh-2rem)] overflow-y-auto">
+                <nav class="bg-[#252936] rounded-lg p-4 border border-gray-700">
+                    <h3 class="text-white text-sm font-bold mb-3 uppercase tracking-wide">Navigation</h3>
+                    <ul class="space-y-2 text-xs">
+                        <li>
+                            <a href="#array-loops" class="text-blue-300 font-semibold hover:text-blue-200 block py-1">🔄 Array Loops</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-blue-500/30 pl-2">
+                                <li><a href="#for-of" class="text-gray-300 hover:text-blue-400 block">for...of</a></li>
+                                <li><a href="#forEach" class="text-gray-300 hover:text-blue-400 block">forEach()</a></li>
+                                <li><a href="#for-loop" class="text-gray-300 hover:text-blue-400 block">for loop</a></li>
+                                <li><a href="#map" class="text-gray-300 hover:text-blue-400 block">map()</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="mt-4">
+                            <a href="#object-loops" class="text-purple-300 font-semibold hover:text-purple-200 block py-1">🔑 Object Loops</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-purple-500/30 pl-2">
+                                <li><a href="#for-in" class="text-gray-300 hover:text-blue-400 block">for...in</a></li>
+                                <li><a href="#object-keys" class="text-gray-300 hover:text-blue-400 block">Object.keys()</a></li>
+                                <li><a href="#object-entries" class="text-gray-300 hover:text-blue-400 block">Object.entries()</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="mt-4">
+                            <a href="#while-loops" class="text-orange-300 font-semibold hover:text-orange-200 block py-1">🔁 While Loops</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-orange-500/30 pl-2">
+                                <li><a href="#while" class="text-gray-300 hover:text-blue-400 block">while</a></li>
+                                <li><a href="#do-while" class="text-gray-300 hover:text-blue-400 block">do...while</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="mt-4">
+                            <a href="#control" class="text-red-300 font-semibold hover:text-red-200 block py-1">🎛️ Control Flow</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-red-500/30 pl-2">
+                                <li><a href="#break" class="text-gray-300 hover:text-blue-400 block">break</a></li>
+                                <li><a href="#continue" class="text-gray-300 hover:text-blue-400 block">continue</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+        </div>
+
+        <style>
+            html {
+                scroll-behavior: smooth;
+                scroll-padding-top: 20px;
+            }
+
+            /* Node gradient backgrounds */
+            .node-input {
+                background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+            }
+
+            .node-process {
+                background: linear-gradient(135deg, #4c1d95 0%, #5b21b6 100%);
+            }
+
+            .node-output {
+                background: linear-gradient(135deg, #166534 0%, #15803d 100%);
+            }
+
+            /* Arrow styling */
+            .arrow {
+                position: relative;
+                height: 2px;
+                background: linear-gradient(90deg, #4b5563 0%, #6b7280 100%);
+            }
+
+            .arrow::after {
+                content: '';
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 0;
+                height: 0;
+                border-left: 8px solid #6b7280;
+                border-top: 5px solid transparent;
+                border-bottom: 5px solid transparent;
+            }
+
+            /* Pulse animation for highlights */
+            @keyframes pulse {
+                0%, 100% { opacity: 1; }
+                50% { opacity: 0.6; }
+            }
+
+            .animate-pulse {
+                animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            }
+        </style>
+    </body>
+</html>
