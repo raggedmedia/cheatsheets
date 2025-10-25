@@ -1,0 +1,104 @@
+---
+interface Props {
+    id: string;
+    name: string;
+    label: string;
+    type?: 'text' | 'email' | 'password' | 'tel' | 'url' | 'search';
+    required?: boolean;
+    placeholder?: string;
+    autocomplete?: string;
+    pattern?: string;
+    minlength?: number;
+    maxlength?: number;
+    helperText?: string;
+    errorText?: string;
+}
+
+const {
+    id,
+    name,
+    label,
+    type = 'text',
+    required = false,
+    placeholder,
+    autocomplete,
+    pattern,
+    minlength,
+    maxlength,
+    helperText,
+    errorText
+} = Astro.props;
+---
+
+<div class="form-group">
+    <label for={id} class="form-label">
+        {label}
+        {required && <span class="text-red-400" aria-label="required">*</span>}
+    </label>
+
+    <input
+        type={type}
+        id={id}
+        name={name}
+        class="form-input"
+        required={required}
+        placeholder={placeholder}
+        autocomplete={autocomplete}
+        pattern={pattern}
+        minlength={minlength}
+        maxlength={maxlength}
+        aria-describedby={helperText || errorText ? `${id}-help` : undefined}
+        aria-invalid="false"
+    />
+
+    {(helperText || errorText) && (
+        <div id={`${id}-help`} class="form-help-text">
+            {helperText || errorText}
+        </div>
+    )}
+</div>
+
+<style>
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .form-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: #e5e7eb;
+        font-size: 0.875rem;
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 0.5rem 0.75rem;
+        background: #1f2937;
+        border: 1px solid #374151;
+        border-radius: 0.375rem;
+        color: #f3f4f6;
+        font-size: 0.875rem;
+        transition: border-color 0.2s;
+    }
+
+    .form-input:focus {
+        outline: none;
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    .form-input:invalid {
+        border-color: #ef4444;
+    }
+
+    .form-help-text {
+        margin-top: 0.25rem;
+        font-size: 0.75rem;
+        color: #9ca3af;
+    }
+
+    .form-input:invalid ~ .form-help-text {
+        color: #ef4444;
+    }
+</style>

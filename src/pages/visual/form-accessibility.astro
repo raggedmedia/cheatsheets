@@ -1,0 +1,580 @@
+---
+import TextInput from '../../components/forms/TextInput.astro';
+import Checkbox from '../../components/forms/Checkbox.astro';
+import Radio from '../../components/forms/Radio.astro';
+import Select from '../../components/forms/Select.astro';
+import Textarea from '../../components/forms/Textarea.astro';
+import Fieldset from '../../components/forms/Fieldset.astro';
+import ProTip from '../../components/visual-js/ProTip.astro';
+
+const countryOptions = [
+    {value: 'us', label: 'United States'},
+    {value: 'ca', label: 'Canada'},
+    {value: 'uk', label: 'United Kingdom'},
+    {value: 'au', label: 'Australia'},
+];
+---
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Forms & Accessibility</title>
+    <link rel="stylesheet" href="/src/styles/styles.css">
+</head>
+<body class="bg-slate-900 text-slate-50 p-8">
+
+<div class="max-w-4xl mx-auto">
+    <h1 class="text-4xl mb-2 text-blue-400">HTML Forms & Accessibility</h1>
+    <p class="text-slate-400 mb-12">Semantic HTML, accessibility best practices, and ARIA attributes</p>
+
+    <!-- ===== SEMANTIC HTML ===== -->
+    <section class="mb-12">
+        <h2 class="text-2xl mb-4 text-sky-400">1. Semantic Form Structure</h2>
+
+        <div class="border-l-4 border-blue-500 bg-blue-500/10 p-4 rounded mb-4">
+            <p class="text-[11px] mb-2"><strong>Why Semantic HTML Matters:</strong></p>
+            <ul class="text-[11px] ml-5 leading-relaxed list-disc">
+                <li><strong>Screen readers</strong> rely on proper HTML structure to announce form elements</li>
+                <li><strong>Keyboard navigation</strong> works automatically with native elements</li>
+                <li><strong>Built-in validation</strong> and error handling with HTML5 attributes</li>
+                <li><strong>Better UX</strong> - browsers handle focus, autofill, mobile keyboards automatically</li>
+            </ul>
+        </div>
+
+        <div class="bg-slate-800 p-6 rounded-lg mt-4">
+            <h3 class="text-base mb-4 text-purple-400">Basic Form Elements</h3>
+
+            <div class="grid grid-cols-2 gap-8">
+                <div>
+                    <p class="text-xs text-slate-400 mb-2">HTML</p>
+                    <pre class="bg-slate-900 p-4 rounded overflow-x-auto text-xs"><code>{`<form>
+  <label for="name">Name</label>
+  <input type="text" id="name" name="name">
+
+  <label for="country">Country</label>
+  <select id="country" name="country">
+    <option value="">Choose...</option>
+    <option value="us">USA</option>
+  </select>
+
+  <label for="bio">Bio</label>
+  <textarea id="bio" name="bio"></textarea>
+
+  <button type="submit">Submit</button>
+</form>`}</code></pre>
+                </div>
+
+                <div>
+                    <p class="text-xs text-slate-400 mb-2">Key Points</p>
+                    <div class="bg-slate-900 p-4 rounded text-sm leading-relaxed">
+                        <p class="mb-3"><code class="bg-slate-800 px-1.5 py-0.5 rounded text-purple-400">&lt;label for="id"&gt;</code> - Always link labels to inputs</p>
+                        <p class="mb-3"><code class="bg-slate-800 px-1.5 py-0.5 rounded text-purple-400">id</code> - Unique identifier for label association</p>
+                        <p class="mb-3"><code class="bg-slate-800 px-1.5 py-0.5 rounded text-purple-400">name</code> - Used when submitting form data</p>
+                        <p class="mb-3"><code class="bg-slate-800 px-1.5 py-0.5 rounded text-purple-400">type="submit"</code> - Submits form (vs type="button")</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ProTip>
+            <strong>Label Association:</strong> Never use placeholder as a replacement for label. Placeholders disappear on input and aren't announced by screen readers. Use <code class="bg-slate-800 px-1 py-0.5 rounded">aria-describedby</code> for helper text instead.
+        </ProTip>
+    </section>
+
+    <!-- ===== FIELDSETS & LEGENDS ===== -->
+    <section class="mb-12">
+        <h2 class="text-2xl mb-4 text-sky-400">2. Grouping with Fieldset & Legend</h2>
+
+        <div class="bg-slate-800 p-6 rounded-lg">
+            <p class="text-slate-400 mb-4">Use <code class="bg-slate-900 px-1.5 py-0.5 rounded">&lt;fieldset&gt;</code> and <code class="bg-slate-900 px-1.5 py-0.5 rounded">&lt;legend&gt;</code> to group related form controls</p>
+
+            <div class="grid grid-cols-2 gap-8">
+                <div>
+                    <p class="text-xs text-slate-400 mb-2">HTML</p>
+                    <pre class="bg-slate-900 p-4 rounded overflow-x-auto text-xs"><code>{`<fieldset>
+  <legend>Shipping Address</legend>
+  <input type="text" name="street" />
+  <input type="text" name="city" />
+</fieldset>
+
+<fieldset>
+  <legend>Payment Method</legend>
+  <input type="radio" id="card" name="payment" value="card">
+  <label for="card">Credit Card</label>
+
+  <input type="radio" id="paypal" name="payment" value="paypal">
+  <label for="paypal">PayPal</label>
+</fieldset>`}</code></pre>
+                </div>
+
+                <div>
+                    <p class="text-xs text-slate-400 mb-2">Why Use Fieldsets?</p>
+                    <div class="bg-slate-900 p-4 rounded text-sm leading-relaxed">
+                        <p class="mb-3">✓ Screen readers announce the legend for every field in the group</p>
+                        <p class="mb-3">✓ Essential for radio button groups (announces context)</p>
+                        <p class="mb-3">✓ Groups related fields semantically</p>
+                        <p>✓ Can be styled or disabled as a unit</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ARIA ATTRIBUTES ===== -->
+    <section class="mb-12">
+        <h2 class="text-2xl mb-4 text-sky-400">3. ARIA Attributes</h2>
+
+        <div class="bg-slate-800 p-6 rounded-lg mb-4">
+            <h3 class="text-base mb-4 text-purple-400">aria-describedby</h3>
+            <p class="text-slate-400 mb-4 text-sm">Links an input to helper text or error messages</p>
+
+            <pre class="bg-slate-900 p-4 rounded overflow-x-auto text-xs"><code>{`<label for="password">Password</label>
+<input
+  type="password"
+  id="password"
+  name="password"
+  aria-describedby="password-help"
+/>
+<div id="password-help">Must be at least 8 characters</div>
+
+<!-- Screen reader announces: "Password, edit text, Must be at least 8 characters" -->`}</code></pre>
+        </div>
+
+        <div class="bg-slate-800 p-6 rounded-lg mb-4">
+            <h3 class="text-base mb-4 text-purple-400">aria-invalid & aria-errormessage</h3>
+            <p class="text-slate-400 mb-4 text-sm">Indicate validation errors and link to error messages</p>
+
+            <pre class="bg-slate-900 p-4 rounded overflow-x-auto text-xs"><code>{`<label for="email">Email</label>
+<input
+  type="email"
+  id="email"
+  name="email"
+  aria-invalid="true"
+  aria-describedby="email-error"
+/>
+<div id="email-error" role="alert">
+  Please enter a valid email address
+</div>
+
+<!-- role="alert" makes screen readers announce error immediately -->`}</code></pre>
+        </div>
+
+        <div class="bg-slate-800 p-6 rounded-lg">
+            <h3 class="text-base mb-4 text-purple-400">aria-required vs required</h3>
+            <p class="text-slate-400 mb-4 text-sm">Prefer HTML5 <code class="bg-slate-900 px-1.5 py-0.5 rounded">required</code> - it provides browser validation</p>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <p class="text-xs text-slate-400 mb-2">✅ Good (HTML5)</p>
+                    <pre class="bg-slate-900 p-4 rounded text-xs"><code>{`<input
+  type="text"
+  name="name"
+  required
+/>`}</code></pre>
+                </div>
+                <div>
+                    <p class="text-xs text-slate-400 mb-2">⚠️ Only if you can't use HTML5</p>
+                    <pre class="bg-slate-900 p-4 rounded text-xs"><code>{`<input
+  type="text"
+  name="name"
+  aria-required="true"
+/>`}</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <ProTip>
+            <strong>ARIA First Rule:</strong> Don't use ARIA if native HTML does the job. Native elements have built-in keyboard support, focus management, and browser compatibility. Only add ARIA when extending or fixing functionality.
+        </ProTip>
+    </section>
+
+    <!-- ===== LIVE EXAMPLE ===== -->
+    <section class="mb-12">
+        <h2 class="text-2xl mb-4 text-sky-400">4. Accessible Form Components</h2>
+
+        <div class="bg-slate-800 p-6 rounded-lg">
+            <p class="text-slate-400 mb-6">These components have all accessibility best practices baked in:</p>
+
+            <form id="demo-form" class="max-w-lg">
+                <TextInput
+                    id="username"
+                    name="username"
+                    label="Username"
+                    required={true}
+                    autocomplete="username"
+                    minlength={3}
+                    helperText="At least 3 characters, no spaces"
+                />
+
+                <TextInput
+                    id="email"
+                    name="email"
+                    label="Email Address"
+                    type="email"
+                    required={true}
+                    autocomplete="email"
+                    helperText="We'll never share your email"
+                />
+
+                <TextInput
+                    id="password"
+                    name="password"
+                    label="Password"
+                    type="password"
+                    required={true}
+                    autocomplete="new-password"
+                    minlength={8}
+                    helperText="Minimum 8 characters"
+                />
+
+                <Fieldset legend="Account Type" required={true}>
+                    <Radio
+                        id="type-free"
+                        name="accountType"
+                        value="free"
+                        label="Free"
+                        checked={true}
+                    />
+                    <Radio
+                        id="type-pro"
+                        name="accountType"
+                        value="pro"
+                        label="Pro ($10/month)"
+                    />
+                    <Radio
+                        id="type-enterprise"
+                        name="accountType"
+                        value="enterprise"
+                        label="Enterprise (Contact sales)"
+                    />
+                </Fieldset>
+
+                <Select
+                    id="country"
+                    name="country"
+                    label="Country"
+                    options={countryOptions}
+                    required={true}
+                />
+
+                <Fieldset legend="Interests" helperText="Select all that apply">
+                    <Checkbox
+                        id="interest-dev"
+                        name="interests"
+                        value="development"
+                        label="Web Development"
+                    />
+                    <Checkbox
+                        id="interest-design"
+                        name="interests"
+                        value="design"
+                        label="UI/UX Design"
+                    />
+                    <Checkbox
+                        id="interest-marketing"
+                        name="interests"
+                        value="marketing"
+                        label="Digital Marketing"
+                    />
+                </Fieldset>
+
+                <Textarea
+                    id="bio"
+                    name="bio"
+                    label="Tell us about yourself"
+                    rows={4}
+                    maxlength={500}
+                    helperText="Maximum 500 characters"
+                />
+
+                <div class="mt-6">
+                    <button type="submit" class="px-8 py-3 bg-blue-500 text-white border-none rounded-md font-medium cursor-pointer text-sm hover:bg-blue-600 transition-colors">
+                        Create Account
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- ===== AUTOCOMPLETE ===== -->
+    <section class="mb-12">
+        <h2 class="text-2xl mb-4 text-sky-400">5. Autocomplete Attribute</h2>
+
+        <div class="bg-slate-800 p-6 rounded-lg">
+            <p class="text-slate-400 mb-4">The <code class="bg-slate-900 px-1.5 py-0.5 rounded">autocomplete</code> attribute helps browsers autofill forms correctly</p>
+
+            <div class="grid grid-cols-3 gap-4 mt-4">
+                <div class="bg-slate-900 p-4 rounded">
+                    <p class="text-xs text-slate-400 mb-2">Personal Info</p>
+                    <ul class="text-xs leading-relaxed list-none p-0 space-y-1">
+                        <li><code class="text-purple-400">name</code></li>
+                        <li><code class="text-purple-400">email</code></li>
+                        <li><code class="text-purple-400">tel</code></li>
+                        <li><code class="text-purple-400">username</code></li>
+                        <li><code class="text-purple-400">bday</code></li>
+                    </ul>
+                </div>
+
+                <div class="bg-slate-900 p-4 rounded">
+                    <p class="text-xs text-slate-400 mb-2">Address</p>
+                    <ul class="text-xs leading-relaxed list-none p-0 space-y-1">
+                        <li><code class="text-purple-400">street-address</code></li>
+                        <li><code class="text-purple-400">address-level2</code> (city)</li>
+                        <li><code class="text-purple-400">address-level1</code> (state)</li>
+                        <li><code class="text-purple-400">postal-code</code></li>
+                        <li><code class="text-purple-400">country</code></li>
+                    </ul>
+                </div>
+
+                <div class="bg-slate-900 p-4 rounded">
+                    <p class="text-xs text-slate-400 mb-2">Payment</p>
+                    <ul class="text-xs leading-relaxed list-none p-0 space-y-1">
+                        <li><code class="text-purple-400">cc-name</code></li>
+                        <li><code class="text-purple-400">cc-number</code></li>
+                        <li><code class="text-purple-400">cc-exp</code></li>
+                        <li><code class="text-purple-400">cc-csc</code></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-6">
+                <p class="text-xs text-slate-400 mb-2">Examples</p>
+                <pre class="bg-slate-900 p-4 rounded overflow-x-auto text-xs"><code>{`<input type="email" name="email" autocomplete="email" />
+<input type="password" name="password" autocomplete="new-password" />
+<input type="password" name="current-password" autocomplete="current-password" />
+<input type="text" name="city" autocomplete="address-level2" />`}</code></pre>
+            </div>
+        </div>
+
+        <ProTip>
+            <strong>Security tip:</strong> Use <code class="bg-slate-800 px-1 py-0.5 rounded">autocomplete="new-password"</code> for signup forms and <code class="bg-slate-800 px-1 py-0.5 rounded">autocomplete="current-password"</code> for login forms. This tells password managers which type of form they're dealing with.
+        </ProTip>
+    </section>
+
+    <!-- ===== KEYBOARD NAVIGATION ===== -->
+    <section class="mb-12">
+        <h2 class="text-2xl mb-4 text-sky-400">6. Keyboard Navigation</h2>
+
+        <div class="bg-slate-800 p-6 rounded-lg mb-4">
+            <h3 class="text-base mb-4 text-purple-400">Essential Keyboard Controls</h3>
+
+            <div class="grid grid-cols-[auto_1fr] gap-4 text-sm">
+                <code class="bg-slate-900 px-2 py-1 rounded">Tab</code>
+                <div>Move to next focusable element</div>
+
+                <code class="bg-slate-900 px-2 py-1 rounded">Shift + Tab</code>
+                <div>Move to previous focusable element</div>
+
+                <code class="bg-slate-900 px-2 py-1 rounded">Enter</code>
+                <div>Submit form or activate button</div>
+
+                <code class="bg-slate-900 px-2 py-1 rounded">Space</code>
+                <div>Toggle checkbox/radio, activate button, open select</div>
+
+                <code class="bg-slate-900 px-2 py-1 rounded">Arrow Keys</code>
+                <div>Navigate radio buttons, select options, or move cursor</div>
+
+                <code class="bg-slate-900 px-2 py-1 rounded">Esc</code>
+                <div>Close select dropdown or cancel action</div>
+            </div>
+        </div>
+
+        <div class="bg-slate-800 p-6 rounded-lg">
+            <h3 class="text-base mb-4 text-purple-400">Focus Management</h3>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <p class="text-xs text-slate-400 mb-2">✅ DO</p>
+                    <pre class="bg-slate-900 p-4 rounded text-xs"><code>{`/* Visible focus indicator */
+input:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Skip to main content */
+<a href="#main" class="skip-link">
+  Skip to main content
+</a>`}</code></pre>
+                </div>
+
+                <div>
+                    <p class="text-xs text-slate-400 mb-2">❌ DON'T</p>
+                    <pre class="bg-slate-900 p-4 rounded text-xs"><code>{`/* Never remove focus styles */
+* {
+  outline: none; /* ❌ */
+}
+
+/* Don't use positive tabindex */
+<input tabindex="1" /> /* ❌ */
+<input tabindex="2" /> /* ❌ */`}</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="border-l-4 border-yellow-500 bg-yellow-500/10 p-4 rounded mt-4">
+            <p class="text-[11px] mb-2"><strong>Testing Keyboard Navigation:</strong></p>
+            <ul class="text-[11px] ml-5 leading-relaxed list-disc">
+                <li>Unplug your mouse and try to complete your form using only the keyboard</li>
+                <li>Make sure every interactive element can be reached via Tab</li>
+                <li>Check that focus is always visible (no "lost" focus)</li>
+                <li>Verify that form submission works with Enter key</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ===== ERROR HANDLING ===== -->
+    <section class="mb-12">
+        <h2 class="text-2xl mb-4 text-sky-400">7. Accessible Error Messages</h2>
+
+        <div class="bg-slate-800 p-6 rounded-lg mb-4">
+            <h3 class="text-base mb-4 text-purple-400">Error Summary at Top</h3>
+            <p class="text-slate-400 mb-4 text-sm">Show all errors at once so users can fix them systematically</p>
+
+            <pre class="bg-slate-900 p-4 rounded overflow-x-auto text-xs"><code>{`<div role="alert" aria-live="assertive" class="error-summary">
+  <h3>Please fix the following errors:</h3>
+  <ul>
+    <li><a href="#email">Email is required</a></li>
+    <li><a href="#password">Password must be at least 8 characters</a></li>
+  </ul>
+</div>
+
+<!-- Links jump focus to the invalid field -->`}</code></pre>
+        </div>
+
+        <div class="bg-slate-800 p-6 rounded-lg">
+            <h3 class="text-base mb-4 text-purple-400">Inline Error Messages</h3>
+
+            <pre class="bg-slate-900 p-4 rounded overflow-x-auto text-xs"><code>{`<label for="email">Email</label>
+<input
+  type="email"
+  id="email"
+  name="email"
+  aria-invalid="true"
+  aria-describedby="email-error"
+  class="input-error"
+/>
+<div id="email-error" role="alert" class="error-message">
+  Please enter a valid email address
+</div>`}</code></pre>
+
+            <div class="mt-4 grid grid-cols-2 gap-4">
+                <div class="bg-slate-900 p-4 rounded">
+                    <p class="text-xs text-slate-400 mb-2">Key Attributes</p>
+                    <ul class="text-xs leading-relaxed list-none p-0 space-y-1">
+                        <li><code class="text-purple-400">aria-invalid="true"</code></li>
+                        <li><code class="text-purple-400">aria-describedby="id"</code></li>
+                        <li><code class="text-purple-400">role="alert"</code></li>
+                    </ul>
+                </div>
+                <div class="bg-slate-900 p-4 rounded">
+                    <p class="text-xs text-slate-400 mb-2">What They Do</p>
+                    <ul class="text-xs leading-relaxed list-none p-0 space-y-1">
+                        <li>Marks field as invalid</li>
+                        <li>Links to error message</li>
+                        <li>Announces error immediately</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <ProTip>
+            <strong>Color is not enough:</strong> Don't rely only on color to indicate errors (red border). Add icons, text labels, or other visual indicators for users with color blindness.
+        </ProTip>
+    </section>
+
+    <!-- ===== BEST PRACTICES CHECKLIST ===== -->
+    <section class="mb-12">
+        <h2 class="text-2xl mb-4 text-sky-400">8. Accessibility Checklist</h2>
+
+        <div class="bg-slate-800 p-6 rounded-lg">
+            <div class="grid grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-base mb-4 text-purple-400">HTML Structure</h3>
+                    <ul class="text-sm leading-8 list-none p-0">
+                        <li>✓ Every input has a <code class="bg-slate-900 px-1 py-0.5 rounded">&lt;label&gt;</code></li>
+                        <li>✓ Labels use <code class="bg-slate-900 px-1 py-0.5 rounded">for</code> attribute</li>
+                        <li>✓ Radio groups use <code class="bg-slate-900 px-1 py-0.5 rounded">&lt;fieldset&gt;</code></li>
+                        <li>✓ Helper text uses <code class="bg-slate-900 px-1 py-0.5 rounded">aria-describedby</code></li>
+                        <li>✓ Buttons have clear, descriptive text</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-base mb-4 text-purple-400">Validation & Errors</h3>
+                    <ul class="text-sm leading-8 list-none p-0">
+                        <li>✓ Errors shown at top and inline</li>
+                        <li>✓ Error messages use <code class="bg-slate-900 px-1 py-0.5 rounded">role="alert"</code></li>
+                        <li>✓ Invalid fields have <code class="bg-slate-900 px-1 py-0.5 rounded">aria-invalid</code></li>
+                        <li>✓ Don't rely on color alone</li>
+                        <li>✓ Show errors as users type (after blur)</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-base mb-4 text-purple-400">Keyboard & Focus</h3>
+                    <ul class="text-sm leading-8 list-none p-0">
+                        <li>✓ All fields reachable via Tab key</li>
+                        <li>✓ Visible focus indicators</li>
+                        <li>✓ No positive <code class="bg-slate-900 px-1 py-0.5 rounded">tabindex</code> values</li>
+                        <li>✓ Form submits with Enter key</li>
+                        <li>✓ Logical tab order (top to bottom)</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-base mb-4 text-purple-400">User Experience</h3>
+                    <ul class="text-sm leading-8 list-none p-0">
+                        <li>✓ Use <code class="bg-slate-900 px-1 py-0.5 rounded">autocomplete</code> attributes</li>
+                        <li>✓ No placeholder as label replacement</li>
+                        <li>✓ Mobile-friendly input types</li>
+                        <li>✓ Clear success/loading states</li>
+                        <li>✓ Prevent double submission</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== COMPONENT SOURCE ===== -->
+    <section class="mb-12">
+        <h2 class="text-2xl mb-4 text-sky-400">9. Component Implementation</h2>
+
+        <div class="bg-slate-800 p-6 rounded-lg">
+            <p class="text-slate-400 mb-4">The accessible form components used above are located in:</p>
+            <pre class="bg-slate-900 p-4 rounded text-sm"><code>src/components/forms/
+├── TextInput.astro      - Text, email, password, tel, url inputs
+├── Checkbox.astro       - Checkbox with label
+├── Radio.astro          - Radio button with label
+├── Select.astro         - Dropdown select
+├── Textarea.astro       - Multi-line text input
+└── Fieldset.astro       - Grouping wrapper with legend</code></pre>
+
+            <p class="text-slate-400 mt-4 text-sm">Each component includes:</p>
+            <ul class="text-slate-300 mt-2 ml-6 leading-relaxed text-sm list-disc">
+                <li>Proper label association</li>
+                <li>ARIA attributes (describedby, invalid)</li>
+                <li>Built-in validation support</li>
+                <li>Focus styles and keyboard navigation</li>
+                <li>Consistent styling with dark theme</li>
+            </ul>
+        </div>
+    </section>
+
+</div>
+
+<script>
+    // Demo form submission handler
+    const form = document.getElementById('demo-form') as HTMLFormElement;
+    if (form) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            console.log('Form submitted:', Object.fromEntries(formData));
+            alert('Form submitted! Check console for data.');
+        });
+    }
+</script>
+
+</body>
+</html>

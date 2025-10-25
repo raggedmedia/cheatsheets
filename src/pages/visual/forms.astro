@@ -253,6 +253,143 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                 </div>
 
                 <!-- ============================================ -->
+                <!-- 🎛️ SETTING CHECKBOX & RADIO GROUPS -->
+                <!-- ============================================ -->
+
+                <h2 id="setting-groups" class="text-cyan-300 text-xl my-4 pb-2 border-b-2 border-cyan-600">
+                    🎛️ Setting Checkbox & Radio Groups
+                </h2>
+
+                <div id="setting-checkboxes">
+                    <MethodCard
+                        methodName="Setting Multiple Checkboxes"
+                        signature="querySelectorAll + forEach"
+                        description="Check/uncheck multiple checkboxes programmatically"
+                        mutates={true}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-4">
+                                <!-- Check specific values -->
+                                <div class="bg-green-500/20 border border-green-500 rounded p-3">
+                                    <div class="text-green-300 font-mono text-[10px] space-y-0.5">
+                                        <div class="text-yellow-400 mb-1">Check specific checkboxes by value:</div>
+                                        <div><span class="text-gray-400">// Check "reading" and "gaming" hobbies</span></div>
+                                        <div>const valuesToCheck = ['reading', 'gaming']</div>
+                                        <div>document.querySelectorAll('input[name="hobbies"]').forEach(cb =&gt; {`{`}</div>
+                                        <div>&nbsp;&nbsp;cb.checked = valuesToCheck.includes(cb.value)</div>
+                                        <div>{'}'})</div>
+                                    </div>
+                                </div>
+
+                                <!-- Check all / Uncheck all -->
+                                <div class="bg-blue-500/20 border border-blue-400 rounded p-3">
+                                    <div class="text-blue-300 font-mono text-[10px] space-y-0.5">
+                                        <div class="text-yellow-400 mb-1">Check all / Uncheck all:</div>
+                                        <div><span class="text-gray-400">// Check all checkboxes in a group</span></div>
+                                        <div>document.querySelectorAll('input[name="hobbies"]').forEach(cb =&gt; {`{`}</div>
+                                        <div>&nbsp;&nbsp;cb.checked = true</div>
+                                        <div>{'}'})</div>
+                                        <div class="mt-2"><span class="text-gray-400">// Uncheck all</span></div>
+                                        <div>document.querySelectorAll('input[name="hobbies"]').forEach(cb =&gt; {`{`}</div>
+                                        <div>&nbsp;&nbsp;cb.checked = false</div>
+                                        <div>{'}'})</div>
+                                    </div>
+                                </div>
+
+                                <!-- Toggle -->
+                                <div class="bg-purple-500/20 border border-purple-400 rounded p-3">
+                                    <div class="text-purple-300 font-mono text-[10px] space-y-0.5">
+                                        <div class="text-yellow-400 mb-1">Toggle all checkboxes:</div>
+                                        <div>document.querySelectorAll('input[name="hobbies"]').forEach(cb =&gt; {`{`}</div>
+                                        <div>&nbsp;&nbsp;cb.checked = !cb.checked</div>
+                                        <div>{'}'})</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>💡 <strong>Common use case:</strong> "Select All" button</div>
+                            <div class="pl-2 border-l-2 border-blue-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-gray-400">// HTML</span></div>
+                                <div class="font-mono text-[10px]">&lt;button id="select-all"&gt;Select All&lt;/button&gt;</div>
+                                <div class="font-mono text-[10px] mt-2"><span class="text-gray-400">// JavaScript</span></div>
+                                <div class="font-mono text-[10px]">document.getElementById('select-all').addEventListener('click', () =&gt; {`{`}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;const checkboxes = document.querySelectorAll('input[name="hobbies"]')</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;const allChecked = [...checkboxes].every(cb =&gt; cb.checked)</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;checkboxes.forEach(cb =&gt; cb.checked = !allChecked)</div>
+                                <div class="font-mono text-[10px]">{'}'})</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <div id="setting-radios">
+                    <MethodCard
+                        methodName="Setting Radio Button"
+                        signature="querySelector + checked"
+                        description="Select a radio button programmatically"
+                        mutates={true}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-4">
+                                <!-- Select by value -->
+                                <div class="bg-green-500/20 border border-green-500 rounded p-3">
+                                    <div class="text-green-300 font-mono text-[10px] space-y-0.5">
+                                        <div class="text-yellow-400 mb-1">Select radio by value:</div>
+                                        <div><span class="text-gray-400">// Select the "pro" plan radio button</span></div>
+                                        <div>const radio = document.querySelector('input[name="plan"][value="pro"]')</div>
+                                        <div>if (radio) radio.checked = true</div>
+                                    </div>
+                                </div>
+
+                                <!-- Generic helper function -->
+                                <div class="bg-blue-500/20 border border-blue-400 rounded p-3">
+                                    <div class="text-blue-300 font-mono text-[10px] space-y-0.5">
+                                        <div class="text-yellow-400 mb-1">Reusable function:</div>
+                                        <div>function setRadioValue(name, value) {`{`}</div>
+                                        <div>&nbsp;&nbsp;const radio = document.querySelector(`input[name="${'$'}{'{'}name{'}'}"][value="${'$'}{'{'}value{'}'}"]`)</div>
+                                        <div>&nbsp;&nbsp;if (radio) radio.checked = true</div>
+                                        <div>{'}'})</div>
+                                        <div class="mt-2"><span class="text-gray-400">// Usage</span></div>
+                                        <div>setRadioValue('plan', 'enterprise')</div>
+                                    </div>
+                                </div>
+
+                                <!-- Uncheck all (rare) -->
+                                <div class="bg-orange-500/20 border border-orange-400 rounded p-3">
+                                    <div class="text-orange-300 font-mono text-[10px] space-y-0.5">
+                                        <div class="text-yellow-400 mb-1">Uncheck all radios (unusual but possible):</div>
+                                        <div>document.querySelectorAll('input[name="plan"]').forEach(r =&gt; {`{`}</div>
+                                        <div>&nbsp;&nbsp;r.checked = false</div>
+                                        <div>{'}'})</div>
+                                        <div class="mt-1"><span class="text-gray-400">// ⚠️ Creates invalid state - typically avoid this</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>💡 <strong>Pre-filling forms with existing data:</strong></div>
+                            <div class="pl-2 border-l-2 border-blue-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-gray-400">// Load user's saved preferences</span></div>
+                                <div class="font-mono text-[10px]">const savedData = {`{`}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;plan: 'pro',</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;hobbies: ['reading', 'gaming']</div>
+                                <div class="font-mono text-[10px]">{'}'})</div>
+                                <div class="font-mono text-[10px] mt-2"><span class="text-gray-400">// Set radio</span></div>
+                                <div class="font-mono text-[10px]">const radio = document.querySelector(`input[name="plan"][value="${'$'}{'{'}savedData.plan{'}'}"]`)</div>
+                                <div class="font-mono text-[10px]">if (radio) radio.checked = true</div>
+                                <div class="font-mono text-[10px] mt-2"><span class="text-gray-400">// Set checkboxes</span></div>
+                                <div class="font-mono text-[10px]">document.querySelectorAll('input[name="hobbies"]').forEach(cb =&gt; {`{`}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;cb.checked = savedData.hobbies.includes(cb.value)</div>
+                                <div class="font-mono text-[10px]">{'}'})</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- ============================================ -->
                 <!-- ✅ FORM VALIDATION -->
                 <!-- ============================================ -->
 
