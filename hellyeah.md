@@ -22,14 +22,14 @@ What do you think? Want to tackle one of these next? I'm thinking Loops would be
 
 ood question! I'd say keep this page focused on core DOM manipulation (selecting, modifying, events) and create a separate "Browser APIs" page for more specialized stuff like:
 
-Intersection Observer
-Resize Observer
-Mutation Observer
-Scroll APIs (scrollIntoView, smooth scrolling)
-localStorage/sessionStorage
-Fetch API
-URL/URLSearchParams
-Web Components
+    fetch.astro - Most commonly used, everyone needs this
+storage.astro - localStorage/sessionStorage, very common
+intersection-observer.astro - Super useful for modern UX (lazy loading, scroll animations)
+scroll.astro - Common need, relatively quick to document
+url.astro - URLSearchParams is super handy
+resize-observer.astro - More specialized but powerful
+mutation-observer.astro - More advanced use cases
+web-components.astro - Big topic, maybe later or separate series
 
 do another page for form handling and validation etc.
     form page
