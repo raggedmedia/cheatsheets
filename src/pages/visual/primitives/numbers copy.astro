@@ -1,0 +1,660 @@
+---
+import '~styles/styles.css'
+import MethodCard from '~components/visual-js/MethodCard.astro';
+import Node from '~components/visual-js/Node.astro';
+import Arrow from '~components/visual-js/Arrow.astro';
+import ReturnValue from '~components/visual-js/ReturnValue.astro';
+import InfoBox from '~components/visual-js/InfoBox.astro';
+import ProcessContent from '~components/visual-js/ProcessContent.astro';
+import ProTip from '~components/visual-js/ProTip.astro';
+import GlobalNav from '~components/visual-js/GlobalNav.astro';
+---
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>JavaScript Numbers - Visual Cheatsheet</title>
+    </head>
+    <body class="m-0 p-4 bg-[#1a1d29] text-gray-200">
+        <div class="flex gap-6 max-w-[1600px] mx-auto">
+            <!-- Main Content -->
+            <main class="flex-1 min-w-0">
+                <h1 class="text-white mb-1 text-2xl font-bold">JavaScript Numbers</h1>
+                <p class="text-gray-400 mb-6 text-sm">Visual blueprint-style reference for working with numbers</p>
+
+                <ProTip>
+                    <div>⚡ <strong>Numbers are immutable!</strong> All methods return a new value — the original never changes.</div>
+                    <div class="pl-2 border-l-2 border-yellow-500/30 font-mono text-[10px] mt-1">
+                        const num = 3.14159<br/>
+                        num.toFixed(2) <span class="text-red-400">// returns '3.14' but num stays 3.14159</span><br/>
+                        const rounded = num.toFixed(2) ✅ <span class="text-gray-400">// always save the result!</span>
+                    </div>
+                </ProTip>
+
+                <ProTip>
+                    <div>⚡ <strong>Why is JavaScript bad at math?</strong> Computers store numbers in binary (1s and 0s), not decimals.</div>
+                    <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                        <div class="font-mono text-[10px]">0.1 + 0.2 === 0.3 <span class="text-red-400">// false! ❌ (0.30000000000000004)</span></div>
+                        <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// In binary, 0.1 = 0.00011001100110011... (infinite repeat)</span></div>
+                        <div class="font-mono text-[10px]"><span class="text-gray-400">// Computer cuts it off → tiny rounding error</span></div>
+                        <div class="font-mono text-[10px]"><span class="text-gray-400">// 0.1 + 0.2 = two tiny errors combined = 0.30000...4</span></div>
+                        <div class="font-mono text-[10px] mt-1">Number.MAX_SAFE_INTEGER <span class="text-gray-400">// 9007199254740991</span></div>
+                        <div class="font-mono text-[10px]"><span class="text-yellow-400">// Above this, integers skip numbers (9007199254740992 = 9007199254740993)</span></div>
+                    </div>
+                </ProTip>
+
+                <ProTip>
+                    <div>⚡ <strong>NaN = "Not a Number"</strong> but ironically <code class="bg-black/30 px-1 py-0.5 rounded text-yellow-400">typeof NaN === "number"</code> 🤦</div>
+                    <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                        <div class="font-mono text-[10px]">NaN === NaN <span class="text-red-400">// false ❌ (only value not equal to itself!)</span></div>
+                        <div class="font-mono text-[10px]">Number.isNaN(NaN) <span class="text-green-400">// true ✅ (use this!)</span></div>
+                        <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// When does NaN appear?</span></div>
+                        <div class="font-mono text-[10px]">0 / 0 <span class="text-gray-400">// NaN (invalid math)</span></div>
+                        <div class="font-mono text-[10px]">Math.sqrt(-1) <span class="text-gray-400">// NaN (impossible)</span></div>
+                        <div class="font-mono text-[10px]">parseInt('hello') <span class="text-gray-400">// NaN (failed parse)</span></div>
+                        <div class="font-mono text-[10px] mt-1"><span class="text-yellow-400">// It's JavaScript's "math operation failed" signal</span></div>
+                    </div>
+                </ProTip>
+
+                <!-- ============================================ -->
+                <!-- 🔢 PARSING & CONVERTING -->
+                <!-- ============================================ -->
+
+                <h2 id="parsing" class="text-blue-300 text-xl my-4 pb-2 border-b-2 border-blue-600">
+                    🔢 Parsing & Converting
+                </h2>
+
+                <!-- PARSEINT -->
+                <div id="parse-int">
+                    <MethodCard
+                        methodName="parseInt()"
+                        signature="parseInt(string, radix?)"
+                        description="Parse a string and return an integer"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input" type="input">
+                                <div class="text-center text-sm font-mono">'42px'</div>
+                            </Node>
+
+                            <Arrow label="parse" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="parseInt('42px')" description="Extract digits" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="Result" type="output">
+                                <ReturnValue value="42" type="number" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Parses until it hits a non-digit. Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">NaN</code> if no valid digits found.
+                        </InfoBox>
+
+                        <ProTip>
+                            <div>⚠️ <strong>Always specify radix (base 10):</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">parseInt('10') <span class="text-gray-400">// 10</span></div>
+                                <div class="font-mono text-[10px]">parseInt('10', 10) <span class="text-green-400">// 10 ✅ explicit</span></div>
+                                <div class="font-mono text-[10px]">parseInt('0x10') <span class="text-gray-400">// 16 (hex)</span></div>
+                                <div class="font-mono text-[10px]">parseInt('08') <span class="text-gray-400">// 8 (but was 0 in old browsers!)</span></div>
+                                <div class="font-mono text-[10px] mt-1">parseInt('42px') <span class="text-gray-400">// 42</span></div>
+                                <div class="font-mono text-[10px]">parseInt('px42') <span class="text-red-400">// NaN (starts with non-digit)</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- PARSEFLOAT -->
+                <div id="parse-float">
+                    <MethodCard
+                        methodName="parseFloat()"
+                        signature="parseFloat(string)"
+                        description="Parse a string and return a floating point number"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input" type="input">
+                                <div class="text-center text-sm font-mono">'3.14rem'</div>
+                            </Node>
+
+                            <Arrow label="parse" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="parseFloat('3.14rem')" description="Extract decimal" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="Result" type="output">
+                                <ReturnValue value="3.14" type="number" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Like <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">parseInt</code> but keeps decimal point.
+                        </InfoBox>
+
+                        <ProTip>
+                            <div>Examples:</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">parseFloat('3.14') <span class="text-gray-400">// 3.14</span></div>
+                                <div class="font-mono text-[10px]">parseFloat('3.14.15') <span class="text-gray-400">// 3.14 (stops at 2nd dot)</span></div>
+                                <div class="font-mono text-[10px]">parseFloat('  3.14  ') <span class="text-gray-400">// 3.14 (trims whitespace)</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- NUMBER() CONSTRUCTOR -->
+                <div id="number-constructor">
+                    <MethodCard
+                        methodName="Number()"
+                        signature="Number(value)"
+                        description="Convert any value to a number"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input" type="input">
+                                <div class="text-center text-sm font-mono space-y-1">
+                                    <div>'42'</div>
+                                    <div>true</div>
+                                    <div>null</div>
+                                    <div>undefined</div>
+                                    <div>'42px'</div>
+                                </div>
+                            </Node>
+
+                            <Arrow label="convert" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="Number(value)" description="Type coercion" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="Result" type="output">
+                                <div class="text-center text-sm font-mono space-y-1">
+                                    <div class="text-green-400">42</div>
+                                    <div class="text-green-400">1</div>
+                                    <div class="text-green-400">0</div>
+                                    <div class="text-red-400">NaN</div>
+                                    <div class="text-red-400">NaN</div>
+                                </div>
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            More strict than <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">parseInt</code> - entire string must be a valid number.
+                        </InfoBox>
+
+                        <ProTip>
+                            <div>💡 <strong>Unary + operator does the same:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">Number('42') <span class="text-gray-400">// 42</span></div>
+                                <div class="font-mono text-[10px]">+'42' <span class="text-gray-400">// 42 (shorthand)</span></div>
+                                <div class="font-mono text-[10px] mt-1">Number('42px') <span class="text-red-400">// NaN</span></div>
+                                <div class="font-mono text-[10px]">parseInt('42px') <span class="text-green-400">// 42 ✅</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- ============================================ -->
+                <!-- 🎯 CHECKING & VALIDATION -->
+                <!-- ============================================ -->
+
+                <h2 id="checking" class="text-purple-300 text-xl my-4 pb-2 border-b-2 border-purple-600">
+                    🎯 Checking & Validation
+                </h2>
+
+                <!-- NUMBER.ISNAN -->
+                <div id="is-nan">
+                    <MethodCard
+                        methodName="Number.isNaN()"
+                        signature="Number.isNaN(value)"
+                        description="Check if value is NaN (Not a Number)"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input" type="input">
+                                <div class="text-center text-sm font-mono space-y-1">
+                                    <div>NaN</div>
+                                    <div>'hello'</div>
+                                    <div>42</div>
+                                </div>
+                            </Node>
+
+                            <Arrow label="check" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="Number.isNaN()" description="Strict NaN check" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="Result" type="output">
+                                <div class="text-center text-sm font-mono space-y-1">
+                                    <div class="text-green-400">true ✅</div>
+                                    <div class="text-red-400">false ❌</div>
+                                    <div class="text-red-400">false ❌</div>
+                                </div>
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Only returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">true</code> if the value is actually <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">NaN</code>.
+                        </InfoBox>
+
+                        <ProTip>
+                            <div>⚠️ <strong>Don't use global isNaN():</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-red-400">// Global isNaN() coerces to number first ❌</span></div>
+                                <div class="font-mono text-[10px]">isNaN('hello') <span class="text-gray-400">// true (coerces to NaN)</span></div>
+                                <div class="font-mono text-[10px]">isNaN(undefined) <span class="text-gray-400">// true (coerces to NaN)</span></div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-green-400">// Number.isNaN() is strict ✅</span></div>
+                                <div class="font-mono text-[10px]">Number.isNaN('hello') <span class="text-gray-400">// false (not NaN)</span></div>
+                                <div class="font-mono text-[10px]">Number.isNaN(NaN) <span class="text-gray-400">// true</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- NUMBER.ISINTEGER -->
+                <div id="is-integer">
+                    <MethodCard
+                        methodName="Number.isInteger()"
+                        signature="Number.isInteger(value)"
+                        description="Check if value is an integer"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input" type="input">
+                                <div class="text-center text-sm font-mono space-y-1">
+                                    <div>42</div>
+                                    <div>42.0</div>
+                                    <div>42.5</div>
+                                </div>
+                            </Node>
+
+                            <Arrow label="check" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="Number.isInteger()" description="Whole number?" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="Result" type="output">
+                                <div class="text-center text-sm font-mono space-y-1">
+                                    <div class="text-green-400">true ✅</div>
+                                    <div class="text-green-400">true ✅</div>
+                                    <div class="text-red-400">false ❌</div>
+                                </div>
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">true</code> if value is a number with no fractional part.
+                        </InfoBox>
+                    </MethodCard>
+                </div>
+
+                <!-- ============================================ -->
+                <!-- 📊 MATH OPERATIONS -->
+                <!-- ============================================ -->
+
+                <h2 id="math" class="text-green-300 text-xl my-4 pb-2 border-b-2 border-green-600">
+                    📊 Math Operations
+                </h2>
+
+                <!-- MATH.ROUND/FLOOR/CEIL -->
+                <div id="rounding">
+                    <MethodCard
+                        methodName="Math.round() / floor() / ceil()"
+                        signature="Math.round/floor/ceil(number)"
+                        description="Round numbers to integers"
+                        mutates={false}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <!-- Number line visualization -->
+                            <div class="mb-6">
+                                <div class="text-center text-yellow-400 font-mono text-lg mb-3">3.7</div>
+                                <div class="relative h-16 bg-gray-900/50 rounded border border-gray-700">
+                                    <!-- Number line -->
+                                    <div class="absolute top-1/2 left-0 right-0 h-0.5 bg-gray-600"></div>
+
+                                    <!-- Floor marker (3) -->
+                                    <div class="absolute left-[25%] top-0 bottom-0 flex flex-col items-center justify-center">
+                                        <div class="w-0.5 h-full bg-blue-400"></div>
+                                        <div class="absolute top-2 text-blue-400 font-mono text-xs">3</div>
+                                        <div class="absolute bottom-2 text-blue-300 text-[10px]">floor ⬇️</div>
+                                    </div>
+
+                                    <!-- Current value (3.7) -->
+                                    <div class="absolute left-[60%] top-0 bottom-0 flex flex-col items-center justify-center">
+                                        <div class="w-1 h-full bg-yellow-400 animate-pulse"></div>
+                                        <div class="absolute top-[-20px] text-yellow-400 font-mono text-sm font-bold">3.7</div>
+                                    </div>
+
+                                    <!-- Ceil marker (4) -->
+                                    <div class="absolute right-[25%] top-0 bottom-0 flex flex-col items-center justify-center">
+                                        <div class="w-0.5 h-full bg-green-400"></div>
+                                        <div class="absolute top-2 text-green-400 font-mono text-xs">4</div>
+                                        <div class="absolute bottom-2 text-green-300 text-[10px]">ceil ⬆️</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Results -->
+                            <div class="space-y-2">
+                                <div class="bg-blue-500/20 border border-blue-400 rounded px-4 py-2">
+                                    <div class="flex items-center justify-between">
+                                        <div class="font-mono text-sm text-blue-300">Math.floor(3.7)</div>
+                                        <div class="font-mono text-sm text-blue-300">→ 3</div>
+                                    </div>
+                                    <div class="text-xs text-gray-400 mt-1">Always rounds DOWN (toward -∞)</div>
+                                </div>
+
+                                <div class="bg-purple-500/20 border border-purple-400 rounded px-4 py-2">
+                                    <div class="flex items-center justify-between">
+                                        <div class="font-mono text-sm text-purple-300">Math.round(3.7)</div>
+                                        <div class="font-mono text-sm text-purple-300">→ 4</div>
+                                    </div>
+                                    <div class="text-xs text-gray-400 mt-1">Rounds to NEAREST integer (≥0.5 goes up)</div>
+                                </div>
+
+                                <div class="bg-green-500/20 border border-green-500 rounded px-4 py-2">
+                                    <div class="flex items-center justify-between">
+                                        <div class="font-mono text-sm text-green-300">Math.ceil(3.7)</div>
+                                        <div class="font-mono text-sm text-green-300">→ 4</div>
+                                    </div>
+                                    <div class="text-xs text-gray-400 mt-1">Always rounds UP (toward +∞, "ceiling")</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            <strong>floor</strong> = down, <strong>round</strong> = nearest, <strong>ceil</strong> = up (ceiling). All return integers.
+                        </InfoBox>
+
+                        <ProTip>
+                            <div>Round to decimal places:</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">Math.round(3.14159 * 100) / 100 <span class="text-gray-400">// 3.14</span></div>
+                                <div class="font-mono text-[10px]">(3.14159).toFixed(2) <span class="text-gray-400">// '3.14' (string)</span></div>
+                                <div class="font-mono text-[10px]">Number((3.14159).toFixed(2)) <span class="text-gray-400">// 3.14 (number)</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- MATH.MIN/MAX -->
+                <div id="min-max">
+                    <MethodCard
+                        methodName="Math.min() / Math.max()"
+                        signature="Math.min/max(...numbers)"
+                        description="Find smallest or largest number"
+                        mutates={false}
+                    >
+                        <div class="space-y-4">
+                            <!-- Math.max -->
+                            <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                                <Node label="Input" type="input">
+                                    <div class="text-center text-sm font-mono">5, 2, 8, 1</div>
+                                </Node>
+
+                                <Arrow label="compare" />
+
+                                <Node label="Method" type="process">
+                                    <ProcessContent name="Math.max(5, 2, 8, 1)" description="Find largest" />
+                                </Node>
+
+                                <Arrow label="returns" />
+
+                                <Node label="Result" type="output">
+                                    <ReturnValue value="8" type="number" />
+                                </Node>
+                            </div>
+
+                            <!-- Math.min -->
+                            <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                                <Node label="Input" type="input">
+                                    <div class="text-center text-sm font-mono">5, 2, 8, 1</div>
+                                </Node>
+
+                                <Arrow label="compare" />
+
+                                <Node label="Method" type="process">
+                                    <ProcessContent name="Math.min(5, 2, 8, 1)" description="Find smallest" />
+                                </Node>
+
+                                <Arrow label="returns" />
+
+                                <Node label="Result" type="output">
+                                    <ReturnValue value="1" type="number" />
+                                </Node>
+                            </div>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Takes multiple arguments. Use spread operator <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">...</code> to find min/max in arrays.
+                        </InfoBox>
+
+                        <ProTip>
+                            <div>Common use cases:</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-gray-400">// Clamp value between min and max</span></div>
+                                <div class="font-mono text-[10px]">Math.min(Math.max(value, 0), 100) <span class="text-gray-400">// 0-100</span></div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Find max in array</span></div>
+                                <div class="font-mono text-[10px]">Math.max(...prices)</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- MATH.RANDOM -->
+                <div id="random">
+                    <MethodCard
+                        methodName="Math.random()"
+                        signature="Math.random()"
+                        description="Generate random number between 0 and 1"
+                        mutates={false}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-4">
+                                <!-- Important callout -->
+                                <div class="bg-yellow-500/20 border border-yellow-500 rounded p-3 mb-4">
+                                    <div class="text-yellow-300 font-bold text-sm mb-1">⚠️ Math.random() ONLY gives 0-1</div>
+                                    <div class="text-gray-300 text-xs">For other ranges (1-10, 1-100, etc.) you MUST multiply and add:</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns decimal from 0 (inclusive) to 1 (exclusive). Want 1-100? Do <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">Math.floor(Math.random() * 100) + 1</code>
+                        </InfoBox>
+
+                        <ProTip>
+                            <div>Generic random integer formula:</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">function randomInt(min, max) &lbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;return Math.floor(Math.random() * (max - min + 1)) + min</div>
+                                <div class="font-mono text-[10px]">&rbrace;</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// How it works for randomInt(1, 6):</span></div>
+                                <div class="font-mono text-[10px]"><span class="text-yellow-400">(max - min + 1)</span> <span class="text-gray-400">→ (6 - 1 + 1) = 6 possible values</span></div>
+                                <div class="font-mono text-[10px]"><span class="text-yellow-400">Math.random() * 6</span> <span class="text-gray-400">→ 0 to 5.999...</span></div>
+                                <div class="font-mono text-[10px]"><span class="text-yellow-400">Math.floor(...)</span> <span class="text-gray-400">→ 0, 1, 2, 3, 4, or 5</span></div>
+                                <div class="font-mono text-[10px]"><span class="text-yellow-400">+ min</span> <span class="text-gray-400">→ 1, 2, 3, 4, 5, or 6 ✅</span></div>
+                                <div class="font-mono text-[10px] mt-1">randomInt(1, 6) <span class="text-gray-400">// dice roll (1-6)</span></div>
+                                <div class="font-mono text-[10px]">randomInt(1, 100) <span class="text-gray-400">// 1-100</span></div>
+                                <div class="font-mono text-[10px]">randomInt(50, 100) <span class="text-gray-400">// 50-100</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- ============================================ -->
+                <!-- 🔧 FORMATTING -->
+                <!-- ============================================ -->
+
+                <h2 id="formatting" class="text-orange-300 text-xl my-4 pb-2 border-b-2 border-orange-600">
+                    🔧 Formatting
+                </h2>
+
+                <!-- TOFIXED -->
+                <div id="to-fixed">
+                    <MethodCard
+                        methodName=".toFixed()"
+                        signature="number.toFixed(digits)"
+                        description="Format number with fixed decimal places"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input" type="input">
+                                <div class="text-center text-sm font-mono">3.14159</div>
+                            </Node>
+
+                            <Arrow label="format" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="(3.14159).toFixed(2)" description="2 decimal places" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="Result" type="output">
+                                <ReturnValue value="'3.14'" type="string" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns <strong>string</strong> with specified decimal places. Rounds if necessary.
+                        </InfoBox>
+
+                        <ProTip>
+                            <div>⚠️ <strong>Returns string, not number!</strong></div>
+                            <div class="text-xs mt-2 mb-3">
+                                It's a <strong>formatting method</strong> for display, not math. Preserves trailing zeros like <span class="font-mono text-orange-400">"42.00"</span> that numbers can't have.
+                            </div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-1 mt-2">
+                                <div class="text-[10px] text-gray-400">Perfect for UI:</div>
+                                <div class="font-mono text-[10px]">"$" + price.toFixed(2) <span class="text-gray-400">// "$42.00"</span></div>
+
+                                <div class="text-[10px] text-gray-400 mt-2">❌ Never for math:</div>
+                                <div class="font-mono text-[10px]">"10.50" + "2.30" <span class="text-gray-400">// "10.502.30" 😱</span></div>
+
+                                <div class="text-[10px] text-gray-400 mt-2">✅ Convert back if needed:</div>
+                                <div class="font-mono text-[10px]">Number((3.14).toFixed(2)) <span class="text-gray-400">// 3.14</span></div>
+                                <div class="font-mono text-[10px]">+(3.14).toFixed(2) <span class="text-gray-400">// 3.14 (shorthand)</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+
+                <!-- TOLOCALESTRING -->
+                <div id="to-locale-string">
+                    <MethodCard
+                        methodName=".toLocaleString()"
+                        signature="number.toLocaleString(locale, options)"
+                        description="Format number with locale-specific formatting"
+                        mutates={false}
+                    >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input" type="input">
+                                <div class="text-center text-sm font-mono">1234567.89</div>
+                            </Node>
+
+                            <Arrow label="format" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name=".toLocaleString('en-US')" description="Locale formatting" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="Result" type="output">
+                                <ReturnValue value="'1,234,567.89'" type="string" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Format with thousands separators, currency, percentages. Returns <strong>string</strong>.
+                        </InfoBox>
+
+                        <ProTip>
+                            <div>Currency formatting:</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">(1234.5).toLocaleString('en-US', &lbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;style: 'currency',</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;currency: 'USD'</div>
+                                <div class="font-mono text-[10px]">&rbrace;) <span class="text-gray-400">// '$1,234.50'</span></div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Percentage</span></div>
+                                <div class="font-mono text-[10px]">(0.42).toLocaleString('en-US', &lbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;style: 'percent'</div>
+                                <div class="font-mono text-[10px]">&rbrace;) <span class="text-gray-400">// '42%'</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+                </div>
+            </main>
+
+            <!-- Sidebar Navigation -->
+            <aside class="w-64 shrink-0 sticky top-4 self-start hidden lg:block max-h-[calc(100vh-2rem)] overflow-y-auto">
+                <!-- Global Navigation -->
+                <GlobalNav />
+
+                <!-- Page Navigation -->
+                <nav class="bg-[#252936] rounded-lg p-4 border border-gray-700">
+                    <h3 class="text-white text-sm font-bold mb-3 uppercase tracking-wide">On This Page</h3>
+                    <ul class="space-y-2 text-xs">
+                        <li>
+                            <a href="#parsing" class="text-blue-300 font-semibold hover:text-blue-200 block py-1">🔢 Parsing & Converting</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-blue-500/30 pl-2">
+                                <li><a href="#parse-int" class="text-gray-300 hover:text-blue-400 block">parseInt()</a></li>
+                                <li><a href="#parse-float" class="text-gray-300 hover:text-blue-400 block">parseFloat()</a></li>
+                                <li><a href="#number-constructor" class="text-gray-300 hover:text-blue-400 block">Number()</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="mt-4">
+                            <a href="#checking" class="text-purple-300 font-semibold hover:text-purple-200 block py-1">🎯 Checking & Validation</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-purple-500/30 pl-2">
+                                <li><a href="#is-nan" class="text-gray-300 hover:text-blue-400 block">Number.isNaN()</a></li>
+                                <li><a href="#is-integer" class="text-gray-300 hover:text-blue-400 block">Number.isInteger()</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="mt-4">
+                            <a href="#math" class="text-green-300 font-semibold hover:text-green-200 block py-1">📊 Math Operations</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-green-500/30 pl-2">
+                                <li><a href="#rounding" class="text-gray-300 hover:text-blue-400 block">Math.round/floor/ceil()</a></li>
+                                <li><a href="#min-max" class="text-gray-300 hover:text-blue-400 block">Math.min/max()</a></li>
+                                <li><a href="#random" class="text-gray-300 hover:text-blue-400 block">Math.random()</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="mt-4">
+                            <a href="#formatting" class="text-orange-300 font-semibold hover:text-orange-200 block py-1">🔧 Formatting</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-orange-500/30 pl-2">
+                                <li><a href="#to-fixed" class="text-gray-300 hover:text-blue-400 block">.toFixed()</a></li>
+                                <li><a href="#to-locale-string" class="text-gray-300 hover:text-blue-400 block">.toLocaleString()</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+        </div>
+
+        <style>
+            html {
+                scroll-behavior: smooth;
+                scroll-padding-top: 20px;
+            }
+        </style>
+    </body>
+</html>
