@@ -8,311 +8,39 @@ import ReturnValue from '~components/visual-js/ReturnValue.astro'
 import InfoBox from '~components/visual-js/InfoBox.astro'
 import ProcessContent from '~components/visual-js/ProcessContent.astro'
 import ProTip from '~components/visual-js/ProTip.astro'
-import GlobalNav from '~components/visual-js/GlobalNav.astro'
+import SectionTitle from '~components/visual-js/SectionTitle.astro'
+import SubSectionTitle from '~components/visual-js/SubSectionTitle.astro'
+import VisualLayout from 'src/layouts/VisualLayout.astro'
 ---
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>JS Array Methods - Blueprint Style</title>
-        <style>
-            /* Smooth scrolling */
-            html {
-                scroll-behavior: smooth;
-                scroll-padding-top: 20px;
-            }
+<VisualLayout
+    pageTitle="Javascript Arrays"
+>
 
-            /* Blueprint Card */
-            .blueprint {
-                background: #252936;
-                border-radius: 0.75rem;
-                padding: 2rem;
-                margin-bottom: 2.5rem;
-                border: 1px solid #374151;
-                position: relative;
-            }
-
-            .blueprint-header {
-                margin-bottom: 2rem;
-                padding-bottom: 1rem;
-                border-bottom: 2px solid #374151;
-            }
-
-            .method-name {
-                font-family: 'Monaco', 'Courier New', monospace;
-                font-size: 1.8rem;
-                font-weight: 700;
-                color: #60a5fa;
-                margin-bottom: 0.5rem;
-            }
-
-            .method-signature {
-                font-family: 'Monaco', 'Courier New', monospace;
-                font-size: 0.95rem;
-                color: #9ca3af;
-                margin-bottom: 0.75rem;
-            }
-
-            .method-desc {
-                color: #d1d5db;
-                font-size: 0.95rem;
-                line-height: 1.6;
-            }
-
-            .badge {
-                display: inline-block;
-                padding: 0.25rem 0.75rem;
-                border-radius: 0.25rem;
-                font-size: 0.75rem;
-                font-weight: 600;
-                text-transform: uppercase;
-                margin-left: 1rem;
-            }
-
-            .badge-mutates {
-                background: rgba(239, 68, 68, 0.2);
-                color: #fca5a5;
-                border: 1px solid #ef4444;
-            }
-
-            .badge-immutable {
-                background: rgba(34, 197, 94, 0.2);
-                color: #86efac;
-                border: 1px solid #22c55e;
-            }
-
-            /* Flow Diagram */
-            .flow-diagram {
-                display: flex;
-                align-items: center;
-                gap: 2rem;
-                padding: 2rem;
-                background: #1f2937;
-                border-radius: 0.5rem;
-                overflow-x: auto;
-            }
-
-            /* Nodes */
-            .node {
-                position: relative;
-                min-width: 180px;
-                flex-shrink: 0;
-            }
-
-            .node-label {
-                font-size: 0.75rem;
-                font-weight: 600;
-                text-transform: uppercase;
-                letter-spacing: 0.05em;
-                color: #9ca3af;
-                margin-bottom: 0.5rem;
-                text-align: center;
-            }
-
-            .node-content {
-                background: #374151;
-                border: 2px solid #4b5563;
-                border-radius: 0.25rem;
-                padding: 0.5rem;
-                position: relative;
-            }
-
-            /* Custom gradient backgrounds */
-            .node-input .node-content {
-                background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
-                border-color: #3b82f6;
-            }
-
-            .node-process .node-content {
-                background: linear-gradient(135deg, #4c1d95 0%, #5b21b6 100%);
-                border-color: #8b5cf6;
-                padding: 0.75rem 0.5rem;
-            }
-
-            .node-output .node-content {
-                background: linear-gradient(135deg, #166534 0%, #15803d 100%);
-                border-color: #22c55e;
-            }
-
-            .process-name {
-                font-family: 'Monaco', 'Courier New', monospace;
-                font-weight: 700;
-                font-size: 0.875rem;
-                color: #fff;
-                text-align: center;
-                margin-bottom: 0.25rem;
-            }
-
-            .process-desc {
-                font-size: 0.688rem;
-                color: #e9d5ff;
-                text-align: center;
-                line-height: 1.3;
-            }
-
-            /* Array Display */
-            .array-display {
-                display: flex;
-                gap: 0.375rem;
-                justify-content: center;
-                flex-wrap: wrap;
-            }
-
-            .array-item {
-                min-width: 32px;
-                padding: 0.375rem 0.5rem;
-                background: rgba(255, 255, 255, 0.1);
-                border: 1px solid rgba(255, 255, 255, 0.3);
-                border-radius: 0.25rem;
-                text-align: center;
-                font-family: 'Monaco', 'Courier New', monospace;
-                font-weight: 600;
-                font-size: 0.813rem;
-                position: relative;
-            }
-
-            .array-index {
-                position: absolute;
-                top: -6px;
-                left: 50%;
-                transform: translateX(-50%);
-                font-size: 0.563rem;
-                color: #9ca3af;
-                background: #1f2937;
-                padding: 0 0.25rem;
-            }
-
-            /* Value Display */
-            .value-display {
-                padding: 0.5rem 0.75rem;
-                background: rgba(255, 255, 255, 0.1);
-                border: 1px solid rgba(255, 255, 255, 0.3);
-                border-radius: 0.25rem;
-                text-align: center;
-                font-family: 'Monaco', 'Courier New', monospace;
-                font-weight: 600;
-                font-size: 0.875rem;
-            }
-
-            .value-type {
-                font-size: 0.625rem;
-                color: #9ca3af;
-                margin-top: 0.125rem;
-            }
-
-            /* Arrow styling */
-            .arrow {
-                flex-shrink: 0;
-                width: 40px;
-                height: 2px;
-                background: #4b5563;
-                position: relative;
-            }
-
-            .arrow::after {
-                content: '';
-                position: absolute;
-                right: -5px;
-                top: -3px;
-                width: 0;
-                height: 0;
-                border-left: 8px solid #4b5563;
-                border-top: 4px solid transparent;
-                border-bottom: 4px solid transparent;
-            }
-
-            .arrow-label {
-                position: absolute;
-                top: -14px;
-                left: 50%;
-                transform: translateX(-50%);
-                font-size: 0.563rem;
-                color: #6b7280;
-                white-space: nowrap;
-            }
-
-            /* Special highlights */
-            .highlight-added {
-                background: rgba(34, 197, 94, 0.4) !important;
-                border-color: #22c55e !important;
-                box-shadow: 0 0 6px rgba(34, 197, 94, 0.3);
-                animation: pulse 1s ease-in-out infinite;
-            }
-
-            .highlight-removed {
-                background: rgba(239, 68, 68, 0.3) !important;
-                border-color: #ef4444 !important;
-                opacity: 0.6;
-                text-decoration: line-through;
-            }
-
-            .highlight-transformed {
-                background: rgba(251, 146, 60, 0.4) !important;
-                border-color: #fb923c !important;
-                box-shadow: 0 0 6px rgba(251, 146, 60, 0.3);
-            }
-
-            /* Pulse animation */
-            @keyframes pulse {
-                0%, 100% { opacity: 1; }
-                50% { opacity: 0.7; }
-            }
-
-            /* Info box */
-            .info-box {
-                background: rgba(59, 130, 246, 0.1);
-                border: 1px solid #3b82f6;
-                border-radius: 0.5rem;
-                padding: 1rem;
-                margin-top: 1.5rem;
-            }
-
-            .info-title {
-                font-weight: 600;
-                color: #60a5fa;
-                margin-bottom: 0.5rem;
-                font-size: 0.9rem;
-            }
-
-            .info-content {
-                font-size: 0.85rem;
-                color: #d1d5db;
-                line-height: 1.5;
-            }
-
-            .info-content code {
-                background: rgba(0, 0, 0, 0.3);
-                padding: 0.125rem 0.375rem;
-                border-radius: 0.25rem;
-                font-family: 'Monaco', 'Courier New', monospace;
-                color: #fbbf24;
-            }
-        </style>
-	</head>
-	<body class="m-0 p-4 bg-[#1a1d29] text-gray-200">
-        <div class="flex gap-6 max-w-[1600px] mx-auto">
-            <!-- Main Content -->
-            <main class="flex-1 min-w-0">
-                <h1 class="text-white mb-1 text-2xl font-bold">JavaScript Array Methods</h1>
-                <p class="text-gray-400 mb-6 text-sm">Visual blueprint-style reference for array operations</p>
+                <ProTip>
+                    <div>📏 <strong>Array length property:</strong> Get the number of elements with <code class="bg-black/30 px-1 py-0.5 rounded font-mono text-yellow-400">arr.length</code></div>
+                    <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                        <div class="font-mono text-[10px]">const nums = [1, 2, 3, 4, 5];</div>
+                        <div class="font-mono text-[10px]">nums.length → 5</div>
+                        <div class="font-mono text-[10px] mt-1"><span class="text-green-400">// Writable! Set length to truncate:</span></div>
+                        <div class="font-mono text-[10px]">nums.length = 3 → [1, 2, 3]</div>
+                    </div>
+                </ProTip>
 
                 <!-- ============================================ -->
                 <!-- � CONVERTING TO ARRAYS -->
                 <!-- ============================================ -->
 
-                <h2 id="converting" class="text-blue-300 text-xl my-4 pb-2 border-b-2 border-blue-500">
+                <SectionTitle id="converting" color="blue">
                     🔄 Converting to Arrays
-                </h2>
+                </SectionTitle>
 
                 <!-- === STRING TO ARRAY === -->
-                <h3 id="string-to-array" class="text-gray-300 text-lg mt-4 mb-2">String to Array</h3>
+                <SubSectionTitle id="string-to-array" parentColor="blue">String to Array</SubSectionTitle>
 
                 <!-- SPLIT -->
-                <div id="split">
-                    <MethodCard
-                        methodName="split()"
+                <MethodCard
+                    id="split"
+                    methodName="split()"
                         signature="str.split(separator)"
                         description="Splits a string into an array of substrings"
                         mutates={false}
@@ -339,12 +67,11 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                             Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code>. Use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">split('')</code> for chars, <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">split(' ')</code> for words.
                         </InfoBox>
                     </MethodCard>
-                </div>
 
                 <!-- ARRAY.FROM STRING -->
-                <div id="array-from-string">
-                    <MethodCard
-                        methodName="Array.from()"
+                <MethodCard
+                    id="array-from-string"
+                    methodName="Array.from()"
                         signature="Array.from(string)"
                         description="Creates array from string or iterable"
                         mutates={false}
@@ -371,12 +98,11 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                             Static method. Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> from any iterable or array-like object.
                         </InfoBox>
                     </MethodCard>
-                </div>
 
                 <!-- SPREAD STRING -->
-                <div id="spread-string">
-                    <MethodCard
-                        methodName="Spread [...str]"
+                <MethodCard
+                    id="spread-string"
+                    methodName="Spread [...str]"
                         signature="[...string]"
                         description="Uses spread operator to convert string to array"
                         mutates={false}
@@ -403,15 +129,14 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                             Modern syntax. Creates a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> with each character as an element.
                         </InfoBox>
                     </MethodCard>
-                </div>
 
                 <!-- === NUMBER TO ARRAY === -->
-                <h3 id="number-to-array" class="text-gray-300 text-lg mt-4 mb-2">Number to Array</h3>
+                <SubSectionTitle id="number-to-array" parentColor="blue">Number to Array</SubSectionTitle>
 
                 <!-- NUMBER TO DIGITS -->
-                <div id="number-to-digits">
-                    <MethodCard
-                        methodName="String() + split()"
+                <MethodCard
+                    id="number-to-digits"
+                    methodName="String() + split()"
                         signature="String(num).split('')"
                         description="Converts number to array of digit strings"
                         mutates={false}
@@ -438,11 +163,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                             Returns array of <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">digit strings</code>. Use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">.map(Number)</code> to convert to numbers.
                         </InfoBox>
                     </MethodCard>
-                </div>
 
                 <!-- ARRAY.FROM NUMBER -->
-                <div id="array-from-number">
-                    <MethodCard
+                <MethodCard
+                        id="array-from-number"
                         methodName="Array.from() + map"
                         signature="Array.from(String(num), Number)"
                         description="Converts number to array of digit numbers"
@@ -470,22 +194,21 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                             Returns array of <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">digit numbers</code>. Second parameter is mapping function.
                         </InfoBox>
                     </MethodCard>
-                </div>
 
                 <!-- ============================================ -->
                 <!-- �🛠 MUTATES THE ARRAY -->
                 <!-- ============================================ -->
 
-                <h2 id="mutates" class="text-red-300 text-xl my-4 pb-2 border-b-2 border-red-500">
+                <SectionTitle id="mutates" color="red">
                     🛠 Mutates the Array
-                </h2>
+                </SectionTitle>
 
                 <!-- === INSERT / REMOVE === -->
-                <h3 id="insert-remove" class="text-gray-300 text-lg mt-4 mb-2">Insert / Remove</h3>
+                <SubSectionTitle id="insert-remove" parentColor="red">Insert / Remove</SubSectionTitle>
 
                 <!-- PUSH -->
-                <div id="push">
-                    <MethodCard
+                <MethodCard
+                        id="push"
                         methodName="push()"
                         signature="arr.push(...items)"
                         description="Adds elements to the end of an array and returns the new length"
@@ -519,11 +242,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                             The original array is modified in place. Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">number</code> (new length), not the array. ⚠️ Cannot be chained with other array methods.
                         </InfoBox>
                     </MethodCard>
-                </div>
 
                 <!-- POP -->
-                <div id="pop">
-                    <MethodCard
+                <MethodCard
+                id="pop"
                 methodName="pop()"
                 signature="arr.pop()"
                 description="Removes and returns the last element from an array"
@@ -557,11 +279,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                     The original array is shortened. Returns the removed <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">element</code> (or undefined if empty). ⚠️ Cannot be chained with other array methods.
                 </InfoBox>
             </MethodCard>
-                </div>
 
                 <!-- UNSHIFT -->
-                <div id="unshift">
-            <MethodCard
+                <MethodCard
+                id="unshift"
                 methodName="unshift()"
                 signature="arr.unshift(...items)"
                 description="Adds elements to the beginning of an array and returns the new length"
@@ -595,11 +316,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                     The original array is modified in place. All existing elements shift to higher indices. Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">number</code> (new length). ⚠️ Cannot be chained with other array methods.
                 </InfoBox>
             </MethodCard>
-                </div>
 
                 <!-- SHIFT -->
-                <div id="shift">
-            <MethodCard
+                <MethodCard
+                id="shift"
                 methodName="shift()"
                 signature="arr.shift()"
                 description="Removes and returns the first element from an array"
@@ -633,11 +353,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                     The original array is shortened. All remaining elements shift to lower indices. Returns the removed <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">element</code> (or undefined if empty). ⚠️ Cannot be chained with other array methods.
                 </InfoBox>
             </MethodCard>
-                </div>
 
                 <!-- SPLICE -->
-                <div id="splice">
-            <MethodCard
+                <MethodCard
+                id="splice"
                 methodName="splice()"
                 signature="arr.splice(start, deleteCount, ...items)"
                 description="Removes, replaces, or adds elements at any position in the array"
@@ -678,14 +397,13 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                     </div>
                 </ProTip>
             </MethodCard>
-                </div>
 
             <!-- === REORDER === -->
-            <h3 id="reorder" class="text-gray-300 text-lg mt-4 mb-2">Reorder</h3>
+            <SubSectionTitle id="reorder" parentColor="red">Reorder</SubSectionTitle>
 
                 <!-- SORT -->
-                <div id="sort">
-            <MethodCard
+                <MethodCard
+                id="sort"
                 methodName="sort()"
                 signature="arr.sort(compareFn?)"
                 description="Sorts the array in place and returns the same array"
@@ -730,11 +448,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                     </div>
                 </ProTip>
             </MethodCard>
-                </div>
 
                 <!-- REVERSE -->
-                <div id="reverse">
-            <MethodCard
+                <MethodCard
+                id="reverse"
                 methodName="reverse()"
                 signature="arr.reverse()"
                 description="Reverses the array in place and returns the same array"
@@ -762,14 +479,13 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                     Reverses in place. Returns the <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">same array</code> (not a copy).
                 </InfoBox>
             </MethodCard>
-                </div>
 
                 <!-- === OVERWRITE / MOVE === -->
-                <h3 id="overwrite-move" class="text-gray-300 text-lg mt-4 mb-2">Overwrite / Move</h3>
+                <SubSectionTitle id="overwrite-move" parentColor="red">Overwrite / Move</SubSectionTitle>
 
                 <!-- FILL -->
-                <div id="fill">
-                    <MethodCard
+                <MethodCard
+                        id="fill"
                         methodName="fill()"
                         signature="arr.fill(value, start?, end?)"
                         description="Overwrites a section of the array with a static value"
@@ -805,11 +521,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- COPYWITHIN -->
-                <div id="copyWithin">
-                    <MethodCard
+                <MethodCard
+                        id="copyWithin"
                         methodName="copyWithin()"
                         signature="arr.copyWithin(target, start, end?)"
                         description="Copies part of array to another location within same array"
@@ -837,13 +552,13 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                             Copies within the same array. Returns the <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">same array</code>. Doesn't change array length.
                         </InfoBox>
                     </MethodCard>
-                </div>
 
                 <!-- ============================================ -->
                 <!-- 🚫 DOES NOT MUTATE (returns new value) -->
-                <!-- ============================================ -->                <h2 id="immutable" class="text-green-300 text-xl my-4 pb-2 border-b-2 border-green-600">
+                <!-- ============================================ -->
+                <SectionTitle id="immutable" color="green">
                     🚫 Does Not Mutate (returns new value)
-                </h2>
+                </SectionTitle>
 
                 <ProTip>
                     <div>💪 Chain immutable methods together for cleaner, functional code:</div>
@@ -854,11 +569,11 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                 </ProTip>
 
                 <!-- === BUILD NEW ARRAYS === -->
-                <h3 id="build-arrays" class="text-gray-300 text-lg mt-4 mb-2">Build New Arrays</h3>
+                <SubSectionTitle id="build-arrays" parentColor="green">Build New Arrays</SubSectionTitle>
 
                 <!-- MAP -->
-                <div id="map">
-            <MethodCard
+                <MethodCard
+                id="map"
                 methodName="map()"
                 signature="arr.map(fn)"
                 description="Creates a new array by transforming each element with a function"
@@ -894,11 +609,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                     </div>
                 </ProTip>
             </MethodCard>
-                </div>
 
                 <!-- FILTER -->
-                <div id="filter">
-            <MethodCard
+                <MethodCard
+                id="filter"
                 methodName="filter()"
                 signature="arr.filter(fn)"
                 description="Creates a new array with elements that pass a test function"
@@ -933,11 +647,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                     </div>
                 </ProTip>
             </MethodCard>
-                </div>
 
                 <!-- SLICE -->
-                <div id="slice">
-            <MethodCard
+                <MethodCard
+                id="slice"
                 methodName="slice()"
                 signature="arr.slice(start, end)"
                 description="Returns a shallow copy of a portion of an array"
@@ -994,11 +707,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                     </div>
                 </ProTip>
             </MethodCard>
-                </div>
 
                 <!-- CONCAT -->
-                <div id="concat">
-            <MethodCard
+                <MethodCard
+                id="concat"
                 methodName="concat()"
                 signature="arr.concat(...items)"
                 description="Merges two or more arrays into a new array"
@@ -1033,11 +745,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                     </div>
                 </ProTip>
             </MethodCard>
-                </div>
 
                 <!-- FLAT -->
-                <div id="flat">
-                    <MethodCard
+                <MethodCard
+                        id="flat"
                         methodName="flat()"
                         signature="arr.flat(depth?)"
                         description="Flattens nested arrays into a single level"
@@ -1072,11 +783,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- FLATMAP -->
-                <div id="flatMap">
-                    <MethodCard
+                <MethodCard
+                        id="flatMap"
                         methodName="flatMap()"
                         signature="arr.flatMap(fn)"
                         description="Maps each element then flattens result by one level"
@@ -1104,11 +814,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                             Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code>. Equivalent to map() followed by flat(1).
                         </InfoBox>
                     </MethodCard>
-                </div>
 
                 <!-- WITH -->
-                <div id="with">
-                    <MethodCard
+                <MethodCard
+                        id="with"
                         methodName="with()"
                         signature="arr.with(index, value)"
                         description="Returns a copy with one element replaced"
@@ -1136,11 +845,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                             Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> with one element changed. Original array unchanged.
                         </InfoBox>
                     </MethodCard>
-                </div>
 
                 <!-- TOSPLICED -->
-                <div id="toSpliced">
-                    <MethodCard
+                <MethodCard
+                        id="toSpliced"
                         methodName="toSpliced()"
                         signature="arr.toSpliced(start, deleteCount, ...items)"
                         description="Immutable version of splice - returns new array"
@@ -1168,11 +876,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                             Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code>. Like splice() but doesn't mutate original.
                         </InfoBox>
                     </MethodCard>
-                </div>
 
                 <!-- TOSORTED -->
-                <div id="toSorted">
-                    <MethodCard
+                <MethodCard
+                        id="toSorted"
                         methodName="toSorted()"
                         signature="arr.toSorted(compareFn?)"
                         description="Immutable version of sort - returns new sorted array"
@@ -1200,11 +907,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                             Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new sorted array</code>. Original array remains unchanged.
                         </InfoBox>
                     </MethodCard>
-                </div>
 
                 <!-- TOREVERSED -->
-                <div id="toReversed">
-                    <MethodCard
+                <MethodCard
+                        id="toReversed"
                         methodName="toReversed()"
                         signature="arr.toReversed()"
                         description="Immutable version of reverse - returns new reversed array"
@@ -1232,14 +938,55 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                             Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new reversed array</code>. Original array remains unchanged.
                         </InfoBox>
                     </MethodCard>
-                </div>
 
             <!-- === FIND / TEST === -->
-            <h3 id="find-test" class="text-gray-300 text-lg mt-4 mb-2">Find / Test</h3>
+            <SubSectionTitle id="find-test" parentColor="green">Find / Test</SubSectionTitle>
+
+                <!-- ARRAY.ISARRAY -->
+                <MethodCard
+                id="isArray"
+                methodName="Array.isArray()"
+                signature="Array.isArray(value)"
+                description="Checks if a value is an array"
+                mutates={false}
+            >
+                <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                    <Node label="Value" type="input">
+                        <div class="text-center text-sm font-mono">[1, 2, 3]</div>
+                    </Node>
+
+                    <Arrow label="checks type" />
+
+                    <Node label="Method" type="process">
+                        <ProcessContent name="Array.isArray(value)" description="Type check" />
+                    </Node>
+
+                    <Arrow label="returns" />
+
+                    <Node label="Result" type="output">
+                        <ReturnValue value="true" type="boolean" />
+                    </Node>
+                </div>
+
+                <InfoBox mutates={false} message="">
+                    Static method. Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">boolean</code>. Most reliable way to check if something is an array.
+                </InfoBox>
+
+                <ProTip>
+                    <div><strong>Why use Array.isArray():</strong></div>
+                    <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                        <div class="font-mono text-[10px]">Array.isArray([1, 2]) → true ✅</div>
+                        <div class="font-mono text-[10px]">Array.isArray("hello") → false <span class="text-gray-400">// strings have .length too!</span></div>
+                        <div class="font-mono text-[10px]">Array.isArray(&lbrace;0: 'a'&rbrace;) → false <span class="text-gray-400">// array-like but not array</span></div>
+                        <div class="font-mono text-[10px] mt-1"><span class="text-green-400">// Common pattern:</span></div>
+                        <div class="font-mono text-[10px]">const data = Array.isArray(input) ? input : [input];</div>
+                    </div>
+                </ProTip>
+            </MethodCard>
 
                 <!-- FIND -->
-                <div id="find">
-            <MethodCard
+                <MethodCard
+                id="find"
                 methodName="find()"
                 signature="arr.find(fn)"
                 description="Returns the first element that passes a test function"
@@ -1267,11 +1014,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                     Returns the <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">first matching item</code> or undefined if none found. ⚠️ Cannot be chained.
                 </InfoBox>
             </MethodCard>
-                </div>
 
                 <!-- INCLUDES -->
-                <div id="includes">
-            <MethodCard
+                <MethodCard
+                id="includes"
                 methodName="includes()"
                 signature="arr.includes(value)"
                 description="Checks if array contains a specific value"
@@ -1299,11 +1045,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                     Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">boolean</code>. ⚠️ Cannot be chained. Works with NaN unlike indexOf().
                 </InfoBox>
             </MethodCard>
-                </div>
 
                 <!-- INDEXOF -->
-                <div id="indexOf">
-                    <MethodCard
+                <MethodCard
+                        id="indexOf"
                         methodName="indexOf()"
                         signature="arr.indexOf(value)"
                         description="Returns the first index at which a value is found"
@@ -1331,11 +1076,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">number</code> (index) or -1 if not found. ⚠️ Cannot be chained. Doesn't work with NaN.
                         </InfoBox>
                     </MethodCard>
-                </div>
 
                 <!-- SOME -->
-                <div id="some">
-                    <MethodCard
+                <MethodCard
+                        id="some"
                         methodName="some()"
                         signature="arr.some(fn)"
                         description="Tests whether at least one element passes the test"
@@ -1363,11 +1107,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">boolean</code>. ⚠️ Cannot be chained. Returns true if ANY element passes the test.
                         </InfoBox>
                     </MethodCard>
-                </div>
 
                 <!-- EVERY -->
-                <div id="every">
-                    <MethodCard
+                <MethodCard
+                        id="every"
                         methodName="every()"
                         signature="arr.every(fn)"
                         description="Tests whether all elements pass the test"
@@ -1395,11 +1138,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">boolean</code>. ⚠️ Cannot be chained. Returns true only if ALL elements pass the test.
                         </InfoBox>
                     </MethodCard>
-                </div>
 
                 <!-- LASTINDEXOF -->
-                <div id="lastIndexOf">
-                    <MethodCard
+                <MethodCard
+                        id="lastIndexOf"
                         methodName="lastIndexOf()"
                         signature="arr.lastIndexOf(value)"
                         description="Returns the last index at which a value is found"
@@ -1427,11 +1169,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">number</code> (last index) or -1 if not found. ⚠️ Cannot be chained.
                         </InfoBox>
                     </MethodCard>
-                </div>
 
                 <!-- FINDLAST -->
-                <div id="findLast">
-                    <MethodCard
+                <MethodCard
+                        id="findLast"
                         methodName="findLast()"
                         signature="arr.findLast(fn)"
                         description="Returns the last element that passes a test function"
@@ -1459,11 +1200,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                             Returns the <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">last matching item</code> or undefined. ⚠️ Cannot be chained. Searches from end to start.
                         </InfoBox>
                     </MethodCard>
-                </div>
 
                 <!-- FINDINDEX -->
-                <div id="findIndex">
-                    <MethodCard
+                <MethodCard
+                        id="findIndex"
                         methodName="findIndex()"
                         signature="arr.findIndex(fn)"
                         description="Returns the index of first element that passes test"
@@ -1499,11 +1239,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- FINDLASTINDEX -->
-                <div id="findLastIndex">
-                    <MethodCard
+                <MethodCard
+                        id="findLastIndex"
                         methodName="findLastIndex()"
                         signature="arr.findLastIndex(fn)"
                         description="Returns the index of last element that passes test"
@@ -1531,11 +1270,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">index</code> of last match or -1. ⚠️ Cannot be chained. Searches from end to start.
                         </InfoBox>
                     </MethodCard>
-                </div>
 
                 <!-- AT -->
-                <div id="at">
-                    <MethodCard
+                <MethodCard
+                        id="at"
                         methodName="at()"
                         signature="arr.at(index)"
                         description="Returns element at given index (supports negative indices)"
@@ -1570,14 +1308,13 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
             <!-- === REDUCE === -->
-            <h3 id="reduce-section" class="text-gray-300 text-lg mt-4 mb-2">Reduce</h3>
+            <SubSectionTitle id="reduce-section" parentColor="green">Reduce</SubSectionTitle>
 
                 <!-- REDUCE -->
-                <div id="reduce">
-            <MethodCard
+                <MethodCard
+                id="reduce"
                 methodName="reduce()"
                 signature="arr.reduce(fn, initialValue)"
                 description="Reduces array to a single value by applying function with accumulator"
@@ -1614,11 +1351,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                     </div>
                 </ProTip>
             </MethodCard>
-                </div>
 
                 <!-- REDUCERIGHT -->
-                <div id="reduceRight">
-                    <MethodCard
+                <MethodCard
+                        id="reduceRight"
                         methodName="reduceRight()"
                         signature="arr.reduceRight(fn, initialValue)"
                         description="Reduces array from right to left with an accumulator"
@@ -1646,14 +1382,13 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                             Like reduce() but processes from <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">right to left</code>. Returns a single value. ⚠️ Cannot be chained.
                         </InfoBox>
                     </MethodCard>
-                </div>
 
                 <!-- === ITERATE / INSPECT === -->
-                <h3 id="iterate-inspect" class="text-gray-300 text-lg mt-4 mb-2">Iterate / Inspect</h3>
+                <SubSectionTitle id="iterate-inspect" parentColor="green">Iterate / Inspect</SubSectionTitle>
 
                 <!-- FOREACH -->
-                <div id="forEach">
-                    <MethodCard
+                <MethodCard
+                        id="forEach"
                         methodName="forEach()"
                         signature="arr.forEach(fn)"
                         description="Executes a function for each array element"
@@ -1689,11 +1424,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- ENTRIES -->
-                <div id="entries">
-                    <MethodCard
+                <MethodCard
+                        id="entries"
                         methodName="entries()"
                         signature="arr.entries()"
                         description="Returns an iterator of [index, value] pairs"
@@ -1721,11 +1455,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                             Returns an <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">iterator</code>. ⚠️ Cannot be chained directly. Use with for...of or Array.from().
                         </InfoBox>
                     </MethodCard>
-                </div>
 
                 <!-- KEYS -->
-                <div id="keys">
-                    <MethodCard
+                <MethodCard
+                        id="keys"
                         methodName="keys()"
                         signature="arr.keys()"
                         description="Returns an iterator of array indices"
@@ -1753,11 +1486,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                             Returns an <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">iterator</code> of array indices. ⚠️ Cannot be chained directly.
                         </InfoBox>
                     </MethodCard>
-                </div>
 
                 <!-- VALUES -->
-                <div id="values">
-                    <MethodCard
+                <MethodCard
+                        id="values"
                         methodName="values()"
                         signature="arr.values()"
                         description="Returns an iterator of array values"
@@ -1785,14 +1517,13 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                             Returns an <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">iterator</code> of array values. ⚠️ Cannot be chained directly.
                         </InfoBox>
                     </MethodCard>
-                </div>
 
                 <!-- === STRINGIFY === -->
-                <h3 id="stringify" class="text-gray-300 text-lg mt-4 mb-2">Stringify</h3>
+                <SubSectionTitle id="stringify" parentColor="green">Stringify</SubSectionTitle>
 
                 <!-- JOIN -->
-                <div id="join">
-                    <MethodCard
+                <MethodCard
+                        id="join"
                         methodName="join()"
                         signature="arr.join(separator?)"
                         description="Joins all elements into a string"
@@ -1820,11 +1551,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                             Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. ⚠️ Cannot be chained. Default separator is comma.
                         </InfoBox>
                     </MethodCard>
-                </div>
 
                 <!-- TOSTRING -->
-                <div id="toString">
-                    <MethodCard
+                <MethodCard
+                        id="toString"
                         methodName="toString()"
                         signature="arr.toString()"
                         description="Converts array to comma-separated string"
@@ -1852,11 +1582,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                             Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. ⚠️ Cannot be chained. Equivalent to join() without separator.
                         </InfoBox>
                     </MethodCard>
-                </div>
 
                 <!-- TOLOCALESTRING -->
-                <div id="toLocaleString">
-                    <MethodCard
+                <MethodCard
+                        id="toLocaleString"
                         methodName="toLocaleString()"
                         signature="arr.toLocaleString()"
                         description="Converts array to locale-specific string"
@@ -1884,18 +1613,9 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                             Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code> with locale-specific formatting. ⚠️ Cannot be chained.
                         </InfoBox>
                     </MethodCard>
-                </div>
-            </main>
 
-            <!-- Sidebar Navigation -->
-            <aside class="w-64 shrink-0 sticky top-4 self-start hidden lg:block max-h-[calc(100vh-2rem)] overflow-y-auto">
-                <!-- Global Navigation -->
-                <GlobalNav />
-
-                <!-- Page Navigation -->
-                <nav class="bg-[#252936] rounded-lg p-4 border border-gray-700">
-                    <h3 class="text-white text-sm font-bold mb-3 uppercase tracking-wide">On This Page</h3>
-                    <ul class="space-y-2 text-xs">
+    <Fragment slot="page-nav">
+ <ul class="space-y-2 text-xs">
                         <!-- Converting Section -->
                         <li>
                             <a href="#converting" class="text-blue-300 font-semibold hover:text-blue-200 block py-1">🔄 Converting</a>
@@ -2010,8 +1730,5 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro'
                             </ul>
                         </li>
                     </ul>
-                </nav>
-            </aside>
-        </div>
-	</body>
-</html>
+    </Fragment>
+</VisualLayout>

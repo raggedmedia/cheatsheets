@@ -23,6 +23,16 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
         </div>
     </ProTip>
 
+    <ProTip>
+        <div>📏 <strong>String length property:</strong> Get the number of characters with <code class="bg-black/30 px-1 py-0.5 rounded font-mono text-yellow-400">str.length</code></div>
+        <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+            <div class="font-mono text-[10px]">const text = "hello";</div>
+            <div class="font-mono text-[10px]">text.length → 5</div>
+            <div class="font-mono text-[10px] mt-1"><span class="text-orange-400">// Read-only! Can't change it:</span></div>
+            <div class="font-mono text-[10px]">text.length = 3 <span class="text-red-400">// doesn't work (strings immutable)</span></div>
+        </div>
+    </ProTip>
+
     <!-- ============================================ -->
     <!-- 🔍 INSPECT / CHECK -->
     <!-- ============================================ -->

@@ -25,6 +25,17 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                     </div>
                 </ProTip>
 
+                <ProTip>
+                    <div>📏 <strong>Getting object "length":</strong> Objects don't have a <code class="bg-black/30 px-1 py-0.5 rounded font-mono text-yellow-400">.length</code> property, but you can count properties:</div>
+                    <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                        <div class="font-mono text-[10px]">const user = &lbrace; name: "Alice", age: 25, city: "NYC" &rbrace;;</div>
+                        <div class="font-mono text-[10px]">Object.keys(user).length → 3 <span class="text-green-400">// count of properties</span></div>
+                        <div class="font-mono text-[10px] mt-1"><span class="text-blue-400">// Other ways to count:</span></div>
+                        <div class="font-mono text-[10px]">Object.values(user).length → 3</div>
+                        <div class="font-mono text-[10px]">Object.entries(user).length → 3</div>
+                    </div>
+                </ProTip>
+
                 <!-- ============================================ -->
                 <!-- 🛠 MUTATES THE OBJECT -->
                 <!-- ============================================ -->
