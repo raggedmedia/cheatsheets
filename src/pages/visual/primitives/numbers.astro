@@ -3,7 +3,7 @@ import MethodCard from '~components/visual-js/MethodCard.astro';
 import Node from '~components/visual-js/Node.astro';
 import Arrow from '~components/visual-js/Arrow.astro';
 import ReturnValue from '~components/visual-js/ReturnValue.astro';
-import InfoBox from '~components/visual-js/InfoBox.astro';
+import MutableOrNot from '~components/visual-js/MutableOrNot.astro';
 import ProcessContent from '~components/visual-js/ProcessContent.astro';
 import ProTip from '~components/visual-js/ProTip.astro';
 import SectionTitle from '~components/visual-js/SectionTitle.astro';
@@ -79,9 +79,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                 </Node>
             </div>
 
-            <InfoBox mutates={false} message="">
+            <MutableOrNot mutates={false} message="">
                 Parses until it hits a non-digit. Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">NaN</code> if no valid digits found.
-            </InfoBox>
+            </MutableOrNot>
 
             <ProTip>
                 <div>⚠️ <strong>Always specify radix (base 10):</strong></div>
@@ -122,9 +122,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                 </Node>
             </div>
 
-            <InfoBox mutates={false} message="">
+            <MutableOrNot mutates={false} message="">
                 Like <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">parseInt</code> but keeps decimal point.
-            </InfoBox>
+            </MutableOrNot>
 
             <ProTip>
                 <div>Examples:</div>
@@ -174,9 +174,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                 </Node>
             </div>
 
-            <InfoBox mutates={false} message="">
+            <MutableOrNot mutates={false} message="">
                 More strict than <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">parseInt</code> - entire string must be a valid number.
-            </InfoBox>
+            </MutableOrNot>
 
             <ProTip>
                 <div>💡 <strong>Unary + operator does the same:</strong></div>
@@ -231,9 +231,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                 </Node>
             </div>
 
-            <InfoBox mutates={false} message="">
+            <MutableOrNot mutates={false} message="">
                 Only returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">true</code> if the value is actually <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">NaN</code>.
-            </InfoBox>
+            </MutableOrNot>
 
             <ProTip>
                 <div>⚠️ <strong>Don't use global isNaN():</strong></div>
@@ -282,9 +282,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                 </Node>
             </div>
 
-            <InfoBox mutates={false} message="">
+            <MutableOrNot mutates={false} message="">
                 Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">true</code> if value is a number with no fractional part.
-            </InfoBox>
+            </MutableOrNot>
         </MethodCard>
 
     <!-- ============================================ -->
@@ -362,9 +362,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                 </div>
             </div>
 
-            <InfoBox mutates={false} message="">
+            <MutableOrNot mutates={false} message="">
                 <strong>floor</strong> = down, <strong>round</strong> = nearest, <strong>ceil</strong> = up (ceiling). All return integers.
-            </InfoBox>
+            </MutableOrNot>
 
             <ProTip>
                 <div>Round to decimal places:</div>
@@ -424,9 +424,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                 </div>
             </div>
 
-            <InfoBox mutates={false} message="">
+            <MutableOrNot mutates={false} message="">
                 Simply removes everything after the decimal point. Always rounds toward zero (unlike <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">floor()</code>).
-            </InfoBox>
+            </MutableOrNot>
 
             <ProTip>
                 <div>💡 <strong>Difference from floor:</strong></div>
@@ -487,9 +487,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                 </div>
             </div>
 
-            <InfoBox mutates={false} message="">
+            <MutableOrNot mutates={false} message="">
                 Returns the distance from zero. Always positive (or zero).
-            </InfoBox>
+            </MutableOrNot>
 
             <ProTip>
                 <div>Common use cases:</div>
@@ -551,9 +551,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                 </div>
             </div>
 
-            <InfoBox mutates={false} message="">
+            <MutableOrNot mutates={false} message="">
                 Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">1</code> for positive, <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">-1</code> for negative, <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">0</code> for zero.
-            </InfoBox>
+            </MutableOrNot>
 
             <ProTip>
                 <div>Perfect for animations & game dev:</div>
@@ -614,9 +614,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                 </div>
             </div>
 
-            <InfoBox mutates={false} message="">
+            <MutableOrNot mutates={false} message="">
                 <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">**</code> operator is preferred over <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">Math.pow()</code> (cleaner syntax).
-            </InfoBox>
+            </MutableOrNot>
 
             <ProTip>
                 <div>Common patterns:</div>
@@ -657,9 +657,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                 </Node>
             </div>
 
-            <InfoBox mutates={false} message="">
+            <MutableOrNot mutates={false} message="">
                 Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">NaN</code> for negative numbers. The inverse of squaring: √(x²) = x.
-            </InfoBox>
+            </MutableOrNot>
 
             <ProTip>
                 <div>Common use: distance formula (Pythagorean theorem):</div>
@@ -722,9 +722,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
             </div>
         </div>
 
-        <InfoBox mutates={false} message="">
+        <MutableOrNot mutates={false} message="">
             Takes multiple arguments. Use spread operator <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">...</code> to find min/max in arrays.
-        </InfoBox>
+        </MutableOrNot>
 
         <ProTip>
             <div>Common use cases:</div>
@@ -765,9 +765,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
             </div>
         </div>
 
-        <InfoBox mutates={false} message="">
+        <MutableOrNot mutates={false} message="">
             Returns decimal from 0 (inclusive) to 1 (exclusive). Want 1-100? Do <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">Math.floor(Math.random() * 100) + 1</code>
-        </InfoBox>
+        </MutableOrNot>
     </MethodCard>
 
     <!-- ============================================ -->
@@ -804,9 +804,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
             </Node>
         </div>
 
-        <InfoBox mutates={false} message="">
+        <MutableOrNot mutates={false} message="">
             Returns <strong>string</strong> with specified decimal places. Rounds if necessary.
-        </InfoBox>
+        </MutableOrNot>
 
         <ProTip>
             <div>⚠️ <strong>Returns string, not number!</strong></div>
@@ -853,9 +853,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
             </Node>
         </div>
 
-        <InfoBox mutates={false} message="">
+        <MutableOrNot mutates={false} message="">
             Format with thousands separators, currency, percentages. Returns <strong>string</strong>.
-        </InfoBox>
+        </MutableOrNot>
 
         <ProTip>
             <div>Currency formatting:</div>

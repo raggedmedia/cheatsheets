@@ -4,7 +4,7 @@ import MethodCard from '~components/visual-js/MethodCard.astro'
 import Node from '~components/visual-js/Node.astro'
 import Arrow from '~components/visual-js/Arrow.astro'
 import ReturnValue from '~components/visual-js/ReturnValue.astro'
-import InfoBox from '~components/visual-js/InfoBox.astro'
+import MutableOrNot from '~components/visual-js/MutableOrNot.astro';
 import ProcessContent from '~components/visual-js/ProcessContent.astro'
 import ProTip from '~components/visual-js/ProTip.astro'
 import SectionTitle from '~components/visual-js/SectionTitle.astro'
@@ -112,9 +112,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={true} message="">
+                        <MutableOrNot mutates={true} message="">
                             Modifies the original object. Returns the assigned value (or true for delete).
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
 
                 <!-- DELETE -->
@@ -149,9 +149,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={true} message="">
+                        <MutableOrNot mutates={true} message="">
                             Removes property from original object. Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">true</code> if deleted successfully.
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
 
                 <!-- PROPERTY SHORTHAND -->
@@ -181,9 +181,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             ES6 shorthand: <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">&lbrace; name &rbrace;</code> is equivalent to <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">&lbrace; name: name &rbrace;</code>.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div><strong>Common in function returns and destructuring:</strong></div>
@@ -222,9 +222,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new object</code> with property key computed from expression in <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">[brackets]</code>.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div><strong>Useful for dynamic object building:</strong></div>
@@ -264,9 +264,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={true} message="">
+                        <MutableOrNot mutates={true} message="">
                             Mutates the target object. Returns the modified target. Later sources overwrite earlier ones.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>Use empty object as target for immutable merge:</div>
@@ -305,9 +305,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={true} message="">
+                        <MutableOrNot mutates={true} message="">
                             Modifies object to be immutable. Returns the same object. Silently fails in non-strict mode.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div><strong>What happens if you try to modify?</strong></div>
@@ -355,9 +355,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={true} message="">
+                        <MutableOrNot mutates={true} message="">
                             Prevents adding/removing properties but allows editing values. Returns the same object.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div><strong>What happens if you try to add/remove?</strong></div>
@@ -416,9 +416,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Creates a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new object</code> with copied properties. Original unchanged.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>Spread is the modern way to clone and merge objects:</div>
@@ -455,9 +455,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Creates fully independent <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">deep copy</code>. Nested objects are also cloned.
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
                 </div>
 
@@ -490,9 +490,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">array</code> of own enumerable property names. ⚠️ Cannot be chained.
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
 
                 <!-- OBJECT.VALUES -->
@@ -521,9 +521,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">array</code> of own enumerable property values. ⚠️ Cannot be chained.
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
 
                 <!-- OBJECT.ENTRIES -->
@@ -552,9 +552,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">array</code> of [key, value] pairs. ⚠️ Cannot be chained. Perfect for iteration and transformation.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>Combo with <code class="bg-black/30 px-1 py-0.5 rounded font-mono text-yellow-400">Object.fromEntries()</code> for map/filter on objects:</div>
@@ -594,9 +594,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">boolean</code>. ⚠️ Cannot be chained. Safer than <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">hasOwnProperty()</code>.
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
 
                 <!-- IN OPERATOR -->
@@ -625,9 +625,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">boolean</code>. ⚠️ Checks entire prototype chain (includes inherited properties).
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div><strong>Difference from Object.hasOwn():</strong></div>
@@ -667,9 +667,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Creates variables from object properties. Original object unchanged.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div><strong>Advanced destructuring patterns:</strong></div>
@@ -710,9 +710,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">boolean</code>. Handles edge cases better than <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">===</code>.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div><strong>Key differences from ===:</strong></div>
@@ -753,9 +753,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new object</code>. Opposite of <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">Object.entries()</code>.
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
                 </div>
 
@@ -789,9 +789,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Loops over enumerable properties. ⚠️ Includes inherited props from prototype chain.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>⚠️ <strong>Always guard with Object.hasOwn()</strong> to skip inherited properties:</div>
@@ -832,9 +832,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Safe, modern approach. Only iterates own properties (not inherited). No guard needed.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>💡 <strong>Recommended for most cases:</strong></div>
@@ -874,9 +874,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Cleanest syntax with destructuring. Direct access to both key and value. Preferred for modern code.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>✨ <strong>Cleanest option</strong> - destructure directly in the loop:</div>
@@ -914,9 +914,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Use when you only need values, not keys. Simpler than Object.entries() when keys are irrelevant.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>Perfect for summing, filtering, or transforming values:</div>
@@ -963,9 +963,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new object</code>. Chain entries → map → fromEntries pattern.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>Common transformations:</div>
@@ -1010,9 +1010,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new object</code>. Removes properties that don't match condition.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>Common filters:</div>
@@ -1058,9 +1058,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new object</code>. Useful for API response transformations.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>Snake case to camel case converter:</div>
@@ -1103,9 +1103,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">undefined</code> if any part is null/undefined. No errors thrown!
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>⚠️ <strong>Old way vs modern way:</strong></div>
@@ -1146,9 +1146,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns right side only if left is <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">null</code> or <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">undefined</code>. Unlike <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">||</code>, keeps falsy values like 0, "", false.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div><strong>?? vs || (important difference!):</strong></div>
@@ -1192,9 +1192,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new object</code> with all nested levels cloned. Modifying nested objects won't affect original.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div><strong>Shallow vs Deep clone with nested objects:</strong></div>
@@ -1237,9 +1237,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new object</code>. Requires custom function or library (lodash.merge).
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div><strong>Simple deep merge function:</strong></div>

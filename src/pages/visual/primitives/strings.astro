@@ -4,7 +4,7 @@ import Node from '~components/visual-js/Node.astro';
 import ArrayDisplay from '~components/visual-js/ArrayDisplay.astro';
 import Arrow from '~components/visual-js/Arrow.astro';
 import ReturnValue from '~components/visual-js/ReturnValue.astro';
-import InfoBox from '~components/visual-js/InfoBox.astro';
+import MutableOrNot from '~components/visual-js/MutableOrNot.astro';
 import ProcessContent from '~components/visual-js/ProcessContent.astro';
 import ProTip from '~components/visual-js/ProTip.astro';
 import SectionTitle from '~components/visual-js/SectionTitle.astro';
@@ -67,9 +67,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code> (length 1). <strong>Index starts at 0.</strong> Returns empty string if out of bounds.
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
 
                 <!-- INCLUDES -->
@@ -98,9 +98,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">boolean</code>. ⚠️ Cannot be chained. Case-sensitive.
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
 
                 <!-- INDEXOF -->
@@ -129,9 +129,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">number</code> (index) or <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">-1</code> if not found. ⚠️ Cannot be chained.
-                        </InfoBox>
+                        </MutableOrNot>
 
                     </MethodCard>
 
@@ -161,9 +161,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">number</code> (index) or <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">-1</code> if not found. ⚠️ Cannot be chained. Searches from the end.
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
 
                 <!-- STARTSWITH -->
@@ -192,9 +192,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">boolean</code>. ⚠️ Cannot be chained.
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
 
                 <!-- ENDSWITH -->
@@ -223,9 +223,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">boolean</code>. ⚠️ Cannot be chained. Opposite of <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">startsWith()</code>.
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
                 </div>
 
@@ -263,9 +263,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. Accepts negative indexes (counts from end).
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>💡 <strong>Negative indexes are super useful:</strong></div>
@@ -302,9 +302,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. Does NOT accept negative indexes. Prefer <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">slice()</code> for consistency.
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
 
                 <!-- SPLIT -->
@@ -333,9 +333,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">array</code> of strings. ⚠️ Cannot be chained with string methods.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>Common patterns:</div>
@@ -382,9 +382,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. Converts all characters to uppercase.
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
 
                 <!-- TOLOWERCASE -->
@@ -413,9 +413,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. Converts all characters to lowercase.
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
 
                 <!-- CAPITALIZE WORDS -->
@@ -444,9 +444,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. No built-in method for this - requires regex.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>Breaking down the regex:</div>
@@ -494,9 +494,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. Use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">trimStart()</code> or <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">trimEnd()</code> for one side only.
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
 
                 <!-- PADSTART -->
@@ -525,9 +525,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. Use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">padEnd()</code> for right padding.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>Common real-world use cases:</div>
@@ -566,9 +566,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. The mirror opposite of <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">padStart()</code>.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>💡 <strong>Perfect for creating tables or aligned text:</strong></div>
@@ -614,9 +614,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. Prefer template literals <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">`$&lbrace;a&rbrace; $&lbrace;b&rbrace;`</code> for readability.
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
 
                 <!-- REPEAT -->
@@ -645,9 +645,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. Useful for creating patterns or dividers.
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
 
                 <!-- REPLACE -->
@@ -676,9 +676,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. Only replaces FIRST match. Use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">replaceAll()</code> for all matches.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>⚠️ <strong>Gotcha:</strong> Only replaces first match!</div>
@@ -716,9 +716,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. Replaces ALL occurrences. Modern browsers only (ES2021).
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
                 </div>
 
@@ -756,9 +756,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">array</code> of matches or <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">null</code>. ⚠️ Cannot be chained.
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
 
                 <!-- SEARCH -->
@@ -787,9 +787,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">number</code> (index) or <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">-1</code> if not found. ⚠️ Cannot be chained.
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
                 </div>
 
@@ -827,9 +827,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. Default separator is comma. Use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">''</code> to concatenate without separator.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>Common use cases:</div>
@@ -868,9 +868,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. Both <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">String(num)</code> and <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">num.toString()</code> work.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>Three ways to convert numbers:</div>
@@ -910,9 +910,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code> (JSON format). Use for serialization, API requests, localStorage, etc.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>Formatting options:</div>
@@ -960,9 +960,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. No built-in prepend/append - use template literals or <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">concat()</code>.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>Common use cases:</div>
@@ -1007,9 +1007,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. No built-in reverse - chain array methods.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>⚠️ <strong>Not Unicode-safe!</strong> Use for simple ASCII only:</div>
@@ -1048,9 +1048,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">boolean</code>. Trim first to catch whitespace-only strings.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>Different empty checks:</div>

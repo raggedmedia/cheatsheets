@@ -1,49 +1,80 @@
 ---
-import '~styles/styles.css'
 import MethodCard from '~components/visual-js/MethodCard.astro';
-import Node from '~components/visual-js/Node.astro';
-import ArrayDisplay from '~components/visual-js/ArrayDisplay.astro';
-import Arrow from '~components/visual-js/Arrow.astro';
-import ReturnValue from '~components/visual-js/ReturnValue.astro';
-import InfoBox from '~components/visual-js/InfoBox.astro';
-import ProcessContent from '~components/visual-js/ProcessContent.astro';
+import MutableOrNot from '~components/visual-js/MutableOrNot.astro';
 import ProTip from '~components/visual-js/ProTip.astro';
-import GlobalNav from '~components/visual-js/GlobalNav.astro';
+import SectionTitle from '~components/visual-js/SectionTitle.astro';
+import SubSectionTitle from '~components/visual-js/SubSectionTitle.astro';
+import VisualLayout from 'src/layouts/VisualLayout.astro';
 ---
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>JavaScript Loops & Iteration - Visual Cheatsheet</title>
-    </head>
-    <body class="m-0 p-4 bg-[#1a1d29] text-gray-200">
-        <div class="flex gap-6 max-w-[1600px] mx-auto">
-            <!-- Main Content -->
-            <main class="flex-1 min-w-0">
-                <h1 class="text-white mb-1 text-2xl font-bold">JavaScript Loops & Iteration</h1>
-                <p class="text-gray-400 mb-6 text-sm">Visual blueprint-style reference for loops and iteration patterns</p>
-
+<VisualLayout
+    pageTitle="Javascript Loops"
+>
                 <ProTip>
-                    <div>💡 <strong>Choose the right loop:</strong></div>
-                    <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                        <div class="font-mono text-[10px]"><strong>Arrays:</strong> use <code class="bg-black/30 px-1 py-0.5 rounded">for...of</code> or <code class="bg-black/30 px-1 py-0.5 rounded">.forEach()</code></div>
-                        <div class="font-mono text-[10px]"><strong>Objects:</strong> use <code class="bg-black/30 px-1 py-0.5 rounded">for...in</code> or <code class="bg-black/30 px-1 py-0.5 rounded">Object.keys()</code></div>
-                        <div class="font-mono text-[10px]"><strong>Need index:</strong> use <code class="bg-black/30 px-1 py-0.5 rounded">for</code> or <code class="bg-black/30 px-1 py-0.5 rounded">.forEach((item, i) => ...)</code></div>
-                        <div class="font-mono text-[10px]"><strong>Transform array:</strong> use <code class="bg-black/30 px-1 py-0.5 rounded">.map()</code></div>
+                    <div class="space-y-3">
+                        <div>
+                            <strong class="text-blue-300">🔄 When to Use Each Loop Type</strong>
+                        </div>
+
+                        <div class="space-y-2 text-sm">
+                            <div class="border-l-2 border-blue-500/30 pl-3">
+                                <div class="text-blue-300 font-semibold mb-1">Arrays (Iterable)</div>
+                                <div class="space-y-1 text-xs">
+                                    <div>• <code class="bg-black/40 px-1 py-0.5 rounded text-blue-300">.forEach()</code> — Best for simple iteration, very readable</div>
+                                    <div>• <code class="bg-black/40 px-1 py-0.5 rounded text-blue-300">for...of</code> — When you need break/continue/return/await</div>
+                                    <div>• <code class="bg-black/40 px-1 py-0.5 rounded text-blue-300">.map()</code> — Transform each item, returns NEW array</div>
+                                    <div>• <code class="bg-black/40 px-1 py-0.5 rounded text-blue-300">for (i=0...)</code> — When you need index control or reverse iteration</div>
+                                </div>
+                            </div>
+
+                            <div class="border-l-2 border-purple-500/30 pl-3">
+                                <div class="text-purple-300 font-semibold mb-1">Objects (Key-Value Pairs)</div>
+                                <div class="space-y-1 text-xs">
+                                    <div>• <code class="bg-black/40 px-1 py-0.5 rounded text-purple-300">for...in</code> — Loop over object keys (includes inherited)</div>
+                                    <div>• <code class="bg-black/40 px-1 py-0.5 rounded text-purple-300">Object.keys(obj)</code> — Convert to array, then use array methods</div>
+                                    <div>• <code class="bg-black/40 px-1 py-0.5 rounded text-purple-300">Object.entries(obj)</code> — Get [key, value] pairs as array</div>
+                                </div>
+                            </div>
+
+                            <div class="border-l-2 border-yellow-500/30 pl-3">
+                                <div class="text-yellow-300 font-semibold mb-1">⚠️ Primitives (Strings, Numbers, Booleans)</div>
+                                <div class="space-y-1 text-xs">
+                                    <div>• <strong>Strings:</strong> Convert to array first: <code class="bg-black/40 px-1 py-0.5 rounded">[...str]</code> or <code class="bg-black/40 px-1 py-0.5 rounded">str.split('')</code></div>
+                                    <div>• <strong>Numbers:</strong> Can't loop directly—use range helpers or Array(n)</div>
+                                    <div>• <strong>Note:</strong> Strings ARE iterable with for...of, but array methods give more control</div>
+                                </div>
+                            </div>
+
+                            <div class="border-l-2 border-orange-500/30 pl-3">
+                                <div class="text-orange-300 font-semibold mb-1">While Loops</div>
+                                <div class="space-y-1 text-xs">
+                                    <div>• <code class="bg-black/40 px-1 py-0.5 rounded text-orange-300">while</code> — Unknown iterations, keep going until condition false</div>
+                                    <div>• <code class="bg-black/40 px-1 py-0.5 rounded text-orange-300">do...while</code> — Same but guaranteed to run at least once</div>
+                                </div>
+                            </div>
+
+                            <div class="border-l-2 border-red-500/30 pl-3">
+                                <div class="text-red-300 font-semibold mb-1">Control Flow (break/continue)</div>
+                                <div class="space-y-1 text-xs">
+                                    <div>• <code class="bg-black/40 px-1 py-0.5 rounded text-red-300">break</code> — Exit loop completely</div>
+                                    <div>• <code class="bg-black/40 px-1 py-0.5 rounded text-red-300">continue</code> — Skip to next iteration</div>
+                                    <div>• <strong>⚠️ Don't work with .forEach()</strong> — Use for...of if you need these</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </ProTip>
+                </MutableOrNot>
 
                 <!-- ============================================ -->
                 <!-- 🔄 ARRAY LOOPS -->
                 <!-- ============================================ -->
 
-                <h2 id="array-loops" class="text-blue-300 text-xl my-4 pb-2 border-b-2 border-blue-600">
+                <SectionTitle id="array-loops" color="blue">
                     🔄 Array Loops
-                </h2>
+                </SectionTitle>
 
                 <!-- FOR...OF -->
-                <div id="for-of">
-                    <MethodCard
+                <MethodCard
+                        id="for-of"
                         methodName="for...of"
                         signature="for (const item of array) { }"
                         description="Loop over array values (modern, recommended)"
@@ -52,9 +83,9 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                         <div class="p-4 bg-gray-800 rounded border border-gray-700">
                             <!-- Code -->
                             <div class="font-mono text-sm mb-4">
-                                <span class="text-purple-300">for</span> <span class="text-purple-300">(</span><span class="text-gray-400">const</span> <span class="text-blue-300">item</span> <span class="text-purple-300">of</span> <span class="text-orange-300">['a', 'b', 'c']</span><span class="text-purple-300">) {</span>
+                                <span class="text-purple-300">for</span> <span class="text-purple-300">(</span><span class="text-gray-400">const</span> <span class="text-blue-300">item</span> <span class="text-purple-300">of</span> <span class="text-orange-300">['a', 'b', 'c']</span><span class="text-purple-300">) {'{'}</span>
                                 <div class="ml-4"><span class="text-gray-400">console.log(item)</span></div>
-                                <span class="text-purple-300">}</span>
+                                <span class="text-purple-300">{'}'}</span>
                             </div>
 
                             <!-- Iteration visualization -->
@@ -85,28 +116,27 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Modern, clean syntax. Works with arrays, strings, Maps, Sets. <strong>Cannot access index directly.</strong>
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>✨ <strong>Recommended for most array iteration:</strong></div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                                <div class="font-mono text-[10px]">for (const item of arr) &lbrace;</div>
+                                <div class="font-mono text-[10px]">for (const item of arr) {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;console.log(item) <span class="text-gray-400">// clean & readable</span></div>
-                                <div class="font-mono text-[10px]">&rbrace;</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
                                 <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Get index with entries()</span></div>
-                                <div class="font-mono text-[10px]">for (const [i, item] of arr.entries()) &lbrace;</div>
+                                <div class="font-mono text-[10px]">for (const [i, item] of arr.entries()) {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;console.log(i, item)</div>
-                                <div class="font-mono text-[10px]">&rbrace;</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- FOREACH -->
-                <div id="forEach">
-                    <MethodCard
+                <MethodCard
+                        id="forEach"
                         methodName="forEach()"
                         signature="arr.forEach((item, index) => { })"
                         description="Execute function for each array element"
@@ -115,9 +145,9 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                         <div class="p-4 bg-gray-800 rounded border border-gray-700">
                             <!-- Code -->
                             <div class="font-mono text-sm mb-4">
-                                <span class="text-orange-300">['a', 'b', 'c']</span><span class="text-purple-300">.forEach((</span><span class="text-blue-300">item</span><span class="text-purple-300">,</span> <span class="text-cyan-300">index</span><span class="text-purple-300">) => {</span>
+                                <span class="text-orange-300">['a', 'b', 'c']</span><span class="text-purple-300">.forEach((</span><span class="text-blue-300">item</span><span class="text-purple-300">,</span> <span class="text-cyan-300">index</span><span class="text-purple-300">) => {'{'}</span>
                                 <div class="ml-4"><span class="text-gray-400">console.log(index, item)</span></div>
-                                <span class="text-purple-300">})</span>
+                                <span class="text-purple-300">{'}'})</span>
                             </div>
 
                             <!-- Iteration visualization -->
@@ -148,28 +178,27 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">undefined</code>. ⚠️ Cannot break or return early. Cannot be chained.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>⚠️ <strong>Gotchas:</strong></div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                                <div class="font-mono text-[10px]">arr.forEach(item =&gt; &lbrace;</div>
+                                <div class="font-mono text-[10px]">arr.forEach(item =&gt; {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;if (item === 'stop') return <span class="text-red-400">// only exits callback, not loop! ⚠️</span></div>
-                                <div class="font-mono text-[10px]">&rbrace;)</div>
+                                <div class="font-mono text-[10px]">{'}'})</div>
                                 <div class="font-mono text-[10px] mt-1"><span class="text-green-400">// Use for...of if you need to break:</span></div>
-                                <div class="font-mono text-[10px]">for (const item of arr) &lbrace;</div>
+                                <div class="font-mono text-[10px]">for (const item of arr) {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;if (item === 'stop') break ✅ <span class="text-gray-400">// exits loop</span></div>
-                                <div class="font-mono text-[10px]">&rbrace;</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- CLASSIC FOR LOOP -->
-                <div id="for-loop">
-                    <MethodCard
+                <MethodCard
+                        id="for-loop"
                         methodName="for loop"
                         signature="for (let i = 0; i < arr.length; i++) { }"
                         description="Classic indexed loop (C-style)"
@@ -179,9 +208,9 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             <!-- Code -->
                             <div class="font-mono text-sm mb-4">
                                 <span class="text-gray-400">const</span> <span class="text-orange-300">arr</span> = <span class="text-orange-300">['a', 'b', 'c']</span>
-                                <div class="mt-1"><span class="text-purple-300">for</span> <span class="text-purple-300">(</span><span class="text-gray-400">let</span> <span class="text-cyan-300">i</span> = <span class="text-green-300">0</span><span class="text-purple-300">;</span> <span class="text-cyan-300">i</span> <span class="text-purple-300">&lt;</span> <span class="text-orange-300">arr.length</span><span class="text-purple-300">;</span> <span class="text-cyan-300">i</span><span class="text-purple-300">++) {</span></div>
+                                <div class="mt-1"><span class="text-purple-300">for</span> <span class="text-purple-300">(</span><span class="text-gray-400">let</span> <span class="text-cyan-300">i</span> = <span class="text-green-300">0</span><span class="text-purple-300">;</span> <span class="text-cyan-300">i</span> <span class="text-purple-300">&lt;</span> <span class="text-orange-300">arr.length</span><span class="text-purple-300">;</span> <span class="text-cyan-300">i</span><span class="text-purple-300">++) {'{'}</span></div>
                                 <div class="ml-4"><span class="text-gray-400">console.log(i, arr[i])</span></div>
-                                <span class="text-purple-300">}</span>
+                                <span class="text-purple-300">{'}'}</span>
                             </div>
 
                             <!-- Iteration visualization -->
@@ -213,29 +242,28 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Full control over iteration. Can break/continue. Good for complex iteration patterns.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>When to use classic for loop:</div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
                                 <div class="font-mono text-[10px]"><span class="text-gray-400">// Iterate backwards</span></div>
-                                <div class="font-mono text-[10px]">for (let i = arr.length - 1; i &gt;= 0; i--) &lbrace; ... &rbrace;</div>
+                                <div class="font-mono text-[10px]">for (let i = arr.length - 1; i &gt;= 0; i--) {'{'} ... {'}'}</div>
                                 <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Skip elements</span></div>
-                                <div class="font-mono text-[10px]">for (let i = 0; i &lt; arr.length; i += 2) &lbrace; ... &rbrace;</div>
+                                <div class="font-mono text-[10px]">for (let i = 0; i &lt; arr.length; i += 2) {'{'} ... {'}'}</div>
                                 <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Nested loops</span></div>
-                                <div class="font-mono text-[10px]">for (let i = 0; i &lt; rows; i++) &lbrace;</div>
-                                <div class="font-mono text-[10px]">&nbsp;&nbsp;for (let j = 0; j &lt; cols; j++) &lbrace; ... &rbrace;</div>
-                                <div class="font-mono text-[10px]">&rbrace;</div>
+                                <div class="font-mono text-[10px]">for (let i = 0; i &lt; rows; i++) {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;for (let j = 0; j &lt; cols; j++) {'{'} ... {'}'}</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- MAP -->
-                <div id="map">
-                    <MethodCard
+                <MethodCard
+                        id="map"
                         methodName="map()"
                         signature="arr.map(item => newItem)"
                         description="Transform each element, return new array"
@@ -292,9 +320,9 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> with transformed elements. Original array unchanged. Can be chained.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>💡 <strong>Use map() when you need a transformed array:</strong></div>
@@ -306,11 +334,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- FILTER -->
-                <div id="filter">
-                    <MethodCard
+                <MethodCard
+                        id="filter"
                         methodName="filter()"
                         signature="arr.filter(item => boolean)"
                         description="Keep only elements that pass the test"
@@ -387,9 +414,9 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> with items that pass the test. Original array unchanged.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>🎯 <strong>Common patterns:</strong></div>
@@ -402,11 +429,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- REDUCE -->
-                <div id="reduce">
-                    <MethodCard
+                <MethodCard
+                        id="reduce"
                         methodName="reduce()"
                         signature="arr.reduce((acc, item) => acc + item, initial)"
                         description="Reduce array to a single value"
@@ -477,9 +503,9 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Most powerful array method. Accumulates values into single result. Can build any data structure.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>💪 <strong>Versatile patterns:</strong></div>
@@ -487,23 +513,22 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                 <div class="font-mono text-[10px]"><span class="text-gray-400">// Sum numbers</span></div>
                                 <div class="font-mono text-[10px]">arr.reduce((sum, x) =&gt; sum + x, 0)</div>
                                 <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Count occurrences</span></div>
-                                <div class="font-mono text-[10px]">arr.reduce((counts, item) =&gt; &lbrace;</div>
+                                <div class="font-mono text-[10px]">arr.reduce((counts, item) =&gt; {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;counts[item] = (counts[item] || 0) + 1</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;return counts</div>
-                                <div class="font-mono text-[10px]">&rbrace;, &lbrace;&rbrace;)</div>
+                                <div class="font-mono text-[10px]">{'}'}, {'{'}{'}'})</div>
                                 <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Group by property</span></div>
-                                <div class="font-mono text-[10px]">users.reduce((groups, u) =&gt; &lbrace;</div>
+                                <div class="font-mono text-[10px]">users.reduce((groups, u) =&gt; {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;(groups[u.role] ||= []).push(u)</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;return groups</div>
-                                <div class="font-mono text-[10px]">&rbrace;, &lbrace;&rbrace;)</div>
+                                <div class="font-mono text-[10px]">{'}'}, {'{'}{'}'})</div>
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- FIND -->
-                <div id="find">
-                    <MethodCard
+                <MethodCard
+                        id="find"
                         methodName="find()"
                         signature="arr.find(item => boolean)"
                         description="Return first element that passes the test"
@@ -577,9 +602,9 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">first matching element</code> or <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">undefined</code>. Stops after first match (efficient).
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>🔍 <strong>Finding items:</strong></div>
@@ -591,11 +616,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- SOME / EVERY -->
-                <div id="some-every">
-                    <MethodCard
+                <MethodCard
+                        id="some-every"
                         methodName="some() / every()"
                         signature="arr.some(item => boolean) / arr.every(item => boolean)"
                         description="Test if any/all elements pass the test"
@@ -669,11 +693,11 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             <div><strong>some():</strong> true if <strong>any</strong> element passes (OR logic)</div>
                             <div><strong>every():</strong> true if <strong>all</strong> elements pass (AND logic)</div>
                             Both short-circuit (stop early when result is determined).
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>✅ <strong>Validation patterns:</strong></div>
@@ -685,11 +709,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- FINDINDEX -->
-                <div id="findIndex">
-                    <MethodCard
+                <MethodCard
+                        id="findIndex"
                         methodName="findIndex()"
                         signature="arr.findIndex(item => boolean)"
                         description="Returns index of first matching element, or -1"
@@ -699,9 +722,9 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             <!-- Code -->
                             <div class="font-mono text-sm mb-4">
                                 <span class="text-gray-400">const</span> <span class="text-blue-300">users</span> = <span class="text-orange-300">[</span>
-                                <div class="ml-4"><span class="text-orange-300">&lbrace; id: 10, name: 'Alice' &rbrace;,</span></div>
-                                <div class="ml-4"><span class="text-orange-300">&lbrace; id: 20, name: 'Bob' &rbrace;,</span></div>
-                                <div class="ml-4"><span class="text-orange-300">&lbrace; id: 30, name: 'Charlie' &rbrace;</span></div>
+                                <div class="ml-4"><span class="text-orange-300">{'{'} id: 10, name: 'Alice' {'}'},</span></div>
+                                <div class="ml-4"><span class="text-orange-300">{'{'} id: 20, name: 'Bob' {'}'},</span></div>
+                                <div class="ml-4"><span class="text-orange-300">{'{'} id: 30, name: 'Charlie' {'}'}</span></div>
                                 <span class="text-orange-300">]</span>
                                 <div class="mt-2"><span class="text-blue-300">users</span><span class="text-purple-300">.findIndex(</span><span class="text-gray-400">u</span> <span class="text-purple-300">=&gt;</span> <span class="text-gray-400">u.id</span> <span class="text-purple-300">===</span> <span class="text-green-300">20</span><span class="text-purple-300">)</span></div>
                             </div>
@@ -712,21 +735,21 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
 
                                 <div class="flex items-center gap-2">
                                     <div class="w-12 p-1.5 bg-cyan-500/10 border border-cyan-500/30 rounded text-center font-mono text-[10px]">i = 0</div>
-                                    <div class="flex-1 p-2 bg-blue-500/10 border border-blue-500/30 rounded font-mono text-sm">&lbrace;id: 10&rbrace;</div>
+                                    <div class="flex-1 p-2 bg-blue-500/10 border border-blue-500/30 rounded font-mono text-sm">{'{'}id: 10{'}'}</div>
                                     <div class="text-gray-400">→ 10 === 20?</div>
                                     <div class="w-16 p-2 bg-red-500/10 border border-red-500/30 rounded text-center font-mono text-red-300 text-[10px]">false</div>
                                 </div>
 
                                 <div class="flex items-center gap-2">
                                     <div class="w-12 p-1.5 bg-cyan-500/10 border border-cyan-500/30 rounded text-center font-mono text-[10px]">i = 1</div>
-                                    <div class="flex-1 p-2 bg-blue-500/10 border border-blue-500/30 rounded font-mono text-sm">&lbrace;id: 20&rbrace;</div>
+                                    <div class="flex-1 p-2 bg-blue-500/10 border border-blue-500/30 rounded font-mono text-sm">{'{'}id: 20{'}'}</div>
                                     <div class="text-gray-400">→ 20 === 20?</div>
                                     <div class="w-16 p-2 bg-green-500/10 border border-green-500/30 rounded text-center font-mono text-green-300 text-[10px]">true ✓</div>
                                 </div>
 
                                 <div class="flex items-center gap-2 opacity-40">
                                     <div class="w-12 p-1.5 bg-gray-500/10 border border-gray-500/30 rounded text-center font-mono text-[10px]">i = 2</div>
-                                    <div class="flex-1 p-2 bg-gray-500/10 border border-gray-500/30 rounded font-mono text-sm text-gray-500">&lbrace;id: 30&rbrace;</div>
+                                    <div class="flex-1 p-2 bg-gray-500/10 border border-gray-500/30 rounded font-mono text-sm text-gray-500">{'{'}id: 30{'}'}</div>
                                     <div class="text-gray-500">not tested</div>
                                 </div>
 
@@ -737,9 +760,9 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <strong>index</strong> of first match, or <strong>-1</strong> if not found. Use when you need the position, not the element itself.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>🎯 <strong>Common use cases:</strong></div>
@@ -753,11 +776,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- FLATMAP -->
-                <div id="flatMap">
-                    <MethodCard
+                <MethodCard
+                        id="flatMap"
                         methodName="flatMap()"
                         signature="arr.flatMap(item => [...result])"
                         description="Maps then flattens result one level"
@@ -767,8 +789,8 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             <!-- Code -->
                             <div class="font-mono text-sm mb-4">
                                 <span class="text-gray-400">const</span> <span class="text-blue-300">users</span> = <span class="text-orange-300">[</span>
-                                <div class="ml-4"><span class="text-orange-300">&lbrace; name: 'Alice', pets: ['dog', 'cat'] &rbrace;,</span></div>
-                                <div class="ml-4"><span class="text-orange-300">&lbrace; name: 'Bob', pets: ['fish'] &rbrace;</span></div>
+                                <div class="ml-4"><span class="text-orange-300">{'{'} name: 'Alice', pets: ['dog', 'cat'] {'}'},</span></div>
+                                <div class="ml-4"><span class="text-orange-300">{'{'} name: 'Bob', pets: ['fish'] {'}'}</span></div>
                                 <span class="text-orange-300">]</span>
                                 <div class="mt-2"><span class="text-blue-300">users</span><span class="text-purple-300">.flatMap(</span><span class="text-gray-400">u</span> <span class="text-purple-300">=&gt;</span> <span class="text-gray-400">u.pets</span><span class="text-purple-300">)</span></div>
                             </div>
@@ -778,12 +800,12 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                 <div class="text-gray-400 mb-2">Map each item to array, then flatten one level:</div>
 
                                 <div class="p-2 bg-blue-500/10 border border-blue-500/30 rounded">
-                                    <div class="font-mono text-sm">&lbrace;name: 'Alice', pets: <span class="text-orange-300">['dog', 'cat']</span>&rbrace;</div>
+                                    <div class="font-mono text-sm">{'{'}name: 'Alice', pets: <span class="text-orange-300">['dog', 'cat']</span>{'}'}</div>
                                     <div class="text-gray-400 text-[10px] mt-1">→ map: <span class="text-purple-300">['dog', 'cat']</span></div>
                                 </div>
 
                                 <div class="p-2 bg-blue-500/10 border border-blue-500/30 rounded">
-                                    <div class="font-mono text-sm">&lbrace;name: 'Bob', pets: <span class="text-orange-300">['fish']</span>&rbrace;</div>
+                                    <div class="font-mono text-sm">{'{'}name: 'Bob', pets: <span class="text-orange-300">['fish']</span>{'}'}</div>
                                     <div class="text-gray-400 text-[10px] mt-1">→ map: <span class="text-purple-300">['fish']</span></div>
                                 </div>
 
@@ -799,9 +821,9 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Equivalent to <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">.map().flat()</code> but more efficient. Great for extracting nested arrays.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>🚀 <strong>Common patterns:</strong></div>
@@ -815,19 +837,18 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- ============================================ -->
                 <!-- 🔑 OBJECT LOOPS -->
                 <!-- ============================================ -->
 
-                <h2 id="object-loops" class="text-purple-300 text-xl my-4 pb-2 border-b-2 border-purple-600">
+                <SectionTitle id="object-loops" color="purple">
                     🔑 Object Loops
-                </h2>
+                </SectionTitle>
 
                 <!-- FOR...IN -->
-                <div id="for-in">
-                    <MethodCard
+                <MethodCard
+                        id="for-in"
                         methodName="for...in"
                         signature="for (const key in obj) { }"
                         description="Loop over object keys (includes inherited)"
@@ -836,10 +857,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                         <div class="p-4 bg-gray-800 rounded border border-gray-700">
                             <!-- Code -->
                             <div class="font-mono text-sm mb-4">
-                                <span class="text-gray-400">const</span> <span class="text-blue-300">obj</span> = <span class="text-orange-300">&lbrace; name: 'Alice', age: 30 &rbrace;</span>
-                                <div class="mt-2"><span class="text-purple-300">for</span> <span class="text-purple-300">(</span><span class="text-gray-400">const</span> <span class="text-cyan-300">key</span> <span class="text-purple-300">in</span> <span class="text-blue-300">obj</span><span class="text-purple-300">) {</span></div>
+                                <span class="text-gray-400">const</span> <span class="text-blue-300">obj</span> = <span class="text-orange-300">{'{'} name: 'Alice', age: 30 {'}'}</span>
+                                <div class="mt-2"><span class="text-purple-300">for</span> <span class="text-purple-300">(</span><span class="text-gray-400">const</span> <span class="text-cyan-300">key</span> <span class="text-purple-300">in</span> <span class="text-blue-300">obj</span><span class="text-purple-300">) {'{'}</span></div>
                                 <div class="ml-4"><span class="text-gray-400">console.log(</span><span class="text-cyan-300">key</span>, <span class="text-blue-300">obj</span>[<span class="text-cyan-300">key</span>]<span class="text-gray-400">)</span></div>
-                                <span class="text-purple-300">}</span>
+                                <span class="text-purple-300">{'}'}</span>
                             </div>
 
                             <!-- Flow visualization -->
@@ -847,7 +868,7 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                 <div class="text-gray-400 mb-2">Iterates over each key:</div>
 
                                 <div class="p-2 bg-blue-500/10 border border-blue-500/30 rounded">
-                                    <div class="font-mono text-sm">obj = <span class="text-orange-300">&lbrace; name: 'Alice', age: 30 &rbrace;</span></div>
+                                    <div class="font-mono text-sm">obj = <span class="text-orange-300">{'{'} name: 'Alice', age: 30 {'}'}</span></div>
                                 </div>
 
                                 <div class="p-2 bg-purple-500/10 border border-purple-500/30 rounded">
@@ -866,34 +887,33 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             ⚠️ Includes inherited properties from prototype chain. <strong>Always guard with Object.hasOwn().</strong>
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>⚠️ <strong>The inherited properties problem:</strong></div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                                <div class="font-mono text-[10px]">const obj = &lbrace;name: 'Alice', age: 30&rbrace;</div>
+                                <div class="font-mono text-[10px]">const obj = {'{'}name: 'Alice', age: 30{'}'}</div>
                                 <div class="font-mono text-[10px]">Object.prototype.debug = true <span class="text-red-400">// added to ALL objects</span></div>
-                                <div class="font-mono text-[10px] mt-1">for (const key in obj) &lbrace;</div>
+                                <div class="font-mono text-[10px] mt-1">for (const key in obj) {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;console.log(key) <span class="text-red-400">// 'name', 'age', 'debug' ❌</span></div>
-                                <div class="font-mono text-[10px]">&rbrace;</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
                                 <div class="font-mono text-[10px] mt-1"><span class="text-green-400">// Fix: Use hasOwn() to skip inherited properties</span></div>
-                                <div class="font-mono text-[10px]">for (const key in obj) &lbrace;</div>
-                                <div class="font-mono text-[10px]">&nbsp;&nbsp;if (Object.hasOwn(obj, key)) &lbrace;</div>
+                                <div class="font-mono text-[10px]">for (const key in obj) {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;if (Object.hasOwn(obj, key)) {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;console.log(key) <span class="text-green-400">// 'name', 'age' ✅</span></div>
-                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&rbrace;</div>
-                                <div class="font-mono text-[10px]">&rbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;{'}'}</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
                                 <div class="font-mono text-[10px] mt-1"><span class="text-green-400">// Better: Object.keys() automatically skips inherited:</span></div>
-                                <div class="font-mono text-[10px]">Object.keys(obj).forEach(key =&gt; &lbrace; ... &rbrace;) ✅</div>
+                                <div class="font-mono text-[10px]">Object.keys(obj).forEach(key =&gt; {'{'} ... {'}'}) ✅</div>
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- OBJECT.KEYS -->
-                <div id="object-keys">
-                    <MethodCard
+                <MethodCard
+                        id="object-keys"
                         methodName="Object.keys()"
                         signature="Object.keys(obj).forEach(key => { })"
                         description="Loop over own keys only (modern, safe)"
@@ -902,10 +922,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                         <div class="p-4 bg-gray-800 rounded border border-gray-700">
                             <!-- Code -->
                             <div class="font-mono text-sm mb-4">
-                                <span class="text-gray-400">const</span> <span class="text-blue-300">obj</span> = <span class="text-orange-300">&lbrace; a: 1, b: 2, c: 3 &rbrace;</span>
-                                <div class="mt-2"><span class="text-purple-300">Object.keys(</span><span class="text-blue-300">obj</span><span class="text-purple-300">).forEach(</span><span class="text-cyan-300">key</span> <span class="text-purple-300">=&gt;</span> <span class="text-purple-300">{</span></div>
+                                <span class="text-gray-400">const</span> <span class="text-blue-300">obj</span> = <span class="text-orange-300">{'{'} a: 1, b: 2, c: 3 {'}'}</span>
+                                <div class="mt-2"><span class="text-purple-300">Object.keys(</span><span class="text-blue-300">obj</span><span class="text-purple-300">).forEach(</span><span class="text-cyan-300">key</span> <span class="text-purple-300">=&gt;</span> <span class="text-purple-300">{'{'}</span></div>
                                 <div class="ml-4"><span class="text-gray-400">console.log(</span><span class="text-cyan-300">key</span>, <span class="text-blue-300">obj</span>[<span class="text-cyan-300">key</span>]<span class="text-gray-400">)</span></div>
-                                <span class="text-purple-300">})</span>
+                                <span class="text-purple-300">{'}'})</span>
                             </div>
 
                             <!-- Flow visualization -->
@@ -937,28 +957,27 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">array</code> of own keys. Safe - no inherited properties. Recommended over for...in.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>✨ <strong>Cleanest way to iterate objects:</strong></div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                                <div class="font-mono text-[10px]">Object.keys(obj).forEach(key =&gt; &lbrace;</div>
+                                <div class="font-mono text-[10px]">Object.keys(obj).forEach(key =&gt; {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;console.log(key, obj[key])</div>
-                                <div class="font-mono text-[10px]">&rbrace;)</div>
+                                <div class="font-mono text-[10px]">{'}'})</div>
                                 <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Or use Object.entries() for key+value:</span></div>
-                                <div class="font-mono text-[10px]">Object.entries(obj).forEach(([key, value]) =&gt; &lbrace;</div>
+                                <div class="font-mono text-[10px]">Object.entries(obj).forEach(([key, value]) =&gt; {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;console.log(key, value)</div>
-                                <div class="font-mono text-[10px]">&rbrace;)</div>
+                                <div class="font-mono text-[10px]">{'}'})</div>
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- OBJECT.ENTRIES -->
-                <div id="object-entries">
-                    <MethodCard
+                <MethodCard
+                        id="object-entries"
                         methodName="Object.entries()"
                         signature="for (const [key, value] of Object.entries(obj)) { }"
                         description="Loop over key-value pairs (cleanest syntax)"
@@ -967,10 +986,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                         <div class="p-4 bg-gray-800 rounded border border-gray-700">
                             <!-- Code -->
                             <div class="font-mono text-sm mb-4">
-                                <span class="text-gray-400">const</span> <span class="text-blue-300">obj</span> = <span class="text-orange-300">&lbrace; x: 10, y: 20 &rbrace;</span>
-                                <div class="mt-2"><span class="text-purple-300">for</span> <span class="text-purple-300">(</span><span class="text-gray-400">const</span> [<span class="text-cyan-300">key</span>, <span class="text-green-300">value</span>] <span class="text-purple-300">of</span> <span class="text-purple-300">Object.entries(</span><span class="text-blue-300">obj</span><span class="text-purple-300">)) {</span></div>
+                                <span class="text-gray-400">const</span> <span class="text-blue-300">obj</span> = <span class="text-orange-300">{'{'} x: 10, y: 20 {'}'}</span>
+                                <div class="mt-2"><span class="text-purple-300">for</span> <span class="text-purple-300">(</span><span class="text-gray-400">const</span> [<span class="text-cyan-300">key</span>, <span class="text-green-300">value</span>] <span class="text-purple-300">of</span> <span class="text-purple-300">Object.entries(</span><span class="text-blue-300">obj</span><span class="text-purple-300">)) {'{'}</span></div>
                                 <div class="ml-4"><span class="text-gray-400">console.log(</span><span class="text-cyan-300">key</span>, <span class="text-green-300">value</span><span class="text-gray-400">)</span></div>
-                                <span class="text-purple-300">}</span>
+                                <span class="text-purple-300">{'}'}</span>
                             </div>
 
                             <!-- Flow visualization -->
@@ -997,24 +1016,23 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">array</code> of [key, value] pairs. Combine with for...of for cleanest syntax.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>🌟 <strong>Best syntax for key+value access:</strong></div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                                <div class="font-mono text-[10px]">for (const [key, value] of Object.entries(obj)) &lbrace;</div>
+                                <div class="font-mono text-[10px]">for (const [key, value] of Object.entries(obj)) {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;console.log(key, value) <span class="text-gray-400">// both available!</span></div>
-                                <div class="font-mono text-[10px]">&rbrace;</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- OBJECT.VALUES -->
-                <div id="object-values">
-                    <MethodCard
+                <MethodCard
+                        id="object-values"
                         methodName="Object.values()"
                         signature="Object.values(obj).forEach(value => { })"
                         description="Loop over values only (ignore keys)"
@@ -1023,10 +1041,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                         <div class="p-4 bg-gray-800 rounded border border-gray-700">
                             <!-- Code -->
                             <div class="font-mono text-sm mb-4">
-                                <span class="text-gray-400">const</span> <span class="text-blue-300">scores</span> = <span class="text-orange-300">&lbrace; alice: 95, bob: 87, charlie: 92 &rbrace;</span>
-                                <div class="mt-2"><span class="text-purple-300">Object.values(</span><span class="text-blue-300">scores</span><span class="text-purple-300">).forEach(</span><span class="text-green-300">score</span> <span class="text-purple-300">=&gt;</span> <span class="text-purple-300">{</span></div>
+                                <span class="text-gray-400">const</span> <span class="text-blue-300">scores</span> = <span class="text-orange-300">{'{'} alice: 95, bob: 87, charlie: 92 {'}'}</span>
+                                <div class="mt-2"><span class="text-purple-300">Object.values(</span><span class="text-blue-300">scores</span><span class="text-purple-300">).forEach(</span><span class="text-green-300">score</span> <span class="text-purple-300">=&gt;</span> <span class="text-purple-300">{'{'}</span></div>
                                 <div class="ml-4"><span class="text-gray-400">console.log(</span><span class="text-green-300">score</span><span class="text-gray-400">)</span></div>
-                                <span class="text-purple-300">})</span>
+                                <span class="text-purple-300">{'}'})</span>
                             </div>
 
                             <!-- Flow visualization -->
@@ -1058,9 +1076,9 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">array</code> of values. Use when you don't care about keys.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>💡 <strong>When values are all you need:</strong></div>
@@ -1072,19 +1090,18 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- ============================================ -->
                 <!-- 🔁 WHILE LOOPS -->
                 <!-- ============================================ -->
 
-                <h2 id="while-loops" class="text-orange-300 text-xl my-4 pb-2 border-b-2 border-orange-600">
+                <SectionTitle id="while-loops" color="orange">
                     🔁 While Loops
-                </h2>
+                </SectionTitle>
 
                 <!-- WHILE -->
-                <div id="while">
-                    <MethodCard
+                <MethodCard
+                        id="while"
                         methodName="while"
                         signature="while (condition) { }"
                         description="Loop while condition is true"
@@ -1094,10 +1111,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             <!-- Code -->
                             <div class="font-mono text-sm mb-4">
                                 <span class="text-gray-400">let</span> <span class="text-cyan-300">i</span> = <span class="text-green-300">0</span>
-                                <div class="mt-1"><span class="text-purple-300">while</span> <span class="text-purple-300">(</span><span class="text-cyan-300">i</span> <span class="text-purple-300">&lt;</span> <span class="text-green-300">3</span><span class="text-purple-300">) {</span></div>
+                                <div class="mt-1"><span class="text-purple-300">while</span> <span class="text-purple-300">(</span><span class="text-cyan-300">i</span> <span class="text-purple-300">&lt;</span> <span class="text-green-300">3</span><span class="text-purple-300">) {'{'}</span></div>
                                 <div class="ml-4"><span class="text-gray-400">console.log(i)</span></div>
                                 <div class="ml-4"><span class="text-cyan-300">i</span><span class="text-purple-300">++</span></div>
-                                <span class="text-purple-300">}</span>
+                                <span class="text-purple-300">{'}'}</span>
                             </div>
 
                             <!-- Iteration visualization -->
@@ -1158,27 +1175,26 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Checks condition <strong>before</strong> each iteration. May not execute at all if condition is false initially.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>⚠️ <strong>Beware infinite loops:</strong></div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
                                 <div class="font-mono text-[10px]">let i = 0</div>
-                                <div class="font-mono text-[10px]">while (i &lt; 3) &lbrace;</div>
+                                <div class="font-mono text-[10px]">while (i &lt; 3) {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;console.log(i)</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;i++ <span class="text-green-400">// don't forget to increment! ✅</span></div>
-                                <div class="font-mono text-[10px]">&rbrace;</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
                                 <div class="font-mono text-[10px] mt-1"><span class="text-red-400">// Forgetting i++ causes infinite loop! ❌</span></div>
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- DO...WHILE -->
-                <div id="do-while">
-                    <MethodCard
+                <MethodCard
+                        id="do-while"
                         methodName="do...while"
                         signature="do { } while (condition)"
                         description="Execute once, then loop while condition is true"
@@ -1188,7 +1204,7 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             <!-- Code -->
                             <div class="font-mono text-sm mb-4">
                                 <span class="text-gray-400">let</span> <span class="text-cyan-300">i</span> = <span class="text-green-300">0</span>
-                                <div class="mt-1"><span class="text-purple-300">do {</span></div>
+                                <div class="mt-1"><span class="text-purple-300">do {'{'}</span></div>
                                 <div class="ml-4"><span class="text-gray-400">console.log(i)</span></div>
                                 <div class="ml-4"><span class="text-cyan-300">i</span><span class="text-purple-300">++</span></div>
                                 <div><span class="text-purple-300">} while</span> <span class="text-purple-300">(</span><span class="text-cyan-300">i</span> <span class="text-purple-300">&lt;</span> <span class="text-green-300">3</span><span class="text-purple-300">)</span></div>
@@ -1244,33 +1260,32 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Checks condition <strong>after</strong> each iteration. <strong>Always executes at least once.</strong>
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>Use when you need at least one execution:</div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
                                 <div class="font-mono text-[10px]">let input</div>
-                                <div class="font-mono text-[10px]">do &lbrace;</div>
+                                <div class="font-mono text-[10px]">do {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;input = prompt('Enter a number:')</div>
-                                <div class="font-mono text-[10px]">&rbrace; while (isNaN(input)) <span class="text-gray-400">// prompt at least once</span></div>
+                                <div class="font-mono text-[10px]">{'}'} while (isNaN(input)) <span class="text-gray-400">// prompt at least once</span></div>
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- ============================================ -->
                 <!-- 🎛️ CONTROL FLOW -->
                 <!-- ============================================ -->
 
-                <h2 id="control" class="text-red-300 text-xl my-4 pb-2 border-b-2 border-red-600">
+                <SectionTitle id="control" color="red">
                     🎛️ Control Flow
-                </h2>
+                </SectionTitle>
 
                 <!-- BREAK -->
-                <div id="break">
-                    <MethodCard
+                <MethodCard
+                        id="break"
                         methodName="break"
                         signature="break"
                         description="Exit loop immediately"
@@ -1279,10 +1294,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                         <div class="p-4 bg-gray-800 rounded border border-gray-700">
                             <!-- Code -->
                             <div class="font-mono text-sm mb-4">
-                                <span class="text-purple-300">for</span> <span class="text-purple-300">(</span><span class="text-gray-400">const</span> <span class="text-blue-300">item</span> <span class="text-purple-300">of</span> <span class="text-orange-300">['a', 'b', 'c', 'd']</span><span class="text-purple-300">) {</span>
+                                <span class="text-purple-300">for</span> <span class="text-purple-300">(</span><span class="text-gray-400">const</span> <span class="text-blue-300">item</span> <span class="text-purple-300">of</span> <span class="text-orange-300">['a', 'b', 'c', 'd']</span><span class="text-purple-300">) {'{'}</span>
                                 <div class="ml-4"><span class="text-purple-300">if</span> <span class="text-purple-300">(</span><span class="text-blue-300">item</span> <span class="text-purple-300">===</span> <span class="text-green-300">'c'</span><span class="text-purple-300">)</span> <span class="text-red-300">break</span></div>
                                 <div class="ml-4"><span class="text-gray-400">console.log(item)</span></div>
-                                <span class="text-purple-300">}</span>
+                                <span class="text-purple-300">{'}'}</span>
                             </div>
 
                             <!-- Flow visualization -->
@@ -1315,27 +1330,26 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Exits the innermost loop completely. Cannot be used in <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">forEach()</code>.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>Common use case - early exit:</div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                                <div class="font-mono text-[10px]">for (const item of arr) &lbrace;</div>
-                                <div class="font-mono text-[10px]">&nbsp;&nbsp;if (item === 'target') &lbrace;</div>
+                                <div class="font-mono text-[10px]">for (const item of arr) {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;if (item === 'target') {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;console.log('Found it!')</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;break <span class="text-gray-400">// stop searching</span></div>
-                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&rbrace;</div>
-                                <div class="font-mono text-[10px]">&rbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;{'}'}</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- CONTINUE -->
-                <div id="continue">
-                    <MethodCard
+                <MethodCard
+                        id="continue"
                         methodName="continue"
                         signature="continue"
                         description="Skip to next iteration"
@@ -1344,10 +1358,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                         <div class="p-4 bg-gray-800 rounded border border-gray-700">
                             <!-- Code -->
                             <div class="font-mono text-sm mb-4">
-                                <span class="text-purple-300">for</span> <span class="text-purple-300">(</span><span class="text-gray-400">const</span> <span class="text-blue-300">item</span> <span class="text-purple-300">of</span> <span class="text-orange-300">['a', null, 'b', null, 'c']</span><span class="text-purple-300">) {</span>
+                                <span class="text-purple-300">for</span> <span class="text-purple-300">(</span><span class="text-gray-400">const</span> <span class="text-blue-300">item</span> <span class="text-purple-300">of</span> <span class="text-orange-300">['a', null, 'b', null, 'c']</span><span class="text-purple-300">) {'{'}</span>
                                 <div class="ml-4"><span class="text-purple-300">if</span> <span class="text-purple-300">(</span><span class="text-blue-300">item</span> <span class="text-purple-300">===</span> <span class="text-yellow-300">null</span><span class="text-purple-300">)</span> <span class="text-yellow-300">continue</span></div>
                                 <div class="ml-4"><span class="text-gray-400">console.log(item)</span></div>
-                                <span class="text-purple-300">}</span>
+                                <span class="text-purple-300">{'}'}</span>
                             </div>
 
                             <!-- Flow visualization -->
@@ -1387,32 +1401,24 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Skips remaining code in current iteration, proceeds to next. Cannot be used in <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">forEach()</code>.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>Common use case - skip unwanted items:</div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                                <div class="font-mono text-[10px]">for (const item of arr) &lbrace;</div>
+                                <div class="font-mono text-[10px]">for (const item of arr) {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;if (item === null) continue <span class="text-gray-400">// skip nulls</span></div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;console.log(item) <span class="text-gray-400">// only runs for non-null</span></div>
-                                <div class="font-mono text-[10px]">&rbrace;</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
-            </main>
 
-            <!-- Sidebar Navigation -->
-            <aside class="w-64 shrink-0 sticky top-4 self-start hidden lg:block max-h-[calc(100vh-2rem)] overflow-y-auto">
-                <!-- Global Navigation -->
-                <GlobalNav />
 
-                <!-- Page Navigation -->
-                <nav class="bg-[#252936] rounded-lg p-4 border border-gray-700">
-                    <h3 class="text-white text-sm font-bold mb-3 uppercase tracking-wide">On This Page</h3>
+    <Fragment slot="page-nav">
                     <ul class="space-y-2 text-xs">
                         <li>
                             <a href="#array-loops" class="text-blue-300 font-semibold hover:text-blue-200 block py-1">🔄 Array Loops</a>
@@ -1456,58 +1462,5 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </ul>
                         </li>
                     </ul>
-                </nav>
-            </aside>
-        </div>
-
-        <style>
-            html {
-                scroll-behavior: smooth;
-                scroll-padding-top: 20px;
-            }
-
-            /* Node gradient backgrounds */
-            .node-input {
-                background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
-            }
-
-            .node-process {
-                background: linear-gradient(135deg, #4c1d95 0%, #5b21b6 100%);
-            }
-
-            .node-output {
-                background: linear-gradient(135deg, #166534 0%, #15803d 100%);
-            }
-
-            /* Arrow styling */
-            .arrow {
-                position: relative;
-                height: 2px;
-                background: linear-gradient(90deg, #4b5563 0%, #6b7280 100%);
-            }
-
-            .arrow::after {
-                content: '';
-                position: absolute;
-                right: 0;
-                top: 50%;
-                transform: translateY(-50%);
-                width: 0;
-                height: 0;
-                border-left: 8px solid #6b7280;
-                border-top: 5px solid transparent;
-                border-bottom: 5px solid transparent;
-            }
-
-            /* Pulse animation for highlights */
-            @keyframes pulse {
-                0%, 100% { opacity: 1; }
-                50% { opacity: 0.6; }
-            }
-
-            .animate-pulse {
-                animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-            }
-        </style>
-    </body>
-</html>
+    </Fragment>
+</VisualLayout>

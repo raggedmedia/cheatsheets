@@ -5,7 +5,7 @@ import Node from '~components/visual-js/Node.astro'
 import ArrayDisplay from '~components/visual-js/ArrayDisplay.astro'
 import Arrow from '~components/visual-js/Arrow.astro'
 import ReturnValue from '~components/visual-js/ReturnValue.astro'
-import InfoBox from '~components/visual-js/InfoBox.astro'
+import MutableOrNot from '~components/visual-js/MutableOrNot.astro';
 import ProcessContent from '~components/visual-js/ProcessContent.astro'
 import ProTip from '~components/visual-js/ProTip.astro'
 import SectionTitle from '~components/visual-js/SectionTitle.astro'
@@ -63,9 +63,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code>. Use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">split('')</code> for chars, <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">split(' ')</code> for words.
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
 
                 <!-- ARRAY.FROM STRING -->
@@ -94,9 +94,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Static method. Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> from any iterable or array-like object.
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
 
                 <!-- SPREAD STRING -->
@@ -125,9 +125,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Modern syntax. Creates a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> with each character as an element.
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
 
                 <!-- === NUMBER TO ARRAY === -->
@@ -159,9 +159,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns array of <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">digit strings</code>. Use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">.map(Number)</code> to convert to numbers.
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
 
                 <!-- ARRAY.FROM NUMBER -->
@@ -190,9 +190,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns array of <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">digit numbers</code>. Second parameter is mapping function.
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
 
                 <!-- ============================================ -->
@@ -238,9 +238,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                     </Node>
                 </div>
 
-                        <InfoBox mutates={true} message="">
+                        <MutableOrNot mutates={true} message="">
                             The original array is modified in place. Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">number</code> (new length), not the array. ⚠️ Cannot be chained with other array methods.
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
 
                 <!-- POP -->
@@ -275,9 +275,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                     </Node>
                 </div>
 
-                <InfoBox mutates={true} message="">
+                <MutableOrNot mutates={true} message="">
                     The original array is shortened. Returns the removed <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">element</code> (or undefined if empty). ⚠️ Cannot be chained with other array methods.
-                </InfoBox>
+                </MutableOrNot>
             </MethodCard>
 
                 <!-- UNSHIFT -->
@@ -312,9 +312,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                     </Node>
                 </div>
 
-                <InfoBox mutates={true} message="">
+                <MutableOrNot mutates={true} message="">
                     The original array is modified in place. All existing elements shift to higher indices. Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">number</code> (new length). ⚠️ Cannot be chained with other array methods.
-                </InfoBox>
+                </MutableOrNot>
             </MethodCard>
 
                 <!-- SHIFT -->
@@ -349,9 +349,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                     </Node>
                 </div>
 
-                <InfoBox mutates={true} message="">
+                <MutableOrNot mutates={true} message="">
                     The original array is shortened. All remaining elements shift to lower indices. Returns the removed <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">element</code> (or undefined if empty). ⚠️ Cannot be chained with other array methods.
-                </InfoBox>
+                </MutableOrNot>
             </MethodCard>
 
                 <!-- SPLICE -->
@@ -386,9 +386,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                     </Node>
                 </div>
 
-                <InfoBox mutates={true} message="">
+                <MutableOrNot mutates={true} message="">
                     The Swiss Army knife of array methods. Returns an <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">array</code> of removed elements. Can remove, add, or replace items at any index.
-                </InfoBox>
+                </MutableOrNot>
 
                 <ProTip>
                     <div>Insert without deleting by setting deleteCount to 0:</div>
@@ -427,9 +427,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                     </Node>
                 </div>
 
-                <InfoBox mutates={true} message="">
+                <MutableOrNot mutates={true} message="">
                     Sorts in place. Returns the <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">same array</code> (not a copy).
-                </InfoBox>
+                </MutableOrNot>
 
                 <ProTip>
                     <div>Without a compare function, sort treats values as strings!</div>
@@ -475,9 +475,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                     </Node>
                 </div>
 
-                <InfoBox mutates={true} message="">
+                <MutableOrNot mutates={true} message="">
                     Reverses in place. Returns the <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">same array</code> (not a copy).
-                </InfoBox>
+                </MutableOrNot>
             </MethodCard>
 
                 <!-- === OVERWRITE / MOVE === -->
@@ -509,9 +509,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={true} message="">
+                        <MutableOrNot mutates={true} message="">
                             Overwrites in place. Returns the <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">same array</code>. End index is exclusive.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>Useful for filling array holes (empty slots):</div>
@@ -548,9 +548,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={true} message="">
+                        <MutableOrNot mutates={true} message="">
                             Copies within the same array. Returns the <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">same array</code>. Doesn't change array length.
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
 
                 <!-- ============================================ -->
@@ -597,9 +597,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                     </Node>
                 </div>
 
-                <InfoBox mutates={false} message="">
+                <MutableOrNot mutates={false} message="">
                     Original array remains unchanged. Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> with same length, transformed values.
-                </InfoBox>
+                </MutableOrNot>
 
                 <ProTip>
                     <div>Need the results? Use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">map()</code>. Just doing side effects? Use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">forEach()</code>.</div>
@@ -636,9 +636,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                     </Node>
                 </div>
 
-                <InfoBox mutates={false} message="">
+                <MutableOrNot mutates={false} message="">
                     Original array remains unchanged. Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> (may be shorter) with only passing items.
-                </InfoBox>
+                </MutableOrNot>
 
                 <ProTip>
                     <div>Use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">filter(Boolean)</code> to remove all falsy values in one go!</div>
@@ -674,9 +674,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                     </Node>
                 </div>
 
-                <InfoBox mutates={false} message="">
+                <MutableOrNot mutates={false} message="">
                     Original array remains unchanged. Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> containing the extracted section. End index is exclusive. Supports negative indices.
-                </InfoBox>
+                </MutableOrNot>
 
                 <ProTip>
                     <div class="pl-2 border-l-2 border-yellow-500/60">
@@ -734,9 +734,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                     </Node>
                 </div>
 
-                <InfoBox mutates={false} message="">
+                <MutableOrNot mutates={false} message="">
                     Original array remains unchanged. Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> with all items combined.
-                </InfoBox>
+                </MutableOrNot>
 
                 <ProTip>
                     <div>Merge multiple arrays at once:</div>
@@ -772,9 +772,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> with sub-arrays flattened. Default depth is 1.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>For deeply nested arrays, use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">flat(Infinity)</code> to flatten all levels:</div>
@@ -810,9 +810,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code>. Equivalent to map() followed by flat(1).
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
 
                 <!-- WITH -->
@@ -841,9 +841,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> with one element changed. Original array unchanged.
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
 
                 <!-- TOSPLICED -->
@@ -872,9 +872,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code>. Like splice() but doesn't mutate original.
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
 
                 <!-- TOSORTED -->
@@ -903,9 +903,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new sorted array</code>. Original array remains unchanged.
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
 
                 <!-- TOREVERSED -->
@@ -934,9 +934,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new reversed array</code>. Original array remains unchanged.
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
 
             <!-- === FIND / TEST === -->
@@ -968,9 +968,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                     </Node>
                 </div>
 
-                <InfoBox mutates={false} message="">
+                <MutableOrNot mutates={false} message="">
                     Static method. Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">boolean</code>. Most reliable way to check if something is an array.
-                </InfoBox>
+                </MutableOrNot>
 
                 <ProTip>
                     <div><strong>Why use Array.isArray():</strong></div>
@@ -1010,9 +1010,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                     </Node>
                 </div>
 
-                <InfoBox mutates={false} message="">
+                <MutableOrNot mutates={false} message="">
                     Returns the <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">first matching item</code> or undefined if none found. ⚠️ Cannot be chained.
-                </InfoBox>
+                </MutableOrNot>
             </MethodCard>
 
                 <!-- INCLUDES -->
@@ -1041,9 +1041,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                     </Node>
                 </div>
 
-                <InfoBox mutates={false} message="">
+                <MutableOrNot mutates={false} message="">
                     Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">boolean</code>. ⚠️ Cannot be chained. Works with NaN unlike indexOf().
-                </InfoBox>
+                </MutableOrNot>
             </MethodCard>
 
                 <!-- INDEXOF -->
@@ -1072,9 +1072,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">number</code> (index) or -1 if not found. ⚠️ Cannot be chained. Doesn't work with NaN.
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
 
                 <!-- SOME -->
@@ -1103,9 +1103,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">boolean</code>. ⚠️ Cannot be chained. Returns true if ANY element passes the test.
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
 
                 <!-- EVERY -->
@@ -1134,9 +1134,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">boolean</code>. ⚠️ Cannot be chained. Returns true only if ALL elements pass the test.
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
 
                 <!-- LASTINDEXOF -->
@@ -1165,9 +1165,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">number</code> (last index) or -1 if not found. ⚠️ Cannot be chained.
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
 
                 <!-- FINDLAST -->
@@ -1196,9 +1196,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns the <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">last matching item</code> or undefined. ⚠️ Cannot be chained. Searches from end to start.
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
 
                 <!-- FINDINDEX -->
@@ -1227,9 +1227,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">index</code> of first match or -1 if not found. ⚠️ Cannot be chained.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>Common pattern: Find and remove an item by combining with splice:</div>
@@ -1266,9 +1266,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">index</code> of last match or -1. ⚠️ Cannot be chained. Searches from end to start.
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
 
                 <!-- AT -->
@@ -1297,9 +1297,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">item</code> at index. ⚠️ Cannot be chained. Negative indices count from end (-1 = last item).
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>Much cleaner than <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">arr[arr.length - 1]</code> for getting the last item:</div>
@@ -1338,9 +1338,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                     </Node>
                 </div>
 
-                <InfoBox mutates={false} message="">
+                <MutableOrNot mutates={false} message="">
                     Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">single value</code> of any type. ⚠️ Cannot be chained. The accumulator carries forward through each iteration.
-                </InfoBox>
+                </MutableOrNot>
 
                 <ProTip>
                     <div>Reduce is super versatile! Common patterns:</div>
@@ -1378,9 +1378,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Like reduce() but processes from <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">right to left</code>. Returns a single value. ⚠️ Cannot be chained.
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
 
                 <!-- === ITERATE / INSPECT === -->
@@ -1412,9 +1412,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Always returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">undefined</code>. Cannot be chained. Use for side effects only.
-                        </InfoBox>
+                        </MutableOrNot>
 
                         <ProTip>
                             <div>For large arrays (10,000+ items), regular <code class="bg-black/30 px-1 py-0.5 rounded font-mono text-yellow-400">for</code> loops are faster:</div>
@@ -1451,9 +1451,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns an <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">iterator</code>. ⚠️ Cannot be chained directly. Use with for...of or Array.from().
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
 
                 <!-- KEYS -->
@@ -1482,9 +1482,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns an <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">iterator</code> of array indices. ⚠️ Cannot be chained directly.
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
 
                 <!-- VALUES -->
@@ -1513,9 +1513,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns an <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">iterator</code> of array values. ⚠️ Cannot be chained directly.
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
 
                 <!-- === STRINGIFY === -->
@@ -1547,9 +1547,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. ⚠️ Cannot be chained. Default separator is comma.
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
 
                 <!-- TOSTRING -->
@@ -1578,9 +1578,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. ⚠️ Cannot be chained. Equivalent to join() without separator.
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
 
                 <!-- TOLOCALESTRING -->
@@ -1609,9 +1609,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             </Node>
                         </div>
 
-                        <InfoBox mutates={false} message="">
+                        <MutableOrNot mutates={false} message="">
                             Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code> with locale-specific formatting. ⚠️ Cannot be chained.
-                        </InfoBox>
+                        </MutableOrNot>
                     </MethodCard>
 
     <Fragment slot="page-nav">
