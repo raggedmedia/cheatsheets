@@ -21,6 +21,56 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                     </div>
                 </ProTip>
 
+                <InfoBox>
+                    <div>ℹ️ <strong>Promises Best Practices - Quick Reference</strong></div>
+
+                    <div class="pl-2 border-l-2 border-blue-500/30 space-y-2 mt-2">
+                        <div>
+                            <div class="font-bold text-blue-300 text-[11px] mb-0.5">🔁 Async/Await in Loops</div>
+                            <div class="font-mono text-[10px] pl-2 space-y-0.5">
+                                <div><span class="text-green-400">✓ Sequential:</span> <code>for...of</code> or <code>for</code> loop with await</div>
+                                <div><span class="text-green-400">✓ Parallel:</span> <code>Promise.all(arr.map(async item => ...))</code></div>
+                                <div><span class="text-red-400">✗ Avoid:</span> <code>forEach(async)</code> - doesn't wait for promises</div>
+                                <div class="text-gray-400">Use <code>for await...of</code> for async iterables</div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="font-bold text-blue-300 text-[11px] mb-0.5">🔌 Common Functions That Return Promises</div>
+                            <div class="font-mono text-[10px] pl-2 space-y-0.5">
+                                <div><span class="text-purple-400">fetch():</span> HTTP requests</div>
+                                <div><span class="text-purple-400">fs.promises.*:</span> Node.js file operations (readFile, writeFile, etc.)</div>
+                                <div><span class="text-purple-400">setTimeout():</span> When wrapped in new Promise (delays)</div>
+                                <div><span class="text-purple-400">db queries:</span> Most database operations (MongoDB, PostgreSQL, etc.)</div>
+                                <div><span class="text-purple-400">axios/HTTP libs:</span> API requests</div>
+                                <div class="text-gray-400">Any async function automatically returns a promise</div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="font-bold text-blue-300 text-[11px] mb-0.5">⚡ Performance Tips</div>
+                            <div class="font-mono text-[10px] pl-2 space-y-0.5">
+                                <div><span class="text-green-400">✓ Parallel:</span> Use Promise.all() for independent operations</div>
+                                <div><span class="text-green-400">✓ Sequential:</span> Use await in series for dependent operations</div>
+                                <div><span class="text-yellow-400">⚡ Race conditions:</span> Promise.race() for timeout patterns</div>
+                                <div><span class="text-red-400">✗ Avoid:</span> Creating promises in loops unnecessarily</div>
+                                <div class="text-gray-400">Start all promises first, then await - don't mix creation & waiting</div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="font-bold text-blue-300 text-[11px] mb-0.5">🚨 Common Pitfalls</div>
+                            <div class="font-mono text-[10px] pl-2 space-y-0.5">
+                                <div><span class="text-red-400">✗</span> Forgetting await - returns Promise, not value</div>
+                                <div><span class="text-red-400">✗</span> Using async without await (pointless overhead)</div>
+                                <div><span class="text-red-400">✗</span> Not handling errors (unhandled rejection warnings)</div>
+                                <div><span class="text-red-400">✗</span> Awaiting in forEach (doesn't work - use for...of)</div>
+                                <div><span class="text-red-400">✗</span> Promise constructor anti-pattern (wrapping already-async code)</div>
+                            </div>
+                        </div>
+                    </div>
+                </InfoBox>
+
                 <!-- ============================================ -->
                 <!-- 🎁 CREATING PROMISES -->
                 <!-- ============================================ -->
@@ -909,11 +959,11 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                         id="error-handling"
                         methodName="Error Handling Strategies"
                         signature="try/catch vs .catch() vs default values"
-                        description="Different approaches to handling failures"
+                        description="Different approaches to handling failures in async code"
                         mutates={false}
                     >
                         <ProTip>
-                            <div>🛡️ <strong>Strategy 1: Try/Catch</strong></div>
+                            <div>🛡️ <strong>Strategy 1: Try/Catch (Most Common)</strong></div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
                                 <div class="font-mono text-[10px]">try {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;const data = await fetchData()</div>
@@ -922,6 +972,8 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;console.error(error)</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;return null <span class="text-gray-400">// fallback</span></div>
                                 <div class="font-mono text-[10px]">{'}'}</div>
+                                <div class="font-mono text-[10px] mt-1 text-gray-400">✓ Use for async/await code</div>
+                                <div class="font-mono text-[10px] text-gray-400">✓ Catches all errors in the try block</div>
                             </div>
                         </ProTip>
 
@@ -933,6 +985,8 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;console.error(err)</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;return [] <span class="text-gray-400">// default value</span></div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;{'}'})</div>
+                                <div class="font-mono text-[10px] mt-1 text-gray-400">✓ Use for inline error handling</div>
+                                <div class="font-mono text-[10px] text-gray-400">✓ Good for providing fallback values</div>
                             </div>
                         </ProTip>
 
@@ -943,6 +997,341 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;if (err.code === 'NOT_FOUND') return null</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;throw err <span class="text-gray-400">// re-throw other errors</span></div>
                                 <div class="font-mono text-[10px]">{'}'})</div>
+                                <div class="font-mono text-[10px] mt-1 text-gray-400">✓ Handle specific errors differently</div>
+                                <div class="font-mono text-[10px] text-gray-400">✓ Re-throw critical errors to bubble up</div>
+                            </div>
+                        </ProTip>
+
+                        <ProTip>
+                            <div>🛡️ <strong>Strategy 4: .finally() for cleanup</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">try {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;setLoading(true)</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;const data = await fetchData()</div>
+                                <div class="font-mono text-[10px]">{'}'} catch (error) {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;setError(error.message)</div>
+                                <div class="font-mono text-[10px]">{'}'} finally {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;setLoading(false) <span class="text-gray-400">// always runs</span></div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
+                                <div class="font-mono text-[10px] mt-1 text-gray-400">✓ Cleanup code runs regardless of success/failure</div>
+                            </div>
+                        </ProTip>
+
+                        <ProTip>
+                            <div>🛡️ <strong>Strategy 5: Promise.allSettled() for multiple errors</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">const results = await Promise.allSettled([</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;api1(), api2(), api3()</div>
+                                <div class="font-mono text-[10px]">])</div>
+                                <div class="font-mono text-[10px]">const successes = results.filter(r =&gt; r.status === 'fulfilled')</div>
+                                <div class="font-mono text-[10px]">const failures = results.filter(r =&gt; r.status === 'rejected')</div>
+                                <div class="font-mono text-[10px] mt-1 text-gray-400">✓ All promises complete, even if some fail</div>
+                                <div class="font-mono text-[10px] text-gray-400">✓ Get both successful and failed results</div>
+                            </div>
+                        </ProTip>
+
+                        <ProTip>
+                            <div>⚠️ <strong>Best Practices:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-green-400">✓</span> Always handle promise rejections (avoid unhandled warnings)</div>
+                                <div class="font-mono text-[10px]"><span class="text-green-400">✓</span> Use try/catch for async/await code</div>
+                                <div class="font-mono text-[10px]"><span class="text-green-400">✓</span> Log errors with context (user ID, timestamp, etc.)</div>
+                                <div class="font-mono text-[10px]"><span class="text-green-400">✓</span> Provide user-friendly error messages</div>
+                                <div class="font-mono text-[10px]"><span class="text-green-400">✓</span> Use .finally() for cleanup (close connections, reset state)</div>
+                                <div class="font-mono text-[10px]"><span class="text-red-400">✗</span> Don't swallow errors silently (.catch(() =&gt; {'{}'}))</div>
+                                <div class="font-mono text-[10px]"><span class="text-red-400">✗</span> Don't mix try/catch with .catch() unnecessarily</div>
+                                <div class="font-mono text-[10px]"><span class="text-red-400">✗</span> Don't forget to await (errors won't be caught)</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+
+                <!-- NESTED ASYNC/AWAIT -->
+                <MethodCard
+                        id="nested-async-await"
+                        methodName="Nested Async/Await Patterns"
+                        signature="async functions calling other async functions"
+                        description="How to structure complex async operations with proper error handling"
+                        mutates={false}
+                    >
+                        <ProTip>
+                            <div>🔄 <strong>Pattern 1: Sequential nested calls</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">async function processOrder(orderId) {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;const order = await getOrder(orderId)</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;const user = await getUser(order.userId) <span class="text-gray-400">// waits for order</span></div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;const payment = await processPayment(order) <span class="text-gray-400">// waits for user</span></div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;return {'{'} order, user, payment {'}'}</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
+                                <div class="font-mono text-[10px] mt-1 text-gray-400">✓ Use when each step depends on the previous</div>
+                            </div>
+                        </ProTip>
+
+                        <ProTip>
+                            <div>🔄 <strong>Pattern 2: Parallel nested calls (BETTER)</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">async function processOrder(orderId) {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;const order = await getOrder(orderId)</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;<span class="text-green-400">// Start both at once - don't wait!</span></div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;const [user, payment] = await Promise.all([</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;getUser(order.userId),</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;processPayment(order)</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;])</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;return {'{'} order, user, payment {'}'}</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
+                                <div class="font-mono text-[10px] mt-1 text-gray-400">✓ Much faster when operations are independent</div>
+                            </div>
+                        </ProTip>
+
+                        <ProTip>
+                            <div>🔄 <strong>Pattern 3: Nested with error boundaries</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">async function processOrder(orderId) {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;try {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;const order = await getOrder(orderId)</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;let user, payment</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;try {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[user, payment] = await Promise.all([</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getUser(order.userId),</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;processPayment(order)</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;])</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;{'}'} catch (err) {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-yellow-400">// Handle user/payment errors specifically</span></div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;await cancelOrder(order.id)</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throw new Error('Payment failed: ' + err.message)</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;{'}'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;return {'{'} order, user, payment {'}'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;{'}'} catch (err) {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-yellow-400">// Handle order fetch errors</span></div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;console.error('Order processing failed:', err)</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;throw err</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;{'}'}</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
+                                <div class="font-mono text-[10px] mt-1 text-gray-400">✓ Different error handling for different stages</div>
+                            </div>
+                        </ProTip>
+
+                        <ProTip>
+                            <div>🔄 <strong>Pattern 4: Async loops with nested awaits</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-red-400">// ✗ BAD - Sequential, slow</span></div>
+                                <div class="font-mono text-[10px]">async function processUsers(userIds) {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;const results = []</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;for (const id of userIds) {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;const user = await getUser(id) <span class="text-red-400">// waits each time!</span></div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;const posts = await getPosts(id)</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;results.push({'{'} user, posts {'}'})</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;{'}'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;return results</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
+                                <div class="font-mono text-[10px] mt-2"><span class="text-green-400">// ✓ GOOD - Parallel, fast</span></div>
+                                <div class="font-mono text-[10px]">async function processUsers(userIds) {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;return await Promise.all(</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;userIds.map(async id =&gt; {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const [user, posts] = await Promise.all([</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getUser(id),</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getPosts(id)</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;])</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return {'{'} user, posts {'}'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;{'}'})</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;)</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
+                                <div class="font-mono text-[10px] mt-1 text-gray-400">✓ All users processed in parallel</div>
+                            </div>
+                        </ProTip>
+
+                        <ProTip>
+                            <div>⚠️ <strong>Key Takeaways:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-green-400">✓</span> Identify which operations can run in parallel</div>
+                                <div class="font-mono text-[10px]"><span class="text-green-400">✓</span> Use Promise.all() for independent async operations</div>
+                                <div class="font-mono text-[10px]"><span class="text-green-400">✓</span> Start promises first, await later (don't mix)</div>
+                                <div class="font-mono text-[10px]"><span class="text-green-400">✓</span> Use nested try/catch for granular error handling</div>
+                                <div class="font-mono text-[10px]"><span class="text-green-400">✓</span> In loops: map() + Promise.all() for parallel</div>
+                                <div class="font-mono text-[10px]"><span class="text-red-400">✗</span> Don't await inside forEach (use for...of or map)</div>
+                                <div class="font-mono text-[10px]"><span class="text-red-400">✗</span> Don't await unnecessarily in series</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+
+                <!-- TIMEOUT PATTERNS -->
+                <MethodCard
+                        id="timeout-patterns"
+                        methodName="Timeout Patterns"
+                        signature="Promise.race() with timeout promise"
+                        description="Prevent promises from hanging indefinitely with time limits"
+                        mutates={false}
+                    >
+                        <ProTip>
+                            <div>⏱️ <strong>Pattern 1: Basic timeout with Promise.race()</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">function timeout(ms) {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;return new Promise((_, reject) =&gt;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;setTimeout(() =&gt; reject(new Error('Timeout')), ms)</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;)</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Usage:</span></div>
+                                <div class="font-mono text-[10px]">try {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;const data = await Promise.race([</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;fetch('/api/data'),</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;timeout(5000) <span class="text-gray-400">// 5 second limit</span></div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;])</div>
+                                <div class="font-mono text-[10px]">{'}'} catch (err) {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;console.error('Request failed or timed out')</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
+                            </div>
+                        </ProTip>
+
+                        <ProTip>
+                            <div>⏱️ <strong>Pattern 2: Reusable timeout wrapper</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">function withTimeout(promise, ms) {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;const timeout = new Promise((_, reject) =&gt;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;setTimeout(() =&gt; reject(new Error(`Timeout after ${'{'}ms{'}'}ms`)), ms)</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;)</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;return Promise.race([promise, timeout])</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Clean usage anywhere:</span></div>
+                                <div class="font-mono text-[10px]">const user = await withTimeout(fetchUser(id), 3000)</div>
+                                <div class="font-mono text-[10px]">const posts = await withTimeout(fetchPosts(), 5000)</div>
+                            </div>
+                        </ProTip>
+
+                        <ProTip>
+                            <div>⏱️ <strong>Pattern 3: AbortController with fetch (Modern)</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">const controller = new AbortController()</div>
+                                <div class="font-mono text-[10px]">const timeoutId = setTimeout(() =&gt; controller.abort(), 5000)</div>
+                                <div class="font-mono text-[10px] mt-1">try {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;const response = await fetch('/api/data', {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;signal: controller.signal <span class="text-gray-400">// abort signal</span></div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;{'}'})</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;clearTimeout(timeoutId) <span class="text-gray-400">// cancel timeout if successful</span></div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;return await response.json()</div>
+                                <div class="font-mono text-[10px]">{'}'} catch (err) {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;if (err.name === 'AbortError') {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;console.error('Request timed out')</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;{'}'}</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
+                                <div class="font-mono text-[10px] mt-1 text-gray-400">✓ Actually cancels the HTTP request (not just timing)</div>
+                            </div>
+                        </ProTip>
+
+                        <ProTip>
+                            <div>⚠️ <strong>Best Practices:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-green-400">✓</span> Use AbortController for fetch requests (actually cancels)</div>
+                                <div class="font-mono text-[10px]"><span class="text-green-400">✓</span> Clear timeout when operation succeeds early</div>
+                                <div class="font-mono text-[10px]"><span class="text-green-400">✓</span> Provide clear timeout error messages with duration</div>
+                                <div class="font-mono text-[10px]"><span class="text-green-400">✓</span> Set reasonable timeouts (API: 5-10s, DB: 30s)</div>
+                                <div class="font-mono text-[10px]"><span class="text-yellow-400">⚡</span> Promise.race() doesn't cancel the slow promise</div>
+                                <div class="font-mono text-[10px]"><span class="text-red-400">✗</span> Don't use tiny timeouts that cause false failures</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+
+                <!-- RETRY PATTERNS -->
+                <MethodCard
+                        id="retry-patterns"
+                        methodName="Retry Logic with Backoff"
+                        signature="Retry failed promises with exponential backoff"
+                        description="Automatically retry failed operations with delays"
+                        mutates={false}
+                    >
+                        <ProTip>
+                            <div>🔄 <strong>Pattern 1: Simple retry (fixed attempts)</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">async function retry(fn, maxAttempts = 3) {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;for (let attempt = 1; attempt &lt;= maxAttempts; attempt++) {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;try {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return await fn() <span class="text-gray-400">// success!</span></div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;{'}'} catch (err) {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (attempt === maxAttempts) throw err <span class="text-gray-400">// give up</span></div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;console.log(`Attempt ${'{'}attempt{'}'} failed, retrying...`)</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;{'}'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;{'}'}</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Usage:</span></div>
+                                <div class="font-mono text-[10px]">const data = await retry(() =&gt; fetch('/api/data'))</div>
+                            </div>
+                        </ProTip>
+
+                        <ProTip>
+                            <div>🔄 <strong>Pattern 2: Retry with delay (Linear backoff)</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">function delay(ms) {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;return new Promise(resolve =&gt; setTimeout(resolve, ms))</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
+                                <div class="font-mono text-[10px] mt-1">async function retryWithDelay(fn, maxAttempts = 3, delayMs = 1000) {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;for (let attempt = 1; attempt &lt;= maxAttempts; attempt++) {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;try {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return await fn()</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;{'}'} catch (err) {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (attempt === maxAttempts) throw err</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;console.log(`Retry ${'{'}attempt{'}'} in ${'{'}delayMs{'}'}ms...`)</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;await delay(delayMs) <span class="text-gray-400">// wait before retry</span></div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;{'}'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;{'}'}</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
+                            </div>
+                        </ProTip>
+
+                        <ProTip>
+                            <div>🔄 <strong>Pattern 3: Exponential backoff (Best for APIs)</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">async function retryWithBackoff(fn, maxAttempts = 5) {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;for (let attempt = 1; attempt &lt;= maxAttempts; attempt++) {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;try {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return await fn()</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;{'}'} catch (err) {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (attempt === maxAttempts) throw err</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-yellow-400">// 1s, 2s, 4s, 8s, 16s...</span></div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const delayMs = Math.pow(2, attempt - 1) * 1000</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;console.log(`Attempt ${'{'}attempt{'}'} failed, waiting ${'{'}delayMs{'}'}ms...`)</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;await new Promise(r =&gt; setTimeout(r, delayMs))</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;{'}'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;{'}'}</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
+                                <div class="font-mono text-[10px] mt-1 text-gray-400">✓ Delays increase exponentially - gentler on servers</div>
+                            </div>
+                        </ProTip>
+
+                        <ProTip>
+                            <div>🔄 <strong>Pattern 4: Conditional retry (smart retries)</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">async function retryIfRetryable(fn, maxAttempts = 3) {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;for (let attempt = 1; attempt &lt;= maxAttempts; attempt++) {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;try {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return await fn()</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;{'}'} catch (err) {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-yellow-400">// Don't retry on client errors (4xx)</span></div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (err.status &gt;= 400 && err.status &lt; 500) {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throw err <span class="text-gray-400">// user error, don't retry</span></div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{'}'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-yellow-400">// Retry on network/server errors (5xx, timeout)</span></div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (attempt === maxAttempts) throw err</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;await delay(Math.pow(2, attempt) * 1000)</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;{'}'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;{'}'}</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
+                                <div class="font-mono text-[10px] mt-1 text-gray-400">✓ Only retry errors that might succeed later</div>
+                            </div>
+                        </ProTip>
+
+                        <ProTip>
+                            <div>⚠️ <strong>Best Practices:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-green-400">✓</span> Use exponential backoff for API calls</div>
+                                <div class="font-mono text-[10px]"><span class="text-green-400">✓</span> Don't retry 4xx errors (client mistakes)</div>
+                                <div class="font-mono text-[10px]"><span class="text-green-400">✓</span> DO retry 5xx, timeouts, network errors</div>
+                                <div class="font-mono text-[10px]"><span class="text-green-400">✓</span> Log each retry attempt with context</div>
+                                <div class="font-mono text-[10px]"><span class="text-green-400">✓</span> Set max retry limits (3-5 attempts)</div>
+                                <div class="font-mono text-[10px]"><span class="text-yellow-400">⚡</span> Add jitter (randomness) to prevent thundering herd</div>
+                                <div class="font-mono text-[10px]"><span class="text-red-400">✗</span> Don't retry infinitely (respect server resources)</div>
+                                <div class="font-mono text-[10px]"><span class="text-red-400">✗</span> Don't retry non-idempotent operations (POST payments!)</div>
                             </div>
                         </ProTip>
                     </MethodCard>
@@ -991,6 +1380,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                             <ul class="ml-3 mt-1 space-y-1 border-l-2 border-orange-500/30 pl-2">
                                 <li><a href="#sequential-parallel" class="text-gray-300 hover:text-blue-400 block">Sequential vs Parallel</a></li>
                                 <li><a href="#error-handling" class="text-gray-300 hover:text-blue-400 block">Error Handling</a></li>
+                                <li><a href="#nested-async-await" class="text-gray-300 hover:text-blue-400 block">Nested Async/Await</a></li>
+                                <li><a href="#timeout-patterns" class="text-gray-300 hover:text-blue-400 block">Timeout Patterns</a></li>
+                                <li><a href="#retry-patterns" class="text-gray-300 hover:text-blue-400 block">Retry Logic</a></li>
                             </ul>
                         </li>
                     </ul>
