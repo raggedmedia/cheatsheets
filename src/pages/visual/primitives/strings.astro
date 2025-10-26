@@ -1,5 +1,4 @@
 ---
-import '~styles/styles.css'
 import MethodCard from '~components/visual-js/MethodCard.astro';
 import Node from '~components/visual-js/Node.astro';
 import ArrayDisplay from '~components/visual-js/ArrayDisplay.astro';
@@ -8,48 +7,39 @@ import ReturnValue from '~components/visual-js/ReturnValue.astro';
 import InfoBox from '~components/visual-js/InfoBox.astro';
 import ProcessContent from '~components/visual-js/ProcessContent.astro';
 import ProTip from '~components/visual-js/ProTip.astro';
-import GlobalNav from '~components/visual-js/GlobalNav.astro';
+import SectionTitle from '~components/visual-js/SectionTitle.astro';
+import VisualLayout from 'src/layouts/VisualLayout.astro';
 ---
 
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>JavaScript String Methods - Visual Cheatsheet</title>
-    </head>
-    <body class="m-0 p-4 bg-[#1a1d29] text-gray-200">
-        <div class="flex gap-6 max-w-[1600px] mx-auto">
-            <!-- Main Content -->
-            <main class="flex-1 min-w-0">
-                <h1 class="text-white mb-1 text-2xl font-bold">JavaScript String Methods</h1>
-                <p class="text-gray-400 mb-6 text-sm">Visual blueprint-style reference for string operations</p>
+<VisualLayout
+    pageTitle="Javascript Strings"
+>
+    <ProTip>
+        <div>⚡ <strong>Strings are immutable!</strong> All methods return a new string — the original never changes.</div>
+        <div class="pl-2 border-l-2 border-yellow-500/30 font-mono text-[10px] mt-1">
+            const str = 'hello'<br/>
+            str.toUpperCase() <span class="text-red-400">// returns 'HELLO' but str stays 'hello'</span><br/>
+            const upper = str.toUpperCase() ✅ <span class="text-gray-400">// always save the result!</span>
+        </div>
+    </ProTip>
 
-                <ProTip>
-                    <div>⚡ <strong>Strings are immutable!</strong> All methods return a new string — the original never changes.</div>
-                    <div class="pl-2 border-l-2 border-yellow-500/30 font-mono text-[10px] mt-1">
-                        const str = 'hello'<br/>
-                        str.toUpperCase() <span class="text-red-400">// returns 'HELLO' but str stays 'hello'</span><br/>
-                        const upper = str.toUpperCase() ✅ <span class="text-gray-400">// always save the result!</span>
-                    </div>
-                </ProTip>
+    <!-- ============================================ -->
+    <!-- 🔍 INSPECT / CHECK -->
+    <!-- ============================================ -->
 
-                <!-- ============================================ -->
-                <!-- 🔍 INSPECT / CHECK -->
-                <!-- ============================================ -->
+    <SectionTitle id="inspect" color="blue">
+        🔍 Inspect / Check
+    </SectionTitle>
 
-                <h2 id="inspect" class="text-blue-300 text-xl my-4 pb-2 border-b-2 border-blue-600">
-                    🔍 Inspect / Check
-                </h2>
-
-                <!-- CHARAT -->
-                <div id="charAt">
-                    <MethodCard
-                        methodName="charAt()"
-                        signature="str.charAt(index)"
-                        description="Get character at position"
-                        mutates={false}
-                    >
-                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+    <!-- CHARAT -->
+    <MethodCard
+        id="charAt"
+        methodName="charAt()"
+        signature="str.charAt(index)"
+        description="Get character at position"
+        mutates={false}
+    >
+        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input String" type="input">
                                 <div class="text-center text-sm font-mono">'hello'</div>
                             </Node>
@@ -71,16 +61,15 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code> (length 1). <strong>Index starts at 0.</strong> Returns empty string if out of bounds.
                         </InfoBox>
                     </MethodCard>
-                </div>
 
                 <!-- INCLUDES -->
-                <div id="includes">
-                    <MethodCard
-                        methodName="includes()"
-                        signature="str.includes(substring)"
-                        description="Check if substring exists"
-                        mutates={false}
-                    >
+                <MethodCard
+                    id="includes"
+                    methodName="includes()"
+                    signature="str.includes(substring)"
+                    description="Check if substring exists"
+                    mutates={false}
+                >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input String" type="input">
                                 <div class="text-center text-sm font-mono">'hello world'</div>
@@ -103,16 +92,15 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">boolean</code>. ⚠️ Cannot be chained. Case-sensitive.
                         </InfoBox>
                     </MethodCard>
-                </div>
 
                 <!-- INDEXOF -->
-                <div id="indexOf">
-                    <MethodCard
-                        methodName="indexOf()"
-                        signature="str.indexOf(substring)"
-                        description="Find first occurrence index"
-                        mutates={false}
-                    >
+                <MethodCard
+                    id="indexOf"
+                    methodName="indexOf()"
+                    signature="str.indexOf(substring)"
+                    description="Find first occurrence index"
+                    mutates={false}
+                >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input String" type="input">
                                 <div class="text-center text-sm font-mono">'hello'</div>
@@ -136,16 +124,15 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                         </InfoBox>
 
                     </MethodCard>
-                </div>
 
                 <!-- LASTINDEXOF -->
-                <div id="lastIndexOf">
-                    <MethodCard
-                        methodName="lastIndexOf()"
-                        signature="str.lastIndexOf(substring)"
-                        description="Find last occurrence index"
-                        mutates={false}
-                    >
+                <MethodCard
+                    id="lastIndexOf"
+                    methodName="lastIndexOf()"
+                    signature="str.lastIndexOf(substring)"
+                    description="Find last occurrence index"
+                    mutates={false}
+                >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input String" type="input">
                                 <div class="text-center text-sm font-mono">'hello'</div>
@@ -168,16 +155,15 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">number</code> (index) or <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">-1</code> if not found. ⚠️ Cannot be chained. Searches from the end.
                         </InfoBox>
                     </MethodCard>
-                </div>
 
                 <!-- STARTSWITH -->
-                <div id="startsWith">
-                    <MethodCard
-                        methodName="startsWith()"
-                        signature="str.startsWith(substring)"
-                        description="Check if string starts with substring"
-                        mutates={false}
-                    >
+                <MethodCard
+                    id="startsWith"
+                    methodName="startsWith()"
+                    signature="str.startsWith(substring)"
+                    description="Check if string starts with substring"
+                    mutates={false}
+                >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input String" type="input">
                                 <div class="text-center text-sm font-mono">'hello world'</div>
@@ -200,16 +186,15 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">boolean</code>. ⚠️ Cannot be chained.
                         </InfoBox>
                     </MethodCard>
-                </div>
 
                 <!-- ENDSWITH -->
-                <div id="endsWith">
-                    <MethodCard
-                        methodName="endsWith()"
-                        signature="str.endsWith(substring)"
-                        description="Check if string ends with substring"
-                        mutates={false}
-                    >
+                <MethodCard
+                    id="endsWith"
+                    methodName="endsWith()"
+                    signature="str.endsWith(substring)"
+                    description="Check if string ends with substring"
+                    mutates={false}
+                >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input String" type="input">
                                 <div class="text-center text-sm font-mono">'hello world'</div>
@@ -234,22 +219,22 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                     </MethodCard>
                 </div>
 
-                <!-- ============================================ -->
-                <!-- ✂️ EXTRACT PIECES -->
-                <!-- ============================================ -->
+    <!-- ============================================ -->
+    <!-- ✂️ EXTRACT PIECES -->
+    <!-- ============================================ -->
 
-                <h2 id="extract" class="text-purple-300 text-xl my-4 pb-2 border-b-2 border-purple-600">
-                    ✂️ Extract Pieces
-                </h2>
+    <SectionTitle id="extract" color="purple">
+        ✂️ Extract Pieces
+    </SectionTitle>
 
                 <!-- SLICE -->
-                <div id="slice">
-                    <MethodCard
-                        methodName="slice()"
-                        signature="str.slice(start, end?)"
-                        description="Extract substring by indexes"
-                        mutates={false}
-                    >
+                <MethodCard
+                    id="slice"
+                    methodName="slice()"
+                    signature="str.slice(start, end?)"
+                    description="Extract substring by indexes"
+                    mutates={false}
+                >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input String" type="input">
                                 <div class="text-center text-sm font-mono">'hello world'</div>
@@ -280,16 +265,15 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- SUBSTRING -->
-                <div id="substring">
-                    <MethodCard
-                        methodName="substring()"
-                        signature="str.substring(start, end?)"
-                        description="Extract substring (swaps args if wrong order)"
-                        mutates={false}
-                    >
+                <MethodCard
+                    id="substring"
+                    methodName="substring()"
+                    signature="str.substring(start, end?)"
+                    description="Extract substring (swaps args if wrong order)"
+                    mutates={false}
+                >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input String" type="input">
                                 <div class="text-center text-sm font-mono">'hello'</div>
@@ -312,16 +296,15 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. Does NOT accept negative indexes. Prefer <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">slice()</code> for consistency.
                         </InfoBox>
                     </MethodCard>
-                </div>
 
                 <!-- SPLIT -->
-                <div id="split">
-                    <MethodCard
-                        methodName="split()"
-                        signature="str.split(separator)"
-                        description="Break string into array"
-                        mutates={false}
-                    >
+                <MethodCard
+                    id="split"
+                    methodName="split()"
+                    signature="str.split(separator)"
+                    description="Break string into array"
+                    mutates={false}
+                >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input String" type="input">
                                 <div class="text-center text-sm font-mono">'a,b,c'</div>
@@ -355,22 +338,22 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                     </MethodCard>
                 </div>
 
-                <!-- ============================================ -->
-                <!-- 🔁 CHANGE CASE -->
-                <!-- ============================================ -->
+    <!-- ============================================ -->
+    <!-- 🔁 CHANGE CASE -->
+    <!-- ============================================ -->
 
-                <h2 id="case" class="text-orange-300 text-xl my-4 pb-2 border-b-2 border-orange-600">
-                    🔁 Change Case
-                </h2>
+    <SectionTitle id="case" color="orange">
+        🔁 Change Case
+    </SectionTitle>
 
                 <!-- TOUPPERCASE -->
-                <div id="toUpperCase">
-                    <MethodCard
-                        methodName="toUpperCase()"
-                        signature="str.toUpperCase()"
-                        description="Convert to uppercase"
-                        mutates={false}
-                    >
+                <MethodCard
+                    id="toUpperCase"
+                    methodName="toUpperCase()"
+                    signature="str.toUpperCase()"
+                    description="Convert to uppercase"
+                    mutates={false}
+                >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input String" type="input">
                                 <div class="text-center text-sm font-mono">'hello'</div>
@@ -393,16 +376,15 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. Converts all characters to uppercase.
                         </InfoBox>
                     </MethodCard>
-                </div>
 
                 <!-- TOLOWERCASE -->
-                <div id="toLowerCase">
-                    <MethodCard
-                        methodName="toLowerCase()"
-                        signature="str.toLowerCase()"
-                        description="Convert to lowercase"
-                        mutates={false}
-                    >
+                <MethodCard
+                    id="toLowerCase"
+                    methodName="toLowerCase()"
+                    signature="str.toLowerCase()"
+                    description="Convert to lowercase"
+                    mutates={false}
+                >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input String" type="input">
                                 <div class="text-center text-sm font-mono">'HELLO'</div>
@@ -425,16 +407,15 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. Converts all characters to lowercase.
                         </InfoBox>
                     </MethodCard>
-                </div>
 
                 <!-- CAPITALIZE WORDS -->
-                <div id="capitalize">
-                    <MethodCard
-                        methodName="Capitalize Words"
-                        signature="str.replace(/\\b\\w/g, c => c.toUpperCase())"
-                        description="Capitalize first letter of each word"
-                        mutates={false}
-                    >
+                <MethodCard
+                    id="capitalize"
+                    methodName="Capitalize Words"
+                    signature="str.replace(/\\b\\w/g, c => c.toUpperCase())"
+                    description="Capitalize first letter of each word"
+                    mutates={false}
+                >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input String" type="input">
                                 <div class="text-center text-sm font-mono">'hello world'</div>
@@ -469,22 +450,22 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                     </MethodCard>
                 </div>
 
-                <!-- ============================================ -->
-                <!-- 🧹 TRIM / PAD -->
-                <!-- ============================================ -->
+    <!-- ============================================ -->
+    <!-- 🧹 TRIM / PAD -->
+    <!-- ============================================ -->
 
-                <h2 id="trim-pad" class="text-green-300 text-xl my-4 pb-2 border-b-2 border-green-600">
-                    🧹 Trim / Pad
-                </h2>
+    <SectionTitle id="trim-pad" color="green">
+        🧹 Trim / Pad
+    </SectionTitle>
 
                 <!-- TRIM -->
-                <div id="trim">
-                    <MethodCard
-                        methodName="trim()"
-                        signature="str.trim()"
-                        description="Remove whitespace from both ends"
-                        mutates={false}
-                    >
+                <MethodCard
+                    id="trim"
+                    methodName="trim()"
+                    signature="str.trim()"
+                    description="Remove whitespace from both ends"
+                    mutates={false}
+                >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input String" type="input">
                                 <div class="text-center text-sm font-mono">'  hello  '</div>
@@ -507,16 +488,15 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. Use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">trimStart()</code> or <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">trimEnd()</code> for one side only.
                         </InfoBox>
                     </MethodCard>
-                </div>
 
                 <!-- PADSTART -->
-                <div id="padStart">
-                    <MethodCard
-                        methodName="padStart()"
-                        signature="str.padStart(targetLength, padString)"
-                        description="Pad string to target length (adds padding to the left)"
-                        mutates={false}
-                    >
+                <MethodCard
+                    id="padStart"
+                    methodName="padStart()"
+                    signature="str.padStart(targetLength, padString)"
+                    description="Pad string to target length (adds padding to the left)"
+                    mutates={false}
+                >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input String" type="input">
                                 <div class="text-center text-sm font-mono">'5'</div>
@@ -546,29 +526,66 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                 <div class="font-mono text-[10px]">'5'.padStart(2, '0') → '05'</div>
                                 <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Leading zeros for IDs/invoice numbers</span></div>
                                 <div class="font-mono text-[10px]">'123'.padStart(6, '0') → '000123'</div>
-                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Right padding with padEnd()</span></div>
-                                <div class="font-mono text-[10px]">'hi'.padEnd(5, '.') → 'hi...'</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+
+                <!-- PADEND -->
+                <MethodCard
+                    id="padEnd"
+                    methodName="padEnd()"
+                    signature="str.padEnd(targetLength, padString)"
+                    description="Pad string to target length (adds padding to the right)"
+                    mutates={false}
+                >
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input String" type="input">
+                                <div class="text-center text-sm font-mono">'hi'</div>
+                            </Node>
+
+                            <Arrow label="pad" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="str.padEnd(5, '.')" description="Pad right with dots" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="New String" type="output">
+                                <ReturnValue value="'hi...'" type="string" />
+                            </Node>
+                        </div>
+
+                        <InfoBox mutates={false} message="">
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. The mirror opposite of <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">padStart()</code>.
+                        </InfoBox>
+
+                        <ProTip>
+                            <div>💡 <strong>Perfect for creating tables or aligned text:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">'Name'.padEnd(10, ' ') + 'Age' → 'Name      Age'</div>
+                                <div class="font-mono text-[10px]">'Task'.padEnd(20, '.') + 'Done' → 'Task................Done'</div>
                             </div>
                         </ProTip>
                     </MethodCard>
                 </div>
 
-                <!-- ============================================ -->
-                <!-- 🔨 MANIPULATION -->
-                <!-- ============================================ -->
+    <!-- ============================================ -->
+    <!-- 🔨 MANIPULATION -->
+    <!-- ============================================ -->
 
-                <h2 id="manipulation" class="text-red-300 text-xl my-4 pb-2 border-b-2 border-red-600">
-                    🔨 Manipulation
-                </h2>
+    <SectionTitle id="manipulation" color="red">
+        🔨 Manipulation
+    </SectionTitle>
 
                 <!-- CONCAT -->
-                <div id="concat">
-                    <MethodCard
-                        methodName="concat()"
-                        signature="str.concat(str2, str3, ...)"
-                        description="Join strings together"
-                        mutates={false}
-                    >
+                <MethodCard
+                    id="concat"
+                    methodName="concat()"
+                    signature="str.concat(str2, str3, ...)"
+                    description="Join strings together"
+                    mutates={false}
+                >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input Strings" type="input">
                                 <div class="text-center text-sm font-mono">'hello', ' ', 'world'</div>
@@ -591,16 +608,15 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. Prefer template literals <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">`$&lbrace;a&rbrace; $&lbrace;b&rbrace;`</code> for readability.
                         </InfoBox>
                     </MethodCard>
-                </div>
 
                 <!-- REPEAT -->
-                <div id="repeat">
-                    <MethodCard
-                        methodName="repeat()"
-                        signature="str.repeat(count)"
-                        description="Repeat string n times"
-                        mutates={false}
-                    >
+                <MethodCard
+                    id="repeat"
+                    methodName="repeat()"
+                    signature="str.repeat(count)"
+                    description="Repeat string n times"
+                    mutates={false}
+                >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input String" type="input">
                                 <div class="text-center text-sm font-mono">'ha'</div>
@@ -623,16 +639,15 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. Useful for creating patterns or dividers.
                         </InfoBox>
                     </MethodCard>
-                </div>
 
                 <!-- REPLACE -->
-                <div id="replace">
-                    <MethodCard
-                        methodName="replace()"
-                        signature="str.replace(search, replacement)"
-                        description="Replace first match"
-                        mutates={false}
-                    >
+                <MethodCard
+                    id="replace"
+                    methodName="replace()"
+                    signature="str.replace(search, replacement)"
+                    description="Replace first match"
+                    mutates={false}
+                >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input String" type="input">
                                 <div class="text-center text-sm font-mono">'hello hello'</div>
@@ -664,16 +679,15 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- REPLACEALL -->
-                <div id="replaceAll">
-                    <MethodCard
-                        methodName="replaceAll()"
-                        signature="str.replaceAll(search, replacement)"
-                        description="Replace all matches"
-                        mutates={false}
-                    >
+                <MethodCard
+                    id="replaceAll"
+                    methodName="replaceAll()"
+                    signature="str.replaceAll(search, replacement)"
+                    description="Replace all matches"
+                    mutates={false}
+                >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input String" type="input">
                                 <div class="text-center text-sm font-mono">'a a a'</div>
@@ -698,22 +712,22 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                     </MethodCard>
                 </div>
 
-                <!-- ============================================ -->
-                <!-- 🔍 PATTERN MATCHING -->
-                <!-- ============================================ -->
+    <!-- ============================================ -->
+    <!-- 🔍 PATTERN MATCHING -->
+    <!-- ============================================ -->
 
-                <h2 id="pattern" class="text-pink-300 text-xl my-4 pb-2 border-b-2 border-pink-600">
-                    🔍 Pattern Matching
-                </h2>
+    <SectionTitle id="pattern" color="pink">
+        🔍 Pattern Matching
+    </SectionTitle>
 
                 <!-- MATCH -->
-                <div id="match">
-                    <MethodCard
-                        methodName="match()"
-                        signature="str.match(regex)"
-                        description="Find matches using regex"
-                        mutates={false}
-                    >
+                <MethodCard
+                    id="match"
+                    methodName="match()"
+                    signature="str.match(regex)"
+                    description="Find matches using regex"
+                    mutates={false}
+                >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input String" type="input">
                                 <div class="text-center text-sm font-mono">'hello123'</div>
@@ -736,16 +750,15 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">array</code> of matches or <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">null</code>. ⚠️ Cannot be chained.
                         </InfoBox>
                     </MethodCard>
-                </div>
 
                 <!-- SEARCH -->
-                <div id="search">
-                    <MethodCard
-                        methodName="search()"
-                        signature="str.search(regex)"
-                        description="Find index of first regex match"
-                        mutates={false}
-                    >
+                <MethodCard
+                    id="search"
+                    methodName="search()"
+                    signature="str.search(regex)"
+                    description="Find index of first regex match"
+                    mutates={false}
+                >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input String" type="input">
                                 <div class="text-center text-sm font-mono">'hello123'</div>
@@ -770,22 +783,22 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                     </MethodCard>
                 </div>
 
-                <!-- ============================================ -->
-                <!-- 🔄 CONVERTING TO STRINGS -->
-                <!-- ============================================ -->
+    <!-- ============================================ -->
+    <!-- 🔄 CONVERTING TO STRINGS -->
+    <!-- ============================================ -->
 
-                <h2 id="converting" class="text-yellow-300 text-xl my-4 pb-2 border-b-2 border-yellow-600">
-                    🔄 Converting to Strings
-                </h2>
+    <SectionTitle id="converting" color="yellow">
+        🔄 Converting to Strings
+    </SectionTitle>
 
                 <!-- ARRAY TO STRING -->
-                <div id="array-to-string">
-                    <MethodCard
-                        methodName="Array to String"
-                        signature="arr.join(separator)"
-                        description="Convert array to string with separator"
-                        mutates={false}
-                    >
+                <MethodCard
+                    id="array-to-string"
+                    methodName="Array to String"
+                    signature="arr.join(separator)"
+                    description="Convert array to string with separator"
+                    mutates={false}
+                >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input Array" type="input">
                                 <ArrayDisplay values={['a', 'b', 'c']} />
@@ -818,16 +831,15 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- NUMBER TO STRING -->
-                <div id="number-to-string">
-                    <MethodCard
-                        methodName="Number to String"
-                        signature="String(num) or num.toString()"
-                        description="Convert number to string"
-                        mutates={false}
-                    >
+                <MethodCard
+                    id="number-to-string"
+                    methodName="Number to String"
+                    signature="String(num) or num.toString()"
+                    description="Convert number to string"
+                    mutates={false}
+                >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input Number" type="input">
                                 <div class="text-center text-sm font-mono">123</div>
@@ -861,16 +873,15 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- OBJECT TO STRING -->
-                <div id="object-to-string">
-                    <MethodCard
-                        methodName="Object to String"
-                        signature="JSON.stringify(obj)"
-                        description="Convert object to JSON string"
-                        mutates={false}
-                    >
+                <MethodCard
+                    id="object-to-string"
+                    methodName="Object to String"
+                    signature="JSON.stringify(obj)"
+                    description="Convert object to JSON string"
+                    mutates={false}
+                >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input Object" type="input">
                                 <div class="text-center text-sm font-mono">&lbrace;a: 1, b: 2&rbrace;</div>
@@ -905,22 +916,22 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                     </MethodCard>
                 </div>
 
-                <!-- ============================================ -->
-                <!-- 🧩 COMMON PATTERNS -->
-                <!-- ============================================ -->
+    <!-- ============================================ -->
+    <!-- 🧩 COMMON PATTERNS -->
+    <!-- ============================================ -->
 
-                <h2 id="patterns" class="text-cyan-300 text-xl my-4 pb-2 border-b-2 border-cyan-600">
-                    🧩 Common Patterns
-                </h2>
+    <SectionTitle id="patterns" color="cyan">
+        🧩 Common Patterns
+    </SectionTitle>
 
                 <!-- PREPEND/APPEND -->
-                <div id="prepend-append">
-                    <MethodCard
-                        methodName="Prepend / Append"
-                        signature="`prefix${str}suffix`"
-                        description="Add text before or after string"
-                        mutates={false}
-                    >
+                <MethodCard
+                    id="prepend-append"
+                    methodName="Prepend / Append"
+                    signature="`prefix${str}suffix`"
+                    description="Add text before or after string"
+                    mutates={false}
+                >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input String" type="input">
                                 <div class="text-center text-sm font-mono">'hello'</div>
@@ -955,13 +966,13 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                 </div>
 
                 <!-- REVERSE STRING -->
-                <div id="reverse">
-                    <MethodCard
-                        methodName="Reverse String"
-                        signature="str.split('').reverse().join('')"
-                        description="Reverse character order"
-                        mutates={false}
-                    >
+                <MethodCard
+                    id="reverse"
+                    methodName="Reverse String"
+                    signature="str.split('').reverse().join('')"
+                    description="Reverse character order"
+                    mutates={false}
+                >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input String" type="input">
                                 <div class="text-center text-sm font-mono">'hello'</div>
@@ -1002,13 +1013,13 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                 </div>
 
                 <!-- CHECK IF EMPTY -->
-                <div id="is-empty">
-                    <MethodCard
-                        methodName="Check if Empty"
-                        signature="str.trim() === ''"
-                        description="Check if string is empty or only whitespace"
-                        mutates={false}
-                    >
+                <MethodCard
+                    id="is-empty"
+                    methodName="Check if Empty"
+                    signature="str.trim() === ''"
+                    description="Check if string is empty or only whitespace"
+                    mutates={false}
+                >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input String" type="input">
                                 <div class="text-center text-sm font-mono">'   '</div>
@@ -1043,143 +1054,81 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                     </MethodCard>
                 </div>
 
-            </main>
+    <Fragment slot="page-nav">
+        <ul class="space-y-2 text-xs">
+            <li>
+                <a href="#inspect" class="text-blue-300 font-semibold hover:text-blue-200 block py-1">🔍 Inspect / Check</a>
+                <ul class="ml-3 mt-1 space-y-1 border-l-2 border-blue-500/30 pl-2">
+                    <li><a href="#charAt" class="text-gray-300 hover:text-blue-400 block">charAt()</a></li>
+                    <li><a href="#includes" class="text-gray-300 hover:text-blue-400 block">includes()</a></li>
+                    <li><a href="#indexOf" class="text-gray-300 hover:text-blue-400 block">indexOf()</a></li>
+                    <li><a href="#lastIndexOf" class="text-gray-300 hover:text-blue-400 block">lastIndexOf()</a></li>
+                    <li><a href="#startsWith" class="text-gray-300 hover:text-blue-400 block">startsWith()</a></li>
+                    <li><a href="#endsWith" class="text-gray-300 hover:text-blue-400 block">endsWith()</a></li>
+                </ul>
+            </li>
 
-            <!-- Sidebar Navigation -->
-            <aside class="w-64 shrink-0 sticky top-4 self-start hidden lg:block max-h-[calc(100vh-2rem)] overflow-y-auto">
-                <!-- Global Navigation -->
-                <GlobalNav />
+            <li class="mt-4">
+                <a href="#extract" class="text-purple-300 font-semibold hover:text-purple-200 block py-1">✂️ Extract Pieces</a>
+                <ul class="ml-3 mt-1 space-y-1 border-l-2 border-purple-500/30 pl-2">
+                    <li><a href="#slice" class="text-gray-300 hover:text-blue-400 block">slice()</a></li>
+                    <li><a href="#substring" class="text-gray-300 hover:text-blue-400 block">substring()</a></li>
+                    <li><a href="#split" class="text-gray-300 hover:text-blue-400 block">split()</a></li>
+                </ul>
+            </li>
 
-                <!-- Page Navigation -->
-                <nav class="bg-[#252936] rounded-lg p-4 border border-gray-700">
-                    <h3 class="text-white text-sm font-bold mb-3 uppercase tracking-wide">On This Page</h3>
-                    <ul class="space-y-2 text-xs">
-                        <li>
-                            <a href="#inspect" class="text-blue-300 font-semibold hover:text-blue-200 block py-1">🔍 Inspect / Check</a>
-                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-blue-500/30 pl-2">
-                                <li><a href="#charAt" class="text-gray-300 hover:text-blue-400 block">charAt()</a></li>
-                                <li><a href="#includes" class="text-gray-300 hover:text-blue-400 block">includes()</a></li>
-                                <li><a href="#indexOf" class="text-gray-300 hover:text-blue-400 block">indexOf()</a></li>
-                                <li><a href="#lastIndexOf" class="text-gray-300 hover:text-blue-400 block">lastIndexOf()</a></li>
-                                <li><a href="#startsWith" class="text-gray-300 hover:text-blue-400 block">startsWith()</a></li>
-                                <li><a href="#endsWith" class="text-gray-300 hover:text-blue-400 block">endsWith()</a></li>
-                            </ul>
-                        </li>
+            <li class="mt-4">
+                <a href="#case" class="text-orange-300 font-semibold hover:text-orange-200 block py-1">🔁 Change Case</a>
+                <ul class="ml-3 mt-1 space-y-1 border-l-2 border-orange-500/30 pl-2">
+                    <li><a href="#toUpperCase" class="text-gray-300 hover:text-blue-400 block">toUpperCase()</a></li>
+                    <li><a href="#toLowerCase" class="text-gray-300 hover:text-blue-400 block">toLowerCase()</a></li>
+                    <li><a href="#capitalize" class="text-gray-300 hover:text-blue-400 block">Capitalize Words</a></li>
+                </ul>
+            </li>
 
-                        <li class="mt-4">
-                            <a href="#extract" class="text-purple-300 font-semibold hover:text-purple-200 block py-1">✂️ Extract Pieces</a>
-                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-purple-500/30 pl-2">
-                                <li><a href="#slice" class="text-gray-300 hover:text-blue-400 block">slice()</a></li>
-                                <li><a href="#substring" class="text-gray-300 hover:text-blue-400 block">substring()</a></li>
-                                <li><a href="#split" class="text-gray-300 hover:text-blue-400 block">split()</a></li>
-                            </ul>
-                        </li>
+            <li class="mt-4">
+                <a href="#trim-pad" class="text-green-300 font-semibold hover:text-green-200 block py-1">🧹 Trim / Pad</a>
+                <ul class="ml-3 mt-1 space-y-1 border-l-2 border-green-500/30 pl-2">
+                    <li><a href="#trim" class="text-gray-300 hover:text-blue-400 block">trim()</a></li>
+                    <li><a href="#padStart" class="text-gray-300 hover:text-blue-400 block">padStart()</a></li>
+                </ul>
+            </li>
 
-                        <li class="mt-4">
-                            <a href="#case" class="text-orange-300 font-semibold hover:text-orange-200 block py-1">🔁 Change Case</a>
-                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-orange-500/30 pl-2">
-                                <li><a href="#toUpperCase" class="text-gray-300 hover:text-blue-400 block">toUpperCase()</a></li>
-                                <li><a href="#toLowerCase" class="text-gray-300 hover:text-blue-400 block">toLowerCase()</a></li>
-                                <li><a href="#capitalize" class="text-gray-300 hover:text-blue-400 block">Capitalize Words</a></li>
-                            </ul>
-                        </li>
+            <li class="mt-4">
+                <a href="#manipulation" class="text-red-300 font-semibold hover:text-red-200 block py-1">🔨 Manipulation</a>
+                <ul class="ml-3 mt-1 space-y-1 border-l-2 border-red-500/30 pl-2">
+                    <li><a href="#concat" class="text-gray-300 hover:text-blue-400 block">concat()</a></li>
+                    <li><a href="#repeat" class="text-gray-300 hover:text-blue-400 block">repeat()</a></li>
+                    <li><a href="#replace" class="text-gray-300 hover:text-blue-400 block">replace()</a></li>
+                    <li><a href="#replaceAll" class="text-gray-300 hover:text-blue-400 block">replaceAll()</a></li>
+                </ul>
+            </li>
 
-                        <li class="mt-4">
-                            <a href="#trim-pad" class="text-green-300 font-semibold hover:text-green-200 block py-1">🧹 Trim / Pad</a>
-                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-green-500/30 pl-2">
-                                <li><a href="#trim" class="text-gray-300 hover:text-blue-400 block">trim()</a></li>
-                                <li><a href="#padStart" class="text-gray-300 hover:text-blue-400 block">padStart()</a></li>
-                            </ul>
-                        </li>
+            <li class="mt-4">
+                <a href="#pattern" class="text-pink-300 font-semibold hover:text-pink-200 block py-1">🔍 Pattern Matching</a>
+                <ul class="ml-3 mt-1 space-y-1 border-l-2 border-pink-500/30 pl-2">
+                    <li><a href="#match" class="text-gray-300 hover:text-blue-400 block">match()</a></li>
+                    <li><a href="#search" class="text-gray-300 hover:text-blue-400 block">search()</a></li>
+                </ul>
+            </li>
 
-                        <li class="mt-4">
-                            <a href="#manipulation" class="text-red-300 font-semibold hover:text-red-200 block py-1">🔨 Manipulation</a>
-                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-red-500/30 pl-2">
-                                <li><a href="#concat" class="text-gray-300 hover:text-blue-400 block">concat()</a></li>
-                                <li><a href="#repeat" class="text-gray-300 hover:text-blue-400 block">repeat()</a></li>
-                                <li><a href="#replace" class="text-gray-300 hover:text-blue-400 block">replace()</a></li>
-                                <li><a href="#replaceAll" class="text-gray-300 hover:text-blue-400 block">replaceAll()</a></li>
-                            </ul>
-                        </li>
+            <li class="mt-4">
+                <a href="#converting" class="text-yellow-300 font-semibold hover:text-yellow-200 block py-1">🔄 Converting to Strings</a>
+                <ul class="ml-3 mt-1 space-y-1 border-l-2 border-yellow-500/30 pl-2">
+                    <li><a href="#array-to-string" class="text-gray-300 hover:text-blue-400 block">Array to String</a></li>
+                    <li><a href="#number-to-string" class="text-gray-300 hover:text-blue-400 block">Number to String</a></li>
+                    <li><a href="#object-to-string" class="text-gray-300 hover:text-blue-400 block">Object to String</a></li>
+                </ul>
+            </li>
 
-                        <li class="mt-4">
-                            <a href="#pattern" class="text-pink-300 font-semibold hover:text-pink-200 block py-1">🔍 Pattern Matching</a>
-                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-pink-500/30 pl-2">
-                                <li><a href="#match" class="text-gray-300 hover:text-blue-400 block">match()</a></li>
-                                <li><a href="#search" class="text-gray-300 hover:text-blue-400 block">search()</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="mt-4">
-                            <a href="#converting" class="text-yellow-300 font-semibold hover:text-yellow-200 block py-1">🔄 Converting to Strings</a>
-                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-yellow-500/30 pl-2">
-                                <li><a href="#array-to-string" class="text-gray-300 hover:text-blue-400 block">Array to String</a></li>
-                                <li><a href="#number-to-string" class="text-gray-300 hover:text-blue-400 block">Number to String</a></li>
-                                <li><a href="#object-to-string" class="text-gray-300 hover:text-blue-400 block">Object to String</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="mt-4">
-                            <a href="#patterns" class="text-cyan-300 font-semibold hover:text-cyan-200 block py-1">🧩 Common Patterns</a>
-                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-cyan-500/30 pl-2">
-                                <li><a href="#prepend-append" class="text-gray-300 hover:text-blue-400 block">Prepend / Append</a></li>
-                                <li><a href="#reverse" class="text-gray-300 hover:text-blue-400 block">Reverse String</a></li>
-                                <li><a href="#is-empty" class="text-gray-300 hover:text-blue-400 block">Check if Empty</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
-            </aside>
-        </div>
-
-        <style>
-            html {
-                scroll-behavior: smooth;
-                scroll-padding-top: 20px;
-            }
-
-            /* Node gradient backgrounds */
-            .node-input {
-                background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
-            }
-
-            .node-process {
-                background: linear-gradient(135deg, #4c1d95 0%, #5b21b6 100%);
-            }
-
-            .node-output {
-                background: linear-gradient(135deg, #166534 0%, #15803d 100%);
-            }
-
-            /* Arrow styling */
-            .arrow {
-                position: relative;
-                height: 2px;
-                background: linear-gradient(90deg, #4b5563 0%, #6b7280 100%);
-            }
-
-            .arrow::after {
-                content: '';
-                position: absolute;
-                right: 0;
-                top: 50%;
-                transform: translateY(-50%);
-                width: 0;
-                height: 0;
-                border-left: 8px solid #6b7280;
-                border-top: 5px solid transparent;
-                border-bottom: 5px solid transparent;
-            }
-
-            /* Pulse animation for highlights */
-            @keyframes pulse {
-                0%, 100% { opacity: 1; }
-                50% { opacity: 0.6; }
-            }
-
-            .animate-pulse {
-                animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-            }
-        </style>
-    </body>
-</html>
+            <li class="mt-4">
+                <a href="#patterns" class="text-cyan-300 font-semibold hover:text-cyan-200 block py-1">🧩 Common Patterns</a>
+                <ul class="ml-3 mt-1 space-y-1 border-l-2 border-cyan-500/30 pl-2">
+                    <li><a href="#prepend-append" class="text-gray-300 hover:text-blue-400 block">Prepend / Append</a></li>
+                    <li><a href="#reverse" class="text-gray-300 hover:text-blue-400 block">Reverse String</a></li>
+                    <li><a href="#is-empty" class="text-gray-300 hover:text-blue-400 block">Check if Empty</a></li>
+                </ul>
+            </li>
+        </ul>
+    </Fragment>
+</VisualLayout>
