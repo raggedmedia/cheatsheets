@@ -1,0 +1,12 @@
+---
+interface Props {
+    id: string;
+    parentColor?: string;
+}
+
+const { id, parentColor = "gray" } = Astro.props;
+---
+
+<h3 id={id} class={`text-${parentColor}-200 text-lg mt-8 mb-2 pl-3 border-l-2 border-${parentColor}-500/50`}>
+    <slot />
+</h3>
