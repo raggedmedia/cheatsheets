@@ -1,0 +1,657 @@
+---
+import Layout from '../../components/heading/heading.astro';
+import MethodCard from '../../components/visual-js/MethodCard.astro';
+import ProTip from '../../components/visual-js/ProTip.astro';
+---
+
+<Layout
+    title="Intersection Observer API"
+    subtitle="Detect when elements enter/leave viewport - lazy loading, animations, infinite scroll"
+>
+    <!-- ============================================ -->
+    <!-- 🎯 Best Use Cases -->
+    <!-- ============================================ -->
+
+    <h2 id="use-cases" class="text-cyan-300 text-xl my-4 pb-2 border-b-2 border-cyan-600">
+        🎯 Best Use Cases (FED Perspective)
+    </h2>
+
+    <div id="common-uses">
+        <MethodCard
+            methodName="When to use Intersection Observer"
+            signature="Performance-friendly visibility detection"
+            description="Perfect for scroll-triggered interactions"
+            mutates={false}
+        >
+            <div class="p-6 bg-gray-800 rounded space-y-4">
+                <!-- Use cases grid -->
+                <div class="bg-slate-700 border border-slate-600 rounded p-4">
+                    <div class="text-slate-300 text-[11px] space-y-2">
+                        <div class="text-yellow-400 mb-2">Perfect for:</div>
+                        <div class="grid grid-cols-2 gap-x-4 gap-y-2">
+                            <div class="flex items-start gap-2">
+                                <span class="text-green-400">✅</span>
+                                <span>Lazy loading images/videos</span>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <span class="text-green-400">✅</span>
+                                <span>Infinite scroll pagination</span>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <span class="text-green-400">✅</span>
+                                <span>Fade-in animations on scroll</span>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <span class="text-green-400">✅</span>
+                                <span>Analytics (track element views)</span>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <span class="text-green-400">✅</span>
+                                <span>Pausing videos when offscreen</span>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <span class="text-green-400">✅</span>
+                                <span>Sticky nav active states</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Why use it -->
+                <div class="bg-blue-500/20 border border-blue-400 rounded p-4">
+                    <div class="text-blue-300 text-[11px] space-y-2">
+                        <div class="text-yellow-400 mb-2">Why Intersection Observer beats scroll events:</div>
+                        <div class="space-y-1">
+                            <div>• <strong>Performance</strong> - No scroll event listeners, runs off main thread</div>
+                            <div>• <strong>Battery friendly</strong> - Browser optimizes when to check</div>
+                            <div>• <strong>Accurate</strong> - Handles iframes, CSS transforms, etc.</div>
+                            <div>• <strong>Simple</strong> - No manual position calculations</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Don't use for -->
+                <div class="bg-red-500/20 border border-red-400 rounded p-4">
+                    <div class="text-red-300 text-[11px] space-y-2">
+                        <div class="text-yellow-400 mb-2">❌ Not ideal for:</div>
+                        <div class="space-y-1">
+                            <div>• Precise scroll position tracking (use scroll events)</div>
+                            <div>• Parallax effects (too jumpy, use scroll events)</div>
+                            <div>• Hover interactions (use CSS :hover or mouseenter)</div>
+                            <div>• Real-time scroll percentage (use scroll events)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <ProTip>
+                <div>💡 <strong>Rule of thumb:</strong> If you need to know "is this element visible?", use Intersection Observer. If you need "where exactly is the scroll position?", use scroll events.</div>
+            </ProTip>
+        </MethodCard>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- 🚀 Quick Start -->
+    <!-- ============================================ -->
+
+    <h2 id="quick-start" class="text-green-300 text-xl my-4 pb-2 border-b-2 border-green-600">
+        🚀 Quick Start
+    </h2>
+
+    <div id="basic-setup">
+        <MethodCard
+            methodName="Basic Setup"
+            signature="new IntersectionObserver(callback, options)"
+            description="Create observer, observe elements"
+            mutates={false}
+        >
+            <div class="p-6 bg-gray-800 rounded space-y-4">
+                <!-- Basic example -->
+                <div class="bg-green-500/20 border border-green-500 rounded p-4">
+                    <div class="text-green-300 font-mono text-[11px] space-y-1">
+                        <div class="text-yellow-400 mb-2">Basic pattern (fade in on scroll):</div>
+                        <div><span class="text-gray-400">// 1. Create the observer</span></div>
+                        <div>const observer = new IntersectionObserver((entries) => {`{`}</div>
+                        <div>&nbsp;&nbsp;entries.forEach(entry => {`{`}</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;if (entry.isIntersecting) {`{`}</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;entry.target.classList.add('visible');</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;observer.unobserve(entry.target); <span class="text-gray-400">// Stop watching</span></div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;{'}'}</div>
+                        <div>&nbsp;&nbsp;{'}'})</div>
+                        <div>{'}'})</div>
+                        <div></div>
+                        <div><span class="text-gray-400">// 2. Observe elements</span></div>
+                        <div>document.querySelectorAll('.fade-in').forEach(el => {`{`}</div>
+                        <div>&nbsp;&nbsp;observer.observe(el);</div>
+                        <div>{'}'})</div>
+                    </div>
+                </div>
+
+                <!-- CSS for fade-in -->
+                <div class="bg-purple-500/20 border border-purple-400 rounded p-4">
+                    <div class="text-purple-300 font-mono text-[11px] space-y-1">
+                        <div class="text-yellow-400 mb-2">CSS for fade-in:</div>
+                        <div>.fade-in {`{`}</div>
+                        <div>&nbsp;&nbsp;opacity: 0;</div>
+                        <div>&nbsp;&nbsp;transform: translateY(20px);</div>
+                        <div>&nbsp;&nbsp;transition: opacity 0.6s, transform 0.6s;</div>
+                        <div>{'}'}</div>
+                        <div></div>
+                        <div>.fade-in.visible {`{`}</div>
+                        <div>&nbsp;&nbsp;opacity: 1;</div>
+                        <div>&nbsp;&nbsp;transform: translateY(0);</div>
+                        <div>{'}'}</div>
+                    </div>
+                </div>
+
+                <!-- What's happening -->
+                <div class="bg-slate-700 border border-slate-600 rounded p-4">
+                    <div class="text-slate-300 text-[10px] space-y-2">
+                        <div class="text-yellow-400 mb-2">What's happening:</div>
+                        <div>1. <strong>Create observer</strong> with callback function</div>
+                        <div>2. <strong>Callback fires</strong> when element enters/leaves viewport</div>
+                        <div>3. <strong>Check isIntersecting</strong> - true means element is visible</div>
+                        <div>4. <strong>Add class</strong> to trigger CSS transition</div>
+                        <div>5. <strong>Unobserve</strong> to stop watching (optional, saves performance)</div>
+                    </div>
+                </div>
+            </div>
+
+            <ProTip>
+                <div>💡 <strong>Always unobserve</strong> elements once you're done with them (like after fade-in) to free up resources.</div>
+            </ProTip>
+        </MethodCard>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- ⚙️ Options -->
+    <!-- ============================================ -->
+
+    <h2 id="options" class="text-orange-300 text-xl my-4 pb-2 border-b-2 border-orange-600">
+        ⚙️ Options
+    </h2>
+
+    <div id="observer-options">
+        <MethodCard
+            methodName="Configuration Options"
+            signature="{ root, rootMargin, threshold }"
+            description="Fine-tune when callback fires"
+            mutates={false}
+        >
+            <div class="p-6 bg-gray-800 rounded space-y-4">
+                <!-- Root -->
+                <div class="bg-blue-500/20 border border-blue-400 rounded p-4">
+                    <div class="text-blue-300 font-mono text-[11px] space-y-1">
+                        <div class="text-yellow-400 mb-2">root - What to observe against:</div>
+                        <div>const observer = new IntersectionObserver(callback, {`{`}</div>
+                        <div>&nbsp;&nbsp;root: null <span class="text-gray-400">// Default: viewport</span></div>
+                        <div>&nbsp;&nbsp;<span class="text-gray-400">// root: document.querySelector('.scroll-container') // Or a container</span></div>
+                        <div>{'}'})</div>
+                    </div>
+                </div>
+
+                <!-- RootMargin -->
+                <div class="bg-green-500/20 border border-green-500 rounded p-4">
+                    <div class="text-green-300 font-mono text-[11px] space-y-1">
+                        <div class="text-yellow-400 mb-2">rootMargin - Trigger earlier/later:</div>
+                        <div>const observer = new IntersectionObserver(callback, {`{`}</div>
+                        <div>&nbsp;&nbsp;rootMargin: '0px' <span class="text-gray-400">// Default: no margin</span></div>
+                        <div>&nbsp;&nbsp;<span class="text-gray-400">// rootMargin: '100px' // Trigger 100px before entering viewport</span></div>
+                        <div>&nbsp;&nbsp;<span class="text-gray-400">// rootMargin: '-50px' // Trigger 50px after entering viewport</span></div>
+                        <div>&nbsp;&nbsp;<span class="text-gray-400">// rootMargin: '50px 0px -50px 0px' // Top, right, bottom, left</span></div>
+                        <div>{'}'})</div>
+                        <div></div>
+                        <div><span class="text-gray-400">// Use case: Start loading images before they're visible</span></div>
+                    </div>
+                </div>
+
+                <!-- Threshold -->
+                <div class="bg-purple-500/20 border border-purple-400 rounded p-4">
+                    <div class="text-purple-300 font-mono text-[11px] space-y-1">
+                        <div class="text-yellow-400 mb-2">threshold - How much must be visible:</div>
+                        <div>const observer = new IntersectionObserver(callback, {`{`}</div>
+                        <div>&nbsp;&nbsp;threshold: 0 <span class="text-gray-400">// Default: any pixel visible</span></div>
+                        <div>&nbsp;&nbsp;<span class="text-gray-400">// threshold: 0.5 // 50% of element visible</span></div>
+                        <div>&nbsp;&nbsp;<span class="text-gray-400">// threshold: 1.0 // 100% of element visible</span></div>
+                        <div>&nbsp;&nbsp;<span class="text-gray-400">// threshold: [0, 0.25, 0.5, 0.75, 1] // Multiple checkpoints</span></div>
+                        <div>{'}'})</div>
+                    </div>
+                </div>
+
+                <!-- Real-world example -->
+                <div class="bg-orange-500/20 border border-orange-400 rounded p-4">
+                    <div class="text-orange-300 font-mono text-[11px] space-y-1">
+                        <div class="text-yellow-400 mb-2">Real-world config (lazy load images early):</div>
+                        <div>const observer = new IntersectionObserver(callback, {`{`}</div>
+                        <div>&nbsp;&nbsp;root: null, <span class="text-gray-400">// Viewport</span></div>
+                        <div>&nbsp;&nbsp;rootMargin: '200px', <span class="text-gray-400">// Load 200px before visible</span></div>
+                        <div>&nbsp;&nbsp;threshold: 0 <span class="text-gray-400">// As soon as any pixel enters</span></div>
+                        <div>{'}'})</div>
+                    </div>
+                </div>
+            </div>
+
+            <ProTip>
+                <div>💡 <strong>Common configs:</strong> Lazy loading → <code class="bg-slate-800 px-1 py-0.5 rounded">rootMargin: '200px'</code> to preload. Animations → <code class="bg-slate-800 px-1 py-0.5 rounded">threshold: 0.2</code> so 20% is visible first.</div>
+            </ProTip>
+        </MethodCard>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- 🎨 Common Patterns -->
+    <!-- ============================================ -->
+
+    <h2 id="patterns" class="text-purple-300 text-xl my-4 pb-2 border-b-2 border-purple-600">
+        🎨 Common FED Patterns
+    </h2>
+
+    <div id="lazy-loading">
+        <MethodCard
+            methodName="1. Lazy Load Images"
+            signature="Load images only when visible"
+            description="Save bandwidth, improve page load"
+            mutates={false}
+        >
+            <div class="p-6 bg-gray-800 rounded space-y-4">
+                <!-- HTML -->
+                <div class="bg-slate-700 border border-slate-600 rounded p-4">
+                    <div class="text-slate-300 font-mono text-[11px] space-y-1">
+                        <div class="text-yellow-400 mb-2">HTML:</div>
+                        <div>&lt;img data-src="large-image.jpg" alt="Description" class="lazy-img"&gt;</div>
+                    </div>
+                </div>
+
+                <!-- JavaScript -->
+                <div class="bg-blue-500/20 border border-blue-400 rounded p-4">
+                    <div class="text-blue-300 font-mono text-[11px] space-y-1">
+                        <div class="text-yellow-400 mb-2">JavaScript:</div>
+                        <div>const imageObserver = new IntersectionObserver((entries) => {`{`}</div>
+                        <div>&nbsp;&nbsp;entries.forEach(entry => {`{`}</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;if (entry.isIntersecting) {`{`}</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const img = entry.target;</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;img.src = img.dataset.src; <span class="text-gray-400">// Load actual image</span></div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;img.classList.remove('lazy-img');</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;imageObserver.unobserve(img);</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;{'}'}</div>
+                        <div>&nbsp;&nbsp;{'}'})</div>
+                        <div>{'}'}, {`{`}</div>
+                        <div>&nbsp;&nbsp;rootMargin: '200px' <span class="text-gray-400">// Start loading before visible</span></div>
+                        <div>{'}'})</div>
+                        <div></div>
+                        <div>document.querySelectorAll('.lazy-img').forEach(img => {`{`}</div>
+                        <div>&nbsp;&nbsp;imageObserver.observe(img);</div>
+                        <div>{'}'})</div>
+                    </div>
+                </div>
+
+                <!-- With loading placeholder -->
+                <div class="bg-green-500/20 border border-green-500 rounded p-4">
+                    <div class="text-green-300 font-mono text-[11px] space-y-1">
+                        <div class="text-yellow-400 mb-2">With blur-up placeholder:</div>
+                        <div>img.src = img.dataset.src;</div>
+                        <div>img.onload = () => img.classList.add('loaded');</div>
+                        <div></div>
+                        <div><span class="text-gray-400">/* CSS */</span></div>
+                        <div>.lazy-img {`{`} filter: blur(10px); {'}'}</div>
+                        <div>.lazy-img.loaded {`{`} filter: blur(0); transition: filter 0.3s; {'}'}</div>
+                    </div>
+                </div>
+            </div>
+
+            <ProTip>
+                <div>💡 <strong>Native lazy loading:</strong> Modern browsers support <code class="bg-slate-800 px-1 py-0.5 rounded">&lt;img loading="lazy"&gt;</code> but Intersection Observer gives you more control.</div>
+            </ProTip>
+        </MethodCard>
+    </div>
+
+    <div id="infinite-scroll">
+        <MethodCard
+            methodName="2. Infinite Scroll"
+            signature="Load more content at bottom"
+            description="Pagination without page reloads"
+            mutates={false}
+        >
+            <div class="p-6 bg-gray-800 rounded space-y-4">
+                <!-- HTML -->
+                <div class="bg-slate-700 border border-slate-600 rounded p-4">
+                    <div class="text-slate-300 font-mono text-[11px] space-y-1">
+                        <div class="text-yellow-400 mb-2">HTML:</div>
+                        <div>&lt;div class="posts-container"&gt;</div>
+                        <div>&nbsp;&nbsp;&lt;!-- Posts here --&gt;</div>
+                        <div>&lt;/div&gt;</div>
+                        <div>&lt;div class="loading-trigger"&gt;Loading...&lt;/div&gt;</div>
+                    </div>
+                </div>
+
+                <!-- JavaScript -->
+                <div class="bg-purple-500/20 border border-purple-400 rounded p-4">
+                    <div class="text-purple-300 font-mono text-[11px] space-y-1">
+                        <div class="text-yellow-400 mb-2">JavaScript:</div>
+                        <div>let page = 1;</div>
+                        <div>let loading = false;</div>
+                        <div></div>
+                        <div>const loadMoreObserver = new IntersectionObserver((entries) => {`{`}</div>
+                        <div>&nbsp;&nbsp;entries.forEach(async entry => {`{`}</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;if (entry.isIntersecting && !loading) {`{`}</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;loading = true;</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const posts = await fetch(`/api/posts?page=${'{'}++page{'}'}`);</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const html = await posts.text();</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;document.querySelector('.posts-container').insertAdjacentHTML('beforeend', html);</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;loading = false;</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;{'}'}</div>
+                        <div>&nbsp;&nbsp;{'}'})</div>
+                        <div>{'}'}, {`{`}</div>
+                        <div>&nbsp;&nbsp;rootMargin: '200px' <span class="text-gray-400">// Trigger before reaching bottom</span></div>
+                        <div>{'}'})</div>
+                        <div></div>
+                        <div>loadMoreObserver.observe(document.querySelector('.loading-trigger'));</div>
+                    </div>
+                </div>
+            </div>
+
+            <ProTip>
+                <div>💡 <strong>UX tip:</strong> Use <code class="bg-slate-800 px-1 py-0.5 rounded">rootMargin: '200px'</code> so content loads <em>before</em> user reaches the bottom. Feels instant!</div>
+            </ProTip>
+        </MethodCard>
+    </div>
+
+    <div id="scroll-animations">
+        <MethodCard
+            methodName="3. Scroll-triggered Animations"
+            signature="Fade in, slide in, etc."
+            description="Reveal content as user scrolls"
+            mutates={false}
+        >
+            <div class="p-6 bg-gray-800 rounded space-y-4">
+                <!-- Multiple animation types -->
+                <div class="bg-green-500/20 border border-green-500 rounded p-4">
+                    <div class="text-green-300 font-mono text-[11px] space-y-1">
+                        <div class="text-yellow-400 mb-2">JavaScript (one observer for all):</div>
+                        <div>const animateObserver = new IntersectionObserver((entries) => {`{`}</div>
+                        <div>&nbsp;&nbsp;entries.forEach(entry => {`{`}</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;if (entry.isIntersecting) {`{`}</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;entry.target.classList.add('animate');</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;animateObserver.unobserve(entry.target);</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;{'}'}</div>
+                        <div>&nbsp;&nbsp;{'}'})</div>
+                        <div>{'}'}, {`{`}</div>
+                        <div>&nbsp;&nbsp;threshold: 0.2 <span class="text-gray-400">// Trigger when 20% visible</span></div>
+                        <div>{'}'})</div>
+                        <div></div>
+                        <div>document.querySelectorAll('.fade-in, .slide-in, .zoom-in').forEach(el => {`{`}</div>
+                        <div>&nbsp;&nbsp;animateObserver.observe(el);</div>
+                        <div>{'}'})</div>
+                    </div>
+                </div>
+
+                <!-- CSS -->
+                <div class="bg-blue-500/20 border border-blue-400 rounded p-4">
+                    <div class="text-blue-300 font-mono text-[11px] space-y-1">
+                        <div class="text-yellow-400 mb-2">CSS:</div>
+                        <div>.fade-in {`{`}</div>
+                        <div>&nbsp;&nbsp;opacity: 0;</div>
+                        <div>&nbsp;&nbsp;transition: opacity 0.6s;</div>
+                        <div>{'}'}</div>
+                        <div>.fade-in.animate {`{`} opacity: 1; {'}'}</div>
+                        <div></div>
+                        <div>.slide-in {`{`}</div>
+                        <div>&nbsp;&nbsp;opacity: 0;</div>
+                        <div>&nbsp;&nbsp;transform: translateX(-50px);</div>
+                        <div>&nbsp;&nbsp;transition: all 0.6s;</div>
+                        <div>{'}'}</div>
+                        <div>.slide-in.animate {`{`} opacity: 1; transform: translateX(0); {'}'}</div>
+                        <div></div>
+                        <div>.zoom-in {`{`}</div>
+                        <div>&nbsp;&nbsp;opacity: 0;</div>
+                        <div>&nbsp;&nbsp;transform: scale(0.8);</div>
+                        <div>&nbsp;&nbsp;transition: all 0.6s;</div>
+                        <div>{'}'}</div>
+                        <div>.zoom-in.animate {`{`} opacity: 1; transform: scale(1); {'}'}</div>
+                    </div>
+                </div>
+
+                <!-- Stagger animations -->
+                <div class="bg-purple-500/20 border border-purple-400 rounded p-4">
+                    <div class="text-purple-300 font-mono text-[11px] space-y-1">
+                        <div class="text-yellow-400 mb-2">Stagger animations (delay each item):</div>
+                        <div>document.querySelectorAll('.stagger-item').forEach((el, index) => {`{`}</div>
+                        <div>&nbsp;&nbsp;el.style.transitionDelay = `${'{'}index * 0.1{'}'}s`;</div>
+                        <div>&nbsp;&nbsp;animateObserver.observe(el);</div>
+                        <div>{'}'})</div>
+                    </div>
+                </div>
+            </div>
+
+            <ProTip>
+                <div>💡 <strong>Performance:</strong> CSS transitions are GPU-accelerated. Let CSS do the animation, use JS only to add the class.</div>
+            </ProTip>
+        </MethodCard>
+    </div>
+
+    <div id="video-autoplay">
+        <MethodCard
+            methodName="4. Pause Videos When Offscreen"
+            signature="Save bandwidth & battery"
+            description="Auto-pause when scrolled away"
+            mutates={false}
+        >
+            <div class="p-6 bg-gray-800 rounded space-y-4">
+                <!-- Video auto-pause -->
+                <div class="bg-orange-500/20 border border-orange-400 rounded p-4">
+                    <div class="text-orange-300 font-mono text-[11px] space-y-1">
+                        <div class="text-yellow-400 mb-2">Auto-pause/play videos:</div>
+                        <div>const videoObserver = new IntersectionObserver((entries) => {`{`}</div>
+                        <div>&nbsp;&nbsp;entries.forEach(entry => {`{`}</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;const video = entry.target;</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;if (entry.isIntersecting) {`{`}</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;video.play();</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;{'}'} else {`{`}</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;video.pause();</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;{'}'}</div>
+                        <div>&nbsp;&nbsp;{'}'})</div>
+                        <div>{'}'}, {`{`}</div>
+                        <div>&nbsp;&nbsp;threshold: 0.5 <span class="text-gray-400">// Must be 50% visible to play</span></div>
+                        <div>{'}'})</div>
+                        <div></div>
+                        <div>document.querySelectorAll('video').forEach(video => {`{`}</div>
+                        <div>&nbsp;&nbsp;videoObserver.observe(video);</div>
+                        <div>{'}'})</div>
+                    </div>
+                </div>
+            </div>
+
+            <ProTip>
+                <div>💡 <strong>Respect user preference:</strong> Check if video has <code class="bg-slate-800 px-1 py-0.5 rounded">autoplay</code> attribute before auto-playing.</div>
+            </ProTip>
+        </MethodCard>
+    </div>
+
+    <div id="analytics">
+        <MethodCard
+            methodName="5. Track Element Views (Analytics)"
+            signature="Know what users actually see"
+            description="Better than pageview tracking"
+            mutates={false}
+        >
+            <div class="p-6 bg-gray-800 rounded space-y-4">
+                <!-- View tracking -->
+                <div class="bg-pink-500/20 border border-pink-400 rounded p-4">
+                    <div class="text-pink-300 font-mono text-[11px] space-y-1">
+                        <div class="text-yellow-400 mb-2">Track when content is actually seen:</div>
+                        <div>const viewTracker = new IntersectionObserver((entries) => {`{`}</div>
+                        <div>&nbsp;&nbsp;entries.forEach(entry => {`{`}</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;if (entry.isIntersecting) {`{`}</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const elementId = entry.target.dataset.trackId;</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-gray-400">// Send to analytics</span></div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gtag('event', 'element_view', {`{`}</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;element_id: elementId</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{'}'})</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;viewTracker.unobserve(entry.target); <span class="text-gray-400">// Track once</span></div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;{'}'}</div>
+                        <div>&nbsp;&nbsp;{'}'})</div>
+                        <div>{'}'}, {`{`}</div>
+                        <div>&nbsp;&nbsp;threshold: 0.5, <span class="text-gray-400">// Must be 50% visible</span></div>
+                        <div>&nbsp;&nbsp;rootMargin: '0px' <span class="text-gray-400">// Only when actually in viewport</span></div>
+                        <div>{'}'})</div>
+                        <div></div>
+                        <div>document.querySelectorAll('[data-track-id]').forEach(el => {`{`}</div>
+                        <div>&nbsp;&nbsp;viewTracker.observe(el);</div>
+                        <div>{'}'})</div>
+                    </div>
+                </div>
+
+                <!-- Time-based tracking -->
+                <div class="bg-blue-500/20 border border-blue-400 rounded p-4">
+                    <div class="text-blue-300 font-mono text-[11px] space-y-1">
+                        <div class="text-yellow-400 mb-2">Track viewing time (seen for 2+ seconds):</div>
+                        <div>const viewTimers = new Map();</div>
+                        <div></div>
+                        <div>const timeTracker = new IntersectionObserver((entries) => {`{`}</div>
+                        <div>&nbsp;&nbsp;entries.forEach(entry => {`{`}</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;const id = entry.target.dataset.trackId;</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;if (entry.isIntersecting) {`{`}</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const timer = setTimeout(() => {`{`}</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gtag('event', 'engaged_view', {`{`} element_id: id {'}'})</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{'}'}, 2000);</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;viewTimers.set(id, timer);</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;{'}'} else {`{`}</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clearTimeout(viewTimers.get(id));</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;{'}'}</div>
+                        <div>&nbsp;&nbsp;{'}'})</div>
+                        <div>{'}'})</div>
+                    </div>
+                </div>
+            </div>
+
+            <ProTip>
+                <div>💡 <strong>Privacy:</strong> This is more privacy-friendly than scroll tracking since you only know what was <em>seen</em>, not exact behavior.</div>
+            </ProTip>
+        </MethodCard>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- 🛠️ Cleanup & Performance -->
+    <!-- ============================================ -->
+
+    <h2 id="cleanup" class="text-red-300 text-xl my-4 pb-2 border-b-2 border-red-600">
+        🛠️ Cleanup & Performance
+    </h2>
+
+    <div id="cleanup-patterns">
+        <MethodCard
+            methodName="Proper Cleanup"
+            signature="disconnect(), unobserve()"
+            description="Prevent memory leaks"
+            mutates={false}
+        >
+            <div class="p-6 bg-gray-800 rounded space-y-4">
+                <!-- Unobserve vs disconnect -->
+                <div class="bg-slate-700 border border-slate-600 rounded p-4">
+                    <div class="text-slate-300 text-[11px] space-y-2">
+                        <div class="text-yellow-400 mb-2">Two cleanup methods:</div>
+                        <div>• <code class="bg-slate-800 px-1 py-0.5 rounded">observer.unobserve(element)</code> - Stop watching one element</div>
+                        <div>• <code class="bg-slate-800 px-1 py-0.5 rounded">observer.disconnect()</code> - Stop watching all elements</div>
+                    </div>
+                </div>
+
+                <!-- When to unobserve -->
+                <div class="bg-green-500/20 border border-green-500 rounded p-4">
+                    <div class="text-green-300 font-mono text-[11px] space-y-1">
+                        <div class="text-yellow-400 mb-2">Unobserve after one-time animations:</div>
+                        <div>if (entry.isIntersecting) {`{`}</div>
+                        <div>&nbsp;&nbsp;entry.target.classList.add('visible');</div>
+                        <div>&nbsp;&nbsp;observer.unobserve(entry.target); <span class="text-gray-400">// Done, stop watching</span></div>
+                        <div>{'}'}</div>
+                    </div>
+                </div>
+
+                <!-- When to disconnect -->
+                <div class="bg-blue-500/20 border border-blue-400 rounded p-4">
+                    <div class="text-blue-300 font-mono text-[11px] space-y-1">
+                        <div class="text-yellow-400 mb-2">Disconnect when component unmounts:</div>
+                        <div><span class="text-gray-400">// React example</span></div>
+                        <div>useEffect(() => {`{`}</div>
+                        <div>&nbsp;&nbsp;const observer = new IntersectionObserver(callback);</div>
+                        <div>&nbsp;&nbsp;observer.observe(element);</div>
+                        <div>&nbsp;&nbsp;</div>
+                        <div>&nbsp;&nbsp;return () => observer.disconnect(); <span class="text-gray-400">// Cleanup</span></div>
+                        <div>{'}'}, [])</div>
+                    </div>
+                </div>
+
+                <!-- Performance tips -->
+                <div class="bg-purple-500/20 border border-purple-400 rounded p-4">
+                    <div class="text-purple-300 text-[11px] space-y-2">
+                        <div class="text-yellow-400 mb-2">Performance tips:</div>
+                        <div>• Use <strong>one observer</strong> for multiple elements of the same type</div>
+                        <div>• <strong>Unobserve</strong> elements you're done with (fade-ins, lazy load)</div>
+                        <div>• <strong>Keep observing</strong> for repeated interactions (video pause/play)</div>
+                        <div>• Avoid <strong>heavy calculations</strong> in the callback</div>
+                    </div>
+                </div>
+            </div>
+
+            <ProTip>
+                <div>💡 <strong>Memory leak prevention:</strong> Always disconnect observers when removing elements from DOM or unmounting components.</div>
+            </ProTip>
+        </MethodCard>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- 🎯 Quick Reference -->
+    <!-- ============================================ -->
+
+    <h2 id="reference" class="text-yellow-300 text-xl my-4 pb-2 border-b-2 border-yellow-600">
+        🎯 Quick Reference
+    </h2>
+
+    <div id="cheatsheet">
+        <MethodCard
+            methodName="Cheat Sheet"
+            signature="Common patterns at a glance"
+            description="Copy-paste ready"
+            mutates={false}
+        >
+            <div class="p-6 bg-gray-800 rounded space-y-4">
+                <!-- Quick patterns -->
+                <div class="bg-slate-900 border border-slate-600 rounded p-4">
+                    <div class="text-slate-300 font-mono text-[10px] space-y-2">
+                        <div class="text-yellow-400 mb-2">Common patterns:</div>
+
+                        <div class="text-green-400 mt-3">// Fade in once</div>
+                        <div>const fadeObserver = new IntersectionObserver(entries => entries.forEach(e => e.isIntersecting && (e.target.classList.add('visible'), fadeObserver.unobserve(e.target))));</div>
+
+                        <div class="text-green-400 mt-3">// Lazy load images</div>
+                        <div>const imgObserver = new IntersectionObserver(entries => entries.forEach(e => e.isIntersecting && (e.target.src = e.target.dataset.src, imgObserver.unobserve(e.target))), {`{`} rootMargin: '200px' {'}'})</div>
+
+                        <div class="text-green-400 mt-3">// Infinite scroll</div>
+                        <div>const scrollObserver = new IntersectionObserver(entries => entries.forEach(e => e.isIntersecting && loadMore()), {`{`} rootMargin: '200px' {'}'})</div>
+
+                        <div class="text-green-400 mt-3">// Pause videos offscreen</div>
+                        <div>const videoObserver = new IntersectionObserver(entries => entries.forEach(e => e.isIntersecting ? e.target.play() : e.target.pause()), {`{`} threshold: 0.5 {'}'})</div>
+                    </div>
+                </div>
+
+                <!-- Entry object properties -->
+                <div class="bg-blue-500/20 border border-blue-400 rounded p-4">
+                    <div class="text-blue-300 text-[11px] space-y-1">
+                        <div class="text-yellow-400 mb-2">Entry object properties:</div>
+                        <div>• <code class="bg-slate-800 px-1 py-0.5 rounded">entry.isIntersecting</code> - Is element visible? (boolean)</div>
+                        <div>• <code class="bg-slate-800 px-1 py-0.5 rounded">entry.intersectionRatio</code> - How much is visible? (0-1)</div>
+                        <div>• <code class="bg-slate-800 px-1 py-0.5 rounded">entry.target</code> - The observed element</div>
+                        <div>• <code class="bg-slate-800 px-1 py-0.5 rounded">entry.boundingClientRect</code> - Element's position</div>
+                        <div>• <code class="bg-slate-800 px-1 py-0.5 rounded">entry.rootBounds</code> - Viewport/root dimensions</div>
+                    </div>
+                </div>
+            </div>
+        </MethodCard>
+    </div>
+
+</Layout>
