@@ -1,0 +1,1486 @@
+---
+import '~styles/styles.css'
+import MethodCard from '~components/visual-js/MethodCard.astro';
+import Node from '~components/visual-js/Node.astro';
+import Arrow from '~components/visual-js/Arrow.astro';
+import ReturnValue from '~components/visual-js/ReturnValue.astro';
+import ProcessContent from '~components/visual-js/ProcessContent.astro';
+import InfoBox from '~components/visual-js/InfoBox.astro';
+import ProTip from '~components/visual-js/ProTip.astro';
+import SectionTitle from '~components/visual-js/SectionTitle.astro';
+import SubSectionTitle from '~components/visual-js/SubSectionTitle.astro';
+import VisualLayout from 'src/layouts/VisualLayout.astro';
+---
+<VisualLayout
+    pageTitle="Javascript DOM Manipulation"
+>
+                <!-- ============================================ -->
+                <!-- 🔍 SELECTING ELEMENTS -->
+                <!-- ============================================ -->
+
+                <SectionTitle id="selecting" color="blue">
+                    🔍 Selecting Elements
+                </SectionTitle>
+
+                <!-- QUERYSELECTOR -->
+                <MethodCard
+                        id="query-selector"
+                        methodName="querySelector() / querySelectorAll()"
+                        signature="document.querySelector(selector)"
+                        description="Find element(s) using CSS selectors"
+                        mutates={false}
+                    >
+                        <!-- querySelector visualization -->
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto mb-4">
+                            <Node label="Input" type="input">
+                                <div class="text-center text-sm font-mono">'.button'</div>
+                            </Node>
+
+                            <Arrow label="finds" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="querySelector()" description="First match only" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="Result" type="output">
+                                <ReturnValue value="Element" type="object" />
+                                <div class="text-gray-400 text-[10px] mt-1">or null if not found</div>
+                            </Node>
+                        </div>
+
+                        <!-- querySelectorAll visualization -->
+                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+                            <Node label="Input" type="input">
+                                <div class="text-center text-sm font-mono">'.button'</div>
+                            </Node>
+
+                            <Arrow label="finds" />
+
+                            <Node label="Method" type="process">
+                                <ProcessContent name="querySelectorAll()" description="All matches" />
+                            </Node>
+
+                            <Arrow label="returns" />
+
+                            <Node label="Result" type="output">
+                                <ReturnValue value="NodeList" type="object" />
+                                <div class="text-gray-400 text-[10px] mt-1">array-like collection</div>
+                            </Node>
+                        </div>
+
+                        <ProTip>
+                            <div>📘 <strong>What is an Element?</strong></div>
+                            <div class="pl-2 border-l-2 border-blue-500/30 space-y-0.5 mt-1">
+                                <div class="text-[10px]">An <strong>Element</strong> is a JavaScript object representing an HTML element in the DOM tree.</div>
+                                <div class="text-[10px]">It has properties and methods to manipulate the element:</div>
+                                <div class="font-mono text-[10px] mt-1">element.textContent <span class="text-gray-400">// get/set text</span></div>
+                                <div class="font-mono text-[10px]">element.classList <span class="text-gray-400">// modify classes</span></div>
+                                <div class="font-mono text-[10px]">element.style <span class="text-gray-400">// modify styles</span></div>
+                                <div class="font-mono text-[10px]">element.addEventListener() <span class="text-gray-400">// listen for events</span></div>
+                            </div>
+                        </ProTip>
+
+                        <ProTip>
+                            <div>📘 <strong>What is a NodeList?</strong></div>
+                            <div class="pl-2 border-l-2 border-orange-500/30 space-y-0.5 mt-1">
+                                <div class="text-[10px]">A <strong>NodeList</strong> is an array-like collection of DOM nodes (usually Elements).</div>
+                                <div class="text-[10px] mt-1"><strong>Why not just an Array?</strong> NodeList is an older DOM API that predates modern JavaScript.</div>
+                                <div class="text-[10px]">It can be "live" (auto-updates) or "static". querySelectorAll returns a <strong>static</strong> NodeList.</div>
+                            </div>
+                        </ProTip>
+
+                        <ProTip>
+                            <div>⚠️ <strong>NodeList vs Array - Critical difference!</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">const items = querySelectorAll('.item')</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-green-400">// ✅ Works - forEach is available</span></div>
+                                <div class="font-mono text-[10px]">items.forEach(item =&gt; console.log(item))</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-red-400">// ❌ Fails - no map, filter, reduce, etc.</span></div>
+                                <div class="font-mono text-[10px]">items.map(item =&gt; item.id) <span class="text-red-400">// TypeError!</span></div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-green-400">// ✅ Convert to real Array for array methods</span></div>
+                                <div class="font-mono text-[10px]">const arr = [...items] <span class="text-gray-400">// or Array.from(items)</span></div>
+                                <div class="font-mono text-[10px]">arr.map(item =&gt; item.id) <span class="text-green-400">// works!</span></div>
+                            </div>
+                        </ProTip>
+
+                        <ProTip>
+                            <div>💡 <strong>When to use NodeList directly:</strong></div>
+                            <div class="pl-2 border-l-2 border-blue-500/30 space-y-0.5 mt-1">
+                                <div class="text-[10px]">NodeList has <code>.forEach()</code> built-in, so if that's all you need:</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-green-400">// ✅ Fine - just looping</span></div>
+                                <div class="font-mono text-[10px]">querySelectorAll('.item').forEach(item =&gt; item.remove())</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-yellow-400">// ⚠️ Convert if you need array methods</span></div>
+                                <div class="font-mono text-[10px]">const ids = [...querySelectorAll('.item')].map(item =&gt; item.id)</div>
+                                <div class="text-[10px] mt-1"><strong>Practical tip:</strong> If you're just using forEach, keep it as NodeList. Otherwise, convert immediately.</div>
+                            </div>
+                        </ProTip>
+
+                        <ProTip>
+                            <div>🗂️ <strong>Legacy selectors (don't use these):</strong></div>
+                            <div class="pl-2 border-l-2 border-gray-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">getElementById('main') <span class="text-gray-400">// returns single element</span></div>
+                                <div class="font-mono text-[10px]">getElementsByClassName('active') <span class="text-gray-400">// returns live HTMLCollection</span></div>
+                                <div class="font-mono text-[10px]">getElementsByTagName('div') <span class="text-gray-400">// returns live HTMLCollection</span></div>
+                                <div class="text-[10px] mt-1"><strong>Why avoid?</strong> querySelector/All are more flexible (any CSS selector). HTMLCollections are "live" which can cause bugs.</div>
+                                <div class="text-[10px]">You'll see these in old code, but use <code>querySelector/All</code> in new code.</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+
+                <!-- ============================================ -->
+                <!-- 🧭 DOM TRAVERSAL -->
+                <!-- ============================================ -->
+
+                <SectionTitle id="traversing" color="pink">
+                    🌳 DOM Traversal
+                </SectionTitle>
+
+                <SubSectionTitle id="traversal-up" parentColor="pink">⬆️ Moving Up (Parents)</SubSectionTitle>
+
+                <!-- PARENTELEMENT -->
+                <MethodCard
+                        id="parent-element"
+                        methodName="parentElement"
+                        signature="element.parentElement"
+                        description="Get the direct parent element"
+                        mutates={false}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-4">
+                                <div class="bg-pink-500/20 border border-pink-400 rounded p-3">
+                                    <div class="text-pink-300 font-mono text-xs space-y-0.5">
+                                        <div>const parent = button.parentElement</div>
+                                        <div class="text-gray-400 text-[10px] mt-1">Returns immediate parent or null if at document root</div>
+                                    </div>
+                                </div>
+
+                                <!-- Example -->
+                                <div class="bg-cyan-500/20 border border-cyan-400 rounded p-3">
+                                    <div class="text-cyan-300 font-mono text-[10px] space-y-0.5">
+                                        <div class="text-yellow-400 mb-1">Example:</div>
+                                        <div>&lt;div class="card"&gt;</div>
+                                        <div>&nbsp;&nbsp;&lt;button id="btn"&gt;Click&lt;/button&gt;</div>
+                                        <div>&lt;/div&gt;</div>
+                                        <div class="mt-2">btn.parentElement <span class="text-gray-400">// &lt;div class="card"&gt;</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>⚠️ <strong>parentElement vs parentNode:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">el.parentElement <span class="text-green-400">// ✅ Returns Element or null</span></div>
+                                <div class="font-mono text-[10px]">el.parentNode <span class="text-yellow-400">// ⚠️ Can return Document node</span></div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-yellow-400">// Always use parentElement!</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+
+                <!-- CLOSEST -->
+                <MethodCard
+                        id="closest"
+                        methodName="closest()"
+                        signature="element.closest(selector)"
+                        description="Find nearest ancestor matching CSS selector"
+                        mutates={false}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-4">
+                                <div class="bg-pink-500/20 border border-pink-400 rounded p-3">
+                                    <div class="text-pink-300 font-mono text-xs space-y-0.5">
+                                        <div>const card = button.closest('.card')</div>
+                                        <div>const form = input.closest('form')</div>
+                                        <div>const row = cell.closest('tr')</div>
+                                        <div class="mt-2 text-[10px] text-gray-400">Searches UP the tree (including self) until match found</div>
+                                    </div>
+                                </div>
+
+                                <!-- Real-world example -->
+                                <div class="bg-orange-500/20 border border-orange-400 rounded p-3">
+                                    <div class="text-orange-300 font-mono text-xs space-y-0.5">
+                                        <div class="text-yellow-400 mb-1">Perfect for event delegation:</div>
+                                        <div>deleteBtn.addEventListener('click', (e) =&gt; {'{'}</div>
+                                        <div>&nbsp;&nbsp;const row = e.target.closest('tr')</div>
+                                        <div>&nbsp;&nbsp;row.remove()</div>
+                                        <div>{'}'})</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>💡 <strong>closest() is incredibly useful:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="text-[10px]">Works like querySelector but searches <strong>UP</strong> the tree instead of down</div>
+                                <div class="text-[10px]">Includes the element itself in the search (checks self first)</div>
+                                <div class="text-[10px]">Returns null if no ancestor matches</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Find card containing clicked button</span></div>
+                                <div class="font-mono text-[10px]">button.addEventListener('click', (e) =&gt; {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;const card = e.target.closest('.card')</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;const title = card.querySelector('.title')</div>
+                                <div class="font-mono text-[10px]">{'}'})</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+
+                <SubSectionTitle id="traversal-down" parentColor="pink">⬇️ Moving Down (Children)</SubSectionTitle>
+
+                <!-- CHILDREN -->
+                <MethodCard
+                        id="children"
+                        methodName="children & childElementCount"
+                        signature="element.children"
+                        description="Access child elements"
+                        mutates={false}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-4">
+                                <div class="bg-pink-500/20 border border-pink-400 rounded p-3">
+                                    <div class="text-pink-300 font-mono text-xs space-y-0.5">
+                                        <div>el.children <span class="text-gray-400">// HTMLCollection of child elements</span></div>
+                                        <div>el.firstElementChild <span class="text-gray-400">// first child element</span></div>
+                                        <div>el.lastElementChild <span class="text-gray-400">// last child element</span></div>
+                                        <div>el.childElementCount <span class="text-gray-400">// number of children</span></div>
+                                    </div>
+                                </div>
+
+                                <!-- Example -->
+                                <div class="bg-cyan-500/20 border border-cyan-400 rounded p-3">
+                                    <div class="text-cyan-300 font-mono text-[10px] space-y-0.5">
+                                        <div class="text-yellow-400 mb-1">Example:</div>
+                                        <div>const list = document.querySelector('ul')</div>
+                                        <div>list.childElementCount <span class="text-gray-400">// 3</span></div>
+                                        <div>list.firstElementChild <span class="text-gray-400">// &lt;li&gt;First&lt;/li&gt;</span></div>
+                                        <div>list.lastElementChild <span class="text-gray-400">// &lt;li&gt;Last&lt;/li&gt;</span></div>
+                                        <div class="mt-2">[...list.children].forEach(li =&gt; console.log(li))</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>⚠️ <strong>children vs childNodes:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">el.children <span class="text-green-400">// ✅ Only element nodes</span></div>
+                                <div class="font-mono text-[10px]">el.childNodes <span class="text-red-400">// ❌ Includes text/comment nodes</span></div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-yellow-400">// Always use "Element" versions!</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+
+                <SubSectionTitle id="traversal-sideways" parentColor="pink">↔️ Moving Sideways (Siblings)</SubSectionTitle>
+
+                <!-- SIBLINGS -->
+                <MethodCard
+                        id="siblings"
+                        methodName="nextElementSibling & previousElementSibling"
+                        signature="element.nextElementSibling"
+                        description="Navigate to sibling elements"
+                        mutates={false}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-4">
+                                <div class="bg-pink-500/20 border border-pink-400 rounded p-3">
+                                    <div class="text-pink-300 font-mono text-xs space-y-0.5">
+                                        <div>el.nextElementSibling <span class="text-gray-400">// next sibling element</span></div>
+                                        <div>el.previousElementSibling <span class="text-gray-400">// previous sibling element</span></div>
+                                    </div>
+                                </div>
+
+                                <!-- Example -->
+                                <div class="bg-cyan-500/20 border border-cyan-400 rounded p-3">
+                                    <div class="text-cyan-300 font-mono text-[10px] space-y-0.5">
+                                        <div class="text-yellow-400 mb-1">Example - Tab navigation:</div>
+                                        <div>const currentTab = document.querySelector('.tab.active')</div>
+                                        <div>const nextTab = currentTab.nextElementSibling</div>
+                                        <div>if (nextTab) {'{'}</div>
+                                        <div>&nbsp;&nbsp;currentTab.classList.remove('active')</div>
+                                        <div>&nbsp;&nbsp;nextTab.classList.add('active')</div>
+                                        <div>{'}'}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>⚠️ <strong>Element vs Node versions:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">el.nextElementSibling <span class="text-green-400">// ✅ Next element</span></div>
+                                <div class="font-mono text-[10px]">el.nextSibling <span class="text-red-400">// ❌ Might be whitespace text node</span></div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-yellow-400">// Whitespace between tags counts as text nodes!</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+
+                <SubSectionTitle id="traversal-testing" parentColor="pink">✅ Testing Selectors</SubSectionTitle>
+
+                <!-- MATCHES -->
+                <MethodCard
+                        id="matches"
+                        methodName="matches()"
+                        signature="element.matches(selector)"
+                        description="Check if element matches CSS selector"
+                        mutates={false}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-4">
+                                <div class="bg-pink-500/20 border border-pink-400 rounded p-3">
+                                    <div class="text-pink-300 font-mono text-xs space-y-0.5">
+                                        <div>if (el.matches('.active')) {'{'} ... {'}'}</div>
+                                        <div>if (e.target.matches('button')) {'{'} ... {'}'}</div>
+                                        <div>if (el.matches('[data-id="123"]')) {'{'} ... {'}'}</div>
+                                        <div class="mt-2 text-[10px] text-gray-400">Returns true/false - perfect for conditional logic</div>
+                                    </div>
+                                </div>
+
+                                <!-- Combining closest and matches -->
+                                <div class="bg-purple-500/20 border border-purple-400 rounded p-3">
+                                    <div class="text-purple-300 font-mono text-xs space-y-0.5">
+                                        <div class="text-yellow-400 mb-1">Powerful with closest():</div>
+                                        <div>list.addEventListener('click', (e) =&gt; {'{'}</div>
+                                        <div>&nbsp;&nbsp;if (e.target.matches('.delete-btn')) {'{'}</div>
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;const item = e.target.closest('.list-item')</div>
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;item.remove()</div>
+                                        <div>&nbsp;&nbsp;{'}'}</div>
+                                        <div>{'}'})</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>🎯 <strong>closest() vs matches():</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-green-400">matches():</span> Check if current element matches selector (true/false)</div>
+                                <div class="font-mono text-[10px]"><span class="text-green-400">closest():</span> Find nearest parent matching selector (Element/null)</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-yellow-400">// Perfect combo for event delegation!</span></div>
+                                <div class="font-mono text-[10px]">e.target.matches('.btn') <span class="text-gray-400">// is it a button?</span></div>
+                                <div class="font-mono text-[10px]">e.target.closest('.card') <span class="text-gray-400">// find parent card</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+
+                <!-- ============================================ -->
+                <!-- 🏗️ CREATING & MODIFYING STRUCTURE -->
+                <!-- ============================================ -->
+
+                <SectionTitle id="creating" color="orange">
+                    ➕ Creating & Removing Elements
+                </SectionTitle>
+
+                <!-- CREATEELEMENT -->
+                <MethodCard
+                        id="create-element"
+                        methodName="createElement() & appendChild()"
+                        signature="document.createElement(tagName)"
+                        description="Create new elements and add to DOM"
+                        mutates={true}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-4">
+                                <!-- Steps -->
+                                <div class="space-y-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-6 text-gray-500 text-xs">1</div>
+                                        <div class="flex-1 bg-blue-500/20 border border-blue-400 rounded px-3 py-2">
+                                            <div class="text-blue-300 font-mono text-xs">const div = document.createElement('div')</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-6 text-gray-500 text-xs">2</div>
+                                        <div class="flex-1 bg-purple-500/20 border border-purple-400 rounded px-3 py-2">
+                                            <div class="text-purple-300 font-mono text-xs">div.textContent = 'Hello'</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-6 text-gray-500 text-xs">3</div>
+                                        <div class="flex-1 bg-green-500/20 border border-green-500 rounded px-3 py-2">
+                                            <div class="text-green-300 font-mono text-xs">document.body.appendChild(div)</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Full example -->
+                                <div class="bg-orange-500/20 border border-orange-400 rounded p-3">
+                                    <div class="text-orange-300 font-mono text-xs space-y-0.5">
+                                        <div>const button = document.createElement('button')</div>
+                                        <div>button.textContent = 'Click me'</div>
+                                        <div>button.classList.add('btn', 'btn-primary')</div>
+                                        <div>button.onclick = () =&gt; alert('Clicked!')</div>
+                                        <div>document.body.appendChild(button)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>Other insertion methods:</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">parent.appendChild(child) <span class="text-gray-400">// end</span></div>
+                                <div class="font-mono text-[10px]">parent.prepend(child) <span class="text-gray-400">// start</span></div>
+                                <div class="font-mono text-[10px]">element.before(newEl) <span class="text-gray-400">// before sibling</span></div>
+                                <div class="font-mono text-[10px]">element.after(newEl) <span class="text-gray-400">// after sibling</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+
+                <!-- REMOVE -->
+                <MethodCard
+                        id="remove"
+                        methodName="remove() & removeChild()"
+                        signature="element.remove()"
+                        description="Remove elements from DOM"
+                        mutates={true}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-3">
+                                <div class="bg-red-500/20 border border-red-500 rounded p-3">
+                                    <div class="text-red-300 font-mono text-xs space-y-0.5">
+                                        <div>element.remove() <span class="text-gray-400">// modern way</span></div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-gray-800/50 border border-gray-700 rounded p-3">
+                                    <div class="text-gray-300 font-mono text-xs space-y-0.5">
+                                        <div>parent.removeChild(child) <span class="text-gray-400">// old way</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>Remove all children:</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-gray-400">// Fast way</span></div>
+                                <div class="font-mono text-[10px]">element.innerHTML = ''</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Better way (removes listeners)</span></div>
+                                <div class="font-mono text-[10px]">element.replaceChildren()</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Loop way</span></div>
+                                <div class="font-mono text-[10px]">while (el.firstChild) el.firstChild.remove()</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+
+                <!-- CLONENODE -->
+                <MethodCard
+                        id="clone-node"
+                        methodName="cloneNode()"
+                        signature="element.cloneNode(deep)"
+                        description="Create a duplicate copy of an element"
+                        mutates={false}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-4">
+                                <!-- Shallow clone -->
+                                <div class="bg-orange-500/20 border border-orange-400 rounded p-3">
+                                    <div class="text-orange-300 font-mono text-xs space-y-0.5">
+                                        <div class="text-yellow-400 mb-1">Shallow clone (false):</div>
+                                        <div>const clone = element.cloneNode(false)</div>
+                                        <div class="text-gray-400 text-[10px] mt-1">Copies element only, no children</div>
+                                    </div>
+                                </div>
+
+                                <!-- Deep clone -->
+                                <div class="bg-green-500/20 border border-green-500 rounded p-3">
+                                    <div class="text-green-300 font-mono text-xs space-y-0.5">
+                                        <div class="text-yellow-400 mb-1">Deep clone (true):</div>
+                                        <div>const clone = element.cloneNode(true)</div>
+                                        <div class="text-gray-400 text-[10px] mt-1">Copies element + all descendants</div>
+                                    </div>
+                                </div>
+
+                                <!-- Example -->
+                                <div class="bg-cyan-500/20 border border-cyan-400 rounded p-3">
+                                    <div class="text-cyan-300 font-mono text-xs space-y-0.5">
+                                        <div class="text-yellow-400 mb-1">Practical example - duplicate card:</div>
+                                        <div>const card = document.querySelector('.card')</div>
+                                        <div>const clone = card.cloneNode(true)</div>
+                                        <div>clone.querySelector('.title').textContent = 'New'</div>
+                                        <div>card.after(clone)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>⚠️ <strong>Important notes:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-red-400">✗</span> Event listeners are NOT copied</div>
+                                <div class="font-mono text-[10px]"><span class="text-red-400">✗</span> IDs are copied (change them to avoid duplicates!)</div>
+                                <div class="font-mono text-[10px]"><span class="text-green-400">✓</span> Inline event handlers (onclick=) ARE copied</div>
+                                <div class="font-mono text-[10px]"><span class="text-green-400">✓</span> Data attributes are copied</div>
+                                <div class="font-mono text-[10px] mt-1 text-yellow-400">// Always use deep clone (true) for elements with children</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+
+                <!-- INSERTADJACENTELEMENT -->
+                <MethodCard
+                        id="insert-adjacent"
+                        methodName="insertAdjacentElement() / insertAdjacentHTML()"
+                        signature="element.insertAdjacentElement(position, el)"
+                        description="Insert elements at specific positions"
+                        mutates={true}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-4">
+                                <!-- Position diagram -->
+                                <div class="bg-gray-700 border border-gray-600 rounded p-4">
+                                    <div class="font-mono text-[10px] space-y-1">
+                                        <div class="text-blue-400"><!-- beforebegin --></div>
+                                        <div>&lt;div id="target"&gt;</div>
+                                        <div class="pl-4 text-green-400"><!-- afterbegin --></div>
+                                        <div class="pl-4 text-gray-400">...content...</div>
+                                        <div class="pl-4 text-purple-400"><!-- beforeend --></div>
+                                        <div>&lt;/div&gt;</div>
+                                        <div class="text-orange-400"><!-- afterend --></div>
+                                    </div>
+                                </div>
+
+                                <!-- Examples -->
+                                <div class="bg-cyan-500/20 border border-cyan-400 rounded p-3">
+                                    <div class="text-cyan-300 font-mono text-xs space-y-0.5">
+                                        <div class="text-yellow-400 mb-1">insertAdjacentElement:</div>
+                                        <div>const newEl = document.createElement('div')</div>
+                                        <div>target.insertAdjacentElement('beforebegin', newEl)</div>
+                                        <div class="mt-2 text-yellow-400">insertAdjacentHTML:</div>
+                                        <div>target.insertAdjacentHTML('afterbegin', '&lt;p&gt;Text&lt;/p&gt;')</div>
+                                    </div>
+                                </div>
+
+                                <!-- Position options -->
+                                <div class="bg-purple-500/20 border border-purple-400 rounded p-3">
+                                    <div class="text-purple-300 font-mono text-[10px] space-y-0.5">
+                                        <div><span class="text-blue-400">'beforebegin'</span> - Before element (as previous sibling)</div>
+                                        <div><span class="text-green-400">'afterbegin'</span> - Inside element, before first child</div>
+                                        <div><span class="text-purple-400">'beforeend'</span> - Inside element, after last child</div>
+                                        <div><span class="text-orange-400">'afterend'</span> - After element (as next sibling)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>🎯 <strong>When to use:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-green-400">insertAdjacentElement:</span> When you have an element object</div>
+                                <div class="font-mono text-[10px]"><span class="text-green-400">insertAdjacentHTML:</span> When you have HTML string</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-yellow-400">// More flexible than appendChild!</span></div>
+                                <div class="font-mono text-[10px]">el.appendChild(child) <span class="text-gray-400">// only inserts at end</span></div>
+                                <div class="font-mono text-[10px]">el.insertAdjacentElement('afterbegin', child) <span class="text-gray-400">// at start</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+
+                <!-- ============================================ -->
+                <!-- ✏️ MODIFYING CONTENT -->
+                <!-- ============================================ -->
+
+                <SectionTitle id="content" color="purple">
+                    ✏️ Modifying Content
+                </SectionTitle>
+
+                <!-- TEXTCONTENT VS INNERHTML -->
+                <MethodCard
+                        id="text-vs-html"
+                        methodName="textContent vs innerHTML"
+                        signature="element.textContent / innerHTML"
+                        description="Set element content as text or HTML"
+                        mutates={true}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-4">
+                                <!-- textContent -->
+                                <div>
+                                    <div class="text-green-400 font-bold text-sm mb-2">textContent (safe):</div>
+                                    <div class="bg-green-500/20 border border-green-500 rounded p-3">
+                                        <div class="text-green-300 font-mono text-xs space-y-0.5">
+                                            <div>el.textContent = '&lt;b&gt;Bold&lt;/b&gt;'</div>
+                                            <div class="text-gray-400 text-[10px] mt-1">Renders as: &lt;b&gt;Bold&lt;/b&gt; (literal text)</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- innerHTML -->
+                                <div>
+                                    <div class="text-red-400 font-bold text-sm mb-2">innerHTML (unsafe):</div>
+                                    <div class="bg-red-500/20 border border-red-500 rounded p-3">
+                                        <div class="text-red-300 font-mono text-xs space-y-0.5">
+                                            <div>el.innerHTML = '&lt;b&gt;Bold&lt;/b&gt;'</div>
+                                            <div class="text-gray-400 text-[10px] mt-1">Renders as: <strong>Bold</strong> (parsed HTML)</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700">
+                            <strong>textContent</strong> = plain text (safe), <strong>innerHTML</strong> = HTML (XSS risk with user input).
+                        </div>
+
+                        <ProTip>
+                            <div>⚠️ <strong>Never use innerHTML with user input:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-red-400">// Dangerous - XSS vulnerability ❌</span></div>
+                                <div class="font-mono text-[10px]">el.innerHTML = userInput</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-green-400">// Safe - escapes HTML ✅</span></div>
+                                <div class="font-mono text-[10px]">el.textContent = userInput</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+
+                <!-- ============================================ -->
+                <!-- 🎨 STYLING & CLASSES -->
+                <!-- ============================================ -->
+
+                <SectionTitle id="styling" color="green">
+                    🎨 Styling & Classes
+                </SectionTitle>
+
+                <!-- CLASSLIST -->
+                <MethodCard
+                        id="class-list"
+                        methodName="classList"
+                        signature="element.classList.add/remove/toggle()"
+                        description="Manipulate element classes"
+                        mutates={true}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-3">
+                                <!-- add -->
+                                <div class="flex items-center gap-3">
+                                    <div class="bg-green-500/20 border border-green-500 rounded px-4 py-2 flex-1">
+                                        <div class="text-green-300 font-mono text-xs">classList.add('active')</div>
+                                        <div class="text-gray-400 text-[10px] mt-0.5">Adds class to element</div>
+                                        <div class="text-green-300 font-mono text-[10px] mt-1">.add('btn', 'primary') <span class="text-gray-400">// multiple</span></div>
+                                    </div>
+                                    <div class="text-gray-400 text-xl">→</div>
+                                    <div class="bg-blue-500/20 border border-blue-400 rounded px-4 py-2 w-32">
+                                        <div class="text-blue-300 font-mono text-[10px]">class="active"</div>
+                                    </div>
+                                </div>
+
+                                <!-- remove -->
+                                <div class="flex items-center gap-3">
+                                    <div class="bg-red-500/20 border border-red-500 rounded px-4 py-2 flex-1">
+                                        <div class="text-red-300 font-mono text-xs">classList.remove('hidden')</div>
+                                        <div class="text-gray-400 text-[10px] mt-0.5">Removes class from element</div>
+                                        <div class="text-red-300 font-mono text-[10px] mt-1">.remove('a', 'b') <span class="text-gray-400">// multiple</span></div>
+                                    </div>
+                                    <div class="text-gray-400 text-xl">→</div>
+                                    <div class="bg-blue-500/20 border border-blue-400 rounded px-4 py-2 w-32">
+                                        <div class="text-blue-300 font-mono text-[10px]">class=""</div>
+                                    </div>
+                                </div>
+
+                                <!-- toggle -->
+                                <div class="flex items-center gap-3">
+                                    <div class="bg-purple-500/20 border border-purple-400 rounded px-4 py-2 flex-1">
+                                        <div class="text-purple-300 font-mono text-xs">classList.toggle('dark')</div>
+                                        <div class="text-gray-400 text-[10px] mt-0.5">Adds if absent, removes if present</div>
+                                    </div>
+                                    <div class="text-gray-400 text-xl">⇄</div>
+                                    <div class="bg-blue-500/20 border border-blue-400 rounded px-4 py-2 w-32">
+                                        <div class="text-blue-300 font-mono text-[10px]">on/off</div>
+                                    </div>
+                                </div>
+
+                                <!-- contains -->
+                                <div class="flex items-center gap-3">
+                                    <div class="bg-cyan-500/20 border border-cyan-400 rounded px-4 py-2 flex-1">
+                                        <div class="text-cyan-300 font-mono text-xs">classList.contains('active')</div>
+                                        <div class="text-gray-400 text-[10px] mt-0.5">Check if class exists</div>
+                                    </div>
+                                    <div class="text-gray-400 text-xl">→</div>
+                                    <div class="bg-yellow-500/20 border border-yellow-400 rounded px-4 py-2 w-32">
+                                        <div class="text-yellow-300 font-mono text-[10px]">true/false</div>
+                                    </div>
+                                </div>
+
+                                <!-- replace -->
+                                <div class="flex items-center gap-3">
+                                    <div class="bg-orange-500/20 border border-orange-400 rounded px-4 py-2 flex-1">
+                                        <div class="text-orange-300 font-mono text-xs">classList.replace('old', 'new')</div>
+                                        <div class="text-gray-400 text-[10px] mt-0.5">Swap classes</div>
+                                    </div>
+                                    <div class="text-gray-400 text-xl">→</div>
+                                    <div class="bg-blue-500/20 border border-blue-400 rounded px-4 py-2 w-32">
+                                        <div class="text-blue-300 font-mono text-[10px]">class="new"</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>💡 <strong>Toggle with condition (force add/remove):</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="text-[10px]">The second parameter of <code>toggle()</code> is a boolean that forces add or remove:</div>
+                                <div class="font-mono text-[10px] mt-1">el.classList.toggle('active', true) <span class="text-gray-400">// always adds</span></div>
+                                <div class="font-mono text-[10px]">el.classList.toggle('active', false) <span class="text-gray-400">// always removes</span></div>
+                                <div class="font-mono text-[10px]">el.classList.toggle('active', isActive) <span class="text-gray-400">// dynamic</span></div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// This is cleaner than:</span></div>
+                                <div class="font-mono text-[10px]">if (isActive) {'{'} el.classList.add('active') {'}'}</div>
+                                <div class="font-mono text-[10px]">else {'{'} el.classList.remove('active') {'}'}</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-green-400">// Real example: enable/disable button based on form validity</span></div>
+                                <div class="font-mono text-[10px]">submitBtn.classList.toggle('disabled', !form.checkValidity())</div>
+                            </div>
+                        </ProTip>
+
+                        <ProTip>
+                            <div>⚠️ <strong>Avoid inline styles - use element.style sparingly:</strong></div>
+                            <div class="pl-2 border-l-2 border-red-500/30 space-y-0.5 mt-1">
+                                <div class="text-[10px]">You <em>can</em> modify styles directly, but it's usually better to use classes:</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-red-400">// ❌ Bad - hard to maintain</span></div>
+                                <div class="font-mono text-[10px]">el.style.color = 'red'</div>
+                                <div class="font-mono text-[10px]">el.style.backgroundColor = '#000' <span class="text-gray-400">// camelCase!</span></div>
+                                <div class="font-mono text-[10px]">el.style.fontSize = '16px' <span class="text-gray-400">// include units</span></div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-green-400">// ✅ Good - define styles in CSS</span></div>
+                                <div class="font-mono text-[10px]">el.classList.add('highlighted')</div>
+                                <div class="text-[10px] mt-1"><strong>When to use .style:</strong> Dynamic values that can't be in CSS (e.g., element.style.width = {"`${dynamicWidth}px`"})</div>
+                                <div class="font-mono text-[10px] mt-1">el.style.color = '' <span class="text-gray-400">// remove inline style</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+
+                <!-- ============================================ -->
+                <!-- 📦 ATTRIBUTES & PROPERTIES -->
+                <!-- ============================================ -->
+
+                <SectionTitle id="attributes" color="yellow">
+                    🏷️ Attributes & Properties
+                </SectionTitle>
+
+                <!-- GETATTRIBUTE / SETATTRIBUTE -->
+                <MethodCard
+                        id="attributes-methods"
+                        methodName="getAttribute() / setAttribute()"
+                        signature="element.getAttribute(name)"
+                        description="Get/set HTML attributes"
+                        mutates={true}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-3">
+                                <div class="bg-gray-800/50 border border-gray-700 rounded p-3">
+                                    <div class="text-gray-300 font-mono text-[10px] space-y-0.5">
+                                        <div>el.getAttribute('href') <span class="text-gray-400">// get attribute</span></div>
+                                        <div>el.setAttribute('href', '/page') <span class="text-gray-400">// set attribute</span></div>
+                                        <div>el.removeAttribute('disabled') <span class="text-gray-400">// remove attribute</span></div>
+                                        <div>el.hasAttribute('disabled') <span class="text-gray-400">// check existence</span></div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-yellow-500/20 border border-yellow-500 rounded p-3">
+                                    <div class="text-yellow-300 font-mono text-xs space-y-0.5">
+                                        <div><span class="text-gray-400">// Direct property access (often easier)</span></div>
+                                        <div>el.id = 'main' <span class="text-gray-400">// sets id attribute</span></div>
+                                        <div>el.href = '/page' <span class="text-gray-400">// sets href</span></div>
+                                        <div>el.disabled = true <span class="text-gray-400">// sets disabled</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>⚠️ <strong>Attributes vs Properties:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-gray-400">// Attribute = string in HTML (initial)</span></div>
+                                <div class="font-mono text-[10px]">input.getAttribute('value') <span class="text-gray-400">// '10' (initial)</span></div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Property = live JS value (current)</span></div>
+                                <div class="font-mono text-[10px]">input.value <span class="text-gray-400">// '25' (user changed it)</span></div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-yellow-400">// Use properties for form inputs!</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+
+                <!-- DATA ATTRIBUTES -->
+                <MethodCard
+                        id="data-attributes"
+                        methodName="dataset (Data Attributes)"
+                        signature="element.dataset.propertyName"
+                        description="Store custom data on elements"
+                        mutates={true}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-4">
+                                <!-- HTML -->
+                                <div>
+                                    <div class="text-cyan-400 text-xs mb-2">HTML:</div>
+                                    <div class="bg-cyan-500/20 border border-cyan-400 rounded p-3">
+                                        <div class="text-cyan-300 font-mono text-xs space-y-0.5">
+                                            <div>&lt;div data-user-id="123" data-role="admin"&gt;&lt;/div&gt;</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- JavaScript -->
+                                <div>
+                                    <div class="text-green-400 text-xs mb-2">JavaScript:</div>
+                                    <div class="bg-green-500/20 border border-green-500 rounded p-3">
+                                        <div class="text-green-300 font-mono text-xs space-y-0.5">
+                                            <div>const div = querySelector('div')</div>
+                                            <div>div.dataset.userId <span class="text-gray-400">// '123'</span></div>
+                                            <div>div.dataset.role <span class="text-gray-400">// 'admin'</span></div>
+                                            <div class="mt-2">div.dataset.status = 'active' <span class="text-gray-400">// adds data-status</span></div>
+                                            <div>delete div.dataset.role <span class="text-gray-400">// removes data-role</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Naming -->
+                                <div class="bg-purple-500/20 border border-purple-400 rounded p-3">
+                                    <div class="text-purple-300 font-mono text-[10px] space-y-0.5">
+                                        <div class="text-yellow-400 mb-1">Naming conversion:</div>
+                                        <div>data-user-id → dataset.userId <span class="text-gray-400">// camelCase</span></div>
+                                        <div>data-max-value → dataset.maxValue</div>
+                                        <div>data-api-key → dataset.apiKey</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>💡 <strong>Common use cases:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-gray-400">// Store IDs for API calls</span></div>
+                                <div class="font-mono text-[10px]">btn.dataset.userId = user.id</div>
+                                <div class="font-mono text-[10px]">await deleteUser(btn.dataset.userId)</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Config/options</span></div>
+                                <div class="font-mono text-[10px]">modal.dataset.closable = 'true'</div>
+                                <div class="font-mono text-[10px]">modal.dataset.animation = 'fade'</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// State tracking</span></div>
+                                <div class="font-mono text-[10px]">tab.dataset.active = 'false'</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+
+                <!-- COMMON ATTRIBUTES -->
+                <MethodCard
+                        id="common-attributes"
+                        methodName="Common Attributes"
+                        signature="Quick reference for frequent attributes"
+                        description="Most commonly manipulated attributes"
+                        mutates={true}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-3">
+                                <!-- Form inputs -->
+                                <div class="bg-blue-500/20 border border-blue-400 rounded p-3">
+                                    <div class="text-blue-300 font-mono text-[10px] space-y-0.5">
+                                        <div class="text-yellow-400 mb-1">Form inputs:</div>
+                                        <div>input.value = 'text' <span class="text-gray-400">// input value</span></div>
+                                        <div>input.checked = true <span class="text-gray-400">// checkbox/radio</span></div>
+                                        <div>input.disabled = true <span class="text-gray-400">// disable input</span></div>
+                                        <div>input.placeholder = 'Enter...' <span class="text-gray-400">// placeholder</span></div>
+                                        <div>select.selectedIndex = 2 <span class="text-gray-400">// select option</span></div>
+                                    </div>
+                                </div>
+
+                                <!-- Links & Images -->
+                                <div class="bg-green-500/20 border border-green-500 rounded p-3">
+                                    <div class="text-green-300 font-mono text-[10px] space-y-0.5">
+                                        <div class="text-yellow-400 mb-1">Links & Images:</div>
+                                        <div>link.href = '/page' <span class="text-gray-400">// URL</span></div>
+                                        <div>link.target = '_blank' <span class="text-gray-400">// open in new tab</span></div>
+                                        <div>img.src = 'photo.jpg' <span class="text-gray-400">// image source</span></div>
+                                        <div>img.alt = 'Description' <span class="text-gray-400">// alt text</span></div>
+                                    </div>
+                                </div>
+
+                                <!-- General -->
+                                <div class="bg-purple-500/20 border border-purple-400 rounded p-3">
+                                    <div class="text-purple-300 font-mono text-[10px] space-y-0.5">
+                                        <div class="text-yellow-400 mb-1">General:</div>
+                                        <div>el.id = 'main' <span class="text-gray-400">// element ID</span></div>
+                                        <div>el.title = 'Tooltip' <span class="text-gray-400">// hover tooltip</span></div>
+                                        <div>el.hidden = true <span class="text-gray-400">// hide element</span></div>
+                                        <div>el.tabIndex = 0 <span class="text-gray-400">// keyboard focus</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>🎯 <strong>Real examples:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-gray-400">// Disable submit button</span></div>
+                                <div class="font-mono text-[10px]">submitBtn.disabled = !form.checkValidity()</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Toggle password visibility</span></div>
+                                <div class="font-mono text-[10px]">input.type = showPassword ? 'text' : 'password'</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Dynamic image loading</span></div>
+                                <div class="font-mono text-[10px]">img.src = {"`/photos/${photoId}.jpg`"}</div>
+                                <div class="font-mono text-[10px]">img.alt = {"`Photo of ${userName}`"}</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+
+                <!-- FORM PROPERTIES -->
+                <MethodCard
+                        id="form-properties"
+                        methodName="Form Properties & Validation"
+                        signature="Working with form inputs"
+                        description="Get/set form values and validation states"
+                        mutates={true}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-4">
+                                <!-- Form values -->
+                                <div class="bg-blue-500/20 border border-blue-400 rounded p-3">
+                                    <div class="text-blue-300 font-mono text-xs space-y-0.5">
+                                        <div class="text-yellow-400 mb-1">Getting/setting values:</div>
+                                        <div>input.value <span class="text-gray-400">// text/number/email input</span></div>
+                                        <div>checkbox.checked <span class="text-gray-400">// true/false</span></div>
+                                        <div>select.value <span class="text-gray-400">// selected option value</span></div>
+                                        <div>textarea.value <span class="text-gray-400">// text content</span></div>
+                                        <div class="mt-2">input.disabled = true <span class="text-gray-400">// disable input</span></div>
+                                        <div>option.selected = true <span class="text-gray-400">// select option</span></div>
+                                    </div>
+                                </div>
+
+                                <!-- Validation -->
+                                <div class="bg-green-500/20 border border-green-500 rounded p-3">
+                                    <div class="text-green-300 font-mono text-xs space-y-0.5">
+                                        <div class="text-yellow-400 mb-1">HTML5 validation:</div>
+                                        <div>input.validity.valid <span class="text-gray-400">// true if valid</span></div>
+                                        <div>input.checkValidity() <span class="text-gray-400">// returns boolean</span></div>
+                                        <div>input.reportValidity() <span class="text-gray-400">// shows error message</span></div>
+                                        <div>input.setCustomValidity('Error!') <span class="text-gray-400">// custom error</span></div>
+                                        <div class="mt-2">form.checkValidity() <span class="text-gray-400">// validate all inputs</span></div>
+                                    </div>
+                                </div>
+
+                                <!-- Validation states -->
+                                <div class="bg-purple-500/20 border border-purple-400 rounded p-3">
+                                    <div class="text-purple-300 font-mono text-[10px] space-y-0.5">
+                                        <div class="text-yellow-400 mb-1">validity object properties:</div>
+                                        <div>validity.valueMissing <span class="text-gray-400">// required but empty</span></div>
+                                        <div>validity.typeMismatch <span class="text-gray-400">// wrong type (email, url)</span></div>
+                                        <div>validity.patternMismatch <span class="text-gray-400">// doesn't match pattern</span></div>
+                                        <div>validity.tooLong / validity.tooShort</div>
+                                        <div>validity.rangeOverflow / validity.rangeUnderflow</div>
+                                    </div>
+                                </div>
+
+                                <!-- Practical example -->
+                                <div class="bg-orange-500/20 border border-orange-400 rounded p-3">
+                                    <div class="text-orange-300 font-mono text-[10px] space-y-0.5">
+                                        <div class="text-yellow-400 mb-1">Real-world example:</div>
+                                        <div>const form = document.querySelector('form')</div>
+                                        <div>const submitBtn = document.querySelector('[type="submit"]')</div>
+                                        <div class="mt-1">form.addEventListener('input', () =&gt; {'{'}</div>
+                                        <div>&nbsp;&nbsp;submitBtn.disabled = !form.checkValidity()</div>
+                                        <div>{'}'})</div>
+                                        <div class="mt-2 text-gray-400">// Get all form data as object:</div>
+                                        <div>const data = Object.fromEntries(new FormData(form))</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>🎯 <strong>Quick form data collection:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-gray-400">// FormData API - easiest way to get all values</span></div>
+                                <div class="font-mono text-[10px]">const formData = new FormData(form)</div>
+                                <div class="font-mono text-[10px]">const values = Object.fromEntries(formData)</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-green-400">// For checkboxes, check if .checked before reading</span></div>
+                                <div class="font-mono text-[10px]">const isAgreed = checkbox.checked ? checkbox.value : null</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-yellow-400">// Disable form during submission</span></div>
+                                <div class="font-mono text-[10px]">form.querySelectorAll('input, button').forEach(el =&gt; el.disabled = true)</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+
+
+
+
+    <!-- ============================================ -->
+                <!-- 🎪 EVENTS -->
+                <!-- ============================================ -->
+
+                <SectionTitle id="events" color="cyan">
+                    ⚡ Event Handling
+                </SectionTitle>
+
+                <!-- ADDEVENTLISTENER -->
+                <MethodCard
+                        id="add-event-listener"
+                        methodName="addEventListener()"
+                        signature="element.addEventListener(type, handler, options?)"
+                        description="Listen for events on elements"
+                        mutates={false}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-4">
+                                <!-- Basic usage -->
+                                <div class="bg-cyan-500/20 border border-cyan-400 rounded p-3">
+                                    <div class="text-cyan-300 font-mono text-xs space-y-0.5">
+                                        <div>button.addEventListener('click', (event) =&gt; {'{'}</div>
+                                        <div>&nbsp;&nbsp;console.log('Clicked!', event.target)</div>
+                                        <div>{'}'})</div>
+                                    </div>
+                                </div>
+
+                                <!-- Common events -->
+                                <div class="bg-gray-800/50 border border-gray-700 rounded p-3">
+                                    <div class="text-gray-300 font-mono text-[10px] space-y-0.5">
+                                        <div>'click', 'dblclick', 'contextmenu'</div>
+                                        <div>'mouseenter', 'mouseleave', 'mousemove'</div>
+                                        <div>'keydown', 'keyup', 'keypress'</div>
+                                        <div>'input', 'change', 'focus', 'blur'</div>
+                                        <div>'submit', 'scroll', 'resize'</div>
+                                    </div>
+                                </div>
+
+                                <!-- Options -->
+                                <div class="bg-purple-500/20 border border-purple-400 rounded p-3">
+                                    <div class="text-purple-300 font-mono text-xs space-y-0.5">
+                                        <div>el.addEventListener('click', handler, {'{'}</div>
+                                        <div>&nbsp;&nbsp;once: true, <span class="text-gray-400">// remove after first call</span></div>
+                                        <div>&nbsp;&nbsp;capture: false, <span class="text-gray-400">// bubble phase (default)</span></div>
+                                        <div>&nbsp;&nbsp;passive: true <span class="text-gray-400">// won't call preventDefault</span></div>
+                                        <div>{'}'})</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>Remove event listeners:</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">const handler = () =&gt; {'{'} ... {'}'}</div>
+                                <div class="font-mono text-[10px]">el.addEventListener('click', handler)</div>
+                                <div class="font-mono text-[10px]">el.removeEventListener('click', handler)</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-yellow-400">// Must be same function reference!</span></div>
+                            </div>
+                        </ProTip>
+
+                        <InfoBox>
+                            <div>ℹ️ <strong>Common Event Types Explained</strong></div>
+
+                            <div class="pl-2 border-l-2 border-blue-500/30 space-y-2 mt-2">
+                                <div>
+                                    <div class="font-bold text-blue-300 text-[11px] mb-0.5">🖱️ Mouse Events</div>
+                                    <div class="font-mono text-[10px] pl-2 space-y-0.5">
+                                        <div><span class="text-cyan-400">click:</span> Element clicked (mousedown + mouseup)</div>
+                                        <div><span class="text-cyan-400">dblclick:</span> Element double-clicked</div>
+                                        <div><span class="text-cyan-400">contextmenu:</span> Right-click menu triggered</div>
+                                        <div><span class="text-cyan-400">mouseenter:</span> Mouse enters element (no bubbling)</div>
+                                        <div><span class="text-cyan-400">mouseleave:</span> Mouse leaves element (no bubbling)</div>
+                                        <div><span class="text-cyan-400">mouseover:</span> Mouse enters element or child (bubbles)</div>
+                                        <div><span class="text-cyan-400">mouseout:</span> Mouse leaves element or child (bubbles)</div>
+                                        <div><span class="text-cyan-400">mousemove:</span> Mouse moves over element</div>
+                                        <div><span class="text-cyan-400">mousedown:</span> Mouse button pressed down</div>
+                                        <div><span class="text-cyan-400">mouseup:</span> Mouse button released</div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="font-bold text-blue-300 text-[11px] mb-0.5">⌨️ Keyboard Events</div>
+                                    <div class="font-mono text-[10px] pl-2 space-y-0.5">
+                                        <div><span class="text-green-400">keydown:</span> Key pressed (repeats if held)</div>
+                                        <div><span class="text-green-400">keyup:</span> Key released</div>
+                                        <div><span class="text-green-400">keypress:</span> ⚠️ Deprecated - use keydown instead</div>
+                                        <div class="text-gray-400 mt-0.5">Use event.key for key name, event.code for physical key</div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="font-bold text-blue-300 text-[11px] mb-0.5">📝 Form Events</div>
+                                    <div class="font-mono text-[10px] pl-2 space-y-0.5">
+                                        <div><span class="text-purple-400">input:</span> Value changes (immediate, every keystroke)</div>
+                                        <div><span class="text-purple-400">change:</span> Value changes + element loses focus</div>
+                                        <div><span class="text-purple-400">submit:</span> Form submitted (use e.preventDefault() to stop)</div>
+                                        <div><span class="text-purple-400">focus:</span> Element receives focus (doesn't bubble)</div>
+                                        <div><span class="text-purple-400">blur:</span> Element loses focus (doesn't bubble)</div>
+                                        <div><span class="text-purple-400">focusin:</span> Element receives focus (bubbles)</div>
+                                        <div><span class="text-purple-400">focusout:</span> Element loses focus (bubbles)</div>
+                                        <div><span class="text-purple-400">select:</span> Text selected in input/textarea</div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="font-bold text-blue-300 text-[11px] mb-0.5">📱 Touch/Pointer Events</div>
+                                    <div class="font-mono text-[10px] pl-2 space-y-0.5">
+                                        <div><span class="text-orange-400">touchstart:</span> Finger touches screen</div>
+                                        <div><span class="text-orange-400">touchmove:</span> Finger moves on screen</div>
+                                        <div><span class="text-orange-400">touchend:</span> Finger lifts from screen</div>
+                                        <div><span class="text-orange-400">pointerdown:</span> Pointer (mouse/touch/pen) pressed</div>
+                                        <div><span class="text-orange-400">pointermove:</span> Pointer moves</div>
+                                        <div><span class="text-orange-400">pointerup:</span> Pointer released</div>
+                                        <div class="text-gray-400 mt-0.5">Pointer events work for mouse, touch, and pen - most flexible</div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="font-bold text-blue-300 text-[11px] mb-0.5">📺 Window/Document Events</div>
+                                    <div class="font-mono text-[10px] pl-2 space-y-0.5">
+                                        <div><span class="text-yellow-400">scroll:</span> Element or window scrolled</div>
+                                        <div><span class="text-yellow-400">resize:</span> Window resized</div>
+                                        <div><span class="text-yellow-400">load:</span> Page/image fully loaded (including resources)</div>
+                                        <div><span class="text-yellow-400">DOMContentLoaded:</span> HTML parsed, DOM ready (before images)</div>
+                                        <div><span class="text-yellow-400">beforeunload:</span> Before page unloads (can prompt user)</div>
+                                        <div><span class="text-yellow-400">unload:</span> Page is unloading</div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="font-bold text-blue-300 text-[11px] mb-0.5">🎬 Media Events</div>
+                                    <div class="font-mono text-[10px] pl-2 space-y-0.5">
+                                        <div><span class="text-pink-400">play:</span> Media (audio/video) starts playing</div>
+                                        <div><span class="text-pink-400">pause:</span> Media paused</div>
+                                        <div><span class="text-pink-400">ended:</span> Media playback finished</div>
+                                        <div><span class="text-pink-400">timeupdate:</span> Playback position changed</div>
+                                        <div><span class="text-pink-400">volumechange:</span> Volume or mute state changed</div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="font-bold text-blue-300 text-[11px] mb-0.5">🖼️ Drag & Drop Events</div>
+                                    <div class="font-mono text-[10px] pl-2 space-y-0.5">
+                                        <div><span class="text-indigo-400">dragstart:</span> User starts dragging element</div>
+                                        <div><span class="text-indigo-400">drag:</span> Element being dragged</div>
+                                        <div><span class="text-indigo-400">dragend:</span> Drag operation ends</div>
+                                        <div><span class="text-indigo-400">dragenter:</span> Dragged item enters drop target</div>
+                                        <div><span class="text-indigo-400">dragover:</span> Dragged item over drop target</div>
+                                        <div><span class="text-indigo-400">drop:</span> Item dropped on target</div>
+                                        <div class="text-gray-400 mt-0.5">Use e.preventDefault() in dragover to allow drop</div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="font-bold text-blue-300 text-[11px] mb-0.5">📋 Clipboard Events</div>
+                                    <div class="font-mono text-[10px] pl-2 space-y-0.5">
+                                        <div><span class="text-teal-400">copy:</span> User copies content</div>
+                                        <div><span class="text-teal-400">cut:</span> User cuts content</div>
+                                        <div><span class="text-teal-400">paste:</span> User pastes content</div>
+                                        <div class="text-gray-400 mt-0.5">Access clipboard data via e.clipboardData</div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="font-bold text-blue-300 text-[11px] mb-0.5">⚡ Common Gotchas</div>
+                                    <div class="font-mono text-[10px] pl-2 space-y-0.5">
+                                        <div><span class="text-red-400">✗</span> focus/blur don't bubble - use focusin/focusout instead</div>
+                                        <div><span class="text-red-400">✗</span> mouseenter/leave don't bubble - use mouseover/out for delegation</div>
+                                        <div><span class="text-green-400">✓</span> Use passive: true for scroll/touch for better performance</div>
+                                        <div><span class="text-green-400">✓</span> Use once: true for one-time events (auto cleanup)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </InfoBox>
+                    </MethodCard>
+
+                <!-- EVENT DELEGATION -->
+                <MethodCard
+                        id="event-delegation"
+                        methodName="Event Delegation"
+                        signature="Listen on parent, handle on children"
+                        description="Efficient way to handle events on many elements"
+                        mutates={false}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-4">
+                                <!-- Bad way -->
+                                <div>
+                                    <div class="text-red-400 text-xs mb-2">❌ Bad - many listeners:</div>
+                                    <div class="bg-red-500/20 border border-red-500 rounded p-3">
+                                        <div class="text-red-300 font-mono text-xs space-y-0.5">
+                                            <div>items.forEach(item =&gt; {'{'}</div>
+                                            <div>&nbsp;&nbsp;item.addEventListener('click', handler)</div>
+                                            <div>{'}'})</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Good way -->
+                                <div>
+                                    <div class="text-green-400 text-xs mb-2">✅ Good - one listener:</div>
+                                    <div class="bg-green-500/20 border border-green-500 rounded p-3">
+                                        <div class="text-green-300 font-mono text-xs space-y-0.5">
+                                            <div>list.addEventListener('click', (e) =&gt; {'{'}</div>
+                                            <div>&nbsp;&nbsp;if (e.target.matches('.item')) {'{'}</div>
+                                            <div>&nbsp;&nbsp;&nbsp;&nbsp;// Handle item click</div>
+                                            <div>&nbsp;&nbsp;{'}'}</div>
+                                            <div>{'}'})</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>Benefits of delegation:</div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-green-400">✅ One listener instead of many</span></div>
+                                <div class="font-mono text-[10px]"><span class="text-green-400">✅ Works for dynamically added elements</span></div>
+                                <div class="font-mono text-[10px]"><span class="text-green-400">✅ Less memory usage</span></div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">Use e.target to find which child was clicked</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+
+                <!-- EVENT PROPAGATION -->
+                <MethodCard
+                        id="event-propagation"
+                        methodName="Event Propagation (Bubbling)"
+                        signature="event.stopPropagation() / event.stopImmediatePropagation()"
+                        description="Control how events flow through the DOM tree"
+                        mutates={false}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-4">
+                                <!-- Bubbling flow -->
+                                <div class="bg-blue-500/20 border border-blue-400 rounded p-3">
+                                    <div class="text-blue-300 font-mono text-[10px] space-y-0.5">
+                                        <div class="text-yellow-400 mb-1">Event flows from target → parents:</div>
+                                        <div>&lt;div id="outer"&gt; <span class="text-gray-400">// 3. Bubbles here last</span></div>
+                                        <div>&nbsp;&nbsp;&lt;div id="middle"&gt; <span class="text-gray-400">// 2. Bubbles here second</span></div>
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&lt;button&gt;Click&lt;/button&gt; <span class="text-gray-400">// 1. Event starts here</span></div>
+                                        <div>&nbsp;&nbsp;&lt;/div&gt;</div>
+                                        <div>&lt;/div&gt;</div>
+                                    </div>
+                                </div>
+
+                                <!-- stopPropagation -->
+                                <div class="bg-red-500/20 border border-red-500 rounded p-3">
+                                    <div class="text-red-300 font-mono text-xs space-y-0.5">
+                                        <div>button.addEventListener('click', (e) =&gt; {'{'}</div>
+                                        <div>&nbsp;&nbsp;e.stopPropagation() <span class="text-gray-400">// stops bubbling</span></div>
+                                        <div>&nbsp;&nbsp;console.log('Button clicked')</div>
+                                        <div>{'}'})</div>
+                                        <div class="text-gray-400 text-[10px] mt-1">Parent listeners won't fire</div>
+                                    </div>
+                                </div>
+
+                                <!-- stopImmediatePropagation -->
+                                <div class="bg-purple-500/20 border border-purple-400 rounded p-3">
+                                    <div class="text-purple-300 font-mono text-xs space-y-0.5">
+                                        <div>el.addEventListener('click', (e) =&gt; {'{'}</div>
+                                        <div>&nbsp;&nbsp;e.stopImmediatePropagation()</div>
+                                        <div>&nbsp;&nbsp;console.log('First handler')</div>
+                                        <div>{'}'})</div>
+                                        <div class="mt-1">el.addEventListener('click', () =&gt; {'{'}</div>
+                                        <div>&nbsp;&nbsp;console.log('Never runs! ❌')</div>
+                                        <div>{'}'})</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>⚠️ <strong>Common gotcha - event.target vs event.currentTarget:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]">outer.addEventListener('click', (e) =&gt; {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;e.target <span class="text-gray-400">// element that was actually clicked</span></div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;e.currentTarget <span class="text-gray-400">// element with the listener (outer)</span></div>
+                                <div class="font-mono text-[10px]">{'}'})</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-yellow-400">// Click button inside outer → target=button, currentTarget=outer</span></div>
+                            </div>
+                        </ProTip>
+
+                        <ProTip>
+                            <div>🎯 <strong>When to use stopPropagation:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-gray-400">// Prevent modal close when clicking content</span></div>
+                                <div class="font-mono text-[10px]">modalContent.addEventListener('click', (e) =&gt; {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;e.stopPropagation() <span class="text-gray-400">// don't bubble to overlay</span></div>
+                                <div class="font-mono text-[10px]">{'}'})</div>
+                                <div class="font-mono text-[10px]">overlay.addEventListener('click', () =&gt; modal.close())</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+
+                <!-- ============================================ -->
+                <!-- 📐 DIMENSIONS & POSITION -->
+                <!-- ============================================ -->
+
+                <SectionTitle id="dimensions" color="indigo">
+                    📏 Dimensions & Position
+                </SectionTitle>
+
+                <!-- BOUNDING CLIENT RECT -->
+                <MethodCard
+                        id="bounding-rect"
+                        methodName="getBoundingClientRect()"
+                        signature="element.getBoundingClientRect()"
+                        description="Get element's size and position relative to viewport"
+                        mutates={false}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-4">
+                                <!-- Return value -->
+                                <div class="bg-indigo-500/20 border border-indigo-400 rounded p-3">
+                                    <div class="text-indigo-300 font-mono text-xs space-y-0.5">
+                                        <div>const rect = el.getBoundingClientRect()</div>
+                                        <div class="text-gray-400 text-[10px] mt-1">Returns DOMRect with:</div>
+                                        <div class="text-gray-300 text-[10px] ml-2 mt-0.5">rect.top, rect.bottom <span class="text-gray-400">// Y position</span></div>
+                                        <div class="text-gray-300 text-[10px] ml-2">rect.left, rect.right <span class="text-gray-400">// X position</span></div>
+                                        <div class="text-gray-300 text-[10px] ml-2">rect.width, rect.height <span class="text-gray-400">// dimensions</span></div>
+                                        <div class="text-gray-300 text-[10px] ml-2">rect.x, rect.y <span class="text-gray-400">// same as left/top</span></div>
+                                    </div>
+                                </div>
+
+                                <!-- Example -->
+                                <div class="bg-green-500/20 border border-green-500 rounded p-3">
+                                    <div class="text-green-300 font-mono text-xs space-y-0.5">
+                                        <div><span class="text-gray-400">// Check if element is in viewport</span></div>
+                                        <div>const rect = el.getBoundingClientRect()</div>
+                                        <div>const inView = rect.top &gt;= 0 &&</div>
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rect.bottom &lt;= window.innerHeight</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>⚠️ <strong>Relative to viewport, not document:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-gray-400">// Changes when you scroll!</span></div>
+                                <div class="font-mono text-[10px]">rect.top <span class="text-gray-400">// distance from top of viewport</span></div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// For position in document:</span></div>
+                                <div class="font-mono text-[10px]">const topInDoc = rect.top + window.scrollY</div>
+                                <div class="font-mono text-[10px]">const leftInDoc = rect.left + window.scrollX</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+
+                <!-- DIMENSIONS & SCROLL -->
+                <MethodCard
+                        id="dimensions-scroll"
+                        methodName="Element Dimensions & Scroll"
+                        signature="Width, height, and scroll properties"
+                        description="Access element size and scroll position"
+                        mutates={false}
+                    >
+                        <div class="p-6 bg-gray-800 rounded">
+                            <div class="space-y-3">
+                                <!-- Dimensions -->
+                                <div class="bg-blue-500/20 border border-blue-400 rounded p-3">
+                                    <div class="text-blue-300 font-mono text-[10px] space-y-0.5">
+                                        <div class="text-yellow-400 mb-1">Dimensions (read-only):</div>
+                                        <div>el.offsetWidth, el.offsetHeight <span class="text-gray-400">// includes border</span></div>
+                                        <div>el.clientWidth, el.clientHeight <span class="text-gray-400">// excludes border</span></div>
+                                        <div>el.scrollWidth, el.scrollHeight <span class="text-gray-400">// full content size</span></div>
+                                    </div>
+                                </div>
+
+                                <!-- Scroll position -->
+                                <div class="bg-purple-500/20 border border-purple-400 rounded p-3">
+                                    <div class="text-purple-300 font-mono text-[10px] space-y-0.5">
+                                        <div class="text-yellow-400 mb-1">Scroll position (read/write):</div>
+                                        <div>el.scrollTop <span class="text-gray-400">// vertical scroll position</span></div>
+                                        <div>el.scrollLeft <span class="text-gray-400">// horizontal scroll position</span></div>
+                                        <div>el.scrollTop = 0 <span class="text-gray-400">// scroll to top</span></div>
+                                    </div>
+                                </div>
+
+                                <!-- Window -->
+                                <div class="bg-green-500/20 border border-green-500 rounded p-3">
+                                    <div class="text-green-300 font-mono text-[10px] space-y-0.5">
+                                        <div class="text-yellow-400 mb-1">Window/document:</div>
+                                        <div>window.innerWidth, window.innerHeight <span class="text-gray-400">// viewport</span></div>
+                                        <div>window.scrollX, window.scrollY <span class="text-gray-400">// page scroll</span></div>
+                                        <div>document.documentElement.scrollTop <span class="text-gray-400">// alternative</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ProTip>
+                            <div>🎯 <strong>Common use cases:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-gray-400">// Check if scrolled to bottom</span></div>
+                                <div class="font-mono text-[10px]">const atBottom = el.scrollTop + el.clientHeight &gt;= el.scrollHeight</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Smooth scroll element into view</span></div>
+                                <div class="font-mono text-[10px]">el.scrollIntoView({'{'} behavior: 'smooth' {'}'})</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Scroll to top of page</span></div>
+                                <div class="font-mono text-[10px]">window.scrollTo({'{'} top: 0, behavior: 'smooth' {'}'})</div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+
+                <Fragment slot="page-nav">
+<ul class="space-y-2 text-xs">
+                        <li>
+                            <a href="#selecting" class="text-blue-300 font-semibold hover:text-blue-200 block py-1">🔍 Selecting Elements</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-blue-500/30 pl-2">
+                                <li><a href="#query-selector" class="text-gray-300 hover:text-blue-400 block">querySelector()</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="mt-4">
+                            <a href="#traversing" class="text-pink-300 font-semibold hover:text-pink-200 block py-1">🌳 DOM Traversal</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-pink-500/30 pl-2">
+                                <li><a href="#traversal-up" class="text-pink-200 hover:text-pink-100 block font-medium">⬆️ Moving Up</a></li>
+                                <li class="ml-2"><a href="#parent-element" class="text-gray-300 hover:text-blue-400 block">parentElement</a></li>
+                                <li class="ml-2"><a href="#closest" class="text-gray-300 hover:text-blue-400 block">closest()</a></li>
+
+                                <li class="mt-2"><a href="#traversal-down" class="text-pink-200 hover:text-pink-100 block font-medium">⬇️ Moving Down</a></li>
+                                <li class="ml-2"><a href="#children" class="text-gray-300 hover:text-blue-400 block">children</a></li>
+
+                                <li class="mt-2"><a href="#traversal-sideways" class="text-pink-200 hover:text-pink-100 block font-medium">↔️ Moving Sideways</a></li>
+                                <li class="ml-2"><a href="#siblings" class="text-gray-300 hover:text-blue-400 block">siblings</a></li>
+
+                                <li class="mt-2"><a href="#traversal-testing" class="text-pink-200 hover:text-pink-100 block font-medium">✅ Testing Selectors</a></li>
+                                <li class="ml-2"><a href="#matches" class="text-gray-300 hover:text-blue-400 block">matches()</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="mt-4">
+                            <a href="#creating" class="text-orange-300 font-semibold hover:text-orange-200 block py-1">➕ Creating & Removing Elements</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-orange-500/30 pl-2">
+                                <li><a href="#create-element" class="text-gray-300 hover:text-blue-400 block">createElement()</a></li>
+                                <li><a href="#remove" class="text-gray-300 hover:text-blue-400 block">remove()</a></li>
+                                <li><a href="#clone-node" class="text-gray-300 hover:text-blue-400 block">cloneNode()</a></li>
+                                <li><a href="#insert-adjacent" class="text-gray-300 hover:text-blue-400 block">insertAdjacentElement()</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="mt-4">
+                            <a href="#content" class="text-purple-300 font-semibold hover:text-purple-200 block py-1">✏️ Modifying Content</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-purple-500/30 pl-2">
+                                <li><a href="#text-vs-html" class="text-gray-300 hover:text-blue-400 block">textContent vs innerHTML</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="mt-4">
+                            <a href="#styling" class="text-green-300 font-semibold hover:text-green-200 block py-1">� Styling & Classes</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-green-500/30 pl-2">
+                                <li><a href="#class-list" class="text-gray-300 hover:text-blue-400 block">classList</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="mt-4">
+                            <a href="#attributes" class="text-yellow-300 font-semibold hover:text-yellow-200 block py-1">🏷️ Attributes & Properties</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-yellow-500/30 pl-2">
+                                <li><a href="#attributes-methods" class="text-gray-300 hover:text-blue-400 block">getAttribute/setAttribute()</a></li>
+                                <li><a href="#data-attributes" class="text-gray-300 hover:text-blue-400 block">dataset (Data Attributes)</a></li>
+                                <li><a href="#common-attributes" class="text-gray-300 hover:text-blue-400 block">Common Attributes</a></li>
+                                <li><a href="#form-properties" class="text-gray-300 hover:text-blue-400 block">Form Properties</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="mt-4">
+                            <a href="#events" class="text-cyan-300 font-semibold hover:text-cyan-200 block py-1">⚡ Event Handling</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-cyan-500/30 pl-2">
+                                <li><a href="#add-event-listener" class="text-gray-300 hover:text-blue-400 block">addEventListener()</a></li>
+                                <li><a href="#event-delegation" class="text-gray-300 hover:text-blue-400 block">Event Delegation</a></li>
+                                <li><a href="#event-propagation" class="text-gray-300 hover:text-blue-400 block">Event Propagation</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="mt-4">
+                            <a href="#dimensions" class="text-indigo-300 font-semibold hover:text-indigo-200 block py-1">� Dimensions & Position</a>
+                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-indigo-500/30 pl-2">
+                                <li><a href="#bounding-rect" class="text-gray-300 hover:text-blue-400 block">getBoundingClientRect()</a></li>
+                                <li><a href="#dimensions-scroll" class="text-gray-300 hover:text-blue-400 block">Dimensions & Scroll</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+    </Fragment>
+</VisualLayout>

@@ -1,22 +1,16 @@
 ---
 import '~styles/styles.css'
 import MethodCard from '~components/visual-js/MethodCard.astro';
+import InfoBox from '~components/visual-js/InfoBox.astro';
 import ProTip from '~components/visual-js/ProTip.astro';
+import SectionTitle from '~components/visual-js/SectionTitle.astro';
+import SubSectionTitle from '~components/visual-js/SubSectionTitle.astro';
 import GlobalNav from '~components/visual-js/GlobalNav.astro';
+import VisualLayout from 'src/layouts/VisualLayout.astro';
 ---
-
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>JavaScript Functions - Visual Cheatsheet</title>
-    </head>
-    <body class="m-0 p-4 bg-[#1a1d29] text-gray-200">
-        <div class="flex gap-6 max-w-[1600px] mx-auto">
-            <!-- Main Content -->
-            <main class="flex-1 min-w-0">
-                <h1 class="text-white mb-1 text-2xl font-bold">JavaScript Functions</h1>
-                <p class="text-gray-400 mb-6 text-sm">Visual blueprint-style reference for functions, scope, and closures</p>
+<VisualLayout
+    pageTitle="Javascript Functionss"
+>
 
                 <ProTip>
                     <div>💡 <strong>Functions are first-class citizens:</strong></div>
@@ -32,13 +26,13 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                 <!-- 📝 FUNCTION TYPES -->
                 <!-- ============================================ -->
 
-                <h2 id="types" class="text-blue-300 text-xl my-4 pb-2 border-b-2 border-blue-600">
+                <SectionTitle id="types" color="blue">
                     📝 Function Types
-                </h2>
+                </SectionTitle>
 
                 <!-- FUNCTION DECLARATION VS EXPRESSION -->
-                <div id="declaration-vs-expression">
-                    <MethodCard
+                <MethodCard
+                        id="declaration-vs-expression"
                         methodName="Declaration vs Expression"
                         signature="function vs const fn ="
                         description="Two ways to define functions"
@@ -86,11 +80,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- ARROW FUNCTIONS -->
-                <div id="arrow-functions">
-                    <MethodCard
+                <MethodCard
+                        id="arrow-functions"
                         methodName="Arrow Functions"
                         signature="() => {}"
                         description="Concise function syntax with lexical this"
@@ -154,19 +147,18 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- ============================================ -->
                 <!-- 🎯 PARAMETERS & ARGUMENTS -->
                 <!-- ============================================ -->
 
-                <h2 id="parameters" class="text-purple-300 text-xl my-4 pb-2 border-b-2 border-purple-600">
+                <SectionTitle id="parameters" color="purple">
                     🎯 Parameters & Arguments
-                </h2>
+                </SectionTitle>
 
                 <!-- DEFAULT PARAMETERS -->
-                <div id="default-params">
-                    <MethodCard
+                <MethodCard
+                        id="default-params"
                         methodName="Default Parameters"
                         signature="function(param = default)"
                         description="Set default values for parameters"
@@ -215,11 +207,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- REST PARAMETERS -->
-                <div id="rest-params">
-                    <MethodCard
+                <MethodCard
+                        id="rest-params"
                         methodName="Rest Parameters"
                         signature="function(...rest)"
                         description="Collect remaining arguments into array"
@@ -274,11 +265,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- DESTRUCTURING PARAMETERS -->
-                <div id="destructuring-params">
-                    <MethodCard
+                <MethodCard
+                        id="destructuring-params"
                         methodName="Destructuring Parameters"
                         signature="function({ prop1, prop2 })"
                         description="Extract properties from object parameters"
@@ -321,19 +311,18 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- ============================================ -->
                 <!-- 🔐 SCOPE & CLOSURES -->
                 <!-- ============================================ -->
 
-                <h2 id="scope" class="text-green-300 text-xl my-4 pb-2 border-b-2 border-green-600">
+                <SectionTitle id="scope" color="green">
                     🔐 Scope & Closures
-                </h2>
+                </SectionTitle>
 
                 <!-- CLOSURES -->
-                <div id="closures">
-                    <MethodCard
+                <MethodCard
+                        id="closures"
                         methodName="Closures"
                         signature="function() returns function"
                         description="Inner function accessing outer function's variables"
@@ -391,11 +380,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- IIFE -->
-                <div id="iife">
-                    <MethodCard
+                <MethodCard
+                        id="iife"
                         methodName="IIFE"
                         signature="(function() {})() or (() => {})()"
                         description="Immediately Invoked Function Expression"
@@ -458,19 +446,18 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- ============================================ -->
                 <!-- 🎪 HIGHER-ORDER FUNCTIONS -->
                 <!-- ============================================ -->
 
-                <h2 id="higher-order" class="text-orange-300 text-xl my-4 pb-2 border-b-2 border-orange-600">
+                <SectionTitle id="higher-order" color="orange">
                     🎪 Higher-Order Functions
-                </h2>
+                </SectionTitle>
 
                 <!-- CALLBACKS -->
-                <div id="callbacks">
-                    <MethodCard
+                <MethodCard
+                        id="callbacks"
                         methodName="Callbacks"
                         signature="function takes function as argument"
                         description="Pass function to be called later"
@@ -507,11 +494,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- FUNCTION COMPOSITION -->
-                <div id="composition">
-                    <MethodCard
+                <MethodCard
+                        id="composition"
                         methodName="Function Composition"
                         signature="compose(f, g)(x) = f(g(x))"
                         description="Combine multiple functions into one"
@@ -567,11 +553,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- CURRYING -->
-                <div id="currying">
-                    <MethodCard
+                <MethodCard
+                        id="currying"
                         methodName="Currying"
                         signature="f(a, b) → f(a)(b)"
                         description="Transform multi-arg function into sequence of single-arg functions"
@@ -615,7 +600,6 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
             </main>
 
             <!-- Sidebar Navigation -->
@@ -626,6 +610,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                 <!-- Page Navigation -->
                 <nav class="bg-[#252936] rounded-lg p-4 border border-gray-700">
                     <h3 class="text-white text-sm font-bold mb-3 uppercase tracking-wide">On This Page</h3>
+
+
+
+    <Fragment slot="page-nav">
                     <ul class="space-y-2 text-xs">
                         <li>
                             <a href="#types" class="text-blue-300 font-semibold hover:text-blue-200 block py-1">📝 Function Types</a>
@@ -661,15 +649,5 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </ul>
                         </li>
                     </ul>
-                </nav>
-            </aside>
-        </div>
-
-        <style>
-            html {
-                scroll-behavior: smooth;
-                scroll-padding-top: 20px;
-            }
-        </style>
-    </body>
-</html>
+    </Fragment>
+</VisualLayout>
