@@ -695,7 +695,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                         </div>
                         <div class="font-mono text-[10px]">
                             <span class="text-gray-400">// Nested objects - shallow copy shares references!</span><br/>
-                            const users = [&lbrace;id:1&rbrace;, &lbrace;id:2&rbrace;]<br/>
+                            const users = [{'{'}id:1{'}'}, {'{'}id:2{'}'}]<br/>
                             const copy = users.slice(0)<br/>
                             copy[0].id = 999 → original[0].id is also 999 ❌
                         </div>
@@ -977,7 +977,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                     <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
                         <div class="font-mono text-[10px]">Array.isArray([1, 2]) → true ✅</div>
                         <div class="font-mono text-[10px]">Array.isArray("hello") → false <span class="text-gray-400">// strings have .length too!</span></div>
-                        <div class="font-mono text-[10px]">Array.isArray(&lbrace;0: 'a'&rbrace;) → false <span class="text-gray-400">// array-like but not array</span></div>
+                        <div class="font-mono text-[10px]">Array.isArray({'{'}0: 'a'{'}'}) → false <span class="text-gray-400">// array-like but not array</span></div>
                         <div class="font-mono text-[10px] mt-1"><span class="text-green-400">// Common pattern:</span></div>
                         <div class="font-mono text-[10px]">const data = Array.isArray(input) ? input : [input];</div>
                     </div>
@@ -1345,9 +1345,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                 <ProTip>
                     <div>Reduce is super versatile! Common patterns:</div>
                     <div class="pl-2 border-l-2 border-yellow-500/60 space-y-1">
-                        <div class="font-mono text-[10px]"><span class="text-gray-400">// Count occurrences</span><br/>items.reduce((acc,v) =&gt; (&lbrace;...acc, [v]: (acc[v]||0)+1&rbrace;), &lbrace;&rbrace;)</div>
-                        <div class="font-mono text-[10px]"><span class="text-gray-400">// Group by property</span><br/>users.reduce((acc,u) =&gt; (&lbrace;...acc, [u.role]: [...(acc[u.role]||[]),u]&rbrace;), &lbrace;&rbrace;)</div>
-                        <div class="font-mono text-[10px]"><span class="text-gray-400">// Build object from array</span><br/>arr.reduce((acc,v,i) =&gt; (&lbrace;...acc, [i]: v&rbrace;), &lbrace;&rbrace;)</div>
+                        <div class="font-mono text-[10px]"><span class="text-gray-400">// Count occurrences</span><br/>items.reduce((acc,v) =&gt; ({'{'}...acc, [v]: (acc[v]||0)+1{'}'}), {'{'}{'}'})</div>
+                        <div class="font-mono text-[10px]"><span class="text-gray-400">// Group by property</span><br/>users.reduce((acc,u) =&gt; ({'{'}...acc, [u.role]: [...(acc[u.role]||[]),u]{'}'}), {'{'}{'}'})</div>
+                        <div class="font-mono text-[10px]"><span class="text-gray-400">// Build object from array</span><br/>arr.reduce((acc,v,i) =&gt; ({'{'}...acc, [i]: v{'}'}), {'{'}{'}'})</div>
                     </div>
                 </ProTip>
             </MethodCard>
@@ -1419,8 +1419,8 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                         <ProTip>
                             <div>For large arrays (10,000+ items), regular <code class="bg-black/30 px-1 py-0.5 rounded font-mono text-yellow-400">for</code> loops are faster:</div>
                             <div class="pl-2 border-l-2 border-yellow-500/60 space-y-0.5">
-                                <div class="font-mono text-[10px]">for (let i = 0; i &lt; arr.length; i++) &lbrace; ... &rbrace; <span class="text-gray-400">// fastest</span></div>
-                                <div class="font-mono text-[10px]">arr.forEach(item =&gt; &lbrace; ... &rbrace;) <span class="text-gray-400">// cleaner, slightly slower</span></div>
+                                <div class="font-mono text-[10px]">for (let i = 0; i &lt; arr.length; i++) {'{'} ... {'}'} <span class="text-gray-400">// fastest</span></div>
+                                <div class="font-mono text-[10px]">arr.forEach(item =&gt; {'{'} ... {'}'}) <span class="text-gray-400">// cleaner, slightly slower</span></div>
                             </div>
                         </ProTip>
                     </MethodCard>

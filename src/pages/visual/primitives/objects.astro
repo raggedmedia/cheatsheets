@@ -18,17 +18,17 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                 <ProTip>
                     <div>⚡ Objects are <strong>mutable</strong> — you can change properties even with <code class="bg-black/30 px-1 py-0.5 rounded font-mono text-yellow-400">const</code></div>
                     <div class="pl-2 border-l-2 border-yellow-500/30 mt-1 font-mono text-[10px]">
-                        const obj = &lbrace;a: 1&rbrace;; obj.a = 2 ✅ <span class="text-gray-400">// allowed!</span>
+                        const obj = {'{'}a: 1{'}'}; obj.a = 2 ✅ <span class="text-gray-400">// allowed!</span>
                     </div>
                     <div class="mt-1.5 text-[10px]">
-                        Use spread (<code class="bg-black/30 px-1 py-0.5 rounded font-mono text-yellow-400">&lbrace; ...obj &rbrace;</code>) or <code class="bg-black/30 px-1 py-0.5 rounded font-mono text-yellow-400">structuredClone()</code> for safe, immutable copies.
+                        Use spread (<code class="bg-black/30 px-1 py-0.5 rounded font-mono text-yellow-400">{'{'} ...obj {'}'}</code>) or <code class="bg-black/30 px-1 py-0.5 rounded font-mono text-yellow-400">structuredClone()</code> for safe, immutable copies.
                     </div>
                 </ProTip>
 
                 <ProTip>
                     <div>📏 <strong>Getting object "length":</strong> Objects don't have a <code class="bg-black/30 px-1 py-0.5 rounded font-mono text-yellow-400">.length</code> property, but you can count properties:</div>
                     <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                        <div class="font-mono text-[10px]">const user = &lbrace; name: "Alice", age: 25, city: "NYC" &rbrace;;</div>
+                        <div class="font-mono text-[10px]">const user = {'{'} name: "Alice", age: 25, city: "NYC" {'}'};</div>
                         <div class="font-mono text-[10px]">Object.keys(user).length → 3 <span class="text-green-400">// count of properties</span></div>
                         <div class="font-mono text-[10px] mt-1"><span class="text-blue-400">// Other ways to count:</span></div>
                         <div class="font-mono text-[10px]">Object.values(user).length → 3</div>
@@ -58,7 +58,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                         <!-- ADD EXAMPLE -->
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input Object" type="input">
-                                <div class="text-center text-sm font-mono">&lbrace;a: 1&rbrace;</div>
+                                <div class="text-center text-sm font-mono">{'{'}a: 1{'}'}</div>
                             </Node>
 
                             <Arrow label="mutates" />
@@ -70,14 +70,14 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             <Arrow />
 
                             <Node label="Modified Object" type="output">
-                                <div class="text-center text-sm font-mono">&lbrace;a: 1, b: 2&rbrace;</div>
+                                <div class="text-center text-sm font-mono">{'{'}a: 1, b: 2{'}'}</div>
                             </Node>
                         </div>
 
                         <!-- CHANGE EXAMPLE -->
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto mt-2">
                             <Node label="Input Object" type="input">
-                                <div class="text-center text-sm font-mono">&lbrace;a: 1, b: 2&rbrace;</div>
+                                <div class="text-center text-sm font-mono">{'{'}a: 1, b: 2{'}'}</div>
                             </Node>
 
                             <Arrow label="mutates" />
@@ -89,14 +89,14 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             <Arrow />
 
                             <Node label="Modified Object" type="output">
-                                <div class="text-center text-sm font-mono">&lbrace;a: 99, b: 2&rbrace;</div>
+                                <div class="text-center text-sm font-mono">{'{'}a: 99, b: 2{'}'}</div>
                             </Node>
                         </div>
 
                         <!-- REMOVE EXAMPLE -->
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto mt-2">
                             <Node label="Input Object" type="input">
-                                <div class="text-center text-sm font-mono">&lbrace;a: 99, b: 2&rbrace;</div>
+                                <div class="text-center text-sm font-mono">{'{'}a: 99, b: 2{'}'}</div>
                             </Node>
 
                             <Arrow label="mutates" />
@@ -108,7 +108,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             <Arrow />
 
                             <Node label="Modified Object" type="output">
-                                <div class="text-center text-sm font-mono">&lbrace;a: 99&rbrace;</div>
+                                <div class="text-center text-sm font-mono">{'{'}a: 99{'}'}</div>
                             </Node>
                         </div>
 
@@ -127,7 +127,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                 >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input Object" type="input">
-                                <div class="text-center text-sm font-mono">&lbrace;a: 1, b: 2&rbrace;</div>
+                                <div class="text-center text-sm font-mono">{'{'}a: 1, b: 2{'}'}</div>
                             </Node>
 
                             <Arrow label="mutates" />
@@ -139,7 +139,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             <Arrow />
 
                             <Node label="Modified Object" type="output">
-                                <div class="text-center text-sm font-mono">&lbrace;a: 1&rbrace;</div>
+                                <div class="text-center text-sm font-mono">{'{'}a: 1{'}'}</div>
                             </Node>
 
                             <Arrow label="returns" />
@@ -177,21 +177,21 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             <Arrow label="creates" />
 
                             <Node label="New Object" type="output">
-                                <div class="text-center text-sm font-mono">&lbrace;name: "Alice", age: 25&rbrace;</div>
+                                <div class="text-center text-sm font-mono">{'{'}name: "Alice", age: 25{'}'}</div>
                             </Node>
                         </div>
 
                         <MutableOrNot mutates={false} message="">
-                            ES6 shorthand: <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">&lbrace; name &rbrace;</code> is equivalent to <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">&lbrace; name: name &rbrace;</code>.
+                            ES6 shorthand: <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">{'{'} name {'}'}</code> is equivalent to <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">{'{'} name: name {'}'}</code>.
                         </MutableOrNot>
 
                         <ProTip>
                             <div><strong>Common in function returns and destructuring:</strong></div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                                <div class="font-mono text-[10px]">function getUser() &lbrace;</div>
+                                <div class="font-mono text-[10px]">function getUser() {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;const name = "Bob", age = 30;</div>
-                                <div class="font-mono text-[10px]">&nbsp;&nbsp;return &lbrace; name, age &rbrace;; <span class="text-green-400">// instead of &lbrace;name: name, age: age&rbrace;</span></div>
-                                <div class="font-mono text-[10px]">&rbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;return {'{'} name, age {'}'}; <span class="text-green-400">// instead of {'{'}name: name, age: age{'}'}</span></div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
                             </div>
                         </ProTip>
                     </MethodCard>
@@ -218,7 +218,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             <Arrow label="creates" />
 
                             <Node label="New Object" type="output">
-                                <div class="text-center text-sm font-mono">&lbrace;username: "Alice"&rbrace;</div>
+                                <div class="text-center text-sm font-mono">{'{'}username: "Alice"{'}'}</div>
                             </Node>
                         </div>
 
@@ -230,10 +230,10 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             <div><strong>Useful for dynamic object building:</strong></div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
                                 <div class="font-mono text-[10px]">const field = "email";</div>
-                                <div class="font-mono text-[10px]">const user = &lbrace;</div>
+                                <div class="font-mono text-[10px]">const user = {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;name: "Alice",</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;[field]: "alice@email.com" <span class="text-green-400">// key is "email"</span></div>
-                                <div class="font-mono text-[10px]">&rbrace;;</div>
+                                <div class="font-mono text-[10px]">{'}'};</div>
                             </div>
                         </ProTip>
                     </MethodCard>
@@ -248,7 +248,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                 >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Target" type="input">
-                                <div class="text-center text-sm font-mono">&lbrace;a: 1&rbrace;</div>
+                                <div class="text-center text-sm font-mono">{'{'}a: 1{'}'}</div>
                             </Node>
 
                             <Arrow label="merges with" />
@@ -260,7 +260,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             <Arrow label="returns" />
 
                             <Node label="Modified Target" type="output">
-                                <div class="text-center text-sm font-mono">&lbrace;a: 1, b: 2&rbrace;</div>
+                                <div class="text-center text-sm font-mono">{'{'}a: 1, b: 2{'}'}</div>
                             </Node>
                         </div>
 
@@ -271,7 +271,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                         <ProTip>
                             <div>Use empty object as target for immutable merge:</div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 font-mono text-[10px]">
-                                Object.assign(&lbrace;&rbrace;, obj1, obj2) → new merged object ✅
+                                Object.assign({'{'}{'}'}, obj1, obj2) → new merged object ✅
                             </div>
                         </ProTip>
                     </MethodCard>
@@ -289,7 +289,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                 >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input Object" type="input">
-                                <div class="text-center text-sm font-mono">&lbrace;a: 1&rbrace;</div>
+                                <div class="text-center text-sm font-mono">{'{'}a: 1{'}'}</div>
                             </Node>
 
                             <Arrow label="freezes" />
@@ -301,7 +301,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             <Arrow label="returns" />
 
                             <Node label="Frozen Object" type="output">
-                                <div class="text-center text-sm font-mono">&lbrace;a: 1&rbrace; 🔒</div>
+                                <div class="text-center text-sm font-mono">{'{'}a: 1{'}'} 🔒</div>
                             </Node>
                         </div>
 
@@ -312,7 +312,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                         <ProTip>
                             <div><strong>What happens if you try to modify?</strong></div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                                <div class="font-mono text-[10px]">const obj = Object.freeze(&lbrace;a: 1&rbrace;)</div>
+                                <div class="font-mono text-[10px]">const obj = Object.freeze({'{'}a: 1{'}'})</div>
                                 <div class="font-mono text-[10px]">obj.a = 99 <span class="text-red-400">// silently ignored (non-strict mode)</span></div>
                                 <div class="font-mono text-[10px]">obj.b = 2 <span class="text-red-400">// silently ignored (non-strict mode)</span></div>
                                 <div class="font-mono text-[10px]">delete obj.a <span class="text-red-400">// silently ignored (non-strict mode)</span></div>
@@ -323,7 +323,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                         <ProTip>
                             <div>⚠️ <strong>Shallow freeze</strong> - nested objects can still be modified:</div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                                <div class="font-mono text-[10px]">const obj = Object.freeze(&lbrace;user: &lbrace;id: 1&rbrace;&rbrace;)</div>
+                                <div class="font-mono text-[10px]">const obj = Object.freeze({'{'}user: {'{'}id: 1{'}'}{'}'})</div>
                                 <div class="font-mono text-[10px]">obj.user.id = 999 ✅ <span class="text-gray-400">// nested still mutable!</span></div>
                             </div>
                         </ProTip>
@@ -339,7 +339,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                 >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input Object" type="input">
-                                <div class="text-center text-sm font-mono">&lbrace;a: 1&rbrace;</div>
+                                <div class="text-center text-sm font-mono">{'{'}a: 1{'}'}</div>
                             </Node>
 
                             <Arrow label="seals" />
@@ -351,7 +351,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             <Arrow label="returns" />
 
                             <Node label="Sealed Object" type="output">
-                                <div class="text-center text-sm font-mono">&lbrace;a: 1&rbrace; 🔐</div>
+                                <div class="text-center text-sm font-mono">{'{'}a: 1{'}'} 🔐</div>
                             </Node>
                         </div>
 
@@ -362,7 +362,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                         <ProTip>
                             <div><strong>What happens if you try to add/remove?</strong></div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                                <div class="font-mono text-[10px]">const obj = Object.seal(&lbrace;a: 1&rbrace;)</div>
+                                <div class="font-mono text-[10px]">const obj = Object.seal({'{'}a: 1{'}'})</div>
                                 <div class="font-mono text-[10px]">obj.a = 99 ✅ <span class="text-green-400">// editing works!</span></div>
                                 <div class="font-mono text-[10px]">obj.b = 2 <span class="text-red-400">// silently ignored (can't add)</span></div>
                                 <div class="font-mono text-[10px]">delete obj.a <span class="text-red-400">// silently ignored (can't remove)</span></div>
@@ -381,9 +381,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                 </SectionTitle>
 
                 <ProTip>
-                    <div>Use spread or <code class="bg-black/30 px-1 py-0.5 rounded font-mono text-yellow-400">Object.assign(&lbrace;&rbrace;, obj)</code> for shallow copies</div>
+                    <div>Use spread or <code class="bg-black/30 px-1 py-0.5 rounded font-mono text-yellow-400">Object.assign({'{'}{'}'}, obj)</code> for shallow copies</div>
                     <div class="pl-2 border-l-2 border-yellow-500/30 font-mono text-[10px] mt-1">
-                        const copy = &lbrace; ...original &rbrace; <span class="text-gray-400">// cleaner than Object.assign</span>
+                        const copy = {'{'} ...original {'}'} <span class="text-gray-400">// cleaner than Object.assign</span>
                     </div>
                 </ProTip>
 
@@ -400,7 +400,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                 >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input Object" type="input">
-                                <div class="text-center text-sm font-mono">&lbrace;a: 1, b: 2&rbrace;</div>
+                                <div class="text-center text-sm font-mono">{'{'}a: 1, b: 2{'}'}</div>
                             </Node>
 
                             <Arrow label="spreads" />
@@ -412,7 +412,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             <Arrow label="returns" />
 
                             <Node label="New Object" type="output">
-                                <div class="text-center text-sm font-mono">&lbrace;a: 1, b: 2&rbrace;</div>
+                                <div class="text-center text-sm font-mono">{'{'}a: 1, b: 2{'}'}</div>
                             </Node>
                         </div>
 
@@ -423,8 +423,8 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                         <ProTip>
                             <div>Spread is the modern way to clone and merge objects:</div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                                <div class="font-mono text-[10px]">const merged = &lbrace; ...obj1, ...obj2 &rbrace; <span class="text-gray-400">// merge</span></div>
-                                <div class="font-mono text-[10px]">const updated = &lbrace; ...obj, key: newValue &rbrace; <span class="text-gray-400">// update</span></div>
+                                <div class="font-mono text-[10px]">const merged = {'{'} ...obj1, ...obj2 {'}'} <span class="text-gray-400">// merge</span></div>
+                                <div class="font-mono text-[10px]">const updated = {'{'} ...obj, key: newValue {'}'} <span class="text-gray-400">// update</span></div>
                             </div>
                         </ProTip>
                     </MethodCard>
@@ -439,7 +439,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                 >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input Object" type="input">
-                                <div class="text-center text-sm font-mono">&lbrace;user: &lbrace;id: 1&rbrace;&rbrace;</div>
+                                <div class="text-center text-sm font-mono">{'{'}user: {'{'}id: 1{'}'}{'}'}</div>
                             </Node>
 
                             <Arrow label="deep clones" />
@@ -451,7 +451,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             <Arrow label="returns" />
 
                             <Node label="New Object" type="output">
-                                <div class="text-center text-sm font-mono">&lbrace;user: &lbrace;id: 1&rbrace;&rbrace;</div>
+                                <div class="text-center text-sm font-mono">{'{'}user: {'{'}id: 1{'}'}{'}'}</div>
                             </Node>
                         </div>
 
@@ -474,7 +474,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                 >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input Object" type="input">
-                                <div class="text-center text-sm font-mono">&lbrace;a: 1, b: 2, c: 3&rbrace;</div>
+                                <div class="text-center text-sm font-mono">{'{'}a: 1, b: 2, c: 3{'}'}</div>
                             </Node>
 
                             <Arrow label="extracts keys" />
@@ -505,7 +505,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                 >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input Object" type="input">
-                                <div class="text-center text-sm font-mono">&lbrace;a: 1, b: 2, c: 3&rbrace;</div>
+                                <div class="text-center text-sm font-mono">{'{'}a: 1, b: 2, c: 3{'}'}</div>
                             </Node>
 
                             <Arrow label="extracts values" />
@@ -536,7 +536,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                 >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input Object" type="input">
-                                <div class="text-center text-sm font-mono">&lbrace;a: 1, b: 2&rbrace;</div>
+                                <div class="text-center text-sm font-mono">{'{'}a: 1, b: 2{'}'}</div>
                             </Node>
 
                             <Arrow label="converts" />
@@ -578,7 +578,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                 >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input Object" type="input">
-                                <div class="text-center text-sm font-mono">&lbrace;a: 1&rbrace;</div>
+                                <div class="text-center text-sm font-mono">{'{'}a: 1{'}'}</div>
                             </Node>
 
                             <Arrow label="checks for" />
@@ -609,7 +609,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                 >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input Object" type="input">
-                                <div class="text-center text-sm font-mono">&lbrace;a: 1&rbrace;</div>
+                                <div class="text-center text-sm font-mono">{'{'}a: 1{'}'}</div>
                             </Node>
 
                             <Arrow label="checks for" />
@@ -632,7 +632,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                         <ProTip>
                             <div><strong>Difference from Object.hasOwn():</strong></div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                                <div class="font-mono text-[10px]">const obj = &lbrace;a: 1&rbrace;</div>
+                                <div class="font-mono text-[10px]">const obj = {'{'}a: 1{'}'}</div>
                                 <div class="font-mono text-[10px]">'a' in obj → true ✅</div>
                                 <div class="font-mono text-[10px]">'toString' in obj → true <span class="text-orange-400">// inherited from prototype!</span></div>
                                 <div class="font-mono text-[10px] mt-1">Object.hasOwn(obj, 'toString') → false ✅ <span class="text-gray-400">// own only</span></div>
@@ -650,7 +650,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                 >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input Object" type="input">
-                                <div class="text-center text-sm font-mono">&lbrace;name: "Alice", age: 25&rbrace;</div>
+                                <div class="text-center text-sm font-mono">{'{'}name: "Alice", age: 25{'}'}</div>
                             </Node>
 
                             <Arrow label="extract" />
@@ -675,11 +675,11 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             <div><strong>Advanced destructuring patterns:</strong></div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
                                 <div class="font-mono text-[10px]"><span class="text-gray-400">// Rename variables</span></div>
-                                <div class="font-mono text-[10px]">const &lbrace; name: userName &rbrace; = obj; <span class="text-green-400">// userName = "Alice"</span></div>
+                                <div class="font-mono text-[10px]">const {'{'} name: userName {'}'} = obj; <span class="text-green-400">// userName = "Alice"</span></div>
                                 <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Default values</span></div>
-                                <div class="font-mono text-[10px]">const &lbrace; country = "USA" &rbrace; = obj; <span class="text-green-400">// if missing</span></div>
+                                <div class="font-mono text-[10px]">const {'{'} country = "USA" {'}'} = obj; <span class="text-green-400">// if missing</span></div>
                                 <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Rest operator</span></div>
-                                <div class="font-mono text-[10px]">const &lbrace; name, ...rest &rbrace; = obj; <span class="text-green-400">// rest = remaining props</span></div>
+                                <div class="font-mono text-[10px]">const {'{'} name, ...rest {'}'} = obj; <span class="text-green-400">// rest = remaining props</span></div>
                             </div>
                         </ProTip>
                     </MethodCard>
@@ -749,7 +749,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             <Arrow label="returns" />
 
                             <Node label="New Object" type="output">
-                                <div class="text-center text-sm font-mono">&lbrace;a: 1, b: 2&rbrace;</div>
+                                <div class="text-center text-sm font-mono">{'{'}a: 1, b: 2{'}'}</div>
                             </Node>
                         </div>
 
@@ -772,7 +772,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                 >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input Object" type="input">
-                                <div class="text-center text-sm font-mono">&lbrace;a: 1, b: 2&rbrace;</div>
+                                <div class="text-center text-sm font-mono">{'{'}a: 1, b: 2{'}'}</div>
                             </Node>
 
                             <Arrow label="iterate" />
@@ -796,11 +796,11 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                         <ProTip>
                             <div>⚠️ <strong>Always guard with Object.hasOwn()</strong> to skip inherited properties:</div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                                <div class="font-mono text-[10px]">for (const k in obj) &lbrace;</div>
-                                <div class="font-mono text-[10px]">&nbsp;&nbsp;if (Object.hasOwn(obj, k)) &lbrace;</div>
+                                <div class="font-mono text-[10px]">for (const k in obj) {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;if (Object.hasOwn(obj, k)) {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;console.log(k, obj[k])</div>
-                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&rbrace;</div>
-                                <div class="font-mono text-[10px]">&rbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;{'}'}</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
                             </div>
                         </ProTip>
                     </MethodCard>
@@ -815,7 +815,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                 >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input Object" type="input">
-                                <div class="text-center text-sm font-mono">&lbrace;a: 1, b: 2&rbrace;</div>
+                                <div class="text-center text-sm font-mono">{'{'}a: 1, b: 2{'}'}</div>
                             </Node>
 
                             <Arrow label="extract" />
@@ -839,9 +839,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                         <ProTip>
                             <div>💡 <strong>Recommended for most cases:</strong></div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                                <div class="font-mono text-[10px]">Object.keys(obj).forEach(k =&gt; &lbrace;</div>
+                                <div class="font-mono text-[10px]">Object.keys(obj).forEach(k =&gt; {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;console.log(k, obj[k])</div>
-                                <div class="font-mono text-[10px]">&rbrace;)</div>
+                                <div class="font-mono text-[10px]">{'}'})</div>
                             </div>
                         </ProTip>
                     </MethodCard>
@@ -857,7 +857,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                 >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input Object" type="input">
-                                <div class="text-center text-sm font-mono">&lbrace;a: 1, b: 2&rbrace;</div>
+                                <div class="text-center text-sm font-mono">{'{'}a: 1, b: 2{'}'}</div>
                             </Node>
 
                             <Arrow label="convert" />
@@ -881,9 +881,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                         <ProTip>
                             <div>✨ <strong>Cleanest option</strong> - destructure directly in the loop:</div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                                <div class="font-mono text-[10px]">for (const [key, value] of Object.entries(obj)) &lbrace;</div>
+                                <div class="font-mono text-[10px]">for (const [key, value] of Object.entries(obj)) {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;console.log(key, value) <span class="text-gray-400">// both available!</span></div>
-                                <div class="font-mono text-[10px]">&rbrace;</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
                             </div>
                         </ProTip>
                     </MethodCard>
@@ -898,7 +898,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                 >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input Object" type="input">
-                                <div class="text-center text-sm font-mono">&lbrace;a: 1, b: 2&rbrace;</div>
+                                <div class="text-center text-sm font-mono">{'{'}a: 1, b: 2{'}'}</div>
                             </Node>
 
                             <Arrow label="extract" />
@@ -941,7 +941,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                 >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input Object" type="input">
-                                <div class="text-center text-sm font-mono">&lbrace;a: 1, b: 2&rbrace;</div>
+                                <div class="text-center text-sm font-mono">{'{'}a: 1, b: 2{'}'}</div>
                             </Node>
 
                             <Arrow label="entries" />
@@ -959,7 +959,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             <Arrow label="fromEntries" />
 
                             <Node label="New Object" type="output">
-                                <div class="text-center text-sm font-mono">&lbrace;a: 2, b: 4&rbrace;</div>
+                                <div class="text-center text-sm font-mono">{'{'}a: 2, b: 4{'}'}</div>
                             </Node>
                         </div>
 
@@ -988,7 +988,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                 >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input Object" type="input">
-                                <div class="text-center text-sm font-mono">&lbrace;a: 1, b: null, c: 3&rbrace;</div>
+                                <div class="text-center text-sm font-mono">{'{'}a: 1, b: null, c: 3{'}'}</div>
                             </Node>
 
                             <Arrow label="entries" />
@@ -1006,7 +1006,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             <Arrow label="fromEntries" />
 
                             <Node label="New Object" type="output">
-                                <div class="text-center text-sm font-mono">&lbrace;a: 1, c: 3&rbrace;</div>
+                                <div class="text-center text-sm font-mono">{'{'}a: 1, c: 3{'}'}</div>
                             </Node>
                         </div>
 
@@ -1036,7 +1036,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                 >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input Object" type="input">
-                                <div class="text-center text-sm font-mono">&lbrace;first_name: 'Jo'&rbrace;</div>
+                                <div class="text-center text-sm font-mono">{'{'}first_name: 'Jo'{'}'}</div>
                             </Node>
 
                             <Arrow label="entries" />
@@ -1054,7 +1054,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             <Arrow label="fromEntries" />
 
                             <Node label="New Object" type="output">
-                                <div class="text-center text-sm font-mono">&lbrace;firstName: 'Jo'&rbrace;</div>
+                                <div class="text-center text-sm font-mono">{'{'}firstName: 'Jo'{'}'}</div>
                             </Node>
                         </div>
 
@@ -1087,7 +1087,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                 >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input Object" type="input">
-                                <div class="text-center text-sm font-mono">&lbrace;user: undefined&rbrace;</div>
+                                <div class="text-center text-sm font-mono">{'{'}user: undefined{'}'}</div>
                             </Node>
 
                             <Arrow label="access" />
@@ -1175,7 +1175,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                     >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input Object" type="input">
-                                <div class="text-center text-sm font-mono">&lbrace;user: &lbrace;id: 1&rbrace;&rbrace;</div>
+                                <div class="text-center text-sm font-mono">{'{'}user: {'{'}id: 1{'}'}{'}'}</div>
                             </Node>
 
                             <Arrow label="deep copy" />
@@ -1187,7 +1187,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             <Arrow label="returns" />
 
                             <Node label="New Object" type="output">
-                                <div class="text-center text-sm font-mono">&lbrace;user: &lbrace;id: 1&rbrace;&rbrace;</div>
+                                <div class="text-center text-sm font-mono">{'{'}user: {'{'}id: 1{'}'}{'}'}</div>
                                 <div class="text-center text-[10px] text-gray-400 mt-1">fully independent</div>
                             </Node>
                         </div>
@@ -1199,9 +1199,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                         <ProTip>
                             <div><strong>Shallow vs Deep clone with nested objects:</strong></div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                                <div class="font-mono text-[10px]">const obj = &lbrace;user: &lbrace;id: 1&rbrace;&rbrace;</div>
+                                <div class="font-mono text-[10px]">const obj = {'{'}user: {'{'}id: 1{'}'}{'}'}</div>
                                 <div class="font-mono text-[10px] mt-1"><span class="text-red-400">// Shallow: nested still shared! ⚠️</span></div>
-                                <div class="font-mono text-[10px]">const shallow = &lbrace; ...obj &rbrace;</div>
+                                <div class="font-mono text-[10px]">const shallow = {'{'} ...obj {'}'}</div>
                                 <div class="font-mono text-[10px]">shallow.user.id = 999 <span class="text-red-400">// obj.user.id also becomes 999!</span></div>
                                 <div class="font-mono text-[10px] mt-1"><span class="text-green-400">// Deep: fully independent ✅</span></div>
                                 <div class="font-mono text-[10px]">const deep = structuredClone(obj)</div>
@@ -1220,8 +1220,8 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                     >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Two Objects" type="input">
-                                <div class="text-center text-sm font-mono">&lbrace;a: &lbrace;x: 1&rbrace;&rbrace;</div>
-                                <div class="text-center text-sm font-mono">&lbrace;a: &lbrace;y: 2&rbrace;&rbrace;</div>
+                                <div class="text-center text-sm font-mono">{'{'}a: {'{'}x: 1{'}'}{'}'}</div>
+                                <div class="text-center text-sm font-mono">{'{'}a: {'{'}y: 2{'}'}{'}'}</div>
                             </Node>
 
                             <Arrow label="merge" />
@@ -1233,7 +1233,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                             <Arrow label="returns" />
 
                             <Node label="Merged Object" type="output">
-                                <div class="text-center text-sm font-mono">&lbrace;a: &lbrace;x: 1, y: 2&rbrace;&rbrace;</div>
+                                <div class="text-center text-sm font-mono">{'{'}a: {'{'}x: 1, y: 2{'}'}{'}'}</div>
                             </Node>
                         </div>
 
@@ -1244,17 +1244,17 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                         <ProTip>
                             <div><strong>Simple deep merge function:</strong></div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                                <div class="font-mono text-[10px]">function deepMerge(target, source) &lbrace;</div>
-                                <div class="font-mono text-[10px]">&nbsp;&nbsp;const result = &lbrace; ...target &rbrace;</div>
-                                <div class="font-mono text-[10px]">&nbsp;&nbsp;for (const key in source) &lbrace;</div>
-                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;if (source[key] instanceof Object &amp;&amp; key in target) &lbrace;</div>
+                                <div class="font-mono text-[10px]">function deepMerge(target, source) {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;const result = {'{'} ...target {'}'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;for (const key in source) {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;if (source[key] instanceof Object &amp;&amp; key in target) {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result[key] = deepMerge(target[key], source[key])</div>
-                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;&rbrace; else &lbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;{'}'} else {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result[key] = source[key]</div>
-                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;&rbrace;</div>
-                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&rbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;{'}'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;{'}'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;return result</div>
-                                <div class="font-mono text-[10px]">&rbrace;</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
                             </div>
                         </ProTip>
                     </MethodCard>
@@ -1293,7 +1293,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro'
                                 <li>
                                     <span class="text-gray-400 text-[10px] uppercase">Clone / Merge</span>
                                     <ul class="ml-2 mt-0.5 space-y-0.5">
-                                        <li><a href="#spread" class="text-gray-300 hover:text-blue-400 block">&lbrace; ...obj &rbrace;</a></li>
+                                        <li><a href="#spread" class="text-gray-300 hover:text-blue-400 block">{'{'} ...obj {'}'}</a></li>
                                         <li><a href="#structuredClone" class="text-gray-300 hover:text-blue-400 block">structuredClone()</a></li>
                                     </ul>
                                 </li>

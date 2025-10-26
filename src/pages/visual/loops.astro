@@ -3,13 +3,13 @@ import MethodCard from '~components/visual-js/MethodCard.astro';
 import MutableOrNot from '~components/visual-js/MutableOrNot.astro';
 import ProTip from '~components/visual-js/ProTip.astro';
 import SectionTitle from '~components/visual-js/SectionTitle.astro';
-import SubSectionTitle from '~components/visual-js/SubSectionTitle.astro';
 import VisualLayout from 'src/layouts/VisualLayout.astro';
+import InfoBox from '~components/visual-js/InfoBox.astro';
 ---
 <VisualLayout
     pageTitle="Javascript Loops"
 >
-                <ProTip>
+                <InfoBox>
                     <div class="space-y-3">
                         <div>
                             <strong class="text-blue-300">🔄 When to Use Each Loop Type</strong>
@@ -62,7 +62,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                             </div>
                         </div>
                     </div>
-                </MutableOrNot>
+                </InfoBox>
 
                 <!-- ============================================ -->
                 <!-- 🔄 ARRAY LOOPS -->
@@ -838,6 +838,223 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                         </ProTip>
                     </MethodCard>
 
+                <!-- REDUCERIGHT -->
+                <MethodCard
+                        id="reduceRight"
+                        methodName="reduceRight()"
+                        signature="arr.reduceRight((acc, item) => acc + item, initial)"
+                        description="Reduce from right to left (reverse order)"
+                        mutates={false}
+                    >
+                        <div class="p-4 bg-gray-800 rounded border border-gray-700">
+                            <!-- Code -->
+                            <div class="font-mono text-sm mb-4">
+                                <span class="text-gray-400">const</span> <span class="text-blue-300">arr</span> = <span class="text-orange-300">[1, 2, 3, 4]</span>
+                                <div class="mt-2"><span class="text-blue-300">arr</span><span class="text-purple-300">.reduceRight((</span><span class="text-cyan-300">acc</span>, <span class="text-yellow-300">num</span><span class="text-purple-300">) =&gt;</span> <span class="text-cyan-300">acc</span> + <span class="text-yellow-300">num</span>, <span class="text-green-300">0</span><span class="text-purple-300">)</span></div>
+                            </div>
+
+                            <!-- Flow visualization -->
+                            <div class="space-y-2 text-xs">
+                                <div class="text-gray-400 mb-2">Processes array from right to left:</div>
+
+                                <div class="flex items-center gap-2">
+                                    <div class="p-2 bg-gray-700/50 border border-gray-600 rounded font-mono text-xs">
+                                        Start: <span class="text-green-300">acc = 0</span>
+                                    </div>
+                                </div>
+
+                                <div class="p-2 bg-blue-500/10 border border-blue-500/30 rounded">
+                                    <div class="font-mono text-[10px]">4️⃣ <span class="text-yellow-300">num = 4</span> → <span class="text-cyan-300">acc = 0 + 4 = 4</span></div>
+                                </div>
+
+                                <div class="p-2 bg-blue-500/10 border border-blue-500/30 rounded">
+                                    <div class="font-mono text-[10px]">3️⃣ <span class="text-yellow-300">num = 3</span> → <span class="text-cyan-300">acc = 4 + 3 = 7</span></div>
+                                </div>
+
+                                <div class="p-2 bg-blue-500/10 border border-blue-500/30 rounded">
+                                    <div class="font-mono text-[10px]">2️⃣ <span class="text-yellow-300">num = 2</span> → <span class="text-cyan-300">acc = 7 + 2 = 9</span></div>
+                                </div>
+
+                                <div class="p-2 bg-blue-500/10 border border-blue-500/30 rounded">
+                                    <div class="font-mono text-[10px]">1️⃣ <span class="text-yellow-300">num = 1</span> → <span class="text-cyan-300">acc = 9 + 1 = 10</span></div>
+                                </div>
+
+                                <div class="mt-3 p-3 bg-green-500/10 border border-green-500/30 rounded">
+                                    <div class="font-mono text-sm text-green-300">→ 10</div>
+                                    <div class="text-gray-400 text-[10px] mt-1">Final accumulated value</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <MutableOrNot mutates={false} message="">
+                            Same as <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">.reduce()</code> but iterates from last to first element.
+                        </MutableOrNot>
+
+                        <ProTip>
+                            <div>📚 <strong>When to use reduceRight:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-gray-400">// Building strings in reverse</span></div>
+                                <div class="font-mono text-[10px]">['a', 'b', 'c'].reduceRight((acc, c) =&gt; acc + c) <span class="text-gray-400">// 'cba'</span></div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Processing nested structures from inside out</span></div>
+                                <div class="font-mono text-[10px]">['div', 'span', 'p'].reduceRight((acc, tag) =&gt; `&lt;${'{'}tag{'}'}&gt;${'{'}acc{'}'}&lt;/${'{'}tag{'}'}&gt;`, 'text')</div>
+                                <div class="font-mono text-[10px]"><span class="text-gray-400">// → '&lt;div&gt;&lt;span&gt;&lt;p&gt;text&lt;/p&gt;&lt;/span&gt;&lt;/div&gt;'</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+
+                <!-- NESTED LOOPS -->
+                <MethodCard
+                        id="nested-loops"
+                        methodName="Nested Loops"
+                        signature="for (item of arr1) { for (item2 of arr2) { } }"
+                        description="Loop inside another loop (grid patterns, combinations)"
+                        mutates={false}
+                    >
+                        <div class="p-4 bg-gray-800 rounded border border-gray-700">
+                            <!-- Code -->
+                            <div class="font-mono text-sm mb-4">
+                                <span class="text-gray-400">const</span> <span class="text-blue-300">grid</span> = <span class="text-orange-300">[[1, 2], [3, 4], [5, 6]]</span>
+                                <div class="mt-2"><span class="text-purple-300">for</span> <span class="text-purple-300">(</span><span class="text-gray-400">const</span> <span class="text-cyan-300">row</span> <span class="text-purple-300">of</span> <span class="text-blue-300">grid</span><span class="text-purple-300">) {'{'}</span></div>
+                                <div class="ml-4"><span class="text-purple-300">for</span> <span class="text-purple-300">(</span><span class="text-gray-400">const</span> <span class="text-yellow-300">num</span> <span class="text-purple-300">of</span> <span class="text-cyan-300">row</span><span class="text-purple-300">) {'{'}</span></div>
+                                <div class="ml-8"><span class="text-gray-400">console.log(</span><span class="text-yellow-300">num</span><span class="text-gray-400">)</span></div>
+                                <div class="ml-4"><span class="text-purple-300">{'}'}</span></div>
+                                <span class="text-purple-300">{'}'}</span>
+                            </div>
+
+                            <!-- Flow visualization -->
+                            <div class="space-y-2 text-xs">
+                                <div class="text-gray-400 mb-2">Outer loop × Inner loop = All combinations:</div>
+
+                                <div class="space-y-3">
+                                    <div class="p-2 bg-cyan-500/10 border border-cyan-500/30 rounded">
+                                        <div class="text-cyan-300 font-bold text-[10px] mb-2">Outer Loop - Iteration 1</div>
+                                        <div class="font-mono text-[10px]"><span class="text-cyan-300">row = [1, 2]</span></div>
+                                        <div class="ml-4 mt-2 space-y-1 border-l-2 border-yellow-500/30 pl-2">
+                                            <div class="text-yellow-300 text-[10px]">Inner Loop:</div>
+                                            <div class="font-mono text-[10px]">num = 1 → console.log(1)</div>
+                                            <div class="font-mono text-[10px]">num = 2 → console.log(2)</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="p-2 bg-cyan-500/10 border border-cyan-500/30 rounded">
+                                        <div class="text-cyan-300 font-bold text-[10px] mb-2">Outer Loop - Iteration 2</div>
+                                        <div class="font-mono text-[10px]"><span class="text-cyan-300">row = [3, 4]</span></div>
+                                        <div class="ml-4 mt-2 space-y-1 border-l-2 border-yellow-500/30 pl-2">
+                                            <div class="text-yellow-300 text-[10px]">Inner Loop:</div>
+                                            <div class="font-mono text-[10px]">num = 3 → console.log(3)</div>
+                                            <div class="font-mono text-[10px]">num = 4 → console.log(4)</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="p-2 bg-cyan-500/10 border border-cyan-500/30 rounded">
+                                        <div class="text-cyan-300 font-bold text-[10px] mb-2">Outer Loop - Iteration 3</div>
+                                        <div class="font-mono text-[10px]"><span class="text-cyan-300">row = [5, 6]</span></div>
+                                        <div class="ml-4 mt-2 space-y-1 border-l-2 border-yellow-500/30 pl-2">
+                                            <div class="text-yellow-300 text-[10px]">Inner Loop:</div>
+                                            <div class="font-mono text-[10px]">num = 5 → console.log(5)</div>
+                                            <div class="font-mono text-[10px]">num = 6 → console.log(6)</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mt-3 p-3 bg-green-500/10 border border-green-500/30 rounded">
+                                    <div class="text-gray-400 text-[10px]">Output: <span class="text-green-300">1, 2, 3, 4, 5, 6</span></div>
+                                    <div class="text-gray-400 text-[10px] mt-1">Inner loop completes fully before outer loop continues</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <MutableOrNot mutates={false} message="">
+                            Outer loop runs N times, inner loop runs M times → Total iterations = N × M
+                        </MutableOrNot>
+
+                        <ProTip>
+                            <div>⚠️ <strong>Common patterns & gotchas:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-gray-400">// Matrix/Grid traversal</span></div>
+                                <div class="font-mono text-[10px]">for (let i = 0; i &lt; rows; i++) {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;for (let j = 0; j &lt; cols; j++) {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;grid[i][j]</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;{'}'}</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// All pairs/combinations</span></div>
+                                <div class="font-mono text-[10px]">for (const a of arr1) {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;for (const b of arr2) {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;console.log(a, b) <span class="text-gray-400">// every combo</span></div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;{'}'}</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-red-400">// ⚠️ Watch time complexity: O(n²) or O(n³)</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+
+                <!-- FOR AWAIT...OF -->
+                <MethodCard
+                        id="for-await-of"
+                        methodName="for await...of"
+                        signature="for await (const item of asyncIterable) { }"
+                        description="Loop over async iterables (promises, streams)"
+                        mutates={false}
+                    >
+                        <div class="p-4 bg-gray-800 rounded border border-gray-700">
+                            <!-- Code -->
+                            <div class="font-mono text-sm mb-4">
+                                <span class="text-gray-400">const</span> <span class="text-blue-300">urls</span> = <span class="text-orange-300">['url1', 'url2', 'url3']</span>
+                                <div class="mt-2"><span class="text-gray-400">const</span> <span class="text-blue-300">promises</span> = <span class="text-blue-300">urls</span><span class="text-purple-300">.map(</span><span class="text-yellow-300">url</span> <span class="text-purple-300">=&gt;</span> fetch(<span class="text-yellow-300">url</span>)<span class="text-purple-300">)</span></div>
+                                <div class="mt-2"><span class="text-purple-300">for await</span> <span class="text-purple-300">(</span><span class="text-gray-400">const</span> <span class="text-cyan-300">response</span> <span class="text-purple-300">of</span> <span class="text-blue-300">promises</span><span class="text-purple-300">) {'{'}</span></div>
+                                <div class="ml-4"><span class="text-gray-400">const</span> <span class="text-green-300">data</span> = <span class="text-gray-400">await</span> <span class="text-cyan-300">response</span>.json()</div>
+                                <div class="ml-4"><span class="text-gray-400">console.log(</span><span class="text-green-300">data</span><span class="text-gray-400">)</span></div>
+                                <span class="text-purple-300">{'}'}</span>
+                            </div>
+
+                            <!-- Flow visualization -->
+                            <div class="space-y-2 text-xs">
+                                <div class="text-gray-400 mb-2">Waits for each promise to resolve in sequence:</div>
+
+                                <div class="p-2 bg-blue-500/10 border border-blue-500/30 rounded">
+                                    <div class="text-blue-300 text-[10px] mb-1">Step 1: Wait for first promise</div>
+                                    <div class="font-mono text-[10px]">fetch('url1') → response → data</div>
+                                    <div class="text-gray-400 text-[10px] mt-1">⏳ Awaits completion, then continues</div>
+                                </div>
+
+                                <div class="p-2 bg-blue-500/10 border border-blue-500/30 rounded">
+                                    <div class="text-blue-300 text-[10px] mb-1">Step 2: Wait for second promise</div>
+                                    <div class="font-mono text-[10px]">fetch('url2') → response → data</div>
+                                    <div class="text-gray-400 text-[10px] mt-1">⏳ Awaits completion, then continues</div>
+                                </div>
+
+                                <div class="p-2 bg-blue-500/10 border border-blue-500/30 rounded">
+                                    <div class="text-blue-300 text-[10px] mb-1">Step 3: Wait for third promise</div>
+                                    <div class="font-mono text-[10px]">fetch('url3') → response → data</div>
+                                    <div class="text-gray-400 text-[10px] mt-1">⏳ Awaits completion, then continues</div>
+                                </div>
+
+                                <div class="mt-3 p-3 bg-green-500/10 border border-green-500/30 rounded">
+                                    <div class="text-gray-400 text-[10px]">All async operations processed in order</div>
+                                    <div class="text-green-300 text-[10px] mt-1">✅ Handles async/await in loops cleanly</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <MutableOrNot mutates={false} message="">
+                            Must be used inside an <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">async</code> function. Processes promises sequentially.
+                        </MutableOrNot>
+
+                        <ProTip>
+                            <div>⚡ <strong>Sequential vs Parallel:</strong></div>
+                            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                                <div class="font-mono text-[10px]"><span class="text-gray-400">// Sequential (one at a time) - for await...of</span></div>
+                                <div class="font-mono text-[10px]">for await (const res of promises) {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;<span class="text-gray-400">// waits for each before next</span></div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Parallel (all at once) - Promise.all</span></div>
+                                <div class="font-mono text-[10px]">const results = await Promise.all(promises)</div>
+                                <div class="font-mono text-[10px]"><span class="text-gray-400">// all start immediately, wait for all to finish</span></div>
+                                <div class="font-mono text-[10px] mt-1"><span class="text-green-400">// Use Promise.all() when order doesn't matter & want speed ⚡</span></div>
+                            </div>
+                        </ProTip>
+                    </MethodCard>
+
                 <!-- ============================================ -->
                 <!-- 🔑 OBJECT LOOPS -->
                 <!-- ============================================ -->
@@ -1433,6 +1650,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                                 <li><a href="#some-every" class="text-gray-300 hover:text-blue-400 block">some() / every()</a></li>
                                 <li><a href="#findIndex" class="text-gray-300 hover:text-blue-400 block">findIndex()</a></li>
                                 <li><a href="#flatMap" class="text-gray-300 hover:text-blue-400 block">flatMap()</a></li>
+                                <li><a href="#reduceRight" class="text-gray-300 hover:text-blue-400 block">reduceRight()</a></li>
+                                <li><a href="#nested-loops" class="text-gray-300 hover:text-blue-400 block">Nested Loops</a></li>
+                                <li><a href="#for-await-of" class="text-gray-300 hover:text-blue-400 block">for await...of</a></li>
                             </ul>
                         </li>
 

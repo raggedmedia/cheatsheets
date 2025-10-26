@@ -1,30 +1,15 @@
 ---
-import '~styles/styles.css'
+import VisualLayout from 'src/layouts/VisualLayout.astro';
 import MethodCard from '~components/visual-js/MethodCard.astro';
-import Node from '~components/visual-js/Node.astro';
-import ArrayDisplay from '~components/visual-js/ArrayDisplay.astro';
-import Arrow from '~components/visual-js/Arrow.astro';
-import ReturnValue from '~components/visual-js/ReturnValue.astro';
-import MutableOrNot from '~components/visual-js/MutableOrNot.astro';
-import ProcessContent from '~components/visual-js/ProcessContent.astro';
+import InfoBox from '~components/visual-js/InfoBox.astro';
 import ProTip from '~components/visual-js/ProTip.astro';
-import GlobalNav from '~components/visual-js/GlobalNav.astro';
+import SectionTitle from '~components/visual-js/SectionTitle.astro';
 ---
+<VisualLayout
+    pageTitle="Javascript Conditionals"
+>
 
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>JavaScript Conditionals - Visual Cheatsheet</title>
-    </head>
-    <body class="m-0 p-4 bg-[#1a1d29] text-gray-200">
-        <div class="flex gap-6 max-w-[1600px] mx-auto">
-            <!-- Main Content -->
-            <main class="flex-1 min-w-0">
-                <h1 class="text-white mb-1 text-2xl font-bold">JavaScript Conditionals</h1>
-                <p class="text-gray-400 mb-6 text-sm">Visual blueprint-style reference for conditional logic and branching</p>
-
-                <ProTip>
+                <InfoBox>
                     <div>💡 <strong>true/false vs truthy/falsy - what's the difference?</strong></div>
                     <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
                         <div class="font-mono text-[10px] mt-1"><strong>false</strong> = the actual boolean value <code class="bg-black/30 px-1 py-0.5 rounded">false</code></div>
@@ -32,25 +17,25 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                         <div class="font-mono text-[10px] mt-1"><span class="text-yellow-400">8 falsy values:</span> <code class="bg-black/30 px-1 py-0.5 rounded">false</code>, <code class="bg-black/30 px-1 py-0.5 rounded">0</code>, <code class="bg-black/30 px-1 py-0.5 rounded">-0</code>, <code class="bg-black/30 px-1 py-0.5 rounded">0n</code>, <code class="bg-black/30 px-1 py-0.5 rounded">""</code>, <code class="bg-black/30 px-1 py-0.5 rounded">null</code>, <code class="bg-black/30 px-1 py-0.5 rounded">undefined</code>, <code class="bg-black/30 px-1 py-0.5 rounded">NaN</code></div>
                         <div class="font-mono text-[10px] mt-1"><strong>truthy</strong> = everything else acts like true!</div>
                         <div class="font-mono text-[10px] mt-1"><span class="text-red-400">Common gotchas:</span></div>
-                        <div class="font-mono text-[10px]">if ([]) &lbrace; ... &rbrace; <span class="text-gray-400">// RUNS! [] is truthy even when empty</span></div>
-                        <div class="font-mono text-[10px]">if ("0") &lbrace; ... &rbrace; <span class="text-gray-400">// RUNS! string "0" is truthy</span></div>
-                        <div class="font-mono text-[10px]">if ("false") &lbrace; ... &rbrace; <span class="text-gray-400">// RUNS! string "false" is truthy</span></div>
+                        <div class="font-mono text-[10px]">if ([]) {'{'} ... {'}'} <span class="text-gray-400">// RUNS! [] is truthy even when empty</span></div>
+                        <div class="font-mono text-[10px]">if ("0") {'{'} ... {'}'} <span class="text-gray-400">// RUNS! string "0" is truthy</span></div>
+                        <div class="font-mono text-[10px]">if ("false") {'{'} ... {'}'} <span class="text-gray-400">// RUNS! string "false" is truthy</span></div>
                         <div class="font-mono text-[10px] mt-1">0 === false <span class="text-red-400">// false</span> (different types, but both falsy)</div>
                         <div class="font-mono text-[10px]">[] == true <span class="text-red-400">// false</span> ([] is truthy, but not equal to true)</div>
                     </div>
-                </ProTip>
+                </InfoBox>
 
                 <!-- ============================================ -->
                 <!-- 🔀 IF/ELSE -->
                 <!-- ============================================ -->
 
-                <h2 id="if-else" class="text-blue-300 text-xl my-4 pb-2 border-b-2 border-blue-600">
+                <SectionTitle id="if-else" color="blue">
                     🔀 If/Else Statements
-                </h2>
+                </SectionTitle>
 
                 <!-- IF -->
-                <div id="if">
-                    <MethodCard
+                <MethodCard
+                        id="if"
                         methodName="if"
                         signature="if (condition) { }"
                         description="Execute code if condition is truthy"
@@ -80,9 +65,9 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                 <div class="bg-gray-800/50 border border-gray-700 rounded p-3">
                                     <div class="text-gray-400 text-xs mb-2">Example:</div>
                                     <div class="font-mono text-xs text-gray-300 space-y-0.5">
-                                        <div><span class="text-blue-400">if</span> (age &gt;= 18) &lbrace;</div>
+                                        <div><span class="text-blue-400">if</span> (age &gt;= 18) {'{'}</div>
                                         <div class="ml-4 text-green-300">console.log('Can vote')</div>
-                                        <div>&rbrace;</div>
+                                        <div>{'}'}</div>
                                     </div>
                                 </div>
                             </div>
@@ -96,19 +81,18 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             <div>Common patterns:</div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
                                 <div class="font-mono text-[10px]"><span class="text-gray-400">// Check existence</span></div>
-                                <div class="font-mono text-[10px]">if (user) &lbrace; ... &rbrace; <span class="text-gray-400">// truthy check</span></div>
+                                <div class="font-mono text-[10px]">if (user) {'{'} ... {'}'} <span class="text-gray-400">// truthy check</span></div>
                                 <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Check array has items</span></div>
-                                <div class="font-mono text-[10px]">if (arr.length) &lbrace; ... &rbrace; <span class="text-gray-400">// 0 is falsy</span></div>
+                                <div class="font-mono text-[10px]">if (arr.length) {'{'} ... {'}'} <span class="text-gray-400">// 0 is falsy</span></div>
                                 <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Early return pattern</span></div>
                                 <div class="font-mono text-[10px]">if (!user) return <span class="text-gray-400">// guard clause</span></div>
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- IF...ELSE -->
-                <div id="if-else-statement">
-                    <MethodCard
+                <MethodCard
+                        id="if-else-statement"
                         methodName="if...else"
                         signature="if (condition) { } else { }"
                         description="Execute one of two code paths"
@@ -141,11 +125,11 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                 <div class="bg-gray-800/50 border border-gray-700 rounded p-3">
                                     <div class="text-gray-400 text-xs mb-2">Example:</div>
                                     <div class="font-mono text-xs text-gray-300 space-y-0.5">
-                                        <div><span class="text-blue-400">if</span> (age &gt;= 18) &lbrace;</div>
+                                        <div><span class="text-blue-400">if</span> (age &gt;= 18) {'{'}</div>
                                         <div class="ml-4 text-green-300">console.log('Adult')</div>
-                                        <div>&rbrace; <span class="text-orange-400">else</span> &lbrace;</div>
+                                        <div>{'}'} <span class="text-orange-400">else</span> {'{'}</div>
                                         <div class="ml-4 text-orange-300">console.log('Minor')</div>
-                                        <div>&rbrace;</div>
+                                        <div>{'}'}</div>
                                     </div>
                                 </div>
                             </div>
@@ -155,11 +139,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             Exactly one block executes. Use when you have two mutually exclusive paths.
                         </div>
                     </MethodCard>
-                </div>
 
                 <!-- ELSE IF -->
-                <div id="else-if">
-                    <MethodCard
+                <MethodCard
+                        id="else-if"
                         methodName="else if"
                         signature="if (cond1) { } else if (cond2) { } else { }"
                         description="Chain multiple conditions"
@@ -223,15 +206,15 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                 <div class="bg-gray-800/50 border border-gray-700 rounded p-3">
                                     <div class="text-gray-400 text-xs mb-2">Example - Grade Calculator:</div>
                                     <div class="font-mono text-xs text-gray-300 space-y-0.5">
-                                        <div><span class="text-blue-400">if</span> (score &gt;= 90) &lbrace;</div>
+                                        <div><span class="text-blue-400">if</span> (score &gt;= 90) {'{'}</div>
                                         <div class="ml-4 text-green-300">grade = 'A'</div>
-                                        <div>&rbrace; <span class="text-purple-400">else if</span> (score &gt;= 80) &lbrace;</div>
+                                        <div>{'}'} <span class="text-purple-400">else if</span> (score &gt;= 80) {'{'}</div>
                                         <div class="ml-4 text-purple-300">grade = 'B'</div>
-                                        <div>&rbrace; <span class="text-purple-400">else if</span> (score &gt;= 70) &lbrace;</div>
+                                        <div>{'}'} <span class="text-purple-400">else if</span> (score &gt;= 70) {'{'}</div>
                                         <div class="ml-4 text-purple-300">grade = 'C'</div>
-                                        <div>&rbrace; <span class="text-orange-400">else</span> &lbrace;</div>
+                                        <div>{'}'} <span class="text-orange-400">else</span> {'{'}</div>
                                         <div class="ml-4 text-orange-300">grade = 'F'</div>
-                                        <div>&rbrace;</div>
+                                        <div>{'}'}</div>
                                     </div>
                                 </div>
                             </div>
@@ -245,27 +228,26 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             <div>⚠️ Order matters - put most specific conditions first:</div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
                                 <div class="font-mono text-[10px] text-red-400"><span class="text-gray-400">// ❌ Wrong order:</span></div>
-                                <div class="font-mono text-[10px]">if (score &gt;= 70) &lbrace; grade = 'C' &rbrace; <span class="text-gray-400">// catches 90 too!</span></div>
-                                <div class="font-mono text-[10px]">else if (score &gt;= 90) &lbrace; grade = 'A' &rbrace; <span class="text-gray-400">// never runs</span></div>
+                                <div class="font-mono text-[10px]">if (score &gt;= 70) {'{'} grade = 'C' {'}'} <span class="text-gray-400">// catches 90 too!</span></div>
+                                <div class="font-mono text-[10px]">else if (score &gt;= 90) {'{'} grade = 'A' {'}'} <span class="text-gray-400">// never runs</span></div>
                                 <div class="font-mono text-[10px] mt-1 text-green-400"><span class="text-gray-400">// ✅ Correct order:</span></div>
-                                <div class="font-mono text-[10px]">if (score &gt;= 90) &lbrace; grade = 'A' &rbrace; <span class="text-gray-400">// most specific first</span></div>
-                                <div class="font-mono text-[10px]">else if (score &gt;= 70) &lbrace; grade = 'C' &rbrace;</div>
+                                <div class="font-mono text-[10px]">if (score &gt;= 90) {'{'} grade = 'A' {'}'} <span class="text-gray-400">// most specific first</span></div>
+                                <div class="font-mono text-[10px]">else if (score &gt;= 70) {'{'} grade = 'C' {'}'}</div>
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- ============================================ -->
                 <!-- 🔄 SWITCH -->
                 <!-- ============================================ -->
 
-                <h2 id="switch" class="text-purple-300 text-xl my-4 pb-2 border-b-2 border-purple-600">
+                <SectionTitle id="switch" color="purple">
                     🔄 Switch Statements
-                </h2>
+                </SectionTitle>
 
                 <!-- SWITCH/CASE -->
-                <div id="switch-case">
-                    <MethodCard
+                <MethodCard
+                        id="switch-case"
                         methodName="switch...case"
                         signature="switch (value) { case x: ... break; default: ... }"
                         description="Match value against multiple cases with fallback"
@@ -333,7 +315,7 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                 <div class="bg-gray-800/50 border border-gray-700 rounded p-3">
                                     <div class="text-gray-400 text-xs mb-2">Example:</div>
                                     <div class="font-mono text-xs text-gray-300 space-y-0.5">
-                                        <div><span class="text-purple-400">switch</span> (day) &lbrace;</div>
+                                        <div><span class="text-purple-400">switch</span> (day) {'{'}</div>
                                         <div class="ml-4"><span class="text-blue-400">case</span> 'Mon':</div>
                                         <div class="ml-8">console.log('Start of week')</div>
                                         <div class="ml-8"><span class="text-yellow-400">break</span></div>
@@ -342,7 +324,7 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                         <div class="ml-8"><span class="text-yellow-400">break</span></div>
                                         <div class="ml-4"><span class="text-orange-400">default</span>:</div>
                                         <div class="ml-8">console.log('Regular day')</div>
-                                        <div>&rbrace;</div>
+                                        <div>{'}'}</div>
                                     </div>
                                 </div>
                             </div>
@@ -355,7 +337,7 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                         <ProTip>
                             <div>⚠️ <strong>The break gotcha:</strong></div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                                <div class="font-mono text-[10px]">switch (day) &lbrace;</div>
+                                <div class="font-mono text-[10px]">switch (day) {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;case 'Mon':</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;console.log('Monday')</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;break <span class="text-green-400">// stops here ✅</span></div>
@@ -364,14 +346,14 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;break</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;default:</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;console.log('Other')</div>
-                                <div class="font-mono text-[10px]">&rbrace;</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
                             </div>
                         </ProTip>
 
                         <ProTip>
                             <div>💡 <strong>Grouping multiple cases (fall-through pattern):</strong></div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                                <div class="font-mono text-[10px]">switch (day) &lbrace;</div>
+                                <div class="font-mono text-[10px]">switch (day) {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;case 'Mon':</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;case 'Tue':</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;case 'Wed':</div>
@@ -385,7 +367,7 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;break</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;default:</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;console.error('Invalid day') <span class="text-green-400">// handle unexpected ✅</span></div>
-                                <div class="font-mono text-[10px]">&rbrace;</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
                                 <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Stack cases without break to share code - falls through until hitting break</span></div>
                             </div>
                         </ProTip>
@@ -399,19 +381,18 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- ============================================ -->
                 <!-- ⚡ TERNARY -->
                 <!-- ============================================ -->
 
-                <h2 id="ternary" class="text-green-300 text-xl my-4 pb-2 border-b-2 border-green-600">
+                <SectionTitle id="ternary" color="green">
                     ⚡ Ternary Operator
-                </h2>
+                </SectionTitle>
 
                 <!-- TERNARY -->
-                <div id="ternary-op">
-                    <MethodCard
+                <MethodCard
+                        id="ternary-op"
                         methodName="Ternary"
                         signature="condition ? valueIfTrue : valueIfFalse"
                         description="Inline conditional expression (returns value)"
@@ -463,25 +444,24 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                 <div class="font-mono text-[10px]"><span class="text-green-400">// Simple assignment ✅</span></div>
                                 <div class="font-mono text-[10px]">const status = isActive ? 'online' : 'offline'</div>
                                 <div class="font-mono text-[10px] mt-1"><span class="text-green-400">// JSX conditionals ✅</span></div>
-                                <div class="font-mono text-[10px]">&lt;div&gt;&lbrace;isLoading ? 'Loading...' : data&rbrace;&lt;/div&gt;</div>
+                                <div class="font-mono text-[10px]">&lt;div&gt;{'{'}isLoading ? 'Loading...' : data{'}'}&lt;/div&gt;</div>
                                 <div class="font-mono text-[10px] mt-1"><span class="text-red-400">// Avoid deep nesting ❌</span></div>
                                 <div class="font-mono text-[10px]">a ? b ? c : d : e ? f : g <span class="text-red-400">// hard to read!</span></div>
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- ============================================ -->
                 <!-- 🛡️ NULLISH & OPTIONAL -->
                 <!-- ============================================ -->
 
-                <h2 id="nullish" class="text-cyan-300 text-xl my-4 pb-2 border-b-2 border-cyan-600">
+                <SectionTitle id="nullish" color="cyan">
                     🛡️ Nullish & Optional
-                </h2>
+                </SectionTitle>
 
                 <!-- NULLISH COALESCING -->
-                <div id="nullish-coalescing">
-                    <MethodCard
+                <MethodCard
+                        id="nullish-coalescing"
                         methodName="Nullish Coalescing (??)"
                         signature="value ?? fallback"
                         description="Return fallback only if value is null or undefined"
@@ -537,11 +517,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- OPTIONAL CHAINING -->
-                <div id="optional-chaining">
-                    <MethodCard
+                <MethodCard
+                        id="optional-chaining"
                         methodName="Optional Chaining (?.)"
                         signature="obj?.prop?.nested"
                         description="Safely access nested properties (returns undefined if null)"
@@ -605,11 +584,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- COMBINING ?? AND ?. -->
-                <div id="combining">
-                    <MethodCard
+                <MethodCard
+                        id="combining"
                         methodName="Combining ?? and ?."
                         signature="obj?.prop ?? defaultValue"
                         description="Safe access with fallback"
@@ -668,19 +646,18 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- ============================================ -->
                 <!-- 🔗 LOGICAL OPERATORS -->
                 <!-- ============================================ -->
 
-                <h2 id="logical" class="text-orange-300 text-xl my-4 pb-2 border-b-2 border-orange-600">
+                <SectionTitle id="logical" color="orange">
                     🔗 Logical Operators
-                </h2>
+                </SectionTitle>
 
                 <!-- AND (&&) -->
-                <div id="and">
-                    <MethodCard
+                <MethodCard
+                        id="and"
                         methodName="AND (&&)"
                         signature="value1 && value2"
                         description="Return first falsy value, or last value if all truthy"
@@ -742,17 +719,16 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                 <div class="font-mono text-[10px]"><span class="text-gray-400">// Conditional execution</span></div>
                                 <div class="font-mono text-[10px]">user && console.log(user.name) <span class="text-gray-400">// only log if user exists</span></div>
                                 <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Conditional rendering (React)</span></div>
-                                <div class="font-mono text-[10px]">&lbrace;isLoggedIn && &lt;Dashboard /&gt;&rbrace;</div>
+                                <div class="font-mono text-[10px]">{'{'}isLoggedIn && &lt;Dashboard /&gt;{'}'}</div>
                                 <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Guard with multiple conditions</span></div>
-                                <div class="font-mono text-[10px]">if (user && user.isActive && user.role === 'admin') &lbrace; ... &rbrace;</div>
+                                <div class="font-mono text-[10px]">if (user && user.isActive && user.role === 'admin') {'{'} ... {'}'}</div>
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- OR (||) -->
-                <div id="or">
-                    <MethodCard
+                <MethodCard
+                        id="or"
                         methodName="OR (||)"
                         signature="value1 || value2"
                         description="Return first truthy value, or last value if all falsy"
@@ -820,11 +796,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- NOT (!) -->
-                <div id="not">
-                    <MethodCard
+                <MethodCard
+                        id="not"
                         methodName="NOT (!)"
                         signature="!value"
                         description="Flip boolean (convert to boolean and negate)"
@@ -848,7 +823,7 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                             <div>!<span class="text-green-300">true</span> → <span class="text-red-300">false</span></div>
                                             <div>!<span class="text-green-300">'hello'</span> → <span class="text-red-300">false</span></div>
                                             <div>!<span class="text-green-300">42</span> → <span class="text-red-300">false</span></div>
-                                            <div>!<span class="text-green-300">&lbrace;&rbrace;</span> → <span class="text-red-300">false</span></div>
+                                            <div>!<span class="text-green-300">{'{'}{'}'}</span> → <span class="text-red-300">false</span></div>
                                         </div>
                                     </div>
 
@@ -892,19 +867,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
-            </main>
 
-            <!-- Sidebar Navigation -->
-            <aside class="w-64 shrink-0 sticky top-4 self-start hidden lg:block max-h-[calc(100vh-2rem)] overflow-y-auto">
-                <!-- Global Navigation -->
-                <GlobalNav />
-
-                <!-- Page Navigation -->
-                <nav class="bg-[#252936] rounded-lg p-4 border border-gray-700">
-                    <h3 class="text-white text-sm font-bold mb-3 uppercase tracking-wide">On This Page</h3>
-                    <ul class="space-y-2 text-xs">
+    <Fragment slot="page-nav">
+ <ul class="space-y-2 text-xs">
                         <li>
                             <a href="#if-else" class="text-blue-300 font-semibold hover:text-blue-200 block py-1">🔀 If/Else</a>
                             <ul class="ml-3 mt-1 space-y-1 border-l-2 border-blue-500/30 pl-2">
@@ -946,58 +912,5 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </ul>
                         </li>
                     </ul>
-                </nav>
-            </aside>
-        </div>
-
-        <style>
-            html {
-                scroll-behavior: smooth;
-                scroll-padding-top: 20px;
-            }
-
-            /* Node gradient backgrounds */
-            .node-input {
-                background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
-            }
-
-            .node-process {
-                background: linear-gradient(135deg, #4c1d95 0%, #5b21b6 100%);
-            }
-
-            .node-output {
-                background: linear-gradient(135deg, #166534 0%, #15803d 100%);
-            }
-
-            /* Arrow styling */
-            .arrow {
-                position: relative;
-                height: 2px;
-                background: linear-gradient(90deg, #4b5563 0%, #6b7280 100%);
-            }
-
-            .arrow::after {
-                content: '';
-                position: absolute;
-                right: 0;
-                top: 50%;
-                transform: translateY(-50%);
-                width: 0;
-                height: 0;
-                border-left: 8px solid #6b7280;
-                border-top: 5px solid transparent;
-                border-bottom: 5px solid transparent;
-            }
-
-            /* Pulse animation for highlights */
-            @keyframes pulse {
-                0%, 100% { opacity: 1; }
-                50% { opacity: 0.6; }
-            }
-
-            .animate-pulse {
-                animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-            }
-        </style>
-    </body>
-</html>
+    </Fragment>
+</VisualLayout>

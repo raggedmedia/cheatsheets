@@ -751,9 +751,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
             <div class="text-gray-300 text-xs mb-3">For other ranges (1-10, 1-100, etc.) you MUST multiply and add:</div>
 
             <div class="bg-black/30 rounded p-3 space-y-0.5">
-                <div class="font-mono text-[10px] text-gray-300">function randomInt(min, max) &lbrace;</div>
+                <div class="font-mono text-[10px] text-gray-300">function randomInt(min, max) {'{'}</div>
                 <div class="font-mono text-[10px] text-gray-300">&nbsp;&nbsp;return Math.floor(Math.random() * (max - min + 1)) + min</div>
-                <div class="font-mono text-[10px] text-gray-300">&rbrace;</div>
+                <div class="font-mono text-[10px] text-gray-300">{'}'}</div>
                 <div class="font-mono text-[10px] mt-2"><span class="text-gray-400">// How it works for randomInt(1, 6):</span></div>
                 <div class="font-mono text-[10px]"><span class="text-yellow-400">(max - min + 1)</span> <span class="text-gray-400">→ (6 - 1 + 1) = 6 possible values</span></div>
                 <div class="font-mono text-[10px]"><span class="text-yellow-400">Math.random() * 6</span> <span class="text-gray-400">→ 0 to 5.999...</span></div>
@@ -860,14 +860,14 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
         <ProTip>
             <div>Currency formatting:</div>
             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">(1234.5).toLocaleString('en-US', &lbrace;</div>
+                <div class="font-mono text-[10px]">(1234.5).toLocaleString('en-US', {'{'}</div>
                 <div class="font-mono text-[10px]">&nbsp;&nbsp;style: 'currency',</div>
                 <div class="font-mono text-[10px]">&nbsp;&nbsp;currency: 'USD'</div>
-                <div class="font-mono text-[10px]">&rbrace;) <span class="text-gray-400">// '$1,234.50'</span></div>
+                <div class="font-mono text-[10px]">{'}'}) <span class="text-gray-400">// '$1,234.50'</span></div>
                 <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Percentage</span></div>
-                <div class="font-mono text-[10px]">(0.42).toLocaleString('en-US', &lbrace;</div>
+                <div class="font-mono text-[10px]">(0.42).toLocaleString('en-US', {'{'}</div>
                 <div class="font-mono text-[10px]">&nbsp;&nbsp;style: 'percent'</div>
-                <div class="font-mono text-[10px]">&rbrace;) <span class="text-gray-400">// '42%'</span></div>
+                <div class="font-mono text-[10px]">{'}'}) <span class="text-gray-400">// '42%'</span></div>
             </div>
         </ProTip>
     </MethodCard>

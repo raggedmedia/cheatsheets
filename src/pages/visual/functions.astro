@@ -22,9 +22,9 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                     <div>💡 <strong>Functions are first-class citizens:</strong></div>
                     <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
                         <div class="font-mono text-[10px]"><span class="text-gray-400">// Can be assigned to variables, passed as arguments, returned from functions</span></div>
-                        <div class="font-mono text-[10px]">const fn = function() &lbrace; &rbrace; <span class="text-gray-400">// function expression</span></div>
+                        <div class="font-mono text-[10px]">const fn = function() {'{'} {'}'} <span class="text-gray-400">// function expression</span></div>
                         <div class="font-mono text-[10px]">array.map(fn) <span class="text-gray-400">// pass as argument</span></div>
-                        <div class="font-mono text-[10px]">function makeFunc() &lbrace; return fn &rbrace; <span class="text-gray-400">// return function</span></div>
+                        <div class="font-mono text-[10px]">function makeFunc() {'{'} return fn {'}'} <span class="text-gray-400">// return function</span></div>
                     </div>
                 </ProTip>
 
@@ -51,9 +51,9 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                     <div class="text-blue-400 font-bold text-sm mb-2">Function Declaration:</div>
                                     <div class="bg-blue-500/20 border-2 border-blue-400 rounded-lg p-3">
                                         <div class="text-blue-300 font-mono text-xs space-y-0.5">
-                                            <div>function greet(name) &lbrace;</div>
-                                            <div>&nbsp;&nbsp;return `Hello $&lbrace;name&rbrace;`</div>
-                                            <div>&rbrace;</div>
+                                            <div>function greet(name) {'{'}</div>
+                                            <div>&nbsp;&nbsp;return `Hello ${'{'}name{'}'}`</div>
+                                            <div>{'}'}</div>
                                         </div>
                                         <div class="text-green-400 text-[10px] mt-2">✅ Hoisted - can call before declaration</div>
                                     </div>
@@ -64,9 +64,9 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                     <div class="text-purple-400 font-bold text-sm mb-2">Function Expression:</div>
                                     <div class="bg-purple-500/20 border-2 border-purple-400 rounded-lg p-3">
                                         <div class="text-purple-300 font-mono text-xs space-y-0.5">
-                                            <div>const greet = function(name) &lbrace;</div>
-                                            <div>&nbsp;&nbsp;return `Hello $&lbrace;name&rbrace;`</div>
-                                            <div>&rbrace;</div>
+                                            <div>const greet = function(name) {'{'}</div>
+                                            <div>&nbsp;&nbsp;return `Hello ${'{'}name{'}'}`</div>
+                                            <div>{'}'}</div>
                                         </div>
                                         <div class="text-yellow-400 text-[10px] mt-2">⚠️ Not hoisted - must declare before calling</div>
                                     </div>
@@ -79,10 +79,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
                                 <div class="font-mono text-[10px]"><span class="text-green-400">// Declaration - works ✅</span></div>
                                 <div class="font-mono text-[10px]">greet('Alice')</div>
-                                <div class="font-mono text-[10px]">function greet(name) &lbrace; return name &rbrace;</div>
+                                <div class="font-mono text-[10px]">function greet(name) {'{'} return name {'}'}</div>
                                 <div class="font-mono text-[10px] mt-1"><span class="text-red-400">// Expression - error ❌</span></div>
                                 <div class="font-mono text-[10px]">greet('Alice') <span class="text-red-400">// ReferenceError</span></div>
-                                <div class="font-mono text-[10px]">const greet = function(name) &lbrace; return name &rbrace;</div>
+                                <div class="font-mono text-[10px]">const greet = function(name) {'{'} return name {'}'}</div>
                             </div>
                         </ProTip>
                     </MethodCard>
@@ -103,7 +103,7 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                     <div class="text-gray-300 text-xs mb-1.5">Basic syntax:</div>
                                     <div class="text-purple-300 font-mono text-xs space-y-0.5">
                                         <div>const add = (a, b) =&gt; a + b</div>
-                                        <div class="text-gray-400 text-[10px]">// Same as: function(a, b) &lbrace; return a + b &rbrace;</div>
+                                        <div class="text-gray-400 text-[10px]">// Same as: function(a, b) {'{'} return a + b {'}'}</div>
                                     </div>
                                 </div>
 
@@ -119,10 +119,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                 <div class="bg-gray-800/50 border border-gray-700 rounded p-3">
                                     <div class="text-gray-300 text-xs mb-1.5">Multi-line (needs return):</div>
                                     <div class="text-purple-300 font-mono text-xs space-y-0.5">
-                                        <div>const greet = name =&gt; &lbrace;</div>
-                                        <div>&nbsp;&nbsp;const msg = `Hello $&lbrace;name&rbrace;`</div>
+                                        <div>const greet = name =&gt; {'{'}</div>
+                                        <div>&nbsp;&nbsp;const msg = `Hello ${'{'}name{'}'}`</div>
                                         <div>&nbsp;&nbsp;return msg</div>
-                                        <div>&rbrace;</div>
+                                        <div>{'}'}</div>
                                     </div>
                                 </div>
 
@@ -130,7 +130,7 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                 <div class="bg-gray-800/50 border border-gray-700 rounded p-3">
                                     <div class="text-gray-300 text-xs mb-1.5">Return object (wrap in parens):</div>
                                     <div class="text-purple-300 font-mono text-xs space-y-0.5">
-                                        <div>const makePerson = name =&gt; (&lbrace; name, age: 0 &rbrace;)</div>
+                                        <div>const makePerson = name =&gt; ({'{'} name, age: 0 {'}'})</div>
                                     </div>
                                 </div>
                             </div>
@@ -144,13 +144,13 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             <div>⚠️ <strong>When NOT to use arrows:</strong></div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
                                 <div class="font-mono text-[10px]"><span class="text-red-400">// Methods that need 'this' ❌</span></div>
-                                <div class="font-mono text-[10px]">const obj = &lbrace;</div>
+                                <div class="font-mono text-[10px]">const obj = {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;value: 42,</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;getValue: () =&gt; this.value <span class="text-red-400">// 'this' is wrong!</span></div>
-                                <div class="font-mono text-[10px]">&rbrace;</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
                                 <div class="font-mono text-[10px] mt-1"><span class="text-green-400">// Use regular function ✅</span></div>
-                                <div class="font-mono text-[10px]">getValue: function() &lbrace; return this.value &rbrace;</div>
-                                <div class="font-mono text-[10px]">getValue() &lbrace; return this.value &rbrace; <span class="text-gray-400">// shorthand</span></div>
+                                <div class="font-mono text-[10px]">getValue: function() {'{'} return this.value {'}'}</div>
+                                <div class="font-mono text-[10px]">getValue() {'{'} return this.value {'}'} <span class="text-gray-400">// shorthand</span></div>
                             </div>
                         </ProTip>
                     </MethodCard>
@@ -197,9 +197,9 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
 
                             <div class="mt-4 bg-purple-500/20 border border-purple-400 rounded p-3">
                                 <div class="text-purple-300 font-mono text-xs space-y-0.5">
-                                    <div>function greet(name, greeting = 'Hi') &lbrace;</div>
-                                    <div>&nbsp;&nbsp;return `$&lbrace;greeting&rbrace; $&lbrace;name&rbrace;`</div>
-                                    <div>&rbrace;</div>
+                                    <div>function greet(name, greeting = 'Hi') {'{'}</div>
+                                    <div>&nbsp;&nbsp;return `${'{'}greeting{'}'} ${'{'}name{'}'}`</div>
+                                    <div>{'}'}</div>
                                 </div>
                             </div>
                         </div>
@@ -207,11 +207,11 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                         <ProTip>
                             <div>Default can be expression:</div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                                <div class="font-mono text-[10px]">function log(msg, time = Date.now()) &lbrace;</div>
-                                <div class="font-mono text-[10px]">&nbsp;&nbsp;console.log(`[$&lbrace;time&rbrace;] $&lbrace;msg&rbrace;`)</div>
-                                <div class="font-mono text-[10px]">&rbrace;</div>
+                                <div class="font-mono text-[10px]">function log(msg, time = Date.now()) {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;console.log(`[${'{'}time{'}'}] ${'{'}msg{'}'}`)</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
                                 <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Or call another function</span></div>
-                                <div class="font-mono text-[10px]">function greet(name = getName()) &lbrace; ... &rbrace;</div>
+                                <div class="font-mono text-[10px]">function greet(name = getName()) {'{'} ... {'}'}</div>
                             </div>
                         </ProTip>
                     </MethodCard>
@@ -229,9 +229,9 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             <div class="space-y-4">
                                 <div class="bg-purple-500/20 border border-purple-400 rounded p-3">
                                     <div class="text-purple-300 font-mono text-xs space-y-0.5">
-                                        <div>function sum(...numbers) &lbrace;</div>
+                                        <div>function sum(...numbers) {'{'}</div>
                                         <div>&nbsp;&nbsp;return numbers.reduce((a, b) =&gt; a + b, 0)</div>
-                                        <div>&rbrace;</div>
+                                        <div>{'}'}</div>
                                     </div>
                                 </div>
 
@@ -266,9 +266,9 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                         <ProTip>
                             <div>Combine with regular params:</div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                                <div class="font-mono text-[10px]">function log(level, ...messages) &lbrace;</div>
-                                <div class="font-mono text-[10px]">&nbsp;&nbsp;console.log(`[$&lbrace;level&rbrace;]`, ...messages)</div>
-                                <div class="font-mono text-[10px]">&rbrace;</div>
+                                <div class="font-mono text-[10px]">function log(level, ...messages) {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;console.log(`[${'{'}level{'}'}]`, ...messages)</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
                                 <div class="font-mono text-[10px] mt-1">log('ERROR', 'Failed', 'to', 'load')</div>
                                 <div class="font-mono text-[10px]"><span class="text-gray-400">// [ERROR] Failed to load</span></div>
                             </div>
@@ -290,10 +290,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                     <div class="text-gray-300 text-xs mb-2">Object destructuring:</div>
                                     <div class="bg-purple-500/20 border border-purple-400 rounded p-3">
                                         <div class="text-purple-300 font-mono text-xs space-y-0.5">
-                                            <div>function greet(&lbrace; name, age &rbrace;) &lbrace;</div>
-                                            <div>&nbsp;&nbsp;return `$&lbrace;name&rbrace; is $&lbrace;age&rbrace;`</div>
-                                            <div>&rbrace;</div>
-                                            <div class="mt-2">greet(&lbrace; name: 'Alice', age: 30 &rbrace;)</div>
+                                            <div>function greet({'{'} name, age {'}'}) {'{'}</div>
+                                            <div>&nbsp;&nbsp;return `${'{'}name{'}'} is ${'{'}age{'}'}`</div>
+                                            <div>{'}'}</div>
+                                            <div class="mt-2">greet({'{'} name: 'Alice', age: 30 {'}'})</div>
                                         </div>
                                     </div>
                                 </div>
@@ -302,9 +302,9 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                     <div class="text-gray-300 text-xs mb-2">With defaults:</div>
                                     <div class="bg-purple-500/20 border border-purple-400 rounded p-3">
                                         <div class="text-purple-300 font-mono text-xs space-y-0.5">
-                                            <div>function draw(&lbrace; x = 0, y = 0, size = 1 &rbrace; = &lbrace;&rbrace;) &lbrace;</div>
+                                            <div>function draw({'{'} x = 0, y = 0, size = 1 {'}'} = {'{'}{'}'}) {'{'}</div>
                                             <div>&nbsp;&nbsp;// All params optional</div>
-                                            <div>&rbrace;</div>
+                                            <div>{'}'}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -314,10 +314,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                         <ProTip>
                             <div>Great for options objects:</div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                                <div class="font-mono text-[10px]">function fetch(url, &lbrace; method = 'GET', headers = &lbrace;&rbrace; &rbrace; = &lbrace;&rbrace;) &lbrace;</div>
+                                <div class="font-mono text-[10px]">function fetch(url, {'{'} method = 'GET', headers = {'{'}{'}'} {'}'} = {'{'}{'}'}) {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;// method and headers extracted with defaults</div>
-                                <div class="font-mono text-[10px]">&rbrace;</div>
-                                <div class="font-mono text-[10px] mt-1">fetch('/api', &lbrace; method: 'POST' &rbrace;)</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
+                                <div class="font-mono text-[10px] mt-1">fetch('/api', {'{'} method: 'POST' {'}'})</div>
                             </div>
                         </ProTip>
                     </MethodCard>
@@ -351,10 +351,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                     <div class="bg-blue-500/20 border-2 border-blue-400 rounded p-3">
                                         <div class="text-blue-300 font-bold text-sm mb-2">Inner Function (returned)</div>
                                         <div class="text-blue-300 font-mono text-xs space-y-0.5">
-                                            <div>return function() &lbrace;</div>
+                                            <div>return function() {'{'}</div>
                                             <div>&nbsp;&nbsp;count++ <span class="text-green-400">// accesses outer count</span></div>
                                             <div>&nbsp;&nbsp;return count</div>
-                                            <div>&rbrace;</div>
+                                            <div>{'}'}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -379,13 +379,13 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                         <ProTip>
                             <div>Common use case - private variables:</div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                                <div class="font-mono text-[10px]">function createWallet() &lbrace;</div>
+                                <div class="font-mono text-[10px]">function createWallet() {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;let balance = 0 <span class="text-gray-400">// private!</span></div>
-                                <div class="font-mono text-[10px]">&nbsp;&nbsp;return &lbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;return {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;deposit: (amt) =&gt; balance += amt,</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;getBalance: () =&gt; balance</div>
-                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&rbrace;</div>
-                                <div class="font-mono text-[10px]">&rbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;{'}'}</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
                                 <div class="font-mono text-[10px] mt-1">const wallet = createWallet()</div>
                                 <div class="font-mono text-[10px]">wallet.balance <span class="text-red-400">// undefined (private!)</span></div>
                             </div>
@@ -408,10 +408,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                     <div class="text-gray-300 text-xs mb-2">Classic IIFE:</div>
                                     <div class="bg-purple-500/20 border border-purple-400 rounded p-3">
                                         <div class="text-purple-300 font-mono text-xs space-y-0.5">
-                                            <div>(function() &lbrace;</div>
+                                            <div>(function() {'{'}</div>
                                             <div>&nbsp;&nbsp;const secret = 'private'</div>
                                             <div>&nbsp;&nbsp;console.log('Executed immediately!')</div>
-                                            <div>&rbrace;)()</div>
+                                            <div>{'}'})()</div>
                                         </div>
                                     </div>
                                 </div>
@@ -421,10 +421,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                     <div class="text-gray-300 text-xs mb-2">Arrow IIFE:</div>
                                     <div class="bg-purple-500/20 border border-purple-400 rounded p-3">
                                         <div class="text-purple-300 font-mono text-xs space-y-0.5">
-                                            <div>(() =&gt; &lbrace;</div>
+                                            <div>(() =&gt; {'{'}</div>
                                             <div>&nbsp;&nbsp;const secret = 'private'</div>
                                             <div>&nbsp;&nbsp;console.log('Modern syntax')</div>
-                                            <div>&rbrace;)()</div>
+                                            <div>{'}'})()</div>
                                         </div>
                                     </div>
                                 </div>
@@ -434,9 +434,9 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                     <div class="text-gray-300 text-xs mb-2">With parameters:</div>
                                     <div class="bg-purple-500/20 border border-purple-400 rounded p-3">
                                         <div class="text-purple-300 font-mono text-xs space-y-0.5">
-                                            <div>((name) =&gt; &lbrace;</div>
-                                            <div>&nbsp;&nbsp;console.log(`Hello $&lbrace;name&rbrace;`)</div>
-                                            <div>&rbrace;)('Alice')</div>
+                                            <div>((name) =&gt; {'{'}</div>
+                                            <div>&nbsp;&nbsp;console.log(`Hello ${'{'}name{'}'}`)</div>
+                                            <div>{'}'})('Alice')</div>
                                         </div>
                                     </div>
                                 </div>
@@ -451,10 +451,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             <div>Use case - avoid global pollution:</div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
                                 <div class="font-mono text-[10px]"><span class="text-gray-400">// Before modules, used to create isolated scope</span></div>
-                                <div class="font-mono text-[10px]">(function() &lbrace;</div>
-                                <div class="font-mono text-[10px]">&nbsp;&nbsp;const helper = () =&gt; &lbrace; ... &rbrace;</div>
-                                <div class="font-mono text-[10px]">&nbsp;&nbsp;window.MyLib = &lbrace; helper &rbrace; <span class="text-gray-400">// expose only what's needed</span></div>
-                                <div class="font-mono text-[10px]">&rbrace;)()</div>
+                                <div class="font-mono text-[10px]">(function() {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;const helper = () =&gt; {'{'} ... {'}'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;window.MyLib = {'{'} helper {'}'} <span class="text-gray-400">// expose only what's needed</span></div>
+                                <div class="font-mono text-[10px]">{'}'})()</div>
                             </div>
                         </ProTip>
                     </MethodCard>
@@ -480,19 +480,19 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             <div class="space-y-4">
                                 <div class="bg-orange-500/20 border-2 border-orange-400 rounded p-4">
                                     <div class="text-orange-300 font-mono text-xs space-y-1">
-                                        <div>function doAsync(callback) &lbrace;</div>
-                                        <div>&nbsp;&nbsp;setTimeout(() =&gt; &lbrace;</div>
+                                        <div>function doAsync(callback) {'{'}</div>
+                                        <div>&nbsp;&nbsp;setTimeout(() =&gt; {'{'}</div>
                                         <div>&nbsp;&nbsp;&nbsp;&nbsp;callback('done') <span class="text-green-400">// call it later</span></div>
-                                        <div>&nbsp;&nbsp;&rbrace;, 1000)</div>
-                                        <div>&rbrace;</div>
+                                        <div>&nbsp;&nbsp;{'}'}, 1000)</div>
+                                        <div>{'}'}</div>
                                     </div>
                                 </div>
 
                                 <div class="bg-gray-800/50 border border-gray-700 rounded p-3">
                                     <div class="text-gray-300 font-mono text-xs space-y-0.5">
-                                        <div>doAsync((result) =&gt; &lbrace;</div>
+                                        <div>doAsync((result) =&gt; {'{'}</div>
                                         <div>&nbsp;&nbsp;console.log(result) <span class="text-gray-400">// 'done'</span></div>
-                                        <div>&rbrace;)</div>
+                                        <div>{'}'})</div>
                                     </div>
                                 </div>
                             </div>
@@ -503,7 +503,7 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
                                 <div class="font-mono text-[10px]">[1, 2, 3].map(n =&gt; n * 2) <span class="text-gray-400">// callback</span></div>
                                 <div class="font-mono text-[10px]">[1, 2, 3].filter(n =&gt; n &gt; 1) <span class="text-gray-400">// callback</span></div>
-                                <div class="font-mono text-[10px]">setTimeout(() =&gt; &lbrace; ... &rbrace;, 1000) <span class="text-gray-400">// callback</span></div>
+                                <div class="font-mono text-[10px]">setTimeout(() =&gt; {'{'} ... {'}'}, 1000) <span class="text-gray-400">// callback</span></div>
                             </div>
                         </ProTip>
                     </MethodCard>

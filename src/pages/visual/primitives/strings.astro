@@ -615,7 +615,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                         </div>
 
                         <MutableOrNot mutates={false} message="">
-                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. Prefer template literals <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">`$&lbrace;a&rbrace; $&lbrace;b&rbrace;`</code> for readability.
+                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. Prefer template literals <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">`${'{'}a{'}'} ${'{'}b{'}'}`</code> for readability.
                         </MutableOrNot>
                     </MethodCard>
 
@@ -894,7 +894,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                 >
                         <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
                             <Node label="Input Object" type="input">
-                                <div class="text-center text-sm font-mono">&lbrace;a: 1, b: 2&rbrace;</div>
+                                <div class="text-center text-sm font-mono">{'{'}a: 1, b: 2{'}'}</div>
                             </Node>
 
                             <Arrow label="stringify" />
@@ -917,7 +917,7 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                         <ProTip>
                             <div>Formatting options:</div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                                <div class="font-mono text-[10px]">JSON.stringify(obj) → '&lbrace;"a":1&rbrace;' <span class="text-gray-400">// compact</span></div>
+                                <div class="font-mono text-[10px]">JSON.stringify(obj) → '{'{'}"a":1{'}'}' <span class="text-gray-400">// compact</span></div>
                                 <div class="font-mono text-[10px]">JSON.stringify(obj, null, 2) <span class="text-gray-400">// pretty-print with 2-space indent</span></div>
                                 <div class="font-mono text-[10px] mt-1"><span class="text-red-400">⚠️ Drops: functions, undefined, symbols</span></div>
                                 <div class="font-mono text-[10px]"><span class="text-red-400">⚠️ Circular references throw errors</span></div>
@@ -967,9 +967,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                         <ProTip>
                             <div>Common use cases:</div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                                <div class="font-mono text-[10px]">`#$&lbrace;hashtag&rbrace;` <span class="text-gray-400">// add # prefix</span></div>
-                                <div class="font-mono text-[10px]">`$&lbrace;url&rbrace;?v=123` <span class="text-gray-400">// add query param</span></div>
-                                <div class="font-mono text-[10px]">`$&lbrace;name&rbrace;.js` <span class="text-gray-400">// add file extension</span></div>
+                                <div class="font-mono text-[10px]">`#${'{'}hashtag{'}'}` <span class="text-gray-400">// add # prefix</span></div>
+                                <div class="font-mono text-[10px]">`${'{'}url{'}'}?v=123` <span class="text-gray-400">// add query param</span></div>
+                                <div class="font-mono text-[10px]">`${'{'}name{'}'}.js` <span class="text-gray-400">// add file extension</span></div>
                             </div>
                         </ProTip>
                     </MethodCard>

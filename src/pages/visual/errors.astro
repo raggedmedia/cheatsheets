@@ -24,7 +24,7 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                         <div class="font-mono text-[10px]"><span class="text-red-400">// Without error handling - app crashes ❌</span></div>
                         <div class="font-mono text-[10px]">JSON.parse(invalidJSON)</div>
                         <div class="font-mono text-[10px] mt-1"><span class="text-green-400">// With error handling - app continues ✅</span></div>
-                        <div class="font-mono text-[10px]">try &lbrace; JSON.parse(invalidJSON) &rbrace; catch (e) &lbrace; /* handle */ &rbrace;</div>
+                        <div class="font-mono text-[10px]">try {'{'} JSON.parse(invalidJSON) {'}'} catch (e) {'{'} /* handle */ {'}'}</div>
                     </div>
                 </ProTip>
 
@@ -51,10 +51,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                     <div class="flex items-center gap-3">
                                         <div class="flex-1 bg-blue-500/20 border border-blue-400 rounded p-3">
                                             <div class="text-blue-300 font-mono text-xs space-y-0.5">
-                                                <div>try &lbrace;</div>
+                                                <div>try {'{'}</div>
                                                 <div>&nbsp;&nbsp;// Code that might fail</div>
                                                 <div>&nbsp;&nbsp;riskyOperation()</div>
-                                                <div>&rbrace;</div>
+                                                <div>{'}'}</div>
                                             </div>
                                         </div>
                                         <div class="text-gray-500">→</div>
@@ -64,10 +64,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                     <div class="flex items-center gap-3">
                                         <div class="flex-1 bg-red-500/20 border border-red-500 rounded p-3">
                                             <div class="text-red-300 font-mono text-xs space-y-0.5">
-                                                <div>catch (error) &lbrace;</div>
+                                                <div>catch (error) {'{'}</div>
                                                 <div>&nbsp;&nbsp;// Handle the error</div>
                                                 <div>&nbsp;&nbsp;console.error(error.message)</div>
-                                                <div>&rbrace;</div>
+                                                <div>{'}'}</div>
                                             </div>
                                         </div>
                                         <div class="text-gray-500">→</div>
@@ -78,14 +78,14 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                 <!-- Example -->
                                 <div class="bg-gray-800/50 border border-gray-700 rounded p-3">
                                     <div class="text-gray-300 font-mono text-[10px] space-y-0.5">
-                                        <div>try &lbrace;</div>
+                                        <div>try {'{'}</div>
                                         <div>&nbsp;&nbsp;const data = JSON.parse(jsonString)</div>
                                         <div>&nbsp;&nbsp;console.log(data)</div>
-                                        <div>&rbrace; catch (error) &lbrace;</div>
+                                        <div>{'}'} catch (error) {'{'}</div>
                                         <div>&nbsp;&nbsp;console.error('Invalid JSON:', error.message)</div>
                                         <div>&nbsp;&nbsp;// Provide fallback</div>
-                                        <div>&nbsp;&nbsp;const data = &lbrace;&rbrace;</div>
-                                        <div>&rbrace;</div>
+                                        <div>&nbsp;&nbsp;const data = {'{'}{'}'}</div>
+                                        <div>{'}'}</div>
                                     </div>
                                 </div>
                             </div>
@@ -94,8 +94,8 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                         <ProTip>
                             <div>⚠️ <strong>Catch blocks are optional parameters:</strong></div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                                <div class="font-mono text-[10px]">catch (error) &lbrace; ... &rbrace; <span class="text-gray-400">// named error</span></div>
-                                <div class="font-mono text-[10px]">catch &lbrace; ... &rbrace; <span class="text-gray-400">// ES2019: omit parameter</span></div>
+                                <div class="font-mono text-[10px]">catch (error) {'{'} ... {'}'} <span class="text-gray-400">// named error</span></div>
+                                <div class="font-mono text-[10px]">catch {'{'} ... {'}'} <span class="text-gray-400">// ES2019: omit parameter</span></div>
                                 <div class="font-mono text-[10px] mt-1"><span class="text-yellow-400">// Name it if you need the error details!</span></div>
                             </div>
                         </ProTip>
@@ -143,14 +143,14 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                 <div class="bg-green-500/20 border border-green-500 rounded p-3">
                                     <div class="text-green-300 font-mono text-xs space-y-0.5">
                                         <div>let file</div>
-                                        <div>try &lbrace;</div>
+                                        <div>try {'{'}</div>
                                         <div>&nbsp;&nbsp;file = openFile('data.txt')</div>
                                         <div>&nbsp;&nbsp;processFile(file)</div>
-                                        <div>&rbrace; catch (error) &lbrace;</div>
+                                        <div>{'}'} catch (error) {'{'}</div>
                                         <div>&nbsp;&nbsp;console.error('File error:', error)</div>
-                                        <div>&rbrace; finally &lbrace;</div>
+                                        <div>{'}'} finally {'{'}</div>
                                         <div>&nbsp;&nbsp;if (file) file.close() <span class="text-gray-400">// always cleanup</span></div>
-                                        <div>&rbrace;</div>
+                                        <div>{'}'}</div>
                                     </div>
                                 </div>
                             </div>
@@ -197,12 +197,12 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                 <!-- Example with validation -->
                                 <div class="bg-purple-500/20 border border-purple-400 rounded p-3">
                                     <div class="text-purple-300 font-mono text-xs space-y-0.5">
-                                        <div>function divide(a, b) &lbrace;</div>
-                                        <div>&nbsp;&nbsp;if (b === 0) &lbrace;</div>
+                                        <div>function divide(a, b) {'{'}</div>
+                                        <div>&nbsp;&nbsp;if (b === 0) {'{'}</div>
                                         <div>&nbsp;&nbsp;&nbsp;&nbsp;throw new Error('Cannot divide by zero')</div>
-                                        <div>&nbsp;&nbsp;&rbrace;</div>
+                                        <div>&nbsp;&nbsp;{'}'}</div>
                                         <div>&nbsp;&nbsp;return a / b</div>
-                                        <div>&rbrace;</div>
+                                        <div>{'}'}</div>
                                     </div>
                                 </div>
 
@@ -213,7 +213,7 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                         <div>throw new TypeError('wrong type')</div>
                                         <div>throw new RangeError('out of range')</div>
                                         <div>throw 'string' <span class="text-gray-400">// possible but bad practice</span></div>
-                                        <div>throw &lbrace; code: 404 &rbrace; <span class="text-gray-400">// custom object</span></div>
+                                        <div>throw {'{'} code: 404 {'}'} <span class="text-gray-400">// custom object</span></div>
                                     </div>
                                 </div>
                             </div>
@@ -270,9 +270,9 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
 
                             <div class="bg-purple-500/20 border border-purple-400 rounded p-3 mt-4">
                                 <div class="text-purple-300 font-mono text-xs space-y-0.5">
-                                    <div>if (typeof value !== 'number') &lbrace;</div>
+                                    <div>if (typeof value !== 'number') {'{'}</div>
                                     <div>&nbsp;&nbsp;throw new TypeError('Expected a number')</div>
-                                    <div>&rbrace;</div>
+                                    <div>{'}'}</div>
                                 </div>
                             </div>
                         </div>
@@ -280,13 +280,13 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                         <ProTip>
                             <div>Catch specific error types:</div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                                <div class="font-mono text-[10px]">try &lbrace; ... &rbrace; catch (error) &lbrace;</div>
-                                <div class="font-mono text-[10px]">&nbsp;&nbsp;if (error instanceof TypeError) &lbrace;</div>
+                                <div class="font-mono text-[10px]">try {'{'} ... {'}'} catch (error) {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;if (error instanceof TypeError) {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;// Handle type errors</div>
-                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&rbrace; else &lbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;{'}'} else {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;// Handle other errors</div>
-                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&rbrace;</div>
-                                <div class="font-mono text-[10px]">&rbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;{'}'}</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
                             </div>
                         </ProTip>
                     </MethodCard>
@@ -305,12 +305,12 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                 <!-- Custom error class -->
                                 <div class="bg-purple-500/20 border border-purple-400 rounded p-3">
                                     <div class="text-purple-300 font-mono text-xs space-y-0.5">
-                                        <div>class ValidationError extends Error &lbrace;</div>
-                                        <div>&nbsp;&nbsp;constructor(message) &lbrace;</div>
+                                        <div>class ValidationError extends Error {'{'}</div>
+                                        <div>&nbsp;&nbsp;constructor(message) {'{'}</div>
                                         <div>&nbsp;&nbsp;&nbsp;&nbsp;super(message)</div>
                                         <div>&nbsp;&nbsp;&nbsp;&nbsp;this.name = 'ValidationError'</div>
-                                        <div>&nbsp;&nbsp;&rbrace;</div>
-                                        <div>&rbrace;</div>
+                                        <div>&nbsp;&nbsp;{'}'}</div>
+                                        <div>{'}'}</div>
                                     </div>
                                 </div>
 
@@ -319,24 +319,24 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                     <div class="text-gray-300 font-mono text-[10px] space-y-0.5">
                                         <div>throw new ValidationError('Invalid email')</div>
                                         <div class="mt-2">// Catch it</div>
-                                        <div>catch (error) &lbrace;</div>
-                                        <div>&nbsp;&nbsp;if (error instanceof ValidationError) &lbrace;</div>
+                                        <div>catch (error) {'{'}</div>
+                                        <div>&nbsp;&nbsp;if (error instanceof ValidationError) {'{'}</div>
                                         <div>&nbsp;&nbsp;&nbsp;&nbsp;// Show user-friendly message</div>
-                                        <div>&nbsp;&nbsp;&rbrace;</div>
-                                        <div>&rbrace;</div>
+                                        <div>&nbsp;&nbsp;{'}'}</div>
+                                        <div>{'}'}</div>
                                     </div>
                                 </div>
 
                                 <!-- With custom properties -->
                                 <div class="bg-green-500/20 border border-green-500 rounded p-3">
                                     <div class="text-green-300 font-mono text-xs space-y-0.5">
-                                        <div>class HttpError extends Error &lbrace;</div>
-                                        <div>&nbsp;&nbsp;constructor(message, statusCode) &lbrace;</div>
+                                        <div>class HttpError extends Error {'{'}</div>
+                                        <div>&nbsp;&nbsp;constructor(message, statusCode) {'{'}</div>
                                         <div>&nbsp;&nbsp;&nbsp;&nbsp;super(message)</div>
                                         <div>&nbsp;&nbsp;&nbsp;&nbsp;this.name = 'HttpError'</div>
                                         <div>&nbsp;&nbsp;&nbsp;&nbsp;this.statusCode = statusCode</div>
-                                        <div>&nbsp;&nbsp;&rbrace;</div>
-                                        <div>&rbrace;</div>
+                                        <div>&nbsp;&nbsp;{'}'}</div>
+                                        <div>{'}'}</div>
                                     </div>
                                 </div>
                             </div>
@@ -377,16 +377,16 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                     <div class="text-green-400 text-xs mb-2">✅ With error handling:</div>
                                     <div class="bg-green-500/20 border border-green-500 rounded p-3">
                                         <div class="text-green-300 font-mono text-xs space-y-0.5">
-                                            <div>async function fetchUser(id) &lbrace;</div>
-                                            <div>&nbsp;&nbsp;try &lbrace;</div>
-                                            <div>&nbsp;&nbsp;&nbsp;&nbsp;const response = await fetch(`/api/users/$&lbrace;id&rbrace;`)</div>
+                                            <div>async function fetchUser(id) {'{'}</div>
+                                            <div>&nbsp;&nbsp;try {'{'}</div>
+                                            <div>&nbsp;&nbsp;&nbsp;&nbsp;const response = await fetch(`/api/users/${'{'}id{'}'}`)</div>
                                             <div>&nbsp;&nbsp;&nbsp;&nbsp;if (!response.ok) throw new Error('User not found')</div>
                                             <div>&nbsp;&nbsp;&nbsp;&nbsp;return await response.json()</div>
-                                            <div>&nbsp;&nbsp;&rbrace; catch (error) &lbrace;</div>
+                                            <div>&nbsp;&nbsp;{'}'} catch (error) {'{'}</div>
                                             <div>&nbsp;&nbsp;&nbsp;&nbsp;console.error('Failed to fetch user:', error)</div>
                                             <div>&nbsp;&nbsp;&nbsp;&nbsp;return null <span class="text-gray-400">// fallback</span></div>
-                                            <div>&nbsp;&nbsp;&rbrace;</div>
-                                            <div>&rbrace;</div>
+                                            <div>&nbsp;&nbsp;{'}'}</div>
+                                            <div>{'}'}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -396,11 +396,11 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                     <div class="text-red-400 text-xs mb-2">❌ Without error handling:</div>
                                     <div class="bg-red-500/20 border border-red-500 rounded p-3">
                                         <div class="text-red-300 font-mono text-xs space-y-0.5">
-                                            <div>async function fetchUser(id) &lbrace;</div>
-                                            <div>&nbsp;&nbsp;const response = await fetch(`/api/users/$&lbrace;id&rbrace;`)</div>
+                                            <div>async function fetchUser(id) {'{'}</div>
+                                            <div>&nbsp;&nbsp;const response = await fetch(`/api/users/${'{'}id{'}'}`)</div>
                                             <div>&nbsp;&nbsp;return await response.json()</div>
                                             <div>&nbsp;&nbsp;<span class="text-gray-400">// If fetch fails, error propagates up</span></div>
-                                            <div>&rbrace;</div>
+                                            <div>{'}'}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -411,7 +411,7 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             <div>⚡ Async errors need try/catch or .catch():</div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
                                 <div class="font-mono text-[10px]"><span class="text-gray-400">// Option 1: try/catch</span></div>
-                                <div class="font-mono text-[10px]">try &lbrace; await asyncFunc() &rbrace; catch (e) &lbrace; ... &rbrace;</div>
+                                <div class="font-mono text-[10px]">try {'{'} await asyncFunc() {'}'} catch (e) {'{'} ... {'}'}</div>
                                 <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Option 2: .catch()</span></div>
                                 <div class="font-mono text-[10px]">asyncFunc().catch(e =&gt; ...)</div>
                             </div>
@@ -486,22 +486,22 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             <div class="space-y-3">
                                 <div class="bg-gray-800/50 border border-gray-700 rounded p-3">
                                     <div class="text-gray-300 font-mono text-[10px] space-y-0.5">
-                                        <div>try &lbrace;</div>
+                                        <div>try {'{'}</div>
                                         <div>&nbsp;&nbsp;throw new TypeError('Invalid type')</div>
-                                        <div>&rbrace; catch (error) &lbrace;</div>
+                                        <div>{'}'} catch (error) {'{'}</div>
                                         <div>&nbsp;&nbsp;error.message <span class="text-gray-400">// "Invalid type"</span></div>
                                         <div>&nbsp;&nbsp;error.name <span class="text-gray-400">// "TypeError"</span></div>
                                         <div>&nbsp;&nbsp;error.stack <span class="text-gray-400">// Full stack trace string</span></div>
-                                        <div>&rbrace;</div>
+                                        <div>{'}'}</div>
                                     </div>
                                 </div>
 
                                 <div class="bg-orange-500/20 border border-orange-400 rounded p-3">
                                     <div class="text-orange-300 font-mono text-xs space-y-0.5">
-                                        <div>catch (error) &lbrace;</div>
-                                        <div>&nbsp;&nbsp;console.error(`$&lbrace;error.name&rbrace;: $&lbrace;error.message&rbrace;`)</div>
+                                        <div>catch (error) {'{'}</div>
+                                        <div>&nbsp;&nbsp;console.error(`${'{'}error.name{'}'}: ${'{'}error.message{'}'}`)</div>
                                         <div>&nbsp;&nbsp;console.debug(error.stack) <span class="text-gray-400">// for debugging</span></div>
-                                        <div>&rbrace;</div>
+                                        <div>{'}'}</div>
                                     </div>
                                 </div>
                             </div>
@@ -513,7 +513,7 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                 <div class="font-mono text-[10px]">console.error(error) <span class="text-gray-400">// shows full error</span></div>
                                 <div class="font-mono text-[10px]">console.error(error.message) <span class="text-gray-400">// message only</span></div>
                                 <div class="font-mono text-[10px] mt-1"><span class="text-green-400">// In production, send to logging service</span></div>
-                                <div class="font-mono text-[10px]">logger.error(&lbrace; message, stack, context &rbrace;)</div>
+                                <div class="font-mono text-[10px]">logger.error({'{'} message, stack, context {'}'})</div>
                             </div>
                         </ProTip>
                     </MethodCard>
@@ -534,13 +534,13 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                     <div class="text-red-400 text-xs mb-2">❌ Nested conditions:</div>
                                     <div class="bg-red-500/20 border border-red-500 rounded p-3">
                                         <div class="text-red-300 font-mono text-xs space-y-0.5">
-                                            <div>function processUser(user) &lbrace;</div>
-                                            <div>&nbsp;&nbsp;if (user) &lbrace;</div>
-                                            <div>&nbsp;&nbsp;&nbsp;&nbsp;if (user.age >= 18) &lbrace;</div>
+                                            <div>function processUser(user) {'{'}</div>
+                                            <div>&nbsp;&nbsp;if (user) {'{'}</div>
+                                            <div>&nbsp;&nbsp;&nbsp;&nbsp;if (user.age >= 18) {'{'}</div>
                                             <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// do work</div>
-                                            <div>&nbsp;&nbsp;&nbsp;&nbsp;&rbrace;</div>
-                                            <div>&nbsp;&nbsp;&rbrace;</div>
-                                            <div>&rbrace;</div>
+                                            <div>&nbsp;&nbsp;&nbsp;&nbsp;{'}'}</div>
+                                            <div>&nbsp;&nbsp;{'}'}</div>
+                                            <div>{'}'}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -550,13 +550,13 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                     <div class="text-green-400 text-xs mb-2">✅ Guard clauses:</div>
                                     <div class="bg-green-500/20 border border-green-500 rounded p-3">
                                         <div class="text-green-300 font-mono text-xs space-y-0.5">
-                                            <div>function processUser(user) &lbrace;</div>
+                                            <div>function processUser(user) {'{'}</div>
                                             <div>&nbsp;&nbsp;if (!user) throw new Error('User required')</div>
                                             <div>&nbsp;&nbsp;if (user.age &lt; 18) throw new Error('Must be 18+')</div>
                                             <div>&nbsp;&nbsp;</div>
                                             <div>&nbsp;&nbsp;// Happy path - no nesting!</div>
                                             <div>&nbsp;&nbsp;// do work</div>
-                                            <div>&rbrace;</div>
+                                            <div>{'}'}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -587,24 +587,24 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             <div class="space-y-4">
                                 <div class="bg-orange-500/20 border border-orange-400 rounded p-3">
                                     <div class="text-orange-300 font-mono text-xs space-y-0.5">
-                                        <div>try &lbrace;</div>
+                                        <div>try {'{'}</div>
                                         <div>&nbsp;&nbsp;await riskyOperation()</div>
-                                        <div>&rbrace; catch (error) &lbrace;</div>
+                                        <div>{'}'} catch (error) {'{'}</div>
                                         <div>&nbsp;&nbsp;// Log for monitoring</div>
                                         <div>&nbsp;&nbsp;logger.error('Operation failed', error)</div>
                                         <div>&nbsp;&nbsp;</div>
                                         <div>&nbsp;&nbsp;// Let caller handle it</div>
                                         <div>&nbsp;&nbsp;throw error <span class="text-gray-400">// or throw new Error with context</span></div>
-                                        <div>&rbrace;</div>
+                                        <div>{'}'}</div>
                                     </div>
                                 </div>
 
                                 <div class="bg-purple-500/20 border border-purple-400 rounded p-3">
                                     <div class="text-purple-300 font-mono text-xs space-y-0.5">
                                         <div>// Add context when re-throwing</div>
-                                        <div>catch (error) &lbrace;</div>
-                                        <div>&nbsp;&nbsp;throw new Error(`Failed to load user $&lbrace;id&rbrace;: $&lbrace;error.message&rbrace;`)</div>
-                                        <div>&rbrace;</div>
+                                        <div>catch (error) {'{'}</div>
+                                        <div>&nbsp;&nbsp;throw new Error(`Failed to load user ${'{'}id{'}'}: ${'{'}error.message{'}'}`)</div>
+                                        <div>{'}'}</div>
                                     </div>
                                 </div>
                             </div>
