@@ -1,28 +1,15 @@
 ---
 import '~styles/styles.css'
 import MethodCard from '~components/visual-js/MethodCard.astro';
-import Node from '~components/visual-js/Node.astro';
-import ArrayDisplay from '~components/visual-js/ArrayDisplay.astro';
-import Arrow from '~components/visual-js/Arrow.astro';
-import ReturnValue from '~components/visual-js/ReturnValue.astro';
-import MutableOrNot from '~components/visual-js/MutableOrNot.astro';
-import ProcessContent from '~components/visual-js/ProcessContent.astro';
+import InfoBox from '~components/visual-js/InfoBox.astro';
 import ProTip from '~components/visual-js/ProTip.astro';
-import GlobalNav from '~components/visual-js/GlobalNav.astro';
+import SectionTitle from '~components/visual-js/SectionTitle.astro';
+import SubSectionTitle from '~components/visual-js/SubSectionTitle.astro';
+import VisualLayout from 'src/layouts/VisualLayout.astro';
 ---
-
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>JavaScript Promises & Async - Visual Cheatsheet</title>
-    </head>
-    <body class="m-0 p-4 bg-[#1a1d29] text-gray-200">
-        <div class="flex gap-6 max-w-[1600px] mx-auto">
-            <!-- Main Content -->
-            <main class="flex-1 min-w-0">
-                <h1 class="text-white mb-1 text-2xl font-bold">JavaScript Promises & Async/Await</h1>
-                <p class="text-gray-400 mb-6 text-sm">Visual blueprint-style reference for asynchronous operations</p>
+<VisualLayout
+    pageTitle="Javascript Promises and Async/Await"
+>
 
                 <ProTip>
                     <div>💡 <strong>3 Promise States:</strong></div>
@@ -38,13 +25,13 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                 <!-- 🎁 CREATING PROMISES -->
                 <!-- ============================================ -->
 
-                <h2 id="creating" class="text-blue-300 text-xl my-4 pb-2 border-b-2 border-blue-600">
+                <SectionTitle id="creating" color="blue">
                     🎁 Creating Promises
-                </h2>
+                </SectionTitle>
 
                 <!-- NEW PROMISE -->
-                <div id="new-promise">
-                    <MethodCard
+                <MethodCard
+                        id="new-promise"
                         methodName="new Promise()"
                         signature="new Promise((resolve, reject) => { })"
                         description="Create a new promise with resolve/reject functions"
@@ -92,22 +79,21 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                         <ProTip>
                             <div>Basic promise creation:</div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                                <div class="font-mono text-[10px]">const promise = new Promise((resolve, reject) =&gt; &lbrace;</div>
+                                <div class="font-mono text-[10px]">const promise = new Promise((resolve, reject) =&gt; {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;const success = true</div>
-                                <div class="font-mono text-[10px]">&nbsp;&nbsp;if (success) &lbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;if (success) {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;resolve('It worked!') <span class="text-green-400">// fulfills promise</span></div>
-                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&rbrace; else &lbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;{'}'} else {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;reject(new Error('Failed')) <span class="text-red-400">// rejects promise</span></div>
-                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&rbrace;</div>
-                                <div class="font-mono text-[10px]">&rbrace;)</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;{'}'}</div>
+                                <div class="font-mono text-[10px]">{'}'})</div>
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- PROMISE.RESOLVE -->
-                <div id="promise-resolve">
-                    <MethodCard
+                <MethodCard
+                        id="promise-resolve"
                         methodName="Promise.resolve()"
                         signature="Promise.resolve(value)"
                         description="Create an immediately fulfilled promise"
@@ -139,25 +125,24 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             <div>Critical for API consistency - always return same type:</div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
                                 <div class="font-mono text-[10px]"><span class="text-green-400">// ✅ Good: Always returns promise</span></div>
-                                <div class="font-mono text-[10px]">function getUserData(id) &lbrace;</div>
+                                <div class="font-mono text-[10px]">function getUserData(id) {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;const cached = cache.get(id)</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;if (cached) return Promise.resolve(cached)</div>
-                                <div class="font-mono text-[10px]">&nbsp;&nbsp;return fetch(`/users/$&lbrace;id&rbrace;`).then(r =&gt; r.json())</div>
-                                <div class="font-mono text-[10px]">&rbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;return fetch(`/users/${'{'}id{'}'}`).then(r =&gt; r.json())</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
                                 <div class="font-mono text-[10px] mt-1.5"><span class="text-red-400">// ❌ Bad: Sometimes promise, sometimes not</span></div>
-                                <div class="font-mono text-[10px]">function getUserData(id) &lbrace;</div>
+                                <div class="font-mono text-[10px]">function getUserData(id) {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;const cached = cache.get(id)</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;if (cached) return cached <span class="text-gray-400">// Not a promise!</span></div>
-                                <div class="font-mono text-[10px]">&nbsp;&nbsp;return fetch(`/users/$&lbrace;id&rbrace;`).then(r =&gt; r.json())</div>
-                                <div class="font-mono text-[10px]">&rbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;return fetch(`/users/${'{'}id{'}'}`).then(r =&gt; r.json())</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- PROMISE.REJECT -->
-                <div id="promise-reject">
-                    <MethodCard
+                <MethodCard
+                        id="promise-reject"
                         methodName="Promise.reject()"
                         signature="Promise.reject(reason)"
                         description="Create an immediately rejected promise"
@@ -188,29 +173,28 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                         <ProTip>
                             <div>Useful for early validation in async functions:</div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                                <div class="font-mono text-[10px]">async function updateUser(id, data) &lbrace;</div>
+                                <div class="font-mono text-[10px]">async function updateUser(id, data) {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;<span class="text-gray-400">// Validate early, return rejected promise</span></div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;if (!id) return Promise.reject(new Error('ID required'))</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;if (!data) return Promise.reject(new Error('Data required'))</div>
                                 <div class="font-mono text-[10px] mt-0.5">&nbsp;&nbsp;<span class="text-gray-400">// Continue with async work</span></div>
-                                <div class="font-mono text-[10px]">&nbsp;&nbsp;return fetch(`/users/$&lbrace;id&rbrace;`, &lbrace; method: 'PUT', body: data &rbrace;)</div>
-                                <div class="font-mono text-[10px]">&rbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;return fetch(`/users/${'{'}id{'}'}`, {'{'} method: 'PUT', body: data {'}'})</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- ============================================ -->
                 <!-- ⛓️ PROMISE CHAINING -->
                 <!-- ============================================ -->
 
-                <h2 id="chaining" class="text-purple-300 text-xl my-4 pb-2 border-b-2 border-purple-600">
+                <SectionTitle id="chaining" color="purple">
                     ⛓️ Promise Chaining
-                </h2>
+                </SectionTitle>
 
                 <!-- PROMISE CHAIN - .then() .catch() .finally() -->
-                <div id="then">
-                    <MethodCard
+                <MethodCard
+                        id="then"
                         methodName=".then() / .catch() / .finally()"
                         signature="promise.then().catch().finally()"
                         description="Chain handlers for promise results, errors, and cleanup"
@@ -357,19 +341,18 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- ============================================ -->
                 <!-- 🎭 ASYNC/AWAIT -->
                 <!-- ============================================ -->
 
-                <h2 id="async-await" class="text-green-300 text-xl my-4 pb-2 border-b-2 border-green-600">
+                <SectionTitle id="async-await" color="green">
                     🎭 Async/Await
-                </h2>
+                </SectionTitle>
 
                 <!-- ASYNC FUNCTION -->
-                <div id="async-function">
-                    <MethodCard
+                <MethodCard
+                        id="async-function"
                         methodName="async function"
                         signature="async function name() { }"
                         description="Declares a function that always returns a promise"
@@ -381,9 +364,9 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                 <div class="flex-1 text-center">
                                     <div class="bg-blue-500/20 border-2 border-blue-400 rounded-lg p-3 mb-2">
                                         <div class="text-blue-300 font-mono text-xs mb-1">async function getData()</div>
-                                        <div class="text-yellow-400 font-mono text-xs mb-1">&lbrace;</div>
+                                        <div class="text-yellow-400 font-mono text-xs mb-1">{'{'}</div>
                                         <div class="text-yellow-400 font-mono text-xs mb-1">&nbsp;&nbsp;return 'data'</div>
-                                        <div class="text-yellow-400 font-mono text-xs">&rbrace;</div>
+                                        <div class="text-yellow-400 font-mono text-xs">{'}'}</div>
                                     </div>
                                     <div class="text-xs text-gray-400">Returns plain value</div>
                                 </div>
@@ -407,19 +390,18 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                         <ProTip>
                             <div>All async functions return promises:</div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                                <div class="font-mono text-[10px]">async function getData() &lbrace;</div>
+                                <div class="font-mono text-[10px]">async function getData() {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;return 'data' <span class="text-gray-400">// automatically wrapped in Promise</span></div>
-                                <div class="font-mono text-[10px]">&rbrace;</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
                                 <div class="font-mono text-[10px] mt-1">getData() <span class="text-gray-400">// returns Promise&lt;'data'&gt;</span></div>
                                 <div class="font-mono text-[10px]">getData().then(d =&gt; console.log(d)) <span class="text-gray-400">// 'data'</span></div>
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- AWAIT -->
-                <div id="await">
-                    <MethodCard
+                <MethodCard
+                        id="await"
                         methodName="await"
                         signature="await promise"
                         description="Pause execution until promise resolves (async functions only)"
@@ -465,11 +447,11 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             <div>✨ <strong>Cleaner than .then() chains:</strong></div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
                                 <div class="font-mono text-[10px]"><span class="text-red-400">// Old way - promise chains ❌</span></div>
-                                <div class="font-mono text-[10px]">fetchUser().then(user =&gt; &lbrace;</div>
+                                <div class="font-mono text-[10px]">fetchUser().then(user =&gt; {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;return fetchPosts(user.id)</div>
-                                <div class="font-mono text-[10px]">&rbrace;).then(posts =&gt; &lbrace;</div>
+                                <div class="font-mono text-[10px]">{'}'}).then(posts =&gt; {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;console.log(posts)</div>
-                                <div class="font-mono text-[10px]">&rbrace;)</div>
+                                <div class="font-mono text-[10px]">{'}'})</div>
                                 <div class="font-mono text-[10px] mt-1"><span class="text-green-400">// Modern way - async/await ✅</span></div>
                                 <div class="font-mono text-[10px]">const user = await fetchUser()</div>
                                 <div class="font-mono text-[10px]">const posts = await fetchPosts(user.id)</div>
@@ -477,11 +459,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- TRY/CATCH WITH ASYNC -->
-                <div id="try-catch">
-                    <MethodCard
+                <MethodCard
+                        id="try-catch"
                         methodName="try/catch"
                         signature="try { await ... } catch (error) { }"
                         description="Handle errors in async/await code"
@@ -493,12 +474,12 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                 <div class="flex-1">
                                     <!-- Try Block -->
                                     <div class="border-2 border-green-500/50 rounded-lg p-4 mb-2">
-                                        <div class="text-green-300 font-bold text-sm mb-2">try &lbrace;</div>
+                                        <div class="text-green-300 font-bold text-sm mb-2">try {'{'}</div>
                                         <div class="pl-4 space-y-1">
                                             <div class="text-gray-300 font-mono text-xs">const data = await fetch()</div>
                                             <div class="text-gray-300 font-mono text-xs">return data</div>
                                         </div>
-                                        <div class="text-green-300 font-bold text-sm mt-2">&rbrace;</div>
+                                        <div class="text-green-300 font-bold text-sm mt-2">{'}'}</div>
                                     </div>
                                     <div class="text-center text-xs text-gray-400">If successful ✅</div>
                                 </div>
@@ -508,12 +489,12 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                 <div class="flex-1">
                                     <!-- Catch Block -->
                                     <div class="border-2 border-red-500/50 rounded-lg p-4 mb-2">
-                                        <div class="text-red-300 font-bold text-sm mb-2">catch (error) &lbrace;</div>
+                                        <div class="text-red-300 font-bold text-sm mb-2">catch (error) {'{'}</div>
                                         <div class="pl-4 space-y-1">
                                             <div class="text-gray-300 font-mono text-xs">console.error(error)</div>
                                             <div class="text-gray-300 font-mono text-xs">return fallback</div>
                                         </div>
-                                        <div class="text-red-300 font-bold text-sm mt-2">&rbrace;</div>
+                                        <div class="text-red-300 font-bold text-sm mt-2">{'}'}</div>
                                     </div>
                                     <div class="text-center text-xs text-gray-400">If promise rejects ❌</div>
                                 </div>
@@ -527,32 +508,31 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                         <ProTip>
                             <div>🛡️ <strong>Error handling patterns:</strong></div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                                <div class="font-mono text-[10px]">async function fetchData() &lbrace;</div>
-                                <div class="font-mono text-[10px]">&nbsp;&nbsp;try &lbrace;</div>
+                                <div class="font-mono text-[10px]">async function fetchData() {'{'}</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;try {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;const user = await fetchUser()</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;const posts = await fetchPosts(user.id)</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;return posts</div>
-                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&rbrace; catch (error) &lbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;{'}'} catch (error) {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;console.error('Failed:', error)</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;return [] <span class="text-gray-400">// fallback value</span></div>
-                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&rbrace;</div>
-                                <div class="font-mono text-[10px]">&rbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;{'}'}</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- ============================================ -->
                 <!-- 🔄 PROMISE COMBINATORS -->
                 <!-- ============================================ -->
 
-                <h2 id="combinators" class="text-cyan-300 text-xl my-4 pb-2 border-b-2 border-cyan-600">
+                <SectionTitle id="combinators" color="cyan">
                     🔄 Promise Combinators
-                </h2>
+                </SectionTitle>
 
                 <!-- PROMISE.ALL -->
-                <div id="promise-all">
-                    <MethodCard
+                <MethodCard
+                        id="promise-all"
                         methodName="Promise.all()"
                         signature="Promise.all([p1, p2, p3])"
                         description="Wait for all promises to resolve (or any to reject)"
@@ -633,11 +613,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- PROMISE.ALLSETTLED -->
-                <div id="promise-allsettled">
-                    <MethodCard
+                <MethodCard
+                        id="promise-allsettled"
                         methodName="Promise.allSettled()"
                         signature="Promise.allSettled([p1, p2, p3])"
                         description="Wait for all promises to settle (fulfilled or rejected)"
@@ -694,9 +673,9 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                         <div class="text-cyan-300 font-bold text-sm mb-2">Promise.allSettled() never rejects</div>
                                         <div class="text-yellow-400 font-mono text-[10px] space-y-0.5">
                                             <div>[</div>
-                                            <div>&nbsp;&nbsp;&lbrace; status: 'fulfilled', value: 'success' &rbrace;,</div>
-                                            <div>&nbsp;&nbsp;&lbrace; status: 'rejected', reason: Error &rbrace;,</div>
-                                            <div>&nbsp;&nbsp;&lbrace; status: 'fulfilled', value: 'success' &rbrace;</div>
+                                            <div>&nbsp;&nbsp;{'{'} status: 'fulfilled', value: 'success' {'}'},</div>
+                                            <div>&nbsp;&nbsp;{'{'} status: 'rejected', reason: Error {'}'},</div>
+                                            <div>&nbsp;&nbsp;{'{'} status: 'fulfilled', value: 'success' {'}'}</div>
                                             <div>]</div>
                                         </div>
                                     </div>
@@ -715,16 +694,15 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;fetch('/api/user'),</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;fetch('/api/posts')</div>
                                 <div class="font-mono text-[10px]">])</div>
-                                <div class="font-mono text-[10px] mt-1">results[0] <span class="text-gray-400">// &lbrace; status: 'fulfilled', value: ... &rbrace;</span></div>
-                                <div class="font-mono text-[10px]">results[1] <span class="text-gray-400">// &lbrace; status: 'rejected', reason: Error(...) &rbrace;</span></div>
+                                <div class="font-mono text-[10px] mt-1">results[0] <span class="text-gray-400">// {'{'} status: 'fulfilled', value: ... {'}'}</span></div>
+                                <div class="font-mono text-[10px]">results[1] <span class="text-gray-400">// {'{'} status: 'rejected', reason: Error(...) {'}'}</span></div>
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- PROMISE.RACE -->
-                <div id="promise-race">
-                    <MethodCard
+                <MethodCard
+                        id="promise-race"
                         methodName="Promise.race()"
                         signature="Promise.race([p1, p2, p3])"
                         description="Returns first promise to settle (fulfill or reject)"
@@ -796,11 +774,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- PROMISE.ANY -->
-                <div id="promise-any">
-                    <MethodCard
+                <MethodCard
+                        id="promise-any"
                         methodName="Promise.any()"
                         signature="Promise.any([p1, p2, p3])"
                         description="Returns first promise to fulfill (ignores rejections)"
@@ -874,19 +851,18 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- ============================================ -->
                 <!-- 🎯 COMMON PATTERNS -->
                 <!-- ============================================ -->
 
-                <h2 id="patterns" class="text-orange-300 text-xl my-4 pb-2 border-b-2 border-orange-600">
+                <SectionTitle id="patterns" color="orange">
                     🎯 Common Patterns
-                </h2>
+                </SectionTitle>
 
                 <!-- SEQUENTIAL VS PARALLEL -->
-                <div id="sequential-parallel">
-                    <MethodCard
+                <MethodCard
+                        id="sequential-parallel"
                         methodName="Sequential vs Parallel"
                         signature="await one-by-one vs Promise.all()"
                         description="Understanding execution order"
@@ -927,11 +903,10 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
                 <!-- ERROR HANDLING -->
-                <div id="error-handling">
-                    <MethodCard
+                <MethodCard
+                        id="error-handling"
                         methodName="Error Handling Strategies"
                         signature="try/catch vs .catch() vs default values"
                         description="Different approaches to handling failures"
@@ -940,13 +915,13 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                         <ProTip>
                             <div>🛡️ <strong>Strategy 1: Try/Catch</strong></div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                                <div class="font-mono text-[10px]">try &lbrace;</div>
+                                <div class="font-mono text-[10px]">try {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;const data = await fetchData()</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;return data</div>
-                                <div class="font-mono text-[10px]">&rbrace; catch (error) &lbrace;</div>
+                                <div class="font-mono text-[10px]">{'}'} catch (error) {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;console.error(error)</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;return null <span class="text-gray-400">// fallback</span></div>
-                                <div class="font-mono text-[10px]">&rbrace;</div>
+                                <div class="font-mono text-[10px]">{'}'}</div>
                             </div>
                         </ProTip>
 
@@ -954,36 +929,28 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             <div>🛡️ <strong>Strategy 2: .catch() with default</strong></div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
                                 <div class="font-mono text-[10px]">const data = await fetchData()</div>
-                                <div class="font-mono text-[10px]">&nbsp;&nbsp;.catch(err =&gt; &lbrace;</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;.catch(err =&gt; {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;console.error(err)</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;return [] <span class="text-gray-400">// default value</span></div>
-                                <div class="font-mono text-[10px]">&nbsp;&nbsp;&rbrace;)</div>
+                                <div class="font-mono text-[10px]">&nbsp;&nbsp;{'}'})</div>
                             </div>
                         </ProTip>
 
                         <ProTip>
                             <div>🛡️ <strong>Strategy 3: Conditional error handling</strong></div>
                             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                                <div class="font-mono text-[10px]">const result = await fetchData().catch(err =&gt; &lbrace;</div>
+                                <div class="font-mono text-[10px]">const result = await fetchData().catch(err =&gt; {'{'}</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;if (err.code === 'NOT_FOUND') return null</div>
                                 <div class="font-mono text-[10px]">&nbsp;&nbsp;throw err <span class="text-gray-400">// re-throw other errors</span></div>
-                                <div class="font-mono text-[10px]">&rbrace;)</div>
+                                <div class="font-mono text-[10px]">{'}'})</div>
                             </div>
                         </ProTip>
                     </MethodCard>
-                </div>
 
-            </main>
 
-            <!-- Sidebar Navigation -->
-            <aside class="w-64 shrink-0 sticky top-4 self-start hidden lg:block max-h-[calc(100vh-2rem)] overflow-y-auto">
-                <!-- Global Navigation -->
-                <GlobalNav />
 
-                <!-- Page Navigation -->
-                <nav class="bg-[#252936] rounded-lg p-4 border border-gray-700">
-                    <h3 class="text-white text-sm font-bold mb-3 uppercase tracking-wide">On This Page</h3>
-                    <ul class="space-y-2 text-xs">
+    <Fragment slot="page-nav">
+<ul class="space-y-2 text-xs">
                         <li>
                             <a href="#creating" class="text-blue-300 font-semibold hover:text-blue-200 block py-1">🎁 Creating Promises</a>
                             <ul class="ml-3 mt-1 space-y-1 border-l-2 border-blue-500/30 pl-2">
@@ -1027,58 +994,5 @@ import GlobalNav from '~components/visual-js/GlobalNav.astro';
                             </ul>
                         </li>
                     </ul>
-                </nav>
-            </aside>
-        </div>
-
-        <style>
-            html {
-                scroll-behavior: smooth;
-                scroll-padding-top: 20px;
-            }
-
-            /* Node gradient backgrounds */
-            .node-input {
-                background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
-            }
-
-            .node-process {
-                background: linear-gradient(135deg, #4c1d95 0%, #5b21b6 100%);
-            }
-
-            .node-output {
-                background: linear-gradient(135deg, #166534 0%, #15803d 100%);
-            }
-
-            /* Arrow styling */
-            .arrow {
-                position: relative;
-                height: 2px;
-                background: linear-gradient(90deg, #4b5563 0%, #6b7280 100%);
-            }
-
-            .arrow::after {
-                content: '';
-                position: absolute;
-                right: 0;
-                top: 50%;
-                transform: translateY(-50%);
-                width: 0;
-                height: 0;
-                border-left: 8px solid #6b7280;
-                border-top: 5px solid transparent;
-                border-bottom: 5px solid transparent;
-            }
-
-            /* Pulse animation for highlights */
-            @keyframes pulse {
-                0%, 100% { opacity: 1; }
-                50% { opacity: 0.6; }
-            }
-
-            .animate-pulse {
-                animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-            }
-        </style>
-    </body>
-</html>
+    </Fragment>
+</VisualLayout>
