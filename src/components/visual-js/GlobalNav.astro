@@ -20,6 +20,11 @@ const topLevelPages: NavItem[] = [
     { label: 'DOM Manipulation', href: '/visual/dom-manipulation' },
 ];
 
+const browserApiPages: NavItem[] = [
+    { label: 'Intersection Observer', href: '/visual/browser-apis/intersection-observer' },
+    { label: 'Pointer Events', href: '/visual/browser-apis/pointer-events' },
+];
+
 // Get current path to highlight active page
 const currentPath = Astro.url.pathname;
 
@@ -29,6 +34,7 @@ const isActive = (href: string) => {
 
 const isPrimitivesActive = primitivePages.some(page => isActive(page.href));
 const isTopLevelActive = topLevelPages.some(page => isActive(page.href));
+const isBrowserApiActive = browserApiPages.some(page => isActive(page.href));
 ---
 
 <nav class="bg-[#1f2937] rounded-lg p-4 mb-4 border border-gray-600">
@@ -68,6 +74,25 @@ const isTopLevelActive = topLevelPages.some(page => isActive(page.href));
                         <a
                             href={page.href}
                             class={`block ${isActive(page.href) ? 'text-purple-400 font-medium' : 'text-gray-300 hover:text-purple-400'}`}
+                        >
+                            {page.label}
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        </li>
+
+        <!-- Browser APIs Section -->
+        <li>
+            <div class={`font-semibold block py-1 ${isBrowserApiActive ? 'text-green-300' : 'text-gray-300'}`}>
+                🌐 Browser APIs
+            </div>
+            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-green-500/30 pl-2">
+                {browserApiPages.map(page => (
+                    <li>
+                        <a
+                            href={page.href}
+                            class={`block ${isActive(page.href) ? 'text-green-400 font-medium' : 'text-gray-300 hover:text-green-400'}`}
                         >
                             {page.label}
                         </a>

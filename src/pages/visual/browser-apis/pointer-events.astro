@@ -1,0 +1,872 @@
+---
+import '~styles/styles.css'
+import MethodCard from '~components/visual-js/MethodCard.astro';
+import Node from '~components/visual-js/Node.astro';
+import Arrow from '~components/visual-js/Arrow.astro';
+import ReturnValue from '~components/visual-js/ReturnValue.astro';
+import ProcessContent from '~components/visual-js/ProcessContent.astro';
+import InfoBox from '~components/visual-js/InfoBox.astro';
+import ProTip from '~components/visual-js/ProTip.astro';
+import SectionTitle from '~components/visual-js/SectionTitle.astro';
+import VisualLayout from 'src/layouts/VisualLayout.astro';
+---
+<VisualLayout
+    pageTitle="Pointer Events API"
+>
+    <ProTip>
+        <div>⚡ <strong>One API to rule them all!</strong> Pointer Events unify mouse, touch, and stylus input.</div>
+        <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+            <div class="text-[10px]">Instead of handling mouse events AND touch events separately, use Pointer Events:</div>
+            <div class="font-mono text-[10px] mt-1"><span class="text-red-400">// ❌ Old way - need both</span></div>
+            <div class="font-mono text-[10px]">el.addEventListener('mousedown', handleStart)</div>
+            <div class="font-mono text-[10px]">el.addEventListener('touchstart', handleStart)</div>
+            <div class="font-mono text-[10px] mt-1"><span class="text-green-400">// ✅ New way - one handler</span></div>
+            <div class="font-mono text-[10px]">el.addEventListener('pointerdown', handleStart)</div>
+        </div>
+    </ProTip>
+
+    <ProTip>
+        <div>🎯 <strong>Why use Pointer Events?</strong></div>
+        <div class="pl-2 border-l-2 border-blue-500/30 space-y-0.5 mt-1">
+            <div class="text-[10px]">✅ Works for mouse, touch, and stylus with same code</div>
+            <div class="text-[10px]">✅ More information than mouse events (pressure, tilt, contact size)</div>
+            <div class="text-[10px]">✅ Better than touch events (easier to use, more consistent)</div>
+            <div class="text-[10px]">✅ Multi-touch support with unique pointer IDs</div>
+            <div class="text-[10px]">✅ Widely supported in all modern browsers (2025)</div>
+        </div>
+    </ProTip>
+
+    <!-- ============================================ -->
+    <!-- 🖱️ POINTER EVENT TYPES -->
+    <!-- ============================================ -->
+
+    <SectionTitle id="event-types" color="blue">
+        🖱️ Pointer Event Types
+    </SectionTitle>
+
+    <!-- POINTERDOWN -->
+    <MethodCard
+        id="pointerdown"
+        methodName="pointerdown"
+        signature="element.addEventListener('pointerdown', handler)"
+        description="Pointer is pressed down (mouse click, finger/stylus touch)"
+        mutates={false}
+    >
+        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+            <Node label="Input" type="input">
+                <div class="text-center text-sm font-mono space-y-1">
+                    <div>🖱️ Mouse click</div>
+                    <div>👆 Touch screen</div>
+                    <div>🖊️ Stylus press</div>
+                </div>
+            </Node>
+
+            <Arrow label="triggers" />
+
+            <Node label="Event" type="process">
+                <ProcessContent name="pointerdown" description="Pointer pressed" />
+            </Node>
+
+            <Arrow label="fires" />
+
+            <Node label="Handler" type="output">
+                <ReturnValue value="Event object" type="object" />
+            </Node>
+        </div>
+
+        <ProTip>
+            <div>💡 <strong>Basic usage:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">element.addEventListener('pointerdown', (e) =>{'{'}</div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;console.log('Pointer pressed!')</div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;console.log('Type:', e.pointerType) <span class="text-gray-400">// "mouse", "touch", or "pen"</span></div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;console.log('ID:', e.pointerId) <span class="text-gray-400">// unique ID for this pointer</span></div>
+                <div class="font-mono text-[10px]">{'}'})</div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- POINTERMOVE -->
+    <MethodCard
+        id="pointermove"
+        methodName="pointermove"
+        signature="element.addEventListener('pointermove', handler)"
+        description="Pointer moves (mouse move, finger/stylus drag)"
+        mutates={false}
+    >
+        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+            <Node label="Input" type="input">
+                <div class="text-center text-sm font-mono">
+                    Pointer moving
+                </div>
+            </Node>
+
+            <Arrow label="triggers" />
+
+            <Node label="Event" type="process">
+                <ProcessContent name="pointermove" description="Continuously fires" />
+            </Node>
+
+            <Arrow label="provides" />
+
+            <Node label="Data" type="output">
+                <div class="text-center text-sm font-mono space-y-1">
+                    <div class="text-gray-300">X, Y position</div>
+                    <div class="text-gray-300">Pressure</div>
+                    <div class="text-gray-300">Tilt (stylus)</div>
+                </div>
+            </Node>
+        </div>
+
+        <ProTip>
+            <div>🎨 <strong>Perfect for drawing apps:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">canvas.addEventListener('pointermove', (e) =>{'{'}</div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;if (e.buttons === 1){'{'} <span class="text-gray-400">// if primary button pressed</span></div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;drawLine(e.clientX, e.clientY, e.pressure)</div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;}</div>
+                <div class="font-mono text-[10px]">{'}'})</div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- POINTERUP -->
+    <MethodCard
+        id="pointerup"
+        methodName="pointerup"
+        signature="element.addEventListener('pointerup', handler)"
+        description="Pointer is released (mouse button up, finger/stylus lifted)"
+        mutates={false}
+    >
+        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
+            <Node label="Input" type="input">
+                <div class="text-center text-sm font-mono">
+                    Pointer released
+                </div>
+            </Node>
+
+            <Arrow label="triggers" />
+
+            <Node label="Event" type="process">
+                <ProcessContent name="pointerup" description="Pointer lifted" />
+            </Node>
+        </div>
+
+        <ProTip>
+            <div>💡 <strong>Complete interaction pattern:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">let isDragging = false</div>
+                <div class="font-mono text-[10px] mt-1">el.addEventListener('pointerdown', () => isDragging = true)</div>
+                <div class="font-mono text-[10px]">el.addEventListener('pointermove', (e) =>{'{'}</div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;if (isDragging){'{'} /* drag logic */ }</div>
+                <div class="font-mono text-[10px]">{'}'})</div>
+                <div class="font-mono text-[10px]">el.addEventListener('pointerup', () => isDragging = false)</div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- OTHER POINTER EVENTS -->
+    <MethodCard
+        id="other-events"
+        methodName="Other Pointer Events"
+        signature="Additional pointer event types"
+        description="Complete set of pointer interactions"
+        mutates={false}
+    >
+        <div class="p-6 bg-gray-800 rounded">
+            <div class="space-y-3">
+                <!-- Enter/Leave -->
+                <div class="bg-purple-500/20 border border-purple-400 rounded p-3">
+                    <div class="text-purple-300 font-mono text-[10px] space-y-0.5">
+                        <div class="text-yellow-400 mb-1">Hover events (don't bubble):</div>
+                        <div><span class="text-purple-300">pointerenter</span> - Pointer enters element boundary</div>
+                        <div><span class="text-purple-300">pointerleave</span> - Pointer leaves element boundary</div>
+                        <div class="text-gray-400 mt-1">Use for hover effects, tooltips</div>
+                    </div>
+                </div>
+
+                <!-- Over/Out -->
+                <div class="bg-blue-500/20 border border-blue-400 rounded p-3">
+                    <div class="text-blue-300 font-mono text-[10px] space-y-0.5">
+                        <div class="text-yellow-400 mb-1">Hover events (with bubbling):</div>
+                        <div><span class="text-blue-300">pointerover</span> - Pointer enters element or child (bubbles)</div>
+                        <div><span class="text-blue-300">pointerout</span> - Pointer leaves element or child (bubbles)</div>
+                        <div class="text-gray-400 mt-1">Use when you need event delegation</div>
+                    </div>
+                </div>
+
+                <!-- Cancel -->
+                <div class="bg-red-500/20 border border-red-500 rounded p-3">
+                    <div class="text-red-300 font-mono text-[10px] space-y-0.5">
+                        <div class="text-yellow-400 mb-1">Interruption:</div>
+                        <div><span class="text-red-300">pointercancel</span> - Pointer interaction cancelled</div>
+                        <div class="text-gray-400 mt-1">Fires when touch is interrupted (browser zoom, system gesture, etc.)</div>
+                        <div class="text-yellow-400 mt-1">Always handle this! Clean up drag state.</div>
+                    </div>
+                </div>
+
+                <!-- Capture -->
+                <div class="bg-green-500/20 border border-green-500 rounded p-3">
+                    <div class="text-green-300 font-mono text-[10px] space-y-0.5">
+                        <div class="text-yellow-400 mb-1">Pointer capture:</div>
+                        <div><span class="text-green-300">gotpointercapture</span> - Element captured pointer</div>
+                        <div><span class="text-green-300">lostpointercapture</span> - Element lost pointer capture</div>
+                        <div class="text-gray-400 mt-1">Used with setPointerCapture() (see below)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ProTip>
+            <div>⚠️ <strong>Always handle pointercancel:</strong></div>
+            <div class="pl-2 border-l-2 border-red-500/30 space-y-0.5 mt-1">
+                <div class="text-[10px]">If you're tracking pointer state (like dragging), always clean up on cancel:</div>
+                <div class="font-mono text-[10px] mt-1">el.addEventListener('pointerup', endDrag)</div>
+                <div class="font-mono text-[10px]">el.addEventListener('pointercancel', endDrag) <span class="text-gray-400">// same cleanup</span></div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- ============================================ -->
+    <!-- 📊 EVENT PROPERTIES -->
+    <!-- ============================================ -->
+
+    <SectionTitle id="event-properties" color="purple">
+        📊 Event Properties
+    </SectionTitle>
+
+    <!-- BASIC PROPERTIES -->
+    <MethodCard
+        id="basic-properties"
+        methodName="Basic Event Properties"
+        signature="Information available in every pointer event"
+        description="Essential data from pointer events"
+        mutates={false}
+    >
+        <div class="p-6 bg-gray-800 rounded">
+            <div class="space-y-3">
+                <!-- Position -->
+                <div class="bg-blue-500/20 border border-blue-400 rounded p-3">
+                    <div class="text-blue-300 font-mono text-[10px] space-y-0.5">
+                        <div class="text-yellow-400 mb-1">📍 Position:</div>
+                        <div>event.clientX, event.clientY <span class="text-gray-400">// relative to viewport</span></div>
+                        <div>event.pageX, event.pageY <span class="text-gray-400">// relative to document</span></div>
+                        <div>event.screenX, event.screenY <span class="text-gray-400">// relative to screen</span></div>
+                        <div>event.offsetX, event.offsetY <span class="text-gray-400">// relative to target element</span></div>
+                    </div>
+                </div>
+
+                <!-- Pointer identification -->
+                <div class="bg-green-500/20 border border-green-500 rounded p-3">
+                    <div class="text-green-300 font-mono text-[10px] space-y-0.5">
+                        <div class="text-yellow-400 mb-1">🆔 Identification:</div>
+                        <div>event.pointerId <span class="text-gray-400">// unique ID for this pointer</span></div>
+                        <div>event.pointerType <span class="text-gray-400">// "mouse", "touch", or "pen"</span></div>
+                        <div>event.isPrimary <span class="text-gray-400">// true for primary pointer (first touch)</span></div>
+                    </div>
+                </div>
+
+                <!-- Button state -->
+                <div class="bg-purple-500/20 border border-purple-400 rounded p-3">
+                    <div class="text-purple-300 font-mono text-[10px] space-y-0.5">
+                        <div class="text-yellow-400 mb-1">🖱️ Button state:</div>
+                        <div>event.button <span class="text-gray-400">// which button (0=left, 1=middle, 2=right)</span></div>
+                        <div>event.buttons <span class="text-gray-400">// bitmask of all pressed buttons</span></div>
+                        <div class="mt-1">event.buttons === 1 <span class="text-gray-400">// primary (left) button pressed</span></div>
+                        <div>event.buttons === 2 <span class="text-gray-400">// secondary (right) button pressed</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ProTip>
+            <div>💡 <strong>Position cheat sheet:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]"><span class="text-green-400">clientX/Y:</span> Position in viewport (most common)</div>
+                <div class="font-mono text-[10px]"><span class="text-blue-400">pageX/Y:</span> Position in document (includes scroll)</div>
+                <div class="font-mono text-[10px]"><span class="text-purple-400">offsetX/Y:</span> Position within target element</div>
+                <div class="font-mono text-[10px]"><span class="text-orange-400">screenX/Y:</span> Position on physical screen (rarely used)</div>
+            </div>
+        </ProTip>
+
+        <ProTip>
+            <div>🎯 <strong>Multi-touch with pointerId:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">const activePointers = new Map()</div>
+                <div class="font-mono text-[10px] mt-1">el.addEventListener('pointerdown', (e) =>{'{'}</div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;activePointers.set(e.pointerId,{'{'} x: e.clientX, y: e.clientY {'}'})</div>
+                <div class="font-mono text-[10px]">{'}'})</div>
+                <div class="font-mono text-[10px] mt-1">el.addEventListener('pointerup', (e) =>{'{'}</div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;activePointers.delete(e.pointerId)</div>
+                <div class="font-mono text-[10px]">{'}'})</div>
+                <div class="text-[10px] text-gray-400 mt-1">Now you can track multiple touches simultaneously!</div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- ADVANCED PROPERTIES -->
+    <MethodCard
+        id="advanced-properties"
+        methodName="Advanced Properties (Touch & Stylus)"
+        signature="Extra data for touch and stylus input"
+        description="Pressure, tilt, and contact geometry"
+        mutates={false}
+    >
+        <div class="p-6 bg-gray-800 rounded">
+            <div class="space-y-3">
+                <!-- Pressure -->
+                <div class="bg-orange-500/20 border border-orange-400 rounded p-3">
+                    <div class="text-orange-300 font-mono text-[10px] space-y-0.5">
+                        <div class="text-yellow-400 mb-1">💪 Pressure:</div>
+                        <div>event.pressure <span class="text-gray-400">// 0.0 to 1.0 (0 to max pressure)</span></div>
+                        <div class="mt-1 text-gray-400">Mouse: always 0 or 0.5</div>
+                        <div class="text-gray-400">Touch: varies by device (often just 0 or 0.5)</div>
+                        <div class="text-gray-400">Stylus: full range based on pen pressure ✨</div>
+                    </div>
+                </div>
+
+                <!-- Tilt -->
+                <div class="bg-cyan-500/20 border border-cyan-400 rounded p-3">
+                    <div class="text-cyan-300 font-mono text-[10px] space-y-0.5">
+                        <div class="text-yellow-400 mb-1">📐 Tilt (stylus only):</div>
+                        <div>event.tiltX <span class="text-gray-400">// angle from Y-Z plane (-90 to 90 degrees)</span></div>
+                        <div>event.tiltY <span class="text-gray-400">// angle from X-Z plane (-90 to 90 degrees)</span></div>
+                        <div class="mt-1 text-gray-400">0 = perpendicular to surface</div>
+                        <div class="text-gray-400">Useful for realistic drawing/painting apps</div>
+                    </div>
+                </div>
+
+                <!-- Contact geometry -->
+                <div class="bg-pink-500/20 border border-pink-400 rounded p-3">
+                    <div class="text-pink-300 font-mono text-[10px] space-y-0.5">
+                        <div class="text-yellow-400 mb-1">📏 Contact area (touch/stylus):</div>
+                        <div>event.width <span class="text-gray-400">// contact width in CSS pixels</span></div>
+                        <div>event.height <span class="text-gray-400">// contact height in CSS pixels</span></div>
+                        <div class="mt-1 text-gray-400">Mouse: usually 1x1</div>
+                        <div class="text-gray-400">Touch: varies by finger size</div>
+                    </div>
+                </div>
+
+                <!-- Twist -->
+                <div class="bg-purple-500/20 border border-purple-400 rounded p-3">
+                    <div class="text-purple-300 font-mono text-[10px] space-y-0.5">
+                        <div class="text-yellow-400 mb-1">🔄 Rotation (stylus with rotation support):</div>
+                        <div>event.twist <span class="text-gray-400">// 0 to 359 degrees clockwise</span></div>
+                        <div class="mt-1 text-gray-400">Rare - only on styluses with rotation sensor</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ProTip>
+            <div>🎨 <strong>Pressure-sensitive drawing:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">canvas.addEventListener('pointermove', (e) =>{'{'}</div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;if (e.buttons === 1){'{'}</div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;const brushSize = e.pressure * 10 <span class="text-gray-400">// 0-10 pixels</span></div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;const opacity = e.pressure <span class="text-gray-400">// 0-1</span></div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;&nbsp;&nbsp;drawBrushStroke(e.clientX, e.clientY, brushSize, opacity)</div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;}</div>
+                <div class="font-mono text-[10px]">{'}'})</div>
+            </div>
+        </ProTip>
+
+        <ProTip>
+            <div>⚠️ <strong>Feature detection:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="text-[10px]">Not all devices support all features. Check before using:</div>
+                <div class="font-mono text-[10px] mt-1">if (e.pressure > 0 && e.pressure < 1){'{'}</div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;// Device supports real pressure</div>
+                <div class="font-mono text-[10px]">}</div>
+                <div class="font-mono text-[10px] mt-1">if (e.pointerType === 'pen' && e.tiltX !== 0){'{'}</div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;// Stylus with tilt support</div>
+                <div class="font-mono text-[10px]">}</div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- ============================================ -->
+    <!-- 🎯 POINTER CAPTURE -->
+    <!-- ============================================ -->
+
+    <SectionTitle id="pointer-capture" color="green">
+        🎯 Pointer Capture
+    </SectionTitle>
+
+    <!-- SETPOINTERCAPTURE -->
+    <MethodCard
+        id="set-pointer-capture"
+        methodName="setPointerCapture() & releasePointerCapture()"
+        signature="element.setPointerCapture(pointerId)"
+        description="Force all pointer events to go to one element"
+        mutates={false}
+    >
+        <div class="p-6 bg-gray-800 rounded">
+            <div class="space-y-4">
+                <!-- What it does -->
+                <div class="bg-green-500/20 border border-green-500 rounded p-3">
+                    <div class="text-green-300 font-mono text-xs space-y-0.5">
+                        <div class="text-yellow-400 mb-1">What is Pointer Capture?</div>
+                        <div class="text-[10px] text-gray-300">After capturing a pointer, ALL pointer events go to that element,</div>
+                        <div class="text-[10px] text-gray-300">even if the pointer moves outside the element's boundaries.</div>
+                        <div class="text-[10px] mt-1 text-yellow-400">Perfect for drag operations!</div>
+                    </div>
+                </div>
+
+                <!-- Example -->
+                <div class="bg-cyan-500/20 border border-cyan-400 rounded p-3">
+                    <div class="text-cyan-300 font-mono text-[10px] space-y-0.5">
+                        <div class="text-yellow-400 mb-1">Typical drag implementation:</div>
+                        <div>element.addEventListener('pointerdown', (e) =>{'{'}</div>
+                        <div>&nbsp;&nbsp;element.setPointerCapture(e.pointerId)</div>
+                        <div>&nbsp;&nbsp;isDragging = true</div>
+                        <div>{'}'})</div>
+                        <div class="mt-1">element.addEventListener('pointermove', (e) =>{'{'}</div>
+                        <div>&nbsp;&nbsp;if (isDragging){'{'}</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;// Update position - works even outside element!</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;element.style.left = e.clientX + 'px'</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;element.style.top = e.clientY + 'px'</div>
+                        <div>&nbsp;&nbsp;}</div>
+                        <div>{'}'})</div>
+                        <div class="mt-1">element.addEventListener('pointerup', (e) =>{'{'}</div>
+                        <div>&nbsp;&nbsp;element.releasePointerCapture(e.pointerId)</div>
+                        <div>&nbsp;&nbsp;isDragging = false</div>
+                        <div>{'}'})</div>
+                    </div>
+                </div>
+
+                <!-- Auto release -->
+                <div class="bg-purple-500/20 border border-purple-400 rounded p-3">
+                    <div class="text-purple-300 font-mono text-[10px] space-y-0.5">
+                        <div class="text-yellow-400 mb-1">Automatic release:</div>
+                        <div>Pointer capture is automatically released on <span class="text-orange-400">pointerup</span></div>
+                        <div>and <span class="text-orange-400">pointercancel</span> events.</div>
+                        <div class="mt-1 text-gray-400">You can call releasePointerCapture() explicitly for manual control.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ProTip>
+            <div>🎯 <strong>Why use Pointer Capture?</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="text-[10px]"><span class="text-green-400">✅ Without capture:</span> If mouse moves fast, it leaves element, events stop</div>
+                <div class="text-[10px]"><span class="text-green-400">✅ With capture:</span> Element receives ALL events until release</div>
+                <div class="text-[10px] mt-1">Essential for:</div>
+                <div class="font-mono text-[10px]">• Drag and drop</div>
+                <div class="font-mono text-[10px]">• Sliders and range inputs</div>
+                <div class="font-mono text-[10px]">• Resizable panels</div>
+                <div class="font-mono text-[10px]">• Drawing/painting apps</div>
+            </div>
+        </ProTip>
+
+        <ProTip>
+            <div>⚠️ <strong>Always capture on pointerdown, release on pointerup:</strong></div>
+            <div class="pl-2 border-l-2 border-red-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]"><span class="text-red-400">// ❌ Bad - might not release</span></div>
+                <div class="font-mono text-[10px]">el.setPointerCapture(e.pointerId)</div>
+                <div class="font-mono text-[10px]">// ... forget to release</div>
+                <div class="font-mono text-[10px] mt-1"><span class="text-green-400">// ✅ Good - always paired</span></div>
+                <div class="font-mono text-[10px]">el.addEventListener('pointerdown', (e) => el.setPointerCapture(e.pointerId))</div>
+                <div class="font-mono text-[10px]">el.addEventListener('pointerup', (e) => el.releasePointerCapture(e.pointerId))</div>
+                <div class="font-mono text-[10px]">el.addEventListener('pointercancel', (e) => el.releasePointerCapture(e.pointerId))</div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- ============================================ -->
+    <!-- 💡 PRACTICAL EXAMPLES -->
+    <!-- ============================================ -->
+
+    <SectionTitle id="examples" color="orange">
+        💡 Practical Examples
+    </SectionTitle>
+
+    <!-- DRAGGABLE ELEMENT -->
+    <MethodCard
+        id="draggable-example"
+        methodName="Complete Draggable Element"
+        signature="Real-world drag implementation"
+        description="Drag any element around the screen"
+        mutates={false}
+    >
+        <div class="p-6 bg-gray-800 rounded">
+            <div class="bg-orange-500/20 border border-orange-400 rounded p-3">
+                <div class="text-orange-300 font-mono text-[10px] space-y-0.5">
+                    <div class="text-yellow-400 mb-2">// Make any element draggable</div>
+                    <div>const box = document.querySelector('.draggable')</div>
+                    <div>let isDragging = false</div>
+                    <div>let startX, startY, initialLeft, initialTop</div>
+                    <div class="mt-2">box.addEventListener('pointerdown', (e) =>{'{'}</div>
+                    <div>&nbsp;&nbsp;isDragging = true</div>
+                    <div>&nbsp;&nbsp;box.setPointerCapture(e.pointerId)</div>
+                    <div>&nbsp;&nbsp;</div>
+                    <div>&nbsp;&nbsp;// Save starting positions</div>
+                    <div>&nbsp;&nbsp;startX = e.clientX</div>
+                    <div>&nbsp;&nbsp;startY = e.clientY</div>
+                    <div>&nbsp;&nbsp;initialLeft = box.offsetLeft</div>
+                    <div>&nbsp;&nbsp;initialTop = box.offsetTop</div>
+                    <div>&nbsp;&nbsp;</div>
+                    <div>&nbsp;&nbsp;// Visual feedback</div>
+                    <div>&nbsp;&nbsp;box.style.cursor = 'grabbing'</div>
+                    <div>{'}'})</div>
+                    <div class="mt-2">box.addEventListener('pointermove', (e) =>{'{'}</div>
+                    <div>&nbsp;&nbsp;if (!isDragging) return</div>
+                    <div>&nbsp;&nbsp;</div>
+                    <div>&nbsp;&nbsp;// Calculate how far pointer moved</div>
+                    <div>&nbsp;&nbsp;const deltaX = e.clientX - startX</div>
+                    <div>&nbsp;&nbsp;const deltaY = e.clientY - startY</div>
+                    <div>&nbsp;&nbsp;</div>
+                    <div>&nbsp;&nbsp;// Update position</div>
+                    <div>&nbsp;&nbsp;box.style.left = (initialLeft + deltaX) + 'px'</div>
+                    <div>&nbsp;&nbsp;box.style.top = (initialTop + deltaY) + 'px'</div>
+                    <div>{'}'})</div>
+                    <div class="mt-2">box.addEventListener('pointerup', (e) =>{'{'}</div>
+                    <div>&nbsp;&nbsp;if (!isDragging) return</div>
+                    <div>&nbsp;&nbsp;</div>
+                    <div>&nbsp;&nbsp;isDragging = false</div>
+                    <div>&nbsp;&nbsp;box.releasePointerCapture(e.pointerId)</div>
+                    <div>&nbsp;&nbsp;box.style.cursor = 'grab'</div>
+                    <div>{'}'})</div>
+                    <div class="mt-2">// Handle cancel (important!)</div>
+                    <div>box.addEventListener('pointercancel', (e) =>{'{'}</div>
+                    <div>&nbsp;&nbsp;isDragging = false</div>
+                    <div>&nbsp;&nbsp;box.releasePointerCapture(e.pointerId)</div>
+                    <div>&nbsp;&nbsp;box.style.cursor = 'grab'</div>
+                    <div>{'}'})</div>
+                </div>
+            </div>
+        </div>
+
+        <ProTip>
+            <div>🎨 <strong>CSS needed:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">.draggable{'{'}</div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;position: absolute;</div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;cursor: grab;</div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;touch-action: none; <span class="text-gray-400">/* Prevent scrolling on touch */</span></div>
+                <div class="font-mono text-[10px]">}</div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- DRAWING APP -->
+    <MethodCard
+        id="drawing-example"
+        methodName="Pressure-Sensitive Drawing"
+        signature="Canvas drawing with pressure support"
+        description="Draw with variable line thickness based on pressure"
+        mutates={false}
+    >
+        <div class="p-6 bg-gray-800 rounded">
+            <div class="bg-cyan-500/20 border border-cyan-400 rounded p-3">
+                <div class="text-cyan-300 font-mono text-[10px] space-y-0.5">
+                    <div class="text-yellow-400 mb-2">// Pressure-sensitive drawing on canvas</div>
+                    <div>const canvas = document.querySelector('canvas')</div>
+                    <div>const ctx = canvas.getContext('2d')</div>
+                    <div>let isDrawing = false</div>
+                    <div>let lastX, lastY</div>
+                    <div class="mt-2">canvas.addEventListener('pointerdown', (e) =>{'{'}</div>
+                    <div>&nbsp;&nbsp;isDrawing = true</div>
+                    <div>&nbsp;&nbsp;canvas.setPointerCapture(e.pointerId)</div>
+                    <div>&nbsp;&nbsp;lastX = e.offsetX</div>
+                    <div>&nbsp;&nbsp;lastY = e.offsetY</div>
+                    <div>{'}'})</div>
+                    <div class="mt-2">canvas.addEventListener('pointermove', (e) =>{'{'}</div>
+                    <div>&nbsp;&nbsp;if (!isDrawing) return</div>
+                    <div>&nbsp;&nbsp;</div>
+                    <div>&nbsp;&nbsp;// Pressure affects line width (0-10 pixels)</div>
+                    <div>&nbsp;&nbsp;const pressure = e.pressure || 0.5 <span class="text-gray-400">// fallback for mouse</span></div>
+                    <div>&nbsp;&nbsp;const lineWidth = pressure * 10</div>
+                    <div>&nbsp;&nbsp;</div>
+                    <div>&nbsp;&nbsp;// Draw line</div>
+                    <div>&nbsp;&nbsp;ctx.beginPath()</div>
+                    <div>&nbsp;&nbsp;ctx.moveTo(lastX, lastY)</div>
+                    <div>&nbsp;&nbsp;ctx.lineTo(e.offsetX, e.offsetY)</div>
+                    <div>&nbsp;&nbsp;ctx.lineWidth = lineWidth</div>
+                    <div>&nbsp;&nbsp;ctx.lineCap = 'round'</div>
+                    <div>&nbsp;&nbsp;ctx.stroke()</div>
+                    <div>&nbsp;&nbsp;</div>
+                    <div>&nbsp;&nbsp;lastX = e.offsetX</div>
+                    <div>&nbsp;&nbsp;lastY = e.offsetY</div>
+                    <div>{'}'})</div>
+                    <div class="mt-2">canvas.addEventListener('pointerup', (e) =>{'{'}</div>
+                    <div>&nbsp;&nbsp;isDrawing = false</div>
+                    <div>&nbsp;&nbsp;canvas.releasePointerCapture(e.pointerId)</div>
+                    <div>{'}'})</div>
+                    <div class="mt-2">canvas.addEventListener('pointercancel', (e) =>{'{'}</div>
+                    <div>&nbsp;&nbsp;isDrawing = false</div>
+                    <div>&nbsp;&nbsp;canvas.releasePointerCapture(e.pointerId)</div>
+                    <div>{'}'})</div>
+                </div>
+            </div>
+        </div>
+
+        <ProTip>
+            <div>🎨 <strong>Enhanced with pointerType:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">// Different behavior for different input types</div>
+                <div class="font-mono text-[10px]">if (e.pointerType === 'pen'){'{'}</div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;// Full pressure sensitivity for stylus</div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;lineWidth = e.pressure * 10</div>
+                <div class="font-mono text-[10px]">} else if (e.pointerType === 'touch'){'{'}</div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;// Medium size for finger</div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;lineWidth = 5</div>
+                <div class="font-mono text-[10px]">} else{'{'}</div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;// Thin line for mouse</div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;lineWidth = 2</div>
+                <div class="font-mono text-[10px]">}</div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- MULTI-TOUCH -->
+    <MethodCard
+        id="multitouch-example"
+        methodName="Multi-Touch Tracking"
+        signature="Handle multiple simultaneous touches"
+        description="Track multiple fingers/pointers at once"
+        mutates={false}
+    >
+        <div class="p-6 bg-gray-800 rounded">
+            <div class="bg-purple-500/20 border border-purple-400 rounded p-3">
+                <div class="text-purple-300 font-mono text-[10px] space-y-0.5">
+                    <div class="text-yellow-400 mb-2">// Track multiple touches (pinch zoom, multi-finger gestures)</div>
+                    <div>const activePointers = new Map()</div>
+                    <div class="mt-2">element.addEventListener('pointerdown', (e) =>{'{'}</div>
+                    <div>&nbsp;&nbsp;activePointers.set(e.pointerId,{'{'}</div>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;x: e.clientX,</div>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;y: e.clientY,</div>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;type: e.pointerType</div>
+                    <div>&nbsp;&nbsp;{'}'})</div>
+                    <div>&nbsp;&nbsp;</div>
+                    <div>&nbsp;&nbsp;console.log(`Active pointers: ${'{'}activePointers.size{'}'}`)</div>
+                    <div>{'}'})</div>
+                    <div class="mt-2">element.addEventListener('pointermove', (e) =>{'{'}</div>
+                    <div>&nbsp;&nbsp;if (activePointers.has(e.pointerId)){'{'}</div>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;// Update pointer position</div>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;activePointers.set(e.pointerId,{'{'}</div>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x: e.clientX,</div>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;y: e.clientY,</div>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type: e.pointerType</div>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;{'}'})</div>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;// Detect multi-touch gestures</div>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;if (activePointers.size === 2){'{'}</div>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Could calculate pinch distance here</div>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;console.log('Two-finger gesture!')</div>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;}</div>
+                    <div>&nbsp;&nbsp;}</div>
+                    <div>{'}'})</div>
+                    <div class="mt-2">element.addEventListener('pointerup', (e) =>{'{'}</div>
+                    <div>&nbsp;&nbsp;activePointers.delete(e.pointerId)</div>
+                    <div>{'}'})</div>
+                    <div class="mt-2">element.addEventListener('pointercancel', (e) =>{'{'}</div>
+                    <div>&nbsp;&nbsp;activePointers.delete(e.pointerId)</div>
+                    <div>{'}'})</div>
+                </div>
+            </div>
+        </div>
+
+        <ProTip>
+            <div>🤏 <strong>Pinch-to-zoom calculation:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">if (activePointers.size === 2){'{'}</div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;const [p1, p2] = [...activePointers.values()]</div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;</div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;// Calculate distance between two pointers</div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;const dx = p2.x - p1.x</div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;const dy = p2.y - p1.y</div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;const distance = Math.sqrt(dx * dx + dy * dy)</div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;</div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;// Compare to initial distance to determine zoom</div>
+                <div class="font-mono text-[10px]">}</div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- ============================================ -->
+    <!-- 🆚 COMPARISON -->
+    <!-- ============================================ -->
+
+    <SectionTitle id="comparison" color="red">
+        🆚 Pointer vs Mouse vs Touch Events
+    </SectionTitle>
+
+    <MethodCard
+        id="event-comparison"
+        methodName="When to Use Which Events"
+        signature="Pointer Events vs legacy events"
+        description="Understanding the differences and when to use each"
+        mutates={false}
+    >
+        <div class="p-6 bg-gray-800 rounded">
+            <div class="space-y-4">
+                <!-- Pointer Events -->
+                <div class="bg-green-500/20 border border-green-500 rounded p-3">
+                    <div class="text-green-300 space-y-1">
+                        <div class="text-yellow-400 font-bold text-sm mb-1">✅ Pointer Events (Recommended)</div>
+                        <div class="font-mono text-[10px]">pointerdown, pointermove, pointerup, etc.</div>
+                        <div class="text-[10px] mt-2 space-y-0.5">
+                            <div><span class="text-green-400">✓</span> Works for mouse, touch, and stylus</div>
+                            <div><span class="text-green-400">✓</span> More information (pressure, tilt, etc.)</div>
+                            <div><span class="text-green-400">✓</span> Multi-touch support via pointerId</div>
+                            <div><span class="text-green-400">✓</span> Pointer capture for drag operations</div>
+                            <div><span class="text-green-400">✓</span> Single codebase for all input types</div>
+                            <div><span class="text-green-400">✓</span> Widely supported (all modern browsers)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mouse Events -->
+                <div class="bg-blue-500/20 border border-blue-400 rounded p-3">
+                    <div class="text-blue-300 space-y-1">
+                        <div class="text-yellow-400 font-bold text-sm mb-1">🖱️ Mouse Events (Legacy)</div>
+                        <div class="font-mono text-[10px]">mousedown, mousemove, mouseup, etc.</div>
+                        <div class="text-[10px] mt-2 space-y-0.5">
+                            <div><span class="text-blue-400">→</span> Only for mouse input</div>
+                            <div><span class="text-blue-400">→</span> Simple, well-understood</div>
+                            <div><span class="text-yellow-400">⚠</span> Doesn't work on touch devices</div>
+                            <div><span class="text-yellow-400">⚠</span> Need separate touch handlers</div>
+                            <div class="text-gray-400 mt-1">Use when: Desktop-only app, or with separate touch handling</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Touch Events -->
+                <div class="bg-orange-500/20 border border-orange-400 rounded p-3">
+                    <div class="text-orange-300 space-y-1">
+                        <div class="text-yellow-400 font-bold text-sm mb-1">📱 Touch Events (Legacy)</div>
+                        <div class="font-mono text-[10px]">touchstart, touchmove, touchend, etc.</div>
+                        <div class="text-[10px] mt-2 space-y-0.5">
+                            <div><span class="text-orange-400">→</span> Only for touch input</div>
+                            <div><span class="text-orange-400">→</span> Access to touches array</div>
+                            <div><span class="text-yellow-400">⚠</span> More complex API</div>
+                            <div><span class="text-yellow-400">⚠</span> Need separate mouse handlers</div>
+                            <div><span class="text-red-400">✗</span> Doesn't work with mouse or stylus</div>
+                            <div class="text-gray-400 mt-1">Use when: Need very specific touch gesture handling</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Comparison table -->
+                <div class="bg-gray-700/50 border border-gray-600 rounded p-3">
+                    <div class="text-gray-300 text-[10px] space-y-1">
+                        <div class="font-bold text-yellow-400 mb-2">Feature Comparison:</div>
+                        <div class="grid grid-cols-4 gap-2">
+                            <div class="font-bold">Feature</div>
+                            <div class="font-bold">Pointer</div>
+                            <div class="font-bold">Mouse</div>
+                            <div class="font-bold">Touch</div>
+
+                            <div>Works on mouse</div>
+                            <div class="text-green-400">✓</div>
+                            <div class="text-green-400">✓</div>
+                            <div class="text-red-400">✗</div>
+
+                            <div>Works on touch</div>
+                            <div class="text-green-400">✓</div>
+                            <div class="text-yellow-400">~</div>
+                            <div class="text-green-400">✓</div>
+
+                            <div>Works on stylus</div>
+                            <div class="text-green-400">✓</div>
+                            <div class="text-yellow-400">~</div>
+                            <div class="text-yellow-400">~</div>
+
+                            <div>Pressure support</div>
+                            <div class="text-green-400">✓</div>
+                            <div class="text-red-400">✗</div>
+                            <div class="text-red-400">✗</div>
+
+                            <div>Tilt support</div>
+                            <div class="text-green-400">✓</div>
+                            <div class="text-red-400">✗</div>
+                            <div class="text-red-400">✗</div>
+
+                            <div>Pointer capture</div>
+                            <div class="text-green-400">✓</div>
+                            <div class="text-red-400">✗</div>
+                            <div class="text-red-400">✗</div>
+
+                            <div>Multi-touch</div>
+                            <div class="text-green-400">✓</div>
+                            <div class="text-red-400">✗</div>
+                            <div class="text-green-400">✓</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ProTip>
+            <div>🎯 <strong>Migration guide:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]"><span class="text-gray-400">// Replace these:</span></div>
+                <div class="font-mono text-[10px]">mousedown → pointerdown</div>
+                <div class="font-mono text-[10px]">mousemove → pointermove</div>
+                <div class="font-mono text-[10px]">mouseup → pointerup</div>
+                <div class="font-mono text-[10px]">mouseenter → pointerenter</div>
+                <div class="font-mono text-[10px]">mouseleave → pointerleave</div>
+                <div class="font-mono text-[10px] mt-1"><span class="text-gray-400">// Add this CSS to prevent default touch behavior:</span></div>
+                <div class="font-mono text-[10px]">element{'{'} touch-action: none; }</div>
+            </div>
+        </ProTip>
+
+        <InfoBox>
+            <div>💡 <strong>Bottom Line</strong></div>
+            <div class="pl-2 border-l-2 border-blue-500/30 space-y-1 mt-2">
+                <div class="text-sm">For <strong>new projects</strong>: Always use Pointer Events</div>
+                <div class="text-sm">For <strong>existing projects</strong>: Migrate when you can</div>
+                <div class="text-sm">For <strong>desktop-only apps</strong>: Mouse events are okay, but Pointer Events don't hurt</div>
+                <div class="text-sm">For <strong>mobile-only apps</strong>: Touch events work, but Pointer Events are better</div>
+                <div class="text-sm mt-2 text-yellow-300">Pointer Events are the future-proof choice! 🚀</div>
+            </div>
+        </InfoBox>
+    </MethodCard>
+
+    <Fragment slot="page-nav">
+        <ul class="space-y-2 text-xs">
+            <li>
+                <a href="#event-types" class="text-blue-300 font-semibold hover:text-blue-200 block py-1">🖱️ Event Types</a>
+                <ul class="ml-3 mt-1 space-y-1 border-l-2 border-blue-500/30 pl-2">
+                    <li><a href="#pointerdown" class="text-gray-300 hover:text-blue-400 block">pointerdown</a></li>
+                    <li><a href="#pointermove" class="text-gray-300 hover:text-blue-400 block">pointermove</a></li>
+                    <li><a href="#pointerup" class="text-gray-300 hover:text-blue-400 block">pointerup</a></li>
+                    <li><a href="#other-events" class="text-gray-300 hover:text-blue-400 block">Other Events</a></li>
+                </ul>
+            </li>
+
+            <li class="mt-4">
+                <a href="#event-properties" class="text-purple-300 font-semibold hover:text-purple-200 block py-1">📊 Event Properties</a>
+                <ul class="ml-3 mt-1 space-y-1 border-l-2 border-purple-500/30 pl-2">
+                    <li><a href="#basic-properties" class="text-gray-300 hover:text-blue-400 block">Basic Properties</a></li>
+                    <li><a href="#advanced-properties" class="text-gray-300 hover:text-blue-400 block">Advanced Properties</a></li>
+                </ul>
+            </li>
+
+            <li class="mt-4">
+                <a href="#pointer-capture" class="text-green-300 font-semibold hover:text-green-200 block py-1">🎯 Pointer Capture</a>
+                <ul class="ml-3 mt-1 space-y-1 border-l-2 border-green-500/30 pl-2">
+                    <li><a href="#set-pointer-capture" class="text-gray-300 hover:text-blue-400 block">setPointerCapture()</a></li>
+                </ul>
+            </li>
+
+            <li class="mt-4">
+                <a href="#examples" class="text-orange-300 font-semibold hover:text-orange-200 block py-1">💡 Examples</a>
+                <ul class="ml-3 mt-1 space-y-1 border-l-2 border-orange-500/30 pl-2">
+                    <li><a href="#draggable-example" class="text-gray-300 hover:text-blue-400 block">Draggable Element</a></li>
+                    <li><a href="#drawing-example" class="text-gray-300 hover:text-blue-400 block">Pressure Drawing</a></li>
+                    <li><a href="#multitouch-example" class="text-gray-300 hover:text-blue-400 block">Multi-Touch</a></li>
+                </ul>
+            </li>
+
+            <li class="mt-4">
+                <a href="#comparison" class="text-red-300 font-semibold hover:text-red-200 block py-1">🆚 Comparison</a>
+                <ul class="ml-3 mt-1 space-y-1 border-l-2 border-red-500/30 pl-2">
+                    <li><a href="#event-comparison" class="text-gray-300 hover:text-blue-400 block">Pointer vs Mouse vs Touch</a></li>
+                </ul>
+            </li>
+        </ul>
+    </Fragment>
+</VisualLayout>

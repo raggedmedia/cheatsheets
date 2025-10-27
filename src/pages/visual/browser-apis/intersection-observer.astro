@@ -1,24 +1,25 @@
 ---
-import Layout from '../../components/heading/heading.astro';
-import MethodCard from '../../components/visual-js/MethodCard.astro';
-import ProTip from '../../components/visual-js/ProTip.astro';
+import MethodCard from '~components/visual-js/MethodCard.astro';
+import ProTip from '~components/visual-js/ProTip.astro';
+import SectionTitle from '~components/visual-js/SectionTitle.astro';
+import InfoBox from '~components/visual-js/InfoBox.astro';
+import VisualLayout from 'src/layouts/VisualLayout.astro';
 ---
 
-<Layout
-    title="Intersection Observer API"
-    subtitle="Detect when elements enter/leave viewport - lazy loading, animations, infinite scroll"
+<VisualLayout
+    pageTitle="Intersection Observer API"
 >
     <!-- ============================================ -->
     <!-- 🎯 Best Use Cases -->
     <!-- ============================================ -->
 
-    <h2 id="use-cases" class="text-cyan-300 text-xl my-4 pb-2 border-b-2 border-cyan-600">
+    <SectionTitle id="use-cases" color="cyan">
         🎯 Best Use Cases (FED Perspective)
-    </h2>
+    </SectionTitle>
 
-    <div id="common-uses">
-        <MethodCard
-            methodName="When to use Intersection Observer"
+    <MethodCard
+        id="when-to-use"
+        methodName="When to use Intersection Observer"
             signature="Performance-friendly visibility detection"
             description="Perfect for scroll-triggered interactions"
             mutates={false}
@@ -31,7 +32,7 @@ import ProTip from '../../components/visual-js/ProTip.astro';
                         <div class="grid grid-cols-2 gap-x-4 gap-y-2">
                             <div class="flex items-start gap-2">
                                 <span class="text-green-400">✅</span>
-                                <span>Lazy loading images/videos</span>
+                                <span>Fade-in animations on scroll</span>
                             </div>
                             <div class="flex items-start gap-2">
                                 <span class="text-green-400">✅</span>
@@ -39,7 +40,7 @@ import ProTip from '../../components/visual-js/ProTip.astro';
                             </div>
                             <div class="flex items-start gap-2">
                                 <span class="text-green-400">✅</span>
-                                <span>Fade-in animations on scroll</span>
+                                <span>Pausing videos when offscreen</span>
                             </div>
                             <div class="flex items-start gap-2">
                                 <span class="text-green-400">✅</span>
@@ -47,11 +48,11 @@ import ProTip from '../../components/visual-js/ProTip.astro';
                             </div>
                             <div class="flex items-start gap-2">
                                 <span class="text-green-400">✅</span>
-                                <span>Pausing videos when offscreen</span>
+                                <span>Sticky nav active states</span>
                             </div>
                             <div class="flex items-start gap-2">
                                 <span class="text-green-400">✅</span>
-                                <span>Sticky nav active states</span>
+                                <span>Triggering complex animations</span>
                             </div>
                         </div>
                     </div>
@@ -75,10 +76,10 @@ import ProTip from '../../components/visual-js/ProTip.astro';
                     <div class="text-red-300 text-[11px] space-y-2">
                         <div class="text-yellow-400 mb-2">❌ Not ideal for:</div>
                         <div class="space-y-1">
-                            <div>• Precise scroll position tracking (use scroll events)</div>
-                            <div>• Parallax effects (too jumpy, use scroll events)</div>
-                            <div>• Hover interactions (use CSS :hover or mouseenter)</div>
-                            <div>• Real-time scroll percentage (use scroll events)</div>
+                            <div>• <strong>Lazy loading images</strong> - Use native <code class="bg-slate-800 px-1 py-0.5 rounded">&lt;img loading="lazy"&gt;</code> instead</div>
+                            <div>• <strong>Precise scroll position</strong> - Use scroll events instead</div>
+                            <div>• <strong>Parallax effects</strong> - Too jumpy, use scroll events</div>
+                            <div>• <strong>Hover interactions</strong> - Use CSS :hover or mouseenter</div>
                         </div>
                     </div>
                 </div>
@@ -88,19 +89,18 @@ import ProTip from '../../components/visual-js/ProTip.astro';
                 <div>💡 <strong>Rule of thumb:</strong> If you need to know "is this element visible?", use Intersection Observer. If you need "where exactly is the scroll position?", use scroll events.</div>
             </ProTip>
         </MethodCard>
-    </div>
 
     <!-- ============================================ -->
     <!-- 🚀 Quick Start -->
     <!-- ============================================ -->
 
-    <h2 id="quick-start" class="text-green-300 text-xl my-4 pb-2 border-b-2 border-green-600">
+    <SectionTitle id="quick-start" color="green">
         🚀 Quick Start
-    </h2>
+    </SectionTitle>
 
-    <div id="basic-setup">
-        <MethodCard
-            methodName="Basic Setup"
+    <MethodCard
+        id="basic-setup"
+        methodName="Basic Setup"
             signature="new IntersectionObserver(callback, options)"
             description="Create observer, observe elements"
             mutates={false}
@@ -161,19 +161,18 @@ import ProTip from '../../components/visual-js/ProTip.astro';
                 <div>💡 <strong>Always unobserve</strong> elements once you're done with them (like after fade-in) to free up resources.</div>
             </ProTip>
         </MethodCard>
-    </div>
 
     <!-- ============================================ -->
     <!-- ⚙️ Options -->
     <!-- ============================================ -->
 
-    <h2 id="options" class="text-orange-300 text-xl my-4 pb-2 border-b-2 border-orange-600">
+    <SectionTitle id="options" color="orange">
         ⚙️ Options
-    </h2>
+    </SectionTitle>
 
-    <div id="observer-options">
-        <MethodCard
-            methodName="Configuration Options"
+    <MethodCard
+        id="observer-options"
+        methodName="Configuration Options"
             signature="{ root, rootMargin, threshold }"
             description="Fine-tune when callback fires"
             mutates={false}
@@ -235,78 +234,93 @@ import ProTip from '../../components/visual-js/ProTip.astro';
                 <div>💡 <strong>Common configs:</strong> Lazy loading → <code class="bg-slate-800 px-1 py-0.5 rounded">rootMargin: '200px'</code> to preload. Animations → <code class="bg-slate-800 px-1 py-0.5 rounded">threshold: 0.2</code> so 20% is visible first.</div>
             </ProTip>
         </MethodCard>
-    </div>
 
     <!-- ============================================ -->
     <!-- 🎨 Common Patterns -->
     <!-- ============================================ -->
 
-    <h2 id="patterns" class="text-purple-300 text-xl my-4 pb-2 border-b-2 border-purple-600">
+    <SectionTitle id="patterns" color="purple">
         🎨 Common FED Patterns
-    </h2>
+    </SectionTitle>
 
-    <div id="lazy-loading">
-        <MethodCard
-            methodName="1. Lazy Load Images"
-            signature="Load images only when visible"
-            description="Save bandwidth, improve page load"
-            mutates={false}
-        >
-            <div class="p-6 bg-gray-800 rounded space-y-4">
-                <!-- HTML -->
-                <div class="bg-slate-700 border border-slate-600 rounded p-4">
-                    <div class="text-slate-300 font-mono text-[11px] space-y-1">
-                        <div class="text-yellow-400 mb-2">HTML:</div>
-                        <div>&lt;img data-src="large-image.jpg" alt="Description" class="lazy-img"&gt;</div>
-                    </div>
-                </div>
-
-                <!-- JavaScript -->
-                <div class="bg-blue-500/20 border border-blue-400 rounded p-4">
-                    <div class="text-blue-300 font-mono text-[11px] space-y-1">
-                        <div class="text-yellow-400 mb-2">JavaScript:</div>
-                        <div>const imageObserver = new IntersectionObserver((entries) => {`{`}</div>
-                        <div>&nbsp;&nbsp;entries.forEach(entry => {`{`}</div>
-                        <div>&nbsp;&nbsp;&nbsp;&nbsp;if (entry.isIntersecting) {`{`}</div>
-                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const img = entry.target;</div>
-                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;img.src = img.dataset.src; <span class="text-gray-400">// Load actual image</span></div>
-                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;img.classList.remove('lazy-img');</div>
-                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;imageObserver.unobserve(img);</div>
-                        <div>&nbsp;&nbsp;&nbsp;&nbsp;{'}'}</div>
-                        <div>&nbsp;&nbsp;{'}'})</div>
-                        <div>{'}'}, {`{`}</div>
-                        <div>&nbsp;&nbsp;rootMargin: '200px' <span class="text-gray-400">// Start loading before visible</span></div>
-                        <div>{'}'})</div>
-                        <div></div>
-                        <div>document.querySelectorAll('.lazy-img').forEach(img => {`{`}</div>
-                        <div>&nbsp;&nbsp;imageObserver.observe(img);</div>
-                        <div>{'}'})</div>
-                    </div>
-                </div>
-
-                <!-- With loading placeholder -->
-                <div class="bg-green-500/20 border border-green-500 rounded p-4">
-                    <div class="text-green-300 font-mono text-[11px] space-y-1">
-                        <div class="text-yellow-400 mb-2">With blur-up placeholder:</div>
-                        <div>img.src = img.dataset.src;</div>
-                        <div>img.onload = () => img.classList.add('loaded');</div>
-                        <div></div>
-                        <div><span class="text-gray-400">/* CSS */</span></div>
-                        <div>.lazy-img {`{`} filter: blur(10px); {'}'}</div>
-                        <div>.lazy-img.loaded {`{`} filter: blur(0); transition: filter 0.3s; {'}'}</div>
-                    </div>
+    <MethodCard
+        id="fade-in-animation"
+        methodName="1. Fade-In Animations"
+        signature="Reveal content as user scrolls"
+        description="Most common use case for smooth UX"
+        mutates={false}
+    >
+        <div class="p-6 bg-gray-800 rounded space-y-4">
+            <!-- HTML -->
+            <div class="bg-slate-700 border border-slate-600 rounded p-4">
+                <div class="text-slate-300 font-mono text-[11px] space-y-1">
+                    <div class="text-yellow-400 mb-2">HTML:</div>
+                    <div>&lt;div class="fade-in"&gt;Content here&lt;/div&gt;</div>
                 </div>
             </div>
 
-            <ProTip>
-                <div>💡 <strong>Native lazy loading:</strong> Modern browsers support <code class="bg-slate-800 px-1 py-0.5 rounded">&lt;img loading="lazy"&gt;</code> but Intersection Observer gives you more control.</div>
-            </ProTip>
-        </MethodCard>
-    </div>
+            <!-- JavaScript -->
+            <div class="bg-green-500/20 border border-green-500 rounded p-4">
+                <div class="text-green-300 font-mono text-[11px] space-y-1">
+                    <div class="text-yellow-400 mb-2">JavaScript:</div>
+                    <div>const fadeObserver = new IntersectionObserver((entries) => {`{`}</div>
+                    <div>&nbsp;&nbsp;entries.forEach(entry => {`{`}</div>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;if (entry.isIntersecting) {`{`}</div>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;entry.target.classList.add('visible');</div>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fadeObserver.unobserve(entry.target); <span class="text-gray-400">// Animate once</span></div>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;{'}'}</div>
+                    <div>&nbsp;&nbsp;{'}'})</div>
+                    <div>{'}'}, {`{`}</div>
+                    <div>&nbsp;&nbsp;threshold: 0.2 <span class="text-gray-400">// Trigger when 20% visible</span></div>
+                    <div>{'}'})</div>
+                    <div></div>
+                    <div>document.querySelectorAll('.fade-in').forEach(el => {`{`}</div>
+                    <div>&nbsp;&nbsp;fadeObserver.observe(el);</div>
+                    <div>{'}'})</div>
+                </div>
+            </div>
 
-    <div id="infinite-scroll">
-        <MethodCard
-            methodName="2. Infinite Scroll"
+            <!-- CSS -->
+            <div class="bg-blue-500/20 border border-blue-400 rounded p-4">
+                <div class="text-blue-300 font-mono text-[11px] space-y-1">
+                    <div class="text-yellow-400 mb-2">CSS:</div>
+                    <div>.fade-in {`{`}</div>
+                    <div>&nbsp;&nbsp;opacity: 0;</div>
+                    <div>&nbsp;&nbsp;transform: translateY(20px);</div>
+                    <div>&nbsp;&nbsp;transition: opacity 0.6s ease-out, transform 0.6s ease-out;</div>
+                    <div>{'}'}</div>
+                    <div></div>
+                    <div>.fade-in.visible {`{`}</div>
+                    <div>&nbsp;&nbsp;opacity: 1;</div>
+                    <div>&nbsp;&nbsp;transform: translateY(0);</div>
+                    <div>{'}'}</div>
+                </div>
+            </div>
+
+            <!-- Variations -->
+            <div class="bg-purple-500/20 border border-purple-400 rounded p-4">
+                <div class="text-purple-300 font-mono text-[11px] space-y-1">
+                    <div class="text-yellow-400 mb-2">Other animation variations:</div>
+                    <div><span class="text-gray-400">/* Slide from left */</span></div>
+                    <div>.slide-left {`{`} transform: translateX(-50px); {'}'}</div>
+                    <div></div>
+                    <div><span class="text-gray-400">/* Slide from right */</span></div>
+                    <div>.slide-right {`{`} transform: translateX(50px); {'}'}</div>
+                    <div></div>
+                    <div><span class="text-gray-400">/* Zoom in */</span></div>
+                    <div>.zoom-in {`{`} transform: scale(0.8); {'}'}</div>
+                    <div></div>
+                    <div><span class="text-gray-400">/* Same .visible class works for all */</span></div>
+                </div>
+            </div>
+        </div>
+
+        <ProTip>
+            <div>💡 <strong>Performance tip:</strong> CSS transitions are GPU-accelerated. Let CSS handle the animation, JavaScript just adds the class.</div>
+        </ProTip>
+    </MethodCard>    <MethodCard
+        id="infinite-scroll"
+        methodName="2. Infinite Scroll"
             signature="Load more content at bottom"
             description="Pagination without page reloads"
             mutates={false}
@@ -356,84 +370,82 @@ import ProTip from '../../components/visual-js/ProTip.astro';
                 <div>💡 <strong>UX tip:</strong> Use <code class="bg-slate-800 px-1 py-0.5 rounded">rootMargin: '200px'</code> so content loads <em>before</em> user reaches the bottom. Feels instant!</div>
             </ProTip>
         </MethodCard>
-    </div>
 
-    <div id="scroll-animations">
-        <MethodCard
-            methodName="3. Scroll-triggered Animations"
-            signature="Fade in, slide in, etc."
-            description="Reveal content as user scrolls"
-            mutates={false}
-        >
-            <div class="p-6 bg-gray-800 rounded space-y-4">
-                <!-- Multiple animation types -->
-                <div class="bg-green-500/20 border border-green-500 rounded p-4">
-                    <div class="text-green-300 font-mono text-[11px] space-y-1">
-                        <div class="text-yellow-400 mb-2">JavaScript (one observer for all):</div>
-                        <div>const animateObserver = new IntersectionObserver((entries) => {`{`}</div>
-                        <div>&nbsp;&nbsp;entries.forEach(entry => {`{`}</div>
-                        <div>&nbsp;&nbsp;&nbsp;&nbsp;if (entry.isIntersecting) {`{`}</div>
-                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;entry.target.classList.add('animate');</div>
-                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;animateObserver.unobserve(entry.target);</div>
-                        <div>&nbsp;&nbsp;&nbsp;&nbsp;{'}'}</div>
-                        <div>&nbsp;&nbsp;{'}'})</div>
-                        <div>{'}'}, {`{`}</div>
-                        <div>&nbsp;&nbsp;threshold: 0.2 <span class="text-gray-400">// Trigger when 20% visible</span></div>
-                        <div>{'}'})</div>
-                        <div></div>
-                        <div>document.querySelectorAll('.fade-in, .slide-in, .zoom-in').forEach(el => {`{`}</div>
-                        <div>&nbsp;&nbsp;animateObserver.observe(el);</div>
-                        <div>{'}'})</div>
-                    </div>
-                </div>
-
-                <!-- CSS -->
-                <div class="bg-blue-500/20 border border-blue-400 rounded p-4">
-                    <div class="text-blue-300 font-mono text-[11px] space-y-1">
-                        <div class="text-yellow-400 mb-2">CSS:</div>
-                        <div>.fade-in {`{`}</div>
-                        <div>&nbsp;&nbsp;opacity: 0;</div>
-                        <div>&nbsp;&nbsp;transition: opacity 0.6s;</div>
-                        <div>{'}'}</div>
-                        <div>.fade-in.animate {`{`} opacity: 1; {'}'}</div>
-                        <div></div>
-                        <div>.slide-in {`{`}</div>
-                        <div>&nbsp;&nbsp;opacity: 0;</div>
-                        <div>&nbsp;&nbsp;transform: translateX(-50px);</div>
-                        <div>&nbsp;&nbsp;transition: all 0.6s;</div>
-                        <div>{'}'}</div>
-                        <div>.slide-in.animate {`{`} opacity: 1; transform: translateX(0); {'}'}</div>
-                        <div></div>
-                        <div>.zoom-in {`{`}</div>
-                        <div>&nbsp;&nbsp;opacity: 0;</div>
-                        <div>&nbsp;&nbsp;transform: scale(0.8);</div>
-                        <div>&nbsp;&nbsp;transition: all 0.6s;</div>
-                        <div>{'}'}</div>
-                        <div>.zoom-in.animate {`{`} opacity: 1; transform: scale(1); {'}'}</div>
-                    </div>
-                </div>
-
-                <!-- Stagger animations -->
-                <div class="bg-purple-500/20 border border-purple-400 rounded p-4">
-                    <div class="text-purple-300 font-mono text-[11px] space-y-1">
-                        <div class="text-yellow-400 mb-2">Stagger animations (delay each item):</div>
-                        <div>document.querySelectorAll('.stagger-item').forEach((el, index) => {`{`}</div>
-                        <div>&nbsp;&nbsp;el.style.transitionDelay = `${'{'}index * 0.1{'}'}s`;</div>
-                        <div>&nbsp;&nbsp;animateObserver.observe(el);</div>
-                        <div>{'}'})</div>
-                    </div>
+    <MethodCard
+        id="scroll-animations"
+        methodName="3. Staggered Animations"
+        signature="Animate lists with delays"
+        description="Create cascading reveal effects"
+        mutates={false}
+    >
+        <div class="p-6 bg-gray-800 rounded space-y-4">
+            <!-- Multiple animation types -->
+            <div class="bg-green-500/20 border border-green-500 rounded p-4">
+                <div class="text-green-300 font-mono text-[11px] space-y-1">
+                    <div class="text-yellow-400 mb-2">JavaScript (one observer for all):</div>
+                    <div>const animateObserver = new IntersectionObserver((entries) => {`{`}</div>
+                    <div>&nbsp;&nbsp;entries.forEach(entry => {`{`}</div>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;if (entry.isIntersecting) {`{`}</div>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;entry.target.classList.add('animate');</div>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;animateObserver.unobserve(entry.target);</div>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;{'}'}</div>
+                    <div>&nbsp;&nbsp;{'}'})</div>
+                    <div>{'}'}, {`{`}</div>
+                    <div>&nbsp;&nbsp;threshold: 0.2 <span class="text-gray-400">// Trigger when 20% visible</span></div>
+                    <div>{'}'})</div>
+                    <div></div>
+                    <div>document.querySelectorAll('.fade-in, .slide-in, .zoom-in').forEach(el => {`{`}</div>
+                    <div>&nbsp;&nbsp;animateObserver.observe(el);</div>
+                    <div>{'}'})</div>
                 </div>
             </div>
 
-            <ProTip>
-                <div>💡 <strong>Performance:</strong> CSS transitions are GPU-accelerated. Let CSS do the animation, use JS only to add the class.</div>
-            </ProTip>
-        </MethodCard>
-    </div>
+            <!-- CSS -->
+            <div class="bg-blue-500/20 border border-blue-400 rounded p-4">
+                <div class="text-blue-300 font-mono text-[11px] space-y-1">
+                    <div class="text-yellow-400 mb-2">CSS:</div>
+                    <div>.fade-in {`{`}</div>
+                    <div>&nbsp;&nbsp;opacity: 0;</div>
+                    <div>&nbsp;&nbsp;transition: opacity 0.6s;</div>
+                    <div>{'}'}</div>
+                    <div>.fade-in.animate {`{`} opacity: 1; {'}'}</div>
+                    <div></div>
+                    <div>.slide-in {`{`}</div>
+                    <div>&nbsp;&nbsp;opacity: 0;</div>
+                    <div>&nbsp;&nbsp;transform: translateX(-50px);</div>
+                    <div>&nbsp;&nbsp;transition: all 0.6s;</div>
+                    <div>{'}'}</div>
+                    <div>.slide-in.animate {`{`} opacity: 1; transform: translateX(0); {'}'}</div>
+                    <div></div>
+                    <div>.zoom-in {`{`}</div>
+                    <div>&nbsp;&nbsp;opacity: 0;</div>
+                    <div>&nbsp;&nbsp;transform: scale(0.8);</div>
+                    <div>&nbsp;&nbsp;transition: all 0.6s;</div>
+                    <div>{'}'}</div>
+                    <div>.zoom-in.animate {`{`} opacity: 1; transform: scale(1); {'}'}</div>
+                </div>
+            </div>
 
-    <div id="video-autoplay">
-        <MethodCard
-            methodName="4. Pause Videos When Offscreen"
+            <!-- Stagger animations -->
+            <div class="bg-purple-500/20 border border-purple-400 rounded p-4">
+                <div class="text-purple-300 font-mono text-[11px] space-y-1">
+                    <div class="text-yellow-400 mb-2">Stagger animations (delay each item):</div>
+                    <div>document.querySelectorAll('.stagger-item').forEach((el, index) => {`{`}</div>
+                    <div>&nbsp;&nbsp;el.style.transitionDelay = `${'{'}index * 0.1{'}'}s`;</div>
+                    <div>&nbsp;&nbsp;animateObserver.observe(el);</div>
+                    <div>{'}'})</div>
+                </div>
+            </div>
+        </div>
+
+        <ProTip>
+            <div>💡 <strong>Performance:</strong> CSS transitions are GPU-accelerated. Let CSS do the animation, use JS only to add the class.</div>
+        </ProTip>
+    </MethodCard>
+
+    <MethodCard
+        id="video-autoplay"
+        methodName="4. Pause Videos When Offscreen"
             signature="Save bandwidth & battery"
             description="Auto-pause when scrolled away"
             mutates={false}
@@ -468,11 +480,10 @@ import ProTip from '../../components/visual-js/ProTip.astro';
                 <div>💡 <strong>Respect user preference:</strong> Check if video has <code class="bg-slate-800 px-1 py-0.5 rounded">autoplay</code> attribute before auto-playing.</div>
             </ProTip>
         </MethodCard>
-    </div>
 
-    <div id="analytics">
-        <MethodCard
-            methodName="5. Track Element Views (Analytics)"
+    <MethodCard
+        id="analytics"
+        methodName="5. Track Element Views (Analytics)"
             signature="Know what users actually see"
             description="Better than pageview tracking"
             mutates={false}
@@ -534,19 +545,18 @@ import ProTip from '../../components/visual-js/ProTip.astro';
                 <div>💡 <strong>Privacy:</strong> This is more privacy-friendly than scroll tracking since you only know what was <em>seen</em>, not exact behavior.</div>
             </ProTip>
         </MethodCard>
-    </div>
 
     <!-- ============================================ -->
     <!-- 🛠️ Cleanup & Performance -->
     <!-- ============================================ -->
 
-    <h2 id="cleanup" class="text-red-300 text-xl my-4 pb-2 border-b-2 border-red-600">
+    <SectionTitle id="cleanup" color="red">
         🛠️ Cleanup & Performance
-    </h2>
+    </SectionTitle>
 
-    <div id="cleanup-patterns">
-        <MethodCard
-            methodName="Proper Cleanup"
+    <MethodCard
+        id="cleanup-patterns"
+        methodName="Proper Cleanup"
             signature="disconnect(), unobserve()"
             description="Prevent memory leaks"
             mutates={false}
@@ -602,19 +612,18 @@ import ProTip from '../../components/visual-js/ProTip.astro';
                 <div>💡 <strong>Memory leak prevention:</strong> Always disconnect observers when removing elements from DOM or unmounting components.</div>
             </ProTip>
         </MethodCard>
-    </div>
 
     <!-- ============================================ -->
     <!-- 🎯 Quick Reference -->
     <!-- ============================================ -->
 
-    <h2 id="reference" class="text-yellow-300 text-xl my-4 pb-2 border-b-2 border-yellow-600">
+    <SectionTitle id="reference" color="yellow">
         🎯 Quick Reference
-    </h2>
+    </SectionTitle>
 
-    <div id="cheatsheet">
-        <MethodCard
-            methodName="Cheat Sheet"
+    <MethodCard
+        id="cheatsheet"
+        methodName="Cheat Sheet"
             signature="Common patterns at a glance"
             description="Copy-paste ready"
             mutates={false}
@@ -652,6 +661,55 @@ import ProTip from '../../components/visual-js/ProTip.astro';
                 </div>
             </div>
         </MethodCard>
-    </div>
 
-</Layout>
+    <Fragment slot="page-nav">
+        <ul class="space-y-2 text-xs">
+            <li>
+                <a href="#use-cases" class="text-cyan-300 font-semibold hover:text-cyan-200 block py-1">🎯 Best Use Cases</a>
+                <ul class="ml-3 mt-1 space-y-1 border-l-2 border-cyan-500/30 pl-2">
+                    <li><a href="#when-to-use" class="text-gray-300 hover:text-blue-400 block">When to use</a></li>
+                </ul>
+            </li>
+
+            <li class="mt-4">
+                <a href="#quick-start" class="text-green-300 font-semibold hover:text-green-200 block py-1">🚀 Quick Start</a>
+                <ul class="ml-3 mt-1 space-y-1 border-l-2 border-green-500/30 pl-2">
+                    <li><a href="#basic-setup" class="text-gray-300 hover:text-blue-400 block">Basic Setup</a></li>
+                </ul>
+            </li>
+
+            <li class="mt-4">
+                <a href="#options" class="text-orange-300 font-semibold hover:text-orange-200 block py-1">⚙️ Options</a>
+                <ul class="ml-3 mt-1 space-y-1 border-l-2 border-orange-500/30 pl-2">
+                    <li><a href="#observer-options" class="text-gray-300 hover:text-blue-400 block">Configuration</a></li>
+                </ul>
+            </li>
+
+            <li class="mt-4">
+                <a href="#patterns" class="text-purple-300 font-semibold hover:text-purple-200 block py-1">🎨 Common Patterns</a>
+                <ul class="ml-3 mt-1 space-y-1 border-l-2 border-purple-500/30 pl-2">
+                    <li><a href="#fade-in-animation" class="text-gray-300 hover:text-blue-400 block">Fade-In Animations</a></li>
+                    <li><a href="#infinite-scroll" class="text-gray-300 hover:text-blue-400 block">Infinite Scroll</a></li>
+                    <li><a href="#scroll-animations" class="text-gray-300 hover:text-blue-400 block">Staggered Animations</a></li>
+                    <li><a href="#video-autoplay" class="text-gray-300 hover:text-blue-400 block">Pause Videos</a></li>
+                    <li><a href="#analytics" class="text-gray-300 hover:text-blue-400 block">Track Views</a></li>
+                </ul>
+            </li>
+
+            <li class="mt-4">
+                <a href="#cleanup" class="text-red-300 font-semibold hover:text-red-200 block py-1">🛠️ Cleanup & Performance</a>
+                <ul class="ml-3 mt-1 space-y-1 border-l-2 border-red-500/30 pl-2">
+                    <li><a href="#cleanup-patterns" class="text-gray-300 hover:text-blue-400 block">Proper Cleanup</a></li>
+                </ul>
+            </li>
+
+            <li class="mt-4">
+                <a href="#reference" class="text-yellow-300 font-semibold hover:text-yellow-200 block py-1">🎯 Quick Reference</a>
+                <ul class="ml-3 mt-1 space-y-1 border-l-2 border-yellow-500/30 pl-2">
+                    <li><a href="#cheatsheet" class="text-gray-300 hover:text-blue-400 block">Cheat Sheet</a></li>
+                </ul>
+            </li>
+        </ul>
+    </Fragment>
+
+</VisualLayout>
