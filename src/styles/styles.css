@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
-@plugin "@tailwindcss/forms";
+/* @plugin "@tailwindcss/forms"; */
 @import "./spacing.css";
 @import "./colours.css";
+@import '../components/forms/_forms.css';

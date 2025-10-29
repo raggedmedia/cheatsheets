@@ -1,0 +1,31 @@
+---
+import TextInput from "~components/forms/TextInput.astro";
+import Layout from "~layouts/Layout.astro";
+
+export const prerender = false;
+---
+
+<Layout pageTitle="Register">
+    <div class="mx-auto w-96">
+        <div class="prose">
+            <h1>Register</h1>
+            <p>
+                Already have an account? <a href="/signin" class="btn"
+                    >Sign in</a
+                >
+            </p>
+        </div>
+        <form
+            action="/api/auth/register"
+            method="post"
+            class="flex flex-col gap-4"
+        >
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" />
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" />
+            <button type="submit" class="btn">Register</button>
+            <TextInput type="email" id="email" name="email" label="Email" />
+        </form>
+    </div>
+</Layout>
