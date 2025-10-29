@@ -1,0 +1,75 @@
+/* Shared form control styles */
+.form-group {
+    margin-bottom: var(--spacing-16);
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+    width: 100%;
+    padding: var(--spacing-8) var(--spacing-12);
+    background: var(--color-white);
+    border: 1px solid var(--color-gray-300);
+    border-radius: var(--spacing-6);
+    color: var(--color-gray-900);
+    font-size: var(--spacing-14);
+    transition: border-color 0.2s;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+    outline: none;
+    border-color: var(--color-blue-500);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.form-input:invalid,
+.form-textarea:invalid {
+    border-color: var(--color-red-400);
+}
+
+.form-textarea {
+    font-family: inherit;
+    resize: vertical;
+}
+
+.form-select {
+    cursor: pointer;
+}
+
+/* Checkbox and radio controls */
+.form-checkbox,
+.form-radio {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: var(--spacing-12);
+}
+
+.checkbox-input,
+.radio-input {
+    width: var(--spacing-16);
+    height: var(--spacing-16);
+    margin-top: var(--spacing-2);
+    margin-right: var(--spacing-8);
+    accent-color: var(--color-blue-500);
+    cursor: pointer;
+}
+
+.checkbox-input:focus,
+.radio-input:focus {
+    outline: 2px solid var(--color-blue-500);
+    outline-offset: 2px;
+}
+
+/* Fieldset styles */
+.form-fieldset {
+    border: 1px solid var(--color-gray-300);
+    border-radius: var(--spacing-6);
+    padding: var(--spacing-16);
+    margin-bottom: var(--spacing-16);
+}
+
+.fieldset-content {
+    margin-top: var(--spacing-12);
+}

@@ -1,0 +1,10 @@
+/* Import shared form styles */
+@import './_label.css';
+@import './_helper-text.css';
+@import './_form-controls.css';
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+}
