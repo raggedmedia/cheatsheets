@@ -3,33 +3,19 @@ interface Props {
     id: string;
     name: string;
     label: string;
-    type?: "text" | "tel" | "url" | "search";
     required?: boolean;
     placeholder?: string;
     autocomplete?: string;
-    pattern?: string;
-    minlength?: number;
-    maxlength?: number;
-    helperText?: string;
-    errorText?: string;
 }
 
 const {
     id,
     name,
     label,
-    type = "text",
     required = false,
     placeholder,
-    autocomplete,
-    pattern,
-    minlength,
-    maxlength,
-    helperText,
-    errorText,
+    autocomplete = "email",
 } = Astro.props;
----
-
 ---
 
 <div class="form-group">
@@ -45,25 +31,22 @@ const {
     </label>
 
     <input
-        type={type}
+        type="email"
         id={id}
         name={name}
         class="form-input"
         required={required}
         placeholder={placeholder}
         autocomplete={autocomplete}
-        pattern={pattern}
-        minlength={minlength}
-        maxlength={maxlength}
-        aria-describedby={helperText || errorText ? `${id}-help` : undefined}
+        aria-describedby={`${id}-help`}
         aria-invalid="false"
     />
 
-    {
-        (helperText || errorText) && (
-            <div id={`${id}-help`} class="form-help-text">
-                {helperText || errorText}
-            </div>
-        )
-    }
+    <div id={`${id}-help`} class="form-help-text email-help-text">
+        Please enter a valid email address
+    </div>
 </div>
+
+<style>
+    /* Component-specific styles only - shared styles are in _forms.css */
+</style>

@@ -1,5 +1,6 @@
 ---
-import TextInput from "~components/forms/TextInput.astro";
+import EmailInput from "~components/forms/EmailInput.astro";
+import PasswordInput from "~components/forms/PasswordInput.astro";
 import Layout from "~layouts/Layout.astro";
 
 export const prerender = false;
@@ -18,14 +19,24 @@ export const prerender = false;
         <form
             action="/api/auth/register"
             method="post"
-            class="flex flex-col gap-4"
+            id="register-form"
+            data-validate
         >
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" />
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" />
-            <button type="submit" class="btn">Register</button>
-            <TextInput type="email" id="email" name="email" label="Email" />
+            <EmailInput id="email" name="email" label="Email" required={true} />
+            <PasswordInput
+                id="password"
+                name="password"
+                label="Password"
+                required={true}
+                autocomplete="new-password"
+                minlength={10}
+                helperText="At least 10 characters with a mix of lowercase, uppercase, digits, and symbols."
+            />
+            <button type="submit" class="btn form-button" disabled
+                >Register</button
+            >
         </form>
     </div>
 </Layout>
+
+<script src="~components/forms/form-validation.ts"></script>

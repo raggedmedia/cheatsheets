@@ -1,42 +1,45 @@
 ﻿---
-import StyleguideLayout from '~layouts/StyleguideLayout.astro';
-import AccordionItem from '~/sections/TextAccordion/AccordionItem.astro';
-import Blockquote from '~/sections/Blockquote/Blockquote.astro';
-import Icon from '~/2-core-elements/Icon/Icon.astro';
+import StyleguideLayout from "~layouts/StyleguideLayout.astro";
+import AccordionItem from "~sections/TextAccordion/AccordionItem.astro";
+import Blockquote from "~sections/Blockquote/Blockquote.astro";
+import Icon from "~2-core-elements/Icon/Icon.astro";
 
 export const prerender = false; // never build these pages statically, always use SRR
 
 const exampleAccordionItems = [
     {
-        title: 'Why do you never see elephants hiding in trees?',
+        title: "Why do you never see elephants hiding in trees?",
         content: {
             images: [],
             linkedItemCodenames: [],
             linkedItems: [],
             links: [],
-            name: 'Content',
-            type: 'rich_text',
-            value: '<p><strong>Because they\'re so good at! </strong><br>\n' +
-                '<br>\n' +
-                'Eveniet ullam porro perspiciatis nulla nostrum? Ab aut repellendus, similique omnis harum aspernatur, ratione quae quaerat, temporibus magnam recusandae labore magni corrupti.</p>',
+            name: "Content",
+            type: "rich_text",
+            value:
+                "<p><strong>Because they're so good at! </strong><br>\n" +
+                "<br>\n" +
+                "Eveniet ullam porro perspiciatis nulla nostrum? Ab aut repellendus, similique omnis harum aspernatur, ratione quae quaerat, temporibus magnam recusandae labore magni corrupti.</p>",
         },
     },
     {
-        title: 'What do you call someone with no body and no nose?',
+        title: "What do you call someone with no body and no nose?",
         content: {
             images: [],
             linkedItemCodenames: [],
             linkedItems: [],
             links: [],
-            name: 'Content',
-            type: 'rich_text',
-            value: '<p><strong>Nobody knows!</strong><br>\n' +
-                '<br>\n' +
-                'Eveniet ullam porro perspiciatis nulla nostrum? Ab aut repellendus, similique omnis harum aspernatur, ratione quae quaerat, temporibus magnam recusandae labore magni corrupti.</p>',
+            name: "Content",
+            type: "rich_text",
+            value:
+                "<p><strong>Nobody knows!</strong><br>\n" +
+                "<br>\n" +
+                "Eveniet ullam porro perspiciatis nulla nostrum? Ab aut repellendus, similique omnis harum aspernatur, ratione quae quaerat, temporibus magnam recusandae labore magni corrupti.</p>",
         },
-    }
+    },
 ];
 ---
+
 <StyleguideLayout>
     <!-- Metatags -->
     <title slot="meta-tags">Accordion - Actuaries</title>
@@ -59,7 +62,10 @@ const exampleAccordionItems = [
         </div>
     </div>
     <div class="container">
-        <AccordionItem title={exampleAccordionItems[0].title} content={exampleAccordionItems[0].content} />
+        <AccordionItem
+            title={exampleAccordionItems[0].title}
+            content={exampleAccordionItems[0].content}
+        />
     </div>
 
     <div class="container">
@@ -72,12 +78,15 @@ const exampleAccordionItems = [
     <div class="container">
         <AccordionItem title={exampleAccordionItems[0].title}>
             <Blockquote quote="This is a prose" author="Some author" />
-            <p><strong>Because they're so good at! </strong><br>
-                <br>
-                    Eveniet ullam porro perspiciatis nulla nostrum? Ab aut repellendus, similique omnis harum aspernatur, ratione quae quaerat, temporibus magnam recusandae labore magni corrupti.</p>
+            <p>
+                <strong>Because they're so good at! </strong><br />
+                <br />
+                Eveniet ullam porro perspiciatis nulla nostrum? Ab aut repellendus,
+                similique omnis harum aspernatur, ratione quae quaerat, temporibus
+                magnam recusandae labore magni corrupti.
+            </p>
         </AccordionItem>
     </div>
-
 
     <div class="container">
         <div class="tw-prose tw-my-12">
@@ -88,32 +97,52 @@ const exampleAccordionItems = [
         </div>
     </div>
     <div class="container">
-        <AccordionItem isExpanded={true} title="This accordion is expanded by default" content={exampleAccordionItems[1].content} />
+        <AccordionItem
+            isExpanded={true}
+            title="This accordion is expanded by default"
+            content={exampleAccordionItems[1].content}
+        />
     </div>
-
 
     <div class="container">
         <div class="tw-prose tw-my-12">
-            <p><code>slot='title-prefix'</code> - sets text (or anything you put in this slot) as a prefix to the title, in this example it's text </p>
+            <p>
+                <code>slot='title-prefix'</code> - sets text (or anything you put
+                in this slot) as a prefix to the title, in this example it's text
+            </p>
         </div>
     </div>
     <div class="container">
-        <AccordionItem isExpanded={true} title="This accordion is expanded by default" content={exampleAccordionItems[1].content}>
+        <AccordionItem
+            isExpanded={true}
+            title="This accordion is expanded by default"
+            content={exampleAccordionItems[1].content}
+        >
             <Fragment slot="title-prefix">This is a title prefix - </Fragment>
         </AccordionItem>
     </div>
 
-
     <div class="container">
         <div class="tw-prose tw-my-12">
-            <p><code>slot='title-prefix'</code> - in this example it's an icon</p>
+            <p>
+                <code>slot='title-prefix'</code> - in this example it's an icon
+            </p>
         </div>
-
     </div>
 
     <div class="container">
-        <AccordionItem isExpanded={true} title="This accordion is expanded by default" content={exampleAccordionItems[1].content}>
-            <Fragment slot="title-prefix"><Icon icon="check" iconSize="lg" iconPadding={true} /></Fragment>
+        <AccordionItem
+            isExpanded={true}
+            title="This accordion is expanded by default"
+            content={exampleAccordionItems[1].content}
+        >
+            <Fragment slot="title-prefix"
+                ><Icon
+                    icon="check"
+                    iconSize="lg"
+                    iconPadding={true}
+                /></Fragment
+            >
         </AccordionItem>
     </div>
 </StyleguideLayout>

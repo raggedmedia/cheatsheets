@@ -1,4 +1,6 @@
 ---
+import EmailInput from "~components/forms/EmailInput.astro";
+import PasswordInput from "~components/forms/PasswordInput.astro";
 import Layout from "~layouts/Layout.astro";
 
 const { cookies, redirect } = Astro;
@@ -23,12 +25,25 @@ export const prerender = false;
             action="/api/auth/signin"
             method="post"
             class="flex flex-col gap-4"
+            id="signin-form"
+            data-validate
         >
-            <label for="email"> Email </label>
-            <input type="email" name="email" id="email" />
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" />
-            <button type="submit">Login</button>
+            <EmailInput
+                id="signin-email"
+                name="email"
+                label="Email"
+                required={true}
+            />
+            <PasswordInput
+                id="signin-password"
+                name="password"
+                label="Password"
+                required={true}
+                autocomplete="current-password"
+            />
+            <button type="submit" class="form-button" disabled>Login</button>
         </form>
     </div>
 </Layout>
+
+<script src="~components/forms/form-validation.ts"></script>

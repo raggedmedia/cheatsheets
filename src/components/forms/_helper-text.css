@@ -12,8 +12,42 @@
     color: var(--color-gray-600);
 }
 
-/* Error state for helper text */
-.form-input:invalid ~ .form-help-text,
-.form-textarea:invalid ~ .form-help-text {
+/* Email helper text - hidden by default, only shown when invalid */
+.email-help-text {
+    display: none;
+}
+
+/* Password helper text - hidden by default, only shown when invalid */
+.password-help-text {
+    display: none;
+}
+
+/* Password error text - hidden by default */
+.password-error-text {
+    display: none;
+}
+
+/* Error state for helper text - only show after interaction */
+.form-input.touched:invalid ~ .form-help-text,
+.form-textarea.touched:invalid ~ .form-help-text {
+    color: var(--color-red-400);
+}
+
+/* Show email helper text only when invalid and touched */
+.form-input.touched:invalid ~ .email-help-text {
+    display: block;
+    color: var(--color-red-400);
+}
+
+/* Show password helper text only when valid or not touched yet */
+.form-input:not(.touched) ~ .password-help-text,
+.form-input.touched:valid ~ .password-help-text {
+    display: block;
+    color: var(--color-gray-600);
+}
+
+/* Show password error text only when invalid and touched */
+.form-input.touched:invalid ~ .password-error-text {
+    display: block;
     color: var(--color-red-400);
 }

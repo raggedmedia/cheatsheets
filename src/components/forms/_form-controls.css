@@ -1,8 +1,4 @@
 /* Shared form control styles */
-.form-group {
-    margin-bottom: var(--spacing-16);
-}
-
 .form-input,
 .form-select,
 .form-textarea {
@@ -24,8 +20,9 @@
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
-.form-input:invalid,
-.form-textarea:invalid {
+/* Only show invalid styles after user interaction */
+.form-input.touched:invalid,
+.form-textarea.touched:invalid {
     border-color: var(--color-red-400);
 }
 
@@ -72,4 +69,27 @@
 
 .fieldset-content {
     margin-top: var(--spacing-12);
+}
+
+/* Button styles */
+.form-button {
+    padding: var(--spacing-8) var(--spacing-16);
+    background: var(--color-blue-500);
+    color: var(--color-white);
+    border: none;
+    border-radius: var(--spacing-6);
+    font-size: var(--spacing-14);
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s, opacity 0.2s;
+}
+
+.form-button:hover:not(:disabled) {
+    background: var(--color-blue-600);
+}
+
+.form-button:disabled {
+    background: var(--color-gray-400);
+    cursor: not-allowed;
+    opacity: 0.6;
 }
