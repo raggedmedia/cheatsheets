@@ -1,0 +1,115 @@
+---
+
+---
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Astro</title>
+	</head>
+	<body>
+        <h1>Hello World - Auth0 Demo</h1>
+
+        <div id="auth-section">
+            <button id="login">Login with Auth0</button>
+            <button id="logout" style="display: none;">Logout</button>
+        </div>
+
+        <div id="user-info" style="display: none;">
+            <!-- User info will be populated here -->
+        </div>
+	</body>
+</html>
+
+<script>
+    import { initAuth0 } from '../lib/auth0-client.js';
+
+    let auth0Client = null;
+
+    // Initialize Auth0 when the page loads
+    document.addEventListener('DOMContentLoaded', async () => {
+        try {
+            auth0Client = await initAuth0();
+
+            // Check if we're returning from Auth0 (has code nay0uxd6FQE*abt*hvjand state in URL)
+            const query = window.location.search;
+            if (query.includes('code=') && query.includes('state=')) {
+                try {
+                    await auth0Client.handleRedirectCallback();
+                    // Clean up the URL
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                    // Get user info
+                    const user = await auth0Client.getUser();
+                    console.log('Logged in user:', user);
+                    updateUI(user);
+                } catch (error) {
+                    console.error('Error handling redirect callback:', error);
+                }
+            } else {
+                // Check if user is already authenticated
+                const isAuthenticated = await auth0Client.isAuthenticated();
+                if (isAuthenticated) {
+                    const user = await auth0Client.getUser();
+                    console.log('Already logged in:', user);
+                    updateUI(user);
+                }
+            }
+        } catch (error) {
+            console.error('Error initializing Auth0:', error);
+        }
+    });
+
+    // Login button click handler
+    document.getElementById('login')?.addEventListener('click', async () => {
+        if (!auth0Client) {
+            console.error('Auth0 client not initialized');
+            return;
+        }
+
+        try {
+            await auth0Client.loginWithRedirect();
+        } catch (error) {
+            console.error('Login error:', error);
+        }
+    });
+
+    // Logout button click handler
+    document.getElementById('logout')?.addEventListener('click', async () => {
+        if (!auth0Client) return;
+
+        try {
+            await auth0Client.logout({
+                logoutParams: {
+                    returnTo: window.location.origin
+                }
+            });
+        } catch (error) {
+            console.error('Logout error:', error);
+        }
+    });
+
+    // Update UI based on authentication status
+    function updateUI(user) {
+        const loginBtn = document.getElementById('login');
+        const logoutBtn = document.getElementById('logout');
+        const userInfo = document.getElementById('user-info');
+
+        if (user) {
+            loginBtn.style.display = 'none';
+            logoutBtn.style.display = 'block';
+            userInfo.style.display = 'block';
+            userInfo.innerHTML = `
+                <h2>Welcome!</h2>
+                <p>Email: ${user.email}</p>
+                <p>Name: ${user.name}</p>
+                <pre>${JSON.stringify(user, null, 2)}</pre>
+            `;
+        } else {
+            loginBtn.style.display = 'block';
+            logoutBtn.style.display = 'none';
+            userInfo.style.display = 'none';
+        }
+    }
+</script>

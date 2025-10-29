@@ -1,0 +1,298 @@
+---
+/**
+ * AccordionItem - Individual accordion item using <details>/<summary>
+ *
+ * Usage:
+ * <AccordionItem title="Click me">Content here</AccordionItem>
+ *
+ * Props:
+ * - title: The clickable header text
+ * - open: Start expanded (default: false)
+ * - name: Group name for exclusive accordions (closes others)
+ * - icon: Custom icon type (default: 'chevron')
+ * - variant: Visual style variant
+ */
+
+interface Props {
+    /**
+     * The accordion title/header
+     */
+    title: string;
+
+    /**
+     * Start in open state
+     */
+    open?: boolean;
+
+    /**
+     * Group name - accordions with same name close others when opened
+     * Uses native HTML 'name' attribute
+     */
+    name?: string;
+
+    /**
+     * Icon style for the toggle indicator
+     */
+    icon?: 'chevron' | 'plus-minus' | 'caret' | 'none';
+
+    /**
+     * Visual style variant
+     */
+    variant?: 'default' | 'bordered' | 'filled' | 'minimal';
+
+    /**
+     * Additional CSS classes
+     */
+    class?: string;
+}
+
+const {
+    title,
+    open = false,
+    name,
+    icon = 'chevron',
+    variant = 'default',
+    class: className = ''
+} = Astro.props;
+
+const detailsProps = {
+    class: `accordion-item accordion-item--${variant} accordion-item--icon-${icon} ${className}`,
+    ...(open && { open: true }),
+    ...(name && { name })
+};
+---
+
+<details {...detailsProps}>
+    <summary class="accordion-summary">
+        <div class="accordion-title">
+            <div class="accordion-title-text">
+                <slot name="title-prefix" />
+                <span>{title}</span>
+            </div>
+            <div class="accordion-icon" aria-hidden="true">
+                {icon === 'plus-minus' && (
+                    <>
+                        <svg class="icon-plus" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 3V13M3 8H13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <svg class="icon-minus" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3 8H13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </>
+                )}
+                {icon === 'chevron' && (
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                )}
+                {icon === 'caret' && (
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6 4L10 8L6 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                )}
+            </div>
+        </div>
+    </summary>
+    <div class="accordion-content">
+        <div class="accordion-content-inner">
+            <slot />
+        </div>
+    </div>
+</details>
+
+<style>
+    /* Base accordion item styles */
+    .accordion-item {
+        border-radius: 0.5rem;
+        transition: all 0.2s ease;
+    }
+
+    /* Summary (clickable header) */
+    .accordion-summary {
+        list-style: none;
+        cursor: pointer;
+        user-select: none;
+        padding: 1rem 1.25rem;
+        display: block;
+    }
+
+    /* Remove default marker */
+    .accordion-summary::-webkit-details-marker {
+        display: none;
+    }
+    .accordion-summary::marker {
+        display: none;
+    }
+
+    /* Title layout */
+    .accordion-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .accordion-title-text {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex: 1;
+        font-weight: 600;
+        font-size: 1rem;
+        line-height: 1.5;
+    }
+
+    /* Icon container */
+    .accordion-icon {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 1.5rem;
+        height: 1.5rem;
+        transition: transform 0.3s ease, color 0.2s ease;
+    }
+
+    /* Content wrapper */
+    .accordion-content {
+        overflow: hidden;
+        transition: height 0.3s ease-out;
+        height: 0;
+    }
+
+    .accordion-content-inner {
+        padding: 0 1.25rem 1.25rem 1.25rem;
+    }
+
+    /* Open state */
+    .accordion-item[open] .accordion-content {
+        height: auto;
+    }
+
+    /* ============================================ */
+    /* ICON ANIMATIONS */
+    /* ============================================ */
+
+    /* Chevron - rotates down when open */
+    .accordion-item--icon-chevron[open] .accordion-icon {
+        transform: rotate(180deg);
+    }
+
+    /* Caret - rotates right when open */
+    .accordion-item--icon-caret[open] .accordion-icon {
+        transform: rotate(90deg);
+    }
+
+    /* Plus/Minus - swaps icons */
+    .accordion-item--icon-plus-minus .icon-minus {
+        display: none;
+    }
+    .accordion-item--icon-plus-minus .icon-plus {
+        display: block;
+    }
+    .accordion-item--icon-plus-minus[open] .icon-minus {
+        display: block;
+    }
+    .accordion-item--icon-plus-minus[open] .icon-plus {
+        display: none;
+    }
+
+    /* No icon */
+    .accordion-item--icon-none .accordion-icon {
+        display: none;
+    }
+
+    /* ============================================ */
+    /* VARIANT STYLES */
+    /* ============================================ */
+
+    /* Default variant */
+    .accordion-item--default {
+        background: transparent;
+        border-bottom: 1px solid #e5e7eb;
+    }
+    .accordion-item--default:last-child {
+        border-bottom: none;
+    }
+    .accordion-item--default .accordion-summary:hover {
+        background: #f9fafb;
+    }
+
+    /* Bordered variant */
+    .accordion-item--bordered {
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+    }
+    .accordion-item--bordered .accordion-summary:hover {
+        background: #f9fafb;
+    }
+    .accordion-item--bordered[open] {
+        border-color: #3b82f6;
+    }
+
+    /* Filled variant */
+    .accordion-item--filled {
+        background: #f3f4f6;
+        border: 1px solid #e5e7eb;
+    }
+    .accordion-item--filled .accordion-summary:hover {
+        background: #e5e7eb;
+    }
+    .accordion-item--filled[open] {
+        background: #ffffff;
+        border-color: #3b82f6;
+    }
+
+    /* Minimal variant */
+    .accordion-item--minimal {
+        background: transparent;
+    }
+    .accordion-item--minimal .accordion-summary {
+        padding: 0.75rem 0;
+    }
+    .accordion-item--minimal .accordion-content-inner {
+        padding: 0.5rem 0 1rem 0;
+    }
+    .accordion-item--minimal .accordion-summary:hover .accordion-title-text {
+        color: #3b82f6;
+    }
+
+    /* ============================================ */
+    /* INTERACTIVE STATES */
+    /* ============================================ */
+
+    .accordion-summary:hover .accordion-icon {
+        color: #3b82f6;
+    }
+
+    .accordion-summary:focus {
+        outline: 2px solid #3b82f6;
+        outline-offset: 2px;
+    }
+
+    .accordion-summary:focus:not(:focus-visible) {
+        outline: none;
+    }
+
+    /* Keyboard focus visible */
+    .accordion-summary:focus-visible {
+        outline: 2px solid #3b82f6;
+        outline-offset: 2px;
+    }
+
+    /* ============================================ */
+    /* RESPONSIVE */
+    /* ============================================ */
+
+    @media (max-width: 640px) {
+        .accordion-summary {
+            padding: 0.875rem 1rem;
+        }
+        .accordion-content-inner {
+            padding: 0 1rem 1rem 1rem;
+        }
+        .accordion-title-text {
+            font-size: 0.9375rem;
+        }
+    }
+</style>

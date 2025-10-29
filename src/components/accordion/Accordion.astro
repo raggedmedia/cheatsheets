@@ -1,0 +1,103 @@
+---
+/**
+ * Accordion - Native HTML <details> wrapper with smooth animations
+ *
+ * Features:
+ * - Uses semantic <details>/<summary> elements
+ * - Smooth open/close animations via minimal JS
+ * - Keyboard accessible by default
+ * - Optional exclusive mode (close others when opening one)
+ * - Optional default open state
+ * - Customizable icons
+ */
+
+interface Props {
+    /**
+     * Accordion group name - accordions with the same name will close others when one opens
+     * Uses native HTML 'name' attribute on <details>
+     */
+    exclusive?: string;
+
+    /**
+     * Additional CSS classes for the wrapper
+     */
+    class?: string;
+}
+
+const { exclusive, class: className = '' } = Astro.props;
+---
+
+<div class={`accordion-group ${className}`}>
+    <slot />
+</div>
+
+<style>
+    .accordion-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+</style>
+
+<script>
+    /**
+     * Smooth animation handler for accordion items
+     * Calculates height dynamically for smooth transitions
+     */
+    function initAccordion(details: HTMLDetailsElement) {
+        const content = details.querySelector('.accordion-content') as HTMLElement;
+        if (!content) return;
+
+        details.addEventListener('toggle', () => {
+            if (details.open) {
+                // Opening
+                const height = content.scrollHeight;
+                content.style.height = '0px';
+
+                // Force reflow
+                content.offsetHeight;
+
+                // Animate to full height
+                content.style.height = height + 'px';
+
+                // Remove height after animation so content can grow dynamically
+                const onTransitionEnd = () => {
+                    content.style.height = 'auto';
+                    content.removeEventListener('transitionend', onTransitionEnd);
+                };
+                content.addEventListener('transitionend', onTransitionEnd);
+            } else {
+                // Closing - set explicit height first
+                const height = content.scrollHeight;
+                content.style.height = height + 'px';
+
+                // Force reflow
+                content.offsetHeight;
+
+                // Now animate to 0
+                content.style.height = '0px';
+            }
+        });
+
+        // Initialize state for pre-opened accordions
+        if (details.open && content) {
+            content.style.height = 'auto';
+        }
+    }
+
+    // Initialize all accordion items
+    function initAllAccordions() {
+        const accordionItems = document.querySelectorAll('.accordion-item');
+        accordionItems.forEach((item) => {
+            if (item instanceof HTMLDetailsElement) {
+                initAccordion(item);
+            }
+        });
+    }
+
+    // Run on initial load
+    initAllAccordions();
+
+    // Re-run after Astro page transitions (if using View Transitions)
+    document.addEventListener('astro:page-load', initAllAccordions);
+</script>
