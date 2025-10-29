@@ -1,0 +1,46 @@
+/* Form message styles */
+.form-message {
+    padding: var(--spacing-12);
+    border-radius: var(--spacing-6);
+    font-size: var(--spacing-14);
+    border: 1px solid;
+}
+
+.form-message-error {
+    background: var(--color-red-50);
+    border-color: var(--color-red-300);
+    color: var(--color-red-800);
+}
+
+.form-message-success {
+    background: var(--color-green-50);
+    border-color: var(--color-green-300);
+    color: var(--color-green-800);
+}
+
+.form-message-info {
+    background: var(--color-blue-50);
+    border-color: var(--color-blue-300);
+    color: var(--color-blue-800);
+}
+
+.form-message-warning {
+    background: var(--color-yellow-50);
+    border-color: var(--color-yellow-300);
+    color: var(--color-yellow-800);
+}
+
+.form-message-text {
+    font-weight: 500;
+}
+
+/* Button loading states */
+.button-loading {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-8);
+}
+
+.form-button:disabled {
+    cursor: not-allowed;
+}

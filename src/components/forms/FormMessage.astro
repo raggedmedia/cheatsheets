@@ -1,0 +1,32 @@
+---
+interface Props {
+    id?: string;
+    type?: "error" | "success" | "info" | "warning";
+    message?: string;
+    hidden?: boolean;
+}
+
+const {
+    id = "form-message",
+    type = "error",
+    message = "",
+    hidden = true,
+} = Astro.props;
+
+const typeClasses = {
+    error: "form-message-error",
+    success: "form-message-success",
+    info: "form-message-info",
+    warning: "form-message-warning",
+};
+---
+
+<div
+    id={id}
+    class={`form-message ${typeClasses[type]}`}
+    style={hidden ? "display: none;" : ""}
+    role="alert"
+    aria-live="polite"
+>
+    <span class="form-message-text">{message}</span>
+</div>

@@ -2,6 +2,7 @@
 @import './_label.css';
 @import './_helper-text.css';
 @import './_form-controls.css';
+@import './_form-message.css';
 
 form {
     display: flex;

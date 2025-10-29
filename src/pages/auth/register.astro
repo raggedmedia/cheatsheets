@@ -1,6 +1,7 @@
 ---
 import EmailInput from "~components/forms/EmailInput.astro";
 import PasswordInput from "~components/forms/PasswordInput.astro";
+import FormMessage from "~components/forms/FormMessage.astro";
 import Layout from "~layouts/Layout.astro";
 
 export const prerender = false;
@@ -21,7 +22,16 @@ export const prerender = false;
             method="post"
             id="register-form"
             data-validate
+            data-submit-handler
+            data-form-id="register-form"
+            data-button-id="register-button"
+            data-message-id="register-message"
+            data-success-message="Account created successfully!"
+            data-success-redirect="/auth/signin"
+            data-success-timeout="2000"
         >
+            <FormMessage id="register-message" />
+
             <EmailInput id="email" name="email" label="Email" required={true} />
             <PasswordInput
                 id="password"
@@ -32,11 +42,21 @@ export const prerender = false;
                 minlength={10}
                 helperText="At least 10 characters with a mix of lowercase, uppercase, digits, and symbols."
             />
-            <button type="submit" class="btn form-button" disabled
-                >Register</button
+            <button
+                type="submit"
+                class="btn form-button"
+                id="register-button"
+                disabled
             >
+                <span class="button-text">Register</span>
+                <span class="button-loading" style="display: none;"
+                    >Creating account...</span
+                >
+            </button>
         </form>
     </div>
 </Layout>
 
 <script src="~components/forms/form-validation.ts"></script>
+<script src="~components/forms/form-messages.ts"></script>
+<script src="~components/forms/form-submission.ts"></script>
