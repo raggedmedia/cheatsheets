@@ -1,0 +1,943 @@
+---
+import MethodCard from "~components/visual-js/MethodCard.astro";
+import Node from "~components/visual-js/Node.astro";
+import Arrow from "~components/visual-js/Arrow.astro";
+import ReturnValue from "~components/visual-js/ReturnValue.astro";
+import MutableOrNot from "~components/visual-js/MutableOrNot.astro";
+import ProcessContent from "~components/visual-js/ProcessContent.astro";
+import ProTip from "~components/visual-js/ProTip.astro";
+import SectionTitle from "~components/visual-js/SectionTitle.astro";
+import VisualLayout from "src/layouts/VisualLayout.astro";
+---
+
+<VisualLayout pageTitle="Javascript Variables">
+    <ProTip>
+        <div>
+            🧠 <strong>The MOST important concept:</strong> Primitives store by VALUE,
+            Objects store by REFERENCE!
+        </div>
+        <div
+            class="pl-2 border-l-2 border-yellow-500/30 font-mono text-[10px] mt-1"
+        >
+            <div>
+                let a = 5; let b = a; <span class="text-gray-400"
+                    >// b gets a COPY of 5</span>
+            </div>
+            <div>
+                a = 10; <span class="text-gray-400">// b is still 5 ✅</span>
+            </div>
+            <div class="mt-1">
+                let obj1 = &#123;x: 5&#125;; let obj2 = obj1; <span
+                    class="text-gray-400"
+                    >// obj2 gets REFERENCE to same object</span>
+            </div>
+            <div>
+                obj1.x = 10; <span class="text-red-400"
+                    >// obj2.x is now 10 too! 😱</span>
+            </div>
+        </div>
+    </ProTip>
+
+    <ProTip>
+        <div>📝 <strong>Variable terminology:</strong></div>
+        <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+            <div class="font-mono text-[10px]">
+                <span class="text-blue-400">let</span>
+                <span class="text-green-400">variableName</span>
+                <span class="text-yellow-400">=</span>
+                <span class="text-orange-400">value</span>
+            </div>
+            <div class="font-mono text-[10px] text-gray-400">
+                ↑keyword ↑identifier ↑assignment ↑binding
+            </div>
+            <div class="text-[10px] mt-1">
+                <span class="text-blue-400">Declaration:</span> making JS aware of
+                identifier + scope<br />
+                <span class="text-green-400">Initialization:</span> assigning initial
+                value<br />
+                <span class="text-orange-400">Binding:</span> association of identifier
+                with value
+            </div>
+        </div>
+    </ProTip>
+
+    <ProTip>
+        <div>
+            ⚠️ <strong>undefined vs not defined:</strong> Very different errors!
+        </div>
+        <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+            <div class="font-mono text-[10px]">
+                let declared; <span class="text-gray-400"
+                    >// declared but not initialized</span>
+            </div>
+            <div class="font-mono text-[10px]">
+                console.log(declared) <span class="text-yellow-400"
+                    >// undefined ✅</span>
+            </div>
+            <div class="font-mono text-[10px] mt-1">
+                console.log(notDeclared) <span class="text-red-400"
+                    >// ReferenceError: notDeclared is not defined ❌</span>
+            </div>
+            <div class="text-[10px] text-gray-400 mt-1">
+                undefined = declared but no value | not defined = JS never heard
+                of it
+            </div>
+        </div>
+    </ProTip>
+
+    <!-- ============================================ -->
+    <!-- 📦 PRIMITIVE VALUES (BY COPY) -->
+    <!-- ============================================ -->
+    <SectionTitle id="primitives" color="blue">
+        📦 Primitive Values (Stored by Copy)
+    </SectionTitle>
+
+    <!-- PRIMITIVE ASSIGNMENT -->
+    <MethodCard
+        id="primitive-assignment"
+        methodName="Primitive Assignment"
+        signature="let variable = primitiveValue"
+        description="Primitives create a copy of the value in memory"
+        mutates={false}
+    >
+        <div class="space-y-6">
+            <!-- Initial assignment -->
+            <div class="bg-gray-800 rounded p-4">
+                <div class="text-sm font-bold text-blue-300 mb-3">
+                    Step 1: Initial Assignment
+                </div>
+                <div class="flex items-center gap-4 overflow-x-auto">
+                    <Node label="Source" type="input">
+                        <div class="text-center text-sm font-mono">2</div>
+                    </Node>
+
+                    <Arrow label="copy" />
+
+                    <Node label="Memory" type="process">
+                        <div class="text-center text-xs">
+                            <div class="font-mono">theNumber = 2</div>
+                            <div class="text-gray-400">(copy created)</div>
+                        </div>
+                    </Node>
+
+                    <Arrow label="result" />
+
+                    <Node label="Variable" type="output">
+                        <div
+                            class="text-center text-sm font-mono text-green-400"
+                        >
+                            theNumber: 2
+                        </div>
+                    </Node>
+                </div>
+            </div>
+
+            <!-- Variable to variable -->
+            <div class="bg-gray-800 rounded p-4">
+                <div class="text-sm font-bold text-blue-300 mb-3">
+                    Step 2: Copy to Another Variable
+                </div>
+                <div class="flex items-center gap-4 overflow-x-auto">
+                    <Node label="Source" type="input">
+                        <div class="text-center text-sm font-mono">
+                            theNumber
+                        </div>
+                    </Node>
+
+                    <Arrow label="copy again" />
+
+                    <Node label="Memory" type="process">
+                        <div class="text-center text-xs">
+                            <div class="font-mono">theNumber = 2</div>
+                            <div class="font-mono">otherNumber = 2</div>
+                            <div class="text-gray-400">
+                                (two separate copies!)
+                            </div>
+                        </div>
+                    </Node>
+
+                    <Arrow label="result" />
+
+                    <Node label="Variables" type="output">
+                        <div class="text-center text-sm font-mono space-y-1">
+                            <div class="text-green-400">theNumber: 2</div>
+                            <div class="text-green-400">otherNumber: 2</div>
+                        </div>
+                    </Node>
+                </div>
+            </div>
+
+            <!-- Change one variable -->
+            <div class="bg-gray-800 rounded p-4">
+                <div class="text-sm font-bold text-blue-300 mb-3">
+                    Step 3: Change One Variable
+                </div>
+                <div class="flex items-center gap-4 overflow-x-auto">
+                    <Node label="Operation" type="input">
+                        <div class="text-center text-sm font-mono">
+                            theNumber = 10
+                        </div>
+                    </Node>
+
+                    <Arrow label="update" />
+
+                    <Node label="Memory" type="process">
+                        <div class="text-center text-xs">
+                            <div class="font-mono text-yellow-400">
+                                theNumber = 10
+                            </div>
+                            <div class="font-mono">otherNumber = 2</div>
+                            <div class="text-gray-400">
+                                (independent copies)
+                            </div>
+                        </div>
+                    </Node>
+
+                    <Arrow label="result" />
+
+                    <Node label="Variables" type="output">
+                        <div class="text-center text-sm font-mono space-y-1">
+                            <div class="text-yellow-400">theNumber: 10</div>
+                            <div class="text-green-400">otherNumber: 2</div>
+                        </div>
+                    </Node>
+                </div>
+            </div>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Primitives (number, string, boolean, null, undefined, symbol,
+            bigint) are <strong>copied by value</strong>. Each variable has its
+            own independent copy.
+        </MutableOrNot>
+
+        <ProTip>
+            <div>✅ <strong>Why this is good:</strong></div>
+            <div class="pl-2 border-l-2 border-green-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">let score = 100</div>
+                <div class="font-mono text-[10px]">
+                    let backup = score <span class="text-gray-400"
+                        >// safe copy</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    score = 0 <span class="text-gray-400"
+                        >// backup is still 100 ✅</span>
+                </div>
+                <div class="text-[10px] text-gray-400 mt-1">
+                    No unexpected side effects. Predictable behavior.
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- ============================================ -->
+    <!-- 🔗 OBJECT VALUES (BY REFERENCE) -->
+    <!-- ============================================ -->
+    <SectionTitle id="objects" color="red">
+        🔗 Object Values (Stored by Reference)
+    </SectionTitle>
+
+    <!-- OBJECT ASSIGNMENT -->
+    <MethodCard
+        id="object-assignment"
+        methodName="Object Assignment"
+        signature="let variable = objectValue"
+        description="Objects store a reference (pointer) to the object in memory"
+        mutates={true}
+    >
+        <div class="space-y-6">
+            <!-- Initial assignment -->
+            <div class="bg-gray-800 rounded p-4">
+                <div class="text-sm font-bold text-red-300 mb-3">
+                    Step 1: Object Creation
+                </div>
+                <div class="flex items-center gap-4 overflow-x-auto">
+                    <Node label="Object" type="input">
+                        <div class="text-center text-sm font-mono">
+                            &#123;x: 5&#125;
+                        </div>
+                    </Node>
+
+                    <Arrow label="store in memory" />
+
+                    <Node label="Memory" type="process">
+                        <div class="text-center text-xs">
+                            <div class="font-mono">Memory Address: 0x1234</div>
+                            <div class="font-mono">&#123;x: 5&#125;</div>
+                            <div class="text-gray-400">(actual object)</div>
+                        </div>
+                    </Node>
+
+                    <Arrow label="reference" />
+
+                    <Node label="Variable" type="output">
+                        <div class="text-center text-sm font-mono">
+                            <div class="text-red-400">obj1 → 0x1234</div>
+                            <div class="text-gray-400 text-xs">
+                                (points to object)
+                            </div>
+                        </div>
+                    </Node>
+                </div>
+            </div>
+
+            <!-- Variable to variable -->
+            <div class="bg-gray-800 rounded p-4">
+                <div class="text-sm font-bold text-red-300 mb-3">
+                    Step 2: Assign to Another Variable
+                </div>
+                <div class="flex items-center gap-4 overflow-x-auto">
+                    <Node label="Assignment" type="input">
+                        <div class="text-center text-sm font-mono">
+                            obj2 = obj1
+                        </div>
+                    </Node>
+
+                    <Arrow label="copy reference" />
+
+                    <Node label="Memory" type="process">
+                        <div class="text-center text-xs">
+                            <div class="font-mono">Memory Address: 0x1234</div>
+                            <div class="font-mono">&#123;x: 5&#125;</div>
+                            <div class="text-yellow-400">
+                                Still only ONE object!
+                            </div>
+                        </div>
+                    </Node>
+
+                    <Arrow label="both point to same" />
+
+                    <Node label="Variables" type="output">
+                        <div class="text-center text-sm font-mono space-y-1">
+                            <div class="text-red-400">obj1 → 0x1234</div>
+                            <div class="text-red-400">obj2 → 0x1234</div>
+                            <div class="text-gray-400 text-xs">
+                                (same reference)
+                            </div>
+                        </div>
+                    </Node>
+                </div>
+            </div>
+
+            <!-- Change object through one variable -->
+            <div class="bg-gray-800 rounded p-4">
+                <div class="text-sm font-bold text-red-300 mb-3">
+                    Step 3: Modify Object (The Gotcha! 😱)
+                </div>
+                <div class="flex items-center gap-4 overflow-x-auto">
+                    <Node label="Operation" type="input">
+                        <div class="text-center text-sm font-mono">
+                            obj1.x = 10
+                        </div>
+                    </Node>
+
+                    <Arrow label="modifies" />
+
+                    <Node label="Memory" type="process">
+                        <div class="text-center text-xs">
+                            <div class="font-mono">Memory Address: 0x1234</div>
+                            <div class="font-mono text-yellow-400">
+                                &#123;x: 10&#125;
+                            </div>
+                            <div class="text-red-400">
+                                Changed the shared object!
+                            </div>
+                        </div>
+                    </Node>
+
+                    <Arrow label="affects both" />
+
+                    <Node label="Variables" type="output">
+                        <div class="text-center text-sm font-mono space-y-1">
+                            <div class="text-red-400">obj1.x: 10</div>
+                            <div class="text-red-400">obj2.x: 10</div>
+                            <div class="text-yellow-400 text-xs">
+                                Both changed! 😱
+                            </div>
+                        </div>
+                    </Node>
+                </div>
+            </div>
+        </div>
+
+        <MutableOrNot mutates={true} message="">
+            Objects (including arrays, functions, dates) are <strong
+                >stored by reference</strong
+            >. Variables hold pointers to the same object in memory.
+        </MutableOrNot>
+
+        <ProTip>
+            <div>⚠️ <strong>This applies to ALL non-primitives:</strong></div>
+            <div class="pl-2 border-l-2 border-red-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">const arr1 = [1, 2, 3]</div>
+                <div class="font-mono text-[10px]">const arr2 = arr1</div>
+                <div class="font-mono text-[10px]">
+                    arr1.push(4) <span class="text-red-400"
+                        >// arr2 is now [1,2,3,4] too!</span>
+                </div>
+                <div class="font-mono text-[10px] mt-1">
+                    const func1 = () => console.log('hi')
+                </div>
+                <div class="font-mono text-[10px]">
+                    const func2 = func1 <span class="text-gray-400"
+                        >// same function</span>
+                </div>
+                <div class="text-[10px] text-yellow-400 mt-1">
+                    Arrays, functions, objects, dates, RegExp... all references!
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- ============================================ -->
+    <!-- ⚖️ COMPARISON BEHAVIOR -->
+    <!-- ============================================ -->
+    <SectionTitle id="comparison" color="purple">
+        ⚖️ Comparison Behavior
+    </SectionTitle>
+
+    <!-- PRIMITIVE COMPARISON -->
+    <MethodCard
+        id="primitive-comparison"
+        methodName="Primitive Comparison"
+        signature="primitive1 === primitive2"
+        description="Primitives compare by value"
+        mutates={false}
+    >
+        <div class="space-y-4">
+            <div
+                class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+            >
+                <Node label="Values" type="input">
+                    <div class="text-center text-sm font-mono space-y-1">
+                        <div>2 === 2</div>
+                        <div>"hello" === "hello"</div>
+                        <div>true === true</div>
+                    </div>
+                </Node>
+
+                <Arrow label="compare values" />
+
+                <Node label="Process" type="process">
+                    <ProcessContent
+                        name="Value Comparison"
+                        description="Check if values are identical"
+                    />
+                </Node>
+
+                <Arrow label="returns" />
+
+                <Node label="Result" type="output">
+                    <div class="text-center text-sm font-mono space-y-1">
+                        <div class="text-green-400">true ✅</div>
+                        <div class="text-green-400">true ✅</div>
+                        <div class="text-green-400">true ✅</div>
+                    </div>
+                </Node>
+            </div>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Primitives compare the actual values. If values are the same,
+            comparison is <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >true</code
+            >.
+        </MutableOrNot>
+
+        <ProTip>
+            <div>Even when assigned from variables:</div>
+            <div class="pl-2 border-l-2 border-purple-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">let a = 5</div>
+                <div class="font-mono text-[10px]">let b = 5</div>
+                <div class="font-mono text-[10px]">let c = a</div>
+                <div class="font-mono text-[10px]">
+                    a === b <span class="text-green-400"
+                        >// true (same value)</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    a === c <span class="text-green-400"
+                        >// true (same value)</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    b === c <span class="text-green-400"
+                        >// true (same value)</span>
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- OBJECT COMPARISON -->
+    <MethodCard
+        id="object-comparison"
+        methodName="Object Comparison"
+        signature="object1 === object2"
+        description="Objects compare by reference, not contents"
+        mutates={false}
+    >
+        <div class="space-y-4">
+            <!-- Different objects, same content -->
+            <div class="bg-gray-800 rounded p-4">
+                <div class="text-sm font-bold text-purple-300 mb-3">
+                    Same Content, Different Objects
+                </div>
+                <div class="flex items-center gap-4 overflow-x-auto">
+                    <Node label="Objects" type="input">
+                        <div class="text-center text-sm font-mono">
+                            <div>&#123;x: 5&#125; === &#123;x: 5&#125;</div>
+                        </div>
+                    </Node>
+
+                    <Arrow label="compare references" />
+
+                    <Node label="Memory" type="process">
+                        <div class="text-center text-xs">
+                            <div class="font-mono">
+                                0x1234: &#123;x: 5&#125;
+                            </div>
+                            <div class="font-mono">
+                                0x5678: &#123;x: 5&#125;
+                            </div>
+                            <div class="text-red-400">Different addresses!</div>
+                        </div>
+                    </Node>
+
+                    <Arrow label="returns" />
+
+                    <Node label="Result" type="output">
+                        <div class="text-center text-sm font-mono text-red-400">
+                            false ❌
+                        </div>
+                    </Node>
+                </div>
+            </div>
+
+            <!-- Same reference -->
+            <div class="bg-gray-800 rounded p-4">
+                <div class="text-sm font-bold text-purple-300 mb-3">
+                    Same Reference
+                </div>
+                <div class="flex items-center gap-4 overflow-x-auto">
+                    <Node label="Variables" type="input">
+                        <div class="text-center text-sm font-mono">
+                            <div>obj1 === obj2</div>
+                            <div class="text-xs text-gray-400">
+                                (obj2 = obj1)
+                            </div>
+                        </div>
+                    </Node>
+
+                    <Arrow label="compare references" />
+
+                    <Node label="Memory" type="process">
+                        <div class="text-center text-xs">
+                            <div class="font-mono">obj1 → 0x1234</div>
+                            <div class="font-mono">obj2 → 0x1234</div>
+                            <div class="text-green-400">Same address!</div>
+                        </div>
+                    </Node>
+
+                    <Arrow label="returns" />
+
+                    <Node label="Result" type="output">
+                        <div
+                            class="text-center text-sm font-mono text-green-400"
+                        >
+                            true ✅
+                        </div>
+                    </Node>
+                </div>
+            </div>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Objects compare by reference (memory address), not by content. Even
+            identical-looking objects are <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >false</code
+            > unless they're the same reference.
+        </MutableOrNot>
+
+        <ProTip>
+            <div>⚠️ <strong>Common gotcha with arrays:</strong></div>
+            <div class="pl-2 border-l-2 border-red-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    [] === [] <span class="text-red-400">// false ❌</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    [1,2,3] === [1,2,3] <span class="text-red-400"
+                        >// false ❌</span>
+                </div>
+                <div class="font-mono text-[10px] mt-1">
+                    const arr = [1,2,3]
+                </div>
+                <div class="font-mono text-[10px]">
+                    arr === arr <span class="text-green-400"
+                        >// true ✅ (same reference)</span>
+                </div>
+                <div class="text-[10px] text-yellow-400 mt-1">
+                    For deep comparison, use JSON.stringify() or a library like
+                    Lodash
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- ============================================ -->
+    <!-- 🧬 CLONING OBJECTS -->
+    <!-- ============================================ -->
+    <SectionTitle id="cloning" color="green">
+        🧬 Cloning Objects (Creating True Copies)
+    </SectionTitle>
+
+    <!-- JSON CLONE -->
+    <MethodCard
+        id="json-clone"
+        methodName="JSON Clone"
+        signature="JSON.parse(JSON.stringify(object))"
+        description="Create a deep copy using JSON serialization"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Original" type="input">
+                <div class="text-center text-sm font-mono">
+                    &#123;x: 5, y: "hello"&#125;
+                </div>
+            </Node>
+
+            <Arrow label="stringify → parse" />
+
+            <Node label="Process" type="process">
+                <ProcessContent
+                    name="JSON round-trip"
+                    description="Serialize to string, parse back to object"
+                />
+            </Node>
+
+            <Arrow label="returns" />
+
+            <Node label="Clone" type="output">
+                <div class="text-center text-sm font-mono">
+                    <div class="text-green-400">
+                        &#123;x: 5, y: "hello"&#125;
+                    </div>
+                    <div class="text-xs text-gray-400">New object!</div>
+                </div>
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Creates a completely new object with copied values. Changes to
+            original won't affect the clone.
+        </MutableOrNot>
+
+        <ProTip>
+            <div>⚠️ <strong>JSON limitations:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">const obj = {"{"}</div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;num: 42, <span class="text-green-400"
+                        >// ✅ works</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;str: "hello", <span class="text-green-400"
+                        >// ✅ works</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;undef: undefined, <span class="text-red-400"
+                        >// ❌ disappears!</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;func: () => {}, <span class="text-red-400"
+                        >// ❌ disappears!</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;date: new Date() <span class="text-red-400"
+                        >// ❌ becomes string!</span>
+                </div>
+                <div class="font-mono text-[10px]">{"}"}</div>
+                <div class="text-[10px] text-yellow-400 mt-1">
+                    Only works with JSON-safe data types
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- STRUCTURED CLONE -->
+    <MethodCard
+        id="structured-clone"
+        methodName="structuredClone()"
+        signature="structuredClone(object)"
+        description="Modern deep cloning method (browser only, 2022+)"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Original" type="input">
+                <div class="text-center text-sm font-mono">
+                    <div>&#123;x: 5, y: undefined,</div>
+                    <div>date: new Date()&#125;</div>
+                </div>
+            </Node>
+
+            <Arrow label="deep clone" />
+
+            <Node label="Process" type="process">
+                <ProcessContent
+                    name="structuredClone()"
+                    description="Structured cloning algorithm"
+                />
+            </Node>
+
+            <Arrow label="returns" />
+
+            <Node label="Clone" type="output">
+                <div class="text-center text-sm font-mono">
+                    <div class="text-green-400">&#123;x: 5, y: undefined,</div>
+                    <div class="text-green-400">date: Date object&#125;</div>
+                    <div class="text-xs text-gray-400">Perfect copy!</div>
+                </div>
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            More powerful than JSON method. Preserves <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >undefined</code
+            >, <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >Date</code
+            > objects, and more complex types.
+        </MutableOrNot>
+
+        <ProTip>
+            <div>✅ <strong>Advantages over JSON method:</strong></div>
+            <div class="pl-2 border-l-2 border-green-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">const original = {"{"}</div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;data: undefined, <span class="text-green-400"
+                        >// ✅ preserved</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;date: new Date(), <span class="text-green-400"
+                        >// ✅ stays Date object</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;array: [1, 2, {"{"} nested: true {"}"}] <span
+                        class="text-green-400">// ✅ deep clone</span>
+                </div>
+                <div class="font-mono text-[10px]">{"}"}</div>
+                <div class="font-mono text-[10px] mt-1">
+                    const clone = structuredClone(original)
+                </div>
+                <div class="text-[10px] text-yellow-400 mt-1">
+                    Browser support: Chrome 98+, Firefox 94+, Safari 15.4+
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- SHALLOW CLONE -->
+    <MethodCard
+        id="shallow-clone"
+        methodName="Shallow Clone"
+        signature="{...object} or Object.assign({}, object)"
+        description="Copy only top-level properties (nested objects still referenced)"
+        mutates={false}
+    >
+        <div class="space-y-4">
+            <!-- Top level works -->
+            <div class="bg-gray-800 rounded p-4">
+                <div class="text-sm font-bold text-green-300 mb-3">
+                    Top-level Properties: Safe ✅
+                </div>
+                <div class="flex items-center gap-4 overflow-x-auto">
+                    <Node label="Original" type="input">
+                        <div class="text-center text-sm font-mono">
+                            &#123;name: "John", age: 30&#125;
+                        </div>
+                    </Node>
+                    <Arrow label="shallow copy" />
+
+                    <Node label="Clone" type="output">
+                        <div class="text-center text-sm font-mono">
+                            <div class="text-green-400">
+                                &#123;name: "John", age: 30&#125;
+                            </div>
+                            <div class="text-xs text-gray-400">
+                                Independent copy
+                            </div>
+                        </div>
+                    </Node>
+                </div>
+            </div>
+
+            <!-- Nested objects still referenced -->
+            <div class="bg-gray-800 rounded p-4">
+                <div class="text-sm font-bold text-red-300 mb-3">
+                    Nested Objects: Still Referenced! ⚠️
+                </div>
+                <div class="flex items-center gap-4 overflow-x-auto">
+                    <Node label="Original" type="input">
+                        <div class="text-center text-sm font-mono">
+                            &#123;user: &#123;name: "John"&#125;&#125;
+                        </div>
+                    </Node>
+
+                    <Arrow label="shallow copy" />
+
+                    <Node label="Memory" type="process">
+                        <div class="text-center text-xs">
+                            <div class="text-green-400">New outer object</div>
+                            <div class="text-red-400">
+                                user property → same reference
+                            </div>
+                        </div>
+                    </Node>
+
+                    <Arrow label="danger" />
+
+                    <Node label="Result" type="output">
+                        <div class="text-center text-sm font-mono">
+                            <div class="text-yellow-400">
+                                clone.user === original.user
+                            </div>
+                            <div class="text-xs text-red-400">
+                                Changes affect both!
+                            </div>
+                        </div>
+                    </Node>
+                </div>
+            </div>
+        </div>
+
+        <MutableOrNot mutates={true} message="">
+            Only copies the first level. Nested objects/arrays are still shared
+            references!
+        </MutableOrNot>
+
+        <ProTip>
+            <div>⚠️ <strong>When shallow clone breaks:</strong></div>
+            <div class="pl-2 border-l-2 border-red-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    const user = &#123;name: "John", pets: ["dog", "cat"]&#125;
+                </div>
+                <div class="font-mono text-[10px]">
+                    const clone = &#123;...user&#125;
+                </div>
+                <div class="font-mono text-[10px] mt-1">
+                    clone.name = "Jane" <span class="text-green-400"
+                        >// ✅ safe</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    clone.pets.push("fish") <span class="text-red-400"
+                        >// ❌ affects original!</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    console.log(user.pets) <span class="text-gray-400"
+                        >// ["dog", "cat", "fish"] 😱</span>
+                </div>
+                <div class="text-[10px] text-yellow-400 mt-1">
+                    Use deep clone for nested objects/arrays
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <Fragment slot="page-nav">
+        <ul class="space-y-2 text-xs">
+            <li>
+                <a
+                    href="#primitives"
+                    class="text-blue-300 font-semibold hover:text-blue-200 block py-1"
+                    >📦 Primitives (By Copy)</a
+                >
+                <ul
+                    class="ml-3 mt-1 space-y-1 border-l-2 border-blue-500/30 pl-2"
+                >
+                    <li>
+                        <a
+                            href="#primitive-assignment"
+                            class="text-gray-300 hover:text-blue-400 block"
+                            >Assignment</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="mt-4">
+                <a
+                    href="#objects"
+                    class="text-red-300 font-semibold hover:text-red-200 block py-1"
+                    >🔗 Objects (By Reference)</a
+                >
+                <ul
+                    class="ml-3 mt-1 space-y-1 border-l-2 border-red-500/30 pl-2"
+                >
+                    <li>
+                        <a
+                            href="#object-assignment"
+                            class="text-gray-300 hover:text-blue-400 block"
+                            >Assignment</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="mt-4">
+                <a
+                    href="#comparison"
+                    class="text-purple-300 font-semibold hover:text-purple-200 block py-1"
+                    >⚖️ Comparison</a
+                >
+                <ul
+                    class="ml-3 mt-1 space-y-1 border-l-2 border-purple-500/30 pl-2"
+                >
+                    <li>
+                        <a
+                            href="#primitive-comparison"
+                            class="text-gray-300 hover:text-blue-400 block"
+                            >Primitives</a>
+                    </li>
+                    <li>
+                        <a
+                            href="#object-comparison"
+                            class="text-gray-300 hover:text-blue-400 block"
+                            >Objects</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="mt-4">
+                <a
+                    href="#cloning"
+                    class="text-green-300 font-semibold hover:text-green-200 block py-1"
+                    >🧬 Cloning Objects</a
+                >
+                <ul
+                    class="ml-3 mt-1 space-y-1 border-l-2 border-green-500/30 pl-2"
+                >
+                    <li>
+                        <a
+                            href="#json-clone"
+                            class="text-gray-300 hover:text-blue-400 block"
+                            >JSON Clone</a>
+                    </li>
+                    <li>
+                        <a
+                            href="#structured-clone"
+                            class="text-gray-300 hover:text-blue-400 block"
+                            >structuredClone()</a>
+                    </li>
+                    <li>
+                        <a
+                            href="#shallow-clone"
+                            class="text-gray-300 hover:text-blue-400 block"
+                            >Shallow Clone</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </Fragment>
+</VisualLayout>
