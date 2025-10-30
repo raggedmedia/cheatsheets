@@ -3,8 +3,41 @@ import EmailInput from "~components/forms/EmailInput.astro";
 import PasswordInput from "~components/forms/PasswordInput.astro";
 import FormMessage from "~components/forms/FormMessage.astro";
 import Layout from "~layouts/Layout.astro";
+import { supabase } from "../../lib/supabase";
 
 export const prerender = false;
+
+// Handle form submission server-side
+let errorMessage = "";
+
+if (Astro.request.method === "POST") {
+    try {
+        const formData = await Astro.request.formData();
+        const email = formData.get("email")?.toString();
+        const password = formData.get("password")?.toString();
+
+        if (!email || !password) {
+            errorMessage = "Email and password are required";
+        } else {
+            const { error } = await supabase.auth.signUp({
+                email,
+                password,
+            });
+
+            if (error) {
+                errorMessage = error.message;
+            } else {
+                // Success - redirect to signin page with success message
+                return Astro.redirect(
+                    "/auth/signin?message=account-created&type=success",
+                );
+            }
+        }
+    } catch (error) {
+        errorMessage = "An unexpected error occurred. Please try again.";
+        console.error("Registration error:", error);
+    }
+}
 ---
 
 <Layout pageTitle="Register">
@@ -18,19 +51,22 @@ export const prerender = false;
             </p>
         </div>
         <form
-            action="/api/auth/register"
             method="post"
             id="register-form"
             data-validate
-            data-submit-handler
             data-form-id="register-form"
             data-button-id="register-button"
-            data-message-id="register-message"
-            data-success-message="Account created successfully!"
-            data-success-redirect="/auth/signin"
-            data-success-timeout="2000"
         >
-            <FormMessage id="register-message" />
+            {
+                errorMessage && (
+                    <FormMessage
+                        id="register-error-message"
+                        type="error"
+                        message={errorMessage}
+                        hidden={false}
+                    />
+                )
+            }
 
             <EmailInput id="email" name="email" label="Email" required={true} />
             <PasswordInput
@@ -58,5 +94,4 @@ export const prerender = false;
 </Layout>
 
 <script src="~components/forms/form-validation.ts"></script>
-<script src="~components/forms/form-messages.ts"></script>
-<script src="~components/forms/form-submission.ts"></script>
+<!-- <script src="~components/forms/form-loading.ts"></script> -->

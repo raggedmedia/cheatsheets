@@ -3,14 +3,66 @@ import EmailInput from "~components/forms/EmailInput.astro";
 import PasswordInput from "~components/forms/PasswordInput.astro";
 import FormMessage from "~components/forms/FormMessage.astro";
 import Layout from "~layouts/Layout.astro";
+import { supabase } from "../../lib/supabase";
 
-const { cookies, redirect } = Astro;
+const { cookies, redirect, url } = Astro;
 
 const accessToken = cookies.get("sb-access-token");
 const refreshToken = cookies.get("sb-refresh-token");
 
 if (accessToken && refreshToken) {
     return redirect("/dashboard");
+}
+
+// Handle URL messages
+const messageParam = url.searchParams.get("message");
+const messageType = url.searchParams.get("type") || "info";
+
+// Define message mappings
+const messages = {
+    "account-created":
+        "Account created successfully! Please validate your email, then sign in with your new credentials.",
+    "signin-required": "Please sign in to access that page.",
+    "session-expired": "Your session has expired. Please sign in again.",
+};
+
+const displayMessage =
+    messageParam && messages[messageParam as keyof typeof messages]
+        ? messages[messageParam as keyof typeof messages]
+        : null;
+
+// Handle form submission server-side
+let errorMessage = "";
+
+if (Astro.request.method === "POST") {
+    try {
+        const formData = await Astro.request.formData();
+        const email = formData.get("email")?.toString();
+        const password = formData.get("password")?.toString();
+
+        if (!email || !password) {
+            errorMessage = "Email and password are required";
+        } else {
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email,
+                password,
+            });
+
+            if (error) {
+                errorMessage = error.message;
+            } else {
+                // Success - set cookies and redirect
+                const { access_token, refresh_token } = data.session;
+                cookies.set("sb-access-token", access_token, { path: "/" });
+                cookies.set("sb-refresh-token", refresh_token, { path: "/" });
+
+                return redirect("/dashboard");
+            }
+        }
+    } catch (error) {
+        errorMessage = "An unexpected error occurred. Please try again.";
+        console.error("Sign in error:", error);
+    }
 }
 
 export const prerender = false;
@@ -20,21 +72,43 @@ export const prerender = false;
     <div class="mx-auto w-96">
         <div class="prose">
             <h1>Sign in</h1>
-            <p>New here? <a href="/register">Create an account</a></p>
+            <p>New here? <a href="/auth/register">Create an account</a></p>
         </div>
         <form
-            action="/api/auth/signin"
             method="post"
             class="flex flex-col gap-4"
             id="signin-form"
             data-validate
-            data-submit-handler
             data-form-id="signin-form"
             data-button-id="signin-button"
-            data-message-id="signin-message"
-            data-success-redirect="/dashboard"
         >
-            <FormMessage id="signin-message" />
+            {
+                displayMessage && (
+                    <FormMessage
+                        id="signin-success-message"
+                        type={
+                            messageType as
+                                | "error"
+                                | "success"
+                                | "info"
+                                | "warning"
+                        }
+                        message={displayMessage}
+                        hidden={false}
+                    />
+                )
+            }
+
+            {
+                errorMessage && (
+                    <FormMessage
+                        id="signin-error-message"
+                        type="error"
+                        message={errorMessage}
+                        hidden={false}
+                    />
+                )
+            }
 
             <EmailInput
                 id="signin-email"
@@ -56,14 +130,10 @@ export const prerender = false;
                 disabled
             >
                 <span class="button-text">Login</span>
-                <span class="button-loading" style="display: none;"
-                    >Signing in...</span
-                >
             </button>
         </form>
     </div>
 </Layout>
 
 <script src="~components/forms/form-validation.ts"></script>
-<script src="~components/forms/form-messages.ts"></script>
-<script src="~components/forms/form-submission.ts"></script>
+<!-- <script src="~components/forms/form-loading.ts"></script> -->
