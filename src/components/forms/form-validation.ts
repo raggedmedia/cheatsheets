@@ -43,9 +43,25 @@ function setupFormValidation(config: FormValidationConfig | string) {
             // Check if input is required and has value
             const isRequired = input.hasAttribute('required');
             const hasValue = input.value.trim() !== '';
-            const isNativelyValid = input.validity.valid;
 
-            // Input is valid if: not required OR (required AND has value AND passes browser validation)
+            // Enhanced email validation
+            let isNativelyValid = input.validity.valid;
+            if (input.type === 'email' && hasValue) {
+                // More strict email validation
+                const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                const isValidEmail = emailPattern.test(input.value);
+
+                if (!isValidEmail) {
+                    // Set custom validity message
+                    input.setCustomValidity('Please enter a valid email address (e.g., user@example.com)');
+                    isNativelyValid = false;
+                } else {
+                    // Clear custom validity if email is valid
+                    input.setCustomValidity('');
+                }
+            }
+
+            // Input is valid if: not required OR (required AND has value AND passes validation)
             const isInputValid = !isRequired || (hasValue && isNativelyValid);
 
             if (!isInputValid) {

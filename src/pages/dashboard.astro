@@ -39,12 +39,13 @@ try {
 const email = session.data.user?.email;
 ---
 
-<Layout title="dashboard">
-    <div class="mx-auto w-96">
+<Layout pageTitle="Dashboard">
+    <div class="mx-auto w-96 mt-12">
         <div class="prose">
             <h1>Welcome {email}</h1>
             <p>We are happy to see you here</p>
         </div>
+
         <form action="/api/auth/signout" class="flex flex-col gap-4">
             <button type="submit">Sign out</button>
         </form>

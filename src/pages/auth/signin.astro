@@ -24,6 +24,8 @@ const messages = {
         "Account created successfully! Please validate your email, then sign in with your new credentials.",
     "signin-required": "Please sign in to access that page.",
     "session-expired": "Your session has expired. Please sign in again.",
+    "password-updated":
+        "Your password has been updated successfully! Please sign in with your new password.",
 };
 
 const displayMessage =
@@ -69,10 +71,15 @@ export const prerender = false;
 ---
 
 <Layout pageTitle="Sign in">
-    <div class="mx-auto w-96">
+    <div class="mx-auto w-96 mb-12">
         <div class="prose">
             <h1>Sign in</h1>
             <p>New here? <a href="/auth/register">Create an account</a></p>
+            <p>
+                Forgot password? <a href="/auth/reset-password"
+                    >Reset password</a
+                >
+            </p>
         </div>
         <form
             method="post"
@@ -83,7 +90,14 @@ export const prerender = false;
             data-button-id="signin-button"
         >
             {
-                displayMessage && (
+                errorMessage ? (
+                    <FormMessage
+                        id="signin-error-message"
+                        type="error"
+                        message={errorMessage}
+                        hidden={false}
+                    />
+                ) : displayMessage ? (
                     <FormMessage
                         id="signin-success-message"
                         type={
@@ -96,18 +110,7 @@ export const prerender = false;
                         message={displayMessage}
                         hidden={false}
                     />
-                )
-            }
-
-            {
-                errorMessage && (
-                    <FormMessage
-                        id="signin-error-message"
-                        type="error"
-                        message={errorMessage}
-                        hidden={false}
-                    />
-                )
+                ) : null
             }
 
             <EmailInput
@@ -136,4 +139,3 @@ export const prerender = false;
 </Layout>
 
 <script src="~components/forms/form-validation.ts"></script>
-<!-- <script src="~components/forms/form-loading.ts"></script> -->
