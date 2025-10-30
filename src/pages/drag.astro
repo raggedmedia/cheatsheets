@@ -1,0 +1,115 @@
+---
+import "~styles/styles.css";
+---
+
+<style>
+    .cta-group > div {
+        display: flex;
+        gap: var(--spacing-16);
+        align-items: start;
+    }
+
+    /* Target each div individually based on its own content */
+    .cta-group .col-one:empty,
+    .cta-group .col-two:empty {
+        height: 50px;
+        background-color: var(--color-amber-100);
+        border: 1px solid black;
+        width: 100px;
+    }
+
+    /* .cta-group .col-one:not(:empty) {
+        background-color: red;
+        height: auto;
+    }
+
+    .cta-group .col-two:not(:empty) {
+        background-color: red;
+        height: auto;
+    } */
+</style><html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>Drag & Drop Canvas</title>
+    </head>
+    <body>
+        <h1>Drag & Drop Canvas</h1>
+        <ul>
+            <li>
+                <a href="#" id="hero-btn" class="btn" draggable="true">Button</a
+                >
+            </li>
+            <li>
+                <div
+                    id="cta-group"
+                    class="cta-group p-4 border border-gray-300 bg-white"
+                    draggable="true"
+                >
+                    <p class="mb-4">Here's a CTA group</p>
+                    <div class="">
+                        <div class="col-one"></div>
+                        <div class="col-two"></div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div
+            id="drop-zone"
+            class="w-[500px] h-[500px] border-2 border-gray-400 block relative bg-gray-50"
+            style="height: 500px;"
+        >
+        </div>
+    </body>
+</html>
+
+<script>
+    function dragstartHandler(ev) {
+        // Store a reference to the element being dragged
+        ev.dataTransfer.setData(
+            "text/plain",
+            ev.target.id || ev.target.className,
+        );
+        // Store the element reference directly
+        ev.dataTransfer.effectAllowed = "copy";
+
+        // Store element data for cloning
+        draggedElement = ev.target as HTMLElement;
+    }
+
+    let draggedElement: HTMLElement | null = null;
+
+    const p1 = document.getElementById("hero-btn");
+    p1?.addEventListener("dragstart", dragstartHandler);
+    const p2 = document.getElementById("cta-group");
+    p2?.addEventListener("dragstart", dragstartHandler);
+
+    const target = document.getElementById("drop-zone");
+
+    // Cancel dragover so that drop can fire
+    target?.addEventListener("dragover", (ev) => {
+        ev.preventDefault();
+    });
+
+    target?.addEventListener("drop", (ev) => {
+        ev.preventDefault();
+
+        // Check if we have a dragged element and a valid target
+        if (draggedElement && ev.target instanceof HTMLElement) {
+            const dropTarget = ev.target as HTMLElement;
+
+            // Clone the element (deep clone to include all children and attributes)
+            const clonedElement = draggedElement.cloneNode(true) as HTMLElement;
+
+            // Explicitly disable dragging for cloned elements
+            clonedElement.setAttribute("draggable", "false");
+            // Remove any IDs to avoid duplicates
+            clonedElement.removeAttribute("id");
+
+            // Append to the drop zone
+            dropTarget.appendChild(clonedElement);
+        }
+    });
+</script>
