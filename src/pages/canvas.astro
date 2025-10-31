@@ -1,0 +1,875 @@
+---
+import "~styles/styles.css";
+---
+
+<style>
+    /* Canvas */
+    #canvas {
+        background-image: linear-gradient(
+                to right,
+                rgba(0, 0, 0, 0.05) 1px,
+                transparent 1px
+            ),
+            linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+        background-size: 16px 16px;
+    }
+
+    /* Droppable containers */
+    .droppable-container {
+        position: relative;
+        transition: all 0.2s;
+        min-height: 50px;
+    }
+
+    .droppable-container.drag-over {
+        outline: 2px solid #3b82f6;
+        outline-offset: 2px;
+        background-color: rgba(59, 130, 246, 0.05);
+    }
+
+    /* Empty containers hint */
+    .droppable-container:empty::after {
+        content: "Drop elements here";
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100px;
+        color: #9ca3af;
+        font-style: italic;
+        font-size: 14px;
+    }
+
+    /* Selected element */
+    .selected {
+        outline: 3px solid #3b82f6 !important;
+        outline-offset: 2px;
+    }
+
+    /* Palette items */
+    .palette-item {
+        cursor: grab;
+        transition: all 0.2s;
+    }
+
+    .palette-item:hover {
+        background-color: #e5e7eb !important;
+        border-color: #9ca3af !important;
+    }
+
+    .palette-item:active {
+        cursor: grabbing;
+    }
+
+    /* Properties panel field visibility */
+    [data-show-for] {
+        display: none;
+    }
+</style>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>Visual Page Builder - MVP</title>
+    </head>
+    <body class="bg-gray-50">
+        <!-- Left Sidebar - Palette -->
+        <div
+            class="fixed left-0 top-0 w-64 h-screen bg-white border-r border-gray-300 p-4 overflow-y-auto"
+        >
+            <h1 class="text-2xl font-bold mb-4">Elements</h1>
+
+            <!-- Layout Elements -->
+            <div class="mb-6">
+                <h3 class="text-sm font-semibold text-gray-600 mb-2 uppercase">
+                    Layout
+                </h3>
+                <div class="space-y-2">
+                    <div
+                        class="palette-item p-3 bg-gray-100 border border-gray-300 rounded text-sm text-center"
+                        data-element-type="section"
+                        data-drag-type="element"
+                        draggable="true"
+                    >
+                        Section
+                    </div>
+                    <div
+                        class="palette-item p-3 bg-gray-100 border border-gray-300 rounded text-sm text-center"
+                        data-element-type="div"
+                        data-drag-type="element"
+                        draggable="true"
+                    >
+                        Div
+                    </div>
+                    <div
+                        class="palette-item p-3 bg-gray-100 border border-gray-300 rounded text-sm text-center"
+                        data-element-type="header"
+                        data-drag-type="element"
+                        draggable="true"
+                    >
+                        Header
+                    </div>
+                    <div
+                        class="palette-item p-3 bg-gray-100 border border-gray-300 rounded text-sm text-center"
+                        data-element-type="footer"
+                        data-drag-type="element"
+                        draggable="true"
+                    >
+                        Footer
+                    </div>
+                </div>
+            </div>
+
+            <!-- Text Elements -->
+            <div class="mb-6">
+                <h3 class="text-sm font-semibold text-gray-600 mb-2 uppercase">
+                    Text
+                </h3>
+                <div class="space-y-2">
+                    <div
+                        class="palette-item p-3 bg-gray-100 border border-gray-300 rounded text-sm text-center"
+                        data-element-type="h1"
+                        data-drag-type="element"
+                        draggable="true"
+                    >
+                        Heading
+                    </div>
+                    <div
+                        class="palette-item p-3 bg-gray-100 border border-gray-300 rounded text-sm text-center"
+                        data-element-type="p"
+                        data-drag-type="element"
+                        draggable="true"
+                    >
+                        Paragraph
+                    </div>
+                    <div
+                        class="palette-item p-3 bg-gray-100 border border-gray-300 rounded text-sm text-center"
+                        data-element-type="a"
+                        data-drag-type="element"
+                        draggable="true"
+                    >
+                        Link
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="mt-8 pt-4 border-t border-gray-300">
+                <button
+                    id="save-btn"
+                    class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors mb-2"
+                >
+                    Save
+                </button>
+                <button
+                    id="export-btn"
+                    class="w-full bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition-colors"
+                >
+                    Export HTML
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Canvas Area -->
+        <div class="ml-64 mr-64 p-8">
+            <div
+                id="canvas"
+                class="droppable-container min-h-[600px] w-full bg-white shadow-lg border border-gray-300 relative"
+            >
+            </div>
+        </div>
+
+        <!-- Right Sidebar - Properties Panel -->
+        <div
+            id="properties-panel"
+            class="fixed right-0 top-0 w-64 h-screen bg-white border-l border-gray-300 p-4 overflow-y-auto hidden"
+        >
+            <h3 class="text-lg font-bold mb-4">Properties</h3>
+            <p class="text-sm text-gray-500 mb-4" id="selected-element-label">
+                Select an element to edit
+            </p>
+
+            <!-- Layout (only for containers) -->
+            <div class="mb-4" data-show-for="div,section,header,footer">
+                <label class="block text-sm font-medium mb-1">Layout</label>
+                <select
+                    id="prop-layout"
+                    class="w-full border border-gray-300 rounded p-2 text-sm"
+                >
+                    <option value="">Block</option>
+                    <option value="flex flex-col gap-4">Flex Vertical</option>
+                    <option value="flex flex-row gap-4">Flex Horizontal</option>
+                    <option value="grid grid-cols-2 gap-4"
+                        >Grid 2 Columns</option
+                    >
+                </select>
+            </div>
+
+            <!-- Padding -->
+            <div class="mb-4">
+                <label class="block text-sm font-medium mb-1">Padding</label>
+                <select
+                    id="prop-padding"
+                    class="w-full border border-gray-300 rounded p-2 text-sm"
+                >
+                    <option value="">None</option>
+                    <option value="p-2">XSmall (8px)</option>
+                    <option value="p-4">Small (16px)</option>
+                    <option value="p-6">Medium (24px)</option>
+                    <option value="p-8">Large (32px)</option>
+                    <option value="p-12">XLarge (48px)</option>
+                    <option value="p-16">XXLarge (64px)</option>
+                </select>
+            </div>
+
+            <!-- Background Color -->
+            <div class="mb-4">
+                <label class="block text-sm font-medium mb-1">Background</label>
+                <select
+                    id="prop-bg"
+                    class="w-full border border-gray-300 rounded p-2 text-sm"
+                >
+                    <option value="">None</option>
+                    <option value="bg-white">White</option>
+                    <option value="bg-gray-50">Gray 50</option>
+                    <option value="bg-gray-100">Gray 100</option>
+                    <option value="bg-gray-200">Gray 200</option>
+                    <option value="bg-blue-50">Blue 50</option>
+                    <option value="bg-blue-100">Blue 100</option>
+                    <option value="bg-blue-500">Blue 500</option>
+                    <option value="bg-red-50">Red 50</option>
+                    <option value="bg-red-100">Red 100</option>
+                    <option value="bg-red-500">Red 500</option>
+                </select>
+            </div>
+
+            <!-- Border Radius -->
+            <div class="mb-4">
+                <label class="block text-sm font-medium mb-1"
+                    >Border Radius</label
+                >
+                <select
+                    id="prop-radius"
+                    class="w-full border border-gray-300 rounded p-2 text-sm"
+                >
+                    <option value="">None</option>
+                    <option value="rounded">Small (4px)</option>
+                    <option value="rounded-md">Medium (6px)</option>
+                    <option value="rounded-lg">Large (8px)</option>
+                    <option value="rounded-xl">XLarge (12px)</option>
+                    <option value="rounded-full">Full (Circle)</option>
+                </select>
+            </div>
+
+            <!-- Text Content (only for text elements) -->
+            <div class="mb-4" data-show-for="h1,h2,p,a,span">
+                <label class="block text-sm font-medium mb-1"
+                    >Text Content</label
+                >
+                <input
+                    type="text"
+                    id="prop-text"
+                    class="w-full border border-gray-300 rounded p-2 text-sm"
+                    placeholder="Enter text..."
+                />
+            </div>
+
+            <!-- Delete Button -->
+            <div class="mt-8 pt-4 border-t border-gray-300">
+                <button
+                    id="delete-btn"
+                    class="w-full bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition-colors"
+                >
+                    Delete Element
+                </button>
+            </div>
+        </div>
+
+        <!-- Export Modal (hidden by default) -->
+        <div
+            id="export-modal"
+            class="fixed inset-0 bg-black bg-opacity-50 items-center justify-center hidden z-50"
+        >
+            <div
+                class="bg-white rounded-lg p-6 max-w-2xl w-full mx-4 max-h-[80vh] overflow-y-auto"
+            >
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold">Export HTML</h2>
+                    <button
+                        id="close-modal"
+                        class="text-gray-500 hover:text-gray-700 text-2xl"
+                    >
+                        &times;
+                    </button>
+                </div>
+                <pre
+                    id="export-output"
+                    class="bg-gray-100 p-4 rounded border border-gray-300 text-sm overflow-x-auto"><code><!-- HTML will appear here --></code></pre>
+                <button
+                    id="copy-html-btn"
+                    class="mt-4 w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
+                >
+                    Copy to Clipboard
+                </button>
+            </div>
+        </div>
+    </body>
+</html>
+
+<script>
+    interface DragData {
+        type: "element";
+        elementType: string;
+    }
+
+    interface Element {
+        id: string;
+        tag: string;
+        classes: string[];
+        textContent?: string;
+        children: Element[];
+        attributes?: Record<string, string>;
+    }
+
+    interface CanvasState {
+        version: string;
+        elements: Element[];
+    }
+
+    let draggedData: DragData | null = null;
+    let selectedElement: HTMLElement | null = null;
+    let saveTimeout: ReturnType<typeof setTimeout>;
+
+    const canvas = document.getElementById("canvas");
+    const propertiesPanel = document.getElementById("properties-panel");
+
+    // State Manager
+    class StateManager {
+        private storageKey = "canvas-state";
+
+        save(state: CanvasState) {
+            try {
+                localStorage.setItem(this.storageKey, JSON.stringify(state));
+                console.log("State saved");
+            } catch (e) {
+                console.error("Failed to save state:", e);
+            }
+        }
+
+        load(): CanvasState | null {
+            try {
+                const saved = localStorage.getItem(this.storageKey);
+                if (!saved) return null;
+                return JSON.parse(saved);
+            } catch (e) {
+                console.error("Failed to load state:", e);
+                return null;
+            }
+        }
+
+        serializeElement(element: HTMLElement): Element {
+            return {
+                id: element.dataset.elementId || crypto.randomUUID(),
+                tag: element.tagName.toLowerCase(),
+                classes: Array.from(element.classList).filter(
+                    (c) =>
+                        c !== "droppable-container" &&
+                        c !== "selected" &&
+                        c !== "drag-over",
+                ),
+                textContent:
+                    element.childNodes.length === 1 &&
+                    element.childNodes[0].nodeType === Node.TEXT_NODE
+                        ? element.textContent || undefined
+                        : undefined,
+                attributes: this.getAttributes(element),
+                children: Array.from(element.children).map((child) =>
+                    this.serializeElement(child as HTMLElement),
+                ),
+            };
+        }
+
+        private getAttributes(
+            element: HTMLElement,
+        ): Record<string, string> | undefined {
+            const attrs: Record<string, string> = {};
+            const skip = ["class", "style", "data-element-id"];
+
+            Array.from(element.attributes).forEach((attr) => {
+                if (!skip.includes(attr.name)) {
+                    attrs[attr.name] = attr.value;
+                }
+            });
+
+            return Object.keys(attrs).length > 0 ? attrs : undefined;
+        }
+
+        deserializeElement(data: Element): HTMLElement {
+            const el = document.createElement(data.tag);
+            el.dataset.elementId = data.id;
+
+            if (data.classes.length > 0) {
+                el.className = data.classes.join(" ");
+            }
+
+            if (data.attributes) {
+                Object.entries(data.attributes).forEach(([key, val]) => {
+                    el.setAttribute(key, val);
+                });
+            }
+
+            if (data.textContent && data.children.length === 0) {
+                el.textContent = data.textContent;
+            }
+
+            data.children.forEach((childData) => {
+                const childEl = this.deserializeElement(childData);
+                el.appendChild(childEl);
+            });
+
+            // Make it interactive
+            const containerTags = [
+                "div",
+                "section",
+                "header",
+                "footer",
+                "main",
+                "nav",
+                "aside",
+            ];
+            if (containerTags.includes(data.tag)) {
+                el.classList.add("droppable-container");
+                setupDroppable(el);
+            }
+            makeSelectable(el);
+
+            return el;
+        }
+
+        captureState(): CanvasState {
+            if (!canvas) return { version: "1.0", elements: [] };
+
+            const elements: Element[] = Array.from(canvas.children).map(
+                (child) => this.serializeElement(child as HTMLElement),
+            );
+
+            return {
+                version: "1.0",
+                elements,
+            };
+        }
+
+        restoreState(state: CanvasState) {
+            if (!canvas) return;
+
+            canvas.innerHTML = "";
+
+            state.elements.forEach((elementData) => {
+                const el = this.deserializeElement(elementData);
+                canvas.appendChild(el);
+            });
+        }
+    }
+
+    const stateManager = new StateManager();
+
+    // Auto-save with debounce
+    function autoSave() {
+        clearTimeout(saveTimeout);
+        saveTimeout = setTimeout(() => {
+            const state = stateManager.captureState();
+            stateManager.save(state);
+        }, 1000);
+    }
+
+    // Element Factory
+    function createElement(elementType: string): HTMLElement {
+        const el = document.createElement(elementType);
+        el.dataset.elementId = crypto.randomUUID();
+
+        switch (elementType) {
+            case "section":
+                el.className =
+                    "w-full p-8 min-h-[200px] border border-dashed border-gray-300";
+                el.textContent = "Section";
+                break;
+            case "div":
+                el.className =
+                    "p-4 min-h-[100px] border border-dashed border-gray-300";
+                el.textContent = "Container";
+                break;
+            case "header":
+                el.className =
+                    "w-full p-4 bg-gray-100 border-b border-gray-300";
+                el.textContent = "Header";
+                break;
+            case "footer":
+                el.className =
+                    "w-full p-4 bg-gray-100 border-t border-gray-300";
+                el.textContent = "Footer";
+                break;
+            case "h1":
+                el.className = "text-4xl font-bold";
+                el.textContent = "Heading";
+                break;
+            case "p":
+                el.className = "text-base";
+                el.textContent = "Paragraph text goes here.";
+                break;
+            case "a":
+                el.className = "text-blue-500 underline";
+                el.textContent = "Link";
+                el.setAttribute("href", "#");
+                break;
+        }
+
+        const containerTags = ["div", "section", "header", "footer"];
+        if (containerTags.includes(elementType)) {
+            el.classList.add("droppable-container");
+            setupDroppable(el);
+        }
+
+        makeSelectable(el);
+
+        return el;
+    }
+
+    // Setup droppable
+    function setupDroppable(element: HTMLElement) {
+        element.addEventListener("dragover", (ev) => {
+            ev.preventDefault();
+            ev.stopPropagation();
+            element.classList.add("drag-over");
+        });
+
+        element.addEventListener("dragleave", (ev) => {
+            const rect = element.getBoundingClientRect();
+            const x = ev.clientX;
+            const y = ev.clientY;
+
+            if (
+                x <= rect.left ||
+                x >= rect.right ||
+                y <= rect.top ||
+                y >= rect.bottom
+            ) {
+                element.classList.remove("drag-over");
+            }
+        });
+
+        element.addEventListener("drop", (ev) => {
+            ev.preventDefault();
+            ev.stopPropagation();
+            element.classList.remove("drag-over");
+
+            handleDrop(ev, element);
+        });
+    }
+
+    // Make element selectable
+    function makeSelectable(element: HTMLElement) {
+        element.addEventListener("click", (e) => {
+            e.stopPropagation();
+            selectElement(element);
+        });
+    }
+
+    // Select element
+    function selectElement(element: HTMLElement) {
+        selectedElement = element;
+
+        document.querySelectorAll(".selected").forEach((el) => {
+            el.classList.remove("selected");
+        });
+        element.classList.add("selected");
+
+        propertiesPanel!.classList.remove("hidden");
+        updatePropertiesPanel(element);
+
+        console.log("Selected:", element.tagName, element);
+    }
+
+    // Update properties panel
+    function updatePropertiesPanel(element: HTMLElement) {
+        const tag = element.tagName.toLowerCase();
+        const label = document.getElementById("selected-element-label");
+        if (label) {
+            label.textContent = `Editing: <${tag}>`;
+        }
+
+        // Show/hide fields based on element type
+        document.querySelectorAll("[data-show-for]").forEach((field) => {
+            const htmlField = field as HTMLElement;
+            const showFor = htmlField.dataset.showFor?.split(",") || [];
+            if (showFor.includes(tag)) {
+                htmlField.style.display = "block";
+            } else {
+                htmlField.style.display = "none";
+            }
+        });
+
+        // Populate current values
+        const layoutSelect = document.getElementById(
+            "prop-layout",
+        ) as HTMLSelectElement;
+        if (element.classList.contains("flex")) {
+            if (element.classList.contains("flex-col")) {
+                layoutSelect.value = "flex flex-col gap-4";
+            } else {
+                layoutSelect.value = "flex flex-row gap-4";
+            }
+        } else if (element.classList.contains("grid")) {
+            layoutSelect.value = "grid grid-cols-2 gap-4";
+        } else {
+            layoutSelect.value = "";
+        }
+
+        // Padding
+        const paddingSelect = document.getElementById(
+            "prop-padding",
+        ) as HTMLSelectElement;
+        const paddingClass = Array.from(element.classList).find((c) =>
+            c.startsWith("p-"),
+        );
+        paddingSelect.value = paddingClass || "";
+
+        // Background
+        const bgSelect = document.getElementById(
+            "prop-bg",
+        ) as HTMLSelectElement;
+        const bgClass = Array.from(element.classList).find((c) =>
+            c.startsWith("bg-"),
+        );
+        bgSelect.value = bgClass || "";
+
+        // Border Radius
+        const radiusSelect = document.getElementById(
+            "prop-radius",
+        ) as HTMLSelectElement;
+        const radiusClass = Array.from(element.classList).find((c) =>
+            c.startsWith("rounded"),
+        );
+        radiusSelect.value = radiusClass || "";
+
+        // Text Content
+        const textInput = document.getElementById(
+            "prop-text",
+        ) as HTMLInputElement;
+        if (textInput) {
+            textInput.value = element.textContent || "";
+        }
+    }
+
+    // Drag start handler
+    function handlePaletteDragStart(ev: DragEvent) {
+        const target = ev.currentTarget as HTMLElement;
+        const elementType = target.dataset.elementType;
+
+        if (!elementType) return;
+
+        draggedData = {
+            type: "element",
+            elementType,
+        };
+
+        ev.dataTransfer!.effectAllowed = "copy";
+        console.log("Drag started:", draggedData);
+    }
+
+    // Drop handler
+    function handleDrop(ev: DragEvent, dropTarget: HTMLElement) {
+        if (!draggedData) return;
+
+        const newElement = createElement(draggedData.elementType);
+
+        dropTarget.appendChild(newElement);
+        console.log("Dropped:", draggedData.elementType);
+
+        autoSave();
+    }
+
+    // Wire up palette items
+    document.querySelectorAll('[draggable="true"]').forEach((item) => {
+        item.addEventListener(
+            "dragstart",
+            handlePaletteDragStart as EventListener,
+        );
+    });
+
+    // Setup canvas
+    if (canvas) {
+        setupDroppable(canvas);
+
+        canvas.addEventListener("click", (e) => {
+            if (e.target === canvas) {
+                selectedElement = null;
+                document.querySelectorAll(".selected").forEach((el) => {
+                    el.classList.remove("selected");
+                });
+                propertiesPanel!.classList.add("hidden");
+            }
+        });
+    }
+
+    // Properties panel event listeners
+    document.getElementById("prop-layout")?.addEventListener("change", (e) => {
+        if (!selectedElement) return;
+
+        const value = (e.target as HTMLSelectElement).value;
+
+        // Remove old layout classes
+        selectedElement.classList.remove(
+            "flex",
+            "flex-row",
+            "flex-col",
+            "grid",
+            "grid-cols-2",
+            "gap-4",
+        );
+
+        // Add new layout classes
+        if (value) {
+            const classes = value.split(" ");
+            selectedElement.classList.add(...classes);
+        }
+
+        autoSave();
+    });
+
+    document.getElementById("prop-padding")?.addEventListener("change", (e) => {
+        if (!selectedElement) return;
+
+        const value = (e.target as HTMLSelectElement).value;
+
+        // Remove old padding classes
+        Array.from(selectedElement.classList).forEach((c) => {
+            if (c.startsWith("p-")) {
+                selectedElement!.classList.remove(c);
+            }
+        });
+
+        // Add new padding class
+        if (value) {
+            selectedElement.classList.add(value);
+        }
+
+        autoSave();
+    });
+
+    document.getElementById("prop-bg")?.addEventListener("change", (e) => {
+        if (!selectedElement) return;
+
+        const value = (e.target as HTMLSelectElement).value;
+
+        // Remove old background classes
+        Array.from(selectedElement.classList).forEach((c) => {
+            if (c.startsWith("bg-")) {
+                selectedElement!.classList.remove(c);
+            }
+        });
+
+        // Add new background class
+        if (value) {
+            selectedElement.classList.add(value);
+        }
+
+        autoSave();
+    });
+
+    document.getElementById("prop-radius")?.addEventListener("change", (e) => {
+        if (!selectedElement) return;
+
+        const value = (e.target as HTMLSelectElement).value;
+
+        // Remove old radius classes
+        Array.from(selectedElement.classList).forEach((c) => {
+            if (c.startsWith("rounded")) {
+                selectedElement!.classList.remove(c);
+            }
+        });
+
+        // Add new radius class
+        if (value) {
+            selectedElement.classList.add(value);
+        }
+
+        autoSave();
+    });
+
+    document.getElementById("prop-text")?.addEventListener("input", (e) => {
+        if (!selectedElement) return;
+
+        const value = (e.target as HTMLInputElement).value;
+        selectedElement.textContent = value;
+
+        autoSave();
+    });
+
+    // Delete button
+    document.getElementById("delete-btn")?.addEventListener("click", () => {
+        if (!selectedElement) return;
+
+        selectedElement.remove();
+        selectedElement = null;
+        propertiesPanel!.classList.add("hidden");
+
+        autoSave();
+    });
+
+    // Save button
+    document.getElementById("save-btn")?.addEventListener("click", () => {
+        const state = stateManager.captureState();
+        stateManager.save(state);
+        alert("Saved!");
+    });
+
+    // Export button
+    document.getElementById("export-btn")?.addEventListener("click", () => {
+        const html = canvas?.innerHTML || "";
+        const modal = document.getElementById("export-modal");
+        const output = document.getElementById("export-output");
+
+        if (output) {
+            output.textContent = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"><\/script>
+  <title>Exported Page</title>
+</head>
+<body>
+${html}
+</body>
+</html>`;
+        }
+
+        modal?.classList.remove("hidden");
+    });
+
+    // Close modal
+    document.getElementById("close-modal")?.addEventListener("click", () => {
+        document.getElementById("export-modal")?.classList.add("hidden");
+    });
+
+    // Copy HTML
+    document.getElementById("copy-html-btn")?.addEventListener("click", () => {
+        const output = document.getElementById("export-output");
+        if (output) {
+            navigator.clipboard.writeText(output.textContent || "");
+            alert("HTML copied to clipboard!");
+        }
+    });
+
+    // Load state on page load
+    document.addEventListener("DOMContentLoaded", () => {
+        const state = stateManager.load();
+        if (state && canvas) {
+            stateManager.restoreState(state);
+        }
+    });
+
+    console.log("Visual Page Builder initialized");
+</script>

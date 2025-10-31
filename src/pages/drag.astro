@@ -3,31 +3,120 @@ import "~styles/styles.css";
 ---
 
 <style>
-    .cta-group > div {
+    /* Canvas mimics a real webpage */
+    #drop-zone {
+        min-height: 500px;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: var(--spacing-16);
+        background-image: linear-gradient(
+                to right,
+                rgba(0, 0, 0, 0.05) 1px,
+                transparent 1px
+            ),
+            linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+        background-size: 16px 16px;
+        background-color: white;
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+        position: relative;
+    }
+
+    /* Droppable containers */
+    .droppable-container {
+        position: relative;
+        transition: all 0.2s;
+        min-height: 50px;
+    }
+
+    .droppable-container.drag-over {
+        outline: 2px solid #3b82f6;
+        outline-offset: 2px;
+        background-color: rgba(59, 130, 246, 0.05);
+    }
+
+    /* Empty containers show a hint */
+    .droppable-container:empty::after {
+        content: "Drop elements here";
         display: flex;
-        gap: var(--spacing-16);
-        align-items: start;
+        align-items: center;
+        justify-content: center;
+        min-height: 100px;
+        color: #9ca3af;
+        font-style: italic;
+        font-size: 14px;
     }
 
-    /* Target each div individually based on its own content */
-    .cta-group .col-one:empty,
-    .cta-group .col-two:empty {
-        height: 50px;
-        background-color: var(--color-amber-100);
-        border: 1px solid black;
-        width: 100px;
+    /* Selected element */
+    .selected {
+        outline: 3px solid #3b82f6 !important;
+        outline-offset: 2px;
     }
 
-    /* .cta-group .col-one:not(:empty) {
-        background-color: red;
-        height: auto;
+    /* Element palette styling */
+    .palette {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 8px;
+        margin-bottom: 24px;
     }
 
-    .cta-group .col-two:not(:empty) {
-        background-color: red;
-        height: auto;
-    } */
-</style><html lang="en">
+    .palette-item {
+        padding: 12px;
+        background: #f3f4f6;
+        border: 1px solid #d1d5db;
+        border-radius: 4px;
+        cursor: grab;
+        text-align: center;
+        font-size: 14px;
+        transition: all 0.2s;
+    }
+
+    .palette-item:hover {
+        background: #e5e7eb;
+        border-color: #9ca3af;
+    }
+
+    .palette-item:active {
+        cursor: grabbing;
+    }
+
+    /* Mode indicator */
+    .mode-indicator {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 8px 16px;
+        background: #1f2937;
+        color: white;
+        border-radius: 4px;
+        font-size: 14px;
+        font-weight: 600;
+        opacity: 0;
+        transition: opacity 0.2s;
+        pointer-events: none;
+        z-index: 1000;
+    }
+
+    .mode-indicator.active {
+        opacity: 1;
+    }
+
+    /* Component palette styling */
+    .components-list {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .components-list li {
+        display: contents;
+    }
+</style>
+
+<html lang="en">
     <head>
         <meta charset="utf-8" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -36,80 +125,377 @@ import "~styles/styles.css";
         <title>Drag & Drop Canvas</title>
     </head>
     <body>
-        <h1>Drag & Drop Canvas</h1>
-        <ul>
-            <li>
-                <a href="#" id="hero-btn" class="btn" draggable="true">Button</a
-                >
-            </li>
-            <li>
-                <div
-                    id="cta-group"
-                    class="cta-group p-4 border border-gray-300 bg-white"
-                    draggable="true"
-                >
-                    <p class="mb-4">Here's a CTA group</p>
-                    <div class="">
-                        <div class="col-one"></div>
-                        <div class="col-two"></div>
+        <h1>Visual Page Builder</h1>
+        <p>
+            <strong>Tip:</strong> Drag HTML elements or components onto the canvas.
+            Containers accept nested drops. Click to select elements.
+        </p>
+
+        <h2>HTML Elements</h2>
+        <h3>Layout</h3>
+        <div class="palette">
+            <div
+                class="palette-item"
+                data-element-type="header"
+                data-drag-type="element"
+                draggable="true"
+            >
+                Header
+            </div>
+            <div
+                class="palette-item"
+                data-element-type="main"
+                data-drag-type="element"
+                draggable="true"
+            >
+                Main
+            </div>
+            <div
+                class="palette-item"
+                data-element-type="section"
+                data-drag-type="element"
+                draggable="true"
+            >
+                Section
+            </div>
+            <div
+                class="palette-item"
+                data-element-type="footer"
+                data-drag-type="element"
+                draggable="true"
+            >
+                Footer
+            </div>
+            <div
+                class="palette-item"
+                data-element-type="nav"
+                data-drag-type="element"
+                draggable="true"
+            >
+                Nav
+            </div>
+            <div
+                class="palette-item"
+                data-element-type="aside"
+                data-drag-type="element"
+                draggable="true"
+            >
+                Aside
+            </div>
+        </div>
+
+        <h3>Containers</h3>
+        <div class="palette">
+            <div
+                class="palette-item"
+                data-element-type="div"
+                data-drag-type="element"
+                draggable="true"
+            >
+                Div
+            </div>
+            <div
+                class="palette-item"
+                data-element-type="div"
+                data-layout-preset="flex-row"
+                data-drag-type="element"
+                draggable="true"
+            >
+                Flex Row
+            </div>
+            <div
+                class="palette-item"
+                data-element-type="div"
+                data-layout-preset="flex-col"
+                data-drag-type="element"
+                draggable="true"
+            >
+                Flex Column
+            </div>
+            <div
+                class="palette-item"
+                data-element-type="div"
+                data-layout-preset="grid"
+                data-drag-type="element"
+                draggable="true"
+            >
+                Grid (2 col)
+            </div>
+        </div>
+
+        <h2>Components</h2>
+        <div class="palette">
+            <div
+                class="palette-item"
+                data-drag-type="component"
+                data-component-id="hero-btn"
+                draggable="true"
+            >
+                Button
+            </div>
+            <div
+                class="palette-item"
+                data-drag-type="component"
+                data-component-id="cta-group"
+                draggable="true"
+            >
+                CTA Group
+            </div>
+        </div>
+
+        <!-- Hidden component templates -->
+        <div style="display: none;">
+            <a href="#" id="hero-btn" class="btn">Button</a>
+            <div
+                id="cta-group"
+                class="cta-group"
+                style="padding: 16px; border: 1px solid #d1d5db; background: white;"
+            >
+                <p style="margin-bottom: 16px;">Here's a CTA group</p>
+                <div style="display: flex; gap: 16px;">
+                    <div
+                        class="col-one"
+                        style="width: 100px; height: 100px; background: #fef3c7; border: 1px solid black;"
+                    >
+                    </div>
+                    <div
+                        class="col-two"
+                        style="width: 100px; height: 100px; background: #fef3c7; border: 1px solid black;"
+                    >
                     </div>
                 </div>
-            </li>
-        </ul>
-        <div
-            id="drop-zone"
-            class="w-[500px] h-[500px] border-2 border-gray-400 block relative bg-gray-50"
-            style="height: 500px;"
-        >
+            </div>
+        </div>
+
+        <h2>Canvas</h2>
+        <div id="drop-zone" class="droppable-container"></div>
+
+        <!-- Mode indicator -->
+        <div id="mode-indicator" class="mode-indicator">
+            Absolute Position Mode
         </div>
     </body>
 </html>
 
 <script>
-    function dragstartHandler(ev) {
-        // Store a reference to the element being dragged
-        ev.dataTransfer.setData(
-            "text/plain",
-            ev.target.id || ev.target.className,
-        );
-        // Store the element reference directly
-        ev.dataTransfer.effectAllowed = "copy";
-
-        // Store element data for cloning
-        draggedElement = ev.target as HTMLElement;
+    interface DragData {
+        type: "element" | "component";
+        elementType?: string;
+        layoutPreset?: string;
+        componentId?: string;
     }
 
-    let draggedElement: HTMLElement | null = null;
+    let draggedData: DragData | null = null;
+    let absoluteMode = false;
 
-    const p1 = document.getElementById("hero-btn");
-    p1?.addEventListener("dragstart", dragstartHandler);
-    const p2 = document.getElementById("cta-group");
-    p2?.addEventListener("dragstart", dragstartHandler);
+    const dropZone = document.getElementById("drop-zone");
+    const modeIndicator = document.getElementById("mode-indicator");
 
-    const target = document.getElementById("drop-zone");
+    // Factory for creating new HTML elements
+    function createElement(elementType: string, preset?: string): HTMLElement {
+        const el = document.createElement(elementType);
 
-    // Cancel dragover so that drop can fire
-    target?.addEventListener("dragover", (ev) => {
-        ev.preventDefault();
-    });
+        // Apply default styles based on element type
+        switch (elementType) {
+            case "header":
+                el.style.width = "100%";
+                el.style.padding = "16px";
+                el.style.backgroundColor = "#f3f4f6";
+                el.style.borderBottom = "1px solid #d1d5db";
+                el.textContent = "Header";
+                break;
+            case "footer":
+                el.style.width = "100%";
+                el.style.padding = "16px";
+                el.style.backgroundColor = "#f3f4f6";
+                el.style.borderTop = "1px solid #d1d5db";
+                el.textContent = "Footer";
+                break;
+            case "main":
+                el.style.width = "100%";
+                el.style.padding = "32px 16px";
+                el.style.minHeight = "300px";
+                el.textContent = "Main Content Area";
+                break;
+            case "section":
+                el.style.width = "100%";
+                el.style.padding = "32px 16px";
+                el.style.minHeight = "200px";
+                el.style.border = "1px dashed #cbd5e1";
+                el.textContent = "Section";
+                break;
+            case "nav":
+                el.style.width = "100%";
+                el.style.padding = "16px";
+                el.style.backgroundColor = "#e5e7eb";
+                el.textContent = "Navigation";
+                break;
+            case "aside":
+                el.style.width = "300px";
+                el.style.padding = "16px";
+                el.style.backgroundColor = "#f9fafb";
+                el.style.border = "1px solid #e5e7eb";
+                el.textContent = "Aside";
+                break;
+            case "div":
+                el.style.padding = "16px";
+                el.style.minHeight = "100px";
+                el.style.border = "1px dashed #cbd5e1";
 
-    target?.addEventListener("drop", (ev) => {
-        ev.preventDefault();
-
-        // Check if we have a dragged element and a valid target
-        if (draggedElement && ev.target instanceof HTMLElement) {
-            const dropTarget = ev.target as HTMLElement;
-
-            // Clone the element (deep clone to include all children and attributes)
-            const clonedElement = draggedElement.cloneNode(true) as HTMLElement;
-
-            // Explicitly disable dragging for cloned elements
-            clonedElement.setAttribute("draggable", "false");
-            // Remove any IDs to avoid duplicates
-            clonedElement.removeAttribute("id");
-
-            // Append to the drop zone
-            dropTarget.appendChild(clonedElement);
+                // Apply layout preset
+                if (preset === "flex-row") {
+                    el.style.display = "flex";
+                    el.style.flexDirection = "row";
+                    el.style.gap = "16px";
+                    el.textContent = "Flex Row Container";
+                } else if (preset === "flex-col") {
+                    el.style.display = "flex";
+                    el.style.flexDirection = "column";
+                    el.style.gap = "16px";
+                    el.textContent = "Flex Column Container";
+                } else if (preset === "grid") {
+                    el.style.display = "grid";
+                    el.style.gridTemplateColumns = "repeat(2, 1fr)";
+                    el.style.gap = "16px";
+                    el.textContent = "Grid Container";
+                } else {
+                    el.textContent = "Container";
+                }
+                break;
         }
-    });
+
+        // Make it a droppable container
+        el.classList.add("droppable-container");
+        setupDroppable(el);
+        makeSelectable(el);
+
+        return el;
+    }
+
+    // Setup element as droppable
+    function setupDroppable(element: HTMLElement) {
+        element.addEventListener("dragover", (ev) => {
+            ev.preventDefault();
+            ev.stopPropagation();
+            element.classList.add("drag-over");
+            ev.dataTransfer!.dropEffect = "copy";
+        });
+
+        element.addEventListener("dragleave", (ev) => {
+            const rect = element.getBoundingClientRect();
+            const x = ev.clientX;
+            const y = ev.clientY;
+
+            // Only remove if truly leaving (not entering child)
+            if (
+                x <= rect.left ||
+                x >= rect.right ||
+                y <= rect.top ||
+                y >= rect.bottom
+            ) {
+                element.classList.remove("drag-over");
+            }
+        });
+
+        element.addEventListener("drop", (ev) => {
+            ev.preventDefault();
+            ev.stopPropagation();
+            element.classList.remove("drag-over");
+
+            handleDrop(ev, element);
+        });
+    }
+
+    // Make element selectable and editable
+    function makeSelectable(element: HTMLElement) {
+        element.addEventListener("click", (e) => {
+            e.stopPropagation();
+            selectElement(element);
+        });
+    }
+
+    // Select an element
+    function selectElement(element: HTMLElement) {
+        document.querySelectorAll(".selected").forEach((el) => {
+            el.classList.remove("selected");
+        });
+        element.classList.add("selected");
+        console.log("Selected:", element.tagName, element);
+    }
+
+    // Universal drag handler for palette items
+    function handlePaletteDragStart(ev: DragEvent) {
+        const target = ev.currentTarget as HTMLElement;
+        const dragType = target.dataset.dragType;
+
+        if (dragType === "element") {
+            draggedData = {
+                type: "element",
+                elementType: target.dataset.elementType,
+                layoutPreset: target.dataset.layoutPreset,
+            };
+        } else if (dragType === "component") {
+            draggedData = {
+                type: "component",
+                componentId: target.dataset.componentId,
+            };
+        }
+
+        ev.dataTransfer!.effectAllowed = "copy";
+        console.log("Drag started:", draggedData);
+    }
+
+    // Universal drop handler
+    function handleDrop(ev: DragEvent, dropTarget: HTMLElement) {
+        if (!draggedData) return;
+
+        let newElement: HTMLElement;
+
+        if (draggedData.type === "element") {
+            // Create new HTML element
+            newElement = createElement(
+                draggedData.elementType!,
+                draggedData.layoutPreset,
+            );
+            console.log("Created element:", draggedData.elementType);
+        } else {
+            // Clone component from template
+            const template = document.getElementById(draggedData.componentId!);
+            if (!template) return;
+
+            newElement = template.cloneNode(true) as HTMLElement;
+            newElement.removeAttribute("id");
+            makeSelectable(newElement);
+            console.log("Cloned component:", draggedData.componentId);
+        }
+
+        dropTarget.appendChild(newElement);
+        console.log("Dropped into:", dropTarget.tagName);
+    }
+
+    // Setup all palette items
+    document
+        .querySelectorAll('.palette-item[draggable="true"]')
+        .forEach((item) => {
+            item.addEventListener(
+                "dragstart",
+                handlePaletteDragStart as EventListener,
+            );
+        });
+
+    // Setup main canvas
+    if (dropZone) {
+        setupDroppable(dropZone);
+
+        // Canvas click deselects
+        dropZone.addEventListener("click", (e) => {
+            if (e.target === dropZone) {
+                document.querySelectorAll(".selected").forEach((el) => {
+                    el.classList.remove("selected");
+                });
+            }
+        });
+    }
+
+    console.log("Visual Page Builder initialized");
 </script>
