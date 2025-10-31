@@ -135,6 +135,86 @@ import "~styles/styles.css";
         transform: scale(1.05);
     }
 
+    /* Layout control buttons */
+    .layout-buttons {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 6px;
+        margin-bottom: 12px;
+    }
+
+    .layout-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        padding: 8px 4px;
+        border: 1px solid #e5e7eb;
+        border-radius: 6px;
+        background: white;
+        cursor: pointer;
+        transition: all 0.15s;
+        font-size: 11px;
+        color: #6b7280;
+    }
+
+    .layout-btn:hover {
+        border-color: #3b82f6;
+        color: #3b82f6;
+    }
+
+    .layout-btn.active {
+        border-color: #3b82f6;
+        background: #eff6ff;
+        color: #3b82f6;
+    }
+
+    .layout-btn .icon {
+        font-size: 16px;
+        line-height: 1;
+    }
+
+    .layout-options {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+        margin-bottom: 12px;
+    }
+
+    .grid-options {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 6px;
+        margin-bottom: 12px;
+    }
+
+    .layout-options.hidden {
+        display: none;
+    }
+
+    .layout-option-btn {
+        padding: 6px;
+        border: 1px solid #e5e7eb;
+        border-radius: 4px;
+        background: white;
+        cursor: pointer;
+        transition: all 0.15s;
+        font-size: 11px;
+        color: #6b7280;
+        text-align: center;
+    }
+
+    .layout-option-btn:hover {
+        border-color: #3b82f6;
+        color: #3b82f6;
+    }
+
+    .layout-option-btn.active {
+        border-color: #3b82f6;
+        background: #eff6ff;
+        color: #3b82f6;
+    }
+
     /* Palette items */
     .palette-item {
         cursor: grab;
@@ -291,18 +371,57 @@ import "~styles/styles.css";
 
             <!-- Layout (only for containers) -->
             <div class="mb-4" data-show-for="div,section,header,footer">
-                <label class="block text-sm font-medium mb-1">Layout</label>
-                <select
-                    id="prop-layout"
-                    class="w-full border border-gray-300 rounded p-2 text-sm"
-                >
-                    <option value="">Block</option>
-                    <option value="flex flex-col gap-4">Flex Vertical</option>
-                    <option value="flex flex-row gap-4">Flex Horizontal</option>
-                    <option value="grid grid-cols-2 gap-4"
-                        >Grid 2 Columns</option
+                <label class="block text-sm font-medium mb-2">Layout</label>
+
+                <!-- Layout Type Buttons -->
+                <div class="layout-buttons">
+                    <button class="layout-btn" data-layout="block">
+                        <span>Block</span>
+                    </button>
+                    <button class="layout-btn" data-layout="flex-row">
+                        <span>Flex →</span>
+                    </button>
+                    <button class="layout-btn" data-layout="flex-col">
+                        <span>Flex ↓</span>
+                    </button>
+                    <button class="layout-btn" data-layout="grid">
+                        <span>Grid</span>
+                    </button>
+                </div>
+
+                <!-- Grid Columns (only shows when grid selected) -->
+                <div id="grid-columns" class="layout-options hidden">
+                    <button class="layout-option-btn" data-cols="2"
+                        >2 Cols</button
                     >
-                </select>
+                    <button class="layout-option-btn" data-cols="3"
+                        >3 Cols</button
+                    >
+                    <button class="layout-option-btn" data-cols="4"
+                        >4 Cols</button
+                    >
+                </div>
+
+                <!-- Flex/Grid Options (shows when flex or grid selected) -->
+                <div id="flex-grid-options" class="hidden">
+                    <label class="block text-xs font-medium mb-1 text-gray-600"
+                        >Gap</label
+                    >
+                    <div class="gap-options mb-2">
+                        <button class="layout-option-btn" data-gap="0"
+                            >None</button
+                        >
+                        <button class="layout-option-btn" data-gap="2"
+                            >Small</button
+                        >
+                        <button class="layout-option-btn" data-gap="4"
+                            >Medium</button
+                        >
+                        <button class="layout-option-btn" data-gap="6"
+                            >Large</button
+                        >
+                    </div>
+                </div>
             </div>
 
             <!-- Padding -->
@@ -863,20 +982,72 @@ import "~styles/styles.css";
             }
         });
 
-        // Populate current values
-        const layoutSelect = document.getElementById(
-            "prop-layout",
-        ) as HTMLSelectElement;
+        // Populate current layout values
+        const layoutButtons = document.querySelectorAll(".layout-btn");
+        const gridColumnsDiv = document.getElementById("grid-columns");
+        const flexGridOptionsDiv = document.getElementById("flex-grid-options");
+
+        // Reset all
+        layoutButtons.forEach((btn) => btn.classList.remove("active"));
+        gridColumnsDiv?.classList.add("hidden");
+        flexGridOptionsDiv?.classList.add("hidden");
+
+        // Determine current layout
         if (element.classList.contains("flex")) {
             if (element.classList.contains("flex-col")) {
-                layoutSelect.value = "flex flex-col gap-4";
+                document
+                    .querySelector('[data-layout="flex-col"]')
+                    ?.classList.add("active");
             } else {
-                layoutSelect.value = "flex flex-row gap-4";
+                document
+                    .querySelector('[data-layout="flex-row"]')
+                    ?.classList.add("active");
             }
+            // Show gap options only for flex (NOT grid columns)
+            flexGridOptionsDiv?.classList.remove("hidden");
+            gridColumnsDiv?.classList.add("hidden"); // Make sure grid cols stay hidden
         } else if (element.classList.contains("grid")) {
-            layoutSelect.value = "grid grid-cols-2 gap-4";
+            document
+                .querySelector('[data-layout="grid"]')
+                ?.classList.add("active");
+            gridColumnsDiv?.classList.remove("hidden");
+            flexGridOptionsDiv?.classList.remove("hidden");
+
+            // Set grid columns
+            document
+                .querySelectorAll("[data-cols]")
+                .forEach((b) => b.classList.remove("active"));
+            if (element.classList.contains("grid-cols-2")) {
+                document
+                    .querySelector('[data-cols="2"]')
+                    ?.classList.add("active");
+            } else if (element.classList.contains("grid-cols-3")) {
+                document
+                    .querySelector('[data-cols="3"]')
+                    ?.classList.add("active");
+            } else if (element.classList.contains("grid-cols-4")) {
+                document
+                    .querySelector('[data-cols="4"]')
+                    ?.classList.add("active");
+            }
         } else {
-            layoutSelect.value = "";
+            document
+                .querySelector('[data-layout="block"]')
+                ?.classList.add("active");
+        }
+
+        // Set gap state
+        document
+            .querySelectorAll("[data-gap]")
+            .forEach((b) => b.classList.remove("active"));
+        if (element.classList.contains("gap-0")) {
+            document.querySelector('[data-gap="0"]')?.classList.add("active");
+        } else if (element.classList.contains("gap-2")) {
+            document.querySelector('[data-gap="2"]')?.classList.add("active");
+        } else if (element.classList.contains("gap-4")) {
+            document.querySelector('[data-gap="4"]')?.classList.add("active");
+        } else if (element.classList.contains("gap-6")) {
+            document.querySelector('[data-gap="6"]')?.classList.add("active");
         }
 
         // Padding
@@ -985,29 +1156,108 @@ import "~styles/styles.css";
         });
     }
 
-    // Properties panel event listeners
-    document.getElementById("prop-layout")?.addEventListener("change", (e) => {
-        if (!selectedElement) return;
+    // Layout button controls
+    const layoutButtons = document.querySelectorAll(".layout-btn");
+    const gridColumnsDiv = document.getElementById("grid-columns");
+    const flexGridOptionsDiv = document.getElementById("flex-grid-options");
 
-        const value = (e.target as HTMLSelectElement).value;
+    layoutButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            if (!selectedElement) return;
 
-        // Remove old layout classes
-        selectedElement.classList.remove(
-            "flex",
-            "flex-row",
-            "flex-col",
-            "grid",
-            "grid-cols-2",
-            "gap-4",
-        );
+            const layout = (btn as HTMLElement).dataset.layout;
 
-        // Add new layout classes
-        if (value) {
-            const classes = value.split(" ");
-            selectedElement.classList.add(...classes);
-        }
+            // Update button states
+            layoutButtons.forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
 
-        autoSave();
+            // Remove all layout-related classes
+            selectedElement.classList.remove(
+                "flex",
+                "flex-row",
+                "flex-col",
+                "grid",
+                "grid-cols-2",
+                "grid-cols-3",
+                "grid-cols-4",
+                "gap-0",
+                "gap-2",
+                "gap-4",
+                "gap-6",
+            );
+
+            // Hide all options first
+            gridColumnsDiv?.classList.add("hidden");
+            flexGridOptionsDiv?.classList.add("hidden");
+
+            // Apply layout and show appropriate options
+            if (layout === "flex-row") {
+                selectedElement.classList.add("flex", "flex-row", "gap-4");
+                flexGridOptionsDiv?.classList.remove("hidden");
+            } else if (layout === "flex-col") {
+                selectedElement.classList.add("flex", "flex-col", "gap-4");
+                flexGridOptionsDiv?.classList.remove("hidden");
+            } else if (layout === "grid") {
+                selectedElement.classList.add("grid", "grid-cols-2", "gap-4");
+                gridColumnsDiv?.classList.remove("hidden");
+                flexGridOptionsDiv?.classList.remove("hidden");
+            }
+
+            autoSave();
+        });
+    });
+
+    // Grid column buttons
+    document.querySelectorAll("[data-cols]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+            if (!selectedElement) return;
+
+            const cols = (btn as HTMLElement).dataset.cols;
+
+            // Update button states
+            document
+                .querySelectorAll("[data-cols]")
+                .forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
+
+            // Remove old grid-cols classes
+            selectedElement.classList.remove(
+                "grid-cols-2",
+                "grid-cols-3",
+                "grid-cols-4",
+            );
+            selectedElement.classList.add(`grid-cols-${cols}`);
+
+            autoSave();
+        });
+    });
+
+    // Gap buttons
+    document.querySelectorAll("[data-gap]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+            if (!selectedElement) return;
+
+            const gap = (btn as HTMLElement).dataset.gap;
+
+            // Update button states
+            document
+                .querySelectorAll("[data-gap]")
+                .forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
+
+            // Remove old gap classes
+            selectedElement.classList.remove(
+                "gap-0",
+                "gap-2",
+                "gap-4",
+                "gap-6",
+            );
+            if (gap !== "0") {
+                selectedElement.classList.add(`gap-${gap}`);
+            }
+
+            autoSave();
+        });
     });
 
     document.getElementById("prop-padding")?.addEventListener("change", (e) => {
