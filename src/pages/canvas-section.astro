@@ -64,75 +64,108 @@ import "~styles/styles.css";
 
     /* Section insertion triggers */
     .add-section-trigger {
-        width: 20px;
-        height: 20px;
-        /* padding: 2px 6px; */
-        border-radius: 50%;
-        border: 1px solid #cbd5e1;
-        background: white;
-        color: #cbd5e1;
-        font-size: 16px;
-        font-weight: 300;
-        line-height: 1;
+        position: relative;
+        z-index: 10;
         cursor: pointer;
-        transition: all 0.2s;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        user-select: none;
+        opacity: 0;
+        transition: opacity 0.25s ease;
     }
 
-    .add-section-trigger:hover {
-        border-color: #3b82f6;
-        color: #3b82f6;
-        transform: scale(1.1);
+    .add-section-trigger:hover,
+    .add-section-trigger.nearby {
+        opacity: 1;
     }
 
-    /* Top and bottom triggers - centered above/below canvas */
-    .add-section-trigger.position-top,
-    .add-section-trigger.position-bottom {
+    .add-section-trigger::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 2px;
+        background: var(--color-blue-500);
+    }
+
+    .add-section-trigger:hover::before {
+        background: linear-gradient(
+            to right,
+            transparent,
+            #3b82f6 20%,
+            #3b82f6 80%,
+            transparent
+        );
+    }
+
+    .add-section-bubble {
         position: absolute;
         left: 50%;
-        transform: translateX(-50%);
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        border: 2px solid #cbd5e1;
+        color: #64748b;
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 500;
+        white-space: nowrap;
+        transition: all 0.2s;
+        pointer-events: none;
     }
 
-    .add-section-trigger.position-top {
-        top: -28px;
-    }
-
-    .add-section-trigger.position-bottom {
-        bottom: -28px;
-    }
-
-    .add-section-trigger.position-top:hover,
-    .add-section-trigger.position-bottom:hover {
-        transform: translateX(-50%) scale(1.1);
-    }
-
-    /* Between sections - positioned to the left of canvas */
-    .add-section-trigger.position-between {
-        position: absolute;
-        left: -28px;
-        transform: translateY(-50%);
-    }
-
-    .add-section-trigger.position-between:hover {
-        transform: translateY(-50%) scale(1.1);
+    .add-section-trigger:hover .add-section-bubble {
+        border-color: #3b82f6;
+        color: #3b82f6;
+        transform: translate(-50%, -50%) scale(1.05);
     }
 
     /* Big centered button for empty canvas */
-    .add-section-trigger.add-section-empty {
-        width: 200px;
-        height: 200px;
-        font-size: 48px;
+    .add-section-empty {
+        opacity: 1;
+        height: auto;
         margin: 100px auto;
-        position: relative;
-        left: 0;
-        transform: none;
     }
 
-    .add-section-trigger.add-section-empty:hover {
-        transform: scale(1.05);
+    .add-section-empty::before {
+        display: none;
+    }
+
+    .add-section-empty .add-section-bubble {
+        position: static;
+        transform: none;
+        padding: 16px 32px;
+        font-size: 16px;
+        border-color: #3b82f6;
+        color: #3b82f6;
+        pointer-events: auto;
+    }
+
+    .add-section-empty:hover .add-section-bubble {
+        background: #3b82f6;
+        color: white;
+    }
+
+    /* Section labels */
+    .section-label {
+        font-size: 10px;
+        color: #94a3b8;
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        white-space: nowrap;
+        padding: 4px 0;
+        cursor: pointer;
+        transition: color 0.2s;
+        user-select: none;
+    }
+
+    .section-label:hover {
+        color: #3b82f6;
+    }
+
+    .section-label.active {
+        color: #3b82f6;
+        font-weight: 600;
     }
 
     /* Palette items */
@@ -272,6 +305,14 @@ import "~styles/styles.css";
 
         <!-- Main Canvas Area -->
         <div class="ml-64 mr-64 p-8 relative">
+            <!-- Section Labels (left of canvas) -->
+            <div
+                id="section-labels"
+                class="absolute left-0 top-0 w-8 pt-0"
+                style="transform: translateX(-40px);"
+            >
+            </div>
+
             <div
                 id="canvas"
                 class="droppable-container min-h-[600px] w-full bg-white shadow-lg border border-gray-300 relative"
@@ -442,9 +483,37 @@ import "~styles/styles.css";
     let dropPosition: "above" | "below" | "inside" | null = null;
     let dropTargetElement: HTMLElement | null = null; // Track which element we're dropping on
     let dropIndicator: HTMLElement | null = null;
+    let sectionCounter = 0;
 
     const canvas = document.getElementById("canvas");
     const propertiesPanel = document.getElementById("properties-panel");
+    const sectionLabelsContainer = document.getElementById("section-labels");
+
+    // Generate human-readable section names
+    const sectionNames = [
+        "Hero",
+        "Features",
+        "About",
+        "Services",
+        "Testimonials",
+        "Pricing",
+        "Team",
+        "Contact",
+        "Footer",
+        "Header",
+        "Gallery",
+        "Blog",
+        "FAQ",
+        "CTA",
+        "Stats",
+    ];
+
+    function generateSectionName(): string {
+        const name = sectionNames[sectionCounter % sectionNames.length];
+        const suffix = Math.floor(sectionCounter / sectionNames.length);
+        sectionCounter++;
+        return suffix > 0 ? `${name} ${suffix + 1}` : name;
+    }
 
     // State Manager
     class StateManager {
@@ -498,8 +567,16 @@ import "~styles/styles.css";
             const attrs: Record<string, string> = {};
             const skip = ["class", "style", "data-element-id"];
 
+            // Always include data-section-name if it exists
+            if (element.dataset.sectionName) {
+                attrs["data-section-name"] = element.dataset.sectionName;
+            }
+
             Array.from(element.attributes).forEach((attr) => {
-                if (!skip.includes(attr.name)) {
+                if (
+                    !skip.includes(attr.name) &&
+                    attr.name !== "data-section-name"
+                ) {
                     attrs[attr.name] = attr.value;
                 }
             });
@@ -608,6 +685,7 @@ import "~styles/styles.css";
             case "section":
                 el.className =
                     "w-full p-8 min-h-[200px] border border-dashed border-gray-300";
+                el.dataset.sectionName = generateSectionName();
                 break;
             case "div":
                 el.className =
@@ -652,25 +730,62 @@ import "~styles/styles.css";
         return el;
     }
 
-    // Update section insertion triggers
-    function updateSectionUI() {
-        updateSectionTriggers();
+    // Update section labels in the left gutter
+    function updateSectionLabels() {
+        if (!sectionLabelsContainer || !canvas) return;
+
+        sectionLabelsContainer.innerHTML = "";
+        const sections = Array.from(canvas.querySelectorAll("section"));
+
+        sections.forEach((section) => {
+            const sectionName = section.dataset.sectionName || "Section";
+            const rect = section.getBoundingClientRect();
+            const canvasRect = canvas.getBoundingClientRect();
+            const offsetTop = rect.top - canvasRect.top;
+
+            const label = document.createElement("div");
+            label.className = "section-label";
+            label.textContent = sectionName;
+            label.style.position = "absolute";
+            label.style.top = `${offsetTop}px`;
+            label.style.height = `${rect.height}px`;
+            label.dataset.sectionId = section.dataset.elementId;
+
+            // Click to select section
+            label.addEventListener("click", () => {
+                selectElement(section as HTMLElement);
+            });
+
+            // Highlight when section is selected
+            if (section === selectedElement) {
+                label.classList.add("active");
+            }
+
+            sectionLabelsContainer.appendChild(label);
+        });
     }
 
-    // Create a section trigger button
+    // Update both section UI elements together
+    function updateSectionUI() {
+        updateSectionTriggers();
+        updateSectionLabels();
+    }
+
+    // Create a section trigger with bubble
     function createSectionTrigger(
         onClick: () => void,
-        position: "empty" | "top" | "bottom" | "between" = "between",
-    ): HTMLButtonElement {
-        const trigger = document.createElement("button");
-        trigger.textContent = "+";
+        isEmpty: boolean = false,
+    ): HTMLDivElement {
+        const trigger = document.createElement("div");
+        trigger.className = isEmpty
+            ? "add-section-trigger add-section-empty"
+            : "add-section-trigger add-section-divider";
 
-        if (position === "empty") {
-            trigger.className = "add-section-trigger add-section-empty";
-        } else {
-            trigger.className = `add-section-trigger position-${position}`;
-        }
+        const bubble = document.createElement("div");
+        bubble.className = "add-section-bubble";
+        bubble.textContent = "+ Add Section";
 
+        trigger.appendChild(bubble);
         trigger.onclick = onClick;
 
         return trigger;
@@ -694,7 +809,7 @@ import "~styles/styles.css";
                 canvas.appendChild(newSection);
                 autoSave();
                 updateSectionUI();
-            }, "empty");
+            }, true);
             canvas.appendChild(emptyBtn);
         } else {
             // Add trigger at top of canvas
@@ -703,29 +818,19 @@ import "~styles/styles.css";
                 canvas.insertBefore(newSection, canvas.firstChild);
                 autoSave();
                 updateSectionUI();
-            }, "top");
+            });
             canvas.insertBefore(topBtn, canvas.firstChild);
 
-            // Add trigger between each section (except after last)
+            // Add trigger after each section (except last)
             sections.forEach((section, index) => {
                 if (index < sections.length - 1) {
-                    const rect = section.getBoundingClientRect();
-                    const canvasRect = canvas.getBoundingClientRect();
-                    const nextSection = sections[index + 1];
-                    const nextRect = nextSection.getBoundingClientRect();
-
-                    // Position between this section and next
-                    const midpoint =
-                        (rect.bottom + nextRect.top) / 2 - canvasRect.top;
-
-                    const betweenBtn = createSectionTrigger(() => {
+                    const dividerBtn = createSectionTrigger(() => {
                         const newSection = createElement("section");
                         section.insertAdjacentElement("afterend", newSection);
                         autoSave();
                         updateSectionUI();
-                    }, "between");
-                    betweenBtn.style.top = `${midpoint}px`;
-                    canvas.appendChild(betweenBtn);
+                    });
+                    section.insertAdjacentElement("afterend", dividerBtn);
                 }
             });
 
@@ -735,7 +840,7 @@ import "~styles/styles.css";
                 canvas.appendChild(newSection);
                 autoSave();
                 updateSectionUI();
-            }, "bottom");
+            });
             canvas.appendChild(bottomBtn);
         }
     }
@@ -840,6 +945,7 @@ import "~styles/styles.css";
 
         propertiesPanel!.classList.remove("hidden");
         updatePropertiesPanel(element);
+        updateSectionLabels(); // Update label highlighting
 
         console.log("Selected:", element.tagName, element);
     }
@@ -849,7 +955,11 @@ import "~styles/styles.css";
         const tag = element.tagName.toLowerCase();
         const label = document.getElementById("selected-element-label");
         if (label) {
-            label.textContent = `Editing: <${tag}>`;
+            if (tag === "section" && element.dataset.sectionName) {
+                label.textContent = `Editing: ${element.dataset.sectionName}`;
+            } else {
+                label.textContent = `Editing: <${tag}>`;
+            }
         }
 
         // Show/hide fields based on element type
@@ -1166,6 +1276,34 @@ ${html}
             updateSectionUI(); // Show "Add Section" on empty canvas
         }
     });
+
+    // Proximity detection for section triggers
+    if (canvas) {
+        canvas.addEventListener("mousemove", (e) => {
+            const triggers = canvas.querySelectorAll(
+                ".add-section-trigger:not(.add-section-empty)",
+            );
+            triggers.forEach((trigger) => {
+                const rect = trigger.getBoundingClientRect();
+                const distance = Math.abs(
+                    e.clientY - (rect.top + rect.height / 2),
+                );
+
+                if (distance < 20) {
+                    trigger.classList.add("nearby");
+                } else {
+                    trigger.classList.remove("nearby");
+                }
+            });
+        });
+
+        canvas.addEventListener("mouseleave", () => {
+            const triggers = canvas.querySelectorAll(".add-section-trigger");
+            triggers.forEach((trigger) => {
+                trigger.classList.remove("nearby");
+            });
+        });
+    }
 
     console.log("Visual Page Builder initialized");
 
