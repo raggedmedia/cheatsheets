@@ -271,7 +271,7 @@ import "~styles/styles.css";
         </div>
 
         <!-- Main Canvas Area -->
-        <div class="ml-64 mr-64 p-8 relative">
+        <div id="canvas-wrapper" class="ml-64 mr-64 p-8 relative">
             <div
                 id="canvas"
                 class="droppable-container min-h-[600px] w-full bg-white shadow-lg border border-gray-300 relative"
@@ -1167,6 +1167,20 @@ ${html}
         }
     });
 
+    // Click on canvas wrapper (gray area around canvas) to deselect
+    const canvasWrapper = document.getElementById("canvas-wrapper");
+    canvasWrapper?.addEventListener("click", (e) => {
+        const target = e.target as HTMLElement;
+
+        // Only deselect if clicking directly on the wrapper itself (not canvas or its children)
+        if (target === canvasWrapper) {
+            if (selectedElement) {
+                selectedElement.classList.remove("selected");
+                selectedElement = null;
+                propertiesPanel?.classList.add("hidden");
+            }
+        }
+    });
     console.log("Visual Page Builder initialized");
 
     // okay you've dragged on section on the page,
