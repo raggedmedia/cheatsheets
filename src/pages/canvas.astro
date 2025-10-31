@@ -174,21 +174,31 @@ import "~styles/styles.css";
         line-height: 1;
     }
 
-    .layout-options {
+    /* Grid layouts for different numbers of options */
+    .two-layout-options {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+        margin-bottom: 12px;
+    }
+
+    .three-layout-options {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 6px;
         margin-bottom: 12px;
     }
 
-    .grid-options {
+    .four-layout-options {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         gap: 6px;
         margin-bottom: 12px;
     }
 
-    .layout-options.hidden {
+    .two-layout-options.hidden,
+    .three-layout-options.hidden,
+    .four-layout-options.hidden {
         display: none;
     }
 
@@ -207,6 +217,41 @@ import "~styles/styles.css";
     .layout-option-btn:hover {
         border-color: #3b82f6;
         color: #3b82f6;
+    }
+
+    /* Padding mode buttons */
+    .padding-mode-buttons {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+        margin-bottom: 12px;
+    }
+
+    .padding-mode-btn {
+        padding: 8px 4px;
+        border: 1px solid #e5e7eb;
+        border-radius: 6px;
+        background: white;
+        cursor: pointer;
+        transition: all 0.15s;
+        font-size: 11px;
+        color: #6b7280;
+        text-align: center;
+    }
+
+    .padding-mode-btn:hover {
+        border-color: #3b82f6;
+        color: #3b82f6;
+    }
+
+    .padding-mode-btn.active {
+        border-color: #3b82f6;
+        background: #eff6ff;
+        color: #3b82f6;
+    }
+
+    .padding-values {
+        margin-top: 8px;
     }
 
     .layout-option-btn.active {
@@ -390,7 +435,7 @@ import "~styles/styles.css";
                 </div>
 
                 <!-- Grid Columns (only shows when grid selected) -->
-                <div id="grid-columns" class="layout-options hidden">
+                <div id="grid-columns" class="three-layout-options hidden">
                     <button class="layout-option-btn" data-cols="2"
                         >2 Cols</button
                     >
@@ -407,7 +452,7 @@ import "~styles/styles.css";
                     <label class="block text-xs font-medium mb-1 text-gray-600"
                         >Gap</label
                     >
-                    <div class="gap-options mb-2">
+                    <div class="four-layout-options mb-2">
                         <button class="layout-option-btn" data-gap="0"
                             >None</button
                         >
@@ -425,20 +470,168 @@ import "~styles/styles.css";
             </div>
 
             <!-- Padding -->
-            <div class="mb-4">
-                <label class="block text-sm font-medium mb-1">Padding</label>
-                <select
-                    id="prop-padding"
-                    class="w-full border border-gray-300 rounded p-2 text-sm"
-                >
-                    <option value="">None</option>
-                    <option value="p-2">XSmall (8px)</option>
-                    <option value="p-4">Small (16px)</option>
-                    <option value="p-6">Medium (24px)</option>
-                    <option value="p-8">Large (32px)</option>
-                    <option value="p-12">XLarge (48px)</option>
-                    <option value="p-16">XXLarge (64px)</option>
-                </select>
+            <div class="mb-4" data-show-for="div,section">
+                <label class="block text-sm font-medium mb-2">Padding</label>
+
+                <!-- Padding Mode Buttons -->
+                <div class="padding-mode-buttons">
+                    <button
+                        class="padding-mode-btn active"
+                        data-padding-mode="all"
+                    >
+                        <span>All</span>
+                    </button>
+                    <button
+                        class="padding-mode-btn"
+                        data-padding-mode="horizontal-vertical"
+                    >
+                        <span>↔ ↕</span>
+                    </button>
+                    <button
+                        class="padding-mode-btn"
+                        data-padding-mode="individual"
+                    >
+                        <span>Each</span>
+                    </button>
+                </div>
+
+                <!-- All Sides -->
+                <div id="padding-all" class="padding-values">
+                    <div class="four-layout-options">
+                        <button
+                            class="layout-option-btn active"
+                            data-padding-all="0">None</button
+                        >
+                        <button class="layout-option-btn" data-padding-all="4"
+                            >Small</button
+                        >
+                        <button class="layout-option-btn" data-padding-all="6"
+                            >Medium</button
+                        >
+                        <button class="layout-option-btn" data-padding-all="8"
+                            >Large</button
+                        >
+                    </div>
+                </div>
+
+                <!-- Horizontal & Vertical -->
+                <div id="padding-hv" class="padding-values hidden">
+                    <label class="block text-xs font-medium mb-1 text-gray-600"
+                        >Left & Right</label
+                    >
+                    <div class="four-layout-options mb-2">
+                        <button
+                            class="layout-option-btn active"
+                            data-padding-x="0">None</button
+                        >
+                        <button class="layout-option-btn" data-padding-x="4"
+                            >Small</button
+                        >
+                        <button class="layout-option-btn" data-padding-x="6"
+                            >Medium</button
+                        >
+                        <button class="layout-option-btn" data-padding-x="8"
+                            >Large</button
+                        >
+                    </div>
+                    <label class="block text-xs font-medium mb-1 text-gray-600"
+                        >Top & Bottom</label
+                    >
+                    <div class="four-layout-options">
+                        <button
+                            class="layout-option-btn active"
+                            data-padding-y="0">None</button
+                        >
+                        <button class="layout-option-btn" data-padding-y="4"
+                            >Small</button
+                        >
+                        <button class="layout-option-btn" data-padding-y="6"
+                            >Medium</button
+                        >
+                        <button class="layout-option-btn" data-padding-y="8"
+                            >Large</button
+                        >
+                    </div>
+                </div>
+
+                <!-- Individual Sides -->
+                <div id="padding-individual" class="padding-values hidden">
+                    <label class="block text-xs font-medium mb-1 text-gray-600"
+                        >Top</label
+                    >
+                    <div class="four-layout-options mb-2">
+                        <button
+                            class="layout-option-btn active"
+                            data-padding-top="0">None</button
+                        >
+                        <button class="layout-option-btn" data-padding-top="4"
+                            >Small</button
+                        >
+                        <button class="layout-option-btn" data-padding-top="6"
+                            >Medium</button
+                        >
+                        <button class="layout-option-btn" data-padding-top="8"
+                            >Large</button
+                        >
+                    </div>
+                    <label class="block text-xs font-medium mb-1 text-gray-600"
+                        >Right</label
+                    >
+                    <div class="four-layout-options mb-2">
+                        <button
+                            class="layout-option-btn active"
+                            data-padding-right="0">None</button
+                        >
+                        <button class="layout-option-btn" data-padding-right="4"
+                            >Small</button
+                        >
+                        <button class="layout-option-btn" data-padding-right="6"
+                            >Medium</button
+                        >
+                        <button class="layout-option-btn" data-padding-right="8"
+                            >Large</button
+                        >
+                    </div>
+                    <label class="block text-xs font-medium mb-1 text-gray-600"
+                        >Bottom</label
+                    >
+                    <div class="four-layout-options mb-2">
+                        <button
+                            class="layout-option-btn active"
+                            data-padding-bottom="0">None</button
+                        >
+                        <button
+                            class="layout-option-btn"
+                            data-padding-bottom="4">Small</button
+                        >
+                        <button
+                            class="layout-option-btn"
+                            data-padding-bottom="6">Medium</button
+                        >
+                        <button
+                            class="layout-option-btn"
+                            data-padding-bottom="8">Large</button
+                        >
+                    </div>
+                    <label class="block text-xs font-medium mb-1 text-gray-600"
+                        >Left</label
+                    >
+                    <div class="four-layout-options">
+                        <button
+                            class="layout-option-btn active"
+                            data-padding-left="0">None</button
+                        >
+                        <button class="layout-option-btn" data-padding-left="4"
+                            >Small</button
+                        >
+                        <button class="layout-option-btn" data-padding-left="6"
+                            >Medium</button
+                        >
+                        <button class="layout-option-btn" data-padding-left="8"
+                            >Large</button
+                        >
+                    </div>
+                </div>
             </div>
 
             <!-- Background Color -->
@@ -1050,14 +1243,153 @@ import "~styles/styles.css";
             document.querySelector('[data-gap="6"]')?.classList.add("active");
         }
 
-        // Padding
-        const paddingSelect = document.getElementById(
-            "prop-padding",
-        ) as HTMLSelectElement;
-        const paddingClass = Array.from(element.classList).find((c) =>
-            c.startsWith("p-"),
+        // Padding - detect mode and values
+        const paddingAllDiv = document.getElementById("padding-all");
+        const paddingHvDiv = document.getElementById("padding-hv");
+        const paddingIndividualDiv =
+            document.getElementById("padding-individual");
+        const paddingModeButtons =
+            document.querySelectorAll(".padding-mode-btn");
+
+        // Reset all padding states
+        paddingModeButtons.forEach((b) => b.classList.remove("active"));
+        paddingAllDiv?.classList.add("hidden");
+        paddingHvDiv?.classList.add("hidden");
+        paddingIndividualDiv?.classList.add("hidden");
+
+        // Check what padding classes exist
+        const hasPAll = Array.from(element.classList).some((c) =>
+            /^p-\d+$/.test(c),
         );
-        paddingSelect.value = paddingClass || "";
+        const hasPx = Array.from(element.classList).some((c) =>
+            /^px-\d+$/.test(c),
+        );
+        const hasPy = Array.from(element.classList).some((c) =>
+            /^py-\d+$/.test(c),
+        );
+        const hasPt = Array.from(element.classList).some((c) =>
+            /^pt-\d+$/.test(c),
+        );
+        const hasPr = Array.from(element.classList).some((c) =>
+            /^pr-\d+$/.test(c),
+        );
+        const hasPb = Array.from(element.classList).some((c) =>
+            /^pb-\d+$/.test(c),
+        );
+        const hasPl = Array.from(element.classList).some((c) =>
+            /^pl-\d+$/.test(c),
+        );
+
+        if (hasPAll) {
+            // All sides mode
+            document
+                .querySelector('[data-padding-mode="all"]')
+                ?.classList.add("active");
+            paddingAllDiv?.classList.remove("hidden");
+
+            const value =
+                Array.from(element.classList)
+                    .find((c) => /^p-\d+$/.test(c))
+                    ?.split("-")[1] || "0";
+            document
+                .querySelectorAll("[data-padding-all]")
+                .forEach((b) => b.classList.remove("active"));
+            document
+                .querySelector(`[data-padding-all="${value}"]`)
+                ?.classList.add("active");
+        } else if ((hasPx || hasPy) && !hasPt && !hasPr && !hasPb && !hasPl) {
+            // Horizontal/Vertical mode
+            document
+                .querySelector('[data-padding-mode="horizontal-vertical"]')
+                ?.classList.add("active");
+            paddingHvDiv?.classList.remove("hidden");
+
+            const xValue =
+                Array.from(element.classList)
+                    .find((c) => /^px-\d+$/.test(c))
+                    ?.split("-")[1] || "0";
+            const yValue =
+                Array.from(element.classList)
+                    .find((c) => /^py-\d+$/.test(c))
+                    ?.split("-")[1] || "0";
+
+            document
+                .querySelectorAll("[data-padding-x]")
+                .forEach((b) => b.classList.remove("active"));
+            document
+                .querySelector(`[data-padding-x="${xValue}"]`)
+                ?.classList.add("active");
+
+            document
+                .querySelectorAll("[data-padding-y]")
+                .forEach((b) => b.classList.remove("active"));
+            document
+                .querySelector(`[data-padding-y="${yValue}"]`)
+                ?.classList.add("active");
+        } else if (hasPt || hasPr || hasPb || hasPl) {
+            // Individual mode
+            document
+                .querySelector('[data-padding-mode="individual"]')
+                ?.classList.add("active");
+            paddingIndividualDiv?.classList.remove("hidden");
+
+            const topValue =
+                Array.from(element.classList)
+                    .find((c) => /^pt-\d+$/.test(c))
+                    ?.split("-")[1] || "0";
+            const rightValue =
+                Array.from(element.classList)
+                    .find((c) => /^pr-\d+$/.test(c))
+                    ?.split("-")[1] || "0";
+            const bottomValue =
+                Array.from(element.classList)
+                    .find((c) => /^pb-\d+$/.test(c))
+                    ?.split("-")[1] || "0";
+            const leftValue =
+                Array.from(element.classList)
+                    .find((c) => /^pl-\d+$/.test(c))
+                    ?.split("-")[1] || "0";
+
+            document
+                .querySelectorAll("[data-padding-top]")
+                .forEach((b) => b.classList.remove("active"));
+            document
+                .querySelector(`[data-padding-top="${topValue}"]`)
+                ?.classList.add("active");
+
+            document
+                .querySelectorAll("[data-padding-right]")
+                .forEach((b) => b.classList.remove("active"));
+            document
+                .querySelector(`[data-padding-right="${rightValue}"]`)
+                ?.classList.add("active");
+
+            document
+                .querySelectorAll("[data-padding-bottom]")
+                .forEach((b) => b.classList.remove("active"));
+            document
+                .querySelector(`[data-padding-bottom="${bottomValue}"]`)
+                ?.classList.add("active");
+
+            document
+                .querySelectorAll("[data-padding-left]")
+                .forEach((b) => b.classList.remove("active"));
+            document
+                .querySelector(`[data-padding-left="${leftValue}"]`)
+                ?.classList.add("active");
+        } else {
+            // Default to All mode with None
+            document
+                .querySelector('[data-padding-mode="all"]')
+                ?.classList.add("active");
+            paddingAllDiv?.classList.remove("hidden");
+            document
+                .querySelectorAll("[data-padding-all]")
+                .forEach((b) => b.classList.remove("active"));
+            document
+                .querySelector('[data-padding-all="0"]')
+                ?.classList.add("active");
+        }
 
         // Background
         const bgSelect = document.getElementById(
@@ -1260,24 +1592,226 @@ import "~styles/styles.css";
         });
     });
 
-    document.getElementById("prop-padding")?.addEventListener("change", (e) => {
-        if (!selectedElement) return;
+    // Padding mode buttons
+    const paddingModeButtons = document.querySelectorAll(".padding-mode-btn");
+    const paddingAllDiv = document.getElementById("padding-all");
+    const paddingHvDiv = document.getElementById("padding-hv");
+    const paddingIndividualDiv = document.getElementById("padding-individual");
 
-        const value = (e.target as HTMLSelectElement).value;
+    paddingModeButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            const mode = (btn as HTMLElement).dataset.paddingMode;
 
-        // Remove old padding classes
-        Array.from(selectedElement.classList).forEach((c) => {
-            if (c.startsWith("p-")) {
-                selectedElement!.classList.remove(c);
+            // Update button states
+            paddingModeButtons.forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
+
+            // Show/hide appropriate value sections
+            paddingAllDiv?.classList.add("hidden");
+            paddingHvDiv?.classList.add("hidden");
+            paddingIndividualDiv?.classList.add("hidden");
+
+            if (mode === "all") {
+                paddingAllDiv?.classList.remove("hidden");
+            } else if (mode === "horizontal-vertical") {
+                paddingHvDiv?.classList.remove("hidden");
+            } else if (mode === "individual") {
+                paddingIndividualDiv?.classList.remove("hidden");
             }
         });
+    });
 
-        // Add new padding class
-        if (value) {
-            selectedElement.classList.add(value);
-        }
+    // Padding value buttons - All sides
+    document.querySelectorAll("[data-padding-all]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+            if (!selectedElement) return;
 
-        autoSave();
+            const value = (btn as HTMLElement).dataset.paddingAll;
+
+            // Update button states
+            document
+                .querySelectorAll("[data-padding-all]")
+                .forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
+
+            // Remove all padding classes
+            selectedElement.classList.remove(
+                "p-0",
+                "p-2",
+                "p-4",
+                "p-6",
+                "p-8",
+                "px-0",
+                "px-2",
+                "px-4",
+                "px-6",
+                "px-8",
+                "py-0",
+                "py-2",
+                "py-4",
+                "py-6",
+                "py-8",
+                "pt-0",
+                "pt-2",
+                "pt-4",
+                "pt-6",
+                "pt-8",
+                "pr-0",
+                "pr-2",
+                "pr-4",
+                "pr-6",
+                "pr-8",
+                "pb-0",
+                "pb-2",
+                "pb-4",
+                "pb-6",
+                "pb-8",
+                "pl-0",
+                "pl-2",
+                "pl-4",
+                "pl-6",
+                "pl-8",
+            );
+
+            // Add new padding
+            if (value !== "0") {
+                selectedElement.classList.add(`p-${value}`);
+            }
+
+            autoSave();
+        });
+    });
+
+    // Padding value buttons - Horizontal
+    document.querySelectorAll("[data-padding-x]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+            if (!selectedElement) return;
+
+            const value = (btn as HTMLElement).dataset.paddingX;
+
+            // Update button states
+            document
+                .querySelectorAll("[data-padding-x]")
+                .forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
+
+            // Remove horizontal padding and all-sides padding
+            selectedElement.classList.remove(
+                "p-0",
+                "p-2",
+                "p-4",
+                "p-6",
+                "p-8",
+                "px-0",
+                "px-2",
+                "px-4",
+                "px-6",
+                "px-8",
+            );
+
+            // Add new horizontal padding
+            if (value !== "0") {
+                selectedElement.classList.add(`px-${value}`);
+            }
+
+            autoSave();
+        });
+    });
+
+    // Padding value buttons - Vertical
+    document.querySelectorAll("[data-padding-y]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+            if (!selectedElement) return;
+
+            const value = (btn as HTMLElement).dataset.paddingY;
+
+            // Update button states
+            document
+                .querySelectorAll("[data-padding-y]")
+                .forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
+
+            // Remove vertical padding and all-sides padding
+            selectedElement.classList.remove(
+                "p-0",
+                "p-2",
+                "p-4",
+                "p-6",
+                "p-8",
+                "py-0",
+                "py-2",
+                "py-4",
+                "py-6",
+                "py-8",
+            );
+
+            // Add new vertical padding
+            if (value !== "0") {
+                selectedElement.classList.add(`py-${value}`);
+            }
+
+            autoSave();
+        });
+    });
+
+    // Padding value buttons - Individual sides
+    ["top", "right", "bottom", "left"].forEach((side) => {
+        document.querySelectorAll(`[data-padding-${side}]`).forEach((btn) => {
+            btn.addEventListener("click", () => {
+                if (!selectedElement) return;
+
+                const value = (btn as HTMLElement).dataset[
+                    `padding${side.charAt(0).toUpperCase() + side.slice(1)}`
+                ];
+                const prefix = side.charAt(0); // t, r, b, l
+
+                // Update button states
+                document
+                    .querySelectorAll(`[data-padding-${side}]`)
+                    .forEach((b) => b.classList.remove("active"));
+                btn.classList.add("active");
+
+                // Remove this side's padding and all-sides/axis padding
+                selectedElement.classList.remove(
+                    "p-0",
+                    "p-2",
+                    "p-4",
+                    "p-6",
+                    "p-8",
+                    `p${prefix}-0`,
+                    `p${prefix}-2`,
+                    `p${prefix}-4`,
+                    `p${prefix}-6`,
+                    `p${prefix}-8`,
+                );
+
+                // Remove axis-based padding if setting individual
+                if (side === "top" || side === "bottom") {
+                    selectedElement.classList.remove(
+                        "py-0",
+                        "py-2",
+                        "py-4",
+                        "py-6",
+                        "py-8",
+                    );
+                } else {
+                    selectedElement.classList.remove(
+                        "px-0",
+                        "px-2",
+                        "px-4",
+                        "px-6",
+                        "px-8",
+                    );
+                }
+
+                // Add new padding for this side
+                if (value !== "0") {
+                    selectedElement.classList.add(`p${prefix}-${value}`);
+                }
+
+                autoSave();
+            });
+        });
     });
 
     document.getElementById("prop-bg")?.addEventListener("change", (e) => {
