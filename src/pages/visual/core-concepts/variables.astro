@@ -10,7 +10,7 @@ import SectionTitle from "~components/visual-js/SectionTitle.astro";
 import VisualLayout from "src/layouts/VisualLayout.astro";
 ---
 
-<VisualLayout pageTitle="Javascript Variables">
+<VisualLayout pageTitle="Variables">
     <ProTip>
         <div>
             🧠 <strong>The MOST important concept:</strong> Primitives store by VALUE,
@@ -21,7 +21,8 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         >
             <div>
                 let a = 5; let b = a; <span class="text-gray-400"
-                    >// b gets a COPY of 5</span>
+                    >// b gets a COPY of 5</span
+                >
             </div>
             <div>
                 a = 10; <span class="text-gray-400">// b is still 5 ✅</span>
@@ -29,11 +30,13 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <div class="mt-1">
                 let obj1 = &#123;x: 5&#125;; let obj2 = obj1; <span
                     class="text-gray-400"
-                    >// obj2 gets REFERENCE to same object</span>
+                    >// obj2 gets REFERENCE to same object</span
+                >
             </div>
             <div>
                 obj1.x = 10; <span class="text-red-400"
-                    >// obj2.x is now 10 too! 😱</span>
+                    >// obj2.x is now 10 too! 😱</span
+                >
             </div>
         </div>
     </ProTip>
@@ -68,15 +71,18 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
             <div class="font-mono text-[10px]">
                 let declared; <span class="text-gray-400"
-                    >// declared but not initialized</span>
+                    >// declared but not initialized</span
+                >
             </div>
             <div class="font-mono text-[10px]">
                 console.log(declared) <span class="text-yellow-400"
-                    >// undefined ✅</span>
+                    >// undefined ✅</span
+                >
             </div>
             <div class="font-mono text-[10px] mt-1">
                 console.log(notDeclared) <span class="text-red-400"
-                    >// ReferenceError: notDeclared is not defined ❌</span>
+                    >// ReferenceError: notDeclared is not defined ❌</span
+                >
             </div>
             <div class="text-[10px] text-gray-400 mt-1">
                 undefined = declared but no value | not defined = JS never heard
@@ -217,11 +223,13 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 <div class="font-mono text-[10px]">let score = 100</div>
                 <div class="font-mono text-[10px]">
                     let backup = score <span class="text-gray-400"
-                        >// safe copy</span>
+                        >// safe copy</span
+                    >
                 </div>
                 <div class="font-mono text-[10px]">
                     score = 0 <span class="text-gray-400"
-                        >// backup is still 100 ✅</span>
+                        >// backup is still 100 ✅</span
+                    >
                 </div>
                 <div class="text-[10px] text-gray-400 mt-1">
                     No unexpected side effects. Predictable behavior.
@@ -373,14 +381,16 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 <div class="font-mono text-[10px]">const arr2 = arr1</div>
                 <div class="font-mono text-[10px]">
                     arr1.push(4) <span class="text-red-400"
-                        >// arr2 is now [1,2,3,4] too!</span>
+                        >// arr2 is now [1,2,3,4] too!</span
+                    >
                 </div>
                 <div class="font-mono text-[10px] mt-1">
                     const func1 = () => console.log('hi')
                 </div>
                 <div class="font-mono text-[10px]">
                     const func2 = func1 <span class="text-gray-400"
-                        >// same function</span>
+                        >// same function</span
+                    >
                 </div>
                 <div class="text-[10px] text-yellow-400 mt-1">
                     Arrays, functions, objects, dates, RegExp... all references!
@@ -453,15 +463,18 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 <div class="font-mono text-[10px]">let c = a</div>
                 <div class="font-mono text-[10px]">
                     a === b <span class="text-green-400"
-                        >// true (same value)</span>
+                        >// true (same value)</span
+                    >
                 </div>
                 <div class="font-mono text-[10px]">
                     a === c <span class="text-green-400"
-                        >// true (same value)</span>
+                        >// true (same value)</span
+                    >
                 </div>
                 <div class="font-mono text-[10px]">
                     b === c <span class="text-green-400"
-                        >// true (same value)</span>
+                        >// true (same value)</span
+                    >
                 </div>
             </div>
         </ProTip>
@@ -566,14 +579,16 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 </div>
                 <div class="font-mono text-[10px]">
                     [1,2,3] === [1,2,3] <span class="text-red-400"
-                        >// false ❌</span>
+                        >// false ❌</span
+                    >
                 </div>
                 <div class="font-mono text-[10px] mt-1">
                     const arr = [1,2,3]
                 </div>
                 <div class="font-mono text-[10px]">
                     arr === arr <span class="text-green-400"
-                        >// true ✅ (same reference)</span>
+                        >// true ✅ (same reference)</span
+                    >
                 </div>
                 <div class="text-[10px] text-yellow-400 mt-1">
                     For deep comparison, use JSON.stringify() or a library like
@@ -639,23 +654,28 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 <div class="font-mono text-[10px]">const obj = {"{"}</div>
                 <div class="font-mono text-[10px]">
                     &nbsp;&nbsp;num: 42, <span class="text-green-400"
-                        >// ✅ works</span>
+                        >// ✅ works</span
+                    >
                 </div>
                 <div class="font-mono text-[10px]">
                     &nbsp;&nbsp;str: "hello", <span class="text-green-400"
-                        >// ✅ works</span>
+                        >// ✅ works</span
+                    >
                 </div>
                 <div class="font-mono text-[10px]">
                     &nbsp;&nbsp;undef: undefined, <span class="text-red-400"
-                        >// ❌ disappears!</span>
+                        >// ❌ disappears!</span
+                    >
                 </div>
                 <div class="font-mono text-[10px]">
                     &nbsp;&nbsp;func: () => {}, <span class="text-red-400"
-                        >// ❌ disappears!</span>
+                        >// ❌ disappears!</span
+                    >
                 </div>
                 <div class="font-mono text-[10px]">
                     &nbsp;&nbsp;date: new Date() <span class="text-red-400"
-                        >// ❌ becomes string!</span>
+                        >// ❌ becomes string!</span
+                    >
                 </div>
                 <div class="font-mono text-[10px]">{"}"}</div>
                 <div class="text-[10px] text-yellow-400 mt-1">
@@ -719,15 +739,18 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 <div class="font-mono text-[10px]">const original = {"{"}</div>
                 <div class="font-mono text-[10px]">
                     &nbsp;&nbsp;data: undefined, <span class="text-green-400"
-                        >// ✅ preserved</span>
+                        >// ✅ preserved</span
+                    >
                 </div>
                 <div class="font-mono text-[10px]">
                     &nbsp;&nbsp;date: new Date(), <span class="text-green-400"
-                        >// ✅ stays Date object</span>
+                        >// ✅ stays Date object</span
+                    >
                 </div>
                 <div class="font-mono text-[10px]">
                     &nbsp;&nbsp;array: [1, 2, {"{"} nested: true {"}"}] <span
-                        class="text-green-400">// ✅ deep clone</span>
+                        class="text-green-400">// ✅ deep clone</span
+                    >
                 </div>
                 <div class="font-mono text-[10px]">{"}"}</div>
                 <div class="font-mono text-[10px] mt-1">
@@ -830,15 +853,18 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 </div>
                 <div class="font-mono text-[10px] mt-1">
                     clone.name = "Jane" <span class="text-green-400"
-                        >// ✅ safe</span>
+                        >// ✅ safe</span
+                    >
                 </div>
                 <div class="font-mono text-[10px]">
                     clone.pets.push("fish") <span class="text-red-400"
-                        >// ❌ affects original!</span>
+                        >// ❌ affects original!</span
+                    >
                 </div>
                 <div class="font-mono text-[10px]">
                     console.log(user.pets) <span class="text-gray-400"
-                        >// ["dog", "cat", "fish"] 😱</span>
+                        >// ["dog", "cat", "fish"] 😱</span
+                    >
                 </div>
                 <div class="text-[10px] text-yellow-400 mt-1">
                     Use deep clone for nested objects/arrays
@@ -862,7 +888,8 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         <a
                             href="#primitive-assignment"
                             class="text-gray-300 hover:text-blue-400 block"
-                            >Assignment</a>
+                            >Assignment</a
+                        >
                     </li>
                 </ul>
             </li>
@@ -880,7 +907,8 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         <a
                             href="#object-assignment"
                             class="text-gray-300 hover:text-blue-400 block"
-                            >Assignment</a>
+                            >Assignment</a
+                        >
                     </li>
                 </ul>
             </li>
@@ -898,13 +926,15 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         <a
                             href="#primitive-comparison"
                             class="text-gray-300 hover:text-blue-400 block"
-                            >Primitives</a>
+                            >Primitives</a
+                        >
                     </li>
                     <li>
                         <a
                             href="#object-comparison"
                             class="text-gray-300 hover:text-blue-400 block"
-                            >Objects</a>
+                            >Objects</a
+                        >
                     </li>
                 </ul>
             </li>
@@ -922,19 +952,22 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         <a
                             href="#json-clone"
                             class="text-gray-300 hover:text-blue-400 block"
-                            >JSON Clone</a>
+                            >JSON Clone</a
+                        >
                     </li>
                     <li>
                         <a
                             href="#structured-clone"
                             class="text-gray-300 hover:text-blue-400 block"
-                            >structuredClone()</a>
+                            >structuredClone()</a
+                        >
                     </li>
                     <li>
                         <a
                             href="#shallow-clone"
                             class="text-gray-300 hover:text-blue-400 block"
-                            >Shallow Clone</a>
+                            >Shallow Clone</a
+                        >
                     </li>
                 </ul>
             </li>

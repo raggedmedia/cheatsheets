@@ -1,1734 +1,2571 @@
 ---
-import '~styles/styles.css'
-import MethodCard from '~components/visual-js/MethodCard.astro'
-import Node from '~components/visual-js/Node.astro'
-import ArrayDisplay from '~components/visual-js/ArrayDisplay.astro'
-import Arrow from '~components/visual-js/Arrow.astro'
-import ReturnValue from '~components/visual-js/ReturnValue.astro'
-import MutableOrNot from '~components/visual-js/MutableOrNot.astro';
-import ProcessContent from '~components/visual-js/ProcessContent.astro'
-import ProTip from '~components/visual-js/ProTip.astro'
-import SectionTitle from '~components/visual-js/SectionTitle.astro'
-import SubSectionTitle from '~components/visual-js/SubSectionTitle.astro'
-import VisualLayout from 'src/layouts/VisualLayout.astro'
+import "~styles/styles.css";
+import MethodCard from "~components/visual-js/MethodCard.astro";
+import Node from "~components/visual-js/Node.astro";
+import ArrayDisplay from "~components/visual-js/ArrayDisplay.astro";
+import Arrow from "~components/visual-js/Arrow.astro";
+import ReturnValue from "~components/visual-js/ReturnValue.astro";
+import MutableOrNot from "~components/visual-js/MutableOrNot.astro";
+import ProcessContent from "~components/visual-js/ProcessContent.astro";
+import ProTip from "~components/visual-js/ProTip.astro";
+import SectionTitle from "~components/visual-js/SectionTitle.astro";
+import SubSectionTitle from "~components/visual-js/SubSectionTitle.astro";
+import VisualLayout from "src/layouts/VisualLayout.astro";
 ---
-<VisualLayout
-    pageTitle="Javascript Arrays"
->
 
-                <ProTip>
-                    <div>📏 <strong>Array length property:</strong> Get the number of elements with <code class="bg-black/30 px-1 py-0.5 rounded font-mono text-yellow-400">arr.length</code></div>
-                    <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                        <div class="font-mono text-[10px]">const nums = [1, 2, 3, 4, 5];</div>
-                        <div class="font-mono text-[10px]">nums.length → 5</div>
-                        <div class="font-mono text-[10px] mt-1"><span class="text-green-400">// Writable! Set length to truncate:</span></div>
-                        <div class="font-mono text-[10px]">nums.length = 3 → [1, 2, 3]</div>
-                    </div>
-                </ProTip>
+<VisualLayout pageTitle="Arrays">
+    <ProTip>
+        <div>
+            📏 <strong>Array length property:</strong> Get the number of elements
+            with <code
+                class="bg-black/30 px-1 py-0.5 rounded font-mono text-yellow-400"
+                >arr.length</code>
+        </div>
+        <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+            <div class="font-mono text-[10px]">
+                const nums = [1, 2, 3, 4, 5];
+            </div>
+            <div class="font-mono text-[10px]">nums.length → 5</div>
+            <div class="font-mono text-[10px] mt-1">
+                <span class="text-green-400"
+                    >// Writable! Set length to truncate:</span>
+            </div>
+            <div class="font-mono text-[10px]">nums.length = 3 → [1, 2, 3]</div>
+        </div>
+    </ProTip>
 
-                <!-- ============================================ -->
-                <!-- � CONVERTING TO ARRAYS -->
-                <!-- ============================================ -->
+    <!-- ============================================ -->
+    <!-- � CONVERTING TO ARRAYS -->
+    <!-- ============================================ -->
 
-                <SectionTitle id="converting" color="blue">
-                    🔄 Converting to Arrays
-                </SectionTitle>
+    <SectionTitle id="converting" color="blue">
+        🔄 Converting to Arrays
+    </SectionTitle>
 
-                <!-- === STRING TO ARRAY === -->
-                <SubSectionTitle id="string-to-array" parentColor="blue">String to Array</SubSectionTitle>
+    <!-- === STRING TO ARRAY === -->
+    <SubSectionTitle id="string-to-array" parentColor="blue"
+        >String to Array</SubSectionTitle
+    >
 
-                <!-- SPLIT -->
-                <MethodCard
-                    id="split"
-                    methodName="split()"
-                        signature="str.split(separator)"
-                        description="Splits a string into an array of substrings"
-                        mutates={false}
-                    >
-                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                            <Node label="String" type="input">
-                                <div class="text-center text-sm font-mono">"hello"</div>
-                            </Node>
+    <!-- SPLIT -->
+    <MethodCard
+        id="split"
+        methodName="split()"
+        signature="str.split(separator)"
+        description="Splits a string into an array of substrings"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="String" type="input">
+                <div class="text-center text-sm font-mono">"hello"</div>
+            </Node>
 
-                            <Arrow label="splits" />
+            <Arrow label="splits" />
 
-                            <Node label="Method" type="process">
-                                <ProcessContent name="split('')" description="Split into chars" />
-                            </Node>
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="split('')"
+                    description="Split into chars"
+                />
+            </Node>
 
-                            <Arrow label="returns" />
+            <Arrow label="returns" />
 
-                            <Node label="Array" type="output">
-                                <ArrayDisplay values={['h', 'e', 'l', 'l', 'o']} highlightIndices={[0, 1, 2, 3, 4]} highlightType="added" />
-                            </Node>
-                        </div>
+            <Node label="Array" type="output">
+                <ArrayDisplay
+                    values={["h", "e", "l", "l", "o"]}
+                    highlightIndices={[0, 1, 2, 3, 4]}
+                    highlightType="added"
+                />
+            </Node>
+        </div>
 
-                        <MutableOrNot mutates={false} message="">
-                            Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code>. Use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">split('')</code> for chars, <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">split(' ')</code> for words.
-                        </MutableOrNot>
-                    </MethodCard>
+        <MutableOrNot mutates={false} message="">
+            Returns a <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >new array</code
+            >. Use <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >split('')</code
+            > for chars, <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >split(' ')</code
+            > for words.
+        </MutableOrNot>
+    </MethodCard>
 
-                <!-- ARRAY.FROM STRING -->
-                <MethodCard
-                    id="array-from-string"
-                    methodName="Array.from()"
-                        signature="Array.from(string)"
-                        description="Creates array from string or iterable"
-                        mutates={false}
-                    >
-                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                            <Node label="String" type="input">
-                                <div class="text-center text-sm font-mono">"abc"</div>
-                            </Node>
+    <!-- ARRAY.FROM STRING -->
+    <MethodCard
+        id="array-from-string"
+        methodName="Array.from()"
+        signature="Array.from(string)"
+        description="Creates array from string or iterable"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="String" type="input">
+                <div class="text-center text-sm font-mono">"abc"</div>
+            </Node>
 
-                            <Arrow label="converts" />
+            <Arrow label="converts" />
 
-                            <Node label="Method" type="process">
-                                <ProcessContent name="Array.from(str)" description="String to array" />
-                            </Node>
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="Array.from(str)"
+                    description="String to array"
+                />
+            </Node>
 
-                            <Arrow label="returns" />
+            <Arrow label="returns" />
 
-                            <Node label="Array" type="output">
-                                <ArrayDisplay values={['a', 'b', 'c']} highlightIndices={[0, 1, 2]} highlightType="added" />
-                            </Node>
-                        </div>
+            <Node label="Array" type="output">
+                <ArrayDisplay
+                    values={["a", "b", "c"]}
+                    highlightIndices={[0, 1, 2]}
+                    highlightType="added"
+                />
+            </Node>
+        </div>
 
-                        <MutableOrNot mutates={false} message="">
-                            Static method. Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> from any iterable or array-like object.
-                        </MutableOrNot>
-                    </MethodCard>
+        <MutableOrNot mutates={false} message="">
+            Static method. Returns a <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >new array</code
+            > from any iterable or array-like object.
+        </MutableOrNot>
+    </MethodCard>
 
-                <!-- SPREAD STRING -->
-                <MethodCard
-                    id="spread-string"
-                    methodName="Spread [...str]"
-                        signature="[...string]"
-                        description="Uses spread operator to convert string to array"
-                        mutates={false}
-                    >
-                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                            <Node label="String" type="input">
-                                <div class="text-center text-sm font-mono">"hello"</div>
-                            </Node>
+    <!-- SPREAD STRING -->
+    <MethodCard
+        id="spread-string"
+        methodName="Spread [...str]"
+        signature="[...string]"
+        description="Uses spread operator to convert string to array"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="String" type="input">
+                <div class="text-center text-sm font-mono">"hello"</div>
+            </Node>
 
-                            <Arrow label="spreads" />
+            <Arrow label="spreads" />
 
-                            <Node label="Syntax" type="process">
-                                <ProcessContent name="[...str]" description="Spread into array" />
-                            </Node>
+            <Node label="Syntax" type="process">
+                <ProcessContent
+                    name="[...str]"
+                    description="Spread into array"
+                />
+            </Node>
 
-                            <Arrow label="returns" />
+            <Arrow label="returns" />
 
-                            <Node label="Array" type="output">
-                                <ArrayDisplay values={['h', 'e', 'l', 'l', 'o']} highlightIndices={[0, 1, 2, 3, 4]} highlightType="added" />
-                            </Node>
-                        </div>
+            <Node label="Array" type="output">
+                <ArrayDisplay
+                    values={["h", "e", "l", "l", "o"]}
+                    highlightIndices={[0, 1, 2, 3, 4]}
+                    highlightType="added"
+                />
+            </Node>
+        </div>
 
-                        <MutableOrNot mutates={false} message="">
-                            Modern syntax. Creates a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> with each character as an element.
-                        </MutableOrNot>
-                    </MethodCard>
+        <MutableOrNot mutates={false} message="">
+            Modern syntax. Creates a <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >new array</code
+            > with each character as an element.
+        </MutableOrNot>
+    </MethodCard>
 
-                <!-- === NUMBER TO ARRAY === -->
-                <SubSectionTitle id="number-to-array" parentColor="blue">Number to Array</SubSectionTitle>
+    <!-- === NUMBER TO ARRAY === -->
+    <SubSectionTitle id="number-to-array" parentColor="blue"
+        >Number to Array</SubSectionTitle
+    >
 
-                <!-- NUMBER TO DIGITS -->
-                <MethodCard
-                    id="number-to-digits"
-                    methodName="String() + split()"
-                        signature="String(num).split('')"
-                        description="Converts number to array of digit strings"
-                        mutates={false}
-                    >
-                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                            <Node label="Number" type="input">
-                                <div class="text-center text-sm font-mono">12345</div>
-                            </Node>
+    <!-- NUMBER TO DIGITS -->
+    <MethodCard
+        id="number-to-digits"
+        methodName="String() + split()"
+        signature="String(num).split('')"
+        description="Converts number to array of digit strings"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Number" type="input">
+                <div class="text-center text-sm font-mono">12345</div>
+            </Node>
 
-                            <Arrow label="converts" />
+            <Arrow label="converts" />
 
-                            <Node label="Method" type="process">
-                                <ProcessContent name="String(num).split('')" description="To string, then split" />
-                            </Node>
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="String(num).split('')"
+                    description="To string, then split"
+                />
+            </Node>
 
-                            <Arrow label="returns" />
+            <Arrow label="returns" />
 
-                            <Node label="Array" type="output">
-                                <ArrayDisplay values={['1', '2', '3', '4', '5']} highlightIndices={[0, 1, 2, 3, 4]} highlightType="added" />
-                            </Node>
-                        </div>
+            <Node label="Array" type="output">
+                <ArrayDisplay
+                    values={["1", "2", "3", "4", "5"]}
+                    highlightIndices={[0, 1, 2, 3, 4]}
+                    highlightType="added"
+                />
+            </Node>
+        </div>
 
-                        <MutableOrNot mutates={false} message="">
-                            Returns array of <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">digit strings</code>. Use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">.map(Number)</code> to convert to numbers.
-                        </MutableOrNot>
-                    </MethodCard>
+        <MutableOrNot mutates={false} message="">
+            Returns array of <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >digit strings</code
+            >. Use <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >.map(Number)</code
+            > to convert to numbers.
+        </MutableOrNot>
+    </MethodCard>
 
-                <!-- ARRAY.FROM NUMBER -->
-                <MethodCard
-                        id="array-from-number"
-                        methodName="Array.from() + map"
-                        signature="Array.from(String(num), Number)"
-                        description="Converts number to array of digit numbers"
-                        mutates={false}
-                    >
-                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                            <Node label="Number" type="input">
-                                <div class="text-center text-sm font-mono">123</div>
-                            </Node>
+    <!-- ARRAY.FROM NUMBER -->
+    <MethodCard
+        id="array-from-number"
+        methodName="Array.from() + map"
+        signature="Array.from(String(num), Number)"
+        description="Converts number to array of digit numbers"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Number" type="input">
+                <div class="text-center text-sm font-mono">123</div>
+            </Node>
 
-                            <Arrow label="converts" />
+            <Arrow label="converts" />
 
-                            <Node label="Method" type="process">
-                                <ProcessContent name="Array.from(String(num), Number)" description="String then map to numbers" />
-                            </Node>
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="Array.from(String(num), Number)"
+                    description="String then map to numbers"
+                />
+            </Node>
 
-                            <Arrow label="returns" />
+            <Arrow label="returns" />
 
-                            <Node label="Array" type="output">
-                                <ArrayDisplay values={[1, 2, 3]} highlightIndices={[0, 1, 2]} highlightType="added" />
-                            </Node>
-                        </div>
+            <Node label="Array" type="output">
+                <ArrayDisplay
+                    values={[1, 2, 3]}
+                    highlightIndices={[0, 1, 2]}
+                    highlightType="added"
+                />
+            </Node>
+        </div>
 
-                        <MutableOrNot mutates={false} message="">
-                            Returns array of <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">digit numbers</code>. Second parameter is mapping function.
-                        </MutableOrNot>
-                    </MethodCard>
+        <MutableOrNot mutates={false} message="">
+            Returns array of <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >digit numbers</code
+            >. Second parameter is mapping function.
+        </MutableOrNot>
+    </MethodCard>
 
-                <!-- ============================================ -->
-                <!-- �🛠 MUTATES THE ARRAY -->
-                <!-- ============================================ -->
+    <!-- ============================================ -->
+    <!-- �🛠 MUTATES THE ARRAY -->
+    <!-- ============================================ -->
 
-                <SectionTitle id="mutates" color="red">
-                    🛠 Mutates the Array
-                </SectionTitle>
+    <SectionTitle id="mutates" color="red"> 🛠 Mutates the Array </SectionTitle>
 
-                <!-- === INSERT / REMOVE === -->
-                <SubSectionTitle id="insert-remove" parentColor="red">Insert / Remove</SubSectionTitle>
+    <!-- === INSERT / REMOVE === -->
+    <SubSectionTitle id="insert-remove" parentColor="red"
+        >Insert / Remove</SubSectionTitle
+    >
 
-                <!-- PUSH -->
-                <MethodCard
-                        id="push"
-                        methodName="push()"
-                        signature="arr.push(...items)"
-                        description="Adds elements to the end of an array and returns the new length"
-                        mutates={true}
-                    >
-                <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                    <Node label="Input Array" type="input">
-                        <ArrayDisplay values={['a', 'b', 'c']} />
-                    </Node>
+    <!-- PUSH -->
+    <MethodCard
+        id="push"
+        methodName="push()"
+        signature="arr.push(...items)"
+        description="Adds elements to the end of an array and returns the new length"
+        mutates={true}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Array" type="input">
+                <ArrayDisplay values={["a", "b", "c"]} />
+            </Node>
 
-                    <Arrow label="mutates" />
+            <Arrow label="mutates" />
 
-                    <Node label="Method" type="process">
-                        <ProcessContent name="push('d')" description="Add to end" />
-                    </Node>
+            <Node label="Method" type="process">
+                <ProcessContent name="push('d')" description="Add to end" />
+            </Node>
 
-                    <Arrow />
+            <Arrow />
 
-                    <Node label="Modified Array" type="output">
-                        <ArrayDisplay values={['a', 'b', 'c', 'd']} highlightIndices={[3]} highlightType="added" />
-                    </Node>
+            <Node label="Modified Array" type="output">
+                <ArrayDisplay
+                    values={["a", "b", "c", "d"]}
+                    highlightIndices={[3]}
+                    highlightType="added"
+                />
+            </Node>
 
-                    <Arrow label="returns" />
+            <Arrow label="returns" />
 
-                    <Node label="Return Value" type="output">
-                        <ReturnValue value={4} type="new length" />
-                    </Node>
-                </div>
+            <Node label="Return Value" type="output">
+                <ReturnValue value={4} type="new length" />
+            </Node>
+        </div>
 
-                        <MutableOrNot mutates={true} message="">
-                            The original array is modified in place. Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">number</code> (new length), not the array. ⚠️ Cannot be chained with other array methods.
-                        </MutableOrNot>
-                    </MethodCard>
+        <MutableOrNot mutates={true} message="">
+            The original array is modified in place. Returns <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >number</code
+            > (new length), not the array. ⚠️ Cannot be chained with other array
+            methods.
+        </MutableOrNot>
+    </MethodCard>
 
-                <!-- POP -->
-                <MethodCard
-                id="pop"
-                methodName="pop()"
-                signature="arr.pop()"
-                description="Removes and returns the last element from an array"
-                mutates={true}
+    <!-- POP -->
+    <MethodCard
+        id="pop"
+        methodName="pop()"
+        signature="arr.pop()"
+        description="Removes and returns the last element from an array"
+        mutates={true}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Array" type="input">
+                <ArrayDisplay values={["a", "b", "c"]} />
+            </Node>
+
+            <Arrow label="mutates" />
+
+            <Node label="Method" type="process">
+                <ProcessContent name="pop()" description="Remove last" />
+            </Node>
+
+            <Arrow />
+
+            <Node label="Modified Array" type="output">
+                <ArrayDisplay values={["a", "b"]} />
+            </Node>
+
+            <Arrow label="returns" />
+
+            <Node label="Return Value" type="output">
+                <ReturnValue value="'c'" type="removed item" />
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={true} message="">
+            The original array is shortened. Returns the removed <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >element</code
+            > (or undefined if empty). ⚠️ Cannot be chained with other array methods.
+        </MutableOrNot>
+    </MethodCard>
+
+    <!-- UNSHIFT -->
+    <MethodCard
+        id="unshift"
+        methodName="unshift()"
+        signature="arr.unshift(...items)"
+        description="Adds elements to the beginning of an array and returns the new length"
+        mutates={true}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Array" type="input">
+                <ArrayDisplay values={["b", "c", "d"]} />
+            </Node>
+
+            <Arrow label="mutates" />
+
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="unshift('a')"
+                    description="Add to beginning"
+                />
+            </Node>
+
+            <Arrow />
+
+            <Node label="Modified Array" type="output">
+                <ArrayDisplay
+                    values={["a", "b", "c", "d"]}
+                    highlightIndices={[0]}
+                    highlightType="added"
+                />
+            </Node>
+
+            <Arrow label="returns" />
+
+            <Node label="Return Value" type="output">
+                <ReturnValue value={4} type="new length" />
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={true} message="">
+            The original array is modified in place. All existing elements shift
+            to higher indices. Returns <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >number</code
+            > (new length). ⚠️ Cannot be chained with other array methods.
+        </MutableOrNot>
+    </MethodCard>
+
+    <!-- SHIFT -->
+    <MethodCard
+        id="shift"
+        methodName="shift()"
+        signature="arr.shift()"
+        description="Removes and returns the first element from an array"
+        mutates={true}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Array" type="input">
+                <ArrayDisplay values={["a", "b", "c"]} />
+            </Node>
+
+            <Arrow label="mutates" />
+
+            <Node label="Method" type="process">
+                <ProcessContent name="shift()" description="Remove first" />
+            </Node>
+
+            <Arrow />
+
+            <Node label="Modified Array" type="output">
+                <ArrayDisplay values={["b", "c"]} />
+            </Node>
+
+            <Arrow label="returns" />
+
+            <Node label="Return Value" type="output">
+                <ReturnValue value="'a'" type="removed item" />
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={true} message="">
+            The original array is shortened. All remaining elements shift to
+            lower indices. Returns the removed <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >element</code
+            > (or undefined if empty). ⚠️ Cannot be chained with other array methods.
+        </MutableOrNot>
+    </MethodCard>
+
+    <!-- SPLICE -->
+    <MethodCard
+        id="splice"
+        methodName="splice()"
+        signature="arr.splice(start, deleteCount, ...items)"
+        description="Removes, replaces, or adds elements at any position in the array"
+        mutates={true}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Array" type="input">
+                <ArrayDisplay values={["a", "b", "c", "d"]} />
+            </Node>
+
+            <Arrow label="mutates" />
+
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="splice(1, 2, 'X', 'Y')"
+                    description="At index 1, remove 2, insert 'X', 'Y'"
+                />
+            </Node>
+
+            <Arrow />
+
+            <Node label="Modified Array" type="output">
+                <ArrayDisplay
+                    values={["a", "X", "Y", "d"]}
+                    highlightIndices={[1, 2]}
+                    highlightType="added"
+                />
+            </Node>
+
+            <Arrow label="returns" />
+
+            <Node label="Return Value" type="output">
+                <ArrayDisplay
+                    values={["b", "c"]}
+                    highlightIndices={[0, 1]}
+                    highlightType="removed"
+                />
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={true} message="">
+            The Swiss Army knife of array methods. Returns an <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >array</code
+            > of removed elements. Can remove, add, or replace items at any index.
+        </MutableOrNot>
+
+        <ProTip>
+            <div>Insert without deleting by setting deleteCount to 0:</div>
+            <div
+                class="pl-2 border-l-2 border-yellow-500/60 font-mono text-[10px]"
             >
-                <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                    <Node label="Input Array" type="input">
-                        <ArrayDisplay values={['a', 'b', 'c']} />
-                    </Node>
+                arr.splice(2, 0, 'x', 'y') → inserts 'x', 'y' at index 2
+            </div>
+        </ProTip>
+    </MethodCard>
 
-                    <Arrow label="mutates" />
+    <!-- === REORDER === -->
+    <SubSectionTitle id="reorder" parentColor="red">Reorder</SubSectionTitle>
 
-                    <Node label="Method" type="process">
-                        <ProcessContent name="pop()" description="Remove last" />
-                    </Node>
+    <!-- SORT -->
+    <MethodCard
+        id="sort"
+        methodName="sort()"
+        signature="arr.sort(compareFn?)"
+        description="Sorts the array in place and returns the same array"
+        mutates={true}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Array" type="input">
+                <ArrayDisplay values={[3, 1, 4, 2]} />
+            </Node>
 
-                    <Arrow />
+            <Arrow label="mutates" />
 
-                    <Node label="Modified Array" type="output">
-                        <ArrayDisplay values={['a', 'b']} />
-                    </Node>
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="sort((a, b) => a - b)"
+                    description="Ascending order"
+                />
+            </Node>
 
-                    <Arrow label="returns" />
+            <Arrow label="returns" />
 
-                    <Node label="Return Value" type="output">
-                        <ReturnValue value="'c'" type="removed item" />
-                    </Node>
+            <Node label="Same Array (Sorted)" type="output">
+                <ArrayDisplay
+                    values={[1, 2, 3, 4]}
+                    highlightIndices={[0, 1, 2, 3]}
+                    highlightType="transformed"
+                />
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={true} message="">
+            Sorts in place. Returns the <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >same array</code
+            > (not a copy).
+        </MutableOrNot>
+
+        <ProTip>
+            <div>
+                Without a compare function, sort treats values as strings!
+            </div>
+
+            <div class="pl-2 border-l-2 border-yellow-500/60">
+                <div class="font-mono text-[10px]">
+                    ['b','d','a','c'].sort() → ['a','b','c','d']
                 </div>
+                <div class="font-mono text-[10px]">
+                    ['b','d','a','c'].sort().reverse() → ['d','c','b','a']
+                </div>
+            </div>
 
-                <MutableOrNot mutates={true} message="">
-                    The original array is shortened. Returns the removed <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">element</code> (or undefined if empty). ⚠️ Cannot be chained with other array methods.
-                </MutableOrNot>
-            </MethodCard>
+            <div>For numbers, use compare function:</div>
 
-                <!-- UNSHIFT -->
-                <MethodCard
-                id="unshift"
-                methodName="unshift()"
-                signature="arr.unshift(...items)"
-                description="Adds elements to the beginning of an array and returns the new length"
-                mutates={true}
+            <div class="pl-2 border-l-2 border-yellow-500/60">
+                <div class="font-mono text-[10px]">
+                    [2,4,1,3].sort((a,b) => a-b) → [1,2,3,4] <span
+                        class="text-gray-400">// ascending</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    [2,4,1,3].sort((a,b) => b-a) → [4,3,2,1] <span
+                        class="text-gray-400">// descending</span>
+                </div>
+                <div class="font-mono text-[10px] text-gray-400">
+                    // OR: .sort((a,b) => a-b).reverse() → [4,3,2,1]
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- REVERSE -->
+    <MethodCard
+        id="reverse"
+        methodName="reverse()"
+        signature="arr.reverse()"
+        description="Reverses the array in place and returns the same array"
+        mutates={true}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Array" type="input">
+                <ArrayDisplay values={["a", "b", "c"]} />
+            </Node>
+
+            <Arrow label="mutates" />
+
+            <Node label="Method" type="process">
+                <ProcessContent name="reverse()" description="Flip order" />
+            </Node>
+
+            <Arrow label="returns" />
+
+            <Node label="Same Array (Reversed)" type="output">
+                <ArrayDisplay
+                    values={["c", "b", "a"]}
+                    highlightIndices={[0, 1, 2]}
+                    highlightType="transformed"
+                />
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={true} message="">
+            Reverses in place. Returns the <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >same array</code
+            > (not a copy).
+        </MutableOrNot>
+    </MethodCard>
+
+    <!-- === OVERWRITE / MOVE === -->
+    <SubSectionTitle id="overwrite-move" parentColor="red"
+        >Overwrite / Move</SubSectionTitle
+    >
+
+    <!-- FILL -->
+    <MethodCard
+        id="fill"
+        methodName="fill()"
+        signature="arr.fill(value, start?, end?)"
+        description="Overwrites a section of the array with a static value"
+        mutates={true}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Array" type="input">
+                <ArrayDisplay values={[1, 2, 3, 4, 5]} />
+            </Node>
+
+            <Arrow label="mutates" />
+
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="fill(0, 1, 4)"
+                    description="Fill indices 1-3 with 0"
+                />
+            </Node>
+
+            <Arrow label="returns" />
+
+            <Node label="Same Array (Modified)" type="output">
+                <ArrayDisplay
+                    values={[1, 0, 0, 0, 5]}
+                    highlightIndices={[1, 2, 3]}
+                    highlightType="transformed"
+                />
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={true} message="">
+            Overwrites in place. Returns the <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >same array</code
+            >. End index is exclusive.
+        </MutableOrNot>
+
+        <ProTip>
+            <div>Useful for filling array holes (empty slots):</div>
+            <div class="pl-2 border-l-2 border-yellow-500/60 space-y-0.5">
+                <div class="font-mono text-[10px]">
+                    Array(5).fill(0) → [0, 0, 0, 0, 0] <span
+                        class="text-gray-400">// no holes!</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    Array(5) → [empty × 5] <span class="text-gray-400"
+                        >// has holes, methods skip these</span>
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- COPYWITHIN -->
+    <MethodCard
+        id="copyWithin"
+        methodName="copyWithin()"
+        signature="arr.copyWithin(target, start, end?)"
+        description="Copies part of array to another location within same array"
+        mutates={true}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Array" type="input">
+                <ArrayDisplay values={[1, 2, 3, 4, 5]} />
+            </Node>
+
+            <Arrow label="mutates" />
+
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="copyWithin(0, 3)"
+                    description="Copy from index 3 to start"
+                />
+            </Node>
+
+            <Arrow label="returns" />
+
+            <Node label="Same Array (Modified)" type="output">
+                <ArrayDisplay
+                    values={[4, 5, 3, 4, 5]}
+                    highlightIndices={[0, 1]}
+                    highlightType="transformed"
+                />
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={true} message="">
+            Copies within the same array. Returns the <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >same array</code
+            >. Doesn't change array length.
+        </MutableOrNot>
+    </MethodCard>
+
+    <!-- ============================================ -->
+    <!-- 🚫 DOES NOT MUTATE (returns new value) -->
+    <!-- ============================================ -->
+    <SectionTitle id="immutable" color="green">
+        🚫 Does Not Mutate (returns new value)
+    </SectionTitle>
+
+    <ProTip>
+        <div>
+            💪 Chain immutable methods together for cleaner, functional code:
+        </div>
+        <div class="pl-2 border-l-2 border-yellow-500/60 space-y-0.5">
+            <div class="font-mono text-[10px]">
+                users.filter(u =&gt; u.active).map(u =&gt; u.name).slice(0, 10)
+            </div>
+            <div class="font-mono text-[10px] text-gray-400">
+                // Filter → transform → take first 10 (all chainable!)
+            </div>
+        </div>
+    </ProTip>
+
+    <!-- === BUILD NEW ARRAYS === -->
+    <SubSectionTitle id="build-arrays" parentColor="green"
+        >Build New Arrays</SubSectionTitle
+    >
+
+    <!-- MAP -->
+    <MethodCard
+        id="map"
+        methodName="map()"
+        signature="arr.map(fn)"
+        description="Creates a new array by transforming each element with a function"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Array" type="input">
+                <ArrayDisplay values={[1, 2, 3]} />
+            </Node>
+
+            <Arrow label="transforms" />
+
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="map(n => n * 2)"
+                    description="Double each value"
+                />
+            </Node>
+
+            <Arrow label="returns" />
+
+            <Node label="New Array" type="output">
+                <ArrayDisplay
+                    values={[2, 4, 6]}
+                    highlightIndices={[0, 1, 2]}
+                    highlightType="transformed"
+                />
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Original array remains unchanged. Returns a <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >new array</code
+            > with same length, transformed values.
+        </MutableOrNot>
+
+        <ProTip>
+            <div>
+                Need the results? Use <code
+                    class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                    >map()</code
+                >. Just doing side effects? Use <code
+                    class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                    >forEach()</code
+                >.
+            </div>
+            <div
+                class="pl-2 border-l-2 border-yellow-500/60 font-mono text-[10px]"
             >
-                <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                    <Node label="Input Array" type="input">
-                        <ArrayDisplay values={['b', 'c', 'd']} />
-                    </Node>
+                const ids = users.map(u => u.id) ✅<br />
+                users.forEach(u => console.log(u)) ✅
+            </div>
+        </ProTip>
+    </MethodCard>
 
-                    <Arrow label="mutates" />
+    <!-- FILTER -->
+    <MethodCard
+        id="filter"
+        methodName="filter()"
+        signature="arr.filter(fn)"
+        description="Creates a new array with elements that pass a test function"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Array" type="input">
+                <ArrayDisplay values={[1, 2, 3, 4, 5]} />
+            </Node>
 
-                    <Node label="Method" type="process">
-                        <ProcessContent name="unshift('a')" description="Add to beginning" />
-                    </Node>
+            <Arrow label="filters" />
 
-                    <Arrow />
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="filter(n => n % 2 === 0)"
+                    description="Keep even numbers"
+                />
+            </Node>
 
-                    <Node label="Modified Array" type="output">
-                        <ArrayDisplay values={['a', 'b', 'c', 'd']} highlightIndices={[0]} highlightType="added" />
-                    </Node>
+            <Arrow label="returns" />
 
-                    <Arrow label="returns" />
+            <Node label="New Array" type="output">
+                <ArrayDisplay
+                    values={[2, 4]}
+                    highlightIndices={[0, 1]}
+                    highlightType="added"
+                />
+            </Node>
+        </div>
 
-                    <Node label="Return Value" type="output">
-                        <ReturnValue value={4} type="new length" />
-                    </Node>
-                </div>
+        <MutableOrNot mutates={false} message="">
+            Original array remains unchanged. Returns a <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >new array</code
+            > (may be shorter) with only passing items.
+        </MutableOrNot>
 
-                <MutableOrNot mutates={true} message="">
-                    The original array is modified in place. All existing elements shift to higher indices. Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">number</code> (new length). ⚠️ Cannot be chained with other array methods.
-                </MutableOrNot>
-            </MethodCard>
-
-                <!-- SHIFT -->
-                <MethodCard
-                id="shift"
-                methodName="shift()"
-                signature="arr.shift()"
-                description="Removes and returns the first element from an array"
-                mutates={true}
+        <ProTip>
+            <div>
+                Use <code
+                    class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                    >filter(Boolean)</code
+                > to remove all falsy values in one go!
+            </div>
+            <div
+                class="pl-2 border-l-2 border-yellow-500/60 font-mono text-[10px]"
             >
-                <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                    <Node label="Input Array" type="input">
-                        <ArrayDisplay values={['a', 'b', 'c']} />
-                    </Node>
+                [0, 1, false, 2, '', 3, null].filter(Boolean) → [1, 2, 3]
+            </div>
+        </ProTip>
+    </MethodCard>
 
-                    <Arrow label="mutates" />
+    <!-- SLICE -->
+    <MethodCard
+        id="slice"
+        methodName="slice()"
+        signature="arr.slice(start, end)"
+        description="Returns a shallow copy of a portion of an array"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Array" type="input">
+                <ArrayDisplay values={["a", "b", "c", "d", "e"]} />
+            </Node>
 
-                    <Node label="Method" type="process">
-                        <ProcessContent name="shift()" description="Remove first" />
-                    </Node>
+            <Arrow label="extracts" />
 
-                    <Arrow />
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="slice(1, 4)"
+                    description="Copy indices 1-3"
+                />
+            </Node>
 
-                    <Node label="Modified Array" type="output">
-                        <ArrayDisplay values={['b', 'c']} />
-                    </Node>
+            <Arrow label="returns" />
 
-                    <Arrow label="returns" />
+            <Node label="New Array" type="output">
+                <ArrayDisplay
+                    values={["b", "c", "d"]}
+                    highlightIndices={[0, 1, 2]}
+                    highlightType="added"
+                />
+            </Node>
+        </div>
 
-                    <Node label="Return Value" type="output">
-                        <ReturnValue value="'a'" type="removed item" />
-                    </Node>
+        <MutableOrNot mutates={false} message="">
+            Original array remains unchanged. Returns a <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >new array</code
+            > containing the extracted section. End index is exclusive. Supports
+            negative indices.
+        </MutableOrNot>
+
+        <ProTip>
+            <div class="pl-2 border-l-2 border-yellow-500/60">
+                <div class="font-mono text-[10px]">
+                    slice(1, -1) → removes first & last item
                 </div>
+                <div class="font-mono text-[10px]">
+                    slice(-3) → gets last 3 items
+                </div>
+                <div class="font-mono text-[10px]">
+                    slice(0) or [...arr] → shallow copy entire array
+                </div>
+            </div>
+            <div class="mt-1.5 text-[10px]">
+                ⚠️ <strong>Shallow vs Deep Copy:</strong>
+            </div>
+            <div class="pl-2 border-l-2 border-yellow-500/60 mt-1 space-y-1">
+                <div class="font-mono text-[10px]">
+                    <span class="text-gray-400"
+                        >// Simple values (strings/numbers) - shallow copy is
+                        fine:</span
+                    ><br />
+                    const copy = [1, 2, 3].slice(0)<br />
+                    copy[0] = 999 → original unaffected ✅
+                </div>
+                <div class="font-mono text-[10px]">
+                    <span class="text-gray-400"
+                        >// Nested objects - shallow copy shares references!</span
+                    ><br />
+                    const users = [{"{"}id:1{"}"}, {"{"}id:2{"}"}]<br />
+                    const copy = users.slice(0)<br />
+                    copy[0].id = 999 → original[0].id is also 999 ❌
+                </div>
+                <div class="font-mono text-[10px]">
+                    <span class="text-gray-400"
+                        >// Deep copy - fully independent:</span
+                    ><br />
+                    const deep = structuredClone(users)<br />
+                    deep[0].id = 999 → original unaffected ✅
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
 
-                <MutableOrNot mutates={true} message="">
-                    The original array is shortened. All remaining elements shift to lower indices. Returns the removed <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">element</code> (or undefined if empty). ⚠️ Cannot be chained with other array methods.
-                </MutableOrNot>
-            </MethodCard>
+    <!-- CONCAT -->
+    <MethodCard
+        id="concat"
+        methodName="concat()"
+        signature="arr.concat(...items)"
+        description="Merges two or more arrays into a new array"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Array" type="input">
+                <ArrayDisplay values={["a", "b"]} />
+            </Node>
 
-                <!-- SPLICE -->
-                <MethodCard
-                id="splice"
-                methodName="splice()"
-                signature="arr.splice(start, deleteCount, ...items)"
-                description="Removes, replaces, or adds elements at any position in the array"
-                mutates={true}
+            <Arrow label="merges with" />
+
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="concat(['c', 'd'])"
+                    description="Glue arrays together"
+                />
+            </Node>
+
+            <Arrow label="returns" />
+
+            <Node label="New Array" type="output">
+                <ArrayDisplay
+                    values={["a", "b", "c", "d"]}
+                    highlightIndices={[2, 3]}
+                    highlightType="added"
+                />
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Original array remains unchanged. Returns a <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >new array</code
+            > with all items combined.
+        </MutableOrNot>
+
+        <ProTip>
+            <div>Merge multiple arrays at once:</div>
+            <div
+                class="pl-2 border-l-2 border-yellow-500/60 font-mono text-[10px]"
             >
-                <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                    <Node label="Input Array" type="input">
-                        <ArrayDisplay values={['a', 'b', 'c', 'd']} />
-                    </Node>
+                arr1.concat(arr2, arr3, arr4) → combines all in one call
+            </div>
+        </ProTip>
+    </MethodCard>
 
-                    <Arrow label="mutates" />
-
-                    <Node label="Method" type="process">
-                        <ProcessContent name="splice(1, 2, 'X', 'Y')" description="At index 1, remove 2, insert 'X', 'Y'" />
-                    </Node>
-
-                    <Arrow />
-
-                    <Node label="Modified Array" type="output">
-                        <ArrayDisplay values={['a', 'X', 'Y', 'd']} highlightIndices={[1, 2]} highlightType="added" />
-                    </Node>
-
-                    <Arrow label="returns" />
-
-                    <Node label="Return Value" type="output">
-                        <ArrayDisplay values={['b', 'c']} highlightIndices={[0, 1]} highlightType="removed" />
-                    </Node>
+    <!-- FLAT -->
+    <MethodCard
+        id="flat"
+        methodName="flat()"
+        signature="arr.flat(depth?)"
+        description="Flattens nested arrays into a single level"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Array" type="input">
+                <div class="text-center text-sm font-mono">
+                    [1, [2, 3], [4, 5]]
                 </div>
+            </Node>
 
-                <MutableOrNot mutates={true} message="">
-                    The Swiss Army knife of array methods. Returns an <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">array</code> of removed elements. Can remove, add, or replace items at any index.
-                </MutableOrNot>
+            <Arrow label="flattens" />
 
-                <ProTip>
-                    <div>Insert without deleting by setting deleteCount to 0:</div>
-                    <div class="pl-2 border-l-2 border-yellow-500/60 font-mono text-[10px]">
-                        arr.splice(2, 0, 'x', 'y') → inserts 'x', 'y' at index 2
-                    </div>
-                </ProTip>
-            </MethodCard>
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="flat()"
+                    description="Flatten 1 level deep"
+                />
+            </Node>
 
-            <!-- === REORDER === -->
-            <SubSectionTitle id="reorder" parentColor="red">Reorder</SubSectionTitle>
+            <Arrow label="returns" />
 
-                <!-- SORT -->
-                <MethodCard
-                id="sort"
-                methodName="sort()"
-                signature="arr.sort(compareFn?)"
-                description="Sorts the array in place and returns the same array"
-                mutates={true}
+            <Node label="New Array" type="output">
+                <ArrayDisplay
+                    values={[1, 2, 3, 4, 5]}
+                    highlightIndices={[0, 1, 2, 3, 4]}
+                    highlightType="transformed"
+                />
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Returns a <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >new array</code
+            > with sub-arrays flattened. Default depth is 1.
+        </MutableOrNot>
+
+        <ProTip>
+            <div>
+                For deeply nested arrays, use <code
+                    class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                    >flat(Infinity)</code
+                > to flatten all levels:
+            </div>
+            <div
+                class="pl-2 border-l-2 border-yellow-500/60 font-mono text-[10px]"
             >
-                <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                    <Node label="Input Array" type="input">
-                        <ArrayDisplay values={[3, 1, 4, 2]} />
-                    </Node>
+                [1, [2, [3, [4]]]].flat(Infinity) → [1, 2, 3, 4]
+            </div>
+        </ProTip>
+    </MethodCard>
 
-                    <Arrow label="mutates" />
+    <!-- FLATMAP -->
+    <MethodCard
+        id="flatMap"
+        methodName="flatMap()"
+        signature="arr.flatMap(fn)"
+        description="Maps each element then flattens result by one level"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Array" type="input">
+                <ArrayDisplay values={[1, 2, 3]} />
+            </Node>
 
-                    <Node label="Method" type="process">
-                        <ProcessContent name="sort((a, b) => a - b)" description="Ascending order" />
-                    </Node>
+            <Arrow label="transforms" />
 
-                    <Arrow label="returns" />
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="flatMap(n => [n, n*2])"
+                    description="Map then flatten"
+                />
+            </Node>
 
-                    <Node label="Same Array (Sorted)" type="output">
-                        <ArrayDisplay values={[1, 2, 3, 4]} highlightIndices={[0, 1, 2, 3]} highlightType="transformed" />
-                    </Node>
+            <Arrow label="returns" />
+
+            <Node label="New Array" type="output">
+                <ArrayDisplay
+                    values={[1, 2, 2, 4, 3, 6]}
+                    highlightIndices={[0, 1, 2, 3, 4, 5]}
+                    highlightType="added"
+                />
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Returns a <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >new array</code
+            >. Equivalent to map() followed by flat(1).
+        </MutableOrNot>
+    </MethodCard>
+
+    <!-- WITH -->
+    <MethodCard
+        id="with"
+        methodName="with()"
+        signature="arr.with(index, value)"
+        description="Returns a copy with one element replaced"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Array" type="input">
+                <ArrayDisplay values={["a", "b", "c"]} />
+            </Node>
+
+            <Arrow label="copies" />
+
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="with(1, 'X')"
+                    description="Replace index 1"
+                />
+            </Node>
+
+            <Arrow label="returns" />
+
+            <Node label="New Array" type="output">
+                <ArrayDisplay
+                    values={["a", "X", "c"]}
+                    highlightIndices={[1]}
+                    highlightType="transformed"
+                />
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Returns a <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >new array</code
+            > with one element changed. Original array unchanged.
+        </MutableOrNot>
+    </MethodCard>
+
+    <!-- TOSPLICED -->
+    <MethodCard
+        id="toSpliced"
+        methodName="toSpliced()"
+        signature="arr.toSpliced(start, deleteCount, ...items)"
+        description="Immutable version of splice - returns new array"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Array" type="input">
+                <ArrayDisplay values={["a", "b", "c", "d"]} />
+            </Node>
+
+            <Arrow label="copies" />
+
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="toSpliced(1, 2, 'X')"
+                    description="Remove 2, add 'X'"
+                />
+            </Node>
+
+            <Arrow label="returns" />
+
+            <Node label="New Array" type="output">
+                <ArrayDisplay
+                    values={["a", "X", "d"]}
+                    highlightIndices={[1]}
+                    highlightType="transformed"
+                />
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Returns a <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >new array</code
+            >. Like splice() but doesn't mutate original.
+        </MutableOrNot>
+    </MethodCard>
+
+    <!-- TOSORTED -->
+    <MethodCard
+        id="toSorted"
+        methodName="toSorted()"
+        signature="arr.toSorted(compareFn?)"
+        description="Immutable version of sort - returns new sorted array"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Array" type="input">
+                <ArrayDisplay values={[3, 1, 4, 2]} />
+            </Node>
+
+            <Arrow label="copies" />
+
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="toSorted((a, b) => a - b)"
+                    description="Sort ascending"
+                />
+            </Node>
+
+            <Arrow label="returns" />
+
+            <Node label="New Array" type="output">
+                <ArrayDisplay
+                    values={[1, 2, 3, 4]}
+                    highlightIndices={[0, 1, 2, 3]}
+                    highlightType="transformed"
+                />
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Returns a <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >new sorted array</code
+            >. Original array remains unchanged.
+        </MutableOrNot>
+    </MethodCard>
+
+    <!-- TOREVERSED -->
+    <MethodCard
+        id="toReversed"
+        methodName="toReversed()"
+        signature="arr.toReversed()"
+        description="Immutable version of reverse - returns new reversed array"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Array" type="input">
+                <ArrayDisplay values={["a", "b", "c"]} />
+            </Node>
+
+            <Arrow label="copies" />
+
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="toReversed()"
+                    description="Reverse order"
+                />
+            </Node>
+
+            <Arrow label="returns" />
+
+            <Node label="New Array" type="output">
+                <ArrayDisplay
+                    values={["c", "b", "a"]}
+                    highlightIndices={[0, 1, 2]}
+                    highlightType="transformed"
+                />
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Returns a <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >new reversed array</code
+            >. Original array remains unchanged.
+        </MutableOrNot>
+    </MethodCard>
+
+    <!-- === FIND / TEST === -->
+    <SubSectionTitle id="find-test" parentColor="green"
+        >Find / Test</SubSectionTitle
+    >
+
+    <!-- ARRAY.ISARRAY -->
+    <MethodCard
+        id="isArray"
+        methodName="Array.isArray()"
+        signature="Array.isArray(value)"
+        description="Checks if a value is an array"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Value" type="input">
+                <div class="text-center text-sm font-mono">[1, 2, 3]</div>
+            </Node>
+
+            <Arrow label="checks type" />
+
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="Array.isArray(value)"
+                    description="Type check"
+                />
+            </Node>
+
+            <Arrow label="returns" />
+
+            <Node label="Result" type="output">
+                <ReturnValue value="true" type="boolean" />
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Static method. Returns <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >boolean</code
+            >. Most reliable way to check if something is an array.
+        </MutableOrNot>
+
+        <ProTip>
+            <div><strong>Why use Array.isArray():</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    Array.isArray([1, 2]) → true ✅
                 </div>
+                <div class="font-mono text-[10px]">
+                    Array.isArray("hello") → false <span class="text-gray-400"
+                        >// strings have .length too!</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    Array.isArray({"{"}0: 'a'{"}"}) → false <span
+                        class="text-gray-400">// array-like but not array</span>
+                </div>
+                <div class="font-mono text-[10px] mt-1">
+                    <span class="text-green-400">// Common pattern:</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    const data = Array.isArray(input) ? input : [input];
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
 
-                <MutableOrNot mutates={true} message="">
-                    Sorts in place. Returns the <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">same array</code> (not a copy).
-                </MutableOrNot>
+    <!-- FIND -->
+    <MethodCard
+        id="find"
+        methodName="find()"
+        signature="arr.find(fn)"
+        description="Returns the first element that passes a test function"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Array" type="input">
+                <ArrayDisplay values={[1, 5, 8, 12]} />
+            </Node>
 
-                <ProTip>
-                    <div>Without a compare function, sort treats values as strings!</div>
+            <Arrow label="searches" />
 
-                    <div class="pl-2 border-l-2 border-yellow-500/60">
-                        <div class="font-mono text-[10px]">['b','d','a','c'].sort() → ['a','b','c','d']</div>
-                        <div class="font-mono text-[10px]">['b','d','a','c'].sort().reverse() → ['d','c','b','a']</div>
-                    </div>
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="find(n => n > 10)"
+                    description="First item > 10"
+                />
+            </Node>
 
-                    <div>For numbers, use compare function:</div>
+            <Arrow label="returns" />
 
-                    <div class="pl-2 border-l-2 border-yellow-500/60">
-                        <div class="font-mono text-[10px]">[2,4,1,3].sort((a,b) => a-b) → [1,2,3,4] <span class="text-gray-400">// ascending</span></div>
-                        <div class="font-mono text-[10px]">[2,4,1,3].sort((a,b) => b-a) → [4,3,2,1] <span class="text-gray-400">// descending</span></div>
-                        <div class="font-mono text-[10px] text-gray-400">// OR: .sort((a,b) => a-b).reverse() → [4,3,2,1]</div>
-                    </div>
-                </ProTip>
-            </MethodCard>
+            <Node label="First Match" type="output">
+                <ReturnValue value={12} type="item | undefined" />
+            </Node>
+        </div>
 
-                <!-- REVERSE -->
-                <MethodCard
-                id="reverse"
-                methodName="reverse()"
-                signature="arr.reverse()"
-                description="Reverses the array in place and returns the same array"
-                mutates={true}
+        <MutableOrNot mutates={false} message="">
+            Returns the <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >first matching item</code
+            > or undefined if none found. ⚠️ Cannot be chained.
+        </MutableOrNot>
+    </MethodCard>
+
+    <!-- INCLUDES -->
+    <MethodCard
+        id="includes"
+        methodName="includes()"
+        signature="arr.includes(value)"
+        description="Checks if array contains a specific value"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Array" type="input">
+                <ArrayDisplay values={["a", "b", "c"]} />
+            </Node>
+
+            <Arrow label="checks for" />
+
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="includes('b')"
+                    description="Is 'b' present?"
+                />
+            </Node>
+
+            <Arrow label="returns" />
+
+            <Node label="Boolean Result" type="output">
+                <ReturnValue value="true" type="boolean" />
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Returns <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >boolean</code
+            >. ⚠️ Cannot be chained. Works with NaN unlike indexOf().
+        </MutableOrNot>
+    </MethodCard>
+
+    <!-- INDEXOF -->
+    <MethodCard
+        id="indexOf"
+        methodName="indexOf()"
+        signature="arr.indexOf(value)"
+        description="Returns the first index at which a value is found"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Array" type="input">
+                <ArrayDisplay values={["a", "b", "c", "b"]} />
+            </Node>
+
+            <Arrow label="searches" />
+
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="indexOf('b')"
+                    description="Find first 'b'"
+                />
+            </Node>
+
+            <Arrow label="returns" />
+
+            <Node label="Index" type="output">
+                <ReturnValue value={1} type="number | -1" />
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Returns <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >number</code
+            > (index) or -1 if not found. ⚠️ Cannot be chained. Doesn't work with
+            NaN.
+        </MutableOrNot>
+    </MethodCard>
+
+    <!-- SOME -->
+    <MethodCard
+        id="some"
+        methodName="some()"
+        signature="arr.some(fn)"
+        description="Tests whether at least one element passes the test"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Array" type="input">
+                <ArrayDisplay values={[1, 2, 3, 4, 5]} />
+            </Node>
+
+            <Arrow label="tests" />
+
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="some(n => n > 3)"
+                    description="Any item > 3?"
+                />
+            </Node>
+
+            <Arrow label="returns" />
+
+            <Node label="Boolean Result" type="output">
+                <ReturnValue value="true" type="boolean" />
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Returns <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >boolean</code
+            >. ⚠️ Cannot be chained. Returns true if ANY element passes the
+            test.
+        </MutableOrNot>
+    </MethodCard>
+
+    <!-- EVERY -->
+    <MethodCard
+        id="every"
+        methodName="every()"
+        signature="arr.every(fn)"
+        description="Tests whether all elements pass the test"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Array" type="input">
+                <ArrayDisplay values={[2, 4, 6, 8]} />
+            </Node>
+
+            <Arrow label="tests" />
+
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="every(n => n % 2 === 0)"
+                    description="All even?"
+                />
+            </Node>
+
+            <Arrow label="returns" />
+
+            <Node label="Boolean Result" type="output">
+                <ReturnValue value="true" type="boolean" />
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Returns <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >boolean</code
+            >. ⚠️ Cannot be chained. Returns true only if ALL elements pass the
+            test.
+        </MutableOrNot>
+    </MethodCard>
+
+    <!-- LASTINDEXOF -->
+    <MethodCard
+        id="lastIndexOf"
+        methodName="lastIndexOf()"
+        signature="arr.lastIndexOf(value)"
+        description="Returns the last index at which a value is found"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Array" type="input">
+                <ArrayDisplay values={["a", "b", "c", "b"]} />
+            </Node>
+
+            <Arrow label="searches" />
+
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="lastIndexOf('b')"
+                    description="Find last 'b'"
+                />
+            </Node>
+
+            <Arrow label="returns" />
+
+            <Node label="Index" type="output">
+                <ReturnValue value={3} type="number | -1" />
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Returns <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >number</code
+            > (last index) or -1 if not found. ⚠️ Cannot be chained.
+        </MutableOrNot>
+    </MethodCard>
+
+    <!-- FINDLAST -->
+    <MethodCard
+        id="findLast"
+        methodName="findLast()"
+        signature="arr.findLast(fn)"
+        description="Returns the last element that passes a test function"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Array" type="input">
+                <ArrayDisplay values={[1, 5, 8, 12, 7]} />
+            </Node>
+
+            <Arrow label="searches" />
+
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="findLast(n => n > 10)"
+                    description="Last item > 10"
+                />
+            </Node>
+
+            <Arrow label="returns" />
+
+            <Node label="Last Match" type="output">
+                <ReturnValue value={12} type="item | undefined" />
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Returns the <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >last matching item</code
+            > or undefined. ⚠️ Cannot be chained. Searches from end to start.
+        </MutableOrNot>
+    </MethodCard>
+
+    <!-- FINDINDEX -->
+    <MethodCard
+        id="findIndex"
+        methodName="findIndex()"
+        signature="arr.findIndex(fn)"
+        description="Returns the index of first element that passes test"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Array" type="input">
+                <ArrayDisplay values={[1, 5, 8, 12]} />
+            </Node>
+
+            <Arrow label="searches" />
+
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="findIndex(n => n > 10)"
+                    description="Index of first > 10"
+                />
+            </Node>
+
+            <Arrow label="returns" />
+
+            <Node label="Index" type="output">
+                <ReturnValue value={3} type="number | -1" />
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Returns <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >index</code
+            > of first match or -1 if not found. ⚠️ Cannot be chained.
+        </MutableOrNot>
+
+        <ProTip>
+            <div>
+                Common pattern: Find and remove an item by combining with
+                splice:
+            </div>
+            <div class="pl-2 border-l-2 border-yellow-500/60 space-y-0.5">
+                <div class="font-mono text-[10px]">
+                    const idx = users.findIndex(u =&gt; u.id === 5)
+                </div>
+                <div class="font-mono text-[10px]">
+                    if (idx !== -1) users.splice(idx, 1) <span
+                        class="text-gray-400">// removes user</span>
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- FINDLASTINDEX -->
+    <MethodCard
+        id="findLastIndex"
+        methodName="findLastIndex()"
+        signature="arr.findLastIndex(fn)"
+        description="Returns the index of last element that passes test"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Array" type="input">
+                <ArrayDisplay values={[1, 5, 8, 12, 7]} />
+            </Node>
+
+            <Arrow label="searches" />
+
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="findLastIndex(n => n > 10)"
+                    description="Index of last > 10"
+                />
+            </Node>
+
+            <Arrow label="returns" />
+
+            <Node label="Index" type="output">
+                <ReturnValue value={3} type="number | -1" />
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Returns <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >index</code
+            > of last match or -1. ⚠️ Cannot be chained. Searches from end to start.
+        </MutableOrNot>
+    </MethodCard>
+
+    <!-- AT -->
+    <MethodCard
+        id="at"
+        methodName="at()"
+        signature="arr.at(index)"
+        description="Returns element at given index (supports negative indices)"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Array" type="input">
+                <ArrayDisplay values={["a", "b", "c", "d"]} />
+            </Node>
+
+            <Arrow label="accesses" />
+
+            <Node label="Method" type="process">
+                <ProcessContent name="at(-1)" description="Get last item" />
+            </Node>
+
+            <Arrow label="returns" />
+
+            <Node label="Item" type="output">
+                <ReturnValue value="'d'" type="item | undefined" />
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Returns <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >item</code
+            > at index. ⚠️ Cannot be chained. Negative indices count from end (-1
+            = last item).
+        </MutableOrNot>
+
+        <ProTip>
+            <div>
+                Much cleaner than <code
+                    class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                    >arr[arr.length - 1]</code
+                > for getting the last item:
+            </div>
+            <div
+                class="pl-2 border-l-2 border-yellow-500/60 font-mono text-[10px]"
             >
-                <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                    <Node label="Input Array" type="input">
-                        <ArrayDisplay values={['a', 'b', 'c']} />
-                    </Node>
+                arr.at(-1) → last item, arr.at(-2) → second to last
+            </div>
+        </ProTip>
+    </MethodCard>
 
-                    <Arrow label="mutates" />
+    <!-- === REDUCE === -->
+    <SubSectionTitle id="reduce-section" parentColor="green"
+        >Reduce</SubSectionTitle
+    >
 
-                    <Node label="Method" type="process">
-                        <ProcessContent name="reverse()" description="Flip order" />
-                    </Node>
+    <!-- REDUCE -->
+    <MethodCard
+        id="reduce"
+        methodName="reduce()"
+        signature="arr.reduce(fn, initialValue)"
+        description="Reduces array to a single value by applying function with accumulator"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Array" type="input">
+                <ArrayDisplay values={[1, 2, 3, 4]} />
+            </Node>
 
-                    <Arrow label="returns" />
+            <Arrow label="reduces" />
 
-                    <Node label="Same Array (Reversed)" type="output">
-                        <ArrayDisplay values={['c', 'b', 'a']} highlightIndices={[0, 1, 2]} highlightType="transformed" />
-                    </Node>
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="reduce((sum, n) => sum + n, 0)"
+                    description="Sum all values: 0 + 1 + 2 + 3 + 4"
+                />
+            </Node>
+
+            <Arrow label="returns" />
+
+            <Node label="Single Value" type="output">
+                <ReturnValue value={10} type="accumulated result" />
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Returns a <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >single value</code
+            > of any type. ⚠️ Cannot be chained. The accumulator carries forward
+            through each iteration.
+        </MutableOrNot>
+
+        <ProTip>
+            <div>Reduce is super versatile! Common patterns:</div>
+            <div class="pl-2 border-l-2 border-yellow-500/60 space-y-1">
+                <div class="font-mono text-[10px]">
+                    <span class="text-gray-400">// Count occurrences</span><br
+                    />items.reduce((acc,v) =&gt; ({"{"}...acc, [v]:
+                    (acc[v]||0)+1{"}"}), {"{"}{"}"})
                 </div>
-
-                <MutableOrNot mutates={true} message="">
-                    Reverses in place. Returns the <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">same array</code> (not a copy).
-                </MutableOrNot>
-            </MethodCard>
-
-                <!-- === OVERWRITE / MOVE === -->
-                <SubSectionTitle id="overwrite-move" parentColor="red">Overwrite / Move</SubSectionTitle>
-
-                <!-- FILL -->
-                <MethodCard
-                        id="fill"
-                        methodName="fill()"
-                        signature="arr.fill(value, start?, end?)"
-                        description="Overwrites a section of the array with a static value"
-                        mutates={true}
-                    >
-                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                            <Node label="Input Array" type="input">
-                                <ArrayDisplay values={[1, 2, 3, 4, 5]} />
-                            </Node>
-
-                            <Arrow label="mutates" />
-
-                            <Node label="Method" type="process">
-                                <ProcessContent name="fill(0, 1, 4)" description="Fill indices 1-3 with 0" />
-                            </Node>
-
-                            <Arrow label="returns" />
-
-                            <Node label="Same Array (Modified)" type="output">
-                                <ArrayDisplay values={[1, 0, 0, 0, 5]} highlightIndices={[1, 2, 3]} highlightType="transformed" />
-                            </Node>
-                        </div>
-
-                        <MutableOrNot mutates={true} message="">
-                            Overwrites in place. Returns the <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">same array</code>. End index is exclusive.
-                        </MutableOrNot>
-
-                        <ProTip>
-                            <div>Useful for filling array holes (empty slots):</div>
-                            <div class="pl-2 border-l-2 border-yellow-500/60 space-y-0.5">
-                                <div class="font-mono text-[10px]">Array(5).fill(0) → [0, 0, 0, 0, 0] <span class="text-gray-400">// no holes!</span></div>
-                                <div class="font-mono text-[10px]">Array(5) → [empty × 5] <span class="text-gray-400">// has holes, methods skip these</span></div>
-                            </div>
-                        </ProTip>
-                    </MethodCard>
-
-                <!-- COPYWITHIN -->
-                <MethodCard
-                        id="copyWithin"
-                        methodName="copyWithin()"
-                        signature="arr.copyWithin(target, start, end?)"
-                        description="Copies part of array to another location within same array"
-                        mutates={true}
-                    >
-                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                            <Node label="Input Array" type="input">
-                                <ArrayDisplay values={[1, 2, 3, 4, 5]} />
-                            </Node>
-
-                            <Arrow label="mutates" />
-
-                            <Node label="Method" type="process">
-                                <ProcessContent name="copyWithin(0, 3)" description="Copy from index 3 to start" />
-                            </Node>
-
-                            <Arrow label="returns" />
-
-                            <Node label="Same Array (Modified)" type="output">
-                                <ArrayDisplay values={[4, 5, 3, 4, 5]} highlightIndices={[0, 1]} highlightType="transformed" />
-                            </Node>
-                        </div>
-
-                        <MutableOrNot mutates={true} message="">
-                            Copies within the same array. Returns the <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">same array</code>. Doesn't change array length.
-                        </MutableOrNot>
-                    </MethodCard>
-
-                <!-- ============================================ -->
-                <!-- 🚫 DOES NOT MUTATE (returns new value) -->
-                <!-- ============================================ -->
-                <SectionTitle id="immutable" color="green">
-                    🚫 Does Not Mutate (returns new value)
-                </SectionTitle>
-
-                <ProTip>
-                    <div>💪 Chain immutable methods together for cleaner, functional code:</div>
-                    <div class="pl-2 border-l-2 border-yellow-500/60 space-y-0.5">
-                        <div class="font-mono text-[10px]">users.filter(u =&gt; u.active).map(u =&gt; u.name).slice(0, 10)</div>
-                        <div class="font-mono text-[10px] text-gray-400">// Filter → transform → take first 10 (all chainable!)</div>
-                    </div>
-                </ProTip>
-
-                <!-- === BUILD NEW ARRAYS === -->
-                <SubSectionTitle id="build-arrays" parentColor="green">Build New Arrays</SubSectionTitle>
-
-                <!-- MAP -->
-                <MethodCard
-                id="map"
-                methodName="map()"
-                signature="arr.map(fn)"
-                description="Creates a new array by transforming each element with a function"
-                mutates={false}
-            >
-                <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                    <Node label="Input Array" type="input">
-                        <ArrayDisplay values={[1, 2, 3]} />
-                    </Node>
-
-                    <Arrow label="transforms" />
-
-                    <Node label="Method" type="process">
-                        <ProcessContent name="map(n => n * 2)" description="Double each value" />
-                    </Node>
-
-                    <Arrow label="returns" />
-
-                    <Node label="New Array" type="output">
-                        <ArrayDisplay values={[2, 4, 6]} highlightIndices={[0, 1, 2]} highlightType="transformed" />
-                    </Node>
+                <div class="font-mono text-[10px]">
+                    <span class="text-gray-400">// Group by property</span><br
+                    />users.reduce((acc,u) =&gt; ({"{"}...acc, [u.role]:
+                    [...(acc[u.role]||[]),u]{"}"}), {"{"}{"}"})
                 </div>
-
-                <MutableOrNot mutates={false} message="">
-                    Original array remains unchanged. Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> with same length, transformed values.
-                </MutableOrNot>
-
-                <ProTip>
-                    <div>Need the results? Use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">map()</code>. Just doing side effects? Use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">forEach()</code>.</div>
-                    <div class="pl-2 border-l-2 border-yellow-500/60 font-mono text-[10px]">
-                        const ids = users.map(u => u.id) ✅<br/>
-                        users.forEach(u => console.log(u)) ✅
-                    </div>
-                </ProTip>
-            </MethodCard>
-
-                <!-- FILTER -->
-                <MethodCard
-                id="filter"
-                methodName="filter()"
-                signature="arr.filter(fn)"
-                description="Creates a new array with elements that pass a test function"
-                mutates={false}
-            >
-                <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                    <Node label="Input Array" type="input">
-                        <ArrayDisplay values={[1, 2, 3, 4, 5]} />
-                    </Node>
-
-                    <Arrow label="filters" />
-
-                    <Node label="Method" type="process">
-                        <ProcessContent name="filter(n => n % 2 === 0)" description="Keep even numbers" />
-                    </Node>
-
-                    <Arrow label="returns" />
-
-                    <Node label="New Array" type="output">
-                        <ArrayDisplay values={[2, 4]} highlightIndices={[0, 1]} highlightType="added" />
-                    </Node>
+                <div class="font-mono text-[10px]">
+                    <span class="text-gray-400">// Build object from array</span
+                    ><br />arr.reduce((acc,v,i) =&gt; ({"{"}...acc, [i]: v{
+                        "}"
+                    }), {"{"}{"}"})
                 </div>
+            </div>
+        </ProTip>
+    </MethodCard>
 
-                <MutableOrNot mutates={false} message="">
-                    Original array remains unchanged. Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> (may be shorter) with only passing items.
-                </MutableOrNot>
+    <!-- REDUCERIGHT -->
+    <MethodCard
+        id="reduceRight"
+        methodName="reduceRight()"
+        signature="arr.reduceRight(fn, initialValue)"
+        description="Reduces array from right to left with an accumulator"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Array" type="input">
+                <ArrayDisplay values={["a", "b", "c"]} />
+            </Node>
 
-                <ProTip>
-                    <div>Use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">filter(Boolean)</code> to remove all falsy values in one go!</div>
-                    <div class="pl-2 border-l-2 border-yellow-500/60 font-mono text-[10px]">
-                        [0, 1, false, 2, '', 3, null].filter(Boolean) → [1, 2, 3]
-                    </div>
-                </ProTip>
-            </MethodCard>
+            <Arrow label="reduces →" />
 
-                <!-- SLICE -->
-                <MethodCard
-                id="slice"
-                methodName="slice()"
-                signature="arr.slice(start, end)"
-                description="Returns a shallow copy of a portion of an array"
-                mutates={false}
-            >
-                <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                    <Node label="Input Array" type="input">
-                        <ArrayDisplay values={['a', 'b', 'c', 'd', 'e']} />
-                    </Node>
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="reduceRight((acc, v) => acc + v)"
+                    description="Concat from right: c+b+a"
+                />
+            </Node>
 
-                    <Arrow label="extracts" />
+            <Arrow label="returns" />
 
-                    <Node label="Method" type="process">
-                        <ProcessContent name="slice(1, 4)" description="Copy indices 1-3" />
-                    </Node>
+            <Node label="Single Value" type="output">
+                <ReturnValue value="'cba'" type="string" />
+            </Node>
+        </div>
 
-                    <Arrow label="returns" />
+        <MutableOrNot mutates={false} message="">
+            Like reduce() but processes from <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >right to left</code
+            >. Returns a single value. ⚠️ Cannot be chained.
+        </MutableOrNot>
+    </MethodCard>
 
-                    <Node label="New Array" type="output">
-                        <ArrayDisplay values={['b', 'c', 'd']} highlightIndices={[0, 1, 2]} highlightType="added" />
-                    </Node>
+    <!-- === ITERATE / INSPECT === -->
+    <SubSectionTitle id="iterate-inspect" parentColor="green"
+        >Iterate / Inspect</SubSectionTitle
+    >
+
+    <!-- FOREACH -->
+    <MethodCard
+        id="forEach"
+        methodName="forEach()"
+        signature="arr.forEach(fn)"
+        description="Executes a function for each array element"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Array" type="input">
+                <ArrayDisplay values={["a", "b", "c"]} />
+            </Node>
+
+            <Arrow label="iterates" />
+
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="forEach(console.log)"
+                    description="Run function on each"
+                />
+            </Node>
+
+            <Arrow label="returns" />
+
+            <Node label="Return Value" type="output">
+                <ReturnValue value="undefined" type="undefined" />
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Always returns <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >undefined</code
+            >. Cannot be chained. Use for side effects only.
+        </MutableOrNot>
+
+        <ProTip>
+            <div>
+                For large arrays (10,000+ items), regular <code
+                    class="bg-black/30 px-1 py-0.5 rounded font-mono text-yellow-400"
+                    >for</code
+                > loops are faster:
+            </div>
+            <div class="pl-2 border-l-2 border-yellow-500/60 space-y-0.5">
+                <div class="font-mono text-[10px]">
+                    for (let i = 0; i &lt; arr.length; i++) {"{"} ... {"}"}
+                    <span class="text-gray-400">// fastest</span>
                 </div>
-
-                <MutableOrNot mutates={false} message="">
-                    Original array remains unchanged. Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> containing the extracted section. End index is exclusive. Supports negative indices.
-                </MutableOrNot>
-
-                <ProTip>
-                    <div class="pl-2 border-l-2 border-yellow-500/60">
-                        <div class="font-mono text-[10px]">slice(1, -1) → removes first & last item</div>
-                        <div class="font-mono text-[10px]">slice(-3) → gets last 3 items</div>
-                        <div class="font-mono text-[10px]">slice(0) or [...arr] → shallow copy entire array</div>
-                    </div>
-                    <div class="mt-1.5 text-[10px]">
-                        ⚠️ <strong>Shallow vs Deep Copy:</strong>
-                    </div>
-                    <div class="pl-2 border-l-2 border-yellow-500/60 mt-1 space-y-1">
-                        <div class="font-mono text-[10px]">
-                            <span class="text-gray-400">// Simple values (strings/numbers) - shallow copy is fine:</span><br/>
-                            const copy = [1, 2, 3].slice(0)<br/>
-                            copy[0] = 999 → original unaffected ✅
-                        </div>
-                        <div class="font-mono text-[10px]">
-                            <span class="text-gray-400">// Nested objects - shallow copy shares references!</span><br/>
-                            const users = [{'{'}id:1{'}'}, {'{'}id:2{'}'}]<br/>
-                            const copy = users.slice(0)<br/>
-                            copy[0].id = 999 → original[0].id is also 999 ❌
-                        </div>
-                        <div class="font-mono text-[10px]">
-                            <span class="text-gray-400">// Deep copy - fully independent:</span><br/>
-                            const deep = structuredClone(users)<br/>
-                            deep[0].id = 999 → original unaffected ✅
-                        </div>
-                    </div>
-                </ProTip>
-            </MethodCard>
-
-                <!-- CONCAT -->
-                <MethodCard
-                id="concat"
-                methodName="concat()"
-                signature="arr.concat(...items)"
-                description="Merges two or more arrays into a new array"
-                mutates={false}
-            >
-                <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                    <Node label="Input Array" type="input">
-                        <ArrayDisplay values={['a', 'b']} />
-                    </Node>
-
-                    <Arrow label="merges with" />
-
-                    <Node label="Method" type="process">
-                        <ProcessContent name="concat(['c', 'd'])" description="Glue arrays together" />
-                    </Node>
-
-                    <Arrow label="returns" />
-
-                    <Node label="New Array" type="output">
-                        <ArrayDisplay values={['a', 'b', 'c', 'd']} highlightIndices={[2, 3]} highlightType="added" />
-                    </Node>
+                <div class="font-mono text-[10px]">
+                    arr.forEach(item =&gt; {"{"} ... {"}"}) <span
+                        class="text-gray-400">// cleaner, slightly slower</span>
                 </div>
+            </div>
+        </ProTip>
+    </MethodCard>
 
-                <MutableOrNot mutates={false} message="">
-                    Original array remains unchanged. Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> with all items combined.
-                </MutableOrNot>
+    <!-- ENTRIES -->
+    <MethodCard
+        id="entries"
+        methodName="entries()"
+        signature="arr.entries()"
+        description="Returns an iterator of [index, value] pairs"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Array" type="input">
+                <ArrayDisplay values={["a", "b", "c"]} />
+            </Node>
 
-                <ProTip>
-                    <div>Merge multiple arrays at once:</div>
-                    <div class="pl-2 border-l-2 border-yellow-500/60 font-mono text-[10px]">
-                        arr1.concat(arr2, arr3, arr4) → combines all in one call
-                    </div>
-                </ProTip>
-            </MethodCard>
+            <Arrow label="iterates" />
 
-                <!-- FLAT -->
-                <MethodCard
-                        id="flat"
-                        methodName="flat()"
-                        signature="arr.flat(depth?)"
-                        description="Flattens nested arrays into a single level"
-                        mutates={false}
-                    >
-                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                            <Node label="Input Array" type="input">
-                                <div class="text-center text-sm font-mono">[1, [2, 3], [4, 5]]</div>
-                            </Node>
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="entries()"
+                    description="Get [index, value] pairs"
+                />
+            </Node>
 
-                            <Arrow label="flattens" />
+            <Arrow label="returns" />
 
-                            <Node label="Method" type="process">
-                                <ProcessContent name="flat()" description="Flatten 1 level deep" />
-                            </Node>
-
-                            <Arrow label="returns" />
-
-                            <Node label="New Array" type="output">
-                                <ArrayDisplay values={[1, 2, 3, 4, 5]} highlightIndices={[0, 1, 2, 3, 4]} highlightType="transformed" />
-                            </Node>
-                        </div>
-
-                        <MutableOrNot mutates={false} message="">
-                            Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> with sub-arrays flattened. Default depth is 1.
-                        </MutableOrNot>
-
-                        <ProTip>
-                            <div>For deeply nested arrays, use <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">flat(Infinity)</code> to flatten all levels:</div>
-                            <div class="pl-2 border-l-2 border-yellow-500/60 font-mono text-[10px]">
-                                [1, [2, [3, [4]]]].flat(Infinity) → [1, 2, 3, 4]
-                            </div>
-                        </ProTip>
-                    </MethodCard>
-
-                <!-- FLATMAP -->
-                <MethodCard
-                        id="flatMap"
-                        methodName="flatMap()"
-                        signature="arr.flatMap(fn)"
-                        description="Maps each element then flattens result by one level"
-                        mutates={false}
-                    >
-                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                            <Node label="Input Array" type="input">
-                                <ArrayDisplay values={[1, 2, 3]} />
-                            </Node>
-
-                            <Arrow label="transforms" />
-
-                            <Node label="Method" type="process">
-                                <ProcessContent name="flatMap(n => [n, n*2])" description="Map then flatten" />
-                            </Node>
-
-                            <Arrow label="returns" />
-
-                            <Node label="New Array" type="output">
-                                <ArrayDisplay values={[1, 2, 2, 4, 3, 6]} highlightIndices={[0, 1, 2, 3, 4, 5]} highlightType="added" />
-                            </Node>
-                        </div>
-
-                        <MutableOrNot mutates={false} message="">
-                            Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code>. Equivalent to map() followed by flat(1).
-                        </MutableOrNot>
-                    </MethodCard>
-
-                <!-- WITH -->
-                <MethodCard
-                        id="with"
-                        methodName="with()"
-                        signature="arr.with(index, value)"
-                        description="Returns a copy with one element replaced"
-                        mutates={false}
-                    >
-                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                            <Node label="Input Array" type="input">
-                                <ArrayDisplay values={['a', 'b', 'c']} />
-                            </Node>
-
-                            <Arrow label="copies" />
-
-                            <Node label="Method" type="process">
-                                <ProcessContent name="with(1, 'X')" description="Replace index 1" />
-                            </Node>
-
-                            <Arrow label="returns" />
-
-                            <Node label="New Array" type="output">
-                                <ArrayDisplay values={['a', 'X', 'c']} highlightIndices={[1]} highlightType="transformed" />
-                            </Node>
-                        </div>
-
-                        <MutableOrNot mutates={false} message="">
-                            Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code> with one element changed. Original array unchanged.
-                        </MutableOrNot>
-                    </MethodCard>
-
-                <!-- TOSPLICED -->
-                <MethodCard
-                        id="toSpliced"
-                        methodName="toSpliced()"
-                        signature="arr.toSpliced(start, deleteCount, ...items)"
-                        description="Immutable version of splice - returns new array"
-                        mutates={false}
-                    >
-                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                            <Node label="Input Array" type="input">
-                                <ArrayDisplay values={['a', 'b', 'c', 'd']} />
-                            </Node>
-
-                            <Arrow label="copies" />
-
-                            <Node label="Method" type="process">
-                                <ProcessContent name="toSpliced(1, 2, 'X')" description="Remove 2, add 'X'" />
-                            </Node>
-
-                            <Arrow label="returns" />
-
-                            <Node label="New Array" type="output">
-                                <ArrayDisplay values={['a', 'X', 'd']} highlightIndices={[1]} highlightType="transformed" />
-                            </Node>
-                        </div>
-
-                        <MutableOrNot mutates={false} message="">
-                            Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new array</code>. Like splice() but doesn't mutate original.
-                        </MutableOrNot>
-                    </MethodCard>
-
-                <!-- TOSORTED -->
-                <MethodCard
-                        id="toSorted"
-                        methodName="toSorted()"
-                        signature="arr.toSorted(compareFn?)"
-                        description="Immutable version of sort - returns new sorted array"
-                        mutates={false}
-                    >
-                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                            <Node label="Input Array" type="input">
-                                <ArrayDisplay values={[3, 1, 4, 2]} />
-                            </Node>
-
-                            <Arrow label="copies" />
-
-                            <Node label="Method" type="process">
-                                <ProcessContent name="toSorted((a, b) => a - b)" description="Sort ascending" />
-                            </Node>
-
-                            <Arrow label="returns" />
-
-                            <Node label="New Array" type="output">
-                                <ArrayDisplay values={[1, 2, 3, 4]} highlightIndices={[0, 1, 2, 3]} highlightType="transformed" />
-                            </Node>
-                        </div>
-
-                        <MutableOrNot mutates={false} message="">
-                            Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new sorted array</code>. Original array remains unchanged.
-                        </MutableOrNot>
-                    </MethodCard>
-
-                <!-- TOREVERSED -->
-                <MethodCard
-                        id="toReversed"
-                        methodName="toReversed()"
-                        signature="arr.toReversed()"
-                        description="Immutable version of reverse - returns new reversed array"
-                        mutates={false}
-                    >
-                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                            <Node label="Input Array" type="input">
-                                <ArrayDisplay values={['a', 'b', 'c']} />
-                            </Node>
-
-                            <Arrow label="copies" />
-
-                            <Node label="Method" type="process">
-                                <ProcessContent name="toReversed()" description="Reverse order" />
-                            </Node>
-
-                            <Arrow label="returns" />
-
-                            <Node label="New Array" type="output">
-                                <ArrayDisplay values={['c', 'b', 'a']} highlightIndices={[0, 1, 2]} highlightType="transformed" />
-                            </Node>
-                        </div>
-
-                        <MutableOrNot mutates={false} message="">
-                            Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">new reversed array</code>. Original array remains unchanged.
-                        </MutableOrNot>
-                    </MethodCard>
-
-            <!-- === FIND / TEST === -->
-            <SubSectionTitle id="find-test" parentColor="green">Find / Test</SubSectionTitle>
-
-                <!-- ARRAY.ISARRAY -->
-                <MethodCard
-                id="isArray"
-                methodName="Array.isArray()"
-                signature="Array.isArray(value)"
-                description="Checks if a value is an array"
-                mutates={false}
-            >
-                <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                    <Node label="Value" type="input">
-                        <div class="text-center text-sm font-mono">[1, 2, 3]</div>
-                    </Node>
-
-                    <Arrow label="checks type" />
-
-                    <Node label="Method" type="process">
-                        <ProcessContent name="Array.isArray(value)" description="Type check" />
-                    </Node>
-
-                    <Arrow label="returns" />
-
-                    <Node label="Result" type="output">
-                        <ReturnValue value="true" type="boolean" />
-                    </Node>
+            <Node label="Iterator" type="output">
+                <div class="text-center text-xs font-mono">
+                    [0,'a'], [1,'b'], [2,'c']
                 </div>
-
-                <MutableOrNot mutates={false} message="">
-                    Static method. Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">boolean</code>. Most reliable way to check if something is an array.
-                </MutableOrNot>
-
-                <ProTip>
-                    <div><strong>Why use Array.isArray():</strong></div>
-                    <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                        <div class="font-mono text-[10px]">Array.isArray([1, 2]) → true ✅</div>
-                        <div class="font-mono text-[10px]">Array.isArray("hello") → false <span class="text-gray-400">// strings have .length too!</span></div>
-                        <div class="font-mono text-[10px]">Array.isArray({'{'}0: 'a'{'}'}) → false <span class="text-gray-400">// array-like but not array</span></div>
-                        <div class="font-mono text-[10px] mt-1"><span class="text-green-400">// Common pattern:</span></div>
-                        <div class="font-mono text-[10px]">const data = Array.isArray(input) ? input : [input];</div>
-                    </div>
-                </ProTip>
-            </MethodCard>
-
-                <!-- FIND -->
-                <MethodCard
-                id="find"
-                methodName="find()"
-                signature="arr.find(fn)"
-                description="Returns the first element that passes a test function"
-                mutates={false}
-            >
-                <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                    <Node label="Input Array" type="input">
-                        <ArrayDisplay values={[1, 5, 8, 12]} />
-                    </Node>
-
-                    <Arrow label="searches" />
-
-                    <Node label="Method" type="process">
-                        <ProcessContent name="find(n => n > 10)" description="First item > 10" />
-                    </Node>
-
-                    <Arrow label="returns" />
-
-                    <Node label="First Match" type="output">
-                        <ReturnValue value={12} type="item | undefined" />
-                    </Node>
-                </div>
-
-                <MutableOrNot mutates={false} message="">
-                    Returns the <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">first matching item</code> or undefined if none found. ⚠️ Cannot be chained.
-                </MutableOrNot>
-            </MethodCard>
-
-                <!-- INCLUDES -->
-                <MethodCard
-                id="includes"
-                methodName="includes()"
-                signature="arr.includes(value)"
-                description="Checks if array contains a specific value"
-                mutates={false}
-            >
-                <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                    <Node label="Input Array" type="input">
-                        <ArrayDisplay values={['a', 'b', 'c']} />
-                    </Node>
-
-                    <Arrow label="checks for" />
-
-                    <Node label="Method" type="process">
-                        <ProcessContent name="includes('b')" description="Is 'b' present?" />
-                    </Node>
-
-                    <Arrow label="returns" />
-
-                    <Node label="Boolean Result" type="output">
-                        <ReturnValue value="true" type="boolean" />
-                    </Node>
-                </div>
-
-                <MutableOrNot mutates={false} message="">
-                    Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">boolean</code>. ⚠️ Cannot be chained. Works with NaN unlike indexOf().
-                </MutableOrNot>
-            </MethodCard>
-
-                <!-- INDEXOF -->
-                <MethodCard
-                        id="indexOf"
-                        methodName="indexOf()"
-                        signature="arr.indexOf(value)"
-                        description="Returns the first index at which a value is found"
-                        mutates={false}
-                    >
-                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                            <Node label="Input Array" type="input">
-                                <ArrayDisplay values={['a', 'b', 'c', 'b']} />
-                            </Node>
-
-                            <Arrow label="searches" />
-
-                            <Node label="Method" type="process">
-                                <ProcessContent name="indexOf('b')" description="Find first 'b'" />
-                            </Node>
-
-                            <Arrow label="returns" />
-
-                            <Node label="Index" type="output">
-                                <ReturnValue value={1} type="number | -1" />
-                            </Node>
-                        </div>
-
-                        <MutableOrNot mutates={false} message="">
-                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">number</code> (index) or -1 if not found. ⚠️ Cannot be chained. Doesn't work with NaN.
-                        </MutableOrNot>
-                    </MethodCard>
-
-                <!-- SOME -->
-                <MethodCard
-                        id="some"
-                        methodName="some()"
-                        signature="arr.some(fn)"
-                        description="Tests whether at least one element passes the test"
-                        mutates={false}
-                    >
-                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                            <Node label="Input Array" type="input">
-                                <ArrayDisplay values={[1, 2, 3, 4, 5]} />
-                            </Node>
-
-                            <Arrow label="tests" />
-
-                            <Node label="Method" type="process">
-                                <ProcessContent name="some(n => n > 3)" description="Any item > 3?" />
-                            </Node>
-
-                            <Arrow label="returns" />
-
-                            <Node label="Boolean Result" type="output">
-                                <ReturnValue value="true" type="boolean" />
-                            </Node>
-                        </div>
-
-                        <MutableOrNot mutates={false} message="">
-                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">boolean</code>. ⚠️ Cannot be chained. Returns true if ANY element passes the test.
-                        </MutableOrNot>
-                    </MethodCard>
-
-                <!-- EVERY -->
-                <MethodCard
-                        id="every"
-                        methodName="every()"
-                        signature="arr.every(fn)"
-                        description="Tests whether all elements pass the test"
-                        mutates={false}
-                    >
-                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                            <Node label="Input Array" type="input">
-                                <ArrayDisplay values={[2, 4, 6, 8]} />
-                            </Node>
-
-                            <Arrow label="tests" />
-
-                            <Node label="Method" type="process">
-                                <ProcessContent name="every(n => n % 2 === 0)" description="All even?" />
-                            </Node>
-
-                            <Arrow label="returns" />
-
-                            <Node label="Boolean Result" type="output">
-                                <ReturnValue value="true" type="boolean" />
-                            </Node>
-                        </div>
-
-                        <MutableOrNot mutates={false} message="">
-                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">boolean</code>. ⚠️ Cannot be chained. Returns true only if ALL elements pass the test.
-                        </MutableOrNot>
-                    </MethodCard>
-
-                <!-- LASTINDEXOF -->
-                <MethodCard
-                        id="lastIndexOf"
-                        methodName="lastIndexOf()"
-                        signature="arr.lastIndexOf(value)"
-                        description="Returns the last index at which a value is found"
-                        mutates={false}
-                    >
-                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                            <Node label="Input Array" type="input">
-                                <ArrayDisplay values={['a', 'b', 'c', 'b']} />
-                            </Node>
-
-                            <Arrow label="searches" />
-
-                            <Node label="Method" type="process">
-                                <ProcessContent name="lastIndexOf('b')" description="Find last 'b'" />
-                            </Node>
-
-                            <Arrow label="returns" />
-
-                            <Node label="Index" type="output">
-                                <ReturnValue value={3} type="number | -1" />
-                            </Node>
-                        </div>
-
-                        <MutableOrNot mutates={false} message="">
-                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">number</code> (last index) or -1 if not found. ⚠️ Cannot be chained.
-                        </MutableOrNot>
-                    </MethodCard>
-
-                <!-- FINDLAST -->
-                <MethodCard
-                        id="findLast"
-                        methodName="findLast()"
-                        signature="arr.findLast(fn)"
-                        description="Returns the last element that passes a test function"
-                        mutates={false}
-                    >
-                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                            <Node label="Input Array" type="input">
-                                <ArrayDisplay values={[1, 5, 8, 12, 7]} />
-                            </Node>
-
-                            <Arrow label="searches" />
-
-                            <Node label="Method" type="process">
-                                <ProcessContent name="findLast(n => n > 10)" description="Last item > 10" />
-                            </Node>
-
-                            <Arrow label="returns" />
-
-                            <Node label="Last Match" type="output">
-                                <ReturnValue value={12} type="item | undefined" />
-                            </Node>
-                        </div>
-
-                        <MutableOrNot mutates={false} message="">
-                            Returns the <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">last matching item</code> or undefined. ⚠️ Cannot be chained. Searches from end to start.
-                        </MutableOrNot>
-                    </MethodCard>
-
-                <!-- FINDINDEX -->
-                <MethodCard
-                        id="findIndex"
-                        methodName="findIndex()"
-                        signature="arr.findIndex(fn)"
-                        description="Returns the index of first element that passes test"
-                        mutates={false}
-                    >
-                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                            <Node label="Input Array" type="input">
-                                <ArrayDisplay values={[1, 5, 8, 12]} />
-                            </Node>
-
-                            <Arrow label="searches" />
-
-                            <Node label="Method" type="process">
-                                <ProcessContent name="findIndex(n => n > 10)" description="Index of first > 10" />
-                            </Node>
-
-                            <Arrow label="returns" />
-
-                            <Node label="Index" type="output">
-                                <ReturnValue value={3} type="number | -1" />
-                            </Node>
-                        </div>
-
-                        <MutableOrNot mutates={false} message="">
-                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">index</code> of first match or -1 if not found. ⚠️ Cannot be chained.
-                        </MutableOrNot>
-
-                        <ProTip>
-                            <div>Common pattern: Find and remove an item by combining with splice:</div>
-                            <div class="pl-2 border-l-2 border-yellow-500/60 space-y-0.5">
-                                <div class="font-mono text-[10px]">const idx = users.findIndex(u =&gt; u.id === 5)</div>
-                                <div class="font-mono text-[10px]">if (idx !== -1) users.splice(idx, 1) <span class="text-gray-400">// removes user</span></div>
-                            </div>
-                        </ProTip>
-                    </MethodCard>
-
-                <!-- FINDLASTINDEX -->
-                <MethodCard
-                        id="findLastIndex"
-                        methodName="findLastIndex()"
-                        signature="arr.findLastIndex(fn)"
-                        description="Returns the index of last element that passes test"
-                        mutates={false}
-                    >
-                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                            <Node label="Input Array" type="input">
-                                <ArrayDisplay values={[1, 5, 8, 12, 7]} />
-                            </Node>
-
-                            <Arrow label="searches" />
-
-                            <Node label="Method" type="process">
-                                <ProcessContent name="findLastIndex(n => n > 10)" description="Index of last > 10" />
-                            </Node>
-
-                            <Arrow label="returns" />
-
-                            <Node label="Index" type="output">
-                                <ReturnValue value={3} type="number | -1" />
-                            </Node>
-                        </div>
-
-                        <MutableOrNot mutates={false} message="">
-                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">index</code> of last match or -1. ⚠️ Cannot be chained. Searches from end to start.
-                        </MutableOrNot>
-                    </MethodCard>
-
-                <!-- AT -->
-                <MethodCard
-                        id="at"
-                        methodName="at()"
-                        signature="arr.at(index)"
-                        description="Returns element at given index (supports negative indices)"
-                        mutates={false}
-                    >
-                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                            <Node label="Input Array" type="input">
-                                <ArrayDisplay values={['a', 'b', 'c', 'd']} />
-                            </Node>
-
-                            <Arrow label="accesses" />
-
-                            <Node label="Method" type="process">
-                                <ProcessContent name="at(-1)" description="Get last item" />
-                            </Node>
-
-                            <Arrow label="returns" />
-
-                            <Node label="Item" type="output">
-                                <ReturnValue value="'d'" type="item | undefined" />
-                            </Node>
-                        </div>
-
-                        <MutableOrNot mutates={false} message="">
-                            Returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">item</code> at index. ⚠️ Cannot be chained. Negative indices count from end (-1 = last item).
-                        </MutableOrNot>
-
-                        <ProTip>
-                            <div>Much cleaner than <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">arr[arr.length - 1]</code> for getting the last item:</div>
-                            <div class="pl-2 border-l-2 border-yellow-500/60 font-mono text-[10px]">
-                                arr.at(-1) → last item, arr.at(-2) → second to last
-                            </div>
-                        </ProTip>
-                    </MethodCard>
-
-            <!-- === REDUCE === -->
-            <SubSectionTitle id="reduce-section" parentColor="green">Reduce</SubSectionTitle>
-
-                <!-- REDUCE -->
-                <MethodCard
-                id="reduce"
-                methodName="reduce()"
-                signature="arr.reduce(fn, initialValue)"
-                description="Reduces array to a single value by applying function with accumulator"
-                mutates={false}
-            >
-                <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                    <Node label="Input Array" type="input">
-                        <ArrayDisplay values={[1, 2, 3, 4]} />
-                    </Node>
-
-                    <Arrow label="reduces" />
-
-                    <Node label="Method" type="process">
-                        <ProcessContent name="reduce((sum, n) => sum + n, 0)" description="Sum all values: 0 + 1 + 2 + 3 + 4" />
-                    </Node>
-
-                    <Arrow label="returns" />
-
-                    <Node label="Single Value" type="output">
-                        <ReturnValue value={10} type="accumulated result" />
-                    </Node>
-                </div>
-
-                <MutableOrNot mutates={false} message="">
-                    Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">single value</code> of any type. ⚠️ Cannot be chained. The accumulator carries forward through each iteration.
-                </MutableOrNot>
-
-                <ProTip>
-                    <div>Reduce is super versatile! Common patterns:</div>
-                    <div class="pl-2 border-l-2 border-yellow-500/60 space-y-1">
-                        <div class="font-mono text-[10px]"><span class="text-gray-400">// Count occurrences</span><br/>items.reduce((acc,v) =&gt; ({'{'}...acc, [v]: (acc[v]||0)+1{'}'}), {'{'}{'}'})</div>
-                        <div class="font-mono text-[10px]"><span class="text-gray-400">// Group by property</span><br/>users.reduce((acc,u) =&gt; ({'{'}...acc, [u.role]: [...(acc[u.role]||[]),u]{'}'}), {'{'}{'}'})</div>
-                        <div class="font-mono text-[10px]"><span class="text-gray-400">// Build object from array</span><br/>arr.reduce((acc,v,i) =&gt; ({'{'}...acc, [i]: v{'}'}), {'{'}{'}'})</div>
-                    </div>
-                </ProTip>
-            </MethodCard>
-
-                <!-- REDUCERIGHT -->
-                <MethodCard
-                        id="reduceRight"
-                        methodName="reduceRight()"
-                        signature="arr.reduceRight(fn, initialValue)"
-                        description="Reduces array from right to left with an accumulator"
-                        mutates={false}
-                    >
-                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                            <Node label="Input Array" type="input">
-                                <ArrayDisplay values={['a', 'b', 'c']} />
-                            </Node>
-
-                            <Arrow label="reduces →" />
-
-                            <Node label="Method" type="process">
-                                <ProcessContent name="reduceRight((acc, v) => acc + v)" description="Concat from right: c+b+a" />
-                            </Node>
-
-                            <Arrow label="returns" />
-
-                            <Node label="Single Value" type="output">
-                                <ReturnValue value="'cba'" type="string" />
-                            </Node>
-                        </div>
-
-                        <MutableOrNot mutates={false} message="">
-                            Like reduce() but processes from <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">right to left</code>. Returns a single value. ⚠️ Cannot be chained.
-                        </MutableOrNot>
-                    </MethodCard>
-
-                <!-- === ITERATE / INSPECT === -->
-                <SubSectionTitle id="iterate-inspect" parentColor="green">Iterate / Inspect</SubSectionTitle>
-
-                <!-- FOREACH -->
-                <MethodCard
-                        id="forEach"
-                        methodName="forEach()"
-                        signature="arr.forEach(fn)"
-                        description="Executes a function for each array element"
-                        mutates={false}
-                    >
-                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                            <Node label="Input Array" type="input">
-                                <ArrayDisplay values={['a', 'b', 'c']} />
-                            </Node>
-
-                            <Arrow label="iterates" />
-
-                            <Node label="Method" type="process">
-                                <ProcessContent name="forEach(console.log)" description="Run function on each" />
-                            </Node>
-
-                            <Arrow label="returns" />
-
-                            <Node label="Return Value" type="output">
-                                <ReturnValue value="undefined" type="undefined" />
-                            </Node>
-                        </div>
-
-                        <MutableOrNot mutates={false} message="">
-                            Always returns <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">undefined</code>. Cannot be chained. Use for side effects only.
-                        </MutableOrNot>
-
-                        <ProTip>
-                            <div>For large arrays (10,000+ items), regular <code class="bg-black/30 px-1 py-0.5 rounded font-mono text-yellow-400">for</code> loops are faster:</div>
-                            <div class="pl-2 border-l-2 border-yellow-500/60 space-y-0.5">
-                                <div class="font-mono text-[10px]">for (let i = 0; i &lt; arr.length; i++) {'{'} ... {'}'} <span class="text-gray-400">// fastest</span></div>
-                                <div class="font-mono text-[10px]">arr.forEach(item =&gt; {'{'} ... {'}'}) <span class="text-gray-400">// cleaner, slightly slower</span></div>
-                            </div>
-                        </ProTip>
-                    </MethodCard>
-
-                <!-- ENTRIES -->
-                <MethodCard
-                        id="entries"
-                        methodName="entries()"
-                        signature="arr.entries()"
-                        description="Returns an iterator of [index, value] pairs"
-                        mutates={false}
-                    >
-                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                            <Node label="Input Array" type="input">
-                                <ArrayDisplay values={['a', 'b', 'c']} />
-                            </Node>
-
-                            <Arrow label="iterates" />
-
-                            <Node label="Method" type="process">
-                                <ProcessContent name="entries()" description="Get [index, value] pairs" />
-                            </Node>
-
-                            <Arrow label="returns" />
-
-                            <Node label="Iterator" type="output">
-                                <div class="text-center text-xs font-mono">[0,'a'], [1,'b'], [2,'c']</div>
-                            </Node>
-                        </div>
-
-                        <MutableOrNot mutates={false} message="">
-                            Returns an <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">iterator</code>. ⚠️ Cannot be chained directly. Use with for...of or Array.from().
-                        </MutableOrNot>
-                    </MethodCard>
-
-                <!-- KEYS -->
-                <MethodCard
-                        id="keys"
-                        methodName="keys()"
-                        signature="arr.keys()"
-                        description="Returns an iterator of array indices"
-                        mutates={false}
-                    >
-                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                            <Node label="Input Array" type="input">
-                                <ArrayDisplay values={['a', 'b', 'c']} />
-                            </Node>
-
-                            <Arrow label="iterates" />
-
-                            <Node label="Method" type="process">
-                                <ProcessContent name="keys()" description="Get indices" />
-                            </Node>
-
-                            <Arrow label="returns" />
-
-                            <Node label="Iterator" type="output">
-                                <div class="text-center text-xs font-mono">0, 1, 2</div>
-                            </Node>
-                        </div>
-
-                        <MutableOrNot mutates={false} message="">
-                            Returns an <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">iterator</code> of array indices. ⚠️ Cannot be chained directly.
-                        </MutableOrNot>
-                    </MethodCard>
-
-                <!-- VALUES -->
-                <MethodCard
-                        id="values"
-                        methodName="values()"
-                        signature="arr.values()"
-                        description="Returns an iterator of array values"
-                        mutates={false}
-                    >
-                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                            <Node label="Input Array" type="input">
-                                <ArrayDisplay values={['a', 'b', 'c']} />
-                            </Node>
-
-                            <Arrow label="iterates" />
-
-                            <Node label="Method" type="process">
-                                <ProcessContent name="values()" description="Get values" />
-                            </Node>
-
-                            <Arrow label="returns" />
-
-                            <Node label="Iterator" type="output">
-                                <div class="text-center text-xs font-mono">'a', 'b', 'c'</div>
-                            </Node>
-                        </div>
-
-                        <MutableOrNot mutates={false} message="">
-                            Returns an <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">iterator</code> of array values. ⚠️ Cannot be chained directly.
-                        </MutableOrNot>
-                    </MethodCard>
-
-                <!-- === STRINGIFY === -->
-                <SubSectionTitle id="stringify" parentColor="green">Stringify</SubSectionTitle>
-
-                <!-- JOIN -->
-                <MethodCard
-                        id="join"
-                        methodName="join()"
-                        signature="arr.join(separator?)"
-                        description="Joins all elements into a string"
-                        mutates={false}
-                    >
-                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                            <Node label="Input Array" type="input">
-                                <ArrayDisplay values={['a', 'b', 'c']} />
-                            </Node>
-
-                            <Arrow label="joins" />
-
-                            <Node label="Method" type="process">
-                                <ProcessContent name="join('-')" description="Join with '-'" />
-                            </Node>
-
-                            <Arrow label="returns" />
-
-                            <Node label="String" type="output">
-                                <ReturnValue value="'a-b-c'" type="string" />
-                            </Node>
-                        </div>
-
-                        <MutableOrNot mutates={false} message="">
-                            Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. ⚠️ Cannot be chained. Default separator is comma.
-                        </MutableOrNot>
-                    </MethodCard>
-
-                <!-- TOSTRING -->
-                <MethodCard
-                        id="toString"
-                        methodName="toString()"
-                        signature="arr.toString()"
-                        description="Converts array to comma-separated string"
-                        mutates={false}
-                    >
-                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                            <Node label="Input Array" type="input">
-                                <ArrayDisplay values={[1, 2, 3]} />
-                            </Node>
-
-                            <Arrow label="converts" />
-
-                            <Node label="Method" type="process">
-                                <ProcessContent name="toString()" description="Convert to string" />
-                            </Node>
-
-                            <Arrow label="returns" />
-
-                            <Node label="String" type="output">
-                                <ReturnValue value="'1,2,3'" type="string" />
-                            </Node>
-                        </div>
-
-                        <MutableOrNot mutates={false} message="">
-                            Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code>. ⚠️ Cannot be chained. Equivalent to join() without separator.
-                        </MutableOrNot>
-                    </MethodCard>
-
-                <!-- TOLOCALESTRING -->
-                <MethodCard
-                        id="toLocaleString"
-                        methodName="toLocaleString()"
-                        signature="arr.toLocaleString()"
-                        description="Converts array to locale-specific string"
-                        mutates={false}
-                    >
-                        <div class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto">
-                            <Node label="Input Array" type="input">
-                                <ArrayDisplay values={[1000, 2000]} />
-                            </Node>
-
-                            <Arrow label="converts" />
-
-                            <Node label="Method" type="process">
-                                <ProcessContent name="toLocaleString()" description="Locale-aware convert" />
-                            </Node>
-
-                            <Arrow label="returns" />
-
-                            <Node label="String" type="output">
-                                <ReturnValue value="'1,000, 2,000'" type="string" />
-                            </Node>
-                        </div>
-
-                        <MutableOrNot mutates={false} message="">
-                            Returns a <code class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400">string</code> with locale-specific formatting. ⚠️ Cannot be chained.
-                        </MutableOrNot>
-                    </MethodCard>
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Returns an <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >iterator</code
+            >. ⚠️ Cannot be chained directly. Use with for...of or Array.from().
+        </MutableOrNot>
+    </MethodCard>
+
+    <!-- KEYS -->
+    <MethodCard
+        id="keys"
+        methodName="keys()"
+        signature="arr.keys()"
+        description="Returns an iterator of array indices"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Array" type="input">
+                <ArrayDisplay values={["a", "b", "c"]} />
+            </Node>
+
+            <Arrow label="iterates" />
+
+            <Node label="Method" type="process">
+                <ProcessContent name="keys()" description="Get indices" />
+            </Node>
+
+            <Arrow label="returns" />
+
+            <Node label="Iterator" type="output">
+                <div class="text-center text-xs font-mono">0, 1, 2</div>
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Returns an <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >iterator</code
+            > of array indices. ⚠️ Cannot be chained directly.
+        </MutableOrNot>
+    </MethodCard>
+
+    <!-- VALUES -->
+    <MethodCard
+        id="values"
+        methodName="values()"
+        signature="arr.values()"
+        description="Returns an iterator of array values"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Array" type="input">
+                <ArrayDisplay values={["a", "b", "c"]} />
+            </Node>
+
+            <Arrow label="iterates" />
+
+            <Node label="Method" type="process">
+                <ProcessContent name="values()" description="Get values" />
+            </Node>
+
+            <Arrow label="returns" />
+
+            <Node label="Iterator" type="output">
+                <div class="text-center text-xs font-mono">'a', 'b', 'c'</div>
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Returns an <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >iterator</code
+            > of array values. ⚠️ Cannot be chained directly.
+        </MutableOrNot>
+    </MethodCard>
+
+    <!-- === STRINGIFY === -->
+    <SubSectionTitle id="stringify" parentColor="green"
+        >Stringify</SubSectionTitle
+    >
+
+    <!-- JOIN -->
+    <MethodCard
+        id="join"
+        methodName="join()"
+        signature="arr.join(separator?)"
+        description="Joins all elements into a string"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Array" type="input">
+                <ArrayDisplay values={["a", "b", "c"]} />
+            </Node>
+
+            <Arrow label="joins" />
+
+            <Node label="Method" type="process">
+                <ProcessContent name="join('-')" description="Join with '-'" />
+            </Node>
+
+            <Arrow label="returns" />
+
+            <Node label="String" type="output">
+                <ReturnValue value="'a-b-c'" type="string" />
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Returns a <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >string</code
+            >. ⚠️ Cannot be chained. Default separator is comma.
+        </MutableOrNot>
+    </MethodCard>
+
+    <!-- TOSTRING -->
+    <MethodCard
+        id="toString"
+        methodName="toString()"
+        signature="arr.toString()"
+        description="Converts array to comma-separated string"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Array" type="input">
+                <ArrayDisplay values={[1, 2, 3]} />
+            </Node>
+
+            <Arrow label="converts" />
+
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="toString()"
+                    description="Convert to string"
+                />
+            </Node>
+
+            <Arrow label="returns" />
+
+            <Node label="String" type="output">
+                <ReturnValue value="'1,2,3'" type="string" />
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Returns a <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >string</code
+            >. ⚠️ Cannot be chained. Equivalent to join() without separator.
+        </MutableOrNot>
+    </MethodCard>
+
+    <!-- TOLOCALESTRING -->
+    <MethodCard
+        id="toLocaleString"
+        methodName="toLocaleString()"
+        signature="arr.toLocaleString()"
+        description="Converts array to locale-specific string"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Array" type="input">
+                <ArrayDisplay values={[1000, 2000]} />
+            </Node>
+
+            <Arrow label="converts" />
+
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="toLocaleString()"
+                    description="Locale-aware convert"
+                />
+            </Node>
+
+            <Arrow label="returns" />
+
+            <Node label="String" type="output">
+                <ReturnValue value="'1,000, 2,000'" type="string" />
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Returns a <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >string</code
+            > with locale-specific formatting. ⚠️ Cannot be chained.
+        </MutableOrNot>
+    </MethodCard>
 
     <Fragment slot="page-nav">
- <ul class="space-y-2 text-xs">
-                        <!-- Converting Section -->
-                        <li>
-                            <a href="#converting" class="text-blue-300 font-semibold hover:text-blue-200 block py-1">🔄 Converting</a>
-                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-blue-500/30 pl-2">
-                                <li>
-                                    <span class="text-gray-400 text-[10px] uppercase">String to Array</span>
-                                    <ul class="ml-2 mt-0.5 space-y-0.5">
-                                        <li><a href="#split" class="text-gray-300 hover:text-blue-400 block">split()</a></li>
-                                        <li><a href="#array-from-string" class="text-gray-300 hover:text-blue-400 block">Array.from()</a></li>
-                                        <li><a href="#spread-string" class="text-gray-300 hover:text-blue-400 block">[...str]</a></li>
-                                    </ul>
-                                </li>
-                                <li class="mt-2">
-                                    <span class="text-gray-400 text-[10px] uppercase">Number to Array</span>
-                                    <ul class="ml-2 mt-0.5 space-y-0.5">
-                                        <li><a href="#number-to-digits" class="text-gray-300 hover:text-blue-400 block">String().split()</a></li>
-                                        <li><a href="#array-from-number" class="text-gray-300 hover:text-blue-400 block">Array.from() + map</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
+        <ul class="space-y-2 text-xs">
+            <!-- Converting Section -->
+            <li>
+                <a
+                    href="#converting"
+                    class="text-blue-300 font-semibold hover:text-blue-200 block py-1"
+                    >🔄 Converting</a
+                >
+                <ul
+                    class="ml-3 mt-1 space-y-1 border-l-2 border-blue-500/30 pl-2"
+                >
+                    <li>
+                        <span class="text-gray-400 text-[10px] uppercase"
+                            >String to Array</span
+                        >
+                        <ul class="ml-2 mt-0.5 space-y-0.5">
+                            <li>
+                                <a
+                                    href="#split"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >split()</a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#array-from-string"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >Array.from()</a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#spread-string"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >[...str]</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="mt-2">
+                        <span class="text-gray-400 text-[10px] uppercase"
+                            >Number to Array</span
+                        >
+                        <ul class="ml-2 mt-0.5 space-y-0.5">
+                            <li>
+                                <a
+                                    href="#number-to-digits"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >String().split()</a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#array-from-number"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >Array.from() + map</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
 
-                        <!-- Mutates Section -->
-                        <li class="mt-4">
-                            <a href="#mutates" class="text-red-300 font-semibold hover:text-red-200 block py-1">🛠 Mutates</a>
-                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-red-500/30 pl-2">
-                                <li>
-                                    <span class="text-gray-400 text-[10px] uppercase">Insert / Remove</span>
-                                    <ul class="ml-2 mt-0.5 space-y-0.5">
-                                        <li><a href="#push" class="text-gray-300 hover:text-blue-400 block">push()</a></li>
-                                        <li><a href="#pop" class="text-gray-300 hover:text-blue-400 block">pop()</a></li>
-                                        <li><a href="#unshift" class="text-gray-300 hover:text-blue-400 block">unshift()</a></li>
-                                        <li><a href="#shift" class="text-gray-300 hover:text-blue-400 block">shift()</a></li>
-                                        <li><a href="#splice" class="text-gray-300 hover:text-blue-400 block">splice()</a></li>
-                                    </ul>
-                                </li>
-                                <li class="mt-2">
-                                    <span class="text-gray-400 text-[10px] uppercase">Reorder</span>
-                                    <ul class="ml-2 mt-0.5 space-y-0.5">
-                                        <li><a href="#sort" class="text-gray-300 hover:text-blue-400 block">sort()</a></li>
-                                        <li><a href="#reverse" class="text-gray-300 hover:text-blue-400 block">reverse()</a></li>
-                                    </ul>
-                                </li>
-                                <li class="mt-2">
-                                    <span class="text-gray-400 text-[10px] uppercase">Overwrite / Move</span>
-                                    <ul class="ml-2 mt-0.5 space-y-0.5">
-                                        <li><a href="#fill" class="text-gray-300 hover:text-blue-400 block">fill()</a></li>
-                                        <li><a href="#copyWithin" class="text-gray-300 hover:text-blue-400 block">copyWithin()</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
+            <!-- Mutates Section -->
+            <li class="mt-4">
+                <a
+                    href="#mutates"
+                    class="text-red-300 font-semibold hover:text-red-200 block py-1"
+                    >🛠 Mutates</a
+                >
+                <ul
+                    class="ml-3 mt-1 space-y-1 border-l-2 border-red-500/30 pl-2"
+                >
+                    <li>
+                        <span class="text-gray-400 text-[10px] uppercase"
+                            >Insert / Remove</span
+                        >
+                        <ul class="ml-2 mt-0.5 space-y-0.5">
+                            <li>
+                                <a
+                                    href="#push"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >push()</a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#pop"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >pop()</a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#unshift"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >unshift()</a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#shift"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >shift()</a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#splice"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >splice()</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="mt-2">
+                        <span class="text-gray-400 text-[10px] uppercase"
+                            >Reorder</span
+                        >
+                        <ul class="ml-2 mt-0.5 space-y-0.5">
+                            <li>
+                                <a
+                                    href="#sort"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >sort()</a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#reverse"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >reverse()</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="mt-2">
+                        <span class="text-gray-400 text-[10px] uppercase"
+                            >Overwrite / Move</span
+                        >
+                        <ul class="ml-2 mt-0.5 space-y-0.5">
+                            <li>
+                                <a
+                                    href="#fill"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >fill()</a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#copyWithin"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >copyWithin()</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
 
-                        <!-- Immutable Section -->
-                        <li class="mt-4">
-                            <a href="#immutable" class="text-green-300 font-semibold hover:text-green-200 block py-1">🚫 Immutable</a>
-                            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-green-500/30 pl-2">
-                                <li>
-                                    <span class="text-gray-400 text-[10px] uppercase">Build Arrays</span>
-                                    <ul class="ml-2 mt-0.5 space-y-0.5">
-                                        <li><a href="#map" class="text-gray-300 hover:text-blue-400 block">map()</a></li>
-                                        <li><a href="#filter" class="text-gray-300 hover:text-blue-400 block">filter()</a></li>
-                                        <li><a href="#slice" class="text-gray-300 hover:text-blue-400 block">slice()</a></li>
-                                        <li><a href="#concat" class="text-gray-300 hover:text-blue-400 block">concat()</a></li>
-                                        <li><a href="#flat" class="text-gray-300 hover:text-blue-400 block">flat()</a></li>
-                                        <li><a href="#flatMap" class="text-gray-300 hover:text-blue-400 block">flatMap()</a></li>
-                                        <li><a href="#with" class="text-gray-300 hover:text-blue-400 block">with()</a></li>
-                                        <li><a href="#toSpliced" class="text-gray-300 hover:text-blue-400 block">toSpliced()</a></li>
-                                        <li><a href="#toSorted" class="text-gray-300 hover:text-blue-400 block">toSorted()</a></li>
-                                        <li><a href="#toReversed" class="text-gray-300 hover:text-blue-400 block">toReversed()</a></li>
-                                    </ul>
-                                </li>
-                                <li class="mt-2">
-                                    <span class="text-gray-400 text-[10px] uppercase">Find / Test</span>
-                                    <ul class="ml-2 mt-0.5 space-y-0.5">
-                                        <li><a href="#find" class="text-gray-300 hover:text-blue-400 block">find()</a></li>
-                                        <li><a href="#includes" class="text-gray-300 hover:text-blue-400 block">includes()</a></li>
-                                        <li><a href="#indexOf" class="text-gray-300 hover:text-blue-400 block">indexOf()</a></li>
-                                        <li><a href="#some" class="text-gray-300 hover:text-blue-400 block">some()</a></li>
-                                        <li><a href="#every" class="text-gray-300 hover:text-blue-400 block">every()</a></li>
-                                        <li><a href="#lastIndexOf" class="text-gray-300 hover:text-blue-400 block">lastIndexOf()</a></li>
-                                        <li><a href="#findLast" class="text-gray-300 hover:text-blue-400 block">findLast()</a></li>
-                                        <li><a href="#findIndex" class="text-gray-300 hover:text-blue-400 block">findIndex()</a></li>
-                                        <li><a href="#findLastIndex" class="text-gray-300 hover:text-blue-400 block">findLastIndex()</a></li>
-                                        <li><a href="#at" class="text-gray-300 hover:text-blue-400 block">at()</a></li>
-                                    </ul>
-                                </li>
-                                <li class="mt-2">
-                                    <span class="text-gray-400 text-[10px] uppercase">Reduce</span>
-                                    <ul class="ml-2 mt-0.5 space-y-0.5">
-                                        <li><a href="#reduce" class="text-gray-300 hover:text-blue-400 block">reduce()</a></li>
-                                        <li><a href="#reduceRight" class="text-gray-300 hover:text-blue-400 block">reduceRight()</a></li>
-                                    </ul>
-                                </li>
-                                <li class="mt-2">
-                                    <span class="text-gray-400 text-[10px] uppercase">Iterate / Inspect</span>
-                                    <ul class="ml-2 mt-0.5 space-y-0.5">
-                                        <li><a href="#forEach" class="text-gray-300 hover:text-blue-400 block">forEach()</a></li>
-                                        <li><a href="#entries" class="text-gray-300 hover:text-blue-400 block">entries()</a></li>
-                                        <li><a href="#keys" class="text-gray-300 hover:text-blue-400 block">keys()</a></li>
-                                        <li><a href="#values" class="text-gray-300 hover:text-blue-400 block">values()</a></li>
-                                    </ul>
-                                </li>
-                                <li class="mt-2">
-                                    <span class="text-gray-400 text-[10px] uppercase">Stringify</span>
-                                    <ul class="ml-2 mt-0.5 space-y-0.5">
-                                        <li><a href="#join" class="text-gray-300 hover:text-blue-400 block">join()</a></li>
-                                        <li><a href="#toString" class="text-gray-300 hover:text-blue-400 block">toString()</a></li>
-                                        <li><a href="#toLocaleString" class="text-gray-300 hover:text-blue-400 block">toLocaleString()</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
+            <!-- Immutable Section -->
+            <li class="mt-4">
+                <a
+                    href="#immutable"
+                    class="text-green-300 font-semibold hover:text-green-200 block py-1"
+                    >🚫 Immutable</a
+                >
+                <ul
+                    class="ml-3 mt-1 space-y-1 border-l-2 border-green-500/30 pl-2"
+                >
+                    <li>
+                        <span class="text-gray-400 text-[10px] uppercase"
+                            >Build Arrays</span
+                        >
+                        <ul class="ml-2 mt-0.5 space-y-0.5">
+                            <li>
+                                <a
+                                    href="#map"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >map()</a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#filter"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >filter()</a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#slice"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >slice()</a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#concat"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >concat()</a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#flat"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >flat()</a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#flatMap"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >flatMap()</a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#with"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >with()</a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#toSpliced"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >toSpliced()</a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#toSorted"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >toSorted()</a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#toReversed"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >toReversed()</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="mt-2">
+                        <span class="text-gray-400 text-[10px] uppercase"
+                            >Find / Test</span
+                        >
+                        <ul class="ml-2 mt-0.5 space-y-0.5">
+                            <li>
+                                <a
+                                    href="#find"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >find()</a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#includes"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >includes()</a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#indexOf"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >indexOf()</a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#some"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >some()</a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#every"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >every()</a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#lastIndexOf"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >lastIndexOf()</a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#findLast"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >findLast()</a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#findIndex"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >findIndex()</a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#findLastIndex"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >findLastIndex()</a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#at"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >at()</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="mt-2">
+                        <span class="text-gray-400 text-[10px] uppercase"
+                            >Reduce</span
+                        >
+                        <ul class="ml-2 mt-0.5 space-y-0.5">
+                            <li>
+                                <a
+                                    href="#reduce"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >reduce()</a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#reduceRight"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >reduceRight()</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="mt-2">
+                        <span class="text-gray-400 text-[10px] uppercase"
+                            >Iterate / Inspect</span
+                        >
+                        <ul class="ml-2 mt-0.5 space-y-0.5">
+                            <li>
+                                <a
+                                    href="#forEach"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >forEach()</a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#entries"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >entries()</a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#keys"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >keys()</a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#values"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >values()</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="mt-2">
+                        <span class="text-gray-400 text-[10px] uppercase"
+                            >Stringify</span
+                        >
+                        <ul class="ml-2 mt-0.5 space-y-0.5">
+                            <li>
+                                <a
+                                    href="#join"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >join()</a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#toString"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >toString()</a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#toLocaleString"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >toLocaleString()</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
     </Fragment>
 </VisualLayout>

@@ -1,5 +1,5 @@
 ---
-
+import "~styles/styles.css";
 ---
 
 <html lang="en">
@@ -11,70 +11,59 @@
         <title>Astro</title>
     </head>
     <body>
-        <h1>Hello World</h1>
+        <div class="container mx-auto prose prose-sm py-8">
+            <h1>Visual Cheatsheets</h1>
+            <h4>Core Concepts:</h4>
+            <ul>
+                <li>
+                    <a href="/visual/core-concepts/conditionals">conditionals</a
+                    >
+                </li>
+                <li>
+                    <a href="/visual/core-concepts/dom-manipulation"
+                        >dom-manipulation</a
+                    >
+                </li>
+                <li>
+                    <a href="/visual/core-concepts/functions">functions</a>
+                </li>
+                <li><a href="/visual/core-concepts/loops">loops</a></li>
+                <li>
+                    <a href="/visual/core-concepts/promises">promises</a>
+                </li>
+                <li>
+                    <a href="/visual/core-concepts/variables">variables</a>
+                </li>
+            </ul>
 
-        <ul>
-            <li><a href="/auth">auth</a></li>
-            <li><a href="/btn-styler">btn-styler</a></li>
-            <li><a href="/fuck-canva">fuck-canva</a></li>
-            <li><a href="/old-0index">old-0index</a></li>
-            <li><a href="/test-index.html">test-index.html</a></li>
-
-            <li>
-                <strong>Components:</strong>
-                <ul>
-                    <li>
-                        <a href="/components/accordion-examples"
-                            >accordion-examples</a>
-                    </li>
-                </ul>
-            </li>
-
-            <li>
-                <strong>Visual:</strong>
-                <ul>
-                    <li><a href="/visual/conditionals">conditionals</a></li>
-                    <li>
-                        <a href="/visual/dom-manipulation">dom-manipulation</a>
-                    </li>
-                    <li><a href="/visual/functions">functions</a></li>
-                    <li><a href="/visual/loops">loops</a></li>
-                    <li><a href="/visual/promises">promises</a></li>
-
-                    <li>
-                        <strong>Browser APIs:</strong>
-                        <ul>
-                            <li>
-                                <a
-                                    href="/visual/browser-apis/intersection-observer"
-                                    >intersection-observer</a>
-                            </li>
-                            <li>
-                                <a href="/visual/browser-apis/pointer-events"
-                                    >pointer-events</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li>
-                        <strong>Primitives:</strong>
-                        <ul>
-                            <li>
-                                <a href="/visual/primitives/arrays">arrays</a>
-                            </li>
-                            <li>
-                                <a href="/visual/primitives/numbers">numbers</a>
-                            </li>
-                            <li>
-                                <a href="/visual/primitives/objects">objects</a>
-                            </li>
-                            <li>
-                                <a href="/visual/primitives/strings">strings</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-        </ul>
+            <h4>Browser APIs:</h4>
+            <ul>
+                <li>
+                    <a href="/visual/browser-apis/intersection-observer"
+                        >intersection-observer</a
+                    >
+                </li>
+                <li>
+                    <a href="/visual/browser-apis/pointer-events"
+                        >pointer-events</a
+                    >
+                </li>
+            </ul>
+            <h4>Primitives:</h4>
+            <ul>
+                <li>
+                    <a href="/visual/primitives/arrays">arrays</a>
+                </li>
+                <li>
+                    <a href="/visual/primitives/numbers">numbers</a>
+                </li>
+                <li>
+                    <a href="/visual/primitives/objects">objects</a>
+                </li>
+                <li>
+                    <a href="/visual/primitives/strings">strings</a>
+                </li>
+            </ul>
+        </div>
     </body>
 </html>

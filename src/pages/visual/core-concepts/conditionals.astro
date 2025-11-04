@@ -1,0 +1,1635 @@
+---
+import VisualLayout from "src/layouts/VisualLayout.astro";
+import MethodCard from "~components/visual-js/MethodCard.astro";
+import InfoBox from "~components/visual-js/InfoBox.astro";
+import ProTip from "~components/visual-js/ProTip.astro";
+import SectionTitle from "~components/visual-js/SectionTitle.astro";
+---
+
+<VisualLayout pageTitle="Conditionals">
+    <InfoBox>
+        <div>
+            💡 <strong
+                >true/false vs truthy/falsy - what's the difference?</strong>
+        </div>
+        <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+            <div class="font-mono text-[10px] mt-1">
+                <strong>false</strong> = the actual boolean value <code
+                    class="bg-black/30 px-1 py-0.5 rounded">false</code>
+            </div>
+            <div class="font-mono text-[10px]">
+                <strong>falsy</strong> = any value that <em>acts like false</em>
+                in a boolean context (if statements, etc.)
+            </div>
+            <div class="font-mono text-[10px] mt-1">
+                <span class="text-yellow-400">8 falsy values:</span>
+                <code class="bg-black/30 px-1 py-0.5 rounded">false</code>, <code
+                    class="bg-black/30 px-1 py-0.5 rounded">0</code
+                >, <code class="bg-black/30 px-1 py-0.5 rounded">-0</code>, <code
+                    class="bg-black/30 px-1 py-0.5 rounded">0n</code
+                >, <code class="bg-black/30 px-1 py-0.5 rounded">""</code>, <code
+                    class="bg-black/30 px-1 py-0.5 rounded">null</code
+                >, <code class="bg-black/30 px-1 py-0.5 rounded">undefined</code
+                >, <code class="bg-black/30 px-1 py-0.5 rounded">NaN</code>
+            </div>
+            <div class="font-mono text-[10px] mt-1">
+                <strong>truthy</strong> = everything else acts like true!
+            </div>
+            <div class="font-mono text-[10px] mt-1">
+                <span class="text-red-400">Common gotchas:</span>
+            </div>
+            <div class="font-mono text-[10px]">
+                if ([]) {"{"} ... {"}"}
+                <span class="text-gray-400"
+                    >// RUNS! [] is truthy even when empty</span>
+            </div>
+            <div class="font-mono text-[10px]">
+                if ("0") {"{"} ... {"}"}
+                <span class="text-gray-400">// RUNS! string "0" is truthy</span>
+            </div>
+            <div class="font-mono text-[10px]">
+                if ("false") {"{"} ... {"}"}
+                <span class="text-gray-400"
+                    >// RUNS! string "false" is truthy</span>
+            </div>
+            <div class="font-mono text-[10px] mt-1">
+                0 === false <span class="text-red-400">// false</span> (different
+                types, but both falsy)
+            </div>
+            <div class="font-mono text-[10px]">
+                [] == true <span class="text-red-400">// false</span> ([] is truthy,
+                but not equal to true)
+            </div>
+        </div>
+    </InfoBox>
+
+    <!-- ============================================ -->
+    <!-- 🔀 IF/ELSE -->
+    <!-- ============================================ -->
+
+    <SectionTitle id="if-else" color="blue">
+        🔀 If/Else Statements
+    </SectionTitle>
+
+    <!-- IF -->
+    <MethodCard
+        id="if"
+        methodName="if"
+        signature="if (condition) { }"
+        description="Execute code if condition is truthy"
+        mutates={false}
+    >
+        <div class="p-6 bg-gray-800 rounded">
+            <div class="space-y-3">
+                <!-- Visual flow diagram -->
+                <div
+                    class="bg-gray-900/50 border-2 border-blue-500 rounded-lg p-4 font-mono text-sm"
+                >
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="text-blue-400 font-bold">if</div>
+                        <div
+                            class="bg-blue-500/20 px-3 py-1.5 rounded border border-blue-400"
+                        >
+                            <span class="text-blue-300">condition</span>
+                        </div>
+                    </div>
+                    <div
+                        class="ml-8 pl-4 border-l-4 border-green-500 space-y-1"
+                    >
+                        <div class="text-gray-400 text-xs mb-1">
+                            ↳ if <span class="text-green-400">true</span>, runs:
+                        </div>
+                        <div class="text-green-300">doSomething()</div>
+                        <div class="text-green-300">console.log('success')</div>
+                    </div>
+                    <div class="ml-8 mt-3 text-gray-500 text-xs">
+                        ↳ if <span class="text-red-400">false</span>, skips
+                        block entirely
+                    </div>
+                </div>
+
+                <!-- Example -->
+                <div class="bg-gray-800/50 border border-gray-700 rounded p-3">
+                    <div class="text-gray-400 text-xs mb-2">Example:</div>
+                    <div class="font-mono text-xs text-gray-300 space-y-0.5">
+                        <div>
+                            <span class="text-blue-400">if</span> (age &gt;= 18)
+                            {"{"}
+                        </div>
+                        <div class="ml-4 text-green-300">
+                            console.log('Can vote')
+                        </div>
+                        <div>{"}"}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700"
+        >
+            Executes block only if condition evaluates to truthy value. <strong
+                >Condition is coerced to boolean.</strong
+            >
+        </div>
+
+        <ProTip>
+            <div>Common patterns:</div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    <span class="text-gray-400">// Check existence</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    if (user) {"{"} ... {"}"}
+                    <span class="text-gray-400">// truthy check</span>
+                </div>
+                <div class="font-mono text-[10px] mt-1">
+                    <span class="text-gray-400">// Check array has items</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    if (arr.length) {"{"} ... {"}"}
+                    <span class="text-gray-400">// 0 is falsy</span>
+                </div>
+                <div class="font-mono text-[10px] mt-1">
+                    <span class="text-gray-400">// Early return pattern</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    if (!user) return <span class="text-gray-400"
+                        >// guard clause</span>
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- IF...ELSE -->
+    <MethodCard
+        id="if-else-statement"
+        methodName="if...else"
+        signature="if (condition) { } else { }"
+        description="Execute one of two code paths"
+        mutates={false}
+    >
+        <div class="p-6 bg-gray-800 rounded">
+            <div class="space-y-3">
+                <!-- Visual flow diagram -->
+                <div
+                    class="bg-gray-900/50 border-2 border-blue-500 rounded-lg p-4 font-mono text-sm"
+                >
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="text-blue-400 font-bold">if</div>
+                        <div
+                            class="bg-blue-500/20 px-3 py-1.5 rounded border border-blue-400"
+                        >
+                            <span class="text-blue-300">condition</span>
+                        </div>
+                    </div>
+                    <div
+                        class="ml-8 pl-4 border-l-4 border-green-500 space-y-1 mb-3"
+                    >
+                        <div class="text-gray-400 text-xs mb-1">
+                            ↳ if <span class="text-green-400">true</span>:
+                        </div>
+                        <div class="text-green-300">doThisThing()</div>
+                    </div>
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="text-orange-400 font-bold">else</div>
+                    </div>
+                    <div
+                        class="ml-8 pl-4 border-l-4 border-orange-500 space-y-1"
+                    >
+                        <div class="text-gray-400 text-xs mb-1">
+                            ↳ if <span class="text-red-400">false</span>:
+                        </div>
+                        <div class="text-orange-300">doOtherThing()</div>
+                    </div>
+                </div>
+
+                <!-- Example -->
+                <div class="bg-gray-800/50 border border-gray-700 rounded p-3">
+                    <div class="text-gray-400 text-xs mb-2">Example:</div>
+                    <div class="font-mono text-xs text-gray-300 space-y-0.5">
+                        <div>
+                            <span class="text-blue-400">if</span> (age &gt;= 18)
+                            {"{"}
+                        </div>
+                        <div class="ml-4 text-green-300">
+                            console.log('Adult')
+                        </div>
+                        <div>
+                            {"}"}
+                            <span class="text-orange-400">else</span>
+                            {"{"}
+                        </div>
+                        <div class="ml-4 text-orange-300">
+                            console.log('Minor')
+                        </div>
+                        <div>{"}"}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700"
+        >
+            Exactly one block executes. Use when you have two mutually exclusive
+            paths.
+        </div>
+    </MethodCard>
+
+    <!-- ELSE IF -->
+    <MethodCard
+        id="else-if"
+        methodName="else if"
+        signature="if (cond1) { } else if (cond2) { } else { }"
+        description="Chain multiple conditions"
+        mutates={false}
+    >
+        <div class="p-6 bg-gray-800 rounded">
+            <div class="space-y-3">
+                <!-- Visual cascade diagram -->
+                <div
+                    class="bg-gray-900/50 border-2 border-blue-500 rounded-lg p-4 font-mono text-sm"
+                >
+                    <!-- First if -->
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="text-blue-400 font-bold">if</div>
+                        <div
+                            class="bg-blue-500/20 px-3 py-1.5 rounded border border-blue-400"
+                        >
+                            <span class="text-blue-300">condition1</span>
+                        </div>
+                        <div class="text-xs text-gray-500">← checks first</div>
+                    </div>
+                    <div class="ml-8 pl-4 border-l-4 border-green-500 mb-4">
+                        <div class="text-green-300">executeThis()</div>
+                        <div class="text-xs text-gray-500 mt-1">
+                            ✓ done, skip rest
+                        </div>
+                    </div>
+
+                    <!-- else if 1 -->
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="text-purple-400 font-bold">else if</div>
+                        <div
+                            class="bg-purple-500/20 px-3 py-1.5 rounded border border-purple-400"
+                        >
+                            <span class="text-purple-300">condition2</span>
+                        </div>
+                        <div class="text-xs text-gray-500">
+                            ← if first was false
+                        </div>
+                    </div>
+                    <div class="ml-8 pl-4 border-l-4 border-purple-500 mb-4">
+                        <div class="text-purple-300">executeThat()</div>
+                        <div class="text-xs text-gray-500 mt-1">
+                            ✓ done, skip rest
+                        </div>
+                    </div>
+
+                    <!-- else if 2 -->
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="text-purple-400 font-bold">else if</div>
+                        <div
+                            class="bg-purple-500/20 px-3 py-1.5 rounded border border-purple-400"
+                        >
+                            <span class="text-purple-300">condition3</span>
+                        </div>
+                        <div class="text-xs text-gray-500">
+                            ← if previous were false
+                        </div>
+                    </div>
+                    <div class="ml-8 pl-4 border-l-4 border-purple-500 mb-4">
+                        <div class="text-purple-300">executeOther()</div>
+                        <div class="text-xs text-gray-500 mt-1">
+                            ✓ done, skip rest
+                        </div>
+                    </div>
+
+                    <!-- else -->
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="text-orange-400 font-bold">else</div>
+                        <div class="text-xs text-gray-500">
+                            ← if ALL above were false
+                        </div>
+                    </div>
+                    <div class="ml-8 pl-4 border-l-4 border-orange-500">
+                        <div class="text-orange-300">fallback()</div>
+                        <div class="text-xs text-gray-500 mt-1">
+                            default case
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Example -->
+                <div class="bg-gray-800/50 border border-gray-700 rounded p-3">
+                    <div class="text-gray-400 text-xs mb-2">
+                        Example - Grade Calculator:
+                    </div>
+                    <div class="font-mono text-xs text-gray-300 space-y-0.5">
+                        <div>
+                            <span class="text-blue-400">if</span> (score &gt;= 90)
+                            {"{"}
+                        </div>
+                        <div class="ml-4 text-green-300">grade = 'A'</div>
+                        <div>
+                            {"}"}
+                            <span class="text-purple-400">else if</span> (score &gt;=
+                            80) {"{"}
+                        </div>
+                        <div class="ml-4 text-purple-300">grade = 'B'</div>
+                        <div>
+                            {"}"}
+                            <span class="text-purple-400">else if</span> (score &gt;=
+                            70) {"{"}
+                        </div>
+                        <div class="ml-4 text-purple-300">grade = 'C'</div>
+                        <div>
+                            {"}"}
+                            <span class="text-orange-400">else</span>
+                            {"{"}
+                        </div>
+                        <div class="ml-4 text-orange-300">grade = 'F'</div>
+                        <div>{"}"}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700"
+        >
+            Checks conditions in order. <strong
+                >Stops at first true condition.</strong
+            > Only one block ever executes.
+        </div>
+
+        <ProTip>
+            <div>⚠️ Order matters - put most specific conditions first:</div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px] text-red-400">
+                    <span class="text-gray-400">// ❌ Wrong order:</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    if (score &gt;= 70) {"{"} grade = 'C' {"}"}
+                    <span class="text-gray-400">// catches 90 too!</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    else if (score &gt;= 90) {"{"} grade = 'A' {"}"}
+                    <span class="text-gray-400">// never runs</span>
+                </div>
+                <div class="font-mono text-[10px] mt-1 text-green-400">
+                    <span class="text-gray-400">// ✅ Correct order:</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    if (score &gt;= 90) {"{"} grade = 'A' {"}"}
+                    <span class="text-gray-400">// most specific first</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    else if (score &gt;= 70) {"{"} grade = 'C' {"}"}
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- ============================================ -->
+    <!-- 🔄 SWITCH -->
+    <!-- ============================================ -->
+
+    <SectionTitle id="switch" color="purple">
+        🔄 Switch Statements
+    </SectionTitle>
+
+    <!-- SWITCH/CASE -->
+    <MethodCard
+        id="switch-case"
+        methodName="switch...case"
+        signature="switch (value) { case x: ... break; default: ... }"
+        description="Match value against multiple cases with fallback"
+        mutates={false}
+    >
+        <div class="p-6 bg-gray-800 rounded">
+            <div class="space-y-3">
+                <!-- Visual switch diagram -->
+                <div
+                    class="bg-gray-900/50 border-2 border-purple-500 rounded-lg p-4 font-mono text-sm"
+                >
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="text-purple-400 font-bold">switch</div>
+                        <div
+                            class="bg-purple-500/20 px-3 py-1.5 rounded border border-purple-400"
+                        >
+                            <span class="text-purple-300">value</span>
+                        </div>
+                        <span class="text-gray-500 text-xs"
+                            >← match against cases</span
+                        >
+                    </div>
+
+                    <!-- Cases -->
+                    <div class="space-y-3 ml-4">
+                        <!-- Case 1 -->
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+                                <div class="text-blue-400">case</div>
+                                <div
+                                    class="bg-blue-500/20 px-2 py-0.5 rounded text-xs border border-blue-400"
+                                >
+                                    <span class="text-blue-300">'value1'</span>
+                                </div>
+                                <span class="text-gray-500 text-xs">:</span>
+                            </div>
+                            <div
+                                class="ml-6 pl-3 border-l-2 border-blue-500 space-y-0.5"
+                            >
+                                <div class="text-blue-300 text-xs">
+                                    doSomething()
+                                </div>
+                                <div class="text-yellow-400 text-xs">
+                                    break <span class="text-gray-500"
+                                        >← stops here</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Case 2 -->
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+                                <div class="text-blue-400">case</div>
+                                <div
+                                    class="bg-blue-500/20 px-2 py-0.5 rounded text-xs border border-blue-400"
+                                >
+                                    <span class="text-blue-300">'value2'</span>
+                                </div>
+                                <span class="text-gray-500 text-xs">:</span>
+                            </div>
+                            <div
+                                class="ml-6 pl-3 border-l-2 border-blue-500 space-y-0.5"
+                            >
+                                <div class="text-blue-300 text-xs">
+                                    doOtherThing()
+                                </div>
+                                <div class="text-yellow-400 text-xs">break</div>
+                            </div>
+                        </div>
+
+                        <!-- Default -->
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+                                <div class="text-orange-400">default</div>
+                                <span class="text-gray-500 text-xs"
+                                    >: ← if no matches</span
+                                >
+                            </div>
+                            <div
+                                class="ml-6 pl-3 border-l-2 border-orange-500 space-y-0.5"
+                            >
+                                <div class="text-orange-300 text-xs">
+                                    fallback()
+                                </div>
+                                <div class="text-gray-500 text-xs">
+                                    no break needed (last)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Example -->
+                <div class="bg-gray-800/50 border border-gray-700 rounded p-3">
+                    <div class="text-gray-400 text-xs mb-2">Example:</div>
+                    <div class="font-mono text-xs text-gray-300 space-y-0.5">
+                        <div>
+                            <span class="text-purple-400">switch</span> (day) {
+                                "{"
+                            }
+                        </div>
+                        <div class="ml-4">
+                            <span class="text-blue-400">case</span> 'Mon':
+                        </div>
+                        <div class="ml-8">console.log('Start of week')</div>
+                        <div class="ml-8">
+                            <span class="text-yellow-400">break</span>
+                        </div>
+                        <div class="ml-4">
+                            <span class="text-blue-400">case</span> 'Fri':
+                        </div>
+                        <div class="ml-8">console.log('Almost weekend!')</div>
+                        <div class="ml-8">
+                            <span class="text-yellow-400">break</span>
+                        </div>
+                        <div class="ml-4">
+                            <span class="text-orange-400">default</span>:
+                        </div>
+                        <div class="ml-8">console.log('Regular day')</div>
+                        <div>{"}"}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700"
+        >
+            Uses <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >===</code
+            > strict equality. ⚠️ <strong>Don't forget break!</strong> Without it,
+            execution "falls through" to next case.
+        </div>
+
+        <ProTip>
+            <div>⚠️ <strong>The break gotcha:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">switch (day) {"{"}</div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;case 'Mon':</div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;console.log('Monday')
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;break <span class="text-green-400"
+                        >// stops here ✅</span>
+                </div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;case 'Tue':</div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;console.log('Tuesday') <span
+                        class="text-red-400"
+                        >// without break, runs this too! ❌</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;break
+                </div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;default:</div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;console.log('Other')
+                </div>
+                <div class="font-mono text-[10px]">{"}"}</div>
+            </div>
+        </ProTip>
+
+        <ProTip>
+            <div>
+                💡 <strong
+                    >Grouping multiple cases (fall-through pattern):</strong>
+            </div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">switch (day) {"{"}</div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;case 'Mon':</div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;case 'Tue':</div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;case 'Wed':</div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;case 'Thu':</div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;case 'Fri':</div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;console.log('Weekday') <span
+                        class="text-gray-400"
+                        >// shared code for all weekdays</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;break
+                </div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;case 'Sat':</div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;case 'Sun':</div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;console.log('Weekend') <span
+                        class="text-gray-400">// shared code for weekend</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;break
+                </div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;default:</div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;console.error('Invalid day') <span
+                        class="text-green-400">// handle unexpected ✅</span>
+                </div>
+                <div class="font-mono text-[10px]">{"}"}</div>
+                <div class="font-mono text-[10px] mt-1">
+                    <span class="text-gray-400"
+                        >// Stack cases without break to share code - falls
+                        through until hitting break</span>
+                </div>
+            </div>
+        </ProTip>
+
+        <ProTip>
+            <div>✨ <strong>Always include default:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    default: <span class="text-gray-400"
+                        >// optional but recommended (like 'else')</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;console.error('Unknown value') <span
+                        class="text-gray-400">// catch unexpected values</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    <span class="text-gray-400"
+                        >// No break needed (it's last)</span>
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- ============================================ -->
+    <!-- ⚡ TERNARY -->
+    <!-- ============================================ -->
+
+    <SectionTitle id="ternary" color="green">
+        ⚡ Ternary Operator
+    </SectionTitle>
+
+    <!-- TERNARY -->
+    <MethodCard
+        id="ternary-op"
+        methodName="Ternary"
+        signature="condition ? valueIfTrue : valueIfFalse"
+        description="Inline conditional expression (returns value)"
+        mutates={false}
+    >
+        <div class="p-4 bg-gray-800 rounded border border-gray-700">
+            <!-- Inline expression -->
+            <div class="font-mono text-sm mb-4">
+                <span class="text-gray-400">const</span>
+                <span class="text-blue-300">status</span> =
+                <span class="text-orange-300 ml-2">age &gt;= 18</span>
+                <span class="text-purple-300 mx-2">?</span>
+                <span class="text-green-300">'Adult'</span>
+                <span class="text-purple-300 mx-2">:</span>
+                <span class="text-yellow-300">'Minor'</span>
+            </div>
+
+            <!-- Visual breakdown -->
+            <div class="space-y-2">
+                <div class="flex items-center gap-2">
+                    <div class="w-24 text-xs text-gray-400">Condition</div>
+                    <div
+                        class="flex-1 p-2 bg-orange-500/10 border border-orange-500/30 rounded font-mono text-xs text-orange-300"
+                    >
+                        age &gt;= 18
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <div class="w-24 text-xs text-gray-400">
+                        If true <span class="text-purple-300">?</span>
+                    </div>
+                    <div
+                        class="flex-1 p-2 bg-green-500/10 border border-green-500/30 rounded font-mono text-xs text-green-300"
+                    >
+                        'Adult'
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <div class="w-24 text-xs text-gray-400">
+                        If false <span class="text-purple-300">:</span>
+                    </div>
+                    <div
+                        class="flex-1 p-2 bg-yellow-500/10 border border-yellow-500/30 rounded font-mono text-xs text-yellow-300"
+                    >
+                        'Minor'
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700"
+        >
+            <strong>Returns a value</strong> (not a statement). Great for assignments,
+            JSX, and short conditionals. Avoid nesting deeply.
+        </div>
+
+        <ProTip>
+            <div>✨ <strong>When to use ternary:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    <span class="text-green-400">// Simple assignment ✅</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    const status = isActive ? 'online' : 'offline'
+                </div>
+                <div class="font-mono text-[10px] mt-1">
+                    <span class="text-green-400">// JSX conditionals ✅</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    &lt;div&gt;{"{"}isLoading ? 'Loading...' : data{
+                        "}"
+                    }&lt;/div&gt;
+                </div>
+                <div class="font-mono text-[10px] mt-1">
+                    <span class="text-red-400">// Avoid deep nesting ❌</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    a ? b ? c : d : e ? f : g <span class="text-red-400"
+                        >// hard to read!</span>
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- ============================================ -->
+    <!-- 🛡️ NULLISH & OPTIONAL -->
+    <!-- ============================================ -->
+
+    <SectionTitle id="nullish" color="cyan">
+        🛡️ Nullish & Optional
+    </SectionTitle>
+
+    <!-- NULLISH COALESCING -->
+    <MethodCard
+        id="nullish-coalescing"
+        methodName="Nullish Coalescing (??)"
+        signature="value ?? fallback"
+        description="Return fallback only if value is null or undefined"
+        mutates={false}
+    >
+        <div class="p-4 bg-gray-800 rounded border border-gray-700">
+            <!-- Inline expression -->
+            <div class="font-mono text-sm mb-4">
+                <span class="text-gray-400">const</span>
+                <span class="text-blue-300">name</span> =
+                <span class="text-orange-300 ml-2">username</span>
+                <span class="text-purple-300 mx-2">??</span>
+                <span class="text-green-300">'Guest'</span>
+            </div>
+
+            <!-- Comparison with || -->
+            <div class="space-y-3">
+                <div
+                    class="p-3 bg-cyan-500/5 border border-cyan-500/30 rounded"
+                >
+                    <div class="text-xs text-cyan-300 font-bold mb-2">
+                        ?? (Nullish Coalescing)
+                    </div>
+                    <div class="text-[10px] text-gray-300 space-y-1">
+                        <div>
+                            Returns fallback <strong>only</strong> if value is:
+                        </div>
+                        <div class="ml-3">
+                            • <code class="text-yellow-300">null</code>
+                        </div>
+                        <div class="ml-3">
+                            • <code class="text-yellow-300">undefined</code>
+                        </div>
+                        <div class="mt-2 text-green-300">
+                            ✅ Keeps: <code>0</code>, <code>false</code>, <code
+                                >""</code>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="p-3 bg-orange-500/5 border border-orange-500/30 rounded"
+                >
+                    <div class="text-xs text-orange-300 font-bold mb-2">
+                        || (Logical OR)
+                    </div>
+                    <div class="text-[10px] text-gray-300 space-y-1">
+                        <div>
+                            Returns fallback if value is <strong
+                                >any falsy</strong
+                            > value:
+                        </div>
+                        <div class="ml-3">
+                            • <code class="text-yellow-300">null</code>, <code
+                                class="text-yellow-300">undefined</code>
+                        </div>
+                        <div class="ml-3">
+                            • <code class="text-yellow-300">0</code>, <code
+                                class="text-yellow-300">false</code
+                            >, <code class="text-yellow-300">""</code>, <code
+                                class="text-yellow-300">NaN</code>
+                        </div>
+                        <div class="mt-2 text-red-300">
+                            ⚠️ Replaces ALL falsy values
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700"
+        >
+            Only treats <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >null</code
+            > and <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >undefined</code
+            > as nullish. <strong>0, false, "" are valid values.</strong>
+        </div>
+
+        <ProTip>
+            <div>💡 <strong>?? vs || difference:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">const count = 0</div>
+                <div class="font-mono text-[10px] mt-1">
+                    count || 10 <span class="text-red-400"
+                        >// 10 (0 is falsy) ❌</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    count ?? 10 <span class="text-green-400"
+                        >// 0 (0 is valid) ✅</span>
+                </div>
+                <div class="font-mono text-[10px] mt-1">const name = ''</div>
+                <div class="font-mono text-[10px]">
+                    name || 'Guest' <span class="text-red-400"
+                        >// 'Guest' (empty string is falsy) ❌</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    name ?? 'Guest' <span class="text-green-400"
+                        >// '' (empty string is valid) ✅</span>
+                </div>
+                <div class="font-mono text-[10px] mt-1">
+                    <span class="text-gray-400"
+                        >// Use ?? when 0, false, "" are meaningful values</span>
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- OPTIONAL CHAINING -->
+    <MethodCard
+        id="optional-chaining"
+        methodName="Optional Chaining (?.)"
+        signature="obj?.prop?.nested"
+        description="Safely access nested properties (returns undefined if null)"
+        mutates={false}
+    >
+        <div class="p-4 bg-gray-800 rounded border border-gray-700">
+            <!-- Chain visualization -->
+            <div class="font-mono text-sm mb-4">
+                <span class="text-gray-400">const</span>
+                <span class="text-blue-300">city</span> =
+                <span class="text-orange-300 ml-2">user</span><span
+                    class="text-purple-300">?.</span
+                ><span class="text-orange-300">address</span><span
+                    class="text-purple-300">?.</span
+                ><span class="text-orange-300">city</span>
+            </div>
+
+            <!-- Step-by-step evaluation -->
+            <div class="space-y-2 text-xs">
+                <div
+                    class="p-2 bg-gray-700/30 rounded border-l-4 border-cyan-500"
+                >
+                    <div class="text-cyan-300 font-bold mb-1">
+                        1. Check user
+                    </div>
+                    <div class="text-gray-300">
+                        If <code class="text-yellow-300">null</code> or <code
+                            class="text-yellow-300">undefined</code
+                        > → return <code class="text-yellow-300"
+                            >undefined</code>
+                    </div>
+                    <div class="text-gray-300">
+                        Otherwise → continue to next property
+                    </div>
+                </div>
+
+                <div
+                    class="p-2 bg-gray-700/30 rounded border-l-4 border-cyan-500"
+                >
+                    <div class="text-cyan-300 font-bold mb-1">
+                        2. Check user.address
+                    </div>
+                    <div class="text-gray-300">
+                        If <code class="text-yellow-300">null</code> or <code
+                            class="text-yellow-300">undefined</code
+                        > → return <code class="text-yellow-300"
+                            >undefined</code>
+                    </div>
+                    <div class="text-gray-300">
+                        Otherwise → continue to next property
+                    </div>
+                </div>
+
+                <div
+                    class="p-2 bg-green-500/10 rounded border-l-4 border-green-500"
+                >
+                    <div class="text-green-300 font-bold mb-1">
+                        3. Access city
+                    </div>
+                    <div class="text-gray-300">
+                        Return the value (or <code class="text-yellow-300"
+                            >undefined</code
+                        > if doesn't exist)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Without vs With -->
+            <div class="mt-4 pt-4 border-t border-gray-700">
+                <div class="text-xs space-y-2">
+                    <div>
+                        <span class="text-red-300">❌ Without:</span>
+                        <div class="font-mono text-[10px] text-gray-400 mt-1">
+                            user && user.address && user.address.city
+                        </div>
+                    </div>
+                    <div>
+                        <span class="text-green-300">✅ With:</span>
+                        <div class="font-mono text-[10px] text-gray-400 mt-1">
+                            user?.address?.city
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700"
+        >
+            Stops evaluation and returns <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >undefined</code
+            > if left side is nullish. <strong
+                >Prevents "Cannot read property" errors.</strong
+            >
+        </div>
+
+        <ProTip>
+            <div>🛡️ <strong>Safe property access:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    <span class="text-gray-400">// Works with methods too</span>
+                </div>
+                <div class="font-mono text-[10px]">user?.getName?.()</div>
+                <div class="font-mono text-[10px] mt-1">
+                    <span class="text-gray-400">// And array indexes</span>
+                </div>
+                <div class="font-mono text-[10px]">arr?.[0]?.property</div>
+                <div class="font-mono text-[10px] mt-1">
+                    <span class="text-gray-400"
+                        >// Combine with function calls</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    obj.method?.() <span class="text-gray-400"
+                        >// only call if method exists</span>
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- COMBINING ?? AND ?. -->
+    <MethodCard
+        id="combining"
+        methodName="Combining ?? and ?."
+        signature="obj?.prop ?? defaultValue"
+        description="Safe access with fallback"
+        mutates={false}
+    >
+        <div class="p-4 bg-gray-800 rounded border border-gray-700">
+            <!-- Full expression -->
+            <div class="font-mono text-sm mb-4">
+                <span class="text-gray-400">const</span>
+                <span class="text-blue-300">city</span> =
+                <span class="text-orange-300 ml-2">user</span><span
+                    class="text-cyan-300">?.</span
+                ><span class="text-orange-300">address</span><span
+                    class="text-cyan-300">?.</span
+                ><span class="text-orange-300">city</span>
+                <span class="text-purple-300 mx-2">??</span>
+                <span class="text-green-300">'Unknown'</span>
+            </div>
+
+            <!-- Two operators working together -->
+            <div class="space-y-3">
+                <div
+                    class="p-3 bg-cyan-500/5 border border-cyan-500/30 rounded"
+                >
+                    <div class="text-xs text-cyan-300 font-bold mb-2">
+                        Step 1: Optional Chaining (?.) → Safe Navigation
+                    </div>
+                    <div class="text-[10px] text-gray-300 space-y-1">
+                        <div class="font-mono">
+                            user<span class="text-cyan-300">?.</span
+                            >address<span class="text-cyan-300">?.</span>city
+                        </div>
+                        <div class="ml-3 mt-1">
+                            <div>
+                                • If any part is null/undefined → <code
+                                    class="text-yellow-300">undefined</code>
+                            </div>
+                            <div>• Otherwise → the actual value</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="flex items-center justify-center text-purple-300 text-2xl"
+                >
+                    ↓
+                </div>
+
+                <div
+                    class="p-3 bg-purple-500/5 border border-purple-500/30 rounded"
+                >
+                    <div class="text-xs text-purple-300 font-bold mb-2">
+                        Step 2: Nullish Coalescing (??) → Provide Fallback
+                    </div>
+                    <div class="text-[10px] text-gray-300 space-y-1">
+                        <div class="font-mono">
+                            (result) <span class="text-purple-300">??</span> 'Unknown'
+                        </div>
+                        <div class="ml-3 mt-1">
+                            <div>
+                                • If result is null/undefined → <code
+                                    class="text-green-300">'Unknown'</code>
+                            </div>
+                            <div>• Otherwise → keep the result</div>
+                            <div class="text-cyan-300 mt-1">
+                                ✨ Preserves <code>0</code>, <code>false</code>, <code
+                                    >""</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700"
+        >
+            Powerful pattern: safely access nested property <span
+                class="text-cyan-300"
+                >(?.)span>, provide fallback if nullish <span
+                    class="text-purple-300">(??)</span
+                >.
+            </span>
+
+            <ProTip>
+                <div>🌟 <strong>Best pattern for nested access:</strong></div>
+                <div
+                    class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1"
+                >
+                    <div class="font-mono text-[10px]">
+                        const city = user?.address?.city ?? 'Unknown'
+                    </div>
+                    <div class="font-mono text-[10px] mt-1">
+                        <span class="text-gray-400">// Safe and readable:</span>
+                    </div>
+                    <div class="font-mono text-[10px]">
+                        // 1. Safely navigates nested properties (?.)
+                    </div>
+                    <div class="font-mono text-[10px]">
+                        // 2. Provides fallback if undefined (??)
+                    </div>
+                    <div class="font-mono text-[10px]">
+                        // 3. Preserves valid falsy values like 0, false, ""
+                    </div>
+                </div>
+            </ProTip>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- 🔗 LOGICAL OPERATORS -->
+        <!-- ============================================ -->
+
+        <SectionTitle id="logical" color="orange">
+            🔗 Logical Operators
+        </SectionTitle>
+
+        <!-- AND (&&) -->
+        <MethodCard
+            id="and"
+            methodName="AND (&&)"
+            signature="value1 && value2"
+            description="Return first falsy value, or last value if all truthy"
+            mutates={false}
+        >
+            <div class="p-4 bg-gray-800 rounded border border-gray-700">
+                <!-- Expression -->
+                <div class="font-mono text-sm mb-4">
+                    <span class="text-orange-300">value1</span>
+                    <span class="text-purple-300 mx-2">&&</span>
+                    <span class="text-orange-300">value2</span>
+                </div>
+
+                <!-- Evaluation logic -->
+                <div class="space-y-2 text-xs">
+                    <div
+                        class="p-3 bg-orange-500/5 border border-orange-500/30 rounded"
+                    >
+                        <div class="text-orange-300 font-bold mb-1">
+                            1. Evaluate left side (value1)
+                        </div>
+                        <div class="text-gray-300">
+                            Check if truthy or falsy
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-center gap-4">
+                        <div
+                            class="flex-1 p-2 bg-red-500/10 border border-red-500/30 rounded text-center"
+                        >
+                            <div
+                                class="text-red-300 font-mono text-[10px] mb-1"
+                            >
+                                If FALSY
+                            </div>
+                            <div class="text-gray-300 text-[10px]">
+                                Return <strong>value1</strong>
+                            </div>
+                            <div class="text-gray-400 text-[10px] mt-1">
+                                (short-circuit)
+                            </div>
+                        </div>
+                        <div
+                            class="flex-1 p-2 bg-green-500/10 border border-green-500/30 rounded text-center"
+                        >
+                            <div
+                                class="text-green-300 font-mono text-[10px] mb-1"
+                            >
+                                If TRUTHY
+                            </div>
+                            <div class="text-gray-300 text-[10px]">
+                                Return <strong>value2</strong>
+                            </div>
+                            <div class="text-gray-400 text-[10px] mt-1">
+                                (evaluate & return)
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Examples -->
+                    <div class="mt-3 p-3 bg-gray-700/30 rounded space-y-1">
+                        <div class="font-mono text-[10px]">
+                            <span class="text-green-300">true</span>
+                            <span class="text-purple-300">&&</span>
+                            <span class="text-green-300">'hello'</span>
+                            <span class="text-gray-400 ml-3">→ 'hello'</span>
+                        </div>
+                        <div class="font-mono text-[10px]">
+                            <span class="text-red-300">false</span>
+                            <span class="text-purple-300">&&</span>
+                            <span class="text-green-300">'hello'</span>
+                            <span class="text-gray-400 ml-3">→ false</span>
+                        </div>
+                        <div class="font-mono text-[10px]">
+                            <span class="text-red-300">0</span>
+                            <span class="text-purple-300">&&</span>
+                            <span class="text-green-300">'hello'</span>
+                            <span class="text-gray-400 ml-3">→ 0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700"
+            >
+                Short-circuits: if left is falsy, <strong
+                    >doesn't evaluate right side</strong
+                >. Returns actual values, not booleans.
+            </div>
+
+            <ProTip>
+                <div>💡 <strong>Common patterns:</strong></div>
+                <div
+                    class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1"
+                >
+                    <div class="font-mono text-[10px]">
+                        <span class="text-gray-400"
+                            >// Conditional execution</span>
+                    </div>
+                    <div class="font-mono text-[10px]">
+                        user && console.log(user.name) <span
+                            class="text-gray-400"
+                            >// only log if user exists</span>
+                    </div>
+                    <div class="font-mono text-[10px] mt-1">
+                        <span class="text-gray-400"
+                            >// Conditional rendering (React)</span>
+                    </div>
+                    <div class="font-mono text-[10px]">
+                        {"{"}isLoggedIn && &lt;Dashboard /&gt;{"}"}
+                    </div>
+                    <div class="font-mono text-[10px] mt-1">
+                        <span class="text-gray-400"
+                            >// Guard with multiple conditions</span>
+                    </div>
+                    <div class="font-mono text-[10px]">
+                        if (user && user.isActive && user.role === 'admin') {
+                            "{"
+                        } ... {"}"}
+                    </div>
+                </div>
+            </ProTip>
+        </MethodCard>
+
+        <!-- OR (||) -->
+        <MethodCard
+            id="or"
+            methodName="OR (||)"
+            signature="value1 || value2"
+            description="Return first truthy value, or last value if all falsy"
+            mutates={false}
+        >
+            <div class="p-4 bg-gray-800 rounded border border-gray-700">
+                <!-- Expression -->
+                <div class="font-mono text-sm mb-4">
+                    <span class="text-orange-300">value1</span>
+                    <span class="text-purple-300 mx-2">||</span>
+                    <span class="text-orange-300">value2</span>
+                </div>
+
+                <!-- Evaluation logic -->
+                <div class="space-y-2 text-xs">
+                    <div
+                        class="p-3 bg-orange-500/5 border border-orange-500/30 rounded"
+                    >
+                        <div class="text-orange-300 font-bold mb-1">
+                            1. Evaluate left side (value1)
+                        </div>
+                        <div class="text-gray-300">
+                            Check if truthy or falsy
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-center gap-4">
+                        <div
+                            class="flex-1 p-2 bg-green-500/10 border border-green-500/30 rounded text-center"
+                        >
+                            <div
+                                class="text-green-300 font-mono text-[10px] mb-1"
+                            >
+                                If TRUTHY
+                            </div>
+                            <div class="text-gray-300 text-[10px]">
+                                Return <strong>value1</strong>
+                            </div>
+                            <div class="text-gray-400 text-[10px] mt-1">
+                                (short-circuit)
+                            </div>
+                        </div>
+                        <div
+                            class="flex-1 p-2 bg-yellow-500/10 border border-yellow-500/30 rounded text-center"
+                        >
+                            <div
+                                class="text-yellow-300 font-mono text-[10px] mb-1"
+                            >
+                                If FALSY
+                            </div>
+                            <div class="text-gray-300 text-[10px]">
+                                Return <strong>value2</strong>
+                            </div>
+                            <div class="text-gray-400 text-[10px] mt-1">
+                                (evaluate & return)
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Examples -->
+                    <div class="mt-3 p-3 bg-gray-700/30 rounded space-y-1">
+                        <div class="font-mono text-[10px]">
+                            <span class="text-green-300">'hello'</span>
+                            <span class="text-purple-300">||</span>
+                            <span class="text-green-300">'world'</span>
+                            <span class="text-gray-400 ml-3">→ 'hello'</span>
+                        </div>
+                        <div class="font-mono text-[10px]">
+                            <span class="text-red-300">null</span>
+                            <span class="text-purple-300">||</span>
+                            <span class="text-green-300">'default'</span>
+                            <span class="text-gray-400 ml-3">→ 'default'</span>
+                        </div>
+                        <div class="font-mono text-[10px]">
+                            <span class="text-red-300">0</span>
+                            <span class="text-purple-300">||</span>
+                            <span class="text-green-300">10</span>
+                            <span class="text-gray-400 ml-3"
+                                >→ 10 <span class="text-red-300"
+                                    >(watch out!)</span
+                                ></span
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700"
+            >
+                Short-circuits: if left is truthy, <strong
+                    >doesn't evaluate right side</strong
+                >. Used for defaults, but watch out for 0, false, "".
+            </div>
+
+            <ProTip>
+                <div>⚠️ <strong>Default values (with gotcha):</strong></div>
+                <div
+                    class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1"
+                >
+                    <div class="font-mono text-[10px]">
+                        const name = username || 'Guest'
+                    </div>
+                    <div class="font-mono text-[10px] mt-1">
+                        <span class="text-red-400"
+                            >// Gotcha with falsy values:</span>
+                    </div>
+                    <div class="font-mono text-[10px]">const count = 0</div>
+                    <div class="font-mono text-[10px]">
+                        const display = count || 10 <span class="text-red-400"
+                            >// 10 (not 0!) ❌</span>
+                    </div>
+                    <div class="font-mono text-[10px] mt-1">
+                        <span class="text-green-400"
+                            >// Use ?? for values where 0, false, "" matter:</span>
+                    </div>
+                    <div class="font-mono text-[10px]">
+                        const display = count ?? 10 <span class="text-green-400"
+                            >// 0 ✅</span>
+                    </div>
+                </div>
+            </ProTip>
+        </MethodCard>
+
+        <!-- NOT (!) -->
+        <MethodCard
+            id="not"
+            methodName="NOT (!)"
+            signature="!value"
+            description="Flip boolean (convert to boolean and negate)"
+            mutates={false}
+        >
+            <div class="p-4 bg-gray-800 rounded border border-gray-700">
+                <!-- Expression -->
+                <div class="font-mono text-sm mb-4">
+                    <span class="text-purple-300">!</span><span
+                        class="text-orange-300">value</span
+                    >
+                </div>
+
+                <!-- Conversion table -->
+                <div class="space-y-3">
+                    <div class="text-xs text-gray-300 mb-2">
+                        Converts to boolean, then negates:
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-2">
+                        <!-- Truthy values -->
+                        <div
+                            class="p-2 bg-green-500/5 border border-green-500/30 rounded"
+                        >
+                            <div
+                                class="text-green-300 text-[10px] font-bold mb-1"
+                            >
+                                Truthy → false
+                            </div>
+                            <div
+                                class="font-mono text-[10px] space-y-0.5 text-gray-300"
+                            >
+                                <div>
+                                    !<span class="text-green-300">true</span> → <span
+                                        class="text-red-300">false</span>
+                                </div>
+                                <div>
+                                    !<span class="text-green-300">'hello'</span>
+                                    → <span class="text-red-300">false</span>
+                                </div>
+                                <div>
+                                    !<span class="text-green-300">42</span> → <span
+                                        class="text-red-300">false</span>
+                                </div>
+                                <div>
+                                    !<span class="text-green-300"
+                                        >{"{"}{"}"}</span
+                                    > → <span class="text-red-300">false</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Falsy values -->
+                        <div
+                            class="p-2 bg-red-500/5 border border-red-500/30 rounded"
+                        >
+                            <div
+                                class="text-red-300 text-[10px] font-bold mb-1"
+                            >
+                                Falsy → true
+                            </div>
+                            <div
+                                class="font-mono text-[10px] space-y-0.5 text-gray-300"
+                            >
+                                <div>
+                                    !<span class="text-red-300">false</span> → <span
+                                        class="text-green-300">true</span>
+                                </div>
+                                <div>
+                                    !<span class="text-red-300">null</span> → <span
+                                        class="text-green-300">true</span>
+                                </div>
+                                <div>
+                                    !<span class="text-red-300">0</span> → <span
+                                        class="text-green-300">true</span>
+                                </div>
+                                <div>
+                                    !<span class="text-red-300">''</span> → <span
+                                        class="text-green-300">true</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Double negation -->
+                    <div
+                        class="p-3 bg-purple-500/5 border border-purple-500/30 rounded mt-3"
+                    >
+                        <div class="text-purple-300 text-xs font-bold mb-1">
+                            Double Negation (!!) = Boolean Conversion
+                        </div>
+                        <div
+                            class="font-mono text-[10px] space-y-0.5 text-gray-300"
+                        >
+                            <div>
+                                !!<span class="text-green-300">'hello'</span> → <span
+                                    class="text-green-300">true</span>
+                            </div>
+                            <div>
+                                !!<span class="text-red-300">0</span> → <span
+                                    class="text-red-300">false</span>
+                            </div>
+                            <div>
+                                !!<span class="text-green-300">[1,2,3]</span> → <span
+                                    class="text-green-300">true</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700"
+            >
+                Always returns <code
+                    class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                    >true</code
+                > or <code
+                    class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                    >false</code
+                >. Double negation (!!) converts to boolean.
+            </div>
+
+            <ProTip>
+                <div>Common patterns:</div>
+                <div
+                    class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1"
+                >
+                    <div class="font-mono text-[10px]">
+                        <span class="text-gray-400">// Check if falsy</span>
+                    </div>
+                    <div class="font-mono text-[10px]">
+                        if (!user) return <span class="text-gray-400"
+                            >// guard clause</span>
+                    </div>
+                    <div class="font-mono text-[10px] mt-1">
+                        <span class="text-gray-400">// Toggle boolean</span>
+                    </div>
+                    <div class="font-mono text-[10px]">
+                        isVisible = !isVisible
+                    </div>
+                    <div class="font-mono text-[10px] mt-1">
+                        <span class="text-gray-400"
+                            >// Convert to boolean (double negation)</span>
+                    </div>
+                    <div class="font-mono text-[10px]">
+                        const hasItems = !!arr.length <span
+                            class="text-gray-400">// true/false</span>
+                    </div>
+                </div>
+            </ProTip>
+        </MethodCard>
+
+        <Fragment slot="page-nav">
+            <ul class="space-y-2 text-xs">
+                <li>
+                    <a
+                        href="#if-else"
+                        class="text-blue-300 font-semibold hover:text-blue-200 block py-1"
+                        >🔀 If/Else</a
+                    >
+                    <ul
+                        class="ml-3 mt-1 space-y-1 border-l-2 border-blue-500/30 pl-2"
+                    >
+                        <li>
+                            <a
+                                href="#if"
+                                class="text-gray-300 hover:text-blue-400 block"
+                                >if</a>
+                        </li>
+                        <li>
+                            <a
+                                href="#if-else-statement"
+                                class="text-gray-300 hover:text-blue-400 block"
+                                >if...else</a>
+                        </li>
+                        <li>
+                            <a
+                                href="#else-if"
+                                class="text-gray-300 hover:text-blue-400 block"
+                                >else if</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="mt-4">
+                    <a
+                        href="#switch"
+                        class="text-purple-300 font-semibold hover:text-purple-200 block py-1"
+                        >🔄 Switch</a
+                    >
+                    <ul
+                        class="ml-3 mt-1 space-y-1 border-l-2 border-purple-500/30 pl-2"
+                    >
+                        <li>
+                            <a
+                                href="#switch-case"
+                                class="text-gray-300 hover:text-blue-400 block"
+                                >switch...case (+ multiple cases + default)</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="mt-4">
+                    <a
+                        href="#ternary"
+                        class="text-green-300 font-semibold hover:text-green-200 block py-1"
+                        >⚡ Ternary</a
+                    >
+                    <ul
+                        class="ml-3 mt-1 space-y-1 border-l-2 border-green-500/30 pl-2"
+                    >
+                        <li>
+                            <a
+                                href="#ternary-op"
+                                class="text-gray-300 hover:text-blue-400 block"
+                                >Ternary Operator</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="mt-4">
+                    <a
+                        href="#nullish"
+                        class="text-cyan-300 font-semibold hover:text-cyan-200 block py-1"
+                        >🛡️ Nullish & Optional</a
+                    >
+                    <ul
+                        class="ml-3 mt-1 space-y-1 border-l-2 border-cyan-500/30 pl-2"
+                    >
+                        <li>
+                            <a
+                                href="#nullish-coalescing"
+                                class="text-gray-300 hover:text-blue-400 block"
+                                >?? (Nullish Coalescing)</a>
+                        </li>
+                        <li>
+                            <a
+                                href="#optional-chaining"
+                                class="text-gray-300 hover:text-blue-400 block"
+                                >?. (Optional Chaining)</a>
+                        </li>
+                        <li>
+                            <a
+                                href="#combining"
+                                class="text-gray-300 hover:text-blue-400 block"
+                                >Combining ?? and ?.</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="mt-4">
+                    <a
+                        href="#logical"
+                        class="text-orange-300 font-semibold hover:text-orange-200 block py-1"
+                        >🔗 Logical Operators</a
+                    >
+                    <ul
+                        class="ml-3 mt-1 space-y-1 border-l-2 border-orange-500/30 pl-2"
+                    >
+                        <li>
+                            <a
+                                href="#and"
+                                class="text-gray-300 hover:text-blue-400 block"
+                                >&& (AND)</a>
+                        </li>
+                        <li>
+                            <a
+                                href="#or"
+                                class="text-gray-300 hover:text-blue-400 block"
+                                >|| (OR)</a>
+                        </li>
+                        <li>
+                            <a
+                                href="#not"
+                                class="text-gray-300 hover:text-blue-400 block"
+                                >! (NOT)</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </Fragment>
+    </MethodCard>
+</VisualLayout>

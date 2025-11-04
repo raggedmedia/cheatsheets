@@ -1,0 +1,2644 @@
+---
+import "~styles/styles.css";
+import MethodCard from "~components/visual-js/MethodCard.astro";
+import InfoBox from "~components/visual-js/InfoBox.astro";
+import ProTip from "~components/visual-js/ProTip.astro";
+import SectionTitle from "~components/visual-js/SectionTitle.astro";
+import SubSectionTitle from "~components/visual-js/SubSectionTitle.astro";
+import VisualLayout from "src/layouts/VisualLayout.astro";
+---
+
+<VisualLayout pageTitle="Promises and Async/Await">
+    <ProTip>
+        <div>💡 <strong>3 Promise States:</strong></div>
+        <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+            <div class="font-mono text-[10px]">
+                <strong>Pending</strong> - Initial state, not yet resolved or rejected
+            </div>
+            <div class="font-mono text-[10px]">
+                <strong>Fulfilled</strong> - Operation completed successfully (resolved)
+            </div>
+            <div class="font-mono text-[10px]">
+                <strong>Rejected</strong> - Operation failed with an error
+            </div>
+            <div class="font-mono text-[10px] mt-1">
+                <span class="text-gray-400"
+                    >Once fulfilled or rejected, a promise cannot change state
+                    again</span>
+            </div>
+        </div>
+    </ProTip>
+
+    <InfoBox>
+        <div>ℹ️ <strong>Promises Best Practices - Quick Reference</strong></div>
+
+        <div class="pl-2 border-l-2 border-blue-500/30 space-y-2 mt-2">
+            <div>
+                <div class="font-bold text-blue-300 text-[11px] mb-0.5">
+                    🔁 Async/Await in Loops
+                </div>
+                <div class="font-mono text-[10px] pl-2 space-y-0.5">
+                    <div>
+                        <span class="text-green-400">✓ Sequential:</span>
+                        <code>for...of</code> or <code>for</code> loop with await
+                    </div>
+                    <div>
+                        <span class="text-green-400">✓ Parallel:</span>
+                        <code>Promise.all(arr.map(async item => ...))</code>
+                    </div>
+                    <div>
+                        <span class="text-red-400">✗ Avoid:</span>
+                        <code>forEach(async)</code> - doesn't wait for promises
+                    </div>
+                    <div class="text-gray-400">
+                        Use <code>for await...of</code> for async iterables
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="font-bold text-blue-300 text-[11px] mb-0.5">
+                    🔌 Common Functions That Return Promises
+                </div>
+                <div class="font-mono text-[10px] pl-2 space-y-0.5">
+                    <div>
+                        <span class="text-purple-400">fetch():</span> HTTP requests
+                    </div>
+                    <div>
+                        <span class="text-purple-400">fs.promises.*:</span> Node.js
+                        file operations (readFile, writeFile, etc.)
+                    </div>
+                    <div>
+                        <span class="text-purple-400">setTimeout():</span> When wrapped
+                        in new Promise (delays)
+                    </div>
+                    <div>
+                        <span class="text-purple-400">db queries:</span> Most database
+                        operations (MongoDB, PostgreSQL, etc.)
+                    </div>
+                    <div>
+                        <span class="text-purple-400">axios/HTTP libs:</span> API
+                        requests
+                    </div>
+                    <div class="text-gray-400">
+                        Any async function automatically returns a promise
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="font-bold text-blue-300 text-[11px] mb-0.5">
+                    ⚡ Performance Tips
+                </div>
+                <div class="font-mono text-[10px] pl-2 space-y-0.5">
+                    <div>
+                        <span class="text-green-400">✓ Parallel:</span> Use Promise.all()
+                        for independent operations
+                    </div>
+                    <div>
+                        <span class="text-green-400">✓ Sequential:</span> Use await
+                        in series for dependent operations
+                    </div>
+                    <div>
+                        <span class="text-yellow-400">⚡ Race conditions:</span>
+                        Promise.race() for timeout patterns
+                    </div>
+                    <div>
+                        <span class="text-red-400">✗ Avoid:</span> Creating promises
+                        in loops unnecessarily
+                    </div>
+                    <div class="text-gray-400">
+                        Start all promises first, then await - don't mix
+                        creation & waiting
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="font-bold text-blue-300 text-[11px] mb-0.5">
+                    🚨 Common Pitfalls
+                </div>
+                <div class="font-mono text-[10px] pl-2 space-y-0.5">
+                    <div>
+                        <span class="text-red-400">✗</span> Forgetting await - returns
+                        Promise, not value
+                    </div>
+                    <div>
+                        <span class="text-red-400">✗</span> Using async without await
+                        (pointless overhead)
+                    </div>
+                    <div>
+                        <span class="text-red-400">✗</span> Not handling errors (unhandled
+                        rejection warnings)
+                    </div>
+                    <div>
+                        <span class="text-red-400">✗</span> Awaiting in forEach (doesn't
+                        work - use for...of)
+                    </div>
+                    <div>
+                        <span class="text-red-400">✗</span> Promise constructor anti-pattern
+                        (wrapping already-async code)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </InfoBox>
+
+    <!-- ============================================ -->
+    <!-- 🎁 CREATING PROMISES -->
+    <!-- ============================================ -->
+
+    <SectionTitle id="creating" color="blue">
+        🎁 Creating Promises
+    </SectionTitle>
+
+    <!-- NEW PROMISE -->
+    <MethodCard
+        id="new-promise"
+        methodName="new Promise()"
+        signature="new Promise((resolve, reject) => { })"
+        description="Create a new promise with resolve/reject functions"
+        mutates={false}
+    >
+        <!-- State Machine Diagram -->
+        <div class="p-6 bg-gray-800 rounded">
+            <!-- Pending State -->
+            <div class="flex items-center justify-center mb-8">
+                <div
+                    class="bg-yellow-500/20 border-2 border-yellow-500 rounded-lg p-4 text-center"
+                >
+                    <div class="text-yellow-300 font-bold text-lg mb-1">
+                        ⏳ PENDING
+                    </div>
+                    <div class="text-xs text-gray-300">
+                        Promise created, waiting...
+                    </div>
+                </div>
+            </div>
+
+            <!-- Arrows pointing down -->
+            <div class="flex justify-center gap-24 mb-4">
+                <div class="flex flex-col items-center">
+                    <div class="text-2xl mb-2">↓</div>
+                    <div class="text-xs text-green-400 font-mono">
+                        resolve(value)
+                    </div>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="text-2xl mb-2">↓</div>
+                    <div class="text-xs text-red-400 font-mono">
+                        reject(error)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Final States -->
+            <div class="flex justify-center gap-8">
+                <div
+                    class="bg-green-500/20 border-2 border-green-500 rounded-lg p-4 text-center flex-1 max-w-[200px]"
+                >
+                    <div class="text-green-300 font-bold text-lg mb-1">
+                        ✅ FULFILLED
+                    </div>
+                    <div class="text-xs text-gray-300">Success! Has value</div>
+                </div>
+                <div
+                    class="bg-red-500/20 border-2 border-red-500 rounded-lg p-4 text-center flex-1 max-w-[200px]"
+                >
+                    <div class="text-red-300 font-bold text-lg mb-1">
+                        ❌ REJECTED
+                    </div>
+                    <div class="text-xs text-gray-300">Failed! Has error</div>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700"
+        >
+            Executor function runs immediately. Call <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >resolve(value)</code
+            > on success, <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >reject(error)</code
+            > on failure.
+        </div>
+
+        <ProTip>
+            <div>Basic promise creation:</div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    const promise = new Promise((resolve, reject) =&gt; {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;const success = true
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;if (success) {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;resolve('It worked!') <span
+                        class="text-green-400">// fulfills promise</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;{"}"} else {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;reject(new Error('Failed')) <span
+                        class="text-red-400">// rejects promise</span>
+                </div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;{"}"}</div>
+                <div class="font-mono text-[10px]">{"}"})</div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- PROMISE.RESOLVE -->
+    <MethodCard
+        id="promise-resolve"
+        methodName="Promise.resolve()"
+        signature="Promise.resolve(value)"
+        description="Create an immediately fulfilled promise"
+        mutates={false}
+    >
+        <!-- Shortcut to Fulfilled State -->
+        <div class="p-6 bg-gray-800 rounded">
+            <div class="flex items-center justify-center gap-8">
+                <div
+                    class="bg-blue-500/20 border-2 border-blue-400 rounded-lg p-4 text-center"
+                >
+                    <div class="text-blue-300 font-mono text-sm mb-1">
+                        Promise.resolve('data')
+                    </div>
+                    <div class="text-xs text-gray-400">Skips pending state</div>
+                </div>
+
+                <div class="text-3xl text-green-400">→</div>
+
+                <div
+                    class="bg-green-500/20 border-2 border-green-500 rounded-lg p-4 text-center"
+                >
+                    <div class="text-green-300 font-bold text-lg mb-1">
+                        ✅ FULFILLED
+                    </div>
+                    <div class="text-xs text-gray-300">
+                        Immediately resolved
+                    </div>
+                    <div class="text-xs text-yellow-400 font-mono mt-1">
+                        value: 'data'
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700"
+        >
+            Returns a promise that's already fulfilled with the given value.
+            Useful for converting sync values to promises.
+        </div>
+
+        <ProTip>
+            <div>Critical for API consistency - always return same type:</div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    <span class="text-green-400"
+                        >// ✅ Good: Always returns promise</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    function getUserData(id) {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;const cached = cache.get(id)
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;if (cached) return Promise.resolve(cached)
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;return fetch(`/users/${"{"}id{"}"}`).then(r
+                    =&gt; r.json())
+                </div>
+                <div class="font-mono text-[10px]">{"}"}</div>
+                <div class="font-mono text-[10px] mt-1.5">
+                    <span class="text-red-400"
+                        >// ❌ Bad: Sometimes promise, sometimes not</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    function getUserData(id) {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;const cached = cache.get(id)
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;if (cached) return cached <span
+                        class="text-gray-400">// Not a promise!</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;return fetch(`/users/${"{"}id{"}"}`).then(r
+                    =&gt; r.json())
+                </div>
+                <div class="font-mono text-[10px]">{"}"}</div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- PROMISE.REJECT -->
+    <MethodCard
+        id="promise-reject"
+        methodName="Promise.reject()"
+        signature="Promise.reject(reason)"
+        description="Create an immediately rejected promise"
+        mutates={false}
+    >
+        <!-- Shortcut to Rejected State -->
+        <div class="p-6 bg-gray-800 rounded">
+            <div class="flex items-center justify-center gap-8">
+                <div
+                    class="bg-blue-500/20 border-2 border-blue-400 rounded-lg p-4 text-center"
+                >
+                    <div class="text-blue-300 font-mono text-sm mb-1">
+                        Promise.reject(error)
+                    </div>
+                    <div class="text-xs text-gray-400">Skips pending state</div>
+                </div>
+
+                <div class="text-3xl text-red-400">→</div>
+
+                <div
+                    class="bg-red-500/20 border-2 border-red-500 rounded-lg p-4 text-center"
+                >
+                    <div class="text-red-300 font-bold text-lg mb-1">
+                        ❌ REJECTED
+                    </div>
+                    <div class="text-xs text-gray-300">
+                        Immediately rejected
+                    </div>
+                    <div class="text-xs text-yellow-400 font-mono mt-1">
+                        reason: Error
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700"
+        >
+            Returns a promise that's already rejected with the given reason.
+            Useful for early error returns.
+        </div>
+
+        <ProTip>
+            <div>Useful for early validation in async functions:</div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    async function updateUser(id, data) {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;<span class="text-gray-400"
+                        >// Validate early, return rejected promise</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;if (!id) return Promise.reject(new Error('ID
+                    required'))
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;if (!data) return Promise.reject(new Error('Data
+                    required'))
+                </div>
+                <div class="font-mono text-[10px] mt-0.5">
+                    &nbsp;&nbsp;<span class="text-gray-400"
+                        >// Continue with async work</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;return fetch(`/users/${"{"}id{"}"}`, {"{"} method:
+                    'PUT', body: data {"}"})
+                </div>
+                <div class="font-mono text-[10px]">{"}"}</div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- ============================================ -->
+    <!-- ⛓️ PROMISE CHAINING -->
+    <!-- ============================================ -->
+
+    <SectionTitle id="chaining" color="purple">
+        ⛓️ Promise Chaining
+    </SectionTitle>
+
+    <!-- PROMISE CHAIN - .then() .catch() .finally() -->
+    <MethodCard
+        id="then"
+        methodName=".then() / .catch() / .finally()"
+        signature="promise.then().catch().finally()"
+        description="Chain handlers for promise results, errors, and cleanup"
+        mutates={false}
+    >
+        <!-- Complete Chain Flow -->
+        <div class="p-6 bg-gray-800 rounded">
+            <div class="space-y-6">
+                <!-- SUCCESS PATH -->
+                <div>
+                    <div class="text-green-400 font-bold text-sm mb-3">
+                        ✅ Success Path:
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <!-- Initial Promise -->
+                        <div class="flex-1 text-center">
+                            <div
+                                class="bg-green-500/20 border-2 border-green-500 rounded-lg p-2.5"
+                            >
+                                <div
+                                    class="text-green-300 font-bold text-xs mb-1"
+                                >
+                                    Promise
+                                </div>
+                                <div
+                                    class="text-yellow-400 font-mono text-[10px]"
+                                >
+                                    'data'
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-lg text-purple-400">→</div>
+
+                        <!-- .then() -->
+                        <div class="flex-1 text-center">
+                            <div
+                                class="bg-purple-500/20 border-2 border-purple-400 rounded-lg p-2.5"
+                            >
+                                <div
+                                    class="text-purple-300 font-mono text-[10px] mb-1"
+                                >
+                                    .then(d => d.toUpperCase())
+                                </div>
+                                <div
+                                    class="text-yellow-400 font-mono text-[10px]"
+                                >
+                                    'DATA'
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-lg text-gray-500">→</div>
+
+                        <!-- .catch() skipped -->
+                        <div class="flex-1 text-center">
+                            <div
+                                class="bg-gray-700/30 border border-gray-600 rounded-lg p-2.5"
+                            >
+                                <div
+                                    class="text-gray-500 font-mono text-[10px] mb-1"
+                                >
+                                    .catch()
+                                </div>
+                                <div class="text-gray-500 text-[10px]">
+                                    skipped
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-lg text-purple-400">→</div>
+
+                        <!-- .finally() -->
+                        <div class="flex-1 text-center">
+                            <div
+                                class="bg-purple-500/20 border-2 border-purple-400 rounded-lg p-2.5"
+                            >
+                                <div
+                                    class="text-purple-300 font-mono text-[10px] mb-1"
+                                >
+                                    .finally(cleanup)
+                                </div>
+                                <div class="text-gray-400 text-[10px]">
+                                    runs
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-lg text-green-400">→</div>
+
+                        <!-- Result -->
+                        <div class="flex-1 text-center">
+                            <div
+                                class="bg-green-500/20 border-2 border-green-500 rounded-lg p-2.5"
+                            >
+                                <div
+                                    class="text-green-300 font-bold text-xs mb-1"
+                                >
+                                    Result
+                                </div>
+                                <div
+                                    class="text-yellow-400 font-mono text-[10px]"
+                                >
+                                    'DATA'
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ERROR PATH -->
+                <div>
+                    <div class="text-red-400 font-bold text-sm mb-3">
+                        ❌ Error Path:
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <!-- Initial Promise -->
+                        <div class="flex-1 text-center">
+                            <div
+                                class="bg-red-500/20 border-2 border-red-500 rounded-lg p-2.5"
+                            >
+                                <div
+                                    class="text-red-300 font-bold text-xs mb-1"
+                                >
+                                    Promise
+                                </div>
+                                <div
+                                    class="text-yellow-400 font-mono text-[10px]"
+                                >
+                                    Error
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-lg text-gray-500">→</div>
+
+                        <!-- .then() skipped -->
+                        <div class="flex-1 text-center">
+                            <div
+                                class="bg-gray-700/30 border border-gray-600 rounded-lg p-2.5"
+                            >
+                                <div
+                                    class="text-gray-500 font-mono text-[10px] mb-1"
+                                >
+                                    .then()
+                                </div>
+                                <div class="text-gray-500 text-[10px]">
+                                    skipped
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-lg text-purple-400">→</div>
+
+                        <!-- .catch() handles error -->
+                        <div class="flex-1 text-center">
+                            <div
+                                class="bg-purple-500/20 border-2 border-purple-400 rounded-lg p-2.5"
+                            >
+                                <div
+                                    class="text-purple-300 font-mono text-[10px] mb-1"
+                                >
+                                    .catch(e => 'fallback')
+                                </div>
+                                <div
+                                    class="text-yellow-400 font-mono text-[10px]"
+                                >
+                                    'fallback'
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-lg text-purple-400">→</div>
+
+                        <!-- .finally() -->
+                        <div class="flex-1 text-center">
+                            <div
+                                class="bg-purple-500/20 border-2 border-purple-400 rounded-lg p-2.5"
+                            >
+                                <div
+                                    class="text-purple-300 font-mono text-[10px] mb-1"
+                                >
+                                    .finally(cleanup)
+                                </div>
+                                <div class="text-gray-400 text-[10px]">
+                                    runs
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-lg text-green-400">→</div>
+
+                        <!-- Result (recovered!) -->
+                        <div class="flex-1 text-center">
+                            <div
+                                class="bg-green-500/20 border-2 border-green-500 rounded-lg p-2.5"
+                            >
+                                <div
+                                    class="text-green-300 font-bold text-xs mb-1"
+                                >
+                                    Result
+                                </div>
+                                <div
+                                    class="text-yellow-400 font-mono text-[10px]"
+                                >
+                                    'fallback'
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700"
+        >
+            <strong>.then()</strong> handles success, <strong>.catch()</strong> handles
+            errors and recovers the chain, <strong>.finally()</strong> always runs
+            for cleanup (doesn't receive or modify values).
+        </div>
+
+        <ProTip>
+            <div>⚠️ <strong>Key behaviors:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    <span class="text-gray-400"
+                        >// .catch() recovers the chain</span>
+                </div>
+                <div class="font-mono text-[10px]">fetchUser()</div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;.then(user =&gt; user.name)
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;.catch(err =&gt; 'Guest') <span
+                        class="text-gray-400">// returns 'Guest' if error</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;.then(name =&gt; console.log(name)) <span
+                        class="text-gray-400">// runs with 'Guest'</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;.finally(() =&gt; cleanup()) <span
+                        class="text-gray-400">// always runs</span>
+                </div>
+                <div class="font-mono text-[10px] mt-1">
+                    <span class="text-yellow-400"
+                        >// Each .then() returns a new promise</span>
+                </div>
+            </div>
+        </ProTip>
+
+        <ProTip>
+            <div>💡 <strong>Common pattern - loading states:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">setLoading(true)</div>
+                <div class="font-mono text-[10px]">fetchData()</div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;.then(data =&gt; setData(data))
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;.catch(err =&gt; setError(err))
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;.finally(() =&gt; setLoading(false)) <span
+                        class="text-gray-400">// cleanup</span>
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- ============================================ -->
+    <!-- 🎭 ASYNC/AWAIT -->
+    <!-- ============================================ -->
+
+    <SectionTitle id="async-await" color="green"> 🎭 Async/Await </SectionTitle>
+
+    <!-- ASYNC FUNCTION -->
+    <MethodCard
+        id="async-function"
+        methodName="async function"
+        signature="async function name() { }"
+        description="Declares a function that always returns a promise"
+        mutates={false}
+    >
+        <!-- Auto-wrap in Promise -->
+        <div class="p-6 bg-gray-800 rounded">
+            <div class="flex items-center gap-4">
+                <div class="flex-1 text-center">
+                    <div
+                        class="bg-blue-500/20 border-2 border-blue-400 rounded-lg p-3 mb-2"
+                    >
+                        <div class="text-blue-300 font-mono text-xs mb-1">
+                            async function getData()
+                        </div>
+                        <div class="text-yellow-400 font-mono text-xs mb-1">
+                            {"{"}
+                        </div>
+                        <div class="text-yellow-400 font-mono text-xs mb-1">
+                            &nbsp;&nbsp;return 'data'
+                        </div>
+                        <div class="text-yellow-400 font-mono text-xs">
+                            {"}"}
+                        </div>
+                    </div>
+                    <div class="text-xs text-gray-400">Returns plain value</div>
+                </div>
+
+                <div class="text-2xl text-green-400">✨</div>
+
+                <div class="flex-1 text-center">
+                    <div
+                        class="bg-green-500/20 border-2 border-green-500 rounded-lg p-3 mb-2"
+                    >
+                        <div class="text-green-300 font-bold text-sm mb-1">
+                            ✅ Promise
+                        </div>
+                        <div class="text-xs text-yellow-400 font-mono">
+                            Promise&lt;'data'&gt;
+                        </div>
+                    </div>
+                    <div class="text-xs text-gray-400">Auto-wrapped!</div>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700"
+        >
+            Automatically wraps return value in a promise. Allows use of <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >await</code
+            > inside. If function throws, promise is rejected.
+        </div>
+
+        <ProTip>
+            <div>All async functions return promises:</div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    async function getData() {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;return 'data' <span class="text-gray-400"
+                        >// automatically wrapped in Promise</span>
+                </div>
+                <div class="font-mono text-[10px]">{"}"}</div>
+                <div class="font-mono text-[10px] mt-1">
+                    getData() <span class="text-gray-400"
+                        >// returns Promise&lt;'data'&gt;</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    getData().then(d =&gt; console.log(d)) <span
+                        class="text-gray-400">// 'data'</span>
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- AWAIT -->
+    <MethodCard
+        id="await"
+        methodName="await"
+        signature="await promise"
+        description="Pause execution until promise resolves (async functions only)"
+        mutates={false}
+    >
+        <!-- Timeline showing pause -->
+        <div class="p-6 bg-gray-800 rounded">
+            <div class="space-y-3">
+                <!-- Line 1 -->
+                <div class="flex items-center gap-2">
+                    <div class="w-6 text-gray-500 text-xs">1</div>
+                    <div
+                        class="bg-blue-500/20 border border-blue-400 rounded px-3 py-1.5 flex-1"
+                    >
+                        <div class="text-blue-300 font-mono text-xs">
+                            console.log('Start')
+                        </div>
+                    </div>
+                    <div class="text-xs text-gray-400 w-16">Runs</div>
+                </div>
+
+                <!-- Line 2 - await pauses here -->
+                <div class="flex items-center gap-2">
+                    <div class="w-6 text-gray-500 text-xs">2</div>
+                    <div
+                        class="bg-yellow-500/20 border-2 border-yellow-500 rounded px-3 py-1.5 flex-1"
+                    >
+                        <div
+                            class="text-yellow-300 font-mono text-xs font-bold"
+                        >
+                            const data = await fetchData()
+                        </div>
+                    </div>
+                    <div class="text-xs text-yellow-400 w-16">⏸️ Waits</div>
+                </div>
+
+                <!-- Line 3 -->
+                <div class="flex items-center gap-2">
+                    <div class="w-6 text-gray-500 text-xs">3</div>
+                    <div
+                        class="bg-green-500/20 border border-green-400 rounded px-3 py-1.5 flex-1"
+                    >
+                        <div class="text-green-300 font-mono text-xs">
+                            console.log(data)
+                        </div>
+                    </div>
+                    <div class="text-xs text-green-400 w-16">Then runs</div>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700"
+        >
+            Pauses execution until promise resolves. Returns the fulfilled
+            value. If promise rejects, throws the error. <strong
+                >Only works inside async functions</strong
+            > (or top-level in modules).
+        </div>
+
+        <ProTip>
+            <div>✨ <strong>Cleaner than .then() chains:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    <span class="text-red-400"
+                        >// Old way - promise chains ❌</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    fetchUser().then(user =&gt; {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;return fetchPosts(user.id)
+                </div>
+                <div class="font-mono text-[10px]">
+                    {"}"}).then(posts =&gt; {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;console.log(posts)
+                </div>
+                <div class="font-mono text-[10px]">{"}"})</div>
+                <div class="font-mono text-[10px] mt-1">
+                    <span class="text-green-400"
+                        >// Modern way - async/await ✅</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    const user = await fetchUser()
+                </div>
+                <div class="font-mono text-[10px]">
+                    const posts = await fetchPosts(user.id)
+                </div>
+                <div class="font-mono text-[10px]">console.log(posts)</div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- TRY/CATCH WITH ASYNC -->
+    <MethodCard
+        id="try-catch"
+        methodName="try/catch"
+        signature="try { await ... } catch (error) { }"
+        description="Handle errors in async/await code"
+        mutates={false}
+    >
+        <!-- Try/Catch Flow -->
+        <div class="p-6 bg-gray-800 rounded">
+            <div class="flex items-center gap-4">
+                <div class="flex-1">
+                    <!-- Try Block -->
+                    <div
+                        class="border-2 border-green-500/50 rounded-lg p-4 mb-2"
+                    >
+                        <div class="text-green-300 font-bold text-sm mb-2">
+                            try {"{"}
+                        </div>
+                        <div class="pl-4 space-y-1">
+                            <div class="text-gray-300 font-mono text-xs">
+                                const data = await fetch()
+                            </div>
+                            <div class="text-gray-300 font-mono text-xs">
+                                return data
+                            </div>
+                        </div>
+                        <div class="text-green-300 font-bold text-sm mt-2">
+                            {"}"}
+                        </div>
+                    </div>
+                    <div class="text-center text-xs text-gray-400">
+                        If successful ✅
+                    </div>
+                </div>
+
+                <div class="text-2xl text-gray-500">→</div>
+
+                <div class="flex-1">
+                    <!-- Catch Block -->
+                    <div class="border-2 border-red-500/50 rounded-lg p-4 mb-2">
+                        <div class="text-red-300 font-bold text-sm mb-2">
+                            catch (error) {"{"}
+                        </div>
+                        <div class="pl-4 space-y-1">
+                            <div class="text-gray-300 font-mono text-xs">
+                                console.error(error)
+                            </div>
+                            <div class="text-gray-300 font-mono text-xs">
+                                return fallback
+                            </div>
+                        </div>
+                        <div class="text-red-300 font-bold text-sm mt-2">
+                            {"}"}
+                        </div>
+                    </div>
+                    <div class="text-center text-xs text-gray-400">
+                        If promise rejects ❌
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700"
+        >
+            Use try/catch to handle rejected promises when using await. Catches
+            errors from any await in the try block.
+        </div>
+
+        <ProTip>
+            <div>🛡️ <strong>Error handling patterns:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    async function fetchData() {"{"}
+                </div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;try {"{"}</div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;const user = await fetchUser()
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;const posts = await
+                    fetchPosts(user.id)
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;return posts
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;{"}"} catch (error) {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;console.error('Failed:', error)
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;return [] <span
+                        class="text-gray-400">// fallback value</span>
+                </div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;{"}"}</div>
+                <div class="font-mono text-[10px]">{"}"}</div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- ============================================ -->
+    <!-- 🔄 PROMISE COMBINATORS -->
+    <!-- ============================================ -->
+
+    <SectionTitle id="combinators" color="cyan">
+        🔄 Promise Combinators
+    </SectionTitle>
+
+    <!-- PROMISE.ALL -->
+    <MethodCard
+        id="promise-all"
+        methodName="Promise.all()"
+        signature="Promise.all([p1, p2, p3])"
+        description="Wait for all promises to resolve (or any to reject)"
+        mutates={false}
+    >
+        <!-- All promises running in parallel -->
+        <div class="p-6 bg-gray-800 rounded">
+            <div class="space-y-3">
+                <!-- Promise 1 -->
+                <div class="flex items-center gap-3">
+                    <div class="w-20 text-xs text-gray-400">Promise 1</div>
+                    <div class="flex-1 flex items-center gap-2">
+                        <div
+                            class="bg-yellow-500/20 border border-yellow-500 rounded px-3 py-2 flex-1"
+                        >
+                            <div class="text-yellow-300 font-mono text-xs">
+                                ⏳ pending...
+                            </div>
+                        </div>
+                        <div class="text-xl">→</div>
+                        <div
+                            class="bg-green-500/20 border-2 border-green-500 rounded px-3 py-2 flex-1"
+                        >
+                            <div class="text-green-300 font-mono text-xs">
+                                ✅ 'result1'
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Promise 2 -->
+                <div class="flex items-center gap-3">
+                    <div class="w-20 text-xs text-gray-400">Promise 2</div>
+                    <div class="flex-1 flex items-center gap-2">
+                        <div
+                            class="bg-yellow-500/20 border border-yellow-500 rounded px-3 py-2 flex-1"
+                        >
+                            <div class="text-yellow-300 font-mono text-xs">
+                                ⏳ pending...
+                            </div>
+                        </div>
+                        <div class="text-xl">→</div>
+                        <div
+                            class="bg-green-500/20 border-2 border-green-500 rounded px-3 py-2 flex-1"
+                        >
+                            <div class="text-green-300 font-mono text-xs">
+                                ✅ 'result2'
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Promise 3 -->
+                <div class="flex items-center gap-3">
+                    <div class="w-20 text-xs text-gray-400">Promise 3</div>
+                    <div class="flex-1 flex items-center gap-2">
+                        <div
+                            class="bg-yellow-500/20 border border-yellow-500 rounded px-3 py-2 flex-1"
+                        >
+                            <div class="text-yellow-300 font-mono text-xs">
+                                ⏳ pending...
+                            </div>
+                        </div>
+                        <div class="text-xl">→</div>
+                        <div
+                            class="bg-green-500/20 border-2 border-green-500 rounded px-3 py-2 flex-1"
+                        >
+                            <div class="text-green-300 font-mono text-xs">
+                                ✅ 'result3'
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Final result -->
+                <div class="mt-4 pt-4 border-t-2 border-cyan-500/30">
+                    <div
+                        class="bg-cyan-500/20 border-2 border-cyan-500 rounded px-4 py-3 text-center"
+                    >
+                        <div class="text-cyan-300 font-bold text-sm mb-1">
+                            Promise.all() resolves when ALL finish
+                        </div>
+                        <div class="text-yellow-400 font-mono text-xs">
+                            ['result1', 'result2', 'result3']
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700"
+        >
+            Waits for <strong>all</strong> promises to resolve. Returns array of
+            results in same order. ⚠️ <strong>Rejects immediately</strong> if any
+            promise rejects.
+        </div>
+
+        <ProTip>
+            <div>🚀 <strong>Run promises in parallel:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    <span class="text-red-400">// Sequential - slow! ❌</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    const user = await fetchUser() <span class="text-gray-400"
+                        >// wait 1s</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    const posts = await fetchPosts() <span class="text-gray-400"
+                        >// wait 1s</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    <span class="text-gray-400">// Total: 2 seconds</span>
+                </div>
+                <div class="font-mono text-[10px] mt-1">
+                    <span class="text-green-400">// Parallel - fast! ✅</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    const [user, posts] = await Promise.all([
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;fetchUser(), <span class="text-gray-400"
+                        >// starts immediately</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;fetchPosts() <span class="text-gray-400"
+                        >// starts immediately</span>
+                </div>
+                <div class="font-mono text-[10px]">])</div>
+                <div class="font-mono text-[10px]">
+                    <span class="text-gray-400"
+                        >// Total: 1 second (both run at once)</span>
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- PROMISE.ALLSETTLED -->
+    <MethodCard
+        id="promise-allsettled"
+        methodName="Promise.allSettled()"
+        signature="Promise.allSettled([p1, p2, p3])"
+        description="Wait for all promises to settle (fulfilled or rejected)"
+        mutates={false}
+    >
+        <!-- Handles mixed success/failure -->
+        <div class="p-6 bg-gray-800 rounded">
+            <div class="space-y-3">
+                <!-- Promise 1 success -->
+                <div class="flex items-center gap-3">
+                    <div class="w-20 text-xs text-gray-400">Promise 1</div>
+                    <div class="flex-1 flex items-center gap-2">
+                        <div
+                            class="bg-yellow-500/20 border border-yellow-500 rounded px-3 py-2 flex-1"
+                        >
+                            <div class="text-yellow-300 font-mono text-xs">
+                                ⏳ pending...
+                            </div>
+                        </div>
+                        <div class="text-xl">→</div>
+                        <div
+                            class="bg-green-500/20 border-2 border-green-500 rounded px-3 py-2 flex-1"
+                        >
+                            <div class="text-green-300 font-mono text-xs">
+                                ✅ 'success'
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Promise 2 failure -->
+                <div class="flex items-center gap-3">
+                    <div class="w-20 text-xs text-gray-400">Promise 2</div>
+                    <div class="flex-1 flex items-center gap-2">
+                        <div
+                            class="bg-yellow-500/20 border border-yellow-500 rounded px-3 py-2 flex-1"
+                        >
+                            <div class="text-yellow-300 font-mono text-xs">
+                                ⏳ pending...
+                            </div>
+                        </div>
+                        <div class="text-xl">→</div>
+                        <div
+                            class="bg-red-500/20 border-2 border-red-500 rounded px-3 py-2 flex-1"
+                        >
+                            <div class="text-red-300 font-mono text-xs">
+                                ❌ Error
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Promise 3 success -->
+                <div class="flex items-center gap-3">
+                    <div class="w-20 text-xs text-gray-400">Promise 3</div>
+                    <div class="flex-1 flex items-center gap-2">
+                        <div
+                            class="bg-yellow-500/20 border border-yellow-500 rounded px-3 py-2 flex-1"
+                        >
+                            <div class="text-yellow-300 font-mono text-xs">
+                                ⏳ pending...
+                            </div>
+                        </div>
+                        <div class="text-xl">→</div>
+                        <div
+                            class="bg-green-500/20 border-2 border-green-500 rounded px-3 py-2 flex-1"
+                        >
+                            <div class="text-green-300 font-mono text-xs">
+                                ✅ 'success'
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Final result - all statuses -->
+                <div class="mt-4 pt-4 border-t-2 border-cyan-500/30">
+                    <div
+                        class="bg-cyan-500/20 border-2 border-cyan-500 rounded px-4 py-3"
+                    >
+                        <div class="text-cyan-300 font-bold text-sm mb-2">
+                            Promise.allSettled() never rejects
+                        </div>
+                        <div
+                            class="text-yellow-400 font-mono text-[10px] space-y-0.5"
+                        >
+                            <div>[</div>
+                            <div>
+                                &nbsp;&nbsp;{"{"} status: 'fulfilled', value: 'success'
+                                {"}"},
+                            </div>
+                            <div>
+                                &nbsp;&nbsp;{"{"} status: 'rejected', reason: Error
+                                {"}"},
+                            </div>
+                            <div>
+                                &nbsp;&nbsp;{"{"} status: 'fulfilled', value: 'success'
+                                {"}"}
+                            </div>
+                            <div>]</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700"
+        >
+            Waits for all promises to settle. <strong>Never rejects</strong> - returns
+            array of result objects with <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >status</code
+            > and <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >value</code
+            > or <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >reason</code
+            >.
+        </div>
+
+        <ProTip>
+            <div>Use when you want all results, even failures:</div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    const results = await Promise.allSettled([
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;fetch('/api/user'),
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;fetch('/api/posts')
+                </div>
+                <div class="font-mono text-[10px]">])</div>
+                <div class="font-mono text-[10px] mt-1">
+                    results[0] <span class="text-gray-400"
+                        >// {"{"} status: 'fulfilled', value: ... {"}"}</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    results[1] <span class="text-gray-400"
+                        >// {"{"} status: 'rejected', reason: Error(...) {
+                            "}"
+                        }</span>
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- PROMISE.RACE -->
+    <MethodCard
+        id="promise-race"
+        methodName="Promise.race()"
+        signature="Promise.race([p1, p2, p3])"
+        description="Returns first promise to settle (fulfill or reject)"
+        mutates={false}
+    >
+        <!-- Race - first to finish wins -->
+        <div class="p-6 bg-gray-800 rounded">
+            <div class="space-y-3">
+                <!-- Promise 1 - slow -->
+                <div class="flex items-center gap-3">
+                    <div class="w-20 text-xs text-gray-400">Promise 1</div>
+                    <div class="flex-1 flex items-center gap-2">
+                        <div
+                            class="bg-yellow-500/20 border border-yellow-500 rounded px-3 py-2 flex-1"
+                        >
+                            <div class="text-yellow-300 font-mono text-xs">
+                                ⏳ pending... (slow)
+                            </div>
+                        </div>
+                        <div class="text-xs text-gray-500">❌ ignored</div>
+                    </div>
+                </div>
+
+                <!-- Promise 2 - winner! -->
+                <div class="flex items-center gap-3">
+                    <div class="w-20 text-xs text-gray-400">Promise 2</div>
+                    <div class="flex-1 flex items-center gap-2">
+                        <div
+                            class="bg-yellow-500/20 border border-yellow-500 rounded px-3 py-2 flex-1"
+                        >
+                            <div class="text-yellow-300 font-mono text-xs">
+                                ⏳ pending...
+                            </div>
+                        </div>
+                        <div class="text-xl">→</div>
+                        <div
+                            class="bg-green-500/20 border-2 border-green-500 rounded px-3 py-2 flex-1"
+                        >
+                            <div
+                                class="text-green-300 font-mono text-xs font-bold"
+                            >
+                                ✅ 'fast!' 🏆
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Promise 3 - slow -->
+                <div class="flex items-center gap-3">
+                    <div class="w-20 text-xs text-gray-400">Promise 3</div>
+                    <div class="flex-1 flex items-center gap-2">
+                        <div
+                            class="bg-yellow-500/20 border border-yellow-500 rounded px-3 py-2 flex-1"
+                        >
+                            <div class="text-yellow-300 font-mono text-xs">
+                                ⏳ pending... (slow)
+                            </div>
+                        </div>
+                        <div class="text-xs text-gray-500">❌ ignored</div>
+                    </div>
+                </div>
+
+                <!-- Winner takes all -->
+                <div class="mt-4 pt-4 border-t-2 border-cyan-500/30">
+                    <div
+                        class="bg-cyan-500/20 border-2 border-cyan-500 rounded px-4 py-3 text-center"
+                    >
+                        <div class="text-cyan-300 font-bold text-sm mb-1">
+                            Promise.race() returns first to settle
+                        </div>
+                        <div class="text-yellow-400 font-mono text-xs">
+                            'fast!' (others are ignored)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700"
+        >
+            Returns the result of the first promise to settle. Others are
+            ignored. Can fulfill or reject based on winner.
+        </div>
+
+        <ProTip>
+            <div>⏱️ <strong>Common use case - timeout:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    const timeout = new Promise((_, reject) =&gt;
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;setTimeout(() =&gt; reject(new
+                    Error('Timeout')), 5000)
+                </div>
+                <div class="font-mono text-[10px]">)</div>
+                <div class="font-mono text-[10px] mt-1">
+                    const data = await Promise.race([
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;fetch('/api/data'), <span class="text-gray-400"
+                        >// might be slow</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;timeout <span class="text-gray-400"
+                        >// fails after 5s</span>
+                </div>
+                <div class="font-mono text-[10px]">])</div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- PROMISE.ANY -->
+    <MethodCard
+        id="promise-any"
+        methodName="Promise.any()"
+        signature="Promise.any([p1, p2, p3])"
+        description="Returns first promise to fulfill (ignores rejections)"
+        mutates={false}
+    >
+        <!-- First success wins, ignores failures -->
+        <div class="p-6 bg-gray-800 rounded">
+            <div class="space-y-3">
+                <!-- Promise 1 - fails, ignored -->
+                <div class="flex items-center gap-3">
+                    <div class="w-20 text-xs text-gray-400">Promise 1</div>
+                    <div class="flex-1 flex items-center gap-2">
+                        <div
+                            class="bg-yellow-500/20 border border-yellow-500 rounded px-3 py-2 flex-1"
+                        >
+                            <div class="text-yellow-300 font-mono text-xs">
+                                ⏳ pending...
+                            </div>
+                        </div>
+                        <div class="text-xl text-gray-600">→</div>
+                        <div
+                            class="bg-red-500/10 border border-red-500/30 rounded px-3 py-2 flex-1"
+                        >
+                            <div class="text-red-300/50 font-mono text-xs">
+                                ❌ Error (ignored)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Promise 2 - success! winner! -->
+                <div class="flex items-center gap-3">
+                    <div class="w-20 text-xs text-gray-400">Promise 2</div>
+                    <div class="flex-1 flex items-center gap-2">
+                        <div
+                            class="bg-yellow-500/20 border border-yellow-500 rounded px-3 py-2 flex-1"
+                        >
+                            <div class="text-yellow-300 font-mono text-xs">
+                                ⏳ pending...
+                            </div>
+                        </div>
+                        <div class="text-xl">→</div>
+                        <div
+                            class="bg-green-500/20 border-2 border-green-500 rounded px-3 py-2 flex-1"
+                        >
+                            <div
+                                class="text-green-300 font-mono text-xs font-bold"
+                            >
+                                ✅ 'data' 🏆
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Promise 3 - never checked -->
+                <div class="flex items-center gap-3">
+                    <div class="w-20 text-xs text-gray-400">Promise 3</div>
+                    <div class="flex-1 flex items-center gap-2">
+                        <div
+                            class="bg-yellow-500/20 border border-yellow-500 rounded px-3 py-2 flex-1"
+                        >
+                            <div class="text-yellow-300 font-mono text-xs">
+                                ⏳ pending... (slow)
+                            </div>
+                        </div>
+                        <div class="text-xs text-gray-500">❌ ignored</div>
+                    </div>
+                </div>
+
+                <!-- First success wins -->
+                <div class="mt-4 pt-4 border-t-2 border-cyan-500/30">
+                    <div
+                        class="bg-cyan-500/20 border-2 border-cyan-500 rounded px-4 py-3 text-center"
+                    >
+                        <div class="text-cyan-300 font-bold text-sm mb-1">
+                            Promise.any() returns first success
+                        </div>
+                        <div class="text-yellow-400 font-mono text-xs">
+                            'data' (ignores failures)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700"
+        >
+            Returns first promise to fulfill. <strong>Ignores rejections</strong
+            > until all fail. Rejects only if all promises reject.
+        </div>
+
+        <ProTip>
+            <div>Use case - fallback sources:</div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    <span class="text-gray-400"
+                        >// Try multiple CDNs, use first that works</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    const data = await Promise.any([
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;fetch('https://cdn1.com/data'),
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;fetch('https://cdn2.com/data'),
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;fetch('https://cdn3.com/data')
+                </div>
+                <div class="font-mono text-[10px]">])</div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- ============================================ -->
+    <!-- 🎯 COMMON PATTERNS -->
+    <!-- ============================================ -->
+
+    <SectionTitle id="patterns" color="orange">
+        🎯 Common Patterns
+    </SectionTitle>
+
+    <!-- SEQUENTIAL VS PARALLEL -->
+    <MethodCard
+        id="sequential-parallel"
+        methodName="Sequential vs Parallel"
+        signature="await one-by-one vs Promise.all()"
+        description="Understanding execution order"
+        mutates={false}
+    >
+        <div class="p-3 bg-gray-800 rounded">
+            <div class="text-sm font-semibold mb-2">Sequential (Slow):</div>
+            <div class="flex items-center gap-2 mb-4">
+                <div
+                    class="px-3 py-2 bg-blue-500/20 border border-blue-500 rounded text-xs"
+                >
+                    Task 1 (1s)
+                </div>
+                <div>→</div>
+                <div
+                    class="px-3 py-2 bg-blue-500/20 border border-blue-500 rounded text-xs"
+                >
+                    Task 2 (1s)
+                </div>
+                <div>→</div>
+                <div
+                    class="px-3 py-2 bg-blue-500/20 border border-blue-500 rounded text-xs"
+                >
+                    Task 3 (1s)
+                </div>
+                <div class="ml-4 text-xs text-yellow-400">Total: 3s</div>
+            </div>
+
+            <div class="text-sm font-semibold mb-2">Parallel (Fast):</div>
+            <div class="flex items-start gap-4">
+                <div class="flex flex-col gap-1">
+                    <div
+                        class="px-3 py-2 bg-green-500/20 border border-green-500 rounded text-xs"
+                    >
+                        Task 1 (1s)
+                    </div>
+                    <div
+                        class="px-3 py-2 bg-green-500/20 border border-green-500 rounded text-xs"
+                    >
+                        Task 2 (1s)
+                    </div>
+                    <div
+                        class="px-3 py-2 bg-green-500/20 border border-green-500 rounded text-xs"
+                    >
+                        Task 3 (1s)
+                    </div>
+                </div>
+                <div class="text-xs text-green-400 mt-8">
+                    Total: 1s<br />(all run together)
+                </div>
+            </div>
+        </div>
+
+        <ProTip>
+            <div>⚡ <strong>When to use each:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    <strong>Sequential</strong> - when tasks depend on each other:
+                </div>
+                <div class="font-mono text-[10px]">
+                    const user = await getUser()
+                </div>
+                <div class="font-mono text-[10px]">
+                    const posts = await getPosts(user.id) <span
+                        class="text-gray-400">// needs user</span>
+                </div>
+                <div class="font-mono text-[10px] mt-1">
+                    <strong>Parallel</strong> - when tasks are independent:
+                </div>
+                <div class="font-mono text-[10px]">
+                    const [user, settings, posts] = await Promise.all([
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;getUser(), getPosts(), getSettings()
+                </div>
+                <div class="font-mono text-[10px]">
+                    ]) <span class="text-gray-400">// all run at once</span>
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- ERROR HANDLING -->
+    <MethodCard
+        id="error-handling"
+        methodName="Error Handling Strategies"
+        signature="try/catch vs .catch() vs default values"
+        description="Different approaches to handling failures in async code"
+        mutates={false}
+    >
+        <ProTip>
+            <div>🛡️ <strong>Strategy 1: Try/Catch (Most Common)</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">try {"{"}</div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;const data = await fetchData()
+                </div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;return data</div>
+                <div class="font-mono text-[10px]">
+                    {"}"} catch (error) {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;console.error(error)
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;return null <span class="text-gray-400"
+                        >// fallback</span>
+                </div>
+                <div class="font-mono text-[10px]">{"}"}</div>
+                <div class="font-mono text-[10px] mt-1 text-gray-400">
+                    ✓ Use for async/await code
+                </div>
+                <div class="font-mono text-[10px] text-gray-400">
+                    ✓ Catches all errors in the try block
+                </div>
+            </div>
+        </ProTip>
+
+        <ProTip>
+            <div>🛡️ <strong>Strategy 2: .catch() with default</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    const data = await fetchData()
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;.catch(err =&gt; {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;console.error(err)
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;return [] <span
+                        class="text-gray-400">// default value</span>
+                </div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;{"}"})</div>
+                <div class="font-mono text-[10px] mt-1 text-gray-400">
+                    ✓ Use for inline error handling
+                </div>
+                <div class="font-mono text-[10px] text-gray-400">
+                    ✓ Good for providing fallback values
+                </div>
+            </div>
+        </ProTip>
+
+        <ProTip>
+            <div>
+                🛡️ <strong>Strategy 3: Conditional error handling</strong>
+            </div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    const result = await fetchData().catch(err =&gt; {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;if (err.code === 'NOT_FOUND') return null
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;throw err <span class="text-gray-400"
+                        >// re-throw other errors</span>
+                </div>
+                <div class="font-mono text-[10px]">{"}"})</div>
+                <div class="font-mono text-[10px] mt-1 text-gray-400">
+                    ✓ Handle specific errors differently
+                </div>
+                <div class="font-mono text-[10px] text-gray-400">
+                    ✓ Re-throw critical errors to bubble up
+                </div>
+            </div>
+        </ProTip>
+
+        <ProTip>
+            <div>🛡️ <strong>Strategy 4: .finally() for cleanup</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">try {"{"}</div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;setLoading(true)
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;const data = await fetchData()
+                </div>
+                <div class="font-mono text-[10px]">
+                    {"}"} catch (error) {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;setError(error.message)
+                </div>
+                <div class="font-mono text-[10px]">{"}"} finally {"{"}</div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;setLoading(false) <span class="text-gray-400"
+                        >// always runs</span>
+                </div>
+                <div class="font-mono text-[10px]">{"}"}</div>
+                <div class="font-mono text-[10px] mt-1 text-gray-400">
+                    ✓ Cleanup code runs regardless of success/failure
+                </div>
+            </div>
+        </ProTip>
+
+        <ProTip>
+            <div>
+                🛡️ <strong
+                    >Strategy 5: Promise.allSettled() for multiple errors</strong>
+            </div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    const results = await Promise.allSettled([
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;api1(), api2(), api3()
+                </div>
+                <div class="font-mono text-[10px]">])</div>
+                <div class="font-mono text-[10px]">
+                    const successes = results.filter(r =&gt; r.status ===
+                    'fulfilled')
+                </div>
+                <div class="font-mono text-[10px]">
+                    const failures = results.filter(r =&gt; r.status ===
+                    'rejected')
+                </div>
+                <div class="font-mono text-[10px] mt-1 text-gray-400">
+                    ✓ All promises complete, even if some fail
+                </div>
+                <div class="font-mono text-[10px] text-gray-400">
+                    ✓ Get both successful and failed results
+                </div>
+            </div>
+        </ProTip>
+
+        <ProTip>
+            <div>⚠️ <strong>Best Practices:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    <span class="text-green-400">✓</span> Always handle promise rejections
+                    (avoid unhandled warnings)
+                </div>
+                <div class="font-mono text-[10px]">
+                    <span class="text-green-400">✓</span> Use try/catch for async/await
+                    code
+                </div>
+                <div class="font-mono text-[10px]">
+                    <span class="text-green-400">✓</span> Log errors with context
+                    (user ID, timestamp, etc.)
+                </div>
+                <div class="font-mono text-[10px]">
+                    <span class="text-green-400">✓</span> Provide user-friendly error
+                    messages
+                </div>
+                <div class="font-mono text-[10px]">
+                    <span class="text-green-400">✓</span> Use .finally() for cleanup
+                    (close connections, reset state)
+                </div>
+                <div class="font-mono text-[10px]">
+                    <span class="text-red-400">✗</span> Don't swallow errors silently
+                    (.catch(() =&gt; {"{}"}))
+                </div>
+                <div class="font-mono text-[10px]">
+                    <span class="text-red-400">✗</span> Don't mix try/catch with
+                    .catch() unnecessarily
+                </div>
+                <div class="font-mono text-[10px]">
+                    <span class="text-red-400">✗</span> Don't forget to await (errors
+                    won't be caught)
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- NESTED ASYNC/AWAIT -->
+    <MethodCard
+        id="nested-async-await"
+        methodName="Nested Async/Await Patterns"
+        signature="async functions calling other async functions"
+        description="How to structure complex async operations with proper error handling"
+        mutates={false}
+    >
+        <ProTip>
+            <div>🔄 <strong>Pattern 1: Sequential nested calls</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    async function processOrder(orderId) {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;const order = await getOrder(orderId)
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;const user = await getUser(order.userId) <span
+                        class="text-gray-400">// waits for order</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;const payment = await processPayment(order) <span
+                        class="text-gray-400">// waits for user</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;return {"{"} order, user, payment {"}"}
+                </div>
+                <div class="font-mono text-[10px]">{"}"}</div>
+                <div class="font-mono text-[10px] mt-1 text-gray-400">
+                    ✓ Use when each step depends on the previous
+                </div>
+            </div>
+        </ProTip>
+
+        <ProTip>
+            <div>
+                🔄 <strong>Pattern 2: Parallel nested calls (BETTER)</strong>
+            </div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    async function processOrder(orderId) {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;const order = await getOrder(orderId)
+                </div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;</div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;<span class="text-green-400"
+                        >// Start both at once - don't wait!</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;const [user, payment] = await Promise.all([
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;getUser(order.userId),
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;processPayment(order)
+                </div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;])</div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;return {"{"} order, user, payment {"}"}
+                </div>
+                <div class="font-mono text-[10px]">{"}"}</div>
+                <div class="font-mono text-[10px] mt-1 text-gray-400">
+                    ✓ Much faster when operations are independent
+                </div>
+            </div>
+        </ProTip>
+
+        <ProTip>
+            <div>
+                🔄 <strong>Pattern 3: Nested with error boundaries</strong>
+            </div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    async function processOrder(orderId) {"{"}
+                </div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;try {"{"}</div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;const order = await
+                    getOrder(orderId)
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;let user, payment
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;try {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[user, payment] = await
+                    Promise.all([
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getUser(order.userId),
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;processPayment(order)
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;])
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;{"}"} catch (err) {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                        class="text-yellow-400"
+                        >// Handle user/payment errors specifically</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;await
+                    cancelOrder(order.id)
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throw new Error('Payment
+                    failed: ' + err.message)
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;{"}"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;return {"{"} order, user, payment {
+                        "}"
+                    }
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;{"}"} catch (err) {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-yellow-400"
+                        >// Handle order fetch errors</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;console.error('Order processing
+                    failed:', err)
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;throw err
+                </div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;{"}"}</div>
+                <div class="font-mono text-[10px]">{"}"}</div>
+                <div class="font-mono text-[10px] mt-1 text-gray-400">
+                    ✓ Different error handling for different stages
+                </div>
+            </div>
+        </ProTip>
+
+        <ProTip>
+            <div>
+                🔄 <strong>Pattern 4: Async loops with nested awaits</strong>
+            </div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    <span class="text-red-400"
+                        >// ✗ BAD - Sequential, slow</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    async function processUsers(userIds) {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;const results = []
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;for (const id of userIds) {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;const user = await getUser(id) <span
+                        class="text-red-400">// waits each time!</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;const posts = await getPosts(id)
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;results.push({"{"} user, posts {
+                        "}"
+                    })
+                </div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;{"}"}</div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;return results
+                </div>
+                <div class="font-mono text-[10px]">{"}"}</div>
+                <div class="font-mono text-[10px] mt-2">
+                    <span class="text-green-400"
+                        >// ✓ GOOD - Parallel, fast</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    async function processUsers(userIds) {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;return await Promise.all(
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;userIds.map(async id =&gt; {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const [user, posts] =
+                    await Promise.all([
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getUser(id),
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getPosts(id)
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;])
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return {"{"} user, posts
+                    {"}"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;{"}"})
+                </div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;)</div>
+                <div class="font-mono text-[10px]">{"}"}</div>
+                <div class="font-mono text-[10px] mt-1 text-gray-400">
+                    ✓ All users processed in parallel
+                </div>
+            </div>
+        </ProTip>
+
+        <ProTip>
+            <div>⚠️ <strong>Key Takeaways:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    <span class="text-green-400">✓</span> Identify which operations
+                    can run in parallel
+                </div>
+                <div class="font-mono text-[10px]">
+                    <span class="text-green-400">✓</span> Use Promise.all() for independent
+                    async operations
+                </div>
+                <div class="font-mono text-[10px]">
+                    <span class="text-green-400">✓</span> Start promises first, await
+                    later (don't mix)
+                </div>
+                <div class="font-mono text-[10px]">
+                    <span class="text-green-400">✓</span> Use nested try/catch for
+                    granular error handling
+                </div>
+                <div class="font-mono text-[10px]">
+                    <span class="text-green-400">✓</span> In loops: map() + Promise.all()
+                    for parallel
+                </div>
+                <div class="font-mono text-[10px]">
+                    <span class="text-red-400">✗</span> Don't await inside forEach
+                    (use for...of or map)
+                </div>
+                <div class="font-mono text-[10px]">
+                    <span class="text-red-400">✗</span> Don't await unnecessarily
+                    in series
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- TIMEOUT PATTERNS -->
+    <MethodCard
+        id="timeout-patterns"
+        methodName="Timeout Patterns"
+        signature="Promise.race() with timeout promise"
+        description="Prevent promises from hanging indefinitely with time limits"
+        mutates={false}
+    >
+        <ProTip>
+            <div>
+                ⏱️ <strong>Pattern 1: Basic timeout with Promise.race()</strong>
+            </div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    function timeout(ms) {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;return new Promise((_, reject) =&gt;
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;setTimeout(() =&gt; reject(new
+                    Error('Timeout')), ms)
+                </div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;)</div>
+                <div class="font-mono text-[10px]">{"}"}</div>
+                <div class="font-mono text-[10px] mt-1">
+                    <span class="text-gray-400">// Usage:</span>
+                </div>
+                <div class="font-mono text-[10px]">try {"{"}</div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;const data = await Promise.race([
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;fetch('/api/data'),
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;timeout(5000) <span
+                        class="text-gray-400">// 5 second limit</span>
+                </div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;])</div>
+                <div class="font-mono text-[10px]">{"}"} catch (err) {"{"}</div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;console.error('Request failed or timed out')
+                </div>
+                <div class="font-mono text-[10px]">{"}"}</div>
+            </div>
+        </ProTip>
+
+        <ProTip>
+            <div>⏱️ <strong>Pattern 2: Reusable timeout wrapper</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    function withTimeout(promise, ms) {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;const timeout = new Promise((_, reject) =&gt;
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;setTimeout(() =&gt; reject(new
+                    Error(`Timeout after ${"{"}ms{"}"}ms`)), ms)
+                </div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;)</div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;return Promise.race([promise, timeout])
+                </div>
+                <div class="font-mono text-[10px]">{"}"}</div>
+                <div class="font-mono text-[10px] mt-1">
+                    <span class="text-gray-400">// Clean usage anywhere:</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    const user = await withTimeout(fetchUser(id), 3000)
+                </div>
+                <div class="font-mono text-[10px]">
+                    const posts = await withTimeout(fetchPosts(), 5000)
+                </div>
+            </div>
+        </ProTip>
+
+        <ProTip>
+            <div>
+                ⏱️ <strong
+                    >Pattern 3: AbortController with fetch (Modern)</strong>
+            </div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    const controller = new AbortController()
+                </div>
+                <div class="font-mono text-[10px]">
+                    const timeoutId = setTimeout(() =&gt; controller.abort(),
+                    5000)
+                </div>
+                <div class="font-mono text-[10px] mt-1">try {"{"}</div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;const response = await fetch('/api/data', {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;signal: controller.signal <span
+                        class="text-gray-400">// abort signal</span>
+                </div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;{"}"})</div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;clearTimeout(timeoutId) <span
+                        class="text-gray-400"
+                        >// cancel timeout if successful</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;return await response.json()
+                </div>
+                <div class="font-mono text-[10px]">{"}"} catch (err) {"{"}</div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;if (err.name === 'AbortError') {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;console.error('Request timed out')
+                </div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;{"}"}</div>
+                <div class="font-mono text-[10px]">{"}"}</div>
+                <div class="font-mono text-[10px] mt-1 text-gray-400">
+                    ✓ Actually cancels the HTTP request (not just timing)
+                </div>
+            </div>
+        </ProTip>
+
+        <ProTip>
+            <div>⚠️ <strong>Best Practices:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    <span class="text-green-400">✓</span> Use AbortController for
+                    fetch requests (actually cancels)
+                </div>
+                <div class="font-mono text-[10px]">
+                    <span class="text-green-400">✓</span> Clear timeout when operation
+                    succeeds early
+                </div>
+                <div class="font-mono text-[10px]">
+                    <span class="text-green-400">✓</span> Provide clear timeout error
+                    messages with duration
+                </div>
+                <div class="font-mono text-[10px]">
+                    <span class="text-green-400">✓</span> Set reasonable timeouts
+                    (API: 5-10s, DB: 30s)
+                </div>
+                <div class="font-mono text-[10px]">
+                    <span class="text-yellow-400">⚡</span> Promise.race() doesn't
+                    cancel the slow promise
+                </div>
+                <div class="font-mono text-[10px]">
+                    <span class="text-red-400">✗</span> Don't use tiny timeouts that
+                    cause false failures
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- RETRY PATTERNS -->
+    <MethodCard
+        id="retry-patterns"
+        methodName="Retry Logic with Backoff"
+        signature="Retry failed promises with exponential backoff"
+        description="Automatically retry failed operations with delays"
+        mutates={false}
+    >
+        <ProTip>
+            <div>
+                🔄 <strong>Pattern 1: Simple retry (fixed attempts)</strong>
+            </div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    async function retry(fn, maxAttempts = 3) {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;for (let attempt = 1; attempt &lt;= maxAttempts;
+                    attempt++) {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;try {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return await fn() <span
+                        class="text-gray-400">// success!</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;{"}"} catch (err) {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (attempt ===
+                    maxAttempts) throw err <span class="text-gray-400"
+                        >// give up</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;console.log(`Attempt ${
+                        "{"
+                    }attempt{"}"} failed, retrying...`)
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;{"}"}
+                </div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;{"}"}</div>
+                <div class="font-mono text-[10px]">{"}"}</div>
+                <div class="font-mono text-[10px] mt-1">
+                    <span class="text-gray-400">// Usage:</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    const data = await retry(() =&gt; fetch('/api/data'))
+                </div>
+            </div>
+        </ProTip>
+
+        <ProTip>
+            <div>
+                🔄 <strong>Pattern 2: Retry with delay (Linear backoff)</strong>
+            </div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    function delay(ms) {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;return new Promise(resolve =&gt;
+                    setTimeout(resolve, ms))
+                </div>
+                <div class="font-mono text-[10px]">{"}"}</div>
+                <div class="font-mono text-[10px] mt-1">
+                    async function retryWithDelay(fn, maxAttempts = 3, delayMs =
+                    1000) {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;for (let attempt = 1; attempt &lt;= maxAttempts;
+                    attempt++) {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;try {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return await fn()
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;{"}"} catch (err) {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (attempt ===
+                    maxAttempts) throw err
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;console.log(`Retry ${
+                        "{"
+                    }attempt{"}"} in ${"{"}delayMs{"}"}ms...`)
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;await delay(delayMs) <span
+                        class="text-gray-400">// wait before retry</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;{"}"}
+                </div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;{"}"}</div>
+                <div class="font-mono text-[10px]">{"}"}</div>
+            </div>
+        </ProTip>
+
+        <ProTip>
+            <div>
+                🔄 <strong
+                    >Pattern 3: Exponential backoff (Best for APIs)</strong>
+            </div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    async function retryWithBackoff(fn, maxAttempts = 5) {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;for (let attempt = 1; attempt &lt;= maxAttempts;
+                    attempt++) {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;try {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return await fn()
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;{"}"} catch (err) {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (attempt ===
+                    maxAttempts) throw err
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                        class="text-yellow-400">// 1s, 2s, 4s, 8s, 16s...</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const delayMs =
+                    Math.pow(2, attempt - 1) * 1000
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;console.log(`Attempt ${
+                        "{"
+                    }attempt{"}"} failed, waiting ${"{"}delayMs{"}"}ms...`)
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;await new Promise(r
+                    =&gt; setTimeout(r, delayMs))
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;{"}"}
+                </div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;{"}"}</div>
+                <div class="font-mono text-[10px]">{"}"}</div>
+                <div class="font-mono text-[10px] mt-1 text-gray-400">
+                    ✓ Delays increase exponentially - gentler on servers
+                </div>
+            </div>
+        </ProTip>
+
+        <ProTip>
+            <div>
+                🔄 <strong>Pattern 4: Conditional retry (smart retries)</strong>
+            </div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    async function retryIfRetryable(fn, maxAttempts = 3) {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;for (let attempt = 1; attempt &lt;= maxAttempts;
+                    attempt++) {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;try {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return await fn()
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;{"}"} catch (err) {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                        class="text-yellow-400"
+                        >// Don't retry on client errors (4xx)</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (err.status &gt;= 400
+                    && err.status &lt; 500) {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throw err <span
+                        class="text-gray-400">// user error, don't retry</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{"}"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                        class="text-yellow-400"
+                        >// Retry on network/server errors (5xx, timeout)</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (attempt ===
+                    maxAttempts) throw err
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;await delay(Math.pow(2,
+                    attempt) * 1000)
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;{"}"}
+                </div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;{"}"}</div>
+                <div class="font-mono text-[10px]">{"}"}</div>
+                <div class="font-mono text-[10px] mt-1 text-gray-400">
+                    ✓ Only retry errors that might succeed later
+                </div>
+            </div>
+        </ProTip>
+
+        <ProTip>
+            <div>⚠️ <strong>Best Practices:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    <span class="text-green-400">✓</span> Use exponential backoff
+                    for API calls
+                </div>
+                <div class="font-mono text-[10px]">
+                    <span class="text-green-400">✓</span> Don't retry 4xx errors
+                    (client mistakes)
+                </div>
+                <div class="font-mono text-[10px]">
+                    <span class="text-green-400">✓</span> DO retry 5xx, timeouts,
+                    network errors
+                </div>
+                <div class="font-mono text-[10px]">
+                    <span class="text-green-400">✓</span> Log each retry attempt
+                    with context
+                </div>
+                <div class="font-mono text-[10px]">
+                    <span class="text-green-400">✓</span> Set max retry limits (3-5
+                    attempts)
+                </div>
+                <div class="font-mono text-[10px]">
+                    <span class="text-yellow-400">⚡</span> Add jitter (randomness)
+                    to prevent thundering herd
+                </div>
+                <div class="font-mono text-[10px]">
+                    <span class="text-red-400">✗</span> Don't retry infinitely (respect
+                    server resources)
+                </div>
+                <div class="font-mono text-[10px]">
+                    <span class="text-red-400">✗</span> Don't retry non-idempotent
+                    operations (POST payments!)
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <Fragment slot="page-nav">
+        <ul class="space-y-2 text-xs">
+            <li>
+                <a
+                    href="#creating"
+                    class="text-blue-300 font-semibold hover:text-blue-200 block py-1"
+                    >🎁 Creating Promises</a
+                >
+                <ul
+                    class="ml-3 mt-1 space-y-1 border-l-2 border-blue-500/30 pl-2"
+                >
+                    <li>
+                        <a
+                            href="#new-promise"
+                            class="text-gray-300 hover:text-blue-400 block"
+                            >new Promise()</a>
+                    </li>
+                    <li>
+                        <a
+                            href="#promise-resolve"
+                            class="text-gray-300 hover:text-blue-400 block"
+                            >Promise.resolve()</a>
+                    </li>
+                    <li>
+                        <a
+                            href="#promise-reject"
+                            class="text-gray-300 hover:text-blue-400 block"
+                            >Promise.reject()</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="mt-4">
+                <a
+                    href="#chaining"
+                    class="text-purple-300 font-semibold hover:text-purple-200 block py-1"
+                    >⛓️ Promise Chaining</a
+                >
+                <ul
+                    class="ml-3 mt-1 space-y-1 border-l-2 border-purple-500/30 pl-2"
+                >
+                    <li>
+                        <a
+                            href="#then"
+                            class="text-gray-300 hover:text-blue-400 block"
+                            >.then() / .catch() / .finally()</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="mt-4">
+                <a
+                    href="#async-await"
+                    class="text-green-300 font-semibold hover:text-green-200 block py-1"
+                    >🎭 Async/Await</a
+                >
+                <ul
+                    class="ml-3 mt-1 space-y-1 border-l-2 border-green-500/30 pl-2"
+                >
+                    <li>
+                        <a
+                            href="#async-function"
+                            class="text-gray-300 hover:text-blue-400 block"
+                            >async function</a>
+                    </li>
+                    <li>
+                        <a
+                            href="#await"
+                            class="text-gray-300 hover:text-blue-400 block"
+                            >await</a>
+                    </li>
+                    <li>
+                        <a
+                            href="#try-catch"
+                            class="text-gray-300 hover:text-blue-400 block"
+                            >try/catch</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="mt-4">
+                <a
+                    href="#combinators"
+                    class="text-cyan-300 font-semibold hover:text-cyan-200 block py-1"
+                    >🔄 Promise Combinators</a
+                >
+                <ul
+                    class="ml-3 mt-1 space-y-1 border-l-2 border-cyan-500/30 pl-2"
+                >
+                    <li>
+                        <a
+                            href="#promise-all"
+                            class="text-gray-300 hover:text-blue-400 block"
+                            >Promise.all()</a>
+                    </li>
+                    <li>
+                        <a
+                            href="#promise-allsettled"
+                            class="text-gray-300 hover:text-blue-400 block"
+                            >Promise.allSettled()</a>
+                    </li>
+                    <li>
+                        <a
+                            href="#promise-race"
+                            class="text-gray-300 hover:text-blue-400 block"
+                            >Promise.race()</a>
+                    </li>
+                    <li>
+                        <a
+                            href="#promise-any"
+                            class="text-gray-300 hover:text-blue-400 block"
+                            >Promise.any()</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="mt-4">
+                <a
+                    href="#patterns"
+                    class="text-orange-300 font-semibold hover:text-orange-200 block py-1"
+                    >🎯 Common Patterns</a
+                >
+                <ul
+                    class="ml-3 mt-1 space-y-1 border-l-2 border-orange-500/30 pl-2"
+                >
+                    <li>
+                        <a
+                            href="#sequential-parallel"
+                            class="text-gray-300 hover:text-blue-400 block"
+                            >Sequential vs Parallel</a>
+                    </li>
+                    <li>
+                        <a
+                            href="#error-handling"
+                            class="text-gray-300 hover:text-blue-400 block"
+                            >Error Handling</a>
+                    </li>
+                    <li>
+                        <a
+                            href="#nested-async-await"
+                            class="text-gray-300 hover:text-blue-400 block"
+                            >Nested Async/Await</a>
+                    </li>
+                    <li>
+                        <a
+                            href="#timeout-patterns"
+                            class="text-gray-300 hover:text-blue-400 block"
+                            >Timeout Patterns</a>
+                    </li>
+                    <li>
+                        <a
+                            href="#retry-patterns"
+                            class="text-gray-300 hover:text-blue-400 block"
+                            >Retry Logic</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </Fragment>
+</VisualLayout>

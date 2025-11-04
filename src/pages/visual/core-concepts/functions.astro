@@ -1,0 +1,1167 @@
+---
+import MethodCard from "~components/visual-js/MethodCard.astro";
+import InfoBox from "~components/visual-js/InfoBox.astro";
+import ProTip from "~components/visual-js/ProTip.astro";
+import SectionTitle from "~components/visual-js/SectionTitle.astro";
+import SubSectionTitle from "~components/visual-js/SubSectionTitle.astro";
+import VisualLayout from "src/layouts/VisualLayout.astro";
+---
+
+<VisualLayout pageTitle="Functions - Best Practices">
+    <!-- QUICK DECISION GUIDE -->
+    <InfoBox>
+        <div class="font-bold text-blue-300 mb-2">🎯 Quick Decision Guide</div>
+        <div class="space-y-3">
+            <div>
+                <div class="font-bold text-green-300 text-sm mb-1">
+                    ✅ Default Choice (90% of the time):
+                </div>
+                <div
+                    class="bg-green-500/20 border border-green-400 rounded p-2"
+                >
+                    <div class="font-mono text-xs text-green-300">
+                        const myFunction = (param) => {"{"} ... {"}"}
+                    </div>
+                    <div class="text-[10px] text-gray-300 mt-1">
+                        Arrow functions - Clean, predictable, modern
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="font-bold text-yellow-300 text-sm mb-1">
+                    ⚠️ Use Regular Functions When:
+                </div>
+                <div
+                    class="bg-yellow-500/20 border border-yellow-400 rounded p-2"
+                >
+                    <div
+                        class="font-mono text-[10px] text-yellow-300 space-y-0.5"
+                    >
+                        <div>
+                            • Object methods that need <code
+                                class="bg-black/30 px-1 rounded">this</code>
+                        </div>
+                        <div>• Constructors (though use classes instead)</div>
+                        <div>
+                            • Need <code class="bg-black/30 px-1 rounded"
+                                >arguments</code
+                            > object
+                        </div>
+                        <div>• Generator functions</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-[11px] text-gray-400 italic">
+                👉 When in doubt, use arrow functions. You'll know when you need
+                regular functions.
+            </div>
+        </div>
+    </InfoBox>
+
+    <!-- ============================================ -->
+    <!-- ✨ MODERN DEFAULT: ARROW FUNCTIONS -->
+    <!-- ============================================ -->
+
+    <SectionTitle id="arrow-functions" color="blue">
+        ✨ Modern Default: Arrow Functions
+    </SectionTitle>
+
+    <!-- BASIC ARROW FUNCTIONS -->
+    <MethodCard
+        id="arrow-basics"
+        methodName="Arrow Function Syntax"
+        signature="const fn = () => {}"
+        description="Your default choice for modern JavaScript"
+        mutates={false}
+    >
+        <div class="p-6 bg-gray-800 rounded">
+            <div class="space-y-4">
+                <!-- All syntax variations -->
+                <div class="bg-blue-500/20 border border-blue-400 rounded p-3">
+                    <div class="text-blue-300 font-mono text-xs space-y-1">
+                        <div class="text-yellow-400 mb-2">
+                            All the ways to write arrow functions:
+                        </div>
+
+                        <div>
+                            <span class="text-gray-400">// No parameters</span>
+                        </div>
+                        <div>const greet = () =&gt; console.log('Hi')</div>
+
+                        <div class="mt-2">
+                            <span class="text-gray-400"
+                                >// One parameter (parens optional)</span>
+                        </div>
+                        <div>const double = num =&gt; num * 2</div>
+                        <div>
+                            const triple = (num) =&gt; num * 3 <span
+                                class="text-gray-400">// same thing</span>
+                        </div>
+
+                        <div class="mt-2">
+                            <span class="text-gray-400"
+                                >// Multiple parameters (parens required)</span>
+                        </div>
+                        <div>const add = (a, b) =&gt; a + b</div>
+
+                        <div class="mt-2">
+                            <span class="text-gray-400"
+                                >// Function body (braces required for multiple
+                                lines)</span>
+                        </div>
+                        <div>const complex = (x) =&gt; {"{"}</div>
+                        <div>&nbsp;&nbsp;const result = x * 2</div>
+                        <div>&nbsp;&nbsp;return result</div>
+                        <div>{"}"}</div>
+
+                        <div class="mt-2">
+                            <span class="text-gray-400"
+                                >// Return object (wrap in parens)</span>
+                        </div>
+                        <div>
+                            const makeUser = (name) =&gt; ({"{"} name, active: true
+                            {"}"})
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <InfoBox>
+            <div class="font-bold text-blue-300 mb-2">
+                ✨ Why Arrow Functions Are Better
+            </div>
+            <div class="space-y-3">
+                <!-- Concise -->
+                <div
+                    class="bg-green-500/20 border border-green-400 rounded p-2"
+                >
+                    <div class="text-green-300 font-mono text-[10px] space-y-1">
+                        <div class="text-yellow-400 font-bold mb-1">
+                            ✅ More concise:
+                        </div>
+                        <div><span class="text-red-400">// Old way</span></div>
+                        <div>
+                            users.map(function(user) {"{"} return user.name {
+                                "}"
+                            })
+                        </div>
+                        <div class="mt-1">
+                            <span class="text-green-400">// Modern way</span>
+                        </div>
+                        <div>users.map(user =&gt; user.name)</div>
+                    </div>
+                </div>
+
+                <!-- Predictable this -->
+                <div class="bg-cyan-500/20 border border-cyan-400 rounded p-2">
+                    <div class="text-cyan-300 font-mono text-[10px] space-y-1">
+                        <div class="text-yellow-400 font-bold mb-1">
+                            ✅ Predictable `this` (lexical binding):
+                        </div>
+                        <div>class Timer {"{"}</div>
+                        <div>&nbsp;&nbsp;start() {"{"}</div>
+                        <div>
+                            &nbsp;&nbsp;&nbsp;&nbsp;setTimeout(() =&gt; {"{"}
+                        </div>
+                        <div>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.tick() <span
+                                class="text-gray-400"
+                                >// 'this' is Timer instance ✅</span>
+                        </div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;{"}"}, 1000)</div>
+                        <div>&nbsp;&nbsp;{"}"}</div>
+                        <div>{"}"}</div>
+                    </div>
+                </div>
+
+                <!-- Best for callbacks -->
+                <div
+                    class="bg-purple-500/20 border border-purple-400 rounded p-2"
+                >
+                    <div
+                        class="text-purple-300 font-mono text-[10px] space-y-1"
+                    >
+                        <div class="text-yellow-400 font-bold mb-1">
+                            ✅ Perfect for callbacks:
+                        </div>
+                        <div>
+                            button.addEventListener('click', () =&gt;
+                            handleClick())
+                        </div>
+                        <div>fetch(url).then(res =&gt; res.json())</div>
+                        <div>items.filter(x =&gt; x.active)</div>
+                    </div>
+                </div>
+
+                <div class="text-[10px] text-gray-300 mt-2 italic">
+                    🎯 Use arrow functions for everything EXCEPT object methods
+                    and constructors. Especially great for: array methods,
+                    callbacks, promises, event handlers.
+                </div>
+            </div>
+        </InfoBox>
+
+        <ProTip>
+            <div>
+                💡 <strong>When to use implicit vs explicit return:</strong>
+            </div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    <span class="text-green-400"
+                        >// ✅ Implicit - one expression, no braces</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    const double = n =&gt; n * 2
+                </div>
+                <div class="font-mono text-[10px]">items.map(x =&gt; x.id)</div>
+                <div class="font-mono text-[10px] mt-1">
+                    <span class="text-green-400"
+                        >// ✅ Explicit - multiple statements, braces + return</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    const process = n =&gt; {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;console.log(n)
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;return n * 2
+                </div>
+                <div class="font-mono text-[10px]">{"}"}</div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- ============================================ -->
+    <!-- ⚠️ WHEN TO USE REGULAR FUNCTIONS -->
+    <!-- ============================================ -->
+
+    <SectionTitle id="regular-functions" color="orange">
+        ⚠️ When to Use Regular Functions
+    </SectionTitle>
+
+    <!-- OBJECT METHODS -->
+    <MethodCard
+        id="object-methods"
+        methodName="Object Methods"
+        signature="Use regular functions for 'this' binding"
+        description="When you need dynamic 'this' context"
+        mutates={false}
+    >
+        <div class="p-6 bg-gray-800 rounded">
+            <div class="space-y-4">
+                <!-- Correct -->
+                <div
+                    class="bg-green-500/20 border border-green-400 rounded p-3"
+                >
+                    <div class="text-green-300 font-mono text-xs space-y-1">
+                        <div class="text-yellow-400 mb-1">
+                            ✅ Correct - Regular function:
+                        </div>
+                        <div>const user = {"{"}</div>
+                        <div>&nbsp;&nbsp;name: 'Alice',</div>
+                        <div>&nbsp;&nbsp;greet() {"{"}</div>
+                        <div>
+                            &nbsp;&nbsp;&nbsp;&nbsp;console.log(`Hi, I'm ${
+                                "{"
+                            }this.name{"}"}`) <span class="text-gray-400"
+                                >// Works!</span>
+                        </div>
+                        <div>&nbsp;&nbsp;{"}"}</div>
+                        <div>{"}"}</div>
+                    </div>
+                </div>
+
+                <!-- Wrong -->
+                <div class="bg-red-500/20 border border-red-400 rounded p-3">
+                    <div class="text-red-300 font-mono text-xs space-y-1">
+                        <div class="text-yellow-400 mb-1">
+                            ❌ Wrong - Arrow function:
+                        </div>
+                        <div>const user = {"{"}</div>
+                        <div>&nbsp;&nbsp;name: 'Alice',</div>
+                        <div>&nbsp;&nbsp;greet: () =&gt; {"{"}</div>
+                        <div>
+                            &nbsp;&nbsp;&nbsp;&nbsp;console.log(`Hi, I'm ${
+                                "{"
+                            }this.name{"}"}`) <span class="text-gray-400"
+                                >// undefined!</span>
+                        </div>
+                        <div>&nbsp;&nbsp;{"}"}</div>
+                        <div>{"}"}</div>
+                        <div class="mt-2 text-[10px]">
+                            <span class="text-gray-400"
+                                >// Arrow functions don't have their own 'this'</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ProTip>
+            <div>💡 <strong>Modern shorthand syntax:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">const obj = {"{"}</div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;method() {"{"} ... {"}"}
+                    <span class="text-gray-400">// Shorthand - use this!</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;method: function() {"{"} ... {"}"}
+                    <span class="text-gray-400">// Old way - verbose</span>
+                </div>
+                <div class="font-mono text-[10px]">{"}"}</div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- OTHER CASES -->
+    <MethodCard
+        id="other-regular-cases"
+        methodName="Other Regular Function Cases"
+        signature="Special situations"
+        description="Rare cases where you need function keyword"
+        mutates={false}
+    >
+        <div class="p-6 bg-gray-800 rounded">
+            <div class="space-y-3">
+                <!-- Constructors -->
+                <div
+                    class="bg-orange-500/20 border border-orange-400 rounded p-3"
+                >
+                    <div
+                        class="text-orange-300 font-mono text-[10px] space-y-1"
+                    >
+                        <div class="text-yellow-400 mb-1">
+                            Constructors (but use classes instead):
+                        </div>
+                        <div>function Person(name) {"{"}</div>
+                        <div>&nbsp;&nbsp;this.name = name</div>
+                        <div>{"}"}</div>
+                        <div class="mt-2">
+                            <span class="text-green-400"
+                                >// Better - use class syntax:</span>
+                        </div>
+                        <div>class Person {"{"}</div>
+                        <div>
+                            &nbsp;&nbsp;constructor(name) {"{"} this.name = name
+                            {"}"}
+                        </div>
+                        <div>{"}"}</div>
+                    </div>
+                </div>
+
+                <!-- Arguments object -->
+                <div
+                    class="bg-purple-500/20 border border-purple-400 rounded p-3"
+                >
+                    <div
+                        class="text-purple-300 font-mono text-[10px] space-y-1"
+                    >
+                        <div class="text-yellow-400 mb-1">
+                            Need `arguments` object (use rest params instead):
+                        </div>
+                        <div>function old() {"{"}</div>
+                        <div>
+                            &nbsp;&nbsp;console.log(arguments) <span
+                                class="text-gray-400">// [all args]</span>
+                        </div>
+                        <div>{"}"}</div>
+                        <div class="mt-2">
+                            <span class="text-green-400"
+                                >// Better - use rest parameters:</span>
+                        </div>
+                        <div>
+                            const modern = (...args) =&gt; console.log(args)
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Generators -->
+                <div class="bg-cyan-500/20 border border-cyan-400 rounded p-3">
+                    <div class="text-cyan-300 font-mono text-[10px] space-y-1">
+                        <div class="text-yellow-400 mb-1">
+                            Generator functions (must use function*):
+                        </div>
+                        <div>function* generator() {"{"}</div>
+                        <div>&nbsp;&nbsp;yield 1</div>
+                        <div>&nbsp;&nbsp;yield 2</div>
+                        <div>{"}"}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ProTip>
+            <div>🎯 <strong>Reality check:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="text-[10px]">
+                    99% of your functions should be arrow functions.
+                </div>
+                <div class="text-[10px]">
+                    The only time you'll regularly use regular functions is for
+                    object methods.
+                </div>
+                <div class="text-[10px]">
+                    If you're reaching for `function` keyword, ask yourself: "Do
+                    I really need `this` binding?"
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- ============================================ -->
+    <!-- 📦 PARAMETERS BEST PRACTICES -->
+    <!-- ============================================ -->
+
+    <SectionTitle id="parameters" color="purple">
+        📦 Parameters Best Practices
+    </SectionTitle>
+
+    <!-- DEFAULT PARAMETERS -->
+    <MethodCard
+        id="default-params"
+        methodName="Default Parameters"
+        signature="fn(param = defaultValue)"
+        description="Set fallback values for parameters"
+        mutates={false}
+    >
+        <div class="p-6 bg-gray-800 rounded">
+            <div class="space-y-4">
+                <div
+                    class="bg-purple-500/20 border border-purple-400 rounded p-3"
+                >
+                    <div class="text-purple-300 font-mono text-xs space-y-1">
+                        <div class="text-yellow-400 mb-1">Basic usage:</div>
+                        <div>
+                            const greet = (name = 'Guest') =&gt; `Hello ${
+                                "{"
+                            }name{"}"}`
+                        </div>
+                        <div class="mt-2">
+                            greet('Alice') <span class="text-gray-400"
+                                >// "Hello Alice"</span>
+                        </div>
+                        <div>
+                            greet() <span class="text-gray-400"
+                                >// "Hello Guest"</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-cyan-500/20 border border-cyan-400 rounded p-3">
+                    <div class="text-cyan-300 font-mono text-[10px] space-y-1">
+                        <div class="text-yellow-400 mb-1">
+                            Multiple defaults:
+                        </div>
+                        <div>
+                            const createUser = (name, role = 'user', active =
+                            true) =&gt; ({"{"}
+                        </div>
+                        <div>&nbsp;&nbsp;name, role, active</div>
+                        <div>{"}"})</div>
+                        <div class="mt-2">
+                            createUser('Alice') <span class="text-gray-400"
+                                >// role: 'user', active: true</span>
+                        </div>
+                        <div>
+                            createUser('Bob', 'admin') <span
+                                class="text-gray-400">// active: true</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ProTip>
+            <div>💡 <strong>Best practice:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="text-[10px]">
+                    Always put required parameters first, optional parameters
+                    with defaults last.
+                </div>
+                <div class="font-mono text-[10px] mt-1">
+                    <span class="text-green-400">// ✅ Good</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    fn(required, optional = 'default')
+                </div>
+                <div class="font-mono text-[10px] mt-1">
+                    <span class="text-red-400">// ❌ Bad</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    fn(optional = 'default', required)
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- REST PARAMETERS -->
+    <MethodCard
+        id="rest-params"
+        methodName="Rest Parameters (...args)"
+        signature="fn(...args)"
+        description="Collect remaining arguments into array"
+        mutates={false}
+    >
+        <div class="p-6 bg-gray-800 rounded">
+            <div class="space-y-4">
+                <div
+                    class="bg-purple-500/20 border border-purple-400 rounded p-3"
+                >
+                    <div class="text-purple-300 font-mono text-xs space-y-1">
+                        <div class="text-yellow-400 mb-1">Basic usage:</div>
+                        <div>
+                            const sum = (...numbers) =&gt; numbers.reduce((a, b)
+                            =&gt; a + b, 0)
+                        </div>
+                        <div class="mt-2">
+                            sum(1, 2, 3) <span class="text-gray-400">// 6</span>
+                        </div>
+                        <div>
+                            sum(1, 2, 3, 4, 5) <span class="text-gray-400"
+                                >// 15</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-cyan-500/20 border border-cyan-400 rounded p-3">
+                    <div class="text-cyan-300 font-mono text-[10px] space-y-1">
+                        <div class="text-yellow-400 mb-1">
+                            With named parameters:
+                        </div>
+                        <div>
+                            const createUser = (name, ...roles) =&gt; ({"{"}
+                        </div>
+                        <div>&nbsp;&nbsp;name,</div>
+                        <div>
+                            &nbsp;&nbsp;roles <span class="text-gray-400"
+                                >// array of remaining args</span>
+                        </div>
+                        <div>{"}"})</div>
+                        <div class="mt-2">
+                            createUser('Alice', 'admin', 'editor', 'viewer')
+                        </div>
+                        <div>
+                            <span class="text-gray-400"
+                                >// {"{"} name: 'Alice', roles: ['admin', 'editor',
+                                'viewer'] {"}"}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ProTip>
+            <div>⚠️ <strong>Rest parameter rules:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    <span class="text-green-400">// ✅ Good - rest at end</span>
+                </div>
+                <div class="font-mono text-[10px]">fn(a, b, ...rest)</div>
+                <div class="font-mono text-[10px] mt-1">
+                    <span class="text-red-400"
+                        >// ❌ Bad - rest must be last</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    fn(...rest, a, b) <span class="text-gray-400"
+                        >// SyntaxError!</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    fn(a, ...rest, b) <span class="text-gray-400"
+                        >// SyntaxError!</span>
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- DESTRUCTURING PARAMETERS -->
+    <MethodCard
+        id="destructuring-params"
+        methodName="Destructuring Parameters"
+        signature="fn({ prop1, prop2 })"
+        description="Extract properties directly in parameter list"
+        mutates={false}
+    >
+        <div class="p-6 bg-gray-800 rounded">
+            <div class="space-y-4">
+                <!-- Object destructuring -->
+                <div
+                    class="bg-purple-500/20 border border-purple-400 rounded p-3"
+                >
+                    <div class="text-purple-300 font-mono text-xs space-y-1">
+                        <div class="text-yellow-400 mb-1">
+                            Object destructuring (most common):
+                        </div>
+                        <div><span class="text-red-400">// Old way</span></div>
+                        <div>
+                            const greet = (user) =&gt; `Hello ${"{"}user.name{
+                                "}"
+                            }`
+                        </div>
+                        <div class="mt-2">
+                            <span class="text-green-400">// Modern way</span>
+                        </div>
+                        <div>
+                            const greet = ({"{"} name {"}"}) =&gt; `Hello ${
+                                "{"
+                            }name{"}"}`
+                        </div>
+                        <div class="mt-2">greet({"{"} name: 'Alice' {"}"})</div>
+                    </div>
+                </div>
+
+                <!-- With defaults -->
+                <div
+                    class="bg-green-500/20 border border-green-400 rounded p-3"
+                >
+                    <div class="text-green-300 font-mono text-[10px] space-y-1">
+                        <div class="text-yellow-400 mb-1">
+                            Combine with defaults:
+                        </div>
+                        <div>
+                            const createUser = ({"{"} name, role = 'user', active
+                            = true {"}"}) =&gt; ({"{"}
+                        </div>
+                        <div>&nbsp;&nbsp;name, role, active</div>
+                        <div>{"}"})</div>
+                        <div class="mt-2">
+                            createUser({"{"} name: 'Alice' {"}"}) <span
+                                class="text-gray-400">// uses defaults</span>
+                        </div>
+                        <div>
+                            createUser({"{"} name: 'Bob', role: 'admin' {"}"})
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Array destructuring -->
+                <div class="bg-cyan-500/20 border border-cyan-400 rounded p-3">
+                    <div class="text-cyan-300 font-mono text-[10px] space-y-1">
+                        <div class="text-yellow-400 mb-1">
+                            Array destructuring:
+                        </div>
+                        <div>const swap = ([a, b]) =&gt; [b, a]</div>
+                        <div class="mt-1">
+                            swap([1, 2]) <span class="text-gray-400"
+                                >// [2, 1]</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ProTip>
+            <div>🎯 <strong>When to use destructuring:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="text-[10px]">
+                    <span class="text-green-400">✅ Use when:</span> You only need
+                    a few properties from an object
+                </div>
+                <div class="text-[10px]">
+                    <span class="text-green-400">✅ Use when:</span> Making API clear
+                    (shows exactly what props you use)
+                </div>
+                <div class="text-[10px]">
+                    <span class="text-red-400">❌ Don't use when:</span> You need
+                    the whole object or many properties
+                </div>
+                <div class="font-mono text-[10px] mt-1">
+                    <span class="text-gray-400">// Popular in React:</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    const Button = ({"{"} label, onClick, disabled = false {
+                        "}"
+                    }) =&gt; ...
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- ============================================ -->
+    <!-- 🔧 COMMON PATTERNS -->
+    <!-- ============================================ -->
+
+    <SectionTitle id="patterns" color="green">
+        🔧 Common Real-World Patterns
+    </SectionTitle>
+
+    <!-- ASYNC/AWAIT FUNCTIONS -->
+    <MethodCard
+        id="async-await"
+        methodName="Async/Await Functions"
+        signature="const fn = async () => {}"
+        description="Modern way to handle asynchronous code"
+        mutates={false}
+    >
+        <div class="p-6 bg-gray-800 rounded">
+            <div class="space-y-4">
+                <div
+                    class="bg-green-500/20 border border-green-400 rounded p-3"
+                >
+                    <div class="text-green-300 font-mono text-xs space-y-1">
+                        <div class="text-yellow-400 mb-1">
+                            Basic async function:
+                        </div>
+                        <div>const fetchUser = async (id) =&gt; {"{"}</div>
+                        <div>
+                            &nbsp;&nbsp;const res = await fetch(`/api/users/${
+                                "{"
+                            }id{"}"}`);
+                        </div>
+                        <div>&nbsp;&nbsp;const data = await res.json();</div>
+                        <div>&nbsp;&nbsp;return data;</div>
+                        <div>{"}"}</div>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-purple-500/20 border border-purple-400 rounded p-3"
+                >
+                    <div
+                        class="text-purple-300 font-mono text-[10px] space-y-1"
+                    >
+                        <div class="text-yellow-400 mb-1">
+                            Error handling with try/catch:
+                        </div>
+                        <div>const fetchUser = async (id) =&gt; {"{"}</div>
+                        <div>&nbsp;&nbsp;try {"{"}</div>
+                        <div>
+                            &nbsp;&nbsp;&nbsp;&nbsp;const res = await
+                            fetch(`/api/users/${"{"}id{"}"}`);
+                        </div>
+                        <div>
+                            &nbsp;&nbsp;&nbsp;&nbsp;if (!res.ok) throw new
+                            Error('Failed to fetch');
+                        </div>
+                        <div>
+                            &nbsp;&nbsp;&nbsp;&nbsp;return await res.json();
+                        </div>
+                        <div>&nbsp;&nbsp;{"}"} catch (error) {"{"}</div>
+                        <div>
+                            &nbsp;&nbsp;&nbsp;&nbsp;console.error('Error:',
+                            error);
+                        </div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;return null;</div>
+                        <div>&nbsp;&nbsp;{"}"}</div>
+                        <div>{"}"}</div>
+                    </div>
+                </div>
+
+                <div class="bg-cyan-500/20 border border-cyan-400 rounded p-3">
+                    <div class="text-cyan-300 font-mono text-[10px] space-y-1">
+                        <div class="text-yellow-400 mb-1">
+                            Parallel requests:
+                        </div>
+                        <div>
+                            <span class="text-gray-400"
+                                >// Run multiple fetches at once</span>
+                        </div>
+                        <div>const [users, posts] = await Promise.all([</div>
+                        <div>
+                            &nbsp;&nbsp;fetch('/api/users').then(r =&gt;
+                            r.json()),
+                        </div>
+                        <div>
+                            &nbsp;&nbsp;fetch('/api/posts').then(r =&gt;
+                            r.json())
+                        </div>
+                        <div>]);</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ProTip>
+            <div>⚡ <strong>Async/await vs .then():</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="text-[10px]">
+                    <span class="text-green-400">✅ Use async/await when:</span>
+                    You have multiple sequential async operations (cleaner)
+                </div>
+                <div class="text-[10px]">
+                    <span class="text-green-400">✅ Use .then() when:</span> Simple
+                    one-off fetch or you're chaining transformations
+                </div>
+                <div class="font-mono text-[10px] mt-1">
+                    <span class="text-gray-400"
+                        >// Remember: async functions always return a Promise</span>
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- EARLY RETURNS / GUARD CLAUSES -->
+    <MethodCard
+        id="guard-clauses"
+        methodName="Early Returns (Guard Clauses)"
+        signature="Validate early, exit early"
+        description="Keep your code clean and readable"
+        mutates={false}
+    >
+        <div class="p-6 bg-gray-800 rounded">
+            <div class="space-y-4">
+                <div class="bg-red-500/20 border border-red-400 rounded p-3">
+                    <div class="text-red-300 font-mono text-[10px] space-y-1">
+                        <div class="text-yellow-400 mb-1">
+                            ❌ Bad - nested logic:
+                        </div>
+                        <div>const processUser = (user) =&gt; {"{"}</div>
+                        <div>&nbsp;&nbsp;if (user) {"{"}</div>
+                        <div>
+                            &nbsp;&nbsp;&nbsp;&nbsp;if (user.isActive) {"{"}
+                        </div>
+                        <div>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (user.email) {
+                                "{"
+                            }
+                        </div>
+                        <div>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                                class="text-gray-400"
+                                >// Deeply nested code</span>
+                        </div>
+                        <div>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return
+                            doSomething(user);
+                        </div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{"}"}</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;{"}"}</div>
+                        <div>&nbsp;&nbsp;{"}"}</div>
+                        <div>{"}"}</div>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-green-500/20 border border-green-400 rounded p-3"
+                >
+                    <div class="text-green-300 font-mono text-[10px] space-y-1">
+                        <div class="text-yellow-400 mb-1">
+                            ✅ Good - guard clauses:
+                        </div>
+                        <div>const processUser = (user) =&gt; {"{"}</div>
+                        <div>&nbsp;&nbsp;if (!user) return null;</div>
+                        <div>&nbsp;&nbsp;if (!user.isActive) return null;</div>
+                        <div>&nbsp;&nbsp;if (!user.email) return null;</div>
+                        <div>&nbsp;&nbsp;</div>
+                        <div>
+                            &nbsp;&nbsp;<span class="text-gray-400"
+                                >// Clean, flat code</span>
+                        </div>
+                        <div>&nbsp;&nbsp;return doSomething(user);</div>
+                        <div>{"}"}</div>
+                    </div>
+                </div>
+
+                <div class="bg-cyan-500/20 border border-cyan-400 rounded p-3">
+                    <div class="text-cyan-300 font-mono text-[10px] space-y-1">
+                        <div class="text-yellow-400 mb-1">
+                            Real-world example:
+                        </div>
+                        <div>
+                            const calculateDiscount = (user, cart) =&gt; {"{"}
+                        </div>
+                        <div>&nbsp;&nbsp;if (!user) return 0;</div>
+                        <div>&nbsp;&nbsp;if (!cart.items.length) return 0;</div>
+                        <div>&nbsp;&nbsp;if (!user.isPremium) return 0;</div>
+                        <div>&nbsp;&nbsp;</div>
+                        <div>
+                            &nbsp;&nbsp;const total = cart.items.reduce((sum, i)
+                            =&gt; sum + i.price, 0);
+                        </div>
+                        <div>
+                            &nbsp;&nbsp;return total * 0.1; <span
+                                class="text-gray-400">// 10% discount</span>
+                        </div>
+                        <div>{"}"}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ProTip>
+            <div>🎯 <strong>Benefits of guard clauses:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="text-[10px]">
+                    <span class="text-green-400">✅ Reduces nesting</span> - Code
+                    stays flat and readable
+                </div>
+                <div class="text-[10px]">
+                    <span class="text-green-400">✅ Clear validation</span> - All
+                    checks at the top
+                </div>
+                <div class="text-[10px]">
+                    <span class="text-green-400">✅ Easier to test</span> - Each
+                    condition is obvious
+                </div>
+                <div class="font-mono text-[10px] mt-1">
+                    <span class="text-gray-400"
+                        >// Rule: Handle edge cases first, happy path last</span>
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- CALLBACKS AND ARRAY METHODS -->
+    <MethodCard
+        id="callbacks-arrays"
+        methodName="Callbacks & Array Methods"
+        signature="Array methods with arrow functions"
+        description="Most common use case in modern JS"
+        mutates={false}
+    >
+        <div class="p-6 bg-gray-800 rounded">
+            <div class="space-y-3">
+                <div
+                    class="bg-green-500/20 border border-green-400 rounded p-3"
+                >
+                    <div class="text-green-300 font-mono text-[10px] space-y-1">
+                        <div class="text-yellow-400 mb-1">
+                            Array methods (use arrows):
+                        </div>
+                        <div>users.map(u =&gt; u.name)</div>
+                        <div>users.filter(u =&gt; u.active)</div>
+                        <div>users.find(u =&gt; u.id === 5)</div>
+                        <div>nums.reduce((sum, n) =&gt; sum + n, 0)</div>
+                        <div class="mt-2">
+                            users.sort((a, b) =&gt; a.age - b.age)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-cyan-500/20 border border-cyan-400 rounded p-3">
+                    <div class="text-cyan-300 font-mono text-[10px] space-y-1">
+                        <div class="text-yellow-400 mb-1">Event handlers:</div>
+                        <div>
+                            button.addEventListener('click', () =&gt;
+                            handleClick())
+                        </div>
+                        <div>
+                            form.addEventListener('submit', (e) =&gt; {"{"}
+                        </div>
+                        <div>&nbsp;&nbsp;e.preventDefault()</div>
+                        <div>&nbsp;&nbsp;submitForm()</div>
+                        <div>{"}"})</div>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-purple-500/20 border border-purple-400 rounded p-3"
+                >
+                    <div
+                        class="text-purple-300 font-mono text-[10px] space-y-1"
+                    >
+                        <div class="text-yellow-400 mb-1">
+                            Promises & async:
+                        </div>
+                        <div>fetch(url)</div>
+                        <div>&nbsp;&nbsp;.then(res =&gt; res.json())</div>
+                        <div>
+                            &nbsp;&nbsp;.then(data =&gt; console.log(data))
+                        </div>
+                        <div>
+                            &nbsp;&nbsp;.catch(err =&gt; console.error(err))
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </MethodCard>
+
+    <!-- IIFE PATTERN -->
+    <MethodCard
+        id="iife"
+        methodName="IIFE (Immediately Invoked Function Expression)"
+        signature="(() => {})() or (function() {})()"
+        description="Run a function immediately"
+        mutates={false}
+    >
+        <div class="p-6 bg-gray-800 rounded">
+            <div class="space-y-4">
+                <div
+                    class="bg-green-500/20 border border-green-400 rounded p-3"
+                >
+                    <div class="text-green-300 font-mono text-xs space-y-1">
+                        <div class="text-yellow-400 mb-1">
+                            Modern IIFE (arrow function):
+                        </div>
+                        <div>(() =&gt; {"{"}</div>
+                        <div>&nbsp;&nbsp;const secret = 'private'</div>
+                        <div>
+                            &nbsp;&nbsp;console.log('Running immediately')
+                        </div>
+                        <div>{"}"})()</div>
+                    </div>
+                </div>
+
+                <div class="bg-cyan-500/20 border border-cyan-400 rounded p-3">
+                    <div class="text-cyan-300 font-mono text-[10px] space-y-1">
+                        <div class="text-yellow-400 mb-1">When to use:</div>
+                        <div>
+                            <span class="text-gray-400"
+                                >• Isolate variables (create private scope)</span>
+                        </div>
+                        <div>
+                            <span class="text-gray-400"
+                                >• Run initialization code once</span>
+                        </div>
+                        <div>
+                            <span class="text-gray-400"
+                                >• Avoid polluting global scope</span>
+                        </div>
+                        <div class="mt-2">
+                            <span class="text-yellow-400"
+                                >// But honestly, just use modules instead:</span>
+                        </div>
+                        <div>// file.js</div>
+                        <div>
+                            const secret = 'private' <span class="text-gray-400"
+                                >// already isolated!</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ProTip>
+            <div>💡 <strong>Modern alternative:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="text-[10px]">
+                    IIFE was important before ES6 modules. Now you rarely need
+                    it.
+                </div>
+                <div class="text-[10px]">
+                    If you need to run code immediately, just... run it. ES6
+                    modules are already isolated.
+                </div>
+                <div class="font-mono text-[10px] mt-1">
+                    <span class="text-gray-400"
+                        >// No IIFE needed in modules</span>
+                </div>
+                <div class="font-mono text-[10px]">const value = 42</div>
+                <div class="font-mono text-[10px]">console.log(value)</div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <Fragment slot="page-nav">
+        <ul class="space-y-2 text-xs">
+            <li>
+                <a
+                    href="#arrow-functions"
+                    class="text-blue-300 font-semibold hover:text-blue-200 block py-1"
+                    >✨ Arrow Functions (Default)</a
+                >
+                <ul
+                    class="ml-3 mt-1 space-y-1 border-l-2 border-blue-500/30 pl-2"
+                >
+                    <li>
+                        <a
+                            href="#arrow-basics"
+                            class="text-gray-300 hover:text-blue-400 block"
+                            >Arrow Syntax</a>
+                    </li>
+                    <li>
+                        <a
+                            href="#why-arrows"
+                            class="text-gray-300 hover:text-blue-400 block"
+                            >Why Use Arrows</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="mt-4">
+                <a
+                    href="#regular-functions"
+                    class="text-orange-300 font-semibold hover:text-orange-200 block py-1"
+                    >⚠️ Regular Functions</a
+                >
+                <ul
+                    class="ml-3 mt-1 space-y-1 border-l-2 border-orange-500/30 pl-2"
+                >
+                    <li>
+                        <a
+                            href="#object-methods"
+                            class="text-gray-300 hover:text-blue-400 block"
+                            >Object Methods</a>
+                    </li>
+                    <li>
+                        <a
+                            href="#other-regular-cases"
+                            class="text-gray-300 hover:text-blue-400 block"
+                            >Other Cases</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="mt-4">
+                <a
+                    href="#parameters"
+                    class="text-purple-300 font-semibold hover:text-purple-200 block py-1"
+                    >📦 Parameters</a
+                >
+                <ul
+                    class="ml-3 mt-1 space-y-1 border-l-2 border-purple-500/30 pl-2"
+                >
+                    <li>
+                        <a
+                            href="#default-params"
+                            class="text-gray-300 hover:text-blue-400 block"
+                            >Default Parameters</a>
+                    </li>
+                    <li>
+                        <a
+                            href="#rest-params"
+                            class="text-gray-300 hover:text-blue-400 block"
+                            >Rest Parameters</a>
+                    </li>
+                    <li>
+                        <a
+                            href="#destructuring-params"
+                            class="text-gray-300 hover:text-blue-400 block"
+                            >Destructuring</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="mt-4">
+                <a
+                    href="#patterns"
+                    class="text-green-300 font-semibold hover:text-green-200 block py-1"
+                    >🔧 Common Patterns</a
+                >
+                <ul
+                    class="ml-3 mt-1 space-y-1 border-l-2 border-green-500/30 pl-2"
+                >
+                    <li>
+                        <a
+                            href="#async-await"
+                            class="text-gray-300 hover:text-blue-400 block"
+                            >Async/Await</a>
+                    </li>
+                    <li>
+                        <a
+                            href="#guard-clauses"
+                            class="text-gray-300 hover:text-blue-400 block"
+                            >Guard Clauses</a>
+                    </li>
+                    <li>
+                        <a
+                            href="#callbacks-arrays"
+                            class="text-gray-300 hover:text-blue-400 block"
+                            >Callbacks & Arrays</a>
+                    </li>
+                    <li>
+                        <a
+                            href="#iife"
+                            class="text-gray-300 hover:text-blue-400 block"
+                            >IIFE</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </Fragment>
+</VisualLayout>
