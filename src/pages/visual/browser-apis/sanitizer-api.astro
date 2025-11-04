@@ -1,32 +1,48 @@
 ---
-import Layout from '~layouts/VisualLayout.astro';
-import MethodCard from '~components/visual-js/MethodCard.astro';
-import ProTip from '~components/visual-js/ProTip.astro';
+import Layout from "~layouts/VisualLayout.astro";
+import MethodCard from "~components/visual-js/MethodCard.astro";
+import ProTip from "~components/visual-js/ProTip.astro";
 ---
 
 <Layout pageTitle="setHTML() & Sanitizer API - Browser Security APIs">
     <div class="max-w-5xl mx-auto">
-        <h1 class="text-4xl mb-2 text-blue-400">🔒 setHTML() & Sanitizer API</h1>
-        <p class="text-slate-400 mb-8">Modern XSS prevention - No more innerHTML vulnerabilities</p>
+        <h1 class="text-4xl mb-2 text-blue-400">
+            🔒 setHTML() & Sanitizer API
+        </h1>
+        <p class="text-slate-400 mb-8">
+            Modern XSS prevention - No more innerHTML vulnerabilities
+        </p>
 
         <!-- ============================================ -->
         <!-- 🚨 BROWSER SUPPORT -->
         <!-- ============================================ -->
 
-        <div class="bg-yellow-500/10 border-l-4 border-yellow-500 p-6 rounded mb-8">
-            <h3 class="text-yellow-400 font-bold text-lg mb-3">📊 Browser Support Status</h3>
+        <div
+            class="bg-yellow-500/10 border-l-4 border-yellow-500 p-6 rounded mb-8"
+        >
+            <h3 class="text-yellow-400 font-bold text-lg mb-3">
+                📊 Browser Support Status
+            </h3>
             <div class="text-xs text-slate-300 space-y-2">
                 <div class="bg-slate-800 p-3 rounded">
-                    <div class="text-green-400 font-bold mb-1">✅ setHTMLUnsafe()</div>
+                    <div class="text-green-400 font-bold mb-1">
+                        ✅ setHTMLUnsafe()
+                    </div>
                     <div>Supported in all modern browsers</div>
                 </div>
                 <div class="bg-slate-800 p-3 rounded">
-                    <div class="text-yellow-400 font-bold mb-1">⚠️ Sanitizer API</div>
+                    <div class="text-yellow-400 font-bold mb-1">
+                        ⚠️ Sanitizer API
+                    </div>
                     <div>Firefox Nightly, Chrome Canary (behind flag)</div>
                 </div>
                 <div class="bg-slate-800 p-3 rounded">
-                    <div class="text-blue-400 font-bold mb-1">🔵 Trusted Types API</div>
-                    <div>Chrome/Edge, Samsung Internet, Safari, Firefox Nightly</div>
+                    <div class="text-blue-400 font-bold mb-1">
+                        🔵 Trusted Types API
+                    </div>
+                    <div>
+                        Chrome/Edge, Samsung Internet, Safari, Firefox Nightly
+                    </div>
                 </div>
             </div>
         </div>
@@ -35,7 +51,10 @@ import ProTip from '~components/visual-js/ProTip.astro';
         <!-- 🚀 setHTML() -->
         <!-- ============================================ -->
 
-        <h2 id="sethtml" class="text-cyan-300 text-xl my-4 pb-2 border-b-2 border-cyan-600">
+        <h2
+            id="sethtml"
+            class="text-cyan-300 text-xl my-4 pb-2 border-b-2 border-cyan-600"
+        >
             🚀 setHTML() - Safe HTML Insertion
         </h2>
 
@@ -48,61 +67,197 @@ import ProTip from '~components/visual-js/ProTip.astro';
             >
                 <div class="p-6 bg-gray-800 rounded space-y-4">
                     <!-- Basic usage -->
-                    <div class="bg-blue-500/20 border border-blue-400 rounded p-4">
-                        <div class="text-blue-300 font-mono text-[11px] space-y-1">
-                            <div class="text-yellow-400 mb-2">✅ Basic usage (auto-sanitized):</div>
-                            <div>const div = document.querySelector('div');</div>
+                    <div
+                        class="bg-blue-500/20 border border-blue-400 rounded p-4"
+                    >
+                        <div
+                            class="text-blue-300 font-mono text-[11px] space-y-1"
+                        >
+                            <div class="text-yellow-400 mb-2">
+                                ✅ Basic usage (auto-sanitized):
+                            </div>
+                            <div>
+                                const div = document.querySelector('div');
+                            </div>
                             <div>div.setHTML(html);</div>
                             <div></div>
                             <div class="text-gray-400">// Much safer than:</div>
-                            <div class="text-red-300">div.innerHTML = html; // ⚠️ Dangerous!</div>
+                            <div class="text-red-300">
+                                div.innerHTML = html; // ⚠️ Dangerous!
+                            </div>
                         </div>
                     </div>
 
                     <!-- What gets removed by default -->
-                    <div class="bg-red-500/20 border border-red-400 rounded p-4">
+                    <div
+                        class="bg-red-500/20 border border-red-400 rounded p-4"
+                    >
                         <div class="text-red-300 text-[11px] space-y-2">
-                            <div class="text-yellow-400 mb-2">❌ Always removed (even with custom sanitizer):</div>
+                            <div class="text-yellow-400 mb-2">
+                                ❌ Always removed (even with custom sanitizer):
+                            </div>
                             <div class="ml-4 space-y-1">
-                                <div>• <code class="bg-slate-800 px-1 py-0.5 rounded">&lt;script&gt;</code> tags</div>
-                                <div>• <code class="bg-slate-800 px-1 py-0.5 rounded">&lt;iframe&gt;</code> tags</div>
-                                <div>• <code class="bg-slate-800 px-1 py-0.5 rounded">&lt;embed&gt;</code>, <code class="bg-slate-800 px-1 py-0.5 rounded">&lt;object&gt;</code>, <code class="bg-slate-800 px-1 py-0.5 rounded">&lt;frame&gt;</code> tags</div>
-                                <div>• SVG <code class="bg-slate-800 px-1 py-0.5 rounded">&lt;use&gt;</code> elements</div>
-                                <div>• Inline event handlers (onclick, onerror, etc.)</div>
+                                <div>
+                                    • <code
+                                        class="bg-slate-800 px-1 py-0.5 rounded"
+                                        >&lt;script&gt;</code
+                                    > tags
+                                </div>
+                                <div>
+                                    • <code
+                                        class="bg-slate-800 px-1 py-0.5 rounded"
+                                        >&lt;iframe&gt;</code
+                                    > tags
+                                </div>
+                                <div>
+                                    • <code
+                                        class="bg-slate-800 px-1 py-0.5 rounded"
+                                        >&lt;embed&gt;</code
+                                    >, <code
+                                        class="bg-slate-800 px-1 py-0.5 rounded"
+                                        >&lt;object&gt;</code
+                                    >, <code
+                                        class="bg-slate-800 px-1 py-0.5 rounded"
+                                        >&lt;frame&gt;</code
+                                    > tags
+                                </div>
+                                <div>
+                                    • SVG <code
+                                        class="bg-slate-800 px-1 py-0.5 rounded"
+                                        >&lt;use&gt;</code
+                                    > elements
+                                </div>
+                                <div>
+                                    • Inline event handlers (onclick, onerror,
+                                    etc.)
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Example with malicious content -->
-                    <div class="bg-purple-500/20 border border-purple-400 rounded p-4">
-                        <div class="text-purple-300 font-mono text-[11px] space-y-1">
-                            <div class="text-yellow-400 mb-2">Example - Malicious HTML gets sanitized:</div>
+                    <div
+                        class="bg-purple-500/20 border border-purple-400 rounded p-4"
+                    >
+                        <div
+                            class="text-purple-300 font-mono text-[11px] space-y-1"
+                        >
+                            <div class="text-yellow-400 mb-2">
+                                Example - Malicious HTML gets sanitized:
+                            </div>
                             <div>const html = `</div>
-                            <div>&nbsp;&nbsp;&lt;h1 onclick="console.log('hi')"&gt;testing&lt;/h1&gt;</div>
-                            <div>&nbsp;&nbsp;&lt;button&gt;Click me&lt;/button&gt;</div>
+                            <div>
+                                &nbsp;&nbsp;&lt;h1
+                                onclick="console.log('hi')"&gt;testing&lt;/h1&gt;
+                            </div>
+                            <div>
+                                &nbsp;&nbsp;&lt;button&gt;Click
+                                me&lt;/button&gt;
+                            </div>
                             <div>&nbsp;&nbsp;&lt;img src="cat.jpg"&gt;</div>
-                            <div>&nbsp;&nbsp;&lt;iframe src="https://evil.com/"&gt;`;</div>
+                            <div>
+                                &nbsp;&nbsp;&lt;iframe
+                                src="https://evil.com/"&gt;`;
+                            </div>
                             <div></div>
-                            <div>const div = document.querySelector('div');</div>
+                            <div>
+                                const div = document.querySelector('div');
+                            </div>
                             <div>div.setHTML(html);</div>
                             <div></div>
-                            <div class="text-green-400">// Result: Only &lt;h1&gt;testing&lt;/h1&gt; remains!</div>
-                            <div class="text-gray-400">// onclick, button, img, iframe all stripped</div>
+                            <div class="text-green-400">
+                                // Result: Only &lt;h1&gt;testing&lt;/h1&gt;
+                                remains!
+                            </div>
+                            <div class="text-gray-400">
+                                // onclick, button, img, iframe all stripped
+                            </div>
                         </div>
                     </div>
 
                     <!-- Default removes A LOT -->
-                    <div class="bg-orange-500/20 border border-orange-400 rounded p-4">
+                    <div
+                        class="bg-orange-500/20 border border-orange-400 rounded p-4"
+                    >
                         <div class="text-orange-300 text-[11px] space-y-2">
-                            <div class="text-yellow-400 mb-2">⚠️ Default mode also removes (but configurable):</div>
+                            <div class="text-yellow-400 mb-2">
+                                ⚠️ Default mode also removes (but configurable):
+                            </div>
                             <div class="ml-4 space-y-1">
-                                <div>• <code class="bg-slate-800 px-1 py-0.5 rounded">&lt;style&gt;</code>, <code class="bg-slate-800 px-1 py-0.5 rounded">&lt;link&gt;</code>, <code class="bg-slate-800 px-1 py-0.5 rounded">&lt;img&gt;</code>, <code class="bg-slate-800 px-1 py-0.5 rounded">&lt;video&gt;</code></div>
-                                <div>• <code class="bg-slate-800 px-1 py-0.5 rounded">&lt;button&gt;</code>, <code class="bg-slate-800 px-1 py-0.5 rounded">&lt;form&gt;</code>, <code class="bg-slate-800 px-1 py-0.5 rounded">&lt;input&gt;</code>, <code class="bg-slate-800 px-1 py-0.5 rounded">&lt;textarea&gt;</code></div>
-                                <div>• <code class="bg-slate-800 px-1 py-0.5 rounded">&lt;label&gt;</code>, <code class="bg-slate-800 px-1 py-0.5 rounded">&lt;select&gt;</code>, <code class="bg-slate-800 px-1 py-0.5 rounded">&lt;option&gt;</code>, <code class="bg-slate-800 px-1 py-0.5 rounded">&lt;output&gt;</code></div>
-                                <div>• <code class="bg-slate-800 px-1 py-0.5 rounded">&lt;details&gt;</code>, <code class="bg-slate-800 px-1 py-0.5 rounded">&lt;summary&gt;</code>, <code class="bg-slate-800 px-1 py-0.5 rounded">&lt;template&gt;</code></div>
-                                <div>• All custom elements (e.g. <code class="bg-slate-800 px-1 py-0.5 rounded">&lt;my-component&gt;</code>)</div>
-                                <div>• <code class="bg-slate-800 px-1 py-0.5 rounded">data-*</code> attributes, <code class="bg-slate-800 px-1 py-0.5 rounded">aria-*</code> attributes</div>
-                                <div>• Inline <code class="bg-slate-800 px-1 py-0.5 rounded">style</code> attributes</div>
+                                <div>
+                                    • <code
+                                        class="bg-slate-800 px-1 py-0.5 rounded"
+                                        >&lt;style&gt;</code
+                                    >, <code
+                                        class="bg-slate-800 px-1 py-0.5 rounded"
+                                        >&lt;link&gt;</code
+                                    >, <code
+                                        class="bg-slate-800 px-1 py-0.5 rounded"
+                                        >&lt;img&gt;</code
+                                    >, <code
+                                        class="bg-slate-800 px-1 py-0.5 rounded"
+                                        >&lt;video&gt;</code>
+                                </div>
+                                <div>
+                                    • <code
+                                        class="bg-slate-800 px-1 py-0.5 rounded"
+                                        >&lt;button&gt;</code
+                                    >, <code
+                                        class="bg-slate-800 px-1 py-0.5 rounded"
+                                        >&lt;form&gt;</code
+                                    >, <code
+                                        class="bg-slate-800 px-1 py-0.5 rounded"
+                                        >&lt;input&gt;</code
+                                    >, <code
+                                        class="bg-slate-800 px-1 py-0.5 rounded"
+                                        >&lt;textarea&gt;</code>
+                                </div>
+                                <div>
+                                    • <code
+                                        class="bg-slate-800 px-1 py-0.5 rounded"
+                                        >&lt;label&gt;</code
+                                    >, <code
+                                        class="bg-slate-800 px-1 py-0.5 rounded"
+                                        >&lt;select&gt;</code
+                                    >, <code
+                                        class="bg-slate-800 px-1 py-0.5 rounded"
+                                        >&lt;option&gt;</code
+                                    >, <code
+                                        class="bg-slate-800 px-1 py-0.5 rounded"
+                                        >&lt;output&gt;</code>
+                                </div>
+                                <div>
+                                    • <code
+                                        class="bg-slate-800 px-1 py-0.5 rounded"
+                                        >&lt;details&gt;</code
+                                    >, <code
+                                        class="bg-slate-800 px-1 py-0.5 rounded"
+                                        >&lt;summary&gt;</code
+                                    >, <code
+                                        class="bg-slate-800 px-1 py-0.5 rounded"
+                                        >&lt;template&gt;</code>
+                                </div>
+                                <div>
+                                    • All custom elements (e.g. <code
+                                        class="bg-slate-800 px-1 py-0.5 rounded"
+                                        >&lt;my-component&gt;</code
+                                    >)
+                                </div>
+                                <div>
+                                    • <code
+                                        class="bg-slate-800 px-1 py-0.5 rounded"
+                                        >data-*</code
+                                    > attributes, <code
+                                        class="bg-slate-800 px-1 py-0.5 rounded"
+                                        >aria-*</code
+                                    > attributes
+                                </div>
+                                <div>
+                                    • Inline <code
+                                        class="bg-slate-800 px-1 py-0.5 rounded"
+                                        >style</code
+                                    > attributes
+                                </div>
                                 <div>• HTML comments</div>
                             </div>
                         </div>
@@ -110,7 +265,11 @@ import ProTip from '~components/visual-js/ProTip.astro';
                 </div>
 
                 <ProTip>
-                    <div>💡 <strong>Use setHTML() by default.</strong> It's the modern, safe alternative to innerHTML. Dangerous elements are always blocked, safe elements need explicit configuration.</div>
+                    <div>
+                        💡 <strong>Use setHTML() by default.</strong> It's the modern,
+                        safe alternative to innerHTML. Dangerous elements are always
+                        blocked, safe elements need explicit configuration.
+                    </div>
                 </ProTip>
             </MethodCard>
         </div>
@@ -119,7 +278,10 @@ import ProTip from '~components/visual-js/ProTip.astro';
         <!-- ⚙️ CUSTOM SANITIZER -->
         <!-- ============================================ -->
 
-        <h2 id="custom-sanitizer" class="text-green-300 text-xl my-4 pb-2 border-b-2 border-green-600">
+        <h2
+            id="custom-sanitizer"
+            class="text-green-300 text-xl my-4 pb-2 border-b-2 border-green-600"
+        >
             ⚙️ Custom Sanitizer Configuration
         </h2>
 
@@ -131,23 +293,42 @@ import ProTip from '~components/visual-js/ProTip.astro';
                 mutates={true}
             >
                 <div class="p-6 bg-gray-800 rounded space-y-4">
-                    <div class="bg-green-500/20 border border-green-500 rounded p-4">
-                        <div class="text-green-300 font-mono text-[11px] space-y-1">
-                            <div class="text-yellow-400 mb-2">Most permissive (but still safe):</div>
-                            <div>div.setHTML(html, {`{`}sanitizer: {`{}`}{`}`});</div>
+                    <div
+                        class="bg-green-500/20 border border-green-500 rounded p-4"
+                    >
+                        <div
+                            class="text-green-300 font-mono text-[11px] space-y-1"
+                        >
+                            <div class="text-yellow-400 mb-2">
+                                Most permissive (but still safe):
+                            </div>
+                            <div>
+                                div.setHTML(html, {`{`}sanitizer: {`{}`}{`}`});
+                            </div>
                             <div></div>
                             <div class="text-gray-400">// Removes ONLY:</div>
-                            <div class="text-red-300">// • script, iframe, embed, object, frame, use</div>
-                            <div class="text-red-300">// • Inline event handlers (onclick, etc.)</div>
+                            <div class="text-red-300">
+                                // • script, iframe, embed, object, frame, use
+                            </div>
+                            <div class="text-red-300">
+                                // • Inline event handlers (onclick, etc.)
+                            </div>
                             <div></div>
-                            <div class="text-green-400">// Keeps everything else including:</div>
-                            <div class="text-green-400">// • img, video, style, button, form, etc.</div>
+                            <div class="text-green-400">
+                                // Keeps everything else including:
+                            </div>
+                            <div class="text-green-400">
+                                // • img, video, style, button, form, etc.
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <ProTip>
-                    <div>💡 <strong>Use this for trusted content</strong> like rich text editors where you control the input but want XSS protection.</div>
+                    <div>
+                        💡 <strong>Use this for trusted content</strong> like rich
+                        text editors where you control the input but want XSS protection.
+                    </div>
                 </ProTip>
             </MethodCard>
         </div>
@@ -161,41 +342,81 @@ import ProTip from '~components/visual-js/ProTip.astro';
             >
                 <div class="p-6 bg-gray-800 rounded space-y-4">
                     <!-- Basic allowlist -->
-                    <div class="bg-blue-500/20 border border-blue-400 rounded p-4">
-                        <div class="text-blue-300 font-mono text-[11px] space-y-1">
-                            <div class="text-yellow-400 mb-2">Basic allowlist:</div>
+                    <div
+                        class="bg-blue-500/20 border border-blue-400 rounded p-4"
+                    >
+                        <div
+                            class="text-blue-300 font-mono text-[11px] space-y-1"
+                        >
+                            <div class="text-yellow-400 mb-2">
+                                Basic allowlist:
+                            </div>
                             <div>const sanitizer = new Sanitizer({`{`}</div>
-                            <div>&nbsp;&nbsp;elements: ["h1", "p", "strong", "em"],</div>
+                            <div>
+                                &nbsp;&nbsp;elements: ["h1", "p", "strong",
+                                "em"],
+                            </div>
                             <div>&nbsp;&nbsp;attributes: ["style"]</div>
                             <div>{`}`});</div>
                             <div></div>
                             <div>div.setHTML(html, {`{`}sanitizer{`}`});</div>
                             <div></div>
-                            <div class="text-gray-400">// Only h1, p, strong, em allowed</div>
-                            <div class="text-gray-400">// Only style attribute allowed</div>
+                            <div class="text-gray-400">
+                                // Only h1, p, strong, em allowed
+                            </div>
+                            <div class="text-gray-400">
+                                // Only style attribute allowed
+                            </div>
                         </div>
                     </div>
 
                     <!-- Inline object -->
-                    <div class="bg-purple-500/20 border border-purple-400 rounded p-4">
-                        <div class="text-purple-300 font-mono text-[11px] space-y-1">
-                            <div class="text-yellow-400 mb-2">Without creating Sanitizer object:</div>
+                    <div
+                        class="bg-purple-500/20 border border-purple-400 rounded p-4"
+                    >
+                        <div
+                            class="text-purple-300 font-mono text-[11px] space-y-1"
+                        >
+                            <div class="text-yellow-400 mb-2">
+                                Without creating Sanitizer object:
+                            </div>
                             <div>div.setHTML(html, {`{`}</div>
                             <div>&nbsp;&nbsp;elements: ["h1", "h2", "p"],</div>
-                            <div>&nbsp;&nbsp;attributes: ["style", "class"]</div>
+                            <div>
+                                &nbsp;&nbsp;attributes: ["style", "class"]
+                            </div>
                             <div>{`}`});</div>
                         </div>
                     </div>
 
                     <!-- Fine-grained control -->
-                    <div class="bg-green-500/20 border border-green-500 rounded p-4">
-                        <div class="text-green-300 font-mono text-[11px] space-y-1">
-                            <div class="text-yellow-400 mb-2">Fine-grained control (per-element attributes):</div>
+                    <div
+                        class="bg-green-500/20 border border-green-500 rounded p-4"
+                    >
+                        <div
+                            class="text-green-300 font-mono text-[11px] space-y-1"
+                        >
+                            <div class="text-yellow-400 mb-2">
+                                Fine-grained control (per-element attributes):
+                            </div>
                             <div>const sanitizer = new Sanitizer({`{`}</div>
                             <div>&nbsp;&nbsp;elements: [</div>
-                            <div>&nbsp;&nbsp;&nbsp;&nbsp;{`{`} name: "h1", attributes: [] {`}`}, <span class="text-gray-400">// h1 with NO attributes</span></div>
-                            <div>&nbsp;&nbsp;&nbsp;&nbsp;{`{`} name: "h2", attributes: ["style"] {`}`}, <span class="text-gray-400">// h2 with style only</span></div>
-                            <div>&nbsp;&nbsp;&nbsp;&nbsp;{`{`} name: "p", attributes: ["class", "id"] {`}`} <span class="text-gray-400">// p with class & id</span></div>
+                            <div>
+                                &nbsp;&nbsp;&nbsp;&nbsp;{`{`} name: "h1", attributes:
+                                [] {`}`}, <span class="text-gray-400"
+                                    >// h1 with NO attributes</span>
+                            </div>
+                            <div>
+                                &nbsp;&nbsp;&nbsp;&nbsp;{`{`} name: "h2", attributes:
+                                ["style"] {`}`}, <span class="text-gray-400"
+                                    >// h2 with style only</span>
+                            </div>
+                            <div>
+                                &nbsp;&nbsp;&nbsp;&nbsp;{`{`} name: "p", attributes:
+                                ["class", "id"] {`}`}
+                                <span class="text-gray-400"
+                                    >// p with class & id</span>
+                            </div>
                             <div>&nbsp;&nbsp;]</div>
                             <div>{`}`});</div>
                             <div></div>
@@ -205,7 +426,10 @@ import ProTip from '~components/visual-js/ProTip.astro';
                 </div>
 
                 <ProTip>
-                    <div>💡 <strong>Allowlist = most secure.</strong> Use for user-generated content where you want strict control over what's permitted.</div>
+                    <div>
+                        💡 <strong>Allowlist = most secure.</strong> Use for user-generated
+                        content where you want strict control over what's permitted.
+                    </div>
                 </ProTip>
             </MethodCard>
         </div>
@@ -218,26 +442,50 @@ import ProTip from '~components/visual-js/ProTip.astro';
                 mutates={true}
             >
                 <div class="p-6 bg-gray-800 rounded space-y-4">
-                    <div class="bg-orange-500/20 border border-orange-400 rounded p-4">
-                        <div class="text-orange-300 font-mono text-[11px] space-y-1">
-                            <div class="text-yellow-400 mb-2">Blocklist approach:</div>
+                    <div
+                        class="bg-orange-500/20 border border-orange-400 rounded p-4"
+                    >
+                        <div
+                            class="text-orange-300 font-mono text-[11px] space-y-1"
+                        >
+                            <div class="text-yellow-400 mb-2">
+                                Blocklist approach:
+                            </div>
                             <div>const sanitizer = new Sanitizer({`{`}</div>
-                            <div>&nbsp;&nbsp;removeElements: ["a", "img"], <span class="text-gray-400">// Block links & images</span></div>
-                            <div>&nbsp;&nbsp;removeAttributes: ["id", "data-*"] <span class="text-gray-400">// Block id & data attrs</span></div>
+                            <div>
+                                &nbsp;&nbsp;removeElements: ["a", "img"], <span
+                                    class="text-gray-400"
+                                    >// Block links & images</span>
+                            </div>
+                            <div>
+                                &nbsp;&nbsp;removeAttributes: ["id", "data-*"] <span
+                                    class="text-gray-400"
+                                    >// Block id & data attrs</span>
+                            </div>
                             <div>{`}`});</div>
                             <div></div>
                             <div>div.setHTML(html, {`{`}sanitizer{`}`});</div>
                             <div></div>
                             <div class="text-gray-400">// Removes ONLY:</div>
-                            <div class="text-gray-400">// • a, img elements</div>
-                            <div class="text-gray-400">// • id and data-* attributes</div>
-                            <div class="text-gray-400">// • PLUS always-blocked: script, iframe, etc.</div>
+                            <div class="text-gray-400">
+                                // • a, img elements
+                            </div>
+                            <div class="text-gray-400">
+                                // • id and data-* attributes
+                            </div>
+                            <div class="text-gray-400">
+                                // • PLUS always-blocked: script, iframe, etc.
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <ProTip>
-                    <div>💡 <strong>Blocklist = less restrictive.</strong> Good when you trust the source but want to remove specific problematic elements.</div>
+                    <div>
+                        💡 <strong>Blocklist = less restrictive.</strong> Good when
+                        you trust the source but want to remove specific problematic
+                        elements.
+                    </div>
                 </ProTip>
             </MethodCard>
         </div>
@@ -246,7 +494,10 @@ import ProTip from '~components/visual-js/ProTip.astro';
         <!-- 🛡️ TRUSTED TYPES -->
         <!-- ============================================ -->
 
-        <h2 id="trusted-types" class="text-red-300 text-xl my-4 pb-2 border-b-2 border-red-600">
+        <h2
+            id="trusted-types"
+            class="text-red-300 text-xl my-4 pb-2 border-b-2 border-red-600"
+        >
             🛡️ Trusted Types API
         </h2>
 
@@ -259,64 +510,153 @@ import ProTip from '~components/visual-js/ProTip.astro';
             >
                 <div class="p-6 bg-gray-800 rounded space-y-4">
                     <!-- What is it -->
-                    <div class="bg-blue-500/20 border border-blue-400 rounded p-4">
+                    <div
+                        class="bg-blue-500/20 border border-blue-400 rounded p-4"
+                    >
                         <div class="text-blue-300 text-[11px] space-y-2">
-                            <div class="text-yellow-400 mb-2">🤔 What is Trusted Types?</div>
-                            <div>Trusted Types and the Sanitizer API <strong>complement each other:</strong></div>
-                            <div class="ml-4 mt-2 space-y-1">
-                                <div>• <strong>Sanitizer API:</strong> Provides safe way to construct DOM</div>
-                                <div>• <strong>Trusted Types:</strong> Enforces that ONLY sanitized content can be used</div>
+                            <div class="text-yellow-400 mb-2">
+                                🤔 What is Trusted Types?
                             </div>
-                            <div class="mt-2">Result: No developer can accidentally bypass sanitization!</div>
+                            <div>
+                                Trusted Types and the Sanitizer API <strong
+                                    >complement each other:</strong>
+                            </div>
+                            <div class="ml-4 mt-2 space-y-1">
+                                <div>
+                                    • <strong>Sanitizer API:</strong> Provides safe
+                                    way to construct DOM
+                                </div>
+                                <div>
+                                    • <strong>Trusted Types:</strong> Enforces that
+                                    ONLY sanitized content can be used
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                Result: No developer can accidentally bypass
+                                sanitization!
+                            </div>
                         </div>
                     </div>
 
                     <!-- Opt in via CSP -->
-                    <div class="bg-purple-500/20 border border-purple-400 rounded p-4">
-                        <div class="text-purple-300 font-mono text-[11px] space-y-1">
-                            <div class="text-yellow-400 mb-2">1️⃣ Opt in via Content-Security-Policy header:</div>
+                    <div
+                        class="bg-purple-500/20 border border-purple-400 rounded p-4"
+                    >
+                        <div
+                            class="text-purple-300 font-mono text-[11px] space-y-1"
+                        >
+                            <div class="text-yellow-400 mb-2">
+                                1️⃣ Opt in via Content-Security-Policy header:
+                            </div>
                             <div>Content-Security-Policy:</div>
-                            <div>&nbsp;&nbsp;trusted-types passthrough legacysanitize;</div>
-                            <div>&nbsp;&nbsp;require-trusted-types-for 'script';</div>
+                            <div>
+                                &nbsp;&nbsp;trusted-types passthrough
+                                legacysanitize;
+                            </div>
+                            <div>
+                                &nbsp;&nbsp;require-trusted-types-for 'script';
+                            </div>
                             <div></div>
-                            <div class="text-gray-400">// "passthrough" and "legacysanitize" are policy names</div>
-                            <div class="text-gray-400">// You can name them anything you want</div>
+                            <div class="text-gray-400">
+                                // "passthrough" and "legacysanitize" are policy
+                                names
+                            </div>
+                            <div class="text-gray-400">
+                                // You can name them anything you want
+                            </div>
                         </div>
                     </div>
 
                     <!-- What happens when enabled -->
-                    <div class="bg-red-500/20 border border-red-400 rounded p-4">
-                        <div class="text-red-300 font-mono text-[11px] space-y-1">
-                            <div class="text-yellow-400 mb-2">2️⃣ Now strings throw TypeError in unsafe sinks:</div>
-                            <div>div.innerHTML = "&lt;h2&gt;Hello&lt;/h2&gt;"; <span class="text-red-400">// ❌ TypeError!</span></div>
+                    <div
+                        class="bg-red-500/20 border border-red-400 rounded p-4"
+                    >
+                        <div
+                            class="text-red-300 font-mono text-[11px] space-y-1"
+                        >
+                            <div class="text-yellow-400 mb-2">
+                                2️⃣ Now strings throw TypeError in unsafe sinks:
+                            </div>
+                            <div>
+                                div.innerHTML = "&lt;h2&gt;Hello&lt;/h2&gt;"; <span
+                                    class="text-red-400">// ❌ TypeError!</span>
+                            </div>
                             <div></div>
-                            <div>div.setHTMLUnsafe(`&lt;iframe src='evil.com'/&gt;`); <span class="text-red-400">// ❌ TypeError!</span></div>
+                            <div>
+                                div.setHTMLUnsafe(`&lt;iframe
+                                src='evil.com'/&gt;`); <span
+                                    class="text-red-400">// ❌ TypeError!</span>
+                            </div>
                             <div></div>
-                            <div class="text-green-400">// But setHTML() still works fine with strings!</div>
-                            <div>div.setHTML("&lt;h2&gt;Hello&lt;/h2&gt;"); <span class="text-green-400">// ✅ Works!</span></div>
+                            <div class="text-green-400">
+                                // But setHTML() still works fine with strings!
+                            </div>
+                            <div>
+                                div.setHTML("&lt;h2&gt;Hello&lt;/h2&gt;"); <span
+                                    class="text-green-400">// ✅ Works!</span>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Unsafe sinks -->
-                    <div class="bg-orange-500/20 border border-orange-400 rounded p-4">
+                    <div
+                        class="bg-orange-500/20 border border-orange-400 rounded p-4"
+                    >
                         <div class="text-orange-300 text-[11px] space-y-2">
-                            <div class="text-yellow-400 mb-2">⚠️ What are "unsafe sinks"?</div>
+                            <div class="text-yellow-400 mb-2">
+                                ⚠️ What are "unsafe sinks"?
+                            </div>
                             <div class="ml-4 space-y-1">
                                 <div><strong>Modern:</strong></div>
-                                <div>• <code class="bg-slate-800 px-1 py-0.5 rounded">setHTMLUnsafe()</code></div>
-                                <div>• <code class="bg-slate-800 px-1 py-0.5 rounded">Document.parseHTMLUnsafe()</code></div>
+                                <div>
+                                    • <code
+                                        class="bg-slate-800 px-1 py-0.5 rounded"
+                                        >setHTMLUnsafe()</code>
+                                </div>
+                                <div>
+                                    • <code
+                                        class="bg-slate-800 px-1 py-0.5 rounded"
+                                        >Document.parseHTMLUnsafe()</code>
+                                </div>
                                 <div class="mt-2"><strong>Legacy:</strong></div>
-                                <div>• <code class="bg-slate-800 px-1 py-0.5 rounded">innerHTML</code>, <code class="bg-slate-800 px-1 py-0.5 rounded">outerHTML</code></div>
-                                <div>• <code class="bg-slate-800 px-1 py-0.5 rounded">parseFromString()</code></div>
-                                <div>• <code class="bg-slate-800 px-1 py-0.5 rounded">document.write()</code>, <code class="bg-slate-800 px-1 py-0.5 rounded">document.writeln()</code></div>
-                                <div>• Setting <code class="bg-slate-800 px-1 py-0.5 rounded">iframe.srcdoc</code> via JS</div>
+                                <div>
+                                    • <code
+                                        class="bg-slate-800 px-1 py-0.5 rounded"
+                                        >innerHTML</code
+                                    >, <code
+                                        class="bg-slate-800 px-1 py-0.5 rounded"
+                                        >outerHTML</code>
+                                </div>
+                                <div>
+                                    • <code
+                                        class="bg-slate-800 px-1 py-0.5 rounded"
+                                        >parseFromString()</code>
+                                </div>
+                                <div>
+                                    • <code
+                                        class="bg-slate-800 px-1 py-0.5 rounded"
+                                        >document.write()</code
+                                    >, <code
+                                        class="bg-slate-800 px-1 py-0.5 rounded"
+                                        >document.writeln()</code>
+                                </div>
+                                <div>
+                                    • Setting <code
+                                        class="bg-slate-800 px-1 py-0.5 rounded"
+                                        >iframe.srcdoc</code
+                                    > via JS
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <ProTip>
-                    <div>💡 <strong>When to use Trusted Types:</strong> Production apps with multiple developers. Enforces XSS protection at the framework level - no one can bypass it.</div>
+                    <div>
+                        💡 <strong>When to use Trusted Types:</strong> Production
+                        apps with multiple developers. Enforces XSS protection at
+                        the framework level - no one can bypass it.
+                    </div>
                 </ProTip>
             </MethodCard>
         </div>
@@ -330,65 +670,144 @@ import ProTip from '~components/visual-js/ProTip.astro';
             >
                 <div class="p-6 bg-gray-800 rounded space-y-4">
                     <!-- Passthrough policy (unsafe!) -->
-                    <div class="bg-red-500/20 border border-red-400 rounded p-4">
-                        <div class="text-red-300 font-mono text-[11px] space-y-1">
-                            <div class="text-yellow-400 mb-2">⚠️ Passthrough policy (use sparingly!):</div>
-                            <div>const passThrough = trustedTypes.createPolicy("passthrough", {`{`}</div>
-                            <div>&nbsp;&nbsp;createHTML: (input) =&gt; input <span class="text-gray-400">// Returns unchanged</span></div>
+                    <div
+                        class="bg-red-500/20 border border-red-400 rounded p-4"
+                    >
+                        <div
+                            class="text-red-300 font-mono text-[11px] space-y-1"
+                        >
+                            <div class="text-yellow-400 mb-2">
+                                ⚠️ Passthrough policy (use sparingly!):
+                            </div>
+                            <div>
+                                const passThrough =
+                                trustedTypes.createPolicy("passthrough", {`{`}
+                            </div>
+                            <div>
+                                &nbsp;&nbsp;createHTML: (input) =&gt; input <span
+                                    class="text-gray-400"
+                                    >// Returns unchanged</span>
+                            </div>
                             <div>{`}`});</div>
                             <div></div>
-                            <div>const html = passThrough.createHTML(`&lt;iframe src='evil.com'/&gt;`);</div>
-                            <div>div.setHTMLUnsafe(html); <span class="text-green-400">// ✅ No error, but unsafe!</span></div>
+                            <div>
+                                const html = passThrough.createHTML(`&lt;iframe
+                                src='evil.com'/&gt;`);
+                            </div>
+                            <div>
+                                div.setHTMLUnsafe(html); <span
+                                    class="text-green-400"
+                                    >// ✅ No error, but unsafe!</span>
+                            </div>
                             <div></div>
-                            <div class="text-red-400">// Use ONLY for server-controlled HTML you trust</div>
+                            <div class="text-red-400">
+                                // Use ONLY for server-controlled HTML you trust
+                            </div>
                         </div>
                     </div>
 
                     <!-- Real-world usage -->
-                    <div class="bg-green-500/20 border border-green-500 rounded p-4">
-                        <div class="text-green-300 font-mono text-[11px] space-y-1">
-                            <div class="text-yellow-400 mb-2">Real example: Fetching trusted server HTML:</div>
-                            <div>const target = document.getElementById('target');</div>
+                    <div
+                        class="bg-green-500/20 border border-green-500 rounded p-4"
+                    >
+                        <div
+                            class="text-green-300 font-mono text-[11px] space-y-1"
+                        >
+                            <div class="text-yellow-400 mb-2">
+                                Real example: Fetching trusted server HTML:
+                            </div>
+                            <div>
+                                const target =
+                                document.getElementById('target');
+                            </div>
                             <div></div>
                             <div>fetch('/trusted-content')</div>
-                            <div>&nbsp;&nbsp;.then(response =&gt; response.text())</div>
+                            <div>
+                                &nbsp;&nbsp;.then(response =&gt;
+                                response.text())
+                            </div>
                             <div>&nbsp;&nbsp;.then((html) =&gt; {`{`}</div>
-                            <div>&nbsp;&nbsp;&nbsp;&nbsp;const trusted = passThrough.createHTML(html);</div>
-                            <div>&nbsp;&nbsp;&nbsp;&nbsp;target.setHTMLUnsafe(trusted);</div>
+                            <div>
+                                &nbsp;&nbsp;&nbsp;&nbsp;const trusted =
+                                passThrough.createHTML(html);
+                            </div>
+                            <div>
+                                &nbsp;&nbsp;&nbsp;&nbsp;target.setHTMLUnsafe(trusted);
+                            </div>
                             <div>&nbsp;&nbsp;{`}`});</div>
                         </div>
                     </div>
 
                     <!-- With DOMPurify (production) -->
-                    <div class="bg-blue-500/20 border border-blue-400 rounded p-4">
-                        <div class="text-blue-300 font-mono text-[11px] space-y-1">
-                            <div class="text-yellow-400 mb-2">✅ Production: Use DOMPurify until Sanitizer API ships:</div>
-                            <div>window.trustedTypes.createPolicy('legacysanitize', {`{`}</div>
+                    <div
+                        class="bg-blue-500/20 border border-blue-400 rounded p-4"
+                    >
+                        <div
+                            class="text-blue-300 font-mono text-[11px] space-y-1"
+                        >
+                            <div class="text-yellow-400 mb-2">
+                                ✅ Production: Use DOMPurify until Sanitizer API
+                                ships:
+                            </div>
+                            <div>
+                                window.trustedTypes.createPolicy('legacysanitize',
+                                {`{`}
+                            </div>
                             <div>&nbsp;&nbsp;createHTML: (input) =&gt;</div>
-                            <div>&nbsp;&nbsp;&nbsp;&nbsp;DOMPurify.sanitize(input, {`{`}</div>
-                            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RETURN_TRUSTED_TYPE: false</div>
+                            <div>
+                                &nbsp;&nbsp;&nbsp;&nbsp;DOMPurify.sanitize(input,
+                                {`{`}
+                            </div>
+                            <div>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RETURN_TRUSTED_TYPE:
+                                false
+                            </div>
                             <div>&nbsp;&nbsp;&nbsp;&nbsp;{`}`})</div>
                             <div>{`}`});</div>
                             <div></div>
-                            <div class="text-gray-400">// RETURN_TRUSTED_TYPE: false is required</div>
-                            <div class="text-gray-400">// createHTML expects a string, not TrustedHTML</div>
+                            <div class="text-gray-400">
+                                // RETURN_TRUSTED_TYPE: false is required
+                            </div>
+                            <div class="text-gray-400">
+                                // createHTML expects a string, not TrustedHTML
+                            </div>
                         </div>
                     </div>
 
                     <!-- Future with Sanitizer API -->
-                    <div class="bg-purple-500/20 border border-purple-400 rounded p-4">
-                        <div class="text-purple-300 font-mono text-[11px] space-y-1">
-                            <div class="text-yellow-400 mb-2">🔮 Future: Once Sanitizer API ships everywhere:</div>
-                            <div class="text-gray-400">// Just use setHTML() directly!</div>
-                            <div>div.setHTML(userContent); <span class="text-green-400">// Auto-sanitized + Trusted Types compliant</span></div>
+                    <div
+                        class="bg-purple-500/20 border border-purple-400 rounded p-4"
+                    >
+                        <div
+                            class="text-purple-300 font-mono text-[11px] space-y-1"
+                        >
+                            <div class="text-yellow-400 mb-2">
+                                🔮 Future: Once Sanitizer API ships everywhere:
+                            </div>
+                            <div class="text-gray-400">
+                                // Just use setHTML() directly!
+                            </div>
+                            <div>
+                                div.setHTML(userContent); <span
+                                    class="text-green-400"
+                                    >// Auto-sanitized + Trusted Types compliant</span>
+                            </div>
                             <div></div>
-                            <div class="text-gray-400">// No need for DOMPurify or createHTML boilerplate</div>
+                            <div class="text-gray-400">
+                                // No need for DOMPurify or createHTML
+                                boilerplate
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <ProTip>
-                    <div>💡 <strong>Until Sanitizer API is widely supported:</strong> Use DOMPurify in your Trusted Types policy. Once supported, switch to setHTML() for everything.</div>
+                    <div>
+                        💡 <strong
+                            >Until Sanitizer API is widely supported:</strong
+                        > Use DOMPurify in your Trusted Types policy. Once supported,
+                        switch to setHTML() for everything.
+                    </div>
                 </ProTip>
             </MethodCard>
         </div>
@@ -397,7 +816,10 @@ import ProTip from '~components/visual-js/ProTip.astro';
         <!-- 📋 QUICK REFERENCE -->
         <!-- ============================================ -->
 
-        <h2 id="quick-ref" class="text-yellow-300 text-xl my-4 pb-2 border-b-2 border-yellow-600">
+        <h2
+            id="quick-ref"
+            class="text-yellow-300 text-xl my-4 pb-2 border-b-2 border-yellow-600"
+        >
             📋 Quick Reference
         </h2>
 
@@ -410,89 +832,166 @@ import ProTip from '~components/visual-js/ProTip.astro';
             >
                 <div class="p-6 bg-gray-800 rounded space-y-4">
                     <!-- Decision tree -->
-                    <div class="bg-green-500/20 border-2 border-green-400 rounded p-4">
+                    <div
+                        class="bg-green-500/20 border-2 border-green-400 rounded p-4"
+                    >
                         <div class="text-green-300 text-[11px] space-y-3">
-                            <div class="text-yellow-400 font-bold mb-2">✅ Recommended approach (2025+):</div>
-                            
-                            <div class="bg-slate-800 p-3 rounded">
-                                <div class="font-bold text-blue-400 mb-1">1. Use setHTML() by default</div>
-                                <div class="ml-4">Instead of innerHTML or setHTMLUnsafe()</div>
+                            <div class="text-yellow-400 font-bold mb-2">
+                                ✅ Recommended approach (2025+):
                             </div>
 
                             <div class="bg-slate-800 p-3 rounded">
-                                <div class="font-bold text-blue-400 mb-1">2. Use Document.parseHTML()</div>
-                                <div class="ml-4">Instead of parseFromString() or parseHTMLUnsafe()</div>
-                            </div>
-
-                            <div class="bg-slate-800 p-3 rounded">
-                                <div class="font-bold text-blue-400 mb-1">3. Configure sanitizer as needed</div>
+                                <div class="font-bold text-blue-400 mb-1">
+                                    1. Use setHTML() by default
+                                </div>
                                 <div class="ml-4">
-                                    <div>• Allowlist for user content (most secure)</div>
-                                    <div>• <code class="bg-slate-700 px-1 py-0.5 rounded">{`{sanitizer: {}}`}</code> for trusted content</div>
+                                    Instead of innerHTML or setHTMLUnsafe()
                                 </div>
                             </div>
 
                             <div class="bg-slate-800 p-3 rounded">
-                                <div class="font-bold text-blue-400 mb-1">4. Enable Trusted Types in production</div>
-                                <div class="ml-4">Via Content-Security-Policy header</div>
+                                <div class="font-bold text-blue-400 mb-1">
+                                    2. Use Document.parseHTML()
+                                </div>
+                                <div class="ml-4">
+                                    Instead of parseFromString() or
+                                    parseHTMLUnsafe()
+                                </div>
+                            </div>
+
+                            <div class="bg-slate-800 p-3 rounded">
+                                <div class="font-bold text-blue-400 mb-1">
+                                    3. Configure sanitizer as needed
+                                </div>
+                                <div class="ml-4">
+                                    <div>
+                                        • Allowlist for user content (most
+                                        secure)
+                                    </div>
+                                    <div>
+                                        • <code
+                                            class="bg-slate-700 px-1 py-0.5 rounded"
+                                            >{`{sanitizer: {}}`}</code
+                                        > for trusted content
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-slate-800 p-3 rounded">
+                                <div class="font-bold text-blue-400 mb-1">
+                                    4. Enable Trusted Types in production
+                                </div>
+                                <div class="ml-4">
+                                    Via Content-Security-Policy header
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- When to use what -->
-                    <div class="bg-blue-500/20 border border-blue-400 rounded p-4">
+                    <div
+                        class="bg-blue-500/20 border border-blue-400 rounded p-4"
+                    >
                         <div class="text-blue-300 text-[11px] space-y-2">
-                            <div class="text-yellow-400 mb-2">🤔 When to use what:</div>
-                            
+                            <div class="text-yellow-400 mb-2">
+                                🤔 When to use what:
+                            </div>
+
                             <div class="grid grid-cols-2 gap-3">
                                 <div class="bg-slate-800 p-2 rounded">
-                                    <div class="text-green-400 font-bold mb-1">setHTML()</div>
-                                    <div class="text-xs">Default choice for inserting HTML safely</div>
+                                    <div class="text-green-400 font-bold mb-1">
+                                        setHTML()
+                                    </div>
+                                    <div class="text-xs">
+                                        Default choice for inserting HTML safely
+                                    </div>
                                 </div>
 
                                 <div class="bg-slate-800 p-2 rounded">
-                                    <div class="text-yellow-400 font-bold mb-1">setHTMLUnsafe()</div>
-                                    <div class="text-xs">Server-controlled HTML (with Trusted Types)</div>
+                                    <div class="text-yellow-400 font-bold mb-1">
+                                        setHTMLUnsafe()
+                                    </div>
+                                    <div class="text-xs">
+                                        Server-controlled HTML (with Trusted
+                                        Types)
+                                    </div>
                                 </div>
 
                                 <div class="bg-slate-800 p-2 rounded">
-                                    <div class="text-red-400 font-bold mb-1">innerHTML</div>
-                                    <div class="text-xs">❌ Avoid! Use setHTML() instead</div>
+                                    <div class="text-red-400 font-bold mb-1">
+                                        innerHTML
+                                    </div>
+                                    <div class="text-xs">
+                                        ❌ Avoid! Use setHTML() instead
+                                    </div>
                                 </div>
 
                                 <div class="bg-slate-800 p-2 rounded">
-                                    <div class="text-purple-400 font-bold mb-1">Trusted Types</div>
-                                    <div class="text-xs">Production apps with multiple devs</div>
+                                    <div class="text-purple-400 font-bold mb-1">
+                                        Trusted Types
+                                    </div>
+                                    <div class="text-xs">
+                                        Production apps with multiple devs
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Migration path -->
-                    <div class="bg-purple-500/20 border border-purple-400 rounded p-4">
+                    <div
+                        class="bg-purple-500/20 border border-purple-400 rounded p-4"
+                    >
                         <div class="text-purple-300 text-[11px] space-y-2">
-                            <div class="text-yellow-400 mb-2">🔄 Migration path:</div>
+                            <div class="text-yellow-400 mb-2">
+                                🔄 Migration path:
+                            </div>
                             <div class="space-y-1">
-                                <div>1. Replace <code class="bg-slate-800 px-1 py-0.5 rounded">innerHTML</code> with <code class="bg-slate-800 px-1 py-0.5 rounded">setHTML()</code></div>
-                                <div>2. Test with different sanitizer configs</div>
-                                <div>3. Add Trusted Types CSP header (testing mode first)</div>
-                                <div>4. Fix any errors, create policies as needed</div>
-                                <div>5. Enable enforcement mode in production</div>
+                                <div>
+                                    1. Replace <code
+                                        class="bg-slate-800 px-1 py-0.5 rounded"
+                                        >innerHTML</code
+                                    > with <code
+                                        class="bg-slate-800 px-1 py-0.5 rounded"
+                                        >setHTML()</code>
+                                </div>
+                                <div>
+                                    2. Test with different sanitizer configs
+                                </div>
+                                <div>
+                                    3. Add Trusted Types CSP header (testing
+                                    mode first)
+                                </div>
+                                <div>
+                                    4. Fix any errors, create policies as needed
+                                </div>
+                                <div>
+                                    5. Enable enforcement mode in production
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <ProTip>
-                    <div>💡 <strong>Remember:</strong> setHTML() and Document.parseHTML() are NOT unsafe sinks. They work with strings even when Trusted Types is enabled!</div>
+                    <div>
+                        💡 <strong>Remember:</strong> setHTML() and Document.parseHTML()
+                        are NOT unsafe sinks. They work with strings even when Trusted
+                        Types is enabled!
+                    </div>
                 </ProTip>
             </MethodCard>
         </div>
 
         <!-- Footer note -->
         <div class="mt-12 p-4 bg-slate-800 rounded text-slate-400 text-xs">
-            <div class="mb-2"><strong>Based on article by Ollie Williams</strong></div>
-            <div>This is cutting-edge API documentation. Specs and browser support are evolving. Last updated: November 2025</div>
+            <div class="mb-2">
+                <strong>Based on article by Ollie Williams</strong>
+            </div>
+            <div>
+                This is cutting-edge API documentation. Specs and browser
+                support are evolving. Last updated: November 2025
+            </div>
         </div>
     </div>
 </Layout>
