@@ -1,69 +1,57 @@
 ---
-import "~styles/styles.css";
+import Layout from "~layouts/Layout.astro";
 ---
 
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <meta name="viewport" content="width=device-width" />
-        <meta name="generator" content={Astro.generator} />
-        <title>Astro</title>
-    </head>
-    <body>
-        <div class="container mx-auto prose prose-sm py-8">
-            <h1>Visual Cheatsheets</h1>
-            <h4>Core Concepts:</h4>
-            <ul>
-                <li>
-                    <a href="/visual/core-concepts/conditionals">conditionals</a
-                    >
-                </li>
-                <li>
-                    <a href="/visual/core-concepts/dom-manipulation"
-                        >dom-manipulation</a
-                    >
-                </li>
-                <li>
-                    <a href="/visual/core-concepts/functions">functions</a>
-                </li>
-                <li><a href="/visual/core-concepts/loops">loops</a></li>
-                <li>
-                    <a href="/visual/core-concepts/promises">promises</a>
-                </li>
-                <li>
-                    <a href="/visual/core-concepts/variables">variables</a>
-                </li>
-            </ul>
+<Layout pageTitle="Visual Cheatsheets">
+    <div class="container mx-auto prose prose-sm py-8">
+        <h1>Visual Cheatsheets</h1>
+        <h4>Core Concepts:</h4>
+        <ul>
+            <li>
+                <a href="/visual/core-concepts/conditionals">conditionals</a>
+            </li>
+            <li>
+                <a href="/visual/core-concepts/dom-manipulation"
+                    >dom-manipulation</a
+                >
+            </li>
+            <li>
+                <a href="/visual/core-concepts/functions">functions</a>
+            </li>
+            <li><a href="/visual/core-concepts/loops">loops</a></li>
+            <li>
+                <a href="/visual/core-concepts/promises">promises</a>
+            </li>
+            <li>
+                <a href="/visual/core-concepts/variables">variables</a>
+            </li>
+        </ul>
 
-            <h4>Browser APIs:</h4>
-            <ul>
-                <li>
-                    <a href="/visual/browser-apis/intersection-observer"
-                        >intersection-observer</a
-                    >
-                </li>
-                <li>
-                    <a href="/visual/browser-apis/pointer-events"
-                        >pointer-events</a
-                    >
-                </li>
-            </ul>
-            <h4>Primitives:</h4>
-            <ul>
-                <li>
-                    <a href="/visual/primitives/arrays">arrays</a>
-                </li>
-                <li>
-                    <a href="/visual/primitives/numbers">numbers</a>
-                </li>
-                <li>
-                    <a href="/visual/primitives/objects">objects</a>
-                </li>
-                <li>
-                    <a href="/visual/primitives/strings">strings</a>
-                </li>
-            </ul>
-        </div>
-    </body>
-</html>
+        <h4>Browser APIs:</h4>
+        <ul>
+            <li>
+                <a href="/visual/browser-apis/intersection-observer"
+                    >intersection-observer</a
+                >
+            </li>
+            <li>
+                <a href="/visual/browser-apis/pointer-events">pointer-events</a>
+            </li>
+        </ul>
+        <h4>Primitives:</h4>
+        <ul>
+            <li>
+                <a href="/visual/primitives/arrays">arrays</a>
+            </li>
+            <li>
+                <a href="/visual/primitives/numbers">numbers</a>
+            </li>
+            <li>
+                <a href="/visual/primitives/objects">objects</a>
+            </li>
+            <li>
+                <a href="/visual/primitives/strings">strings</a>
+            </li>
+        </ul>
+    </div>
+</Layout>
