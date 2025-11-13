@@ -40,7 +40,8 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     >
                         <div>
                             • Object methods that need <code
-                                class="bg-black/30 px-1 rounded">this</code>
+                                class="bg-black/30 px-1 rounded">this</code
+                            >
                         </div>
                         <div>• Constructors (though use classes instead)</div>
                         <div>
@@ -59,6 +60,328 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             </div>
         </div>
     </InfoBox>
+
+    <!-- ============================================ -->
+    <!-- 📚 FUNCTION TYPES & HOISTING -->
+    <!-- ============================================ -->
+
+    <SectionTitle id="function-types" color="cyan">
+        📚 Function Types & Hoisting
+    </SectionTitle>
+
+    <MethodCard
+        id="three-types"
+        methodName="Three Ways to Define Functions"
+        signature="Understanding declarations, expressions, and arrows"
+        description="Why hoisting matters (but rarely in practice)"
+        mutates={false}
+    >
+        <div class="p-6 bg-gray-800 rounded">
+            <div class="space-y-4">
+                <!-- Function Declaration -->
+                <div class="bg-blue-500/20 border border-blue-400 rounded p-3">
+                    <div class="text-blue-300 font-mono text-xs space-y-1">
+                        <div class="text-yellow-400 mb-2">
+                            1️⃣ Function Declaration
+                        </div>
+                        <div>function greet(name) {"{"}</div>
+                        <div>&nbsp;&nbsp;return `Hello ${"{"}name{"}"}`</div>
+                        <div>{"}"}</div>
+                        <div class="mt-2 text-[10px] text-gray-300">
+                            <span class="text-green-400">✅ Hoisted:</span> Can call
+                            before definition
+                        </div>
+                        <div class="mt-1 bg-green-500/20 rounded p-2">
+                            <div>
+                                greet('Alice') <span class="text-gray-400"
+                                    >// Works! ✅</span>
+                            </div>
+                            <div>function greet(name) {"{"} ... {"}"}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Function Expression -->
+                <div
+                    class="bg-purple-500/20 border border-purple-400 rounded p-3"
+                >
+                    <div class="text-purple-300 font-mono text-xs space-y-1">
+                        <div class="text-yellow-400 mb-2">
+                            2️⃣ Function Expression
+                        </div>
+                        <div>const greet = function(name) {"{"}</div>
+                        <div>&nbsp;&nbsp;return `Hello ${"{"}name{"}"}`</div>
+                        <div>{"}"}</div>
+                        <div class="mt-2 text-[10px] text-gray-300">
+                            <span class="text-orange-400"
+                                >⚠️ Variable hoisted, but undefined:</span
+                            > Can't call before definition
+                        </div>
+                        <div class="mt-1 bg-red-500/20 rounded p-2">
+                            <div>
+                                greet('Alice') <span class="text-gray-400"
+                                    >// TypeError! ❌</span>
+                            </div>
+                            <div>
+                                const greet = function(name) {"{"} ... {"}"}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Arrow Function -->
+                <div
+                    class="bg-green-500/20 border border-green-400 rounded p-3"
+                >
+                    <div class="text-green-300 font-mono text-xs space-y-1">
+                        <div class="text-yellow-400 mb-2">
+                            3️⃣ Arrow Function (Expression)
+                        </div>
+                        <div>
+                            const greet = (name) =&gt; `Hello ${"{"}name{"}"}`
+                        </div>
+                        <div class="mt-2 text-[10px] text-gray-300">
+                            <span class="text-orange-400"
+                                >⚠️ Same as function expression:</span
+                            > Can't call before definition
+                        </div>
+                        <div class="mt-1 bg-red-500/20 rounded p-2">
+                            <div>
+                                greet('Alice') <span class="text-gray-400"
+                                    >// TypeError! ❌</span>
+                            </div>
+                            <div>
+                                const greet = (name) =&gt; `Hello ${"{"}name{
+                                    "}"
+                                }`
+                            </div>
+                        </div>
+                        <div class="mt-2 text-[10px] text-green-300 font-bold">
+                            💚 Arrow functions ARE function expressions
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <InfoBox>
+            <div class="font-bold text-cyan-300 mb-2">
+                🤔 So when does hoisting matter?
+            </div>
+            <div class="space-y-3">
+                <div
+                    class="bg-orange-500/20 border border-orange-400 rounded p-2"
+                >
+                    <div class="text-orange-300 text-[10px] space-y-1">
+                        <div class="font-bold mb-1">
+                            Function declarations (hoisted) - old school:
+                        </div>
+                        <div class="font-mono">
+                            <div>
+                                init() <span class="text-gray-400"
+                                    >// Can call here</span>
+                            </div>
+                            <div class="mt-1">function init() {"{"}</div>
+                            <div>&nbsp;&nbsp;setupApp()</div>
+                            <div>&nbsp;&nbsp;loadData()</div>
+                            <div>{"}"}</div>
+                        </div>
+                        <div class="text-gray-300 mt-2 italic">
+                            Useful if you like putting helper functions at the
+                            bottom of files
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-green-500/20 border border-green-400 rounded p-2"
+                >
+                    <div class="text-green-300 text-[10px] space-y-1">
+                        <div class="font-bold mb-1">
+                            Function expressions (not hoisted) - modern:
+                        </div>
+                        <div class="font-mono">
+                            <div>const init = () =&gt; {"{"}</div>
+                            <div>&nbsp;&nbsp;setupApp()</div>
+                            <div>&nbsp;&nbsp;loadData()</div>
+                            <div>{"}"}</div>
+                            <div class="mt-1">
+                                init() <span class="text-gray-400"
+                                    >// Must call after</span>
+                            </div>
+                        </div>
+                        <div class="text-gray-300 mt-2 italic">
+                            Forces you to organize code in logical order (good!)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-[10px] text-gray-400 italic mt-2">
+                    💡 With modern modules and proper code organization,
+                    hoisting is rarely needed. Top-to-bottom flow is clearer.
+                </div>
+            </div>
+        </InfoBox>
+
+        <ProTip>
+            <div>🎯 <strong>Practical takeaway:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="text-[10px]">
+                    <span class="text-green-400"
+                        >✅ Use arrow functions (expressions)</span
+                    > - Modern, concise, predictable `this`
+                </div>
+                <div class="text-[10px]">
+                    <span class="text-gray-400"
+                        >⚪ Use function declarations</span
+                    > - Only if you genuinely need hoisting (rare)
+                </div>
+                <div class="text-[10px]">
+                    <span class="text-red-400"
+                        >❌ Avoid function expressions</span
+                    > - Just use arrows instead
+                </div>
+                <div class="font-mono text-[10px] mt-2 text-gray-400">
+                    // In modern JS, 99% arrow functions, 1% regular for object
+                    methods
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- Key Differences Summary -->
+    <MethodCard
+        id="key-differences"
+        methodName="Key Differences at a Glance"
+        signature="What actually matters"
+        description="TL;DR for the three types"
+        mutates={false}
+    >
+        <div class="p-6 bg-gray-800 rounded">
+            <div class="overflow-x-auto">
+                <table class="w-full text-[10px] text-left">
+                    <thead class="text-yellow-400 border-b border-gray-600">
+                        <tr>
+                            <th class="pb-2 pr-4">Feature</th>
+                            <th class="pb-2 pr-4">Declaration</th>
+                            <th class="pb-2 pr-4">Expression</th>
+                            <th class="pb-2">Arrow</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-300">
+                        <tr class="border-b border-gray-700">
+                            <td class="py-2 pr-4 font-mono text-gray-400"
+                                >Syntax</td
+                            >
+                            <td class="py-2 pr-4 font-mono text-blue-300"
+                                >function fn() {"{}"}</td
+                            >
+                            <td class="py-2 pr-4 font-mono text-purple-300"
+                                >const fn = function() {"{}"}</td
+                            >
+                            <td class="py-2 font-mono text-green-300"
+                                >const fn = () =&gt; {"{}"}</td
+                            >
+                        </tr>
+                        <tr class="border-b border-gray-700">
+                            <td class="py-2 pr-4 font-bold">Hoisted?</td>
+                            <td class="py-2 pr-4"
+                                ><span class="text-green-400">✅ Yes</span> (fully)</td
+                            >
+                            <td class="py-2 pr-4"
+                                ><span class="text-orange-400"
+                                    >⚠️ Variable only</span
+                                ></td
+                            >
+                            <td class="py-2"
+                                ><span class="text-orange-400"
+                                    >⚠️ Variable only</span
+                                ></td
+                            >
+                        </tr>
+                        <tr class="border-b border-gray-700">
+                            <td class="py-2 pr-4 font-bold">Has own `this`?</td>
+                            <td class="py-2 pr-4"
+                                ><span class="text-green-400">✅ Yes</span></td
+                            >
+                            <td class="py-2 pr-4"
+                                ><span class="text-green-400">✅ Yes</span></td
+                            >
+                            <td class="py-2"
+                                ><span class="text-red-400">❌ No</span> (lexical)</td
+                            >
+                        </tr>
+                        <tr class="border-b border-gray-700">
+                            <td class="py-2 pr-4 font-bold">Has `arguments`?</td
+                            >
+                            <td class="py-2 pr-4"
+                                ><span class="text-green-400">✅ Yes</span></td
+                            >
+                            <td class="py-2 pr-4"
+                                ><span class="text-green-400">✅ Yes</span></td
+                            >
+                            <td class="py-2"
+                                ><span class="text-red-400">❌ No</span></td
+                            >
+                        </tr>
+                        <tr class="border-b border-gray-700">
+                            <td class="py-2 pr-4 font-bold"
+                                >Can be constructor?</td
+                            >
+                            <td class="py-2 pr-4"
+                                ><span class="text-green-400">✅ Yes</span></td
+                            >
+                            <td class="py-2 pr-4"
+                                ><span class="text-green-400">✅ Yes</span></td
+                            >
+                            <td class="py-2"
+                                ><span class="text-red-400">❌ No</span></td
+                            >
+                        </tr>
+                        <tr>
+                            <td class="py-2 pr-4 font-bold">When to use?</td>
+                            <td class="py-2 pr-4 text-orange-300"
+                                >Need hoisting</td
+                            >
+                            <td class="py-2 pr-4 text-red-300"
+                                >Don't (use arrow)</td
+                            >
+                            <td class="py-2 text-green-300 font-bold"
+                                >Default choice! 🎯</td
+                            >
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <ProTip>
+            <div>🧠 <strong>Remember this:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="text-[10px]">
+                    <strong
+                        >Arrow functions are a subset of function expressions</strong
+                    > - they're both expressions!
+                </div>
+                <div class="text-[10px]">
+                    The difference is arrows don't have their own `this` or
+                    `arguments` (which is usually what you want).
+                </div>
+                <div class="text-[10px] mt-2">
+                    <span class="text-green-400">✅ Arrow =</span> Concise + Predictable
+                    `this` + Modern
+                </div>
+                <div class="text-[10px]">
+                    <span class="text-blue-400">⚪ Declaration =</span> Hoisting
+                    (rarely needed)
+                </div>
+                <div class="text-[10px]">
+                    <span class="text-red-400">❌ Expression =</span> Just use arrow
+                    instead
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
 
     <!-- ============================================ -->
     <!-- ✨ MODERN DEFAULT: ARROW FUNCTIONS -->
@@ -92,24 +415,28 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
                         <div class="mt-2">
                             <span class="text-gray-400"
-                                >// One parameter (parens optional)</span>
+                                >// One parameter (parens optional)</span
+                            >
                         </div>
                         <div>const double = num =&gt; num * 2</div>
                         <div>
                             const triple = (num) =&gt; num * 3 <span
-                                class="text-gray-400">// same thing</span>
+                                class="text-gray-400">// same thing</span
+                            >
                         </div>
 
                         <div class="mt-2">
                             <span class="text-gray-400"
-                                >// Multiple parameters (parens required)</span>
+                                >// Multiple parameters (parens required)</span
+                            >
                         </div>
                         <div>const add = (a, b) =&gt; a + b</div>
 
                         <div class="mt-2">
                             <span class="text-gray-400"
                                 >// Function body (braces required for multiple
-                                lines)</span>
+                                lines)</span
+                            >
                         </div>
                         <div>const complex = (x) =&gt; {"{"}</div>
                         <div>&nbsp;&nbsp;const result = x * 2</div>
@@ -118,7 +445,8 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
                         <div class="mt-2">
                             <span class="text-gray-400"
-                                >// Return object (wrap in parens)</span>
+                                >// Return object (wrap in parens)</span
+                            >
                         </div>
                         <div>
                             const makeUser = (name) =&gt; ({"{"} name, active: true
@@ -169,7 +497,8 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         <div>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.tick() <span
                                 class="text-gray-400"
-                                >// 'this' is Timer instance ✅</span>
+                                >// 'this' is Timer instance ✅</span
+                            >
                         </div>
                         <div>&nbsp;&nbsp;&nbsp;&nbsp;{"}"}, 1000)</div>
                         <div>&nbsp;&nbsp;{"}"}</div>
@@ -211,7 +540,8 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
                 <div class="font-mono text-[10px]">
                     <span class="text-green-400"
-                        >// ✅ Implicit - one expression, no braces</span>
+                        >// ✅ Implicit - one expression, no braces</span
+                    >
                 </div>
                 <div class="font-mono text-[10px]">
                     const double = n =&gt; n * 2
@@ -219,7 +549,8 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 <div class="font-mono text-[10px]">items.map(x =&gt; x.id)</div>
                 <div class="font-mono text-[10px] mt-1">
                     <span class="text-green-400"
-                        >// ✅ Explicit - multiple statements, braces + return</span>
+                        >// ✅ Explicit - multiple statements, braces + return</span
+                    >
                 </div>
                 <div class="font-mono text-[10px]">
                     const process = n =&gt; {"{"}
@@ -268,7 +599,8 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                             &nbsp;&nbsp;&nbsp;&nbsp;console.log(`Hi, I'm ${
                                 "{"
                             }this.name{"}"}`) <span class="text-gray-400"
-                                >// Works!</span>
+                                >// Works!</span
+                            >
                         </div>
                         <div>&nbsp;&nbsp;{"}"}</div>
                         <div>{"}"}</div>
@@ -288,13 +620,15 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                             &nbsp;&nbsp;&nbsp;&nbsp;console.log(`Hi, I'm ${
                                 "{"
                             }this.name{"}"}`) <span class="text-gray-400"
-                                >// undefined!</span>
+                                >// undefined!</span
+                            >
                         </div>
                         <div>&nbsp;&nbsp;{"}"}</div>
                         <div>{"}"}</div>
                         <div class="mt-2 text-[10px]">
                             <span class="text-gray-400"
-                                >// Arrow functions don't have their own 'this'</span>
+                                >// Arrow functions don't have their own 'this'</span
+                            >
                         </div>
                     </div>
                 </div>
@@ -343,7 +677,8 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         <div>{"}"}</div>
                         <div class="mt-2">
                             <span class="text-green-400"
-                                >// Better - use class syntax:</span>
+                                >// Better - use class syntax:</span
+                            >
                         </div>
                         <div>class Person {"{"}</div>
                         <div>
@@ -367,12 +702,14 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         <div>function old() {"{"}</div>
                         <div>
                             &nbsp;&nbsp;console.log(arguments) <span
-                                class="text-gray-400">// [all args]</span>
+                                class="text-gray-400">// [all args]</span
+                            >
                         </div>
                         <div>{"}"}</div>
                         <div class="mt-2">
                             <span class="text-green-400"
-                                >// Better - use rest parameters:</span>
+                                >// Better - use rest parameters:</span
+                            >
                         </div>
                         <div>
                             const modern = (...args) =&gt; console.log(args)
@@ -443,11 +780,13 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         </div>
                         <div class="mt-2">
                             greet('Alice') <span class="text-gray-400"
-                                >// "Hello Alice"</span>
+                                >// "Hello Alice"</span
+                            >
                         </div>
                         <div>
                             greet() <span class="text-gray-400"
-                                >// "Hello Guest"</span>
+                                >// "Hello Guest"</span
+                            >
                         </div>
                     </div>
                 </div>
@@ -465,11 +804,13 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         <div>{"}"})</div>
                         <div class="mt-2">
                             createUser('Alice') <span class="text-gray-400"
-                                >// role: 'user', active: true</span>
+                                >// role: 'user', active: true</span
+                            >
                         </div>
                         <div>
                             createUser('Bob', 'admin') <span
-                                class="text-gray-400">// active: true</span>
+                                class="text-gray-400">// active: true</span
+                            >
                         </div>
                     </div>
                 </div>
@@ -523,7 +864,8 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         </div>
                         <div>
                             sum(1, 2, 3, 4, 5) <span class="text-gray-400"
-                                >// 15</span>
+                                >// 15</span
+                            >
                         </div>
                     </div>
                 </div>
@@ -539,7 +881,8 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         <div>&nbsp;&nbsp;name,</div>
                         <div>
                             &nbsp;&nbsp;roles <span class="text-gray-400"
-                                >// array of remaining args</span>
+                                >// array of remaining args</span
+                            >
                         </div>
                         <div>{"}"})</div>
                         <div class="mt-2">
@@ -548,7 +891,8 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         <div>
                             <span class="text-gray-400"
                                 >// {"{"} name: 'Alice', roles: ['admin', 'editor',
-                                'viewer'] {"}"}</span>
+                                'viewer'] {"}"}</span
+                            >
                         </div>
                     </div>
                 </div>
@@ -564,15 +908,18 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 <div class="font-mono text-[10px]">fn(a, b, ...rest)</div>
                 <div class="font-mono text-[10px] mt-1">
                     <span class="text-red-400"
-                        >// ❌ Bad - rest must be last</span>
+                        >// ❌ Bad - rest must be last</span
+                    >
                 </div>
                 <div class="font-mono text-[10px]">
                     fn(...rest, a, b) <span class="text-gray-400"
-                        >// SyntaxError!</span>
+                        >// SyntaxError!</span
+                    >
                 </div>
                 <div class="font-mono text-[10px]">
                     fn(a, ...rest, b) <span class="text-gray-400"
-                        >// SyntaxError!</span>
+                        >// SyntaxError!</span
+                    >
                 </div>
             </div>
         </ProTip>
@@ -630,7 +977,8 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         <div>{"}"})</div>
                         <div class="mt-2">
                             createUser({"{"} name: 'Alice' {"}"}) <span
-                                class="text-gray-400">// uses defaults</span>
+                                class="text-gray-400">// uses defaults</span
+                            >
                         </div>
                         <div>
                             createUser({"{"} name: 'Bob', role: 'admin' {"}"})
@@ -647,7 +995,8 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         <div>const swap = ([a, b]) =&gt; [b, a]</div>
                         <div class="mt-1">
                             swap([1, 2]) <span class="text-gray-400"
-                                >// [2, 1]</span>
+                                >// [2, 1]</span
+                            >
                         </div>
                     </div>
                 </div>
@@ -758,7 +1107,8 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         </div>
                         <div>
                             <span class="text-gray-400"
-                                >// Run multiple fetches at once</span>
+                                >// Run multiple fetches at once</span
+                            >
                         </div>
                         <div>const [users, posts] = await Promise.all([</div>
                         <div>
@@ -788,7 +1138,8 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 </div>
                 <div class="font-mono text-[10px] mt-1">
                     <span class="text-gray-400"
-                        >// Remember: async functions always return a Promise</span>
+                        >// Remember: async functions always return a Promise</span
+                    >
                 </div>
             </div>
         </ProTip>
@@ -822,7 +1173,8 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         <div>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
                                 class="text-gray-400"
-                                >// Deeply nested code</span>
+                                >// Deeply nested code</span
+                            >
                         </div>
                         <div>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return
@@ -849,7 +1201,8 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         <div>&nbsp;&nbsp;</div>
                         <div>
                             &nbsp;&nbsp;<span class="text-gray-400"
-                                >// Clean, flat code</span>
+                                >// Clean, flat code</span
+                            >
                         </div>
                         <div>&nbsp;&nbsp;return doSomething(user);</div>
                         <div>{"}"}</div>
@@ -874,7 +1227,8 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         </div>
                         <div>
                             &nbsp;&nbsp;return total * 0.1; <span
-                                class="text-gray-400">// 10% discount</span>
+                                class="text-gray-400">// 10% discount</span
+                            >
                         </div>
                         <div>{"}"}</div>
                     </div>
@@ -899,7 +1253,8 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 </div>
                 <div class="font-mono text-[10px] mt-1">
                     <span class="text-gray-400"
-                        >// Rule: Handle edge cases first, happy path last</span>
+                        >// Rule: Handle edge cases first, happy path last</span
+                    >
                 </div>
             </div>
         </ProTip>
@@ -1002,24 +1357,29 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         <div class="text-yellow-400 mb-1">When to use:</div>
                         <div>
                             <span class="text-gray-400"
-                                >• Isolate variables (create private scope)</span>
+                                >• Isolate variables (create private scope)</span
+                            >
                         </div>
                         <div>
                             <span class="text-gray-400"
-                                >• Run initialization code once</span>
+                                >• Run initialization code once</span
+                            >
                         </div>
                         <div>
                             <span class="text-gray-400"
-                                >• Avoid polluting global scope</span>
+                                >• Avoid polluting global scope</span
+                            >
                         </div>
                         <div class="mt-2">
                             <span class="text-yellow-400"
-                                >// But honestly, just use modules instead:</span>
+                                >// But honestly, just use modules instead:</span
+                            >
                         </div>
                         <div>// file.js</div>
                         <div>
                             const secret = 'private' <span class="text-gray-400"
-                                >// already isolated!</span>
+                                >// already isolated!</span
+                            >
                         </div>
                     </div>
                 </div>
@@ -1039,7 +1399,8 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 </div>
                 <div class="font-mono text-[10px] mt-1">
                     <span class="text-gray-400"
-                        >// No IIFE needed in modules</span>
+                        >// No IIFE needed in modules</span
+                    >
                 </div>
                 <div class="font-mono text-[10px]">const value = 42</div>
                 <div class="font-mono text-[10px]">console.log(value)</div>
@@ -1050,6 +1411,32 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     <Fragment slot="page-nav">
         <ul class="space-y-2 text-xs">
             <li>
+                <a
+                    href="#function-types"
+                    class="text-cyan-300 font-semibold hover:text-cyan-200 block py-1"
+                    >📚 Function Types & Hoisting</a
+                >
+                <ul
+                    class="ml-3 mt-1 space-y-1 border-l-2 border-cyan-500/30 pl-2"
+                >
+                    <li>
+                        <a
+                            href="#three-types"
+                            class="text-gray-300 hover:text-blue-400 block"
+                            >Three Ways</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="#key-differences"
+                            class="text-gray-300 hover:text-blue-400 block"
+                            >Key Differences</a
+                        >
+                    </li>
+                </ul>
+            </li>
+
+            <li class="mt-4">
                 <a
                     href="#arrow-functions"
                     class="text-blue-300 font-semibold hover:text-blue-200 block py-1"
@@ -1062,13 +1449,15 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         <a
                             href="#arrow-basics"
                             class="text-gray-300 hover:text-blue-400 block"
-                            >Arrow Syntax</a>
+                            >Arrow Syntax</a
+                        >
                     </li>
                     <li>
                         <a
                             href="#why-arrows"
                             class="text-gray-300 hover:text-blue-400 block"
-                            >Why Use Arrows</a>
+                            >Why Use Arrows</a
+                        >
                     </li>
                 </ul>
             </li>
@@ -1086,13 +1475,15 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         <a
                             href="#object-methods"
                             class="text-gray-300 hover:text-blue-400 block"
-                            >Object Methods</a>
+                            >Object Methods</a
+                        >
                     </li>
                     <li>
                         <a
                             href="#other-regular-cases"
                             class="text-gray-300 hover:text-blue-400 block"
-                            >Other Cases</a>
+                            >Other Cases</a
+                        >
                     </li>
                 </ul>
             </li>
@@ -1110,19 +1501,22 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         <a
                             href="#default-params"
                             class="text-gray-300 hover:text-blue-400 block"
-                            >Default Parameters</a>
+                            >Default Parameters</a
+                        >
                     </li>
                     <li>
                         <a
                             href="#rest-params"
                             class="text-gray-300 hover:text-blue-400 block"
-                            >Rest Parameters</a>
+                            >Rest Parameters</a
+                        >
                     </li>
                     <li>
                         <a
                             href="#destructuring-params"
                             class="text-gray-300 hover:text-blue-400 block"
-                            >Destructuring</a>
+                            >Destructuring</a
+                        >
                     </li>
                 </ul>
             </li>
@@ -1140,25 +1534,29 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         <a
                             href="#async-await"
                             class="text-gray-300 hover:text-blue-400 block"
-                            >Async/Await</a>
+                            >Async/Await</a
+                        >
                     </li>
                     <li>
                         <a
                             href="#guard-clauses"
                             class="text-gray-300 hover:text-blue-400 block"
-                            >Guard Clauses</a>
+                            >Guard Clauses</a
+                        >
                     </li>
                     <li>
                         <a
                             href="#callbacks-arrays"
                             class="text-gray-300 hover:text-blue-400 block"
-                            >Callbacks & Arrays</a>
+                            >Callbacks & Arrays</a
+                        >
                     </li>
                     <li>
                         <a
                             href="#iife"
                             class="text-gray-300 hover:text-blue-400 block"
-                            >IIFE</a>
+                            >IIFE</a
+                        >
                     </li>
                 </ul>
             </li>
