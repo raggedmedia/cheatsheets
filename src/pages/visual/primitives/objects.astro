@@ -15,10 +15,45 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 <VisualLayout pageTitle="Objects">
     <ProTip>
         <div>
+            ⚠️ <strong>Objects are NOT iterable!</strong> Unlike arrays and strings,
+            you can't directly use for...of or spread on objects.
+        </div>
+        <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+            <div class="font-mono text-[10px]">
+                <span class="text-red-400">// This won't work:</span>
+            </div>
+            <div class="font-mono text-[10px]">
+                for (const item of obj) {"{"} ... {"}"}
+                <span class="text-red-400">// TypeError! ❌</span>
+            </div>
+            <div class="font-mono text-[10px] mt-1">
+                <span class="text-green-400">// Use these instead:</span>
+            </div>
+            <div class="font-mono text-[10px]">
+                Object.keys(obj) → array of keys
+            </div>
+            <div class="font-mono text-[10px]">
+                Object.values(obj) → array of values
+            </div>
+            <div class="font-mono text-[10px]">
+                Object.entries(obj) → array of [key, value] pairs
+            </div>
+            <div class="font-mono text-[10px] mt-1">
+                <span class="text-green-400">// Then you can iterate:</span>
+            </div>
+            <div class="font-mono text-[10px]">
+                for (const [k, v] of Object.entries(obj)) {"{"} ... {"}"} ✅
+            </div>
+        </div>
+    </ProTip>
+
+    <ProTip>
+        <div>
             ⚡ Objects are <strong>mutable</strong> — you can change properties even
             with <code
                 class="bg-black/30 px-1 py-0.5 rounded font-mono text-yellow-400"
-                >const</code>
+                >const</code
+            >
         </div>
         <div
             class="pl-2 border-l-2 border-yellow-500/30 mt-1 font-mono text-[10px]"
@@ -51,7 +86,8 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             </div>
             <div class="font-mono text-[10px]">
                 Object.keys(user).length → 3 <span class="text-green-400"
-                    >// count of properties</span>
+                    >// count of properties</span
+                >
             </div>
             <div class="font-mono text-[10px] mt-1">
                 <span class="text-blue-400">// Other ways to count:</span>
@@ -277,7 +313,8 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 <div class="font-mono text-[10px]">
                     &nbsp;&nbsp;return {"{"} name, age {"}"}; <span
                         class="text-green-400"
-                        >// instead of {"{"}name: name, age: age{"}"}</span>
+                        >// instead of {"{"}name: name, age: age{"}"}</span
+                    >
                 </div>
                 <div class="font-mono text-[10px]">{"}"}</div>
             </div>
@@ -339,7 +376,8 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 </div>
                 <div class="font-mono text-[10px]">
                     &nbsp;&nbsp;[field]: "alice@email.com" <span
-                        class="text-green-400">// key is "email"</span>
+                        class="text-green-400">// key is "email"</span
+                    >
                 </div>
                 <div class="font-mono text-[10px]">{"}"};</div>
             </div>
@@ -445,19 +483,23 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 </div>
                 <div class="font-mono text-[10px]">
                     obj.a = 99 <span class="text-red-400"
-                        >// silently ignored (non-strict mode)</span>
+                        >// silently ignored (non-strict mode)</span
+                    >
                 </div>
                 <div class="font-mono text-[10px]">
                     obj.b = 2 <span class="text-red-400"
-                        >// silently ignored (non-strict mode)</span>
+                        >// silently ignored (non-strict mode)</span
+                    >
                 </div>
                 <div class="font-mono text-[10px]">
                     delete obj.a <span class="text-red-400"
-                        >// silently ignored (non-strict mode)</span>
+                        >// silently ignored (non-strict mode)</span
+                    >
                 </div>
                 <div class="font-mono text-[10px] mt-1">
                     'use strict'; obj.a = 99 <span class="text-red-400"
-                        >// TypeError ❌</span>
+                        >// TypeError ❌</span
+                    >
                 </div>
             </div>
         </ProTip>
@@ -473,7 +515,8 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 </div>
                 <div class="font-mono text-[10px]">
                     obj.user.id = 999 ✅ <span class="text-gray-400"
-                        >// nested still mutable!</span>
+                        >// nested still mutable!</span
+                    >
                 </div>
             </div>
         </ProTip>
@@ -525,19 +568,23 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 </div>
                 <div class="font-mono text-[10px]">
                     obj.a = 99 ✅ <span class="text-green-400"
-                        >// editing works!</span>
+                        >// editing works!</span
+                    >
                 </div>
                 <div class="font-mono text-[10px]">
                     obj.b = 2 <span class="text-red-400"
-                        >// silently ignored (can't add)</span>
+                        >// silently ignored (can't add)</span
+                    >
                 </div>
                 <div class="font-mono text-[10px]">
                     delete obj.a <span class="text-red-400"
-                        >// silently ignored (can't remove)</span>
+                        >// silently ignored (can't remove)</span
+                    >
                 </div>
                 <div class="font-mono text-[10px] mt-1">
                     'use strict'; obj.b = 2 <span class="text-red-400"
-                        >// TypeError ❌</span>
+                        >// TypeError ❌</span
+                    >
                 </div>
             </div>
         </ProTip>
@@ -903,11 +950,13 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <div class="font-mono text-[10px]">'a' in obj → true ✅</div>
             <div class="font-mono text-[10px]">
                 'toString' in obj → true <span class="text-orange-400"
-                    >// inherited from prototype!</span>
+                    >// inherited from prototype!</span
+                >
             </div>
             <div class="font-mono text-[10px] mt-1">
                 Object.hasOwn(obj, 'toString') → false ✅ <span
-                    class="text-gray-400">// own only</span>
+                    class="text-gray-400">// own only</span
+                >
             </div>
         </div>
     </ProTip>
@@ -959,21 +1008,24 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             </div>
             <div class="font-mono text-[10px]">
                 const {"{"} name: userName {"}"} = obj; <span
-                    class="text-green-400">// userName = "Alice"</span>
+                    class="text-green-400">// userName = "Alice"</span
+                >
             </div>
             <div class="font-mono text-[10px] mt-1">
                 <span class="text-gray-400">// Default values</span>
             </div>
             <div class="font-mono text-[10px]">
                 const {"{"} country = "USA" {"}"} = obj; <span
-                    class="text-green-400">// if missing</span>
+                    class="text-green-400">// if missing</span
+                >
             </div>
             <div class="font-mono text-[10px] mt-1">
                 <span class="text-gray-400">// Rest operator</span>
             </div>
             <div class="font-mono text-[10px]">
                 const {"{"} name, ...rest {"}"} = obj; <span
-                    class="text-green-400">// rest = remaining props</span>
+                    class="text-green-400">// rest = remaining props</span
+                >
             </div>
         </div>
     </ProTip>
@@ -1036,7 +1088,8 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <div class="font-mono text-[10px]">-0 === +0 → true</div>
             <div class="font-mono text-[10px]">
                 Object.is(-0, +0) → false <span class="text-green-400"
-                    >// distinguishes!</span>
+                    >// distinguishes!</span
+                >
             </div>
         </div>
     </ProTip>
@@ -1256,7 +1309,8 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             </div>
             <div class="font-mono text-[10px]">
                 &nbsp;&nbsp;console.log(key, value) <span class="text-gray-400"
-                    >// both available!</span>
+                    >// both available!</span
+                >
             </div>
             <div class="font-mono text-[10px]">{"}"}</div>
         </div>
@@ -1573,8 +1627,8 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         <div>⚠️ <strong>Old way vs modern way:</strong></div>
         <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
             <div class="font-mono text-[10px]">
-                <span class="text-red-400"
-                    >// Old: verbose and error-prone</span>
+                <span class="text-red-400">// Old: verbose and error-prone</span
+                >
             </div>
             <div class="font-mono text-[10px]">
                 const name = obj &amp;&amp; obj.user &amp;&amp; obj.user.name
@@ -1648,19 +1702,23 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             </div>
             <div class="font-mono text-[10px]">
                 count || 10 → 10 <span class="text-gray-400"
-                    >// loses your 0!</span>
+                    >// loses your 0!</span
+                >
             </div>
             <div class="font-mono text-[10px] mt-1">
                 <span class="text-green-400"
-                    >// ?? only checks null/undefined ✅</span>
+                    >// ?? only checks null/undefined ✅</span
+                >
             </div>
             <div class="font-mono text-[10px]">
                 count ?? 10 → 0 <span class="text-gray-400"
-                    >// keeps your 0!</span>
+                    >// keeps your 0!</span
+                >
             </div>
             <div class="font-mono text-[10px] mt-1.5">
                 <span class="text-blue-400"
-                    >// Perfect with optional chaining:</span>
+                    >// Perfect with optional chaining:</span
+                >
             </div>
             <div class="font-mono text-[10px]">obj?.user?.age ?? 18</div>
         </div>
@@ -1720,25 +1778,28 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             </div>
             <div class="font-mono text-[10px] mt-1">
                 <span class="text-red-400"
-                    >// Shallow: nested still shared! ⚠️</span>
+                    >// Shallow: nested still shared! ⚠️</span
+                >
             </div>
             <div class="font-mono text-[10px]">
                 const shallow = {"{"} ...obj {"}"}
             </div>
             <div class="font-mono text-[10px]">
                 shallow.user.id = 999 <span class="text-red-400"
-                    >// obj.user.id also becomes 999!</span>
+                    >// obj.user.id also becomes 999!</span
+                >
             </div>
             <div class="font-mono text-[10px] mt-1">
-                <span class="text-green-400"
-                    >// Deep: fully independent ✅</span>
+                <span class="text-green-400">// Deep: fully independent ✅</span
+                >
             </div>
             <div class="font-mono text-[10px]">
                 const deep = structuredClone(obj)
             </div>
             <div class="font-mono text-[10px]">
                 deep.user.id = 999 <span class="text-green-400"
-                    >// obj.user.id stays 1 ✅</span>
+                    >// obj.user.id stays 1 ✅</span
+                >
             </div>
         </div>
     </ProTip>
@@ -1844,31 +1905,36 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                             <a
                                 href="#property-assignment"
                                 class="text-gray-300 hover:text-blue-400 block"
-                                >obj.key = value</a>
+                                >obj.key = value</a
+                            >
                         </li>
                         <li>
                             <a
                                 href="#delete"
                                 class="text-gray-300 hover:text-blue-400 block"
-                                >delete</a>
+                                >delete</a
+                            >
                         </li>
                         <li>
                             <a
                                 href="#property-shorthand"
                                 class="text-gray-300 hover:text-blue-400 block"
-                                >Property Shorthand</a>
+                                >Property Shorthand</a
+                            >
                         </li>
                         <li>
                             <a
                                 href="#computed-property"
                                 class="text-gray-300 hover:text-blue-400 block"
-                                >Computed Property Names</a>
+                                >Computed Property Names</a
+                            >
                         </li>
                         <li>
                             <a
                                 href="#assign"
                                 class="text-gray-300 hover:text-blue-400 block"
-                                >Object.assign()</a>
+                                >Object.assign()</a
+                            >
                         </li>
                     </ul>
                 </li>
@@ -1881,13 +1947,15 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                             <a
                                 href="#freeze"
                                 class="text-gray-300 hover:text-blue-400 block"
-                                >Object.freeze()</a>
+                                >Object.freeze()</a
+                            >
                         </li>
                         <li>
                             <a
                                 href="#seal"
                                 class="text-gray-300 hover:text-blue-400 block"
-                                >Object.seal()</a>
+                                >Object.seal()</a
+                            >
                         </li>
                     </ul>
                 </li>
@@ -1911,13 +1979,15 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                             <a
                                 href="#spread"
                                 class="text-gray-300 hover:text-blue-400 block"
-                                >{"{"} ...obj {"}"}</a>
+                                >{"{"} ...obj {"}"}</a
+                            >
                         </li>
                         <li>
                             <a
                                 href="#structuredClone"
                                 class="text-gray-300 hover:text-blue-400 block"
-                                >structuredClone()</a>
+                                >structuredClone()</a
+                            >
                         </li>
                     </ul>
                 </li>
@@ -1930,49 +2000,57 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                             <a
                                 href="#keys"
                                 class="text-gray-300 hover:text-blue-400 block"
-                                >Object.keys()</a>
+                                >Object.keys()</a
+                            >
                         </li>
                         <li>
                             <a
                                 href="#values"
                                 class="text-gray-300 hover:text-blue-400 block"
-                                >Object.values()</a>
+                                >Object.values()</a
+                            >
                         </li>
                         <li>
                             <a
                                 href="#entries"
                                 class="text-gray-300 hover:text-blue-400 block"
-                                >Object.entries()</a>
+                                >Object.entries()</a
+                            >
                         </li>
                         <li>
                             <a
                                 href="#hasOwn"
                                 class="text-gray-300 hover:text-blue-400 block"
-                                >Object.hasOwn()</a>
+                                >Object.hasOwn()</a
+                            >
                         </li>
                         <li>
                             <a
                                 href="#in-operator"
                                 class="text-gray-300 hover:text-blue-400 block"
-                                >'key' in obj</a>
+                                >'key' in obj</a
+                            >
                         </li>
                         <li>
                             <a
                                 href="#destructuring"
                                 class="text-gray-300 hover:text-blue-400 block"
-                                >Destructuring</a>
+                                >Destructuring</a
+                            >
                         </li>
                         <li>
                             <a
                                 href="#object-is"
                                 class="text-gray-300 hover:text-blue-400 block"
-                                >Object.is()</a>
+                                >Object.is()</a
+                            >
                         </li>
                         <li>
                             <a
                                 href="#fromEntries"
                                 class="text-gray-300 hover:text-blue-400 block"
-                                >Object.fromEntries()</a>
+                                >Object.fromEntries()</a
+                            >
                         </li>
                     </ul>
                 </li>
@@ -1985,25 +2063,29 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                             <a
                                 href="#for-in"
                                 class="text-gray-300 hover:text-blue-400 block"
-                                >for...in</a>
+                                >for...in</a
+                            >
                         </li>
                         <li>
                             <a
                                 href="#keys-foreach"
                                 class="text-gray-300 hover:text-blue-400 block"
-                                >Object.keys() + forEach</a>
+                                >Object.keys() + forEach</a
+                            >
                         </li>
                         <li>
                             <a
                                 href="#entries-forof"
                                 class="text-gray-300 hover:text-blue-400 block"
-                                >Object.entries() + for...of</a>
+                                >Object.entries() + for...of</a
+                            >
                         </li>
                         <li>
                             <a
                                 href="#values-foreach"
                                 class="text-gray-300 hover:text-blue-400 block"
-                                >Object.values() + forEach</a>
+                                >Object.values() + forEach</a
+                            >
                         </li>
                     </ul>
                 </li>
@@ -2016,19 +2098,22 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                             <a
                                 href="#map-values"
                                 class="text-gray-300 hover:text-blue-400 block"
-                                >Map Values</a>
+                                >Map Values</a
+                            >
                         </li>
                         <li>
                             <a
                                 href="#filter-object"
                                 class="text-gray-300 hover:text-blue-400 block"
-                                >Filter Object</a>
+                                >Filter Object</a
+                            >
                         </li>
                         <li>
                             <a
                                 href="#rename-keys"
                                 class="text-gray-300 hover:text-blue-400 block"
-                                >Rename Keys</a>
+                                >Rename Keys</a
+                            >
                         </li>
                     </ul>
                 </li>
@@ -2041,25 +2126,29 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                             <a
                                 href="#optional-chaining"
                                 class="text-gray-300 hover:text-blue-400 block"
-                                >Optional Chaining (?.)</a>
+                                >Optional Chaining (?.)</a
+                            >
                         </li>
                         <li>
                             <a
                                 href="#nullish-coalescing"
                                 class="text-gray-300 hover:text-blue-400 block"
-                                >Nullish Coalescing (??)</a>
+                                >Nullish Coalescing (??)</a
+                            >
                         </li>
                         <li>
                             <a
                                 href="#deep-clone"
                                 class="text-gray-300 hover:text-blue-400 block"
-                                >Deep Clone</a>
+                                >Deep Clone</a
+                            >
                         </li>
                         <li>
                             <a
                                 href="#deep-merge"
                                 class="text-gray-300 hover:text-blue-400 block"
-                                >Deep Merge</a>
+                                >Deep Merge</a
+                            >
                         </li>
                     </ul>
                 </li>

@@ -16,10 +16,39 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 <VisualLayout pageTitle="Arrays">
     <ProTip>
         <div>
-            📏 <strong>Array length property:</strong> Get the number of elements
+            � <strong>Arrays are iterable!</strong> Arrays (along with strings, Maps,
+            and Sets) are one of the few iterable types in JavaScript.
+        </div>
+        <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+            <div class="font-mono text-[10px]">
+                <span class="text-green-400">// Works with for...of loops:</span
+                >
+            </div>
+            <div class="font-mono text-[10px]">
+                for (const item of [1, 2, 3]) {"{"} console.log(item) {"}"}
+            </div>
+            <div class="font-mono text-[10px] mt-1">
+                <span class="text-green-400"
+                    >// Works with spread operator:</span
+                >
+            </div>
+            <div class="font-mono text-[10px]">const copy = [...arr]</div>
+            <div class="font-mono text-[10px] mt-1">
+                <span class="text-red-400"
+                    >// Objects are NOT iterable (need
+                    Object.keys/values/entries)</span
+                >
+            </div>
+        </div>
+    </ProTip>
+
+    <ProTip>
+        <div>
+            � <strong>Array length property:</strong> Get the number of elements
             with <code
                 class="bg-black/30 px-1 py-0.5 rounded font-mono text-yellow-400"
-                >arr.length</code>
+                >arr.length</code
+            >
         </div>
         <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
             <div class="font-mono text-[10px]">
@@ -28,7 +57,8 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <div class="font-mono text-[10px]">nums.length → 5</div>
             <div class="font-mono text-[10px] mt-1">
                 <span class="text-green-400"
-                    >// Writable! Set length to truncate:</span>
+                    >// Writable! Set length to truncate:</span
+                >
             </div>
             <div class="font-mono text-[10px]">nums.length = 3 → [1, 2, 3]</div>
         </div>
@@ -595,11 +625,13 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <div class="pl-2 border-l-2 border-yellow-500/60">
                 <div class="font-mono text-[10px]">
                     [2,4,1,3].sort((a,b) => a-b) → [1,2,3,4] <span
-                        class="text-gray-400">// ascending</span>
+                        class="text-gray-400">// ascending</span
+                    >
                 </div>
                 <div class="font-mono text-[10px]">
                     [2,4,1,3].sort((a,b) => b-a) → [4,3,2,1] <span
-                        class="text-gray-400">// descending</span>
+                        class="text-gray-400">// descending</span
+                    >
                 </div>
                 <div class="font-mono text-[10px] text-gray-400">
                     // OR: .sort((a,b) => a-b).reverse() → [4,3,2,1]
@@ -700,11 +732,13 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <div class="pl-2 border-l-2 border-yellow-500/60 space-y-0.5">
                 <div class="font-mono text-[10px]">
                     Array(5).fill(0) → [0, 0, 0, 0, 0] <span
-                        class="text-gray-400">// no holes!</span>
+                        class="text-gray-400">// no holes!</span
+                    >
                 </div>
                 <div class="font-mono text-[10px]">
                     Array(5) → [empty × 5] <span class="text-gray-400"
-                        >// has holes, methods skip these</span>
+                        >// has holes, methods skip these</span
+                    >
                 </div>
             </div>
         </ProTip>
@@ -1360,11 +1394,13 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 </div>
                 <div class="font-mono text-[10px]">
                     Array.isArray("hello") → false <span class="text-gray-400"
-                        >// strings have .length too!</span>
+                        >// strings have .length too!</span
+                    >
                 </div>
                 <div class="font-mono text-[10px]">
                     Array.isArray({"{"}0: 'a'{"}"}) → false <span
-                        class="text-gray-400">// array-like but not array</span>
+                        class="text-gray-400">// array-like but not array</span
+                    >
                 </div>
                 <div class="font-mono text-[10px] mt-1">
                     <span class="text-green-400">// Common pattern:</span>
@@ -1701,7 +1737,8 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 </div>
                 <div class="font-mono text-[10px]">
                     if (idx !== -1) users.splice(idx, 1) <span
-                        class="text-gray-400">// removes user</span>
+                        class="text-gray-400">// removes user</span
+                    >
                 </div>
             </div>
         </ProTip>
@@ -1960,7 +1997,8 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 </div>
                 <div class="font-mono text-[10px]">
                     arr.forEach(item =&gt; {"{"} ... {"}"}) <span
-                        class="text-gray-400">// cleaner, slightly slower</span>
+                        class="text-gray-400">// cleaner, slightly slower</span
+                    >
                 </div>
             </div>
         </ProTip>
@@ -2219,19 +2257,22 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                                 <a
                                     href="#split"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >split()</a>
+                                    >split()</a
+                                >
                             </li>
                             <li>
                                 <a
                                     href="#array-from-string"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >Array.from()</a>
+                                    >Array.from()</a
+                                >
                             </li>
                             <li>
                                 <a
                                     href="#spread-string"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >[...str]</a>
+                                    >[...str]</a
+                                >
                             </li>
                         </ul>
                     </li>
@@ -2244,13 +2285,15 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                                 <a
                                     href="#number-to-digits"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >String().split()</a>
+                                    >String().split()</a
+                                >
                             </li>
                             <li>
                                 <a
                                     href="#array-from-number"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >Array.from() + map</a>
+                                    >Array.from() + map</a
+                                >
                             </li>
                         </ul>
                     </li>
@@ -2276,31 +2319,36 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                                 <a
                                     href="#push"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >push()</a>
+                                    >push()</a
+                                >
                             </li>
                             <li>
                                 <a
                                     href="#pop"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >pop()</a>
+                                    >pop()</a
+                                >
                             </li>
                             <li>
                                 <a
                                     href="#unshift"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >unshift()</a>
+                                    >unshift()</a
+                                >
                             </li>
                             <li>
                                 <a
                                     href="#shift"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >shift()</a>
+                                    >shift()</a
+                                >
                             </li>
                             <li>
                                 <a
                                     href="#splice"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >splice()</a>
+                                    >splice()</a
+                                >
                             </li>
                         </ul>
                     </li>
@@ -2313,13 +2361,15 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                                 <a
                                     href="#sort"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >sort()</a>
+                                    >sort()</a
+                                >
                             </li>
                             <li>
                                 <a
                                     href="#reverse"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >reverse()</a>
+                                    >reverse()</a
+                                >
                             </li>
                         </ul>
                     </li>
@@ -2332,13 +2382,15 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                                 <a
                                     href="#fill"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >fill()</a>
+                                    >fill()</a
+                                >
                             </li>
                             <li>
                                 <a
                                     href="#copyWithin"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >copyWithin()</a>
+                                    >copyWithin()</a
+                                >
                             </li>
                         </ul>
                     </li>
@@ -2364,61 +2416,71 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                                 <a
                                     href="#map"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >map()</a>
+                                    >map()</a
+                                >
                             </li>
                             <li>
                                 <a
                                     href="#filter"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >filter()</a>
+                                    >filter()</a
+                                >
                             </li>
                             <li>
                                 <a
                                     href="#slice"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >slice()</a>
+                                    >slice()</a
+                                >
                             </li>
                             <li>
                                 <a
                                     href="#concat"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >concat()</a>
+                                    >concat()</a
+                                >
                             </li>
                             <li>
                                 <a
                                     href="#flat"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >flat()</a>
+                                    >flat()</a
+                                >
                             </li>
                             <li>
                                 <a
                                     href="#flatMap"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >flatMap()</a>
+                                    >flatMap()</a
+                                >
                             </li>
                             <li>
                                 <a
                                     href="#with"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >with()</a>
+                                    >with()</a
+                                >
                             </li>
                             <li>
                                 <a
                                     href="#toSpliced"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >toSpliced()</a>
+                                    >toSpliced()</a
+                                >
                             </li>
                             <li>
                                 <a
                                     href="#toSorted"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >toSorted()</a>
+                                    >toSorted()</a
+                                >
                             </li>
                             <li>
                                 <a
                                     href="#toReversed"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >toReversed()</a>
+                                    >toReversed()</a
+                                >
                             </li>
                         </ul>
                     </li>
@@ -2431,61 +2493,71 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                                 <a
                                     href="#find"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >find()</a>
+                                    >find()</a
+                                >
                             </li>
                             <li>
                                 <a
                                     href="#includes"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >includes()</a>
+                                    >includes()</a
+                                >
                             </li>
                             <li>
                                 <a
                                     href="#indexOf"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >indexOf()</a>
+                                    >indexOf()</a
+                                >
                             </li>
                             <li>
                                 <a
                                     href="#some"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >some()</a>
+                                    >some()</a
+                                >
                             </li>
                             <li>
                                 <a
                                     href="#every"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >every()</a>
+                                    >every()</a
+                                >
                             </li>
                             <li>
                                 <a
                                     href="#lastIndexOf"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >lastIndexOf()</a>
+                                    >lastIndexOf()</a
+                                >
                             </li>
                             <li>
                                 <a
                                     href="#findLast"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >findLast()</a>
+                                    >findLast()</a
+                                >
                             </li>
                             <li>
                                 <a
                                     href="#findIndex"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >findIndex()</a>
+                                    >findIndex()</a
+                                >
                             </li>
                             <li>
                                 <a
                                     href="#findLastIndex"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >findLastIndex()</a>
+                                    >findLastIndex()</a
+                                >
                             </li>
                             <li>
                                 <a
                                     href="#at"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >at()</a>
+                                    >at()</a
+                                >
                             </li>
                         </ul>
                     </li>
@@ -2498,13 +2570,15 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                                 <a
                                     href="#reduce"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >reduce()</a>
+                                    >reduce()</a
+                                >
                             </li>
                             <li>
                                 <a
                                     href="#reduceRight"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >reduceRight()</a>
+                                    >reduceRight()</a
+                                >
                             </li>
                         </ul>
                     </li>
@@ -2517,25 +2591,29 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                                 <a
                                     href="#forEach"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >forEach()</a>
+                                    >forEach()</a
+                                >
                             </li>
                             <li>
                                 <a
                                     href="#entries"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >entries()</a>
+                                    >entries()</a
+                                >
                             </li>
                             <li>
                                 <a
                                     href="#keys"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >keys()</a>
+                                    >keys()</a
+                                >
                             </li>
                             <li>
                                 <a
                                     href="#values"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >values()</a>
+                                    >values()</a
+                                >
                             </li>
                         </ul>
                     </li>
@@ -2548,19 +2626,22 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                                 <a
                                     href="#join"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >join()</a>
+                                    >join()</a
+                                >
                             </li>
                             <li>
                                 <a
                                     href="#toString"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >toString()</a>
+                                    >toString()</a
+                                >
                             </li>
                             <li>
                                 <a
                                     href="#toLocaleString"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >toLocaleString()</a>
+                                    >toLocaleString()</a
+                                >
                             </li>
                         </ul>
                     </li>

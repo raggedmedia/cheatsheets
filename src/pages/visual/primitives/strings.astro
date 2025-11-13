@@ -14,6 +14,36 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 <VisualLayout pageTitle="Strings">
     <ProTip>
         <div>
+            🔄 <strong>Strings are iterable!</strong> Strings (along with arrays,
+            Maps, and Sets) are one of the few iterable types in JavaScript.
+        </div>
+        <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+            <div class="font-mono text-[10px]">
+                <span class="text-green-400">// Works with for...of loops:</span
+                >
+            </div>
+            <div class="font-mono text-[10px]">
+                for (const char of "hello") {"{"} console.log(char) {"}"}
+            </div>
+            <div class="font-mono text-[10px] mt-1">
+                <span class="text-green-400"
+                    >// Works with spread operator:</span
+                >
+            </div>
+            <div class="font-mono text-[10px]">
+                [...'hello'] → ['h', 'e', 'l', 'l', 'o']
+            </div>
+            <div class="font-mono text-[10px] mt-1">
+                <span class="text-red-400"
+                    >// Objects are NOT iterable (need
+                    Object.keys/values/entries)</span
+                >
+            </div>
+        </div>
+    </ProTip>
+
+    <ProTip>
+        <div>
             ⚡ <strong>Strings are immutable!</strong> All methods return a new string
             — the original never changes.
         </div>
@@ -35,18 +65,21 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             📏 <strong>String length property:</strong> Get the number of characters
             with <code
                 class="bg-black/30 px-1 py-0.5 rounded font-mono text-yellow-400"
-                >str.length</code>
+                >str.length</code
+            >
         </div>
         <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
             <div class="font-mono text-[10px]">const text = "hello";</div>
             <div class="font-mono text-[10px]">text.length → 5</div>
             <div class="font-mono text-[10px] mt-1">
                 <span class="text-orange-400"
-                    >// Read-only! Can't change it:</span>
+                    >// Read-only! Can't change it:</span
+                >
             </div>
             <div class="font-mono text-[10px]">
                 text.length = 3 <span class="text-red-400"
-                    >// doesn't work (strings immutable)</span>
+                    >// doesn't work (strings immutable)</span
+                >
             </div>
         </div>
     </ProTip>
@@ -348,11 +381,13 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
             <div class="font-mono text-[10px]">
                 'hello'.slice(-2) → 'lo' <span class="text-gray-400"
-                    >// last 2 chars</span>
+                    >// last 2 chars</span
+                >
             </div>
             <div class="font-mono text-[10px]">
                 'hello'.slice(1, -1) → 'ell' <span class="text-gray-400"
-                    >// remove first and last</span>
+                    >// remove first and last</span
+                >
             </div>
         </div>
     </ProTip>
@@ -443,15 +478,18 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
             <div class="font-mono text-[10px]">
                 'hello'.split('') → ['h','e','l','l','o'] <span
-                    class="text-gray-400">// split into chars</span>
+                    class="text-gray-400">// split into chars</span
+                >
             </div>
             <div class="font-mono text-[10px]">
                 'a b c'.split(' ') → ['a','b','c'] <span class="text-gray-400"
-                    >// split on space</span>
+                    >// split on space</span
+                >
             </div>
             <div class="font-mono text-[10px]">
                 Array.from('hello') <span class="text-green-400"
-                    >// better for Unicode (emoji safe)</span>
+                    >// better for Unicode (emoji safe)</span
+                >
             </div>
         </div>
     </ProTip>
@@ -593,7 +631,8 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             </div>
             <div class="font-mono text-[10px]">
                 c =&gt; c.toUpperCase() <span class="text-gray-400"
-                    >// capitalize it</span>
+                    >// capitalize it</span
+                >
             </div>
         </div>
     </ProTip>
@@ -693,12 +732,14 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
             <div class="font-mono text-[10px]">
                 <span class="text-gray-400"
-                    >// Time formatting: display '5' as '05' in times like 05:30</span>
+                    >// Time formatting: display '5' as '05' in times like 05:30</span
+                >
             </div>
             <div class="font-mono text-[10px]">'5'.padStart(2, '0') → '05'</div>
             <div class="font-mono text-[10px] mt-1">
                 <span class="text-gray-400"
-                    >// Leading zeros for IDs/invoice numbers</span>
+                    >// Leading zeros for IDs/invoice numbers</span
+                >
             </div>
             <div class="font-mono text-[10px]">
                 '123'.padStart(6, '0') → '000123'
@@ -895,15 +936,18 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
             <div class="font-mono text-[10px]">
                 'a a a'.replace('a', 'b') → 'b a a' <span class="text-red-400"
-                    >// only first!</span>
+                    >// only first!</span
+                >
             </div>
             <div class="font-mono text-[10px]">
                 'a a a'.replaceAll('a', 'b') → 'b b b' ✅ <span
-                    class="text-green-400">// all matches</span>
+                    class="text-green-400">// all matches</span
+                >
             </div>
             <div class="font-mono text-[10px]">
                 'a a a'.replace(/a/g, 'b') → 'b b b' ✅ <span
-                    class="text-gray-400">// regex global flag</span>
+                    class="text-gray-400">// regex global flag</span
+                >
             </div>
         </div>
     </ProTip>
@@ -1092,19 +1136,23 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
             <div class="font-mono text-[10px]">
                 ['a','b','c'].join(', ') → 'a, b, c' <span class="text-gray-400"
-                    >// comma + space</span>
+                    >// comma + space</span
+                >
             </div>
             <div class="font-mono text-[10px]">
                 ['hi','there'].join(' ') → 'hi there' <span
-                    class="text-gray-400">// words with spaces</span>
+                    class="text-gray-400">// words with spaces</span
+                >
             </div>
             <div class="font-mono text-[10px]">
                 ['h','i'].join('') → 'hi' <span class="text-gray-400"
-                    >// no separator</span>
+                    >// no separator</span
+                >
             </div>
             <div class="font-mono text-[10px]">
                 arr.toString() → 'a,b,c' <span class="text-gray-400"
-                    >// same as join() with comma</span>
+                    >// same as join() with comma</span
+                >
             </div>
         </div>
     </ProTip>
@@ -1156,23 +1204,28 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
             <div class="font-mono text-[10px]">
                 String(123) → '123' ✅ <span class="text-gray-400"
-                    >// recommended</span>
+                    >// recommended</span
+                >
             </div>
             <div class="font-mono text-[10px]">
                 (123).toString() → '123' ✅ <span class="text-gray-400"
-                    >// works too</span>
+                    >// works too</span
+                >
             </div>
             <div class="font-mono text-[10px]">
                 '' + 123 → '123' <span class="text-gray-400"
-                    >// quick but less readable</span>
+                    >// quick but less readable</span
+                >
             </div>
             <div class="font-mono text-[10px] mt-1">
                 (42).toString(2) → '101010' <span class="text-green-400"
-                    >// binary! (base 2)</span>
+                    >// binary! (base 2)</span
+                >
             </div>
             <div class="font-mono text-[10px]">
                 (255).toString(16) → 'ff' <span class="text-green-400"
-                    >// hexadecimal! (base 16)</span>
+                    >// hexadecimal! (base 16)</span
+                >
             </div>
         </div>
     </ProTip>
@@ -1223,19 +1276,23 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
             <div class="font-mono text-[10px]">
                 JSON.stringify(obj) → '{"{"}"a":1{"}"}' <span
-                    class="text-gray-400">// compact</span>
+                    class="text-gray-400">// compact</span
+                >
             </div>
             <div class="font-mono text-[10px]">
                 JSON.stringify(obj, null, 2) <span class="text-gray-400"
-                    >// pretty-print with 2-space indent</span>
+                    >// pretty-print with 2-space indent</span
+                >
             </div>
             <div class="font-mono text-[10px] mt-1">
                 <span class="text-red-400"
-                    >⚠️ Drops: functions, undefined, symbols</span>
+                    >⚠️ Drops: functions, undefined, symbols</span
+                >
             </div>
             <div class="font-mono text-[10px]">
                 <span class="text-red-400"
-                    >⚠️ Circular references throw errors</span>
+                    >⚠️ Circular references throw errors</span
+                >
             </div>
         </div>
     </ProTip>
@@ -1293,15 +1350,18 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
             <div class="font-mono text-[10px]">
                 `#${"{"}hashtag{"}"}` <span class="text-gray-400"
-                    >// add # prefix</span>
+                    >// add # prefix</span
+                >
             </div>
             <div class="font-mono text-[10px]">
                 `${"{"}url{"}"}?v=123` <span class="text-gray-400"
-                    >// add query param</span>
+                    >// add query param</span
+                >
             </div>
             <div class="font-mono text-[10px]">
                 `${"{"}name{"}"}.js` <span class="text-gray-400"
-                    >// add file extension</span>
+                    >// add file extension</span
+                >
             </div>
         </div>
     </ProTip>
@@ -1364,11 +1424,13 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             </div>
             <div class="font-mono text-[10px]">
                 '👨‍👩‍👧'.split('').reverse().join('') <span class="text-red-400"
-                    >// breaks emoji! ❌</span>
+                    >// breaks emoji! ❌</span
+                >
             </div>
             <div class="font-mono text-[10px]">
                 Array.from('👨‍👩‍👧').reverse().join('') <span class="text-green-400"
-                    >// better for Unicode</span>
+                    >// better for Unicode</span
+                >
             </div>
         </div>
     </ProTip>
@@ -1420,15 +1482,18 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             </div>
             <div class="font-mono text-[10px]">
                 str.length === 0 <span class="text-gray-400"
-                    >// same as above</span>
+                    >// same as above</span
+                >
             </div>
             <div class="font-mono text-[10px]">
                 str.trim() === '' <span class="text-gray-400"
-                    >// empty or whitespace only</span>
+                    >// empty or whitespace only</span
+                >
             </div>
             <div class="font-mono text-[10px]">
                 !str <span class="text-gray-400"
-                    >// falsy (includes empty string)</span>
+                    >// falsy (includes empty string)</span
+                >
             </div>
         </div>
     </ProTip>
@@ -1447,37 +1512,43 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     <a
                         href="#charAt"
                         class="text-gray-300 hover:text-blue-400 block"
-                        >charAt()</a>
+                        >charAt()</a
+                    >
                 </li>
                 <li>
                     <a
                         href="#includes"
                         class="text-gray-300 hover:text-blue-400 block"
-                        >includes()</a>
+                        >includes()</a
+                    >
                 </li>
                 <li>
                     <a
                         href="#indexOf"
                         class="text-gray-300 hover:text-blue-400 block"
-                        >indexOf()</a>
+                        >indexOf()</a
+                    >
                 </li>
                 <li>
                     <a
                         href="#lastIndexOf"
                         class="text-gray-300 hover:text-blue-400 block"
-                        >lastIndexOf()</a>
+                        >lastIndexOf()</a
+                    >
                 </li>
                 <li>
                     <a
                         href="#startsWith"
                         class="text-gray-300 hover:text-blue-400 block"
-                        >startsWith()</a>
+                        >startsWith()</a
+                    >
                 </li>
                 <li>
                     <a
                         href="#endsWith"
                         class="text-gray-300 hover:text-blue-400 block"
-                        >endsWith()</a>
+                        >endsWith()</a
+                    >
                 </li>
             </ul>
         </li>
@@ -1495,19 +1566,22 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     <a
                         href="#slice"
                         class="text-gray-300 hover:text-blue-400 block"
-                        >slice()</a>
+                        >slice()</a
+                    >
                 </li>
                 <li>
                     <a
                         href="#substring"
                         class="text-gray-300 hover:text-blue-400 block"
-                        >substring()</a>
+                        >substring()</a
+                    >
                 </li>
                 <li>
                     <a
                         href="#split"
                         class="text-gray-300 hover:text-blue-400 block"
-                        >split()</a>
+                        >split()</a
+                    >
                 </li>
             </ul>
         </li>
@@ -1525,19 +1599,22 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     <a
                         href="#toUpperCase"
                         class="text-gray-300 hover:text-blue-400 block"
-                        >toUpperCase()</a>
+                        >toUpperCase()</a
+                    >
                 </li>
                 <li>
                     <a
                         href="#toLowerCase"
                         class="text-gray-300 hover:text-blue-400 block"
-                        >toLowerCase()</a>
+                        >toLowerCase()</a
+                    >
                 </li>
                 <li>
                     <a
                         href="#capitalize"
                         class="text-gray-300 hover:text-blue-400 block"
-                        >Capitalize Words</a>
+                        >Capitalize Words</a
+                    >
                 </li>
             </ul>
         </li>
@@ -1553,19 +1630,22 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     <a
                         href="#trim"
                         class="text-gray-300 hover:text-blue-400 block"
-                        >trim()</a>
+                        >trim()</a
+                    >
                 </li>
                 <li>
                     <a
                         href="#padStart"
                         class="text-gray-300 hover:text-blue-400 block"
-                        >padStart()</a>
+                        >padStart()</a
+                    >
                 </li>
                 <li>
                     <a
                         href="#padEnd"
                         class="text-gray-300 hover:text-blue-400 block"
-                        >padEnd()</a>
+                        >padEnd()</a
+                    >
                 </li>
             </ul>
         </li>
@@ -1581,25 +1661,29 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     <a
                         href="#concat"
                         class="text-gray-300 hover:text-blue-400 block"
-                        >concat()</a>
+                        >concat()</a
+                    >
                 </li>
                 <li>
                     <a
                         href="#repeat"
                         class="text-gray-300 hover:text-blue-400 block"
-                        >repeat()</a>
+                        >repeat()</a
+                    >
                 </li>
                 <li>
                     <a
                         href="#replace"
                         class="text-gray-300 hover:text-blue-400 block"
-                        >replace()</a>
+                        >replace()</a
+                    >
                 </li>
                 <li>
                     <a
                         href="#replaceAll"
                         class="text-gray-300 hover:text-blue-400 block"
-                        >replaceAll()</a>
+                        >replaceAll()</a
+                    >
                 </li>
             </ul>
         </li>
@@ -1615,13 +1699,15 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     <a
                         href="#match"
                         class="text-gray-300 hover:text-blue-400 block"
-                        >match()</a>
+                        >match()</a
+                    >
                 </li>
                 <li>
                     <a
                         href="#search"
                         class="text-gray-300 hover:text-blue-400 block"
-                        >search()</a>
+                        >search()</a
+                    >
                 </li>
             </ul>
         </li>
@@ -1639,19 +1725,22 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     <a
                         href="#array-to-string"
                         class="text-gray-300 hover:text-blue-400 block"
-                        >Array to String</a>
+                        >Array to String</a
+                    >
                 </li>
                 <li>
                     <a
                         href="#number-to-string"
                         class="text-gray-300 hover:text-blue-400 block"
-                        >Number to String</a>
+                        >Number to String</a
+                    >
                 </li>
                 <li>
                     <a
                         href="#object-to-string"
                         class="text-gray-300 hover:text-blue-400 block"
-                        >Object to String</a>
+                        >Object to String</a
+                    >
                 </li>
             </ul>
         </li>
@@ -1667,19 +1756,22 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     <a
                         href="#prepend-append"
                         class="text-gray-300 hover:text-blue-400 block"
-                        >Prepend / Append</a>
+                        >Prepend / Append</a
+                    >
                 </li>
                 <li>
                     <a
                         href="#reverse"
                         class="text-gray-300 hover:text-blue-400 block"
-                        >Reverse String</a>
+                        >Reverse String</a
+                    >
                 </li>
                 <li>
                     <a
                         href="#is-empty"
                         class="text-gray-300 hover:text-blue-400 block"
-                        >Check if Empty</a>
+                        >Check if Empty</a
+                    >
                 </li>
             </ul>
         </li>
