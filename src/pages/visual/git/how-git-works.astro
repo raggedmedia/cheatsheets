@@ -1,0 +1,778 @@
+---
+import "~styles/styles.css";
+import InfoBox from "~components/visual-js/InfoBox.astro";
+import ProTip from "~components/visual-js/ProTip.astro";
+import SectionTitle from "~components/visual-js/SectionTitle.astro";
+import VisualLayout from "src/layouts/VisualLayout.astro";
+---
+
+<VisualLayout pageTitle="How Git Actually Works">
+    <ProTip>
+        <div>💡 <strong>Git is simpler than you think</strong></div>
+        <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+            <div class="font-mono text-[10px]">
+                Git's weird command names hide an elegant system underneath.
+            </div>
+            <div class="font-mono text-[10px]">
+                Once you understand the <strong>three core concepts</strong>,
+                everything clicks.
+            </div>
+        </div>
+    </ProTip>
+
+    <!-- ============================================ -->
+    <!-- 🗂️ CONTENT-ADDRESSED STORAGE -->
+    <!-- ============================================ -->
+
+    <SectionTitle id="content-addressed" color="blue">
+        🗂️ Content-Addressed Storage
+    </SectionTitle>
+
+    <div class="space-y-4 mb-8">
+        <!-- Traditional vs Git Storage -->
+        <div class="p-6 bg-gray-800 rounded">
+            <div class="text-lg font-bold text-blue-300 mb-4">
+                The Filing Cabinet Analogy
+            </div>
+
+            <!-- Traditional Filing -->
+            <div class="mb-6">
+                <div class="text-sm font-semibold text-gray-300 mb-2">
+                    ❌ Traditional Filing (by name):
+                </div>
+                <div class="flex gap-3 items-center">
+                    <div
+                        class="bg-red-500/20 border-2 border-red-500 rounded-lg p-3 flex-1"
+                    >
+                        <div class="font-mono text-xs text-red-300 mb-1">
+                            README.md
+                        </div>
+                        <div class="text-[10px] text-gray-400">
+                            Content: "Hello World"
+                        </div>
+                    </div>
+                    <div
+                        class="bg-red-500/20 border-2 border-red-500 rounded-lg p-3 flex-1"
+                    >
+                        <div class="font-mono text-xs text-red-300 mb-1">
+                            README.md (copy)
+                        </div>
+                        <div class="text-[10px] text-gray-400">
+                            Content: "Hello World"
+                        </div>
+                    </div>
+                    <div class="text-xs text-gray-400">
+                        ← Same content, stored twice!
+                    </div>
+                </div>
+            </div>
+
+            <!-- Git Filing -->
+            <div>
+                <div class="text-sm font-semibold text-green-300 mb-2">
+                    ✅ Git Filing (by content fingerprint):
+                </div>
+                <div class="flex gap-3 items-center">
+                    <div
+                        class="bg-green-500/20 border-2 border-green-500 rounded-lg p-3 flex-1"
+                    >
+                        <div class="font-mono text-xs text-green-300 mb-1">
+                            a591a6d4...
+                        </div>
+                        <div class="text-[10px] text-gray-400">
+                            Content: "Hello World"
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-1 flex-1">
+                        <div class="font-mono text-[10px] text-yellow-400">
+                            README.md → a591a6d4...
+                        </div>
+                        <div class="font-mono text-[10px] text-yellow-400">
+                            README-copy.md → a591a6d4...
+                        </div>
+                    </div>
+                    <div class="text-xs text-gray-400">
+                        ← Names point to hash, stored once!
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <InfoBox>
+            <div><strong>What's a hash/fingerprint?</strong></div>
+            <div class="pl-2 border-l-2 border-blue-500/30 space-y-1 mt-1">
+                <div class="font-mono text-[10px]">
+                    Git runs your file through SHA-1 algorithm → unique
+                    40-character ID
+                </div>
+                <div class="font-mono text-[10px]">
+                    Same content = Same hash <span class="text-green-400"
+                        >(deterministic)</span
+                    >
+                </div>
+                <div class="font-mono text-[10px]">
+                    Even 1 byte different = Completely different hash
+                </div>
+                <div class="font-mono text-[10px] mt-2">
+                    <span class="text-gray-400">Example:</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    "Hello World" → a591a6d40bf420404a011733cfb7b190d62c65bf
+                </div>
+                <div class="font-mono text-[10px]">
+                    "Hello World!" → 2ef7bde608ce5404e97d5f042f95f89f1c232871 <span
+                        class="text-yellow-400">(one char change!)</span
+                    >
+                </div>
+            </div>
+        </InfoBox>
+
+        <ProTip>
+            <div><strong>Why this matters:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    ✓ Duplicate files = Zero extra storage (automatic
+                    deduplication)
+                </div>
+                <div class="font-mono text-[10px]">
+                    ✓ Git knows instantly if two files are identical (just
+                    compare hashes)
+                </div>
+                <div class="font-mono text-[10px]">
+                    ✓ Data corruption is impossible (hash won't match = Git
+                    knows it's corrupt)
+                </div>
+                <div class="font-mono text-[10px]">
+                    ✗ You work with hashes everywhere (those weird "a591a6d4"
+                    strings)
+                </div>
+            </div>
+        </ProTip>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- 📸 SNAPSHOTS NOT DIFFS -->
+    <!-- ============================================ -->
+
+    <SectionTitle id="snapshots" color="purple">
+        📸 Snapshots, Not Diffs
+    </SectionTitle>
+
+    <div class="space-y-4 mb-8">
+        <!-- SVN vs Git -->
+        <div class="p-6 bg-gray-800 rounded">
+            <div class="text-lg font-bold text-purple-300 mb-4">
+                The Photo Album vs. Change Log
+            </div>
+
+            <!-- SVN/Other VCS -->
+            <div class="mb-6">
+                <div class="text-sm font-semibold text-red-300 mb-3">
+                    ❌ Most Version Control (SVN, Perforce):
+                </div>
+                <div class="bg-red-500/10 border border-red-500 rounded p-4">
+                    <div class="font-mono text-[10px] space-y-1">
+                        <div><strong>v1:</strong> Store full file</div>
+                        <div>
+                            <strong>v2:</strong> +2 lines, -1 line <span
+                                class="text-gray-400">(just the changes)</span
+                            >
+                        </div>
+                        <div>
+                            <strong>v3:</strong> +5 lines, -3 lines <span
+                                class="text-gray-400">(just the changes)</span
+                            >
+                        </div>
+                        <div class="text-xs text-yellow-400 mt-2">
+                            To see v3, must replay: v1 + v2 changes + v3 changes
+                            (slow!)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Git Snapshots -->
+            <div>
+                <div class="text-sm font-semibold text-green-300 mb-3">
+                    ✅ Git (Snapshots):
+                </div>
+                <div
+                    class="bg-green-500/10 border border-green-500 rounded p-4"
+                >
+                    <div class="font-mono text-[10px] space-y-1">
+                        <div>
+                            <strong>Commit 1:</strong> Full snapshot of entire project
+                            <span class="text-gray-400"
+                                >(README.md, index.js, style.css)</span
+                            >
+                        </div>
+                        <div>
+                            <strong>Commit 2:</strong> Full snapshot of entire project
+                            <span class="text-gray-400"
+                                >(README.md, index.js, style.css)</span
+                            >
+                        </div>
+                        <div>
+                            <strong>Commit 3:</strong> Full snapshot of entire project
+                            <span class="text-gray-400"
+                                >(README.md, index.js, style.css)</span
+                            >
+                        </div>
+                        <div class="text-xs text-green-400 mt-2">
+                            Each commit is a complete picture! Jump to any
+                            version instantly.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-4 bg-gray-800 rounded">
+            <div class="text-sm font-bold text-purple-300 mb-3">
+                Visual Representation:
+            </div>
+            <div class="flex gap-6 items-center">
+                <!-- Commit 1 -->
+                <div class="flex-1">
+                    <div
+                        class="bg-purple-500/20 border-2 border-purple-400 rounded-lg p-3"
+                    >
+                        <div
+                            class="text-center font-bold text-purple-300 text-xs mb-2"
+                        >
+                            Commit abc123
+                        </div>
+                        <div
+                            class="bg-gray-900 rounded p-2 font-mono text-[9px] space-y-0.5"
+                        >
+                            <div>📄 README.md</div>
+                            <div>📄 index.js</div>
+                            <div>📄 style.css</div>
+                        </div>
+                        <div class="text-center text-[10px] text-gray-400 mt-1">
+                            Complete snapshot
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-2xl text-gray-500">→</div>
+
+                <!-- Commit 2 -->
+                <div class="flex-1">
+                    <div
+                        class="bg-purple-500/20 border-2 border-purple-400 rounded-lg p-3"
+                    >
+                        <div
+                            class="text-center font-bold text-purple-300 text-xs mb-2"
+                        >
+                            Commit def456
+                        </div>
+                        <div
+                            class="bg-gray-900 rounded p-2 font-mono text-[9px] space-y-0.5"
+                        >
+                            <div>📄 README.md</div>
+                            <div class="text-yellow-400">
+                                📄 index.js (edited)
+                            </div>
+                            <div>📄 style.css</div>
+                        </div>
+                        <div class="text-center text-[10px] text-gray-400 mt-1">
+                            Complete snapshot
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-2xl text-gray-500">→</div>
+
+                <!-- Commit 3 -->
+                <div class="flex-1">
+                    <div
+                        class="bg-purple-500/20 border-2 border-purple-400 rounded-lg p-3"
+                    >
+                        <div
+                            class="text-center font-bold text-purple-300 text-xs mb-2"
+                        >
+                            Commit ghi789
+                        </div>
+                        <div
+                            class="bg-gray-900 rounded p-2 font-mono text-[9px] space-y-0.5"
+                        >
+                            <div class="text-yellow-400">
+                                📄 README.md (edited)
+                            </div>
+                            <div>📄 index.js</div>
+                            <div>📄 style.css</div>
+                        </div>
+                        <div class="text-center text-[10px] text-gray-400 mt-1">
+                            Complete snapshot
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <InfoBox>
+            <div><strong>Wait, doesn't that waste TONS of space?</strong></div>
+            <div class="pl-2 border-l-2 border-blue-500/30 space-y-1 mt-1">
+                <div class="font-mono text-[10px]">
+                    Nope! Remember content-addressed storage?
+                </div>
+                <div class="font-mono text-[10px] mt-1">
+                    If index.js didn't change between commits:
+                </div>
+                <div class="font-mono text-[10px]">
+                    → Same content = Same hash = Stored once!
+                </div>
+                <div class="font-mono text-[10px] mt-1">
+                    Each commit just points to the same hash for unchanged
+                    files.
+                </div>
+                <div class="font-mono text-[10px]">
+                    Only <span class="text-yellow-400">new/changed</span> files take
+                    up space.
+                </div>
+            </div>
+        </InfoBox>
+
+        <ProTip>
+            <div><strong>Why snapshots are brilliant:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    ✓ Checkout any commit = instant (no replaying changes)
+                </div>
+                <div class="font-mono text-[10px]">
+                    ✓ Branching = cheap (just point to different snapshots)
+                </div>
+                <div class="font-mono text-[10px]">
+                    ✓ Git is FAST (even with huge history)
+                </div>
+                <div class="font-mono text-[10px]">
+                    ✓ Every commit is a complete, valid state of your project
+                </div>
+                <div class="font-mono text-[10px] mt-1">
+                    <span class="text-gray-400"
+                        >Note: Git still shows you diffs, it just doesn't store
+                        them that way!</span
+                    >
+                </div>
+            </div>
+        </ProTip>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- 🕸️ THE GRAPH (DAG) -->
+    <!-- ============================================ -->
+
+    <SectionTitle id="graph" color="cyan">
+        🕸️ The Graph (History That Never Loops)
+    </SectionTitle>
+
+    <div class="space-y-4 mb-8">
+        <div class="p-6 bg-gray-800 rounded">
+            <div class="text-lg font-bold text-cyan-300 mb-4">
+                Your History is a Graph, Not a Line
+            </div>
+
+            <!-- Linear History (simple) -->
+            <div class="mb-6">
+                <div class="text-sm font-semibold text-gray-300 mb-3">
+                    Simple case (no branches):
+                </div>
+                <div class="flex gap-3 items-center justify-center">
+                    <div
+                        class="bg-cyan-500/20 border-2 border-cyan-400 rounded-lg p-3 text-center"
+                    >
+                        <div class="font-mono text-xs text-cyan-300">A</div>
+                        <div class="text-[9px] text-gray-400">
+                            Initial commit
+                        </div>
+                    </div>
+                    <div class="text-xl text-cyan-400">→</div>
+                    <div
+                        class="bg-cyan-500/20 border-2 border-cyan-400 rounded-lg p-3 text-center"
+                    >
+                        <div class="font-mono text-xs text-cyan-300">B</div>
+                        <div class="text-[9px] text-gray-400">Add feature</div>
+                    </div>
+                    <div class="text-xl text-cyan-400">→</div>
+                    <div
+                        class="bg-cyan-500/20 border-2 border-cyan-400 rounded-lg p-3 text-center"
+                    >
+                        <div class="font-mono text-xs text-cyan-300">C</div>
+                        <div class="text-[9px] text-gray-400">Fix bug</div>
+                    </div>
+                </div>
+                <div class="text-center text-[10px] text-gray-400 mt-2">
+                    Each commit points to its parent (the one before it)
+                </div>
+            </div>
+
+            <!-- Branching History -->
+            <div class="mb-6">
+                <div class="text-sm font-semibold text-gray-300 mb-3">
+                    With branches (where it gets interesting):
+                </div>
+                <div class="relative p-4">
+                    <!-- ASCII-style diagram -->
+                    <div class="font-mono text-[10px] space-y-1">
+                        <div class="flex items-center">
+                            <div
+                                class="bg-cyan-500/20 border border-cyan-400 rounded px-2 py-1"
+                            >
+                                A
+                            </div>
+                            <div class="mx-2">→</div>
+                            <div
+                                class="bg-cyan-500/20 border border-cyan-400 rounded px-2 py-1"
+                            >
+                                B
+                            </div>
+                            <div class="mx-2">→</div>
+                            <div
+                                class="bg-cyan-500/20 border border-cyan-400 rounded px-2 py-1"
+                            >
+                                C
+                            </div>
+                            <div class="mx-2 text-gray-500">← main branch</div>
+                        </div>
+                        <div class="flex items-center pl-24">
+                            <div class="text-gray-500">↓</div>
+                        </div>
+                        <div class="flex items-center pl-24">
+                            <div
+                                class="bg-green-500/20 border border-green-400 rounded px-2 py-1"
+                            >
+                                D
+                            </div>
+                            <div class="mx-2">→</div>
+                            <div
+                                class="bg-green-500/20 border border-green-400 rounded px-2 py-1"
+                            >
+                                E
+                            </div>
+                            <div class="mx-2 text-gray-500">
+                                ← feature branch
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-[10px] text-gray-400 mt-3">
+                        B has two children: C (on main) and D (on feature
+                        branch)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Merging -->
+            <div>
+                <div class="text-sm font-semibold text-gray-300 mb-3">
+                    After merging:
+                </div>
+                <div class="relative p-4">
+                    <div class="font-mono text-[10px] space-y-1">
+                        <div class="flex items-center">
+                            <div
+                                class="bg-cyan-500/20 border border-cyan-400 rounded px-2 py-1"
+                            >
+                                A
+                            </div>
+                            <div class="mx-2">→</div>
+                            <div
+                                class="bg-cyan-500/20 border border-cyan-400 rounded px-2 py-1"
+                            >
+                                B
+                            </div>
+                            <div class="mx-2">→</div>
+                            <div
+                                class="bg-cyan-500/20 border border-cyan-400 rounded px-2 py-1"
+                            >
+                                C
+                            </div>
+                            <div class="mx-2">→</div>
+                            <div
+                                class="bg-yellow-500/20 border-2 border-yellow-400 rounded px-2 py-1"
+                            >
+                                M
+                            </div>
+                            <div class="mx-2 text-gray-500">← merge commit</div>
+                        </div>
+                        <div class="flex items-center pl-24">
+                            <div class="text-gray-500">↓</div>
+                            <div class="ml-36 text-gray-500">↗</div>
+                        </div>
+                        <div class="flex items-center pl-24">
+                            <div
+                                class="bg-green-500/20 border border-green-400 rounded px-2 py-1"
+                            >
+                                D
+                            </div>
+                            <div class="mx-2">→</div>
+                            <div
+                                class="bg-green-500/20 border border-green-400 rounded px-2 py-1"
+                            >
+                                E
+                            </div>
+                            <div class="mx-2">─</div>
+                        </div>
+                    </div>
+                    <div class="text-[10px] text-yellow-400 mt-3">
+                        M has TWO parents: C and E (combines both branches)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <InfoBox>
+            <div><strong>What's a DAG (Directed Acyclic Graph)?</strong></div>
+            <div class="pl-2 border-l-2 border-blue-500/30 space-y-1 mt-1">
+                <div class="font-mono text-[10px]">
+                    <strong>Directed:</strong> Arrows point one way (parent ← child)
+                </div>
+                <div class="font-mono text-[10px]">
+                    <strong>Acyclic:</strong> Never loops back (no time travel paradoxes)
+                </div>
+                <div class="font-mono text-[10px]">
+                    <strong>Graph:</strong> Can branch and merge (not just a straight
+                    line)
+                </div>
+                <div class="font-mono text-[10px] mt-2">
+                    Translation: Your history can split and rejoin, but always
+                    flows forward in time.
+                </div>
+            </div>
+        </InfoBox>
+
+        <ProTip>
+            <div><strong>Why the graph matters:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    ✓ Commits know their parents (can walk backwards through
+                    history)
+                </div>
+                <div class="font-mono text-[10px]">
+                    ✓ Branches are just labels pointing to commits in the graph
+                </div>
+                <div class="font-mono text-[10px]">
+                    ✓ Multiple people can work on different branches
+                    simultaneously
+                </div>
+                <div class="font-mono text-[10px]">
+                    ✓ Git can figure out common ancestors (needed for merging)
+                </div>
+                <div class="font-mono text-[10px]">
+                    ✓ No commit can be "lost" if something points to it
+                </div>
+            </div>
+        </ProTip>
+
+        <div class="p-4 bg-gray-900/50 border border-gray-700 rounded">
+            <div class="text-sm font-bold text-cyan-300 mb-2">Key Insight:</div>
+            <div class="text-xs text-gray-300">
+                Every weird Git command you'll learn makes more sense when you
+                remember:
+                <div class="mt-2 pl-3 border-l-2 border-cyan-500/50 space-y-1">
+                    <div>• Commits are snapshots with a hash</div>
+                    <div>• Commits point to parent commits</div>
+                    <div>
+                        • Branches are just moveable labels pointing to commits
+                    </div>
+                    <div>• Everything forms a graph of history</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- 🎯 PUTTING IT ALL TOGETHER -->
+    <!-- ============================================ -->
+
+    <SectionTitle id="together" color="orange">
+        🎯 Putting It All Together
+    </SectionTitle>
+
+    <div class="space-y-4 mb-8">
+        <div class="p-6 bg-gray-800 rounded">
+            <div class="text-lg font-bold text-orange-300 mb-4">
+                The Complete Picture
+            </div>
+
+            <div class="space-y-4">
+                <!-- Example commit -->
+                <div
+                    class="bg-orange-500/10 border border-orange-500 rounded p-4"
+                >
+                    <div class="font-mono text-xs mb-3">
+                        When you run <code
+                            class="bg-black/30 px-2 py-1 rounded text-yellow-400"
+                            >git commit</code
+                        >:
+                    </div>
+                    <div class="pl-4 space-y-2 text-[10px]">
+                        <div>
+                            <strong class="text-orange-300"
+                                >1. Content-Addressed:</strong
+                            >
+                            <div class="pl-3 text-gray-300">
+                                Git takes snapshots of your files, hashes them →
+                                "a591a6d4..."
+                            </div>
+                        </div>
+                        <div>
+                            <strong class="text-orange-300">2. Snapshot:</strong
+                            >
+                            <div class="pl-3 text-gray-300">
+                                Creates a complete snapshot of ALL files
+                                (unchanged files reuse existing hashes)
+                            </div>
+                        </div>
+                        <div>
+                            <strong class="text-orange-300">3. Graph:</strong>
+                            <div class="pl-3 text-gray-300">
+                                New commit points to parent commit, adds to the
+                                history graph
+                            </div>
+                        </div>
+                        <div>
+                            <strong class="text-orange-300"
+                                >4. Branch label moves:</strong
+                            >
+                            <div class="pl-3 text-gray-300">
+                                Your current branch (like "main") moves to point
+                                to this new commit
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visual representation -->
+                <div class="p-4 bg-gray-900 rounded">
+                    <div class="text-sm font-bold text-gray-300 mb-3">
+                        Example Commit Structure:
+                    </div>
+                    <div class="font-mono text-[9px] space-y-1 text-gray-300">
+                        <div class="text-yellow-400">Commit: abc123def456</div>
+                        <div class="pl-3">
+                            ├─ Parent: xyz789abc012 <span class="text-gray-500"
+                                >(points to previous commit)</span
+                            >
+                        </div>
+                        <div class="pl-3">
+                            ├─ Tree: 4a5e6b7c8d9e <span class="text-gray-500"
+                                >(snapshot of all files)</span
+                            >
+                        </div>
+                        <div class="pl-3">
+                            │ ├─ README.md → a591a6d4... <span
+                                class="text-gray-500">(file hash)</span
+                            >
+                        </div>
+                        <div class="pl-3">
+                            │ ├─ index.js → 2ef7bde6... <span
+                                class="text-gray-500">(file hash)</span
+                            >
+                        </div>
+                        <div class="pl-3">
+                            │ └─ style.css → 8c9a1b2c... <span
+                                class="text-gray-500">(file hash)</span
+                            >
+                        </div>
+                        <div class="pl-3">├─ Author: You</div>
+                        <div class="pl-3">├─ Date: 2025-11-13</div>
+                        <div class="pl-3">└─ Message: "Add new feature"</div>
+                        <div class="mt-2 text-cyan-400">
+                            Branch "main" → abc123def456 <span
+                                class="text-gray-500"
+                                >(branch points to this commit)</span
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ProTip>
+            <div><strong>Now the weird commands make sense:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-1 mt-1">
+                <div class="font-mono text-[10px]">
+                    <code
+                        class="bg-black/30 px-1.5 py-0.5 rounded text-yellow-400"
+                        >git checkout abc123</code
+                    >
+                    <span class="text-gray-400 ml-2"
+                        >→ Move to that snapshot in the graph</span
+                    >
+                </div>
+                <div class="font-mono text-[10px]">
+                    <code
+                        class="bg-black/30 px-1.5 py-0.5 rounded text-yellow-400"
+                        >git branch feature</code
+                    >
+                    <span class="text-gray-400 ml-2"
+                        >→ Create a new label pointing to current commit</span
+                    >
+                </div>
+                <div class="font-mono text-[10px]">
+                    <code
+                        class="bg-black/30 px-1.5 py-0.5 rounded text-yellow-400"
+                        >git merge feature</code
+                    >
+                    <span class="text-gray-400 ml-2"
+                        >→ Create a new commit with two parents</span
+                    >
+                </div>
+                <div class="font-mono text-[10px]">
+                    <code
+                        class="bg-black/30 px-1.5 py-0.5 rounded text-yellow-400"
+                        >git log</code
+                    >
+                    <span class="text-gray-400 ml-2"
+                        >→ Walk backwards through the graph</span
+                    >
+                </div>
+            </div>
+        </ProTip>
+
+        <div class="p-4 bg-green-500/10 border-2 border-green-500 rounded">
+            <div class="text-sm font-bold text-green-300 mb-2">
+                🎉 You now understand Git's core model!
+            </div>
+            <div class="text-xs text-gray-300">
+                Everything else (staging area, branches, HEAD, remotes) builds
+                on these three concepts. The commands might still seem weird,
+                but now you know what they're actually doing underneath.
+            </div>
+        </div>
+    </div>
+
+    <Fragment slot="page-nav">
+        <ul class="space-y-2 text-xs">
+            <li>
+                <a
+                    href="#content-addressed"
+                    class="text-blue-300 font-semibold hover:text-blue-200 block py-1"
+                    >🗂️ Content-Addressed Storage</a
+                >
+            </li>
+            <li>
+                <a
+                    href="#snapshots"
+                    class="text-purple-300 font-semibold hover:text-purple-200 block py-1"
+                    >📸 Snapshots, Not Diffs</a
+                >
+            </li>
+            <li>
+                <a
+                    href="#graph"
+                    class="text-cyan-300 font-semibold hover:text-cyan-200 block py-1"
+                    >🕸️ The Graph (DAG)</a
+                >
+            </li>
+            <li>
+                <a
+                    href="#together"
+                    class="text-orange-300 font-semibold hover:text-orange-200 block py-1"
+                    >🎯 Putting It All Together</a
+                >
+            </li>
+        </ul>
+    </Fragment>
+</VisualLayout>

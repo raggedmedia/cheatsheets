@@ -589,1570 +589,1605 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             </div>
         </ProTip>
     </MethodCard>
-</VisualLayout>
 
-<!-- ============================================ -->
-<!-- 🚫 DOES NOT MUTATE -->
-<!-- ============================================ -->
+    <!-- ============================================ -->
+    <!-- 🚫 DOES NOT MUTATE -->
+    <!-- ============================================ -->
 
-<SectionTitle id="immutable" color="green">
-    🚫 Does Not Mutate (returns new value)
-</SectionTitle>
-
-<ProTip>
-    <div>
-        Use spread or <code
-            class="bg-black/30 px-1 py-0.5 rounded font-mono text-yellow-400"
-            >Object.assign({"{"}{"}"}, obj)</code
-        > for shallow copies
-    </div>
-    <div
-        class="pl-2 border-l-2 border-yellow-500/30 font-mono text-[10px] mt-1"
-    >
-        const copy = {"{"} ...original {"}"}
-        <span class="text-gray-400">// cleaner than Object.assign</span>
-    </div>
-</ProTip>
-
-<!-- === CLONE / MERGE === -->
-<SubSectionTitle id="clone-merge" parentColor="green"
-    >Clone / Merge</SubSectionTitle
->
-
-<!-- SPREAD -->
-<MethodCard
-    id="spread"
-    methodName="Spread { ...obj }"
-    signature="{ ...obj }"
-    description="Creates a shallow copy of an object"
-    mutates={false}
->
-    <div
-        class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-    >
-        <Node label="Input Object" type="input">
-            <div class="text-center text-sm font-mono">
-                {"{"}a: 1, b: 2{"}"}
-            </div>
-        </Node>
-
-        <Arrow label="spreads" />
-
-        <Node label="Syntax" type="process">
-            <ProcessContent name="{ ...obj }" description="Shallow copy" />
-        </Node>
-
-        <Arrow label="returns" />
-
-        <Node label="New Object" type="output">
-            <div class="text-center text-sm font-mono">
-                {"{"}a: 1, b: 2{"}"}
-            </div>
-        </Node>
-    </div>
-
-    <MutableOrNot mutates={false} message="">
-        Creates a <code
-            class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
-            >new object</code
-        > with copied properties. Original unchanged.
-    </MutableOrNot>
-
-    <ProTip>
-        <div>Spread is the modern way to clone and merge objects:</div>
-        <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-            <div class="font-mono text-[10px]">
-                const merged = {"{"} ...obj1, ...obj2 {"}"}
-                <span class="text-gray-400">// merge</span>
-            </div>
-            <div class="font-mono text-[10px]">
-                const updated = {"{"} ...obj, key: newValue {"}"}
-                <span class="text-gray-400">// update</span>
-            </div>
-        </div>
-    </ProTip>
-</MethodCard>
-
-<!-- STRUCTURED CLONE -->
-<MethodCard
-    id="structuredClone"
-    methodName="structuredClone()"
-    signature="structuredClone(obj)"
-    description="Creates a deep copy of an object (all nested levels)"
-    mutates={false}
->
-    <div
-        class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-    >
-        <Node label="Input Object" type="input">
-            <div class="text-center text-sm font-mono">
-                {"{"}user: {"{"}id: 1{"}"}{"}"}
-            </div>
-        </Node>
-
-        <Arrow label="deep clones" />
-
-        <Node label="Method" type="process">
-            <ProcessContent
-                name="structuredClone(obj)"
-                description="Deep copy all levels"
-            />
-        </Node>
-
-        <Arrow label="returns" />
-
-        <Node label="New Object" type="output">
-            <div class="text-center text-sm font-mono">
-                {"{"}user: {"{"}id: 1{"}"}{"}"}
-            </div>
-        </Node>
-    </div>
-
-    <MutableOrNot mutates={false} message="">
-        Creates fully independent <code
-            class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
-            >deep copy</code
-        >. Nested objects are also cloned.
-    </MutableOrNot>
-</MethodCard>
-
-<!-- === INSPECT / READ === -->
-<SubSectionTitle id="inspect-read" parentColor="green"
-    >Inspect / Read</SubSectionTitle
->
-
-<!-- OBJECT.KEYS -->
-<MethodCard
-    id="keys"
-    methodName="Object.keys()"
-    signature="Object.keys(obj)"
-    description="Returns array of object's own property names"
-    mutates={false}
->
-    <div
-        class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-    >
-        <Node label="Input Object" type="input">
-            <div class="text-center text-sm font-mono">
-                {"{"}a: 1, b: 2, c: 3{"}"}
-            </div>
-        </Node>
-
-        <Arrow label="extracts keys" />
-
-        <Node label="Method" type="process">
-            <ProcessContent
-                name="Object.keys(obj)"
-                description="Get property names"
-            />
-        </Node>
-
-        <Arrow label="returns" />
-
-        <Node label="Array" type="output">
-            <div class="text-center text-sm font-mono">['a', 'b', 'c']</div>
-        </Node>
-    </div>
-
-    <MutableOrNot mutates={false} message="">
-        Returns <code
-            class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
-            >array</code
-        > of own enumerable property names. ⚠️ Cannot be chained.
-    </MutableOrNot>
-</MethodCard>
-
-<!-- OBJECT.VALUES -->
-<MethodCard
-    id="values"
-    methodName="Object.values()"
-    signature="Object.values(obj)"
-    description="Returns array of object's own property values"
-    mutates={false}
->
-    <div
-        class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-    >
-        <Node label="Input Object" type="input">
-            <div class="text-center text-sm font-mono">
-                {"{"}a: 1, b: 2, c: 3{"}"}
-            </div>
-        </Node>
-
-        <Arrow label="extracts values" />
-
-        <Node label="Method" type="process">
-            <ProcessContent
-                name="Object.values(obj)"
-                description="Get property values"
-            />
-        </Node>
-
-        <Arrow label="returns" />
-
-        <Node label="Array" type="output">
-            <div class="text-center text-sm font-mono">[1, 2, 3]</div>
-        </Node>
-    </div>
-
-    <MutableOrNot mutates={false} message="">
-        Returns <code
-            class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
-            >array</code
-        > of own enumerable property values. ⚠️ Cannot be chained.
-    </MutableOrNot>
-</MethodCard>
-
-<!-- OBJECT.ENTRIES -->
-<MethodCard
-    id="entries"
-    methodName="Object.entries()"
-    signature="Object.entries(obj)"
-    description="Returns array of [key, value] pairs"
-    mutates={false}
->
-    <div
-        class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-    >
-        <Node label="Input Object" type="input">
-            <div class="text-center text-sm font-mono">
-                {"{"}a: 1, b: 2{"}"}
-            </div>
-        </Node>
-
-        <Arrow label="converts" />
-
-        <Node label="Method" type="process">
-            <ProcessContent
-                name="Object.entries(obj)"
-                description="Get [k,v] pairs"
-            />
-        </Node>
-
-        <Arrow label="returns" />
-
-        <Node label="Array" type="output">
-            <div class="text-center text-sm font-mono">
-                [['a', 1], ['b', 2]]
-            </div>
-        </Node>
-    </div>
-
-    <MutableOrNot mutates={false} message="">
-        Returns <code
-            class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
-            >array</code
-        > of [key, value] pairs. ⚠️ Cannot be chained. Perfect for iteration and
-        transformation.
-    </MutableOrNot>
+    <SectionTitle id="immutable" color="green">
+        🚫 Does Not Mutate (returns new value)
+    </SectionTitle>
 
     <ProTip>
         <div>
-            Combo with <code
+            Use spread or <code
                 class="bg-black/30 px-1 py-0.5 rounded font-mono text-yellow-400"
-                >Object.fromEntries()</code
-            > for map/filter on objects:
+                >Object.assign({"{"}{"}"}, obj)</code
+            > for shallow copies
         </div>
-        <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-            <div class="font-mono text-[10px]">
-                <span class="text-gray-400">// Double all values</span>
-            </div>
-            <div class="font-mono text-[10px]">Object.fromEntries(</div>
-            <div class="font-mono text-[10px]">
-                &nbsp;&nbsp;Object.entries(obj).map(([k,v]) =&gt; [k, v*2])
-            </div>
-            <div class="font-mono text-[10px]">)</div>
+        <div
+            class="pl-2 border-l-2 border-yellow-500/30 font-mono text-[10px] mt-1"
+        >
+            const copy = {"{"} ...original {"}"}
+            <span class="text-gray-400">// cleaner than Object.assign</span>
         </div>
     </ProTip>
-</MethodCard>
 
-<!-- OBJECT.HASOWN -->
-<MethodCard
-    id="hasOwn"
-    methodName="Object.hasOwn()"
-    signature="Object.hasOwn(obj, key)"
-    description="Checks if object has its own property (not inherited)"
-    mutates={false}
->
-    <div
-        class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+    <!-- === CLONE / MERGE === -->
+    <SubSectionTitle id="clone-merge" parentColor="green"
+        >Clone / Merge</SubSectionTitle
     >
-        <Node label="Input Object" type="input">
-            <div class="text-center text-sm font-mono">{"{"}a: 1{"}"}</div>
-        </Node>
 
-        <Arrow label="checks for" />
-
-        <Node label="Method" type="process">
-            <ProcessContent
-                name="Object.hasOwn(obj, 'a')"
-                description="Has own property?"
-            />
-        </Node>
-
-        <Arrow label="returns" />
-
-        <Node label="Boolean" type="output">
-            <ReturnValue value="true" type="boolean" />
-        </Node>
-    </div>
-
-    <MutableOrNot mutates={false} message="">
-        Returns <code
-            class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
-            >boolean</code
-        >. ⚠️ Cannot be chained. Safer than <code
-            class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
-            >hasOwnProperty()</code
-        >.
-    </MutableOrNot>
-</MethodCard>
-
-<!-- IN OPERATOR -->
-<MethodCard
-    id="in-operator"
-    methodName="in operator"
-    signature="'key' in obj"
-    description="Checks if property exists (includes inherited properties)"
-    mutates={false}
->
-    <div
-        class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+    <!-- SPREAD -->
+    <MethodCard
+        id="spread"
+        methodName="Spread { ...obj }"
+        signature="{ ...obj }"
+        description="Creates a shallow copy of an object"
+        mutates={false}
     >
-        <Node label="Input Object" type="input">
-            <div class="text-center text-sm font-mono">{"{"}a: 1{"}"}</div>
-        </Node>
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Object" type="input">
+                <div class="text-center text-sm font-mono">
+                    {"{"}a: 1, b: 2{"}"}
+                </div>
+            </Node>
 
-        <Arrow label="checks for" />
+            <Arrow label="spreads" />
 
-        <Node label="Operator" type="process">
-            <ProcessContent name="'a' in obj" description="Property exists?" />
-        </Node>
+            <Node label="Syntax" type="process">
+                <ProcessContent name="{ ...obj }" description="Shallow copy" />
+            </Node>
 
-        <Arrow label="returns" />
+            <Arrow label="returns" />
 
-        <Node label="Boolean" type="output">
-            <ReturnValue value="true" type="boolean" />
-        </Node>
-    </div>
-
-    <MutableOrNot mutates={false} message="">
-        Returns <code
-            class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
-            >boolean</code
-        >. ⚠️ Checks entire prototype chain (includes inherited properties).
-    </MutableOrNot>
-
-    <ProTip>
-        <div><strong>Difference from Object.hasOwn():</strong></div>
-        <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-            <div class="font-mono text-[10px]">const obj = {"{"}a: 1{"}"}</div>
-            <div class="font-mono text-[10px]">'a' in obj → true ✅</div>
-            <div class="font-mono text-[10px]">
-                'toString' in obj → true <span class="text-orange-400"
-                    >// inherited from prototype!</span
-                >
-            </div>
-            <div class="font-mono text-[10px] mt-1">
-                Object.hasOwn(obj, 'toString') → false ✅ <span
-                    class="text-gray-400">// own only</span
-                >
-            </div>
+            <Node label="New Object" type="output">
+                <div class="text-center text-sm font-mono">
+                    {"{"}a: 1, b: 2{"}"}
+                </div>
+            </Node>
         </div>
-    </ProTip>
-</MethodCard>
 
-<!-- DESTRUCTURING -->
-<MethodCard
-    id="destructuring"
-    methodName="Destructuring"
-    signature="const { a, b } = obj"
-    description="Extract properties from object into variables"
-    mutates={false}
->
-    <div
-        class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        <MutableOrNot mutates={false} message="">
+            Creates a <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >new object</code
+            > with copied properties. Original unchanged.
+        </MutableOrNot>
+
+        <ProTip>
+            <div>Spread is the modern way to clone and merge objects:</div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    const merged = {"{"} ...obj1, ...obj2 {"}"}
+                    <span class="text-gray-400">// merge</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    const updated = {"{"} ...obj, key: newValue {"}"}
+                    <span class="text-gray-400">// update</span>
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- STRUCTURED CLONE -->
+    <MethodCard
+        id="structuredClone"
+        methodName="structuredClone()"
+        signature="structuredClone(obj)"
+        description="Creates a deep copy of an object (all nested levels)"
+        mutates={false}
     >
-        <Node label="Input Object" type="input">
-            <div class="text-center text-sm font-mono">
-                {"{"}name: "Alice", age: 25{"}"}
-            </div>
-        </Node>
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Object" type="input">
+                <div class="text-center text-sm font-mono">
+                    {"{"}user: {"{"}id: 1{"}"}{"}"}
+                </div>
+            </Node>
 
-        <Arrow label="extract" />
+            <Arrow label="deep clones" />
 
-        <Node label="Syntax" type="process">
-            <ProcessContent
-                name="const { name, age } = obj"
-                description="Destructure"
-            />
-        </Node>
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="structuredClone(obj)"
+                    description="Deep copy all levels"
+                />
+            </Node>
 
-        <Arrow label="creates" />
+            <Arrow label="returns" />
 
-        <Node label="Variables" type="output">
-            <div class="text-center text-sm font-mono">name = "Alice"</div>
-            <div class="text-center text-sm font-mono">age = 25</div>
-        </Node>
-    </div>
-
-    <MutableOrNot mutates={false} message="">
-        Creates variables from object properties. Original object unchanged.
-    </MutableOrNot>
-
-    <ProTip>
-        <div><strong>Advanced destructuring patterns:</strong></div>
-        <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-            <div class="font-mono text-[10px]">
-                <span class="text-gray-400">// Rename variables</span>
-            </div>
-            <div class="font-mono text-[10px]">
-                const {"{"} name: userName {"}"} = obj; <span
-                    class="text-green-400">// userName = "Alice"</span
-                >
-            </div>
-            <div class="font-mono text-[10px] mt-1">
-                <span class="text-gray-400">// Default values</span>
-            </div>
-            <div class="font-mono text-[10px]">
-                const {"{"} country = "USA" {"}"} = obj; <span
-                    class="text-green-400">// if missing</span
-                >
-            </div>
-            <div class="font-mono text-[10px] mt-1">
-                <span class="text-gray-400">// Rest operator</span>
-            </div>
-            <div class="font-mono text-[10px]">
-                const {"{"} name, ...rest {"}"} = obj; <span
-                    class="text-green-400">// rest = remaining props</span
-                >
-            </div>
+            <Node label="New Object" type="output">
+                <div class="text-center text-sm font-mono">
+                    {"{"}user: {"{"}id: 1{"}"}{"}"}
+                </div>
+            </Node>
         </div>
-    </ProTip>
-</MethodCard>
 
-<!-- OBJECT.IS -->
-<MethodCard
-    id="object-is"
-    methodName="Object.is()"
-    signature="Object.is(value1, value2)"
-    description="Stricter equality check than ==="
-    mutates={false}
->
-    <div
-        class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        <MutableOrNot mutates={false} message="">
+            Creates fully independent <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >deep copy</code
+            >. Nested objects are also cloned.
+        </MutableOrNot>
+    </MethodCard>
+
+    <!-- === INSPECT / READ === -->
+    <SubSectionTitle id="inspect-read" parentColor="green"
+        >Inspect / Read</SubSectionTitle
     >
-        <Node label="Two Values" type="input">
-            <div class="text-center text-sm font-mono">NaN, NaN</div>
-        </Node>
 
-        <Arrow label="compare" />
-
-        <Node label="Method" type="process">
-            <ProcessContent
-                name="Object.is(val1, val2)"
-                description="Same-value equality"
-            />
-        </Node>
-
-        <Arrow label="returns" />
-
-        <Node label="Result" type="output">
-            <ReturnValue value="true" type="boolean" />
-        </Node>
-    </div>
-
-    <MutableOrNot mutates={false} message="">
-        Returns <code
-            class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
-            >boolean</code
-        >. Handles edge cases better than <code
-            class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
-            >===</code
-        >.
-    </MutableOrNot>
-
-    <ProTip>
-        <div><strong>Key differences from ===:</strong></div>
-        <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-            <div class="font-mono text-[10px]">
-                <span class="text-orange-400">// NaN comparison</span>
-            </div>
-            <div class="font-mono text-[10px]">NaN === NaN → false ❌</div>
-            <div class="font-mono text-[10px]">
-                Object.is(NaN, NaN) → true ✅
-            </div>
-            <div class="font-mono text-[10px] mt-1">
-                <span class="text-orange-400">// -0 vs +0</span>
-            </div>
-            <div class="font-mono text-[10px]">-0 === +0 → true</div>
-            <div class="font-mono text-[10px]">
-                Object.is(-0, +0) → false <span class="text-green-400"
-                    >// distinguishes!</span
-                >
-            </div>
-        </div>
-    </ProTip>
-</MethodCard>
-
-<!-- OBJECT.FROMENTRIES -->
-<MethodCard
-    id="fromEntries"
-    methodName="Object.fromEntries()"
-    signature="Object.fromEntries(pairs)"
-    description="Builds object from [key, value] pairs"
-    mutates={false}
->
-    <div
-        class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+    <!-- OBJECT.KEYS -->
+    <MethodCard
+        id="keys"
+        methodName="Object.keys()"
+        signature="Object.keys(obj)"
+        description="Returns array of object's own property names"
+        mutates={false}
     >
-        <Node label="Input Array" type="input">
-            <div class="text-center text-sm font-mono">
-                [['a', 1], ['b', 2]]
-            </div>
-        </Node>
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Object" type="input">
+                <div class="text-center text-sm font-mono">
+                    {"{"}a: 1, b: 2, c: 3{"}"}
+                </div>
+            </Node>
 
-        <Arrow label="converts" />
+            <Arrow label="extracts keys" />
 
-        <Node label="Method" type="process">
-            <ProcessContent
-                name="Object.fromEntries(arr)"
-                description="Build object"
-            />
-        </Node>
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="Object.keys(obj)"
+                    description="Get property names"
+                />
+            </Node>
 
-        <Arrow label="returns" />
+            <Arrow label="returns" />
 
-        <Node label="New Object" type="output">
-            <div class="text-center text-sm font-mono">
-                {"{"}a: 1, b: 2{"}"}
-            </div>
-        </Node>
-    </div>
+            <Node label="Array" type="output">
+                <div class="text-center text-sm font-mono">['a', 'b', 'c']</div>
+            </Node>
+        </div>
 
-    <MutableOrNot mutates={false} message="">
-        Returns a <code
-            class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
-            >new object</code
-        >. Opposite of <code
-            class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
-            >Object.entries()</code
-        >.
-    </MutableOrNot>
-</MethodCard>
+        <MutableOrNot mutates={false} message="">
+            Returns <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >array</code
+            > of own enumerable property names. ⚠️ Cannot be chained.
+        </MutableOrNot>
+    </MethodCard>
 
-<!-- === ITERATE / LOOP === -->
-<SubSectionTitle id="iterate-loop" parentColor="green"
-    >Iterate / Loop</SubSectionTitle
->
-
-<!-- FOR...IN LOOP -->
-<MethodCard
-    id="for-in"
-    methodName="for...in"
-    signature="for (const key in obj) { }"
-    description="Loop over all enumerable properties (including inherited)"
-    mutates={false}
->
-    <div
-        class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+    <!-- OBJECT.VALUES -->
+    <MethodCard
+        id="values"
+        methodName="Object.values()"
+        signature="Object.values(obj)"
+        description="Returns array of object's own property values"
+        mutates={false}
     >
-        <Node label="Input Object" type="input">
-            <div class="text-center text-sm font-mono">
-                {"{"}a: 1, b: 2{"}"}
-            </div>
-        </Node>
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Object" type="input">
+                <div class="text-center text-sm font-mono">
+                    {"{"}a: 1, b: 2, c: 3{"}"}
+                </div>
+            </Node>
 
-        <Arrow label="iterate" />
+            <Arrow label="extracts values" />
 
-        <Node label="Loop" type="process">
-            <ProcessContent
-                name="for (const k in obj)"
-                description="Get each key"
-            />
-        </Node>
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="Object.values(obj)"
+                    description="Get property values"
+                />
+            </Node>
 
-        <Arrow label="access" />
+            <Arrow label="returns" />
 
-        <Node label="Process Each" type="output">
-            <div class="text-center text-sm font-mono">k → 'a', 'b'</div>
-            <div class="text-center text-[10px] text-gray-400 mt-1">
-                obj[k] → 1, 2
-            </div>
-        </Node>
-    </div>
-
-    <MutableOrNot mutates={false} message="">
-        Loops over enumerable properties. ⚠️ Includes inherited props from
-        prototype chain.
-    </MutableOrNot>
-
-    <ProTip>
-        <div>
-            ⚠️ <strong>Always guard with Object.hasOwn()</strong> to skip inherited
-            properties:
+            <Node label="Array" type="output">
+                <div class="text-center text-sm font-mono">[1, 2, 3]</div>
+            </Node>
         </div>
-        <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-            <div class="font-mono text-[10px]">for (const k in obj) {"{"}</div>
-            <div class="font-mono text-[10px]">
-                &nbsp;&nbsp;if (Object.hasOwn(obj, k)) {"{"}
-            </div>
-            <div class="font-mono text-[10px]">
-                &nbsp;&nbsp;&nbsp;&nbsp;console.log(k, obj[k])
-            </div>
-            <div class="font-mono text-[10px]">&nbsp;&nbsp;{"}"}</div>
-            <div class="font-mono text-[10px]">{"}"}</div>
-        </div>
-    </ProTip>
-</MethodCard>
 
-<!-- OBJECT.KEYS + FOREACH -->
-<MethodCard
-    id="keys-foreach"
-    methodName="Object.keys() + forEach"
-    signature="Object.keys(obj).forEach(k => ...)"
-    description="Loop over own property keys only (safe, modern)"
-    mutates={false}
->
-    <div
-        class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        <MutableOrNot mutates={false} message="">
+            Returns <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >array</code
+            > of own enumerable property values. ⚠️ Cannot be chained.
+        </MutableOrNot>
+    </MethodCard>
+
+    <!-- OBJECT.ENTRIES -->
+    <MethodCard
+        id="entries"
+        methodName="Object.entries()"
+        signature="Object.entries(obj)"
+        description="Returns array of [key, value] pairs"
+        mutates={false}
     >
-        <Node label="Input Object" type="input">
-            <div class="text-center text-sm font-mono">
-                {"{"}a: 1, b: 2{"}"}
-            </div>
-        </Node>
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Object" type="input">
+                <div class="text-center text-sm font-mono">
+                    {"{"}a: 1, b: 2{"}"}
+                </div>
+            </Node>
 
-        <Arrow label="extract" />
+            <Arrow label="converts" />
 
-        <Node label="Get Keys" type="process">
-            <ProcessContent name="Object.keys(obj)" description="['a', 'b']" />
-        </Node>
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="Object.entries(obj)"
+                    description="Get [k,v] pairs"
+                />
+            </Node>
 
-        <Arrow label="iterate" />
+            <Arrow label="returns" />
 
-        <Node label="forEach" type="output">
-            <div class="text-center text-sm font-mono">k → 'a', 'b'</div>
-            <div class="text-center text-[10px] text-gray-400 mt-1">
-                obj[k] → 1, 2
-            </div>
-        </Node>
-    </div>
-
-    <MutableOrNot mutates={false} message="">
-        Safe, modern approach. Only iterates own properties (not inherited). No
-        guard needed.
-    </MutableOrNot>
-
-    <ProTip>
-        <div>💡 <strong>Recommended for most cases:</strong></div>
-        <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-            <div class="font-mono text-[10px]">
-                Object.keys(obj).forEach(k =&gt; {"{"}
-            </div>
-            <div class="font-mono text-[10px]">
-                &nbsp;&nbsp;console.log(k, obj[k])
-            </div>
-            <div class="font-mono text-[10px]">{"}"})</div>
+            <Node label="Array" type="output">
+                <div class="text-center text-sm font-mono">
+                    [['a', 1], ['b', 2]]
+                </div>
+            </Node>
         </div>
-    </ProTip>
-</MethodCard>
 
-<!-- OBJECT.ENTRIES + FOR...OF -->
-<MethodCard
-    id="entries-forof"
-    methodName="Object.entries() + for...of"
-    signature="for (const [k, v] of Object.entries(obj)) { }"
-    description="Loop over [key, value] pairs (cleanest syntax)"
-    mutates={false}
->
-    <div
-        class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        <MutableOrNot mutates={false} message="">
+            Returns <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >array</code
+            > of [key, value] pairs. ⚠️ Cannot be chained. Perfect for iteration
+            and transformation.
+        </MutableOrNot>
+
+        <ProTip>
+            <div>
+                Combo with <code
+                    class="bg-black/30 px-1 py-0.5 rounded font-mono text-yellow-400"
+                    >Object.fromEntries()</code
+                > for map/filter on objects:
+            </div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    <span class="text-gray-400">// Double all values</span>
+                </div>
+                <div class="font-mono text-[10px]">Object.fromEntries(</div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;Object.entries(obj).map(([k,v]) =&gt; [k, v*2])
+                </div>
+                <div class="font-mono text-[10px]">)</div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- OBJECT.HASOWN -->
+    <MethodCard
+        id="hasOwn"
+        methodName="Object.hasOwn()"
+        signature="Object.hasOwn(obj, key)"
+        description="Checks if object has its own property (not inherited)"
+        mutates={false}
     >
-        <Node label="Input Object" type="input">
-            <div class="text-center text-sm font-mono">
-                {"{"}a: 1, b: 2{"}"}
-            </div>
-        </Node>
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Object" type="input">
+                <div class="text-center text-sm font-mono">{"{"}a: 1{"}"}</div>
+            </Node>
 
-        <Arrow label="convert" />
+            <Arrow label="checks for" />
 
-        <Node label="Get Entries" type="process">
-            <ProcessContent
-                name="Object.entries(obj)"
-                description="[['a',1],['b',2]]"
-            />
-        </Node>
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="Object.hasOwn(obj, 'a')"
+                    description="Has own property?"
+                />
+            </Node>
 
-        <Arrow label="iterate" />
+            <Arrow label="returns" />
 
-        <Node label="for...of [k, v]" type="output">
-            <div class="text-center text-sm font-mono">[k, v]</div>
-            <div class="text-center text-[10px] text-gray-400 mt-1">
-                ['a', 1], ['b', 2]
-            </div>
-        </Node>
-    </div>
-
-    <MutableOrNot mutates={false} message="">
-        Cleanest syntax with destructuring. Direct access to both key and value.
-        Preferred for modern code.
-    </MutableOrNot>
-
-    <ProTip>
-        <div>
-            ✨ <strong>Cleanest option</strong> - destructure directly in the loop:
+            <Node label="Boolean" type="output">
+                <ReturnValue value="true" type="boolean" />
+            </Node>
         </div>
-        <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-            <div class="font-mono text-[10px]">
-                for (const [key, value] of Object.entries(obj)) {"{"}
-            </div>
-            <div class="font-mono text-[10px]">
-                &nbsp;&nbsp;console.log(key, value) <span class="text-gray-400"
-                    >// both available!</span
-                >
-            </div>
-            <div class="font-mono text-[10px]">{"}"}</div>
-        </div>
-    </ProTip>
-</MethodCard>
 
-<!-- OBJECT.VALUES + FOREACH -->
-<MethodCard
-    id="values-foreach"
-    methodName="Object.values() + forEach"
-    signature="Object.values(obj).forEach(v => ...)"
-    description="Loop over values only (when keys don't matter)"
-    mutates={false}
->
-    <div
-        class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        <MutableOrNot mutates={false} message="">
+            Returns <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >boolean</code
+            >. ⚠️ Cannot be chained. Safer than <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >hasOwnProperty()</code
+            >.
+        </MutableOrNot>
+    </MethodCard>
+
+    <!-- IN OPERATOR -->
+    <MethodCard
+        id="in-operator"
+        methodName="in operator"
+        signature="'key' in obj"
+        description="Checks if property exists (includes inherited properties)"
+        mutates={false}
     >
-        <Node label="Input Object" type="input">
-            <div class="text-center text-sm font-mono">
-                {"{"}a: 1, b: 2{"}"}
-            </div>
-        </Node>
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Object" type="input">
+                <div class="text-center text-sm font-mono">{"{"}a: 1{"}"}</div>
+            </Node>
 
-        <Arrow label="extract" />
+            <Arrow label="checks for" />
 
-        <Node label="Get Values" type="process">
-            <ProcessContent name="Object.values(obj)" description="[1, 2]" />
-        </Node>
+            <Node label="Operator" type="process">
+                <ProcessContent
+                    name="'a' in obj"
+                    description="Property exists?"
+                />
+            </Node>
 
-        <Arrow label="iterate" />
+            <Arrow label="returns" />
 
-        <Node label="forEach" type="output">
-            <div class="text-center text-sm font-mono">v → 1, 2</div>
-        </Node>
-    </div>
-
-    <MutableOrNot mutates={false} message="">
-        Use when you only need values, not keys. Simpler than Object.entries()
-        when keys are irrelevant.
-    </MutableOrNot>
-
-    <ProTip>
-        <div>Perfect for summing, filtering, or transforming values:</div>
-        <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-            <div class="font-mono text-[10px]">
-                const sum = Object.values(obj).reduce((a,b) =&gt; a+b, 0)
-            </div>
-            <div class="font-mono text-[10px]">
-                const doubled = Object.values(obj).map(v =&gt; v*2)
-            </div>
+            <Node label="Boolean" type="output">
+                <ReturnValue value="true" type="boolean" />
+            </Node>
         </div>
-    </ProTip>
-</MethodCard>
 
-<!-- === TRANSFORM PATTERNS === -->
-<SubSectionTitle id="transform" parentColor="green"
-    >Transform Patterns</SubSectionTitle
->
+        <MutableOrNot mutates={false} message="">
+            Returns <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >boolean</code
+            >. ⚠️ Checks entire prototype chain (includes inherited properties).
+        </MutableOrNot>
 
-<!-- MAP OBJECT VALUES -->
-<MethodCard
-    id="map-values"
-    methodName="Map Object Values"
-    signature="Object.fromEntries(Object.entries(obj).map(([k,v]) => [k, newV]))"
-    description="Transform all values while keeping keys"
-    mutates={false}
->
-    <div
-        class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-    >
-        <Node label="Input Object" type="input">
-            <div class="text-center text-sm font-mono">
-                {"{"}a: 1, b: 2{"}"}
-            </div>
-        </Node>
-
-        <Arrow label="entries" />
-
-        <Node label="Step 1" type="process">
-            <ProcessContent
-                name="Object.entries(obj)"
-                description="[['a',1],['b',2]]"
-            />
-        </Node>
-
-        <Arrow label="map" />
-
-        <Node label="Step 2" type="process">
-            <ProcessContent
-                name=".map(([k,v]) => [k, v*2])"
-                description="[['a',2],['b',4]]"
-            />
-        </Node>
-
-        <Arrow label="fromEntries" />
-
-        <Node label="New Object" type="output">
-            <div class="text-center text-sm font-mono">
-                {"{"}a: 2, b: 4{"}"}
-            </div>
-        </Node>
-    </div>
-
-    <MutableOrNot mutates={false} message="">
-        Returns a <code
-            class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
-            >new object</code
-        >. Chain entries → map → fromEntries pattern.
-    </MutableOrNot>
-
-    <ProTip>
-        <div>Common transformations:</div>
-        <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-            <div class="font-mono text-[10px]">
-                <span class="text-gray-400">// Double all values</span>
-            </div>
-            <div class="font-mono text-[10px]">
-                Object.fromEntries(Object.entries(obj).map(([k,v]) =&gt; [k,
-                v*2]))
-            </div>
-            <div class="font-mono text-[10px] mt-1">
-                <span class="text-gray-400">// Convert to uppercase</span>
-            </div>
-            <div class="font-mono text-[10px]">
-                Object.fromEntries(Object.entries(obj).map(([k,v]) =&gt; [k,
-                v.toUpperCase()]))
-            </div>
-        </div>
-    </ProTip>
-</MethodCard>
-
-<!-- FILTER OBJECT -->
-<MethodCard
-    id="filter-object"
-    methodName="Filter Object"
-    signature="Object.fromEntries(Object.entries(obj).filter(([k,v]) => condition))"
-    description="Remove properties based on condition"
-    mutates={false}
->
-    <div
-        class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-    >
-        <Node label="Input Object" type="input">
-            <div class="text-center text-sm font-mono">
-                {"{"}a: 1, b: null, c: 3{"}"}
-            </div>
-        </Node>
-
-        <Arrow label="entries" />
-
-        <Node label="Step 1" type="process">
-            <ProcessContent
-                name="Object.entries(obj)"
-                description="Get pairs"
-            />
-        </Node>
-
-        <Arrow label="filter" />
-
-        <Node label="Step 2" type="process">
-            <ProcessContent
-                name=".filter(([k,v]) => v != null)"
-                description="Keep non-null"
-            />
-        </Node>
-
-        <Arrow label="fromEntries" />
-
-        <Node label="New Object" type="output">
-            <div class="text-center text-sm font-mono">
-                {"{"}a: 1, c: 3{"}"}
-            </div>
-        </Node>
-    </div>
-
-    <MutableOrNot mutates={false} message="">
-        Returns a <code
-            class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
-            >new object</code
-        >. Removes properties that don't match condition.
-    </MutableOrNot>
-
-    <ProTip>
-        <div>Common filters:</div>
-        <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-            <div class="font-mono text-[10px]">
-                <span class="text-gray-400">// Remove null/undefined</span>
-            </div>
-            <div class="font-mono text-[10px]">
-                Object.fromEntries(Object.entries(obj).filter(([k,v]) =&gt; v !=
-                null))
-            </div>
-            <div class="font-mono text-[10px] mt-1">
-                <span class="text-gray-400">// Keep only numbers > 10</span>
-            </div>
-            <div class="font-mono text-[10px]">
-                Object.fromEntries(Object.entries(obj).filter(([k,v]) =&gt; v
-                &gt; 10))
-            </div>
-        </div>
-    </ProTip>
-</MethodCard>
-
-<!-- RENAME KEYS -->
-<MethodCard
-    id="rename-keys"
-    methodName="Rename Keys"
-    signature="Object.fromEntries(Object.entries(obj).map(([k,v]) => [newKey, v]))"
-    description="Transform property names"
-    mutates={false}
->
-    <div
-        class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-    >
-        <Node label="Input Object" type="input">
-            <div class="text-center text-sm font-mono">
-                {"{"}first_name: 'Jo'{"}"}
-            </div>
-        </Node>
-
-        <Arrow label="entries" />
-
-        <Node label="Step 1" type="process">
-            <ProcessContent
-                name="Object.entries(obj)"
-                description="Get pairs"
-            />
-        </Node>
-
-        <Arrow label="map keys" />
-
-        <Node label="Step 2" type="process">
-            <ProcessContent
-                name=".map(([k,v]) => [toCamelCase(k), v])"
-                description="Transform keys"
-            />
-        </Node>
-
-        <Arrow label="fromEntries" />
-
-        <Node label="New Object" type="output">
-            <div class="text-center text-sm font-mono">
-                {"{"}firstName: 'Jo'{"}"}
-            </div>
-        </Node>
-    </div>
-
-    <MutableOrNot mutates={false} message="">
-        Returns a <code
-            class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
-            >new object</code
-        >. Useful for API response transformations.
-    </MutableOrNot>
-
-    <ProTip>
-        <div>Snake case to camel case converter:</div>
-        <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-            <div class="font-mono text-[10px]">
-                const toCamelCase = k =&gt; k.replace(/_([a-z])/g, (_, l) =&gt;
-                l.toUpperCase())
-            </div>
-            <div class="font-mono text-[10px]">Object.fromEntries(</div>
-            <div class="font-mono text-[10px]">
-                &nbsp;&nbsp;Object.entries(obj).map(([k,v]) =&gt;
-                [toCamelCase(k), v])
-            </div>
-            <div class="font-mono text-[10px]">)</div>
-        </div>
-    </ProTip>
-</MethodCard>
-
-<!-- === NESTED OBJECTS === -->
-<SubSectionTitle id="nested" parentColor="green">Nested Objects</SubSectionTitle
->
-
-<!-- OPTIONAL CHAINING -->
-<MethodCard
-    id="optional-chaining"
-    methodName="Optional Chaining"
-    signature="obj?.prop?.nested"
-    description="Safely access nested properties without errors"
-    mutates={false}
->
-    <div
-        class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-    >
-        <Node label="Input Object" type="input">
-            <div class="text-center text-sm font-mono">
-                {"{"}user: undefined{"}"}
-            </div>
-        </Node>
-
-        <Arrow label="access" />
-
-        <Node label="Operator" type="process">
-            <ProcessContent name="obj?.user?.name" description="Safe access" />
-        </Node>
-
-        <Arrow label="returns" />
-
-        <Node label="Result" type="output">
-            <ReturnValue value="undefined" type="undefined" />
-        </Node>
-    </div>
-
-    <MutableOrNot mutates={false} message="">
-        Returns <code
-            class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
-            >undefined</code
-        > if any part is null/undefined. No errors thrown!
-    </MutableOrNot>
-
-    <ProTip>
-        <div>⚠️ <strong>Old way vs modern way:</strong></div>
-        <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-            <div class="font-mono text-[10px]">
-                <span class="text-red-400">// Old: verbose and error-prone</span
-                >
-            </div>
-            <div class="font-mono text-[10px]">
-                const name = obj &amp;&amp; obj.user &amp;&amp; obj.user.name
-            </div>
-            <div class="font-mono text-[10px] mt-1">
-                <span class="text-green-400">// Modern: clean and safe ✨</span>
-            </div>
-            <div class="font-mono text-[10px]">
-                const name = obj?.user?.name
-            </div>
-        </div>
-    </ProTip>
-</MethodCard>
-
-<!-- NULLISH COALESCING -->
-<MethodCard
-    id="nullish-coalescing"
-    methodName="Nullish Coalescing"
-    signature="value ?? defaultValue"
-    description="Provide default value for null/undefined only"
-    mutates={false}
->
-    <div
-        class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-    >
-        <Node label="Value" type="input">
-            <div class="text-center text-sm font-mono">obj.count</div>
-            <div class="text-center text-[10px] text-gray-400 mt-1">
-                (could be null/undefined)
-            </div>
-        </Node>
-
-        <Arrow label="check" />
-
-        <Node label="Operator" type="process">
-            <ProcessContent
-                name="value ?? 0"
-                description="Use default if nullish"
-            />
-        </Node>
-
-        <Arrow label="returns" />
-
-        <Node label="Result" type="output">
-            <div class="text-center text-sm font-mono">
-                0 (if null/undefined)
-            </div>
-            <div class="text-center text-sm font-mono">value (otherwise)</div>
-        </Node>
-    </div>
-
-    <MutableOrNot mutates={false} message="">
-        Returns right side only if left is <code
-            class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
-            >null</code
-        > or <code
-            class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
-            >undefined</code
-        >. Unlike <code
-            class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
-            >||</code
-        >, keeps falsy values like 0, "", false.
-    </MutableOrNot>
-
-    <ProTip>
-        <div><strong>?? vs || (important difference!):</strong></div>
-        <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-            <div class="font-mono text-[10px]">const count = 0;</div>
-            <div class="font-mono text-[10px] mt-1">
-                <span class="text-red-400">// || treats 0 as falsy ❌</span>
-            </div>
-            <div class="font-mono text-[10px]">
-                count || 10 → 10 <span class="text-gray-400"
-                    >// loses your 0!</span
-                >
-            </div>
-            <div class="font-mono text-[10px] mt-1">
-                <span class="text-green-400"
-                    >// ?? only checks null/undefined ✅</span
-                >
-            </div>
-            <div class="font-mono text-[10px]">
-                count ?? 10 → 0 <span class="text-gray-400"
-                    >// keeps your 0!</span
-                >
-            </div>
-            <div class="font-mono text-[10px] mt-1.5">
-                <span class="text-blue-400"
-                    >// Perfect with optional chaining:</span
-                >
-            </div>
-            <div class="font-mono text-[10px]">obj?.user?.age ?? 18</div>
-        </div>
-    </ProTip>
-</MethodCard>
-
-<!-- DEEP CLONE -->
-<MethodCard
-    id="deep-clone"
-    methodName="Deep Clone"
-    signature="structuredClone(obj)"
-    description="Create deep copy of nested objects"
-    mutates={false}
->
-    <div
-        class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-    >
-        <Node label="Input Object" type="input">
-            <div class="text-center text-sm font-mono">
-                {"{"}user: {"{"}id: 1{"}"}{"}"}
-            </div>
-        </Node>
-
-        <Arrow label="deep copy" />
-
-        <Node label="Method" type="process">
-            <ProcessContent
-                name="structuredClone(obj)"
-                description="Clone all levels"
-            />
-        </Node>
-
-        <Arrow label="returns" />
-
-        <Node label="New Object" type="output">
-            <div class="text-center text-sm font-mono">
-                {"{"}user: {"{"}id: 1{"}"}{"}"}
-            </div>
-            <div class="text-center text-[10px] text-gray-400 mt-1">
-                fully independent
-            </div>
-        </Node>
-    </div>
-
-    <MutableOrNot mutates={false} message="">
-        Returns a <code
-            class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
-            >new object</code
-        > with all nested levels cloned. Modifying nested objects won't affect original.
-    </MutableOrNot>
-
-    <ProTip>
-        <div><strong>Shallow vs Deep clone with nested objects:</strong></div>
-        <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-            <div class="font-mono text-[10px]">
-                const obj = {"{"}user: {"{"}id: 1{"}"}{"}"}
-            </div>
-            <div class="font-mono text-[10px] mt-1">
-                <span class="text-red-400"
-                    >// Shallow: nested still shared! ⚠️</span
-                >
-            </div>
-            <div class="font-mono text-[10px]">
-                const shallow = {"{"} ...obj {"}"}
-            </div>
-            <div class="font-mono text-[10px]">
-                shallow.user.id = 999 <span class="text-red-400"
-                    >// obj.user.id also becomes 999!</span
-                >
-            </div>
-            <div class="font-mono text-[10px] mt-1">
-                <span class="text-green-400">// Deep: fully independent ✅</span
-                >
-            </div>
-            <div class="font-mono text-[10px]">
-                const deep = structuredClone(obj)
-            </div>
-            <div class="font-mono text-[10px]">
-                deep.user.id = 999 <span class="text-green-400"
-                    >// obj.user.id stays 1 ✅</span
-                >
-            </div>
-        </div>
-    </ProTip>
-</MethodCard>
-
-<!-- DEEP MERGE -->
-<MethodCard
-    id="deep-merge"
-    methodName="Deep Merge Pattern"
-    signature="Custom recursive merge function"
-    description="Merge nested objects recursively"
-    mutates={false}
->
-    <div
-        class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-    >
-        <Node label="Two Objects" type="input">
-            <div class="text-center text-sm font-mono">
-                {"{"}a: {"{"}x: 1{"}"}{"}"}
-            </div>
-            <div class="text-center text-sm font-mono">
-                {"{"}a: {"{"}y: 2{"}"}{"}"}
-            </div>
-        </Node>
-
-        <Arrow label="merge" />
-
-        <Node label="Deep Merge" type="process">
-            <ProcessContent
-                name="deepMerge(obj1, obj2)"
-                description="Recursive merge"
-            />
-        </Node>
-
-        <Arrow label="returns" />
-
-        <Node label="Merged Object" type="output">
-            <div class="text-center text-sm font-mono">
-                {"{"}a: {"{"}x: 1, y: 2{"}"}{"}"}
-            </div>
-        </Node>
-    </div>
-
-    <MutableOrNot mutates={false} message="">
-        Returns a <code
-            class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
-            >new object</code
-        >. Requires custom function or library (lodash.merge).
-    </MutableOrNot>
-
-    <ProTip>
-        <div><strong>Simple deep merge function:</strong></div>
-        <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-            <div class="font-mono text-[10px]">
-                function deepMerge(target, source) {"{"}
-            </div>
-            <div class="font-mono text-[10px]">
-                &nbsp;&nbsp;const result = {"{"} ...target {"}"}
-            </div>
-            <div class="font-mono text-[10px]">
-                &nbsp;&nbsp;for (const key in source) {"{"}
-            </div>
-            <div class="font-mono text-[10px]">
-                &nbsp;&nbsp;&nbsp;&nbsp;if (source[key] instanceof Object
-                &amp;&amp; key in target) {"{"}
-            </div>
-            <div class="font-mono text-[10px]">
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result[key] =
-                deepMerge(target[key], source[key])
-            </div>
-            <div class="font-mono text-[10px]">
-                &nbsp;&nbsp;&nbsp;&nbsp;{"}"} else {"{"}
-            </div>
-            <div class="font-mono text-[10px]">
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result[key] = source[key]
-            </div>
-            <div class="font-mono text-[10px]">
-                &nbsp;&nbsp;&nbsp;&nbsp;{"}"}
-            </div>
-            <div class="font-mono text-[10px]">&nbsp;&nbsp;{"}"}</div>
-            <div class="font-mono text-[10px]">&nbsp;&nbsp;return result</div>
-            <div class="font-mono text-[10px]">{"}"}</div>
-        </div>
-    </ProTip>
-</MethodCard>
-
-<Fragment slot="page-nav">
-    <ul class="space-y-2 text-xs">
-        <!-- Mutates Section -->
-        <li>
-            <a
-                href="#mutates"
-                class="text-red-300 font-semibold hover:text-red-200 block py-1"
-                >🛠 Mutates</a
-            >
-            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-red-500/30 pl-2">
-                <li>
-                    <span class="text-gray-400 text-[10px] uppercase"
-                        >Add / Remove / Change</span
+        <ProTip>
+            <div><strong>Difference from Object.hasOwn():</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    const obj = {"{"}a: 1{"}"}
+                </div>
+                <div class="font-mono text-[10px]">'a' in obj → true ✅</div>
+                <div class="font-mono text-[10px]">
+                    'toString' in obj → true <span class="text-orange-400"
+                        >// inherited from prototype!</span
                     >
-                    <ul class="ml-2 mt-0.5 space-y-0.5">
-                        <li>
-                            <a
-                                href="#property-assignment"
-                                class="text-gray-300 hover:text-blue-400 block"
-                                >obj.key = value</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                href="#delete"
-                                class="text-gray-300 hover:text-blue-400 block"
-                                >delete</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                href="#property-shorthand"
-                                class="text-gray-300 hover:text-blue-400 block"
-                                >Property Shorthand</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                href="#computed-property"
-                                class="text-gray-300 hover:text-blue-400 block"
-                                >Computed Property Names</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                href="#assign"
-                                class="text-gray-300 hover:text-blue-400 block"
-                                >Object.assign()</a
-                            >
-                        </li>
-                    </ul>
-                </li>
-                <li class="mt-2">
-                    <span class="text-gray-400 text-[10px] uppercase"
-                        >Lock / Protect</span
+                </div>
+                <div class="font-mono text-[10px] mt-1">
+                    Object.hasOwn(obj, 'toString') → false ✅ <span
+                        class="text-gray-400">// own only</span
                     >
-                    <ul class="ml-2 mt-0.5 space-y-0.5">
-                        <li>
-                            <a
-                                href="#freeze"
-                                class="text-gray-300 hover:text-blue-400 block"
-                                >Object.freeze()</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                href="#seal"
-                                class="text-gray-300 hover:text-blue-400 block"
-                                >Object.seal()</a
-                            >
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
 
-        <!-- Immutable Section -->
-        <li class="mt-4">
-            <a
-                href="#immutable"
-                class="text-green-300 font-semibold hover:text-green-200 block py-1"
-                >🚫 Immutable</a
-            >
-            <ul class="ml-3 mt-1 space-y-1 border-l-2 border-green-500/30 pl-2">
-                <li>
-                    <span class="text-gray-400 text-[10px] uppercase"
-                        >Clone / Merge</span
+    <!-- DESTRUCTURING -->
+    <MethodCard
+        id="destructuring"
+        methodName="Destructuring"
+        signature="const { a, b } = obj"
+        description="Extract properties from object into variables"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Object" type="input">
+                <div class="text-center text-sm font-mono">
+                    {"{"}name: "Alice", age: 25{"}"}
+                </div>
+            </Node>
+
+            <Arrow label="extract" />
+
+            <Node label="Syntax" type="process">
+                <ProcessContent
+                    name="const { name, age } = obj"
+                    description="Destructure"
+                />
+            </Node>
+
+            <Arrow label="creates" />
+
+            <Node label="Variables" type="output">
+                <div class="text-center text-sm font-mono">name = "Alice"</div>
+                <div class="text-center text-sm font-mono">age = 25</div>
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Creates variables from object properties. Original object unchanged.
+        </MutableOrNot>
+
+        <ProTip>
+            <div><strong>Advanced destructuring patterns:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    <span class="text-gray-400">// Rename variables</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    const {"{"} name: userName {"}"} = obj; <span
+                        class="text-green-400">// userName = "Alice"</span
                     >
-                    <ul class="ml-2 mt-0.5 space-y-0.5">
-                        <li>
-                            <a
-                                href="#spread"
-                                class="text-gray-300 hover:text-blue-400 block"
-                                >{"{"} ...obj {"}"}</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                href="#structuredClone"
-                                class="text-gray-300 hover:text-blue-400 block"
-                                >structuredClone()</a
-                            >
-                        </li>
-                    </ul>
-                </li>
-                <li class="mt-2">
-                    <span class="text-gray-400 text-[10px] uppercase"
-                        >Inspect / Read</span
+                </div>
+                <div class="font-mono text-[10px] mt-1">
+                    <span class="text-gray-400">// Default values</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    const {"{"} country = "USA" {"}"} = obj; <span
+                        class="text-green-400">// if missing</span
                     >
-                    <ul class="ml-2 mt-0.5 space-y-0.5">
-                        <li>
-                            <a
-                                href="#keys"
-                                class="text-gray-300 hover:text-blue-400 block"
-                                >Object.keys()</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                href="#values"
-                                class="text-gray-300 hover:text-blue-400 block"
-                                >Object.values()</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                href="#entries"
-                                class="text-gray-300 hover:text-blue-400 block"
-                                >Object.entries()</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                href="#hasOwn"
-                                class="text-gray-300 hover:text-blue-400 block"
-                                >Object.hasOwn()</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                href="#in-operator"
-                                class="text-gray-300 hover:text-blue-400 block"
-                                >'key' in obj</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                href="#destructuring"
-                                class="text-gray-300 hover:text-blue-400 block"
-                                >Destructuring</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                href="#object-is"
-                                class="text-gray-300 hover:text-blue-400 block"
-                                >Object.is()</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                href="#fromEntries"
-                                class="text-gray-300 hover:text-blue-400 block"
-                                >Object.fromEntries()</a
-                            >
-                        </li>
-                    </ul>
-                </li>
-                <li class="mt-2">
-                    <span class="text-gray-400 text-[10px] uppercase"
-                        >Iterate / Loop</span
+                </div>
+                <div class="font-mono text-[10px] mt-1">
+                    <span class="text-gray-400">// Rest operator</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    const {"{"} name, ...rest {"}"} = obj; <span
+                        class="text-green-400">// rest = remaining props</span
                     >
-                    <ul class="ml-2 mt-0.5 space-y-0.5">
-                        <li>
-                            <a
-                                href="#for-in"
-                                class="text-gray-300 hover:text-blue-400 block"
-                                >for...in</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                href="#keys-foreach"
-                                class="text-gray-300 hover:text-blue-400 block"
-                                >Object.keys() + forEach</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                href="#entries-forof"
-                                class="text-gray-300 hover:text-blue-400 block"
-                                >Object.entries() + for...of</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                href="#values-foreach"
-                                class="text-gray-300 hover:text-blue-400 block"
-                                >Object.values() + forEach</a
-                            >
-                        </li>
-                    </ul>
-                </li>
-                <li class="mt-2">
-                    <span class="text-gray-400 text-[10px] uppercase"
-                        >Transform Patterns</span
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- OBJECT.IS -->
+    <MethodCard
+        id="object-is"
+        methodName="Object.is()"
+        signature="Object.is(value1, value2)"
+        description="Stricter equality check than ==="
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Two Values" type="input">
+                <div class="text-center text-sm font-mono">NaN, NaN</div>
+            </Node>
+
+            <Arrow label="compare" />
+
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="Object.is(val1, val2)"
+                    description="Same-value equality"
+                />
+            </Node>
+
+            <Arrow label="returns" />
+
+            <Node label="Result" type="output">
+                <ReturnValue value="true" type="boolean" />
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Returns <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >boolean</code
+            >. Handles edge cases better than <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >===</code
+            >.
+        </MutableOrNot>
+
+        <ProTip>
+            <div><strong>Key differences from ===:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    <span class="text-orange-400">// NaN comparison</span>
+                </div>
+                <div class="font-mono text-[10px]">NaN === NaN → false ❌</div>
+                <div class="font-mono text-[10px]">
+                    Object.is(NaN, NaN) → true ✅
+                </div>
+                <div class="font-mono text-[10px] mt-1">
+                    <span class="text-orange-400">// -0 vs +0</span>
+                </div>
+                <div class="font-mono text-[10px]">-0 === +0 → true</div>
+                <div class="font-mono text-[10px]">
+                    Object.is(-0, +0) → false <span class="text-green-400"
+                        >// distinguishes!</span
                     >
-                    <ul class="ml-2 mt-0.5 space-y-0.5">
-                        <li>
-                            <a
-                                href="#map-values"
-                                class="text-gray-300 hover:text-blue-400 block"
-                                >Map Values</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                href="#filter-object"
-                                class="text-gray-300 hover:text-blue-400 block"
-                                >Filter Object</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                href="#rename-keys"
-                                class="text-gray-300 hover:text-blue-400 block"
-                                >Rename Keys</a
-                            >
-                        </li>
-                    </ul>
-                </li>
-                <li class="mt-2">
-                    <span class="text-gray-400 text-[10px] uppercase"
-                        >Nested Objects</span
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- OBJECT.FROMENTRIES -->
+    <MethodCard
+        id="fromEntries"
+        methodName="Object.fromEntries()"
+        signature="Object.fromEntries(pairs)"
+        description="Builds object from [key, value] pairs"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Array" type="input">
+                <div class="text-center text-sm font-mono">
+                    [['a', 1], ['b', 2]]
+                </div>
+            </Node>
+
+            <Arrow label="converts" />
+
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="Object.fromEntries(arr)"
+                    description="Build object"
+                />
+            </Node>
+
+            <Arrow label="returns" />
+
+            <Node label="New Object" type="output">
+                <div class="text-center text-sm font-mono">
+                    {"{"}a: 1, b: 2{"}"}
+                </div>
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Returns a <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >new object</code
+            >. Opposite of <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >Object.entries()</code
+            >.
+        </MutableOrNot>
+    </MethodCard>
+
+    <!-- === ITERATE / LOOP === -->
+    <SubSectionTitle id="iterate-loop" parentColor="green"
+        >Iterate / Loop</SubSectionTitle
+    >
+
+    <!-- FOR...IN LOOP -->
+    <MethodCard
+        id="for-in"
+        methodName="for...in"
+        signature="for (const key in obj) { }"
+        description="Loop over all enumerable properties (including inherited)"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Object" type="input">
+                <div class="text-center text-sm font-mono">
+                    {"{"}a: 1, b: 2{"}"}
+                </div>
+            </Node>
+
+            <Arrow label="iterate" />
+
+            <Node label="Loop" type="process">
+                <ProcessContent
+                    name="for (const k in obj)"
+                    description="Get each key"
+                />
+            </Node>
+
+            <Arrow label="access" />
+
+            <Node label="Process Each" type="output">
+                <div class="text-center text-sm font-mono">k → 'a', 'b'</div>
+                <div class="text-center text-[10px] text-gray-400 mt-1">
+                    obj[k] → 1, 2
+                </div>
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Loops over enumerable properties. ⚠️ Includes inherited props from
+            prototype chain.
+        </MutableOrNot>
+
+        <ProTip>
+            <div>
+                ⚠️ <strong>Always guard with Object.hasOwn()</strong> to skip inherited
+                properties:
+            </div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    for (const k in obj) {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;if (Object.hasOwn(obj, k)) {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;console.log(k, obj[k])
+                </div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;{"}"}</div>
+                <div class="font-mono text-[10px]">{"}"}</div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- OBJECT.KEYS + FOREACH -->
+    <MethodCard
+        id="keys-foreach"
+        methodName="Object.keys() + forEach"
+        signature="Object.keys(obj).forEach(k => ...)"
+        description="Loop over own property keys only (safe, modern)"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Object" type="input">
+                <div class="text-center text-sm font-mono">
+                    {"{"}a: 1, b: 2{"}"}
+                </div>
+            </Node>
+
+            <Arrow label="extract" />
+
+            <Node label="Get Keys" type="process">
+                <ProcessContent
+                    name="Object.keys(obj)"
+                    description="['a', 'b']"
+                />
+            </Node>
+
+            <Arrow label="iterate" />
+
+            <Node label="forEach" type="output">
+                <div class="text-center text-sm font-mono">k → 'a', 'b'</div>
+                <div class="text-center text-[10px] text-gray-400 mt-1">
+                    obj[k] → 1, 2
+                </div>
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Safe, modern approach. Only iterates own properties (not inherited).
+            No guard needed.
+        </MutableOrNot>
+
+        <ProTip>
+            <div>💡 <strong>Recommended for most cases:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    Object.keys(obj).forEach(k =&gt; {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;console.log(k, obj[k])
+                </div>
+                <div class="font-mono text-[10px]">{"}"})</div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- OBJECT.ENTRIES + FOR...OF -->
+    <MethodCard
+        id="entries-forof"
+        methodName="Object.entries() + for...of"
+        signature="for (const [k, v] of Object.entries(obj)) { }"
+        description="Loop over [key, value] pairs (cleanest syntax)"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Object" type="input">
+                <div class="text-center text-sm font-mono">
+                    {"{"}a: 1, b: 2{"}"}
+                </div>
+            </Node>
+
+            <Arrow label="convert" />
+
+            <Node label="Get Entries" type="process">
+                <ProcessContent
+                    name="Object.entries(obj)"
+                    description="[['a',1],['b',2]]"
+                />
+            </Node>
+
+            <Arrow label="iterate" />
+
+            <Node label="for...of [k, v]" type="output">
+                <div class="text-center text-sm font-mono">[k, v]</div>
+                <div class="text-center text-[10px] text-gray-400 mt-1">
+                    ['a', 1], ['b', 2]
+                </div>
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Cleanest syntax with destructuring. Direct access to both key and
+            value. Preferred for modern code.
+        </MutableOrNot>
+
+        <ProTip>
+            <div>
+                ✨ <strong>Cleanest option</strong> - destructure directly in the
+                loop:
+            </div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    for (const [key, value] of Object.entries(obj)) {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;console.log(key, value) <span
+                        class="text-gray-400">// both available!</span
                     >
-                    <ul class="ml-2 mt-0.5 space-y-0.5">
-                        <li>
-                            <a
-                                href="#optional-chaining"
-                                class="text-gray-300 hover:text-blue-400 block"
-                                >Optional Chaining (?.)</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                href="#nullish-coalescing"
-                                class="text-gray-300 hover:text-blue-400 block"
-                                >Nullish Coalescing (??)</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                href="#deep-clone"
-                                class="text-gray-300 hover:text-blue-400 block"
-                                >Deep Clone</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                href="#deep-merge"
-                                class="text-gray-300 hover:text-blue-400 block"
-                                >Deep Merge</a
-                            >
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
-    </ul>
-</Fragment>
+                </div>
+                <div class="font-mono text-[10px]">{"}"}</div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- OBJECT.VALUES + FOREACH -->
+    <MethodCard
+        id="values-foreach"
+        methodName="Object.values() + forEach"
+        signature="Object.values(obj).forEach(v => ...)"
+        description="Loop over values only (when keys don't matter)"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Object" type="input">
+                <div class="text-center text-sm font-mono">
+                    {"{"}a: 1, b: 2{"}"}
+                </div>
+            </Node>
+
+            <Arrow label="extract" />
+
+            <Node label="Get Values" type="process">
+                <ProcessContent
+                    name="Object.values(obj)"
+                    description="[1, 2]"
+                />
+            </Node>
+
+            <Arrow label="iterate" />
+
+            <Node label="forEach" type="output">
+                <div class="text-center text-sm font-mono">v → 1, 2</div>
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Use when you only need values, not keys. Simpler than
+            Object.entries() when keys are irrelevant.
+        </MutableOrNot>
+
+        <ProTip>
+            <div>Perfect for summing, filtering, or transforming values:</div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    const sum = Object.values(obj).reduce((a,b) =&gt; a+b, 0)
+                </div>
+                <div class="font-mono text-[10px]">
+                    const doubled = Object.values(obj).map(v =&gt; v*2)
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- === TRANSFORM PATTERNS === -->
+    <SubSectionTitle id="transform" parentColor="green"
+        >Transform Patterns</SubSectionTitle
+    >
+
+    <!-- MAP OBJECT VALUES -->
+    <MethodCard
+        id="map-values"
+        methodName="Map Object Values"
+        signature="Object.fromEntries(Object.entries(obj).map(([k,v]) => [k, newV]))"
+        description="Transform all values while keeping keys"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Object" type="input">
+                <div class="text-center text-sm font-mono">
+                    {"{"}a: 1, b: 2{"}"}
+                </div>
+            </Node>
+
+            <Arrow label="entries" />
+
+            <Node label="Step 1" type="process">
+                <ProcessContent
+                    name="Object.entries(obj)"
+                    description="[['a',1],['b',2]]"
+                />
+            </Node>
+
+            <Arrow label="map" />
+
+            <Node label="Step 2" type="process">
+                <ProcessContent
+                    name=".map(([k,v]) => [k, v*2])"
+                    description="[['a',2],['b',4]]"
+                />
+            </Node>
+
+            <Arrow label="fromEntries" />
+
+            <Node label="New Object" type="output">
+                <div class="text-center text-sm font-mono">
+                    {"{"}a: 2, b: 4{"}"}
+                </div>
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Returns a <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >new object</code
+            >. Chain entries → map → fromEntries pattern.
+        </MutableOrNot>
+
+        <ProTip>
+            <div>Common transformations:</div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    <span class="text-gray-400">// Double all values</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    Object.fromEntries(Object.entries(obj).map(([k,v]) =&gt; [k,
+                    v*2]))
+                </div>
+                <div class="font-mono text-[10px] mt-1">
+                    <span class="text-gray-400">// Convert to uppercase</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    Object.fromEntries(Object.entries(obj).map(([k,v]) =&gt; [k,
+                    v.toUpperCase()]))
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- FILTER OBJECT -->
+    <MethodCard
+        id="filter-object"
+        methodName="Filter Object"
+        signature="Object.fromEntries(Object.entries(obj).filter(([k,v]) => condition))"
+        description="Remove properties based on condition"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Object" type="input">
+                <div class="text-center text-sm font-mono">
+                    {"{"}a: 1, b: null, c: 3{"}"}
+                </div>
+            </Node>
+
+            <Arrow label="entries" />
+
+            <Node label="Step 1" type="process">
+                <ProcessContent
+                    name="Object.entries(obj)"
+                    description="Get pairs"
+                />
+            </Node>
+
+            <Arrow label="filter" />
+
+            <Node label="Step 2" type="process">
+                <ProcessContent
+                    name=".filter(([k,v]) => v != null)"
+                    description="Keep non-null"
+                />
+            </Node>
+
+            <Arrow label="fromEntries" />
+
+            <Node label="New Object" type="output">
+                <div class="text-center text-sm font-mono">
+                    {"{"}a: 1, c: 3{"}"}
+                </div>
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Returns a <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >new object</code
+            >. Removes properties that don't match condition.
+        </MutableOrNot>
+
+        <ProTip>
+            <div>Common filters:</div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    <span class="text-gray-400">// Remove null/undefined</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    Object.fromEntries(Object.entries(obj).filter(([k,v]) =&gt;
+                    v != null))
+                </div>
+                <div class="font-mono text-[10px] mt-1">
+                    <span class="text-gray-400">// Keep only numbers > 10</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    Object.fromEntries(Object.entries(obj).filter(([k,v]) =&gt;
+                    v &gt; 10))
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- RENAME KEYS -->
+    <MethodCard
+        id="rename-keys"
+        methodName="Rename Keys"
+        signature="Object.fromEntries(Object.entries(obj).map(([k,v]) => [newKey, v]))"
+        description="Transform property names"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Object" type="input">
+                <div class="text-center text-sm font-mono">
+                    {"{"}first_name: 'Jo'{"}"}
+                </div>
+            </Node>
+
+            <Arrow label="entries" />
+
+            <Node label="Step 1" type="process">
+                <ProcessContent
+                    name="Object.entries(obj)"
+                    description="Get pairs"
+                />
+            </Node>
+
+            <Arrow label="map keys" />
+
+            <Node label="Step 2" type="process">
+                <ProcessContent
+                    name=".map(([k,v]) => [toCamelCase(k), v])"
+                    description="Transform keys"
+                />
+            </Node>
+
+            <Arrow label="fromEntries" />
+
+            <Node label="New Object" type="output">
+                <div class="text-center text-sm font-mono">
+                    {"{"}firstName: 'Jo'{"}"}
+                </div>
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Returns a <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >new object</code
+            >. Useful for API response transformations.
+        </MutableOrNot>
+
+        <ProTip>
+            <div>Snake case to camel case converter:</div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    const toCamelCase = k =&gt; k.replace(/_([a-z])/g, (_, l)
+                    =&gt; l.toUpperCase())
+                </div>
+                <div class="font-mono text-[10px]">Object.fromEntries(</div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;Object.entries(obj).map(([k,v]) =&gt;
+                    [toCamelCase(k), v])
+                </div>
+                <div class="font-mono text-[10px]">)</div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- === NESTED OBJECTS === -->
+    <SubSectionTitle id="nested" parentColor="green"
+        >Nested Objects</SubSectionTitle
+    >
+
+    <!-- OPTIONAL CHAINING -->
+    <MethodCard
+        id="optional-chaining"
+        methodName="Optional Chaining"
+        signature="obj?.prop?.nested"
+        description="Safely access nested properties without errors"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Object" type="input">
+                <div class="text-center text-sm font-mono">
+                    {"{"}user: undefined{"}"}
+                </div>
+            </Node>
+
+            <Arrow label="access" />
+
+            <Node label="Operator" type="process">
+                <ProcessContent
+                    name="obj?.user?.name"
+                    description="Safe access"
+                />
+            </Node>
+
+            <Arrow label="returns" />
+
+            <Node label="Result" type="output">
+                <ReturnValue value="undefined" type="undefined" />
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Returns <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >undefined</code
+            > if any part is null/undefined. No errors thrown!
+        </MutableOrNot>
+
+        <ProTip>
+            <div>⚠️ <strong>Old way vs modern way:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    <span class="text-red-400"
+                        >// Old: verbose and error-prone</span
+                    >
+                </div>
+                <div class="font-mono text-[10px]">
+                    const name = obj &amp;&amp; obj.user &amp;&amp;
+                    obj.user.name
+                </div>
+                <div class="font-mono text-[10px] mt-1">
+                    <span class="text-green-400"
+                        >// Modern: clean and safe ✨</span
+                    >
+                </div>
+                <div class="font-mono text-[10px]">
+                    const name = obj?.user?.name
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- NULLISH COALESCING -->
+    <MethodCard
+        id="nullish-coalescing"
+        methodName="Nullish Coalescing"
+        signature="value ?? defaultValue"
+        description="Provide default value for null/undefined only"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Value" type="input">
+                <div class="text-center text-sm font-mono">obj.count</div>
+                <div class="text-center text-[10px] text-gray-400 mt-1">
+                    (could be null/undefined)
+                </div>
+            </Node>
+
+            <Arrow label="check" />
+
+            <Node label="Operator" type="process">
+                <ProcessContent
+                    name="value ?? 0"
+                    description="Use default if nullish"
+                />
+            </Node>
+
+            <Arrow label="returns" />
+
+            <Node label="Result" type="output">
+                <div class="text-center text-sm font-mono">
+                    0 (if null/undefined)
+                </div>
+                <div class="text-center text-sm font-mono">
+                    value (otherwise)
+                </div>
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Returns right side only if left is <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >null</code
+            > or <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >undefined</code
+            >. Unlike <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >||</code
+            >, keeps falsy values like 0, "", false.
+        </MutableOrNot>
+
+        <ProTip>
+            <div><strong>?? vs || (important difference!):</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">const count = 0;</div>
+                <div class="font-mono text-[10px] mt-1">
+                    <span class="text-red-400">// || treats 0 as falsy ❌</span>
+                </div>
+                <div class="font-mono text-[10px]">
+                    count || 10 → 10 <span class="text-gray-400"
+                        >// loses your 0!</span
+                    >
+                </div>
+                <div class="font-mono text-[10px] mt-1">
+                    <span class="text-green-400"
+                        >// ?? only checks null/undefined ✅</span
+                    >
+                </div>
+                <div class="font-mono text-[10px]">
+                    count ?? 10 → 0 <span class="text-gray-400"
+                        >// keeps your 0!</span
+                    >
+                </div>
+                <div class="font-mono text-[10px] mt-1.5">
+                    <span class="text-blue-400"
+                        >// Perfect with optional chaining:</span
+                    >
+                </div>
+                <div class="font-mono text-[10px]">obj?.user?.age ?? 18</div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- DEEP CLONE -->
+    <MethodCard
+        id="deep-clone"
+        methodName="Deep Clone"
+        signature="structuredClone(obj)"
+        description="Create deep copy of nested objects"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Input Object" type="input">
+                <div class="text-center text-sm font-mono">
+                    {"{"}user: {"{"}id: 1{"}"}{"}"}
+                </div>
+            </Node>
+
+            <Arrow label="deep copy" />
+
+            <Node label="Method" type="process">
+                <ProcessContent
+                    name="structuredClone(obj)"
+                    description="Clone all levels"
+                />
+            </Node>
+
+            <Arrow label="returns" />
+
+            <Node label="New Object" type="output">
+                <div class="text-center text-sm font-mono">
+                    {"{"}user: {"{"}id: 1{"}"}{"}"}
+                </div>
+                <div class="text-center text-[10px] text-gray-400 mt-1">
+                    fully independent
+                </div>
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Returns a <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >new object</code
+            > with all nested levels cloned. Modifying nested objects won't affect
+            original.
+        </MutableOrNot>
+
+        <ProTip>
+            <div>
+                <strong>Shallow vs Deep clone with nested objects:</strong>
+            </div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    const obj = {"{"}user: {"{"}id: 1{"}"}{"}"}
+                </div>
+                <div class="font-mono text-[10px] mt-1">
+                    <span class="text-red-400"
+                        >// Shallow: nested still shared! ⚠️</span
+                    >
+                </div>
+                <div class="font-mono text-[10px]">
+                    const shallow = {"{"} ...obj {"}"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    shallow.user.id = 999 <span class="text-red-400"
+                        >// obj.user.id also becomes 999!</span
+                    >
+                </div>
+                <div class="font-mono text-[10px] mt-1">
+                    <span class="text-green-400"
+                        >// Deep: fully independent ✅</span
+                    >
+                </div>
+                <div class="font-mono text-[10px]">
+                    const deep = structuredClone(obj)
+                </div>
+                <div class="font-mono text-[10px]">
+                    deep.user.id = 999 <span class="text-green-400"
+                        >// obj.user.id stays 1 ✅</span
+                    >
+                </div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <!-- DEEP MERGE -->
+    <MethodCard
+        id="deep-merge"
+        methodName="Deep Merge Pattern"
+        signature="Custom recursive merge function"
+        description="Merge nested objects recursively"
+        mutates={false}
+    >
+        <div
+            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
+        >
+            <Node label="Two Objects" type="input">
+                <div class="text-center text-sm font-mono">
+                    {"{"}a: {"{"}x: 1{"}"}{"}"}
+                </div>
+                <div class="text-center text-sm font-mono">
+                    {"{"}a: {"{"}y: 2{"}"}{"}"}
+                </div>
+            </Node>
+
+            <Arrow label="merge" />
+
+            <Node label="Deep Merge" type="process">
+                <ProcessContent
+                    name="deepMerge(obj1, obj2)"
+                    description="Recursive merge"
+                />
+            </Node>
+
+            <Arrow label="returns" />
+
+            <Node label="Merged Object" type="output">
+                <div class="text-center text-sm font-mono">
+                    {"{"}a: {"{"}x: 1, y: 2{"}"}{"}"}
+                </div>
+            </Node>
+        </div>
+
+        <MutableOrNot mutates={false} message="">
+            Returns a <code
+                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                >new object</code
+            >. Requires custom function or library (lodash.merge).
+        </MutableOrNot>
+
+        <ProTip>
+            <div><strong>Simple deep merge function:</strong></div>
+            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
+                <div class="font-mono text-[10px]">
+                    function deepMerge(target, source) {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;const result = {"{"} ...target {"}"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;for (const key in source) {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;if (source[key] instanceof Object
+                    &amp;&amp; key in target) {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result[key] =
+                    deepMerge(target[key], source[key])
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;{"}"} else {"{"}
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result[key] =
+                    source[key]
+                </div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;&nbsp;&nbsp;{"}"}
+                </div>
+                <div class="font-mono text-[10px]">&nbsp;&nbsp;{"}"}</div>
+                <div class="font-mono text-[10px]">
+                    &nbsp;&nbsp;return result
+                </div>
+                <div class="font-mono text-[10px]">{"}"}</div>
+            </div>
+        </ProTip>
+    </MethodCard>
+
+    <Fragment slot="page-nav">
+        <ul class="space-y-2 text-xs">
+            <!-- Mutates Section -->
+            <li>
+                <a
+                    href="#mutates"
+                    class="text-red-300 font-semibold hover:text-red-200 block py-1"
+                    >🛠 Mutates</a
+                >
+                <ul
+                    class="ml-3 mt-1 space-y-1 border-l-2 border-red-500/30 pl-2"
+                >
+                    <li>
+                        <span class="text-gray-400 text-[10px] uppercase"
+                            >Add / Remove / Change</span
+                        >
+                        <ul class="ml-2 mt-0.5 space-y-0.5">
+                            <li>
+                                <a
+                                    href="#property-assignment"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >obj.key = value</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#delete"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >delete</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#property-shorthand"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >Property Shorthand</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#computed-property"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >Computed Property Names</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#assign"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >Object.assign()</a
+                                >
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="mt-2">
+                        <span class="text-gray-400 text-[10px] uppercase"
+                            >Lock / Protect</span
+                        >
+                        <ul class="ml-2 mt-0.5 space-y-0.5">
+                            <li>
+                                <a
+                                    href="#freeze"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >Object.freeze()</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#seal"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >Object.seal()</a
+                                >
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- Immutable Section -->
+            <li class="mt-4">
+                <a
+                    href="#immutable"
+                    class="text-green-300 font-semibold hover:text-green-200 block py-1"
+                    >🚫 Immutable</a
+                >
+                <ul
+                    class="ml-3 mt-1 space-y-1 border-l-2 border-green-500/30 pl-2"
+                >
+                    <li>
+                        <span class="text-gray-400 text-[10px] uppercase"
+                            >Clone / Merge</span
+                        >
+                        <ul class="ml-2 mt-0.5 space-y-0.5">
+                            <li>
+                                <a
+                                    href="#spread"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >{"{"} ...obj {"}"}</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#structuredClone"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >structuredClone()</a
+                                >
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="mt-2">
+                        <span class="text-gray-400 text-[10px] uppercase"
+                            >Inspect / Read</span
+                        >
+                        <ul class="ml-2 mt-0.5 space-y-0.5">
+                            <li>
+                                <a
+                                    href="#keys"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >Object.keys()</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#values"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >Object.values()</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#entries"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >Object.entries()</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#hasOwn"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >Object.hasOwn()</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#in-operator"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >'key' in obj</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#destructuring"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >Destructuring</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#object-is"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >Object.is()</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#fromEntries"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >Object.fromEntries()</a
+                                >
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="mt-2">
+                        <span class="text-gray-400 text-[10px] uppercase"
+                            >Iterate / Loop</span
+                        >
+                        <ul class="ml-2 mt-0.5 space-y-0.5">
+                            <li>
+                                <a
+                                    href="#for-in"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >for...in</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#keys-foreach"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >Object.keys() + forEach</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#entries-forof"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >Object.entries() + for...of</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#values-foreach"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >Object.values() + forEach</a
+                                >
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="mt-2">
+                        <span class="text-gray-400 text-[10px] uppercase"
+                            >Transform Patterns</span
+                        >
+                        <ul class="ml-2 mt-0.5 space-y-0.5">
+                            <li>
+                                <a
+                                    href="#map-values"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >Map Values</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#filter-object"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >Filter Object</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#rename-keys"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >Rename Keys</a
+                                >
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="mt-2">
+                        <span class="text-gray-400 text-[10px] uppercase"
+                            >Nested Objects</span
+                        >
+                        <ul class="ml-2 mt-0.5 space-y-0.5">
+                            <li>
+                                <a
+                                    href="#optional-chaining"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >Optional Chaining (?.)</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#nullish-coalescing"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >Nullish Coalescing (??)</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#deep-clone"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >Deep Clone</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#deep-merge"
+                                    class="text-gray-300 hover:text-blue-400 block"
+                                    >Deep Merge</a
+                                >
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </Fragment>
+</VisualLayout>
