@@ -10,15 +10,17 @@ import ProTip from "~components/visual-js/ProTip.astro";
 import SectionTitle from "~components/visual-js/SectionTitle.astro";
 import SubSectionTitle from "~components/visual-js/SubSectionTitle.astro";
 import VisualLayout from "src/layouts/VisualLayout.astro";
+import Flow from "~components/visual-js/Flow.astro";
+import Mark from "~components/visual-js/Mark.astro";
 ---
 
-<VisualLayout pageTitle="DOM Manipulation">
+<VisualLayout pageTitle="DOM manipulation">
     <!-- ============================================ -->
-    <!-- 🔍 SELECTING ELEMENTS -->
+    <!-- SELECTING ELEMENTS -->
     <!-- ============================================ -->
 
     <SectionTitle id="selecting" color="blue">
-        🔍 Selecting Elements
+        Selecting elements
     </SectionTitle>
 
     <!-- QUERYSELECTOR -->
@@ -30,9 +32,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         mutates={false}
     >
         <!-- querySelector visualization -->
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto mb-4"
-        >
+        <Flow class="mb-4">
             <Node label="Input" type="input">
                 <div class="text-center text-sm font-mono">'.button'</div>
             </Node>
@@ -50,16 +50,14 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
             <Node label="Result" type="output">
                 <ReturnValue value="Element" type="object" />
-                <div class="text-gray-400 text-[10px] mt-1">
+                <div class="text-gray-400 text-xs mt-1">
                     or null if not found
                 </div>
             </Node>
-        </div>
+        </Flow>
 
         <!-- querySelectorAll visualization -->
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input" type="input">
                 <div class="text-center text-sm font-mono">'.button'</div>
             </Node>
@@ -77,35 +75,35 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
             <Node label="Result" type="output">
                 <ReturnValue value="NodeList" type="object" />
-                <div class="text-gray-400 text-[10px] mt-1">
+                <div class="text-gray-400 text-xs mt-1">
                     array-like collection
                 </div>
             </Node>
-        </div>
+        </Flow>
 
         <ProTip>
-            <div>📘 <strong>What is an Element?</strong></div>
-            <div class="pl-2 border-l-2 border-blue-500/30 space-y-0.5 mt-1">
-                <div class="text-[10px]">
-                    An <strong>Element</strong> is a JavaScript object representing
+            <div><strong>What is an Element?</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="text-xs">
+                    An <strong>Element</strong> is a JavaScript object that represents
                     an HTML element in the DOM tree.
                 </div>
-                <div class="text-[10px]">
-                    It has properties and methods to manipulate the element:
+                <div class="text-xs">
+                    It has properties and methods that change the element:
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     element.textContent <span class="text-gray-400"
                         >// get/set text</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     element.classList <span class="text-gray-400"
                         >// modify classes</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     element.style <span class="text-gray-400"
                         >// modify styles</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     element.addEventListener() <span class="text-gray-400"
                         >// listen for events</span>
                 </div>
@@ -113,18 +111,18 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         </ProTip>
 
         <ProTip>
-            <div>📘 <strong>What is a NodeList?</strong></div>
-            <div class="pl-2 border-l-2 border-orange-500/30 space-y-0.5 mt-1">
-                <div class="text-[10px]">
+            <div><strong>What is a NodeList?</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="text-xs">
                     A <strong>NodeList</strong> is an array-like collection of DOM
                     nodes (usually Elements).
                 </div>
-                <div class="text-[10px] mt-1">
+                <div class="text-xs mt-1">
                     <strong>Why not just an Array?</strong> NodeList is an older
                     DOM API that predates modern JavaScript.
                 </div>
-                <div class="text-[10px]">
-                    It can be "live" (auto-updates) or "static".
+                <div class="text-xs">
+                    It can be 'live' (updates automatically) or 'static'.
                     querySelectorAll returns a <strong>static</strong> NodeList.
                 </div>
             </div>
@@ -132,36 +130,36 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
         <ProTip>
             <div>
-                ⚠️ <strong>NodeList vs Array - Critical difference!</strong>
+                <Mark type="warn" /> <strong>NodeList vs Array - critical difference</strong>
             </div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     const items = querySelectorAll('.item')
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-green-400"
-                        >// ✅ Works - forEach is available</span>
+                        >// <Mark type="yes" /> Works - forEach is available</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     items.forEach(item =&gt; console.log(item))
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-red-400"
-                        >// ❌ Fails - no map, filter, reduce, etc.</span>
+                        >// <Mark type="no" /> Fails - no map, filter, reduce, etc.</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     items.map(item =&gt; item.id) <span class="text-red-400"
                         >// TypeError!</span>
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-green-400"
-                        >// ✅ Convert to real Array for array methods</span>
+                        >// <Mark type="yes" /> Convert to real Array for array methods</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     const arr = [...items] <span class="text-gray-400"
                         >// or Array.from(items)</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     arr.map(item =&gt; item.id) <span class="text-green-400"
                         >// works!</span>
                 </div>
@@ -169,55 +167,54 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         </ProTip>
 
         <ProTip>
-            <div>💡 <strong>When to use NodeList directly:</strong></div>
-            <div class="pl-2 border-l-2 border-blue-500/30 space-y-0.5 mt-1">
-                <div class="text-[10px]">
+            <div><strong>When to use NodeList directly:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="text-xs">
                     NodeList has <code>.forEach()</code> built-in, so if that's all
                     you need:
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-green-400"
-                        >// ✅ Fine - just looping</span>
+                        >// <Mark type="yes" /> Fine - just looping</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     querySelectorAll('.item').forEach(item =&gt; item.remove())
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-yellow-400"
-                        >// ⚠️ Convert if you need array methods</span>
+                        >// <Mark type="warn" /> Convert if you need array methods</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     const ids = [...querySelectorAll('.item')].map(item =&gt;
                     item.id)
                 </div>
-                <div class="text-[10px] mt-1">
-                    <strong>Practical tip:</strong> If you're just using forEach,
-                    keep it as NodeList. Otherwise, convert immediately.
+                <div class="text-xs mt-1">
+                    <strong>Practical tip:</strong> If you only use forEach,
+                    keep the NodeList. Otherwise, convert it immediately.
                 </div>
             </div>
         </ProTip>
 
         <ProTip>
-            <div>🗂️ <strong>Legacy selectors (don't use these):</strong></div>
-            <div class="pl-2 border-l-2 border-gray-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div><strong>Legacy selectors (don't use these):</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     getElementById('main') <span class="text-gray-400"
                         >// returns single element</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     getElementsByClassName('active') <span class="text-gray-400"
                         >// returns live HTMLCollection</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     getElementsByTagName('div') <span class="text-gray-400"
                         >// returns live HTMLCollection</span>
                 </div>
-                <div class="text-[10px] mt-1">
-                    <strong>Why avoid?</strong> querySelector/All are more flexible
-                    (any CSS selector). HTMLCollections are "live" which can cause
-                    bugs.
+                <div class="text-xs mt-1">
+                    <strong>Why avoid?</strong> querySelector/All accept any CSS
+                    selector. HTMLCollections are 'live', which can cause bugs.
                 </div>
-                <div class="text-[10px]">
+                <div class="text-xs">
                     You'll see these in old code, but use <code
                         >querySelector/All</code
                     > in new code.
@@ -227,13 +224,13 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     </MethodCard>
 
     <!-- ============================================ -->
-    <!-- 🧭 DOM TRAVERSAL -->
+    <!-- DOM TRAVERSAL -->
     <!-- ============================================ -->
 
-    <SectionTitle id="traversing" color="pink"> 🌳 DOM Traversal </SectionTitle>
+    <SectionTitle id="traversing" color="pink"> DOM traversal </SectionTitle>
 
     <SubSectionTitle id="traversal-up" parentColor="pink"
-        >⬆️ Moving Up (Parents)</SubSectionTitle
+        >Moving up (parents)</SubSectionTitle
     >
 
     <!-- PARENTELEMENT -->
@@ -244,23 +241,23 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Get the direct parent element"
         mutates={false}
     >
-        <div class="p-6 bg-gray-800 rounded">
+        <div class="p-6 rounded">
             <div class="space-y-4">
-                <div class="bg-pink-500/20 border border-pink-400 rounded p-3">
+                <div class="bg-pink-900 rounded p-3">
                     <div class="text-pink-300 font-mono text-xs space-y-0.5">
                         <div>const parent = button.parentElement</div>
-                        <div class="text-gray-400 text-[10px] mt-1">
-                            Returns immediate parent or null if at document root
-                        </div>
+                    </div>
+                    <div class="text-gray-400 text-xs mt-1">
+                        Returns the direct parent, or <code>null</code> if there is no parent element.
                     </div>
                 </div>
 
                 <!-- Example -->
-                <div class="bg-cyan-500/20 border border-cyan-400 rounded p-3">
+                <div class="bg-cyan-900 rounded p-3">
                     <div
-                        class="text-cyan-300 font-mono text-[10px] space-y-0.5"
+                        class="text-cyan-300 font-mono text-xs space-y-0.5"
                     >
-                        <div class="text-yellow-400 mb-1">Example:</div>
+                        <div class="text-yellow-400 mb-1 font-sans">Example:</div>
                         <div>&lt;div class="card"&gt;</div>
                         <div>
                             &nbsp;&nbsp;&lt;button
@@ -277,17 +274,17 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         </div>
 
         <ProTip>
-            <div>⚠️ <strong>parentElement vs parentNode:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div><Mark type="warn" /> <strong>parentElement vs parentNode:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     el.parentElement <span class="text-green-400"
-                        >// ✅ Returns Element or null</span>
+                        >// <Mark type="yes" /> Returns Element or null</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     el.parentNode <span class="text-yellow-400"
-                        >// ⚠️ Can return Document node</span>
+                        >// <Mark type="warn" /> Can return Document node</span>
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-yellow-400"
                         >// Always use parentElement!</span>
                 </div>
@@ -300,30 +297,29 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="closest"
         methodName="closest()"
         signature="element.closest(selector)"
-        description="Find nearest ancestor matching CSS selector"
+        description="Find the nearest ancestor that matches a CSS selector"
         mutates={false}
     >
-        <div class="p-6 bg-gray-800 rounded">
+        <div class="p-6 rounded">
             <div class="space-y-4">
-                <div class="bg-pink-500/20 border border-pink-400 rounded p-3">
+                <div class="bg-pink-900 rounded p-3">
                     <div class="text-pink-300 font-mono text-xs space-y-0.5">
                         <div>const card = button.closest('.card')</div>
                         <div>const form = input.closest('form')</div>
                         <div>const row = cell.closest('tr')</div>
-                        <div class="mt-2 text-[10px] text-gray-400">
-                            Searches UP the tree (including self) until match
-                            found
-                        </div>
+                    </div>
+                    <div class="mt-2 text-xs text-gray-400">
+                        Searches up the tree, starting with the element itself, until it finds a match.
                     </div>
                 </div>
 
                 <!-- Real-world example -->
                 <div
-                    class="bg-orange-500/20 border border-orange-400 rounded p-3"
+                    class="bg-orange-900 rounded p-3"
                 >
                     <div class="text-orange-300 font-mono text-xs space-y-0.5">
-                        <div class="text-yellow-400 mb-1">
-                            Perfect for event delegation:
+                        <div class="text-yellow-400 mb-1 font-sans">
+                            Use in event delegation:
                         </div>
                         <div>
                             deleteBtn.addEventListener('click', (e) =&gt; {"{"}
@@ -339,39 +335,39 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         </div>
 
         <ProTip>
-            <div>💡 <strong>closest() is incredibly useful:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="text-[10px]">
-                    Works like querySelector but searches <strong>UP</strong> the
-                    tree instead of down
+            <div><strong>Why closest() is useful:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="text-xs">
+                    Works like querySelector, but searches <strong>up</strong> the
+                    tree, not down
                 </div>
-                <div class="text-[10px]">
+                <div class="text-xs">
                     Includes the element itself in the search (checks self
                     first)
                 </div>
-                <div class="text-[10px]">
+                <div class="text-xs">
                     Returns null if no ancestor matches
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-gray-400"
                         >// Find card containing clicked button</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     button.addEventListener('click', (e) =&gt; {"{"}
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;const card = e.target.closest('.card')
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;const title = card.querySelector('.title')
                 </div>
-                <div class="font-mono text-[10px]">{"}"})</div>
+                <div class="font-mono text-xs">{"}"})</div>
             </div>
         </ProTip>
     </MethodCard>
 
     <SubSectionTitle id="traversal-down" parentColor="pink"
-        >⬇️ Moving Down (Children)</SubSectionTitle
+        >Moving down (children)</SubSectionTitle
     >
 
     <!-- CHILDREN -->
@@ -382,9 +378,9 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Access child elements"
         mutates={false}
     >
-        <div class="p-6 bg-gray-800 rounded">
+        <div class="p-6 rounded">
             <div class="space-y-4">
-                <div class="bg-pink-500/20 border border-pink-400 rounded p-3">
+                <div class="bg-pink-900 rounded p-3">
                     <div class="text-pink-300 font-mono text-xs space-y-0.5">
                         <div>
                             el.children <span class="text-gray-400"
@@ -406,11 +402,11 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 </div>
 
                 <!-- Example -->
-                <div class="bg-cyan-500/20 border border-cyan-400 rounded p-3">
+                <div class="bg-cyan-900 rounded p-3">
                     <div
-                        class="text-cyan-300 font-mono text-[10px] space-y-0.5"
+                        class="text-cyan-300 font-mono text-xs space-y-0.5"
                     >
-                        <div class="text-yellow-400 mb-1">Example:</div>
+                        <div class="text-yellow-400 mb-1 font-sans">Example:</div>
                         <div>const list = document.querySelector('ul')</div>
                         <div>
                             list.childElementCount <span class="text-gray-400"
@@ -433,17 +429,17 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         </div>
 
         <ProTip>
-            <div>⚠️ <strong>children vs childNodes:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div><Mark type="warn" /> <strong>children vs childNodes:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     el.children <span class="text-green-400"
-                        >// ✅ Only element nodes</span>
+                        >// <Mark type="yes" /> Only element nodes</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     el.childNodes <span class="text-red-400"
-                        >// ❌ Includes text/comment nodes</span>
+                        >// <Mark type="no" /> Includes text/comment nodes</span>
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-yellow-400"
                         >// Always use "Element" versions!</span>
                 </div>
@@ -452,7 +448,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     </MethodCard>
 
     <SubSectionTitle id="traversal-sideways" parentColor="pink"
-        >↔️ Moving Sideways (Siblings)</SubSectionTitle
+        >Moving sideways (siblings)</SubSectionTitle
     >
 
     <!-- SIBLINGS -->
@@ -463,9 +459,9 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Navigate to sibling elements"
         mutates={false}
     >
-        <div class="p-6 bg-gray-800 rounded">
+        <div class="p-6 rounded">
             <div class="space-y-4">
-                <div class="bg-pink-500/20 border border-pink-400 rounded p-3">
+                <div class="bg-pink-900 rounded p-3">
                     <div class="text-pink-300 font-mono text-xs space-y-0.5">
                         <div>
                             el.nextElementSibling <span class="text-gray-400"
@@ -480,11 +476,11 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 </div>
 
                 <!-- Example -->
-                <div class="bg-cyan-500/20 border border-cyan-400 rounded p-3">
+                <div class="bg-cyan-900 rounded p-3">
                     <div
-                        class="text-cyan-300 font-mono text-[10px] space-y-0.5"
+                        class="text-cyan-300 font-mono text-xs space-y-0.5"
                     >
-                        <div class="text-yellow-400 mb-1">
+                        <div class="text-yellow-400 mb-1 font-sans">
                             Example - Tab navigation:
                         </div>
                         <div>
@@ -504,17 +500,17 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         </div>
 
         <ProTip>
-            <div>⚠️ <strong>Element vs Node versions:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div><Mark type="warn" /> <strong>Element vs Node versions:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     el.nextElementSibling <span class="text-green-400"
-                        >// ✅ Next element</span>
+                        >// <Mark type="yes" /> Next element</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     el.nextSibling <span class="text-red-400"
-                        >// ❌ Might be whitespace text node</span>
+                        >// <Mark type="no" /> Might be whitespace text node</span>
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-yellow-400"
                         >// Whitespace between tags counts as text nodes!</span>
                 </div>
@@ -523,7 +519,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     </MethodCard>
 
     <SubSectionTitle id="traversal-testing" parentColor="pink"
-        >✅ Testing Selectors</SubSectionTitle
+        ><Mark type="yes" /> Testing selectors</SubSectionTitle
     >
 
     <!-- MATCHES -->
@@ -531,12 +527,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="matches"
         methodName="matches()"
         signature="element.matches(selector)"
-        description="Check if element matches CSS selector"
+        description="Check if an element matches a CSS selector"
         mutates={false}
     >
-        <div class="p-6 bg-gray-800 rounded">
+        <div class="p-6 rounded">
             <div class="space-y-4">
-                <div class="bg-pink-500/20 border border-pink-400 rounded p-3">
+                <div class="bg-pink-900 rounded p-3">
                     <div class="text-pink-300 font-mono text-xs space-y-0.5">
                         <div>if (el.matches('.active')) {"{"} ... {"}"}</div>
                         <div>
@@ -545,19 +541,19 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         <div>
                             if (el.matches('[data-id="123"]')) {"{"} ... {"}"}
                         </div>
-                        <div class="mt-2 text-[10px] text-gray-400">
-                            Returns true/false - perfect for conditional logic
-                        </div>
+                    </div>
+                    <div class="mt-2 text-xs text-gray-400">
+                        Returns <code>true</code> or <code>false</code>.
                     </div>
                 </div>
 
                 <!-- Combining closest and matches -->
                 <div
-                    class="bg-purple-500/20 border border-purple-400 rounded p-3"
+                    class="bg-purple-900 rounded p-3"
                 >
                     <div class="text-purple-300 font-mono text-xs space-y-0.5">
                         <div class="text-yellow-400 mb-1">
-                            Powerful with closest():
+                            Combine with closest():
                         </div>
                         <div>
                             list.addEventListener('click', (e) =&gt; {"{"}
@@ -580,25 +576,25 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         </div>
 
         <ProTip>
-            <div>🎯 <strong>closest() vs matches():</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
-                    <span class="text-green-400">matches():</span> Check if current
-                    element matches selector (true/false)
+            <div><strong>closest() vs matches():</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="text-xs">
+                    <span class="text-green-400"><code>matches()</code>:</span> Checks if the element
+                    matches the selector (<code>true</code> or <code>false</code>).
                 </div>
-                <div class="font-mono text-[10px]">
-                    <span class="text-green-400">closest():</span> Find nearest parent
-                    matching selector (Element/null)
+                <div class="text-xs">
+                    <span class="text-green-400"><code>closest()</code>:</span> Finds the nearest ancestor
+                    that matches the selector (Element or <code>null</code>).
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-yellow-400"
                         >// Perfect combo for event delegation!</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     e.target.matches('.btn') <span class="text-gray-400"
                         >// is it a button?</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     e.target.closest('.card') <span class="text-gray-400"
                         >// find parent card</span>
                 </div>
@@ -607,11 +603,11 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     </MethodCard>
 
     <!-- ============================================ -->
-    <!-- 🏗️ CREATING & MODIFYING STRUCTURE -->
+    <!-- CREATING & MODIFYING STRUCTURE -->
     <!-- ============================================ -->
 
     <SectionTitle id="creating" color="orange">
-        ➕ Creating & Removing Elements
+        Creating & removing elements
     </SectionTitle>
 
     <!-- CREATEELEMENT -->
@@ -619,17 +615,17 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="create-element"
         methodName="createElement() & appendChild()"
         signature="document.createElement(tagName)"
-        description="Create new elements and add to DOM"
+        description="Create elements and add them to the DOM"
         mutates={true}
     >
-        <div class="p-6 bg-gray-800 rounded">
+        <div class="p-6 rounded">
             <div class="space-y-4">
                 <!-- Steps -->
                 <div class="space-y-3">
                     <div class="flex items-center gap-3">
                         <div class="w-6 text-gray-500 text-xs">1</div>
                         <div
-                            class="flex-1 bg-blue-500/20 border border-blue-400 rounded px-3 py-2"
+                            class="bg-blue-900 flex-1 rounded px-3 py-2"
                         >
                             <div class="text-blue-300 font-mono text-xs">
                                 const div = document.createElement('div')
@@ -640,7 +636,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     <div class="flex items-center gap-3">
                         <div class="w-6 text-gray-500 text-xs">2</div>
                         <div
-                            class="flex-1 bg-purple-500/20 border border-purple-400 rounded px-3 py-2"
+                            class="bg-purple-900 flex-1 rounded px-3 py-2"
                         >
                             <div class="text-purple-300 font-mono text-xs">
                                 div.textContent = 'Hello'
@@ -651,7 +647,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     <div class="flex items-center gap-3">
                         <div class="w-6 text-gray-500 text-xs">3</div>
                         <div
-                            class="flex-1 bg-green-500/20 border border-green-500 rounded px-3 py-2"
+                            class="bg-green-900 flex-1 rounded px-3 py-2"
                         >
                             <div class="text-green-300 font-mono text-xs">
                                 document.body.appendChild(div)
@@ -662,7 +658,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
                 <!-- Full example -->
                 <div
-                    class="bg-orange-500/20 border border-orange-400 rounded p-3"
+                    class="bg-orange-900 rounded p-3"
                 >
                     <div class="text-orange-300 font-mono text-xs space-y-0.5">
                         <div>
@@ -679,20 +675,20 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
         <ProTip>
             <div>Other insertion methods:</div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     parent.appendChild(child) <span class="text-gray-400"
                         >// end</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     parent.prepend(child) <span class="text-gray-400"
                         >// start</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     element.before(newEl) <span class="text-gray-400"
                         >// before sibling</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     element.after(newEl) <span class="text-gray-400"
                         >// after sibling</span>
                 </div>
@@ -705,12 +701,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="remove"
         methodName="remove() & removeChild()"
         signature="element.remove()"
-        description="Remove elements from DOM"
+        description="Remove elements from the DOM"
         mutates={true}
     >
-        <div class="p-6 bg-gray-800 rounded">
+        <div class="p-6 rounded">
             <div class="space-y-3">
-                <div class="bg-red-500/20 border border-red-500 rounded p-3">
+                <div class="bg-red-900 rounded p-3">
                     <div class="text-red-300 font-mono text-xs space-y-0.5">
                         <div>
                             element.remove() <span class="text-gray-400"
@@ -719,7 +715,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     </div>
                 </div>
 
-                <div class="bg-gray-800/50 border border-gray-700 rounded p-3">
+                <div class="rounded p-3 border-t border-rule">
                     <div class="text-gray-300 font-mono text-xs space-y-0.5">
                         <div>
                             parent.removeChild(child) <span
@@ -732,22 +728,22 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
         <ProTip>
             <div>Remove all children:</div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     <span class="text-gray-400">// Fast way</span>
                 </div>
-                <div class="font-mono text-[10px]">element.innerHTML = ''</div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs">element.innerHTML = ''</div>
+                <div class="font-mono text-xs mt-1">
                     <span class="text-gray-400"
-                        >// Better way (removes listeners)</span>
+                        >// Same result, clearer intent</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     element.replaceChildren()
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-gray-400">// Loop way</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     while (el.firstChild) el.firstChild.remove()
                 </div>
             </div>
@@ -759,45 +755,45 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="clone-node"
         methodName="cloneNode()"
         signature="element.cloneNode(deep)"
-        description="Create a duplicate copy of an element"
+        description="Create a copy of an element"
         mutates={false}
     >
-        <div class="p-6 bg-gray-800 rounded">
+        <div class="p-6 rounded">
             <div class="space-y-4">
                 <!-- Shallow clone -->
                 <div
-                    class="bg-orange-500/20 border border-orange-400 rounded p-3"
+                    class="bg-orange-900 rounded p-3"
                 >
                     <div class="text-orange-300 font-mono text-xs space-y-0.5">
                         <div class="text-yellow-400 mb-1">
                             Shallow clone (false):
                         </div>
                         <div>const clone = element.cloneNode(false)</div>
-                        <div class="text-gray-400 text-[10px] mt-1">
-                            Copies element only, no children
-                        </div>
+                    </div>
+                    <div class="text-gray-400 text-xs mt-1">
+                        Copies the element only, without children.
                     </div>
                 </div>
 
                 <!-- Deep clone -->
                 <div
-                    class="bg-green-500/20 border border-green-500 rounded p-3"
+                    class="bg-green-900 rounded p-3"
                 >
                     <div class="text-green-300 font-mono text-xs space-y-0.5">
                         <div class="text-yellow-400 mb-1">
                             Deep clone (true):
                         </div>
                         <div>const clone = element.cloneNode(true)</div>
-                        <div class="text-gray-400 text-[10px] mt-1">
-                            Copies element + all descendants
-                        </div>
+                    </div>
+                    <div class="text-gray-400 text-xs mt-1">
+                        Copies the element and all its descendants.
                     </div>
                 </div>
 
                 <!-- Example -->
-                <div class="bg-cyan-500/20 border border-cyan-400 rounded p-3">
+                <div class="bg-cyan-900 rounded p-3">
                     <div class="text-cyan-300 font-mono text-xs space-y-0.5">
-                        <div class="text-yellow-400 mb-1">
+                        <div class="text-yellow-400 mb-1 font-sans">
                             Practical example - duplicate card:
                         </div>
                         <div>const card = document.querySelector('.card')</div>
@@ -812,24 +808,22 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         </div>
 
         <ProTip>
-            <div>⚠️ <strong>Important notes:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
-                    <span class="text-red-400">✗</span> Event listeners are NOT copied
+            <div><Mark type="warn" /> <strong>Important notes:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="text-xs">
+                    <span class="text-red-400"><Mark type="no" /></span> Listeners added with <code>addEventListener()</code> are not copied.
                 </div>
-                <div class="font-mono text-[10px]">
-                    <span class="text-red-400">✗</span> IDs are copied (change them
-                    to avoid duplicates!)
+                <div class="text-xs">
+                    <span class="text-red-400"><Mark type="no" /></span> IDs are copied. Change them to avoid duplicates.
                 </div>
-                <div class="font-mono text-[10px]">
-                    <span class="text-green-400">✓</span> Inline event handlers (onclick=)
-                    ARE copied
+                <div class="text-xs">
+                    <span class="text-green-400"><Mark type="yes" /></span> Inline handlers (<code>onclick=</code>) are copied.
                 </div>
-                <div class="font-mono text-[10px]">
-                    <span class="text-green-400">✓</span> Data attributes are copied
+                <div class="text-xs">
+                    <span class="text-green-400"><Mark type="yes" /></span> Data attributes are copied.
                 </div>
-                <div class="font-mono text-[10px] mt-1 text-yellow-400">
-                    // Always use deep clone (true) for elements with children
+                <div class="text-xs mt-1 text-yellow-400">
+                    Use a deep clone (<code>true</code>) for elements with children.
                 </div>
             </div>
         </ProTip>
@@ -843,11 +837,11 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Insert elements at specific positions"
         mutates={true}
     >
-        <div class="p-6 bg-gray-800 rounded">
+        <div class="p-6 rounded">
             <div class="space-y-4">
                 <!-- Position diagram -->
-                <div class="bg-gray-700 border border-gray-600 rounded p-4">
-                    <div class="font-mono text-[10px] space-y-1">
+                <div class="rounded p-4 border-t border-rule">
+                    <div class="font-mono text-xs space-y-1">
                         <div class="text-blue-400"><!-- beforebegin --></div>
                         <div>&lt;div id="target"&gt;</div>
                         <div class="pl-4 text-green-400">
@@ -863,7 +857,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 </div>
 
                 <!-- Examples -->
-                <div class="bg-cyan-500/20 border border-cyan-400 rounded p-3">
+                <div class="bg-cyan-900 rounded p-3">
                     <div class="text-cyan-300 font-mono text-xs space-y-0.5">
                         <div class="text-yellow-400 mb-1">
                             insertAdjacentElement:
@@ -884,26 +878,26 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
                 <!-- Position options -->
                 <div
-                    class="bg-purple-500/20 border border-purple-400 rounded p-3"
+                    class="bg-purple-900 rounded p-3"
                 >
                     <div
-                        class="text-purple-300 font-mono text-[10px] space-y-0.5"
+                        class="text-purple-300 text-xs space-y-0.5"
                     >
                         <div>
-                            <span class="text-blue-400">'beforebegin'</span> - Before
-                            element (as previous sibling)
+                            <span class="text-blue-400"><code>'beforebegin'</code></span> - Before
+                            the element (as previous sibling)
                         </div>
                         <div>
-                            <span class="text-green-400">'afterbegin'</span> - Inside
-                            element, before first child
+                            <span class="text-green-400"><code>'afterbegin'</code></span> - Inside
+                            the element, before the first child
                         </div>
                         <div>
-                            <span class="text-purple-400">'beforeend'</span> - Inside
-                            element, after last child
+                            <span class="text-purple-400"><code>'beforeend'</code></span> - Inside
+                            the element, after the last child
                         </div>
                         <div>
-                            <span class="text-orange-400">'afterend'</span> - After
-                            element (as next sibling)
+                            <span class="text-orange-400"><code>'afterend'</code></span> - After
+                            the element (as next sibling)
                         </div>
                     </div>
                 </div>
@@ -911,25 +905,25 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         </div>
 
         <ProTip>
-            <div>🎯 <strong>When to use:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
-                    <span class="text-green-400">insertAdjacentElement:</span> When
-                    you have an element object
+            <div><strong>When to use:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="text-xs">
+                    <span class="text-green-400"><code>insertAdjacentElement</code>:</span> When
+                    you have an element object.
                 </div>
-                <div class="font-mono text-[10px]">
-                    <span class="text-green-400">insertAdjacentHTML:</span> When
-                    you have HTML string
+                <div class="text-xs">
+                    <span class="text-green-400"><code>insertAdjacentHTML</code>:</span> When
+                    you have an HTML string.
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-yellow-400"
                         >// More flexible than appendChild!</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     el.appendChild(child) <span class="text-gray-400"
                         >// only inserts at end</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     el.insertAdjacentElement('afterbegin', child) <span
                         class="text-gray-400">// at start</span>
                 </div>
@@ -938,11 +932,11 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     </MethodCard>
 
     <!-- ============================================ -->
-    <!-- ✏️ MODIFYING CONTENT -->
+    <!-- MODIFYING CONTENT -->
     <!-- ============================================ -->
 
     <SectionTitle id="content" color="purple">
-        ✏️ Modifying Content
+        Modifying content
     </SectionTitle>
 
     <!-- TEXTCONTENT VS INNERHTML -->
@@ -953,7 +947,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Set element content as text or HTML"
         mutates={true}
     >
-        <div class="p-6 bg-gray-800 rounded">
+        <div class="p-6 rounded">
             <div class="space-y-4">
                 <!-- textContent -->
                 <div>
@@ -961,7 +955,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         textContent (safe):
                     </div>
                     <div
-                        class="bg-green-500/20 border border-green-500 rounded p-3"
+                        class="bg-green-900 rounded p-3"
                     >
                         <div
                             class="text-green-300 font-mono text-xs space-y-0.5"
@@ -969,10 +963,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                             <div>
                                 el.textContent = '&lt;b&gt;Bold&lt;/b&gt;'
                             </div>
-                            <div class="text-gray-400 text-[10px] mt-1">
-                                Renders as: &lt;b&gt;Bold&lt;/b&gt; (literal
-                                text)
-                            </div>
+                        </div>
+                        <div class="text-gray-400 text-xs mt-1">
+                            Renders as: <code>&lt;b&gt;Bold&lt;/b&gt;</code> (literal
+                            text)
                         </div>
                     </div>
                 </div>
@@ -983,13 +977,13 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         innerHTML (unsafe):
                     </div>
                     <div
-                        class="bg-red-500/20 border border-red-500 rounded p-3"
+                        class="bg-red-900 rounded p-3"
                     >
                         <div class="text-red-300 font-mono text-xs space-y-0.5">
                             <div>el.innerHTML = '&lt;b&gt;Bold&lt;/b&gt;'</div>
-                            <div class="text-gray-400 text-[10px] mt-1">
-                                Renders as: <strong>Bold</strong> (parsed HTML)
-                            </div>
+                        </div>
+                        <div class="text-gray-400 text-xs mt-1">
+                            Renders as: <strong>Bold</strong> (parsed HTML)
                         </div>
                     </div>
                 </div>
@@ -997,7 +991,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         </div>
 
         <div
-            class="text-gray-300 text-sm mt-3 p-3 bg-gray-800/50 rounded border border-gray-700"
+            class="text-gray-300 text-sm mt-3 p-3 rounded border-t border-rule"
         >
             <strong>textContent</strong> = plain text (safe), <strong
                 >innerHTML</strong
@@ -1005,20 +999,20 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         </div>
 
         <ProTip>
-            <div>⚠️ <strong>Never use innerHTML with user input:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div><Mark type="warn" /> <strong>Never use innerHTML with user input:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     <span class="text-red-400"
-                        >// Dangerous - XSS vulnerability ❌</span>
+                        >// Dangerous - XSS vulnerability <Mark type="no" /></span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     el.innerHTML = userInput
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-green-400"
-                        >// Safe - escapes HTML ✅</span>
+                        >// Safe - escapes HTML <Mark type="yes" /></span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     el.textContent = userInput
                 </div>
             </div>
@@ -1026,11 +1020,11 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     </MethodCard>
 
     <!-- ============================================ -->
-    <!-- 🎨 STYLING & CLASSES -->
+    <!-- STYLING & CLASSES -->
     <!-- ============================================ -->
 
     <SectionTitle id="styling" color="green">
-        🎨 Styling & Classes
+        Styling & classes
     </SectionTitle>
 
     <!-- CLASSLIST -->
@@ -1038,32 +1032,32 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="class-list"
         methodName="classList"
         signature="element.classList.add/remove/toggle()"
-        description="Manipulate element classes"
+        description="Add, remove and toggle element classes"
         mutates={true}
     >
-        <div class="p-6 bg-gray-800 rounded">
+        <div class="p-6 rounded">
             <div class="space-y-3">
                 <!-- add -->
                 <div class="flex items-center gap-3">
                     <div
-                        class="bg-green-500/20 border border-green-500 rounded px-4 py-2 flex-1"
+                        class="bg-green-900 rounded px-4 py-2 flex-1"
                     >
                         <div class="text-green-300 font-mono text-xs">
                             classList.add('active')
                         </div>
-                        <div class="text-gray-400 text-[10px] mt-0.5">
+                        <div class="text-gray-400 text-xs mt-0.5">
                             Adds class to element
                         </div>
-                        <div class="text-green-300 font-mono text-[10px] mt-1">
+                        <div class="text-green-300 font-mono text-xs mt-1">
                             .add('btn', 'primary') <span class="text-gray-400"
                                 >// multiple</span>
                         </div>
                     </div>
                     <div class="text-gray-400 text-xl">→</div>
                     <div
-                        class="bg-blue-500/20 border border-blue-400 rounded px-4 py-2 w-32"
+                        class="bg-blue-900 rounded px-4 py-2 w-32"
                     >
-                        <div class="text-blue-300 font-mono text-[10px]">
+                        <div class="text-blue-300 font-mono text-xs">
                             class="active"
                         </div>
                     </div>
@@ -1072,24 +1066,24 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 <!-- remove -->
                 <div class="flex items-center gap-3">
                     <div
-                        class="bg-red-500/20 border border-red-500 rounded px-4 py-2 flex-1"
+                        class="bg-red-900 rounded px-4 py-2 flex-1"
                     >
                         <div class="text-red-300 font-mono text-xs">
                             classList.remove('hidden')
                         </div>
-                        <div class="text-gray-400 text-[10px] mt-0.5">
+                        <div class="text-gray-400 text-xs mt-0.5">
                             Removes class from element
                         </div>
-                        <div class="text-red-300 font-mono text-[10px] mt-1">
+                        <div class="text-red-300 font-mono text-xs mt-1">
                             .remove('a', 'b') <span class="text-gray-400"
                                 >// multiple</span>
                         </div>
                     </div>
                     <div class="text-gray-400 text-xl">→</div>
                     <div
-                        class="bg-blue-500/20 border border-blue-400 rounded px-4 py-2 w-32"
+                        class="bg-blue-900 rounded px-4 py-2 w-32"
                     >
-                        <div class="text-blue-300 font-mono text-[10px]">
+                        <div class="text-blue-300 font-mono text-xs">
                             class=""
                         </div>
                     </div>
@@ -1098,20 +1092,20 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 <!-- toggle -->
                 <div class="flex items-center gap-3">
                     <div
-                        class="bg-purple-500/20 border border-purple-400 rounded px-4 py-2 flex-1"
+                        class="bg-purple-900 rounded px-4 py-2 flex-1"
                     >
                         <div class="text-purple-300 font-mono text-xs">
                             classList.toggle('dark')
                         </div>
-                        <div class="text-gray-400 text-[10px] mt-0.5">
+                        <div class="text-gray-400 text-xs mt-0.5">
                             Adds if absent, removes if present
                         </div>
                     </div>
                     <div class="text-gray-400 text-xl">⇄</div>
                     <div
-                        class="bg-blue-500/20 border border-blue-400 rounded px-4 py-2 w-32"
+                        class="bg-blue-900 rounded px-4 py-2 w-32"
                     >
-                        <div class="text-blue-300 font-mono text-[10px]">
+                        <div class="text-blue-300 font-mono text-xs">
                             on/off
                         </div>
                     </div>
@@ -1120,20 +1114,20 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 <!-- contains -->
                 <div class="flex items-center gap-3">
                     <div
-                        class="bg-cyan-500/20 border border-cyan-400 rounded px-4 py-2 flex-1"
+                        class="bg-cyan-900 rounded px-4 py-2 flex-1"
                     >
                         <div class="text-cyan-300 font-mono text-xs">
                             classList.contains('active')
                         </div>
-                        <div class="text-gray-400 text-[10px] mt-0.5">
+                        <div class="text-gray-400 text-xs mt-0.5">
                             Check if class exists
                         </div>
                     </div>
                     <div class="text-gray-400 text-xl">→</div>
                     <div
-                        class="bg-yellow-500/20 border border-yellow-400 rounded px-4 py-2 w-32"
+                        class="bg-yellow-900 rounded px-4 py-2 w-32"
                     >
-                        <div class="text-yellow-300 font-mono text-[10px]">
+                        <div class="text-yellow-300 font-mono text-xs">
                             true/false
                         </div>
                     </div>
@@ -1142,20 +1136,20 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 <!-- replace -->
                 <div class="flex items-center gap-3">
                     <div
-                        class="bg-orange-500/20 border border-orange-400 rounded px-4 py-2 flex-1"
+                        class="bg-orange-900 rounded px-4 py-2 flex-1"
                     >
                         <div class="text-orange-300 font-mono text-xs">
                             classList.replace('old', 'new')
                         </div>
-                        <div class="text-gray-400 text-[10px] mt-0.5">
+                        <div class="text-gray-400 text-xs mt-0.5">
                             Swap classes
                         </div>
                     </div>
                     <div class="text-gray-400 text-xl">→</div>
                     <div
-                        class="bg-blue-500/20 border border-blue-400 rounded px-4 py-2 w-32"
+                        class="bg-blue-900 rounded px-4 py-2 w-32"
                     >
-                        <div class="text-blue-300 font-mono text-[10px]">
+                        <div class="text-blue-300 font-mono text-xs">
                             class="new"
                         </div>
                     </div>
@@ -1165,40 +1159,40 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
         <ProTip>
             <div>
-                💡 <strong>Toggle with condition (force add/remove):</strong>
+                <strong>Toggle with condition (force add/remove):</strong>
             </div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="text-[10px]">
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="text-xs">
                     The second parameter of <code>toggle()</code> is a boolean that
                     forces add or remove:
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     el.classList.toggle('active', true) <span
                         class="text-gray-400">// always adds</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     el.classList.toggle('active', false) <span
                         class="text-gray-400">// always removes</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     el.classList.toggle('active', isActive) <span
                         class="text-gray-400">// dynamic</span>
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-gray-400">// This is cleaner than:</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     if (isActive) {"{"} el.classList.add('active') {"}"}
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     else {"{"} el.classList.remove('active') {"}"}
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-green-400"
                         >// Real example: enable/disable button based on form
                         validity</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     submitBtn.classList.toggle('disabled',
                     !form.checkValidity())
                 </div>
@@ -1207,41 +1201,41 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
         <ProTip>
             <div>
-                ⚠️ <strong
+                <Mark type="warn" /> <strong
                     >Avoid inline styles - use element.style sparingly:</strong>
             </div>
-            <div class="pl-2 border-l-2 border-red-500/30 space-y-0.5 mt-1">
-                <div class="text-[10px]">
-                    You <em>can</em> modify styles directly, but it's usually better
-                    to use classes:
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="text-xs">
+                    You <em>can</em> set styles directly, but classes are usually
+                    better:
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-red-400"
-                        >// ❌ Bad - hard to maintain</span>
+                        >// <Mark type="no" /> Bad - hard to maintain</span>
                 </div>
-                <div class="font-mono text-[10px]">el.style.color = 'red'</div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">el.style.color = 'red'</div>
+                <div class="font-mono text-xs">
                     el.style.backgroundColor = '#000' <span
                         class="text-gray-400">// camelCase!</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     el.style.fontSize = '16px' <span class="text-gray-400"
                         >// include units</span>
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-green-400"
-                        >// ✅ Good - define styles in CSS</span>
+                        >// <Mark type="yes" /> Good - define styles in CSS</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     el.classList.add('highlighted')
                 </div>
-                <div class="text-[10px] mt-1">
+                <div class="text-xs mt-1">
                     <strong>When to use .style:</strong> Dynamic values that can't
                     be in CSS (e.g., element.style.width = {
                         "`${dynamicWidth}px`"
                     })
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     el.style.color = '' <span class="text-gray-400"
                         >// remove inline style</span>
                 </div>
@@ -1250,11 +1244,11 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     </MethodCard>
 
     <!-- ============================================ -->
-    <!-- 📦 ATTRIBUTES & PROPERTIES -->
+    <!-- ATTRIBUTES & PROPERTIES -->
     <!-- ============================================ -->
 
     <SectionTitle id="attributes" color="yellow">
-        🏷️ Attributes & Properties
+        Attributes & properties
     </SectionTitle>
 
     <!-- GETATTRIBUTE / SETATTRIBUTE -->
@@ -1265,11 +1259,11 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Get/set HTML attributes"
         mutates={true}
     >
-        <div class="p-6 bg-gray-800 rounded">
+        <div class="p-6 rounded">
             <div class="space-y-3">
-                <div class="bg-gray-800/50 border border-gray-700 rounded p-3">
+                <div class="rounded p-3 border-t border-rule">
                     <div
-                        class="text-gray-300 font-mono text-[10px] space-y-0.5"
+                        class="text-gray-300 font-mono text-xs space-y-0.5"
                     >
                         <div>
                             el.getAttribute('href') <span class="text-gray-400"
@@ -1291,7 +1285,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 </div>
 
                 <div
-                    class="bg-yellow-500/20 border border-yellow-500 rounded p-3"
+                    class="bg-yellow-900 rounded p-3"
                 >
                     <div class="text-yellow-300 font-mono text-xs space-y-0.5">
                         <div>
@@ -1316,25 +1310,25 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         </div>
 
         <ProTip>
-            <div>⚠️ <strong>Attributes vs Properties:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div><Mark type="warn" /> <strong>Attributes vs properties:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     <span class="text-gray-400"
                         >// Attribute = string in HTML (initial)</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     input.getAttribute('value') <span class="text-gray-400"
                         >// '10' (initial)</span>
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-gray-400"
                         >// Property = live JS value (current)</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     input.value <span class="text-gray-400"
                         >// '25' (user changed it)</span>
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-yellow-400"
                         >// Use properties for form inputs!</span>
                 </div>
@@ -1345,18 +1339,18 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     <!-- DATA ATTRIBUTES -->
     <MethodCard
         id="data-attributes"
-        methodName="dataset (Data Attributes)"
+        methodName="dataset (data attributes)"
         signature="element.dataset.propertyName"
         description="Store custom data on elements"
         mutates={true}
     >
-        <div class="p-6 bg-gray-800 rounded">
+        <div class="p-6 rounded">
             <div class="space-y-4">
                 <!-- HTML -->
                 <div>
                     <div class="text-cyan-400 text-xs mb-2">HTML:</div>
                     <div
-                        class="bg-cyan-500/20 border border-cyan-400 rounded p-3"
+                        class="bg-cyan-900 rounded p-3"
                     >
                         <div
                             class="text-cyan-300 font-mono text-xs space-y-0.5"
@@ -1373,7 +1367,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 <div>
                     <div class="text-green-400 text-xs mb-2">JavaScript:</div>
                     <div
-                        class="bg-green-500/20 border border-green-500 rounded p-3"
+                        class="bg-green-900 rounded p-3"
                     >
                         <div
                             class="text-green-300 font-mono text-xs space-y-0.5"
@@ -1403,12 +1397,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
                 <!-- Naming -->
                 <div
-                    class="bg-purple-500/20 border border-purple-400 rounded p-3"
+                    class="bg-purple-900 rounded p-3"
                 >
                     <div
-                        class="text-purple-300 font-mono text-[10px] space-y-0.5"
+                        class="text-purple-300 font-mono text-xs space-y-0.5"
                     >
-                        <div class="text-yellow-400 mb-1">
+                        <div class="text-yellow-400 mb-1 font-sans">
                             Naming conversion:
                         </div>
                         <div>
@@ -1423,31 +1417,31 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         </div>
 
         <ProTip>
-            <div>💡 <strong>Common use cases:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div><strong>Common use cases:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     <span class="text-gray-400"
                         >// Store IDs for API calls</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     btn.dataset.userId = user.id
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     await deleteUser(btn.dataset.userId)
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-gray-400">// Config/options</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     modal.dataset.closable = 'true'
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     modal.dataset.animation = 'fade'
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-gray-400">// State tracking</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     tab.dataset.active = 'false'
                 </div>
             </div>
@@ -1457,19 +1451,19 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     <!-- COMMON ATTRIBUTES -->
     <MethodCard
         id="common-attributes"
-        methodName="Common Attributes"
+        methodName="Common attributes"
         signature="Quick reference for frequent attributes"
-        description="Most commonly manipulated attributes"
+        description="The attributes you change most often"
         mutates={true}
     >
-        <div class="p-6 bg-gray-800 rounded">
+        <div class="p-6 rounded">
             <div class="space-y-3">
                 <!-- Form inputs -->
-                <div class="bg-blue-500/20 border border-blue-400 rounded p-3">
+                <div class="bg-blue-900 rounded p-3">
                     <div
-                        class="text-blue-300 font-mono text-[10px] space-y-0.5"
+                        class="text-blue-300 font-mono text-xs space-y-0.5"
                     >
-                        <div class="text-yellow-400 mb-1">Form inputs:</div>
+                        <div class="text-yellow-400 mb-1 font-sans">Form inputs:</div>
                         <div>
                             input.value = 'text' <span class="text-gray-400"
                                 >// input value</span>
@@ -1495,12 +1489,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
                 <!-- Links & Images -->
                 <div
-                    class="bg-green-500/20 border border-green-500 rounded p-3"
+                    class="bg-green-900 rounded p-3"
                 >
                     <div
-                        class="text-green-300 font-mono text-[10px] space-y-0.5"
+                        class="text-green-300 font-mono text-xs space-y-0.5"
                     >
-                        <div class="text-yellow-400 mb-1">Links & Images:</div>
+                        <div class="text-yellow-400 mb-1 font-sans">Links & Images:</div>
                         <div>
                             link.href = '/page' <span class="text-gray-400"
                                 >// URL</span>
@@ -1522,12 +1516,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
                 <!-- General -->
                 <div
-                    class="bg-purple-500/20 border border-purple-400 rounded p-3"
+                    class="bg-purple-900 rounded p-3"
                 >
                     <div
-                        class="text-purple-300 font-mono text-[10px] space-y-0.5"
+                        class="text-purple-300 font-mono text-xs space-y-0.5"
                     >
-                        <div class="text-yellow-400 mb-1">General:</div>
+                        <div class="text-yellow-400 mb-1 font-sans">General:</div>
                         <div>
                             el.id = 'main' <span class="text-gray-400"
                                 >// element ID</span>
@@ -1550,28 +1544,28 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         </div>
 
         <ProTip>
-            <div>🎯 <strong>Real examples:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div><strong>Real examples:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     <span class="text-gray-400">// Disable submit button</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     submitBtn.disabled = !form.checkValidity()
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-gray-400"
                         >// Toggle password visibility</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     input.type = showPassword ? 'text' : 'password'
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-gray-400">// Dynamic image loading</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     img.src = {"`/photos/${photoId}.jpg`"}
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     img.alt = {"`Photo of ${userName}`"}
                 </div>
             </div>
@@ -1581,17 +1575,17 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     <!-- FORM PROPERTIES -->
     <MethodCard
         id="form-properties"
-        methodName="Form Properties & Validation"
+        methodName="Form properties & validation"
         signature="Working with form inputs"
         description="Get/set form values and validation states"
         mutates={true}
     >
-        <div class="p-6 bg-gray-800 rounded">
+        <div class="p-6 rounded">
             <div class="space-y-4">
                 <!-- Form values -->
-                <div class="bg-blue-500/20 border border-blue-400 rounded p-3">
+                <div class="bg-blue-900 rounded p-3">
                     <div class="text-blue-300 font-mono text-xs space-y-0.5">
-                        <div class="text-yellow-400 mb-1">
+                        <div class="text-yellow-400 mb-1 font-sans">
                             Getting/setting values:
                         </div>
                         <div>
@@ -1623,10 +1617,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
                 <!-- Validation -->
                 <div
-                    class="bg-green-500/20 border border-green-500 rounded p-3"
+                    class="bg-green-900 rounded p-3"
                 >
                     <div class="text-green-300 font-mono text-xs space-y-0.5">
-                        <div class="text-yellow-400 mb-1">
+                        <div class="text-yellow-400 mb-1 font-sans">
                             HTML5 validation:
                         </div>
                         <div>
@@ -1654,10 +1648,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
                 <!-- Validation states -->
                 <div
-                    class="bg-purple-500/20 border border-purple-400 rounded p-3"
+                    class="bg-purple-900 rounded p-3"
                 >
                     <div
-                        class="text-purple-300 font-mono text-[10px] space-y-0.5"
+                        class="text-purple-300 font-mono text-xs space-y-0.5"
                     >
                         <div class="text-yellow-400 mb-1">
                             validity object properties:
@@ -1683,12 +1677,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
                 <!-- Practical example -->
                 <div
-                    class="bg-orange-500/20 border border-orange-400 rounded p-3"
+                    class="bg-orange-900 rounded p-3"
                 >
                     <div
-                        class="text-orange-300 font-mono text-[10px] space-y-0.5"
+                        class="text-orange-300 font-mono text-xs space-y-0.5"
                     >
-                        <div class="text-yellow-400 mb-1">
+                        <div class="text-yellow-400 mb-1 font-sans">
                             Real-world example:
                         </div>
                         <div>const form = document.querySelector('form')</div>
@@ -1716,30 +1710,30 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         </div>
 
         <ProTip>
-            <div>🎯 <strong>Quick form data collection:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div><strong>Quick form data collection:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     <span class="text-gray-400"
                         >// FormData API - easiest way to get all values</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     const formData = new FormData(form)
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     const values = Object.fromEntries(formData)
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-green-400"
                         >// For checkboxes, check if .checked before reading</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     const isAgreed = checkbox.checked ? checkbox.value : null
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-yellow-400"
                         >// Disable form during submission</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     form.querySelectorAll('input, button').forEach(el =&gt;
                     el.disabled = true)
                 </div>
@@ -1748,10 +1742,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     </MethodCard>
 
     <!-- ============================================ -->
-    <!-- 🎪 EVENTS -->
+    <!-- EVENTS -->
     <!-- ============================================ -->
 
-    <SectionTitle id="events" color="cyan"> ⚡ Event Handling </SectionTitle>
+    <SectionTitle id="events" color="cyan"> Event handling </SectionTitle>
 
     <!-- ADDEVENTLISTENER -->
     <MethodCard
@@ -1761,10 +1755,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Listen for events on elements"
         mutates={false}
     >
-        <div class="p-6 bg-gray-800 rounded">
+        <div class="p-6 rounded">
             <div class="space-y-4">
                 <!-- Basic usage -->
-                <div class="bg-cyan-500/20 border border-cyan-400 rounded p-3">
+                <div class="bg-cyan-900 rounded p-3">
                     <div class="text-cyan-300 font-mono text-xs space-y-0.5">
                         <div>
                             button.addEventListener('click', (event) =&gt; {"{"}
@@ -1777,9 +1771,9 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 </div>
 
                 <!-- Common events -->
-                <div class="bg-gray-800/50 border border-gray-700 rounded p-3">
+                <div class="rounded p-3 border-t border-rule">
                     <div
-                        class="text-gray-300 font-mono text-[10px] space-y-0.5"
+                        class="text-gray-300 font-mono text-xs space-y-0.5"
                     >
                         <div>'click', 'dblclick', 'contextmenu'</div>
                         <div>'mouseenter', 'mouseleave', 'mousemove'</div>
@@ -1791,7 +1785,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
                 <!-- Options -->
                 <div
-                    class="bg-purple-500/20 border border-purple-400 rounded p-3"
+                    class="bg-purple-900 rounded p-3"
                 >
                     <div class="text-purple-300 font-mono text-xs space-y-0.5">
                         <div>el.addEventListener('click', handler, {"{"}</div>
@@ -1817,17 +1811,17 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
         <ProTip>
             <div>Remove event listeners:</div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     const handler = () =&gt; {"{"} ... {"}"}
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     el.addEventListener('click', handler)
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     el.removeEventListener('click', handler)
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-yellow-400"
                         >// Must be same function reference!</span>
                 </div>
@@ -1835,292 +1829,292 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         </ProTip>
 
         <InfoBox>
-            <div>ℹ️ <strong>Common Event Types Explained</strong></div>
+            <div><strong>Common event types explained</strong></div>
 
-            <div class="pl-2 border-l-2 border-blue-500/30 space-y-2 mt-2">
+            <div class="pl-2 border-l border-rule space-y-2 mt-2">
                 <div>
-                    <div class="font-bold text-blue-300 text-[11px] mb-0.5">
-                        🖱️ Mouse Events
+                    <div class="font-bold text-blue-300 text-xs mb-0.5">
+                        Mouse events
                     </div>
-                    <div class="font-mono text-[10px] pl-2 space-y-0.5">
+                    <div class="text-xs pl-2 space-y-0.5">
                         <div>
-                            <span class="text-cyan-400">click:</span> Element clicked
+                            <span class="text-cyan-400"><code>click</code>:</span> Element clicked
                             (mousedown + mouseup)
                         </div>
                         <div>
-                            <span class="text-cyan-400">dblclick:</span> Element
+                            <span class="text-cyan-400"><code>dblclick</code>:</span> Element
                             double-clicked
                         </div>
                         <div>
-                            <span class="text-cyan-400">contextmenu:</span> Right-click
+                            <span class="text-cyan-400"><code>contextmenu</code>:</span> Right-click
                             menu triggered
                         </div>
                         <div>
-                            <span class="text-cyan-400">mouseenter:</span> Mouse
+                            <span class="text-cyan-400"><code>mouseenter</code>:</span> Mouse
                             enters element (no bubbling)
                         </div>
                         <div>
-                            <span class="text-cyan-400">mouseleave:</span> Mouse
+                            <span class="text-cyan-400"><code>mouseleave</code>:</span> Mouse
                             leaves element (no bubbling)
                         </div>
                         <div>
-                            <span class="text-cyan-400">mouseover:</span> Mouse enters
+                            <span class="text-cyan-400"><code>mouseover</code>:</span> Mouse enters
                             element or child (bubbles)
                         </div>
                         <div>
-                            <span class="text-cyan-400">mouseout:</span> Mouse leaves
+                            <span class="text-cyan-400"><code>mouseout</code>:</span> Mouse leaves
                             element or child (bubbles)
                         </div>
                         <div>
-                            <span class="text-cyan-400">mousemove:</span> Mouse moves
+                            <span class="text-cyan-400"><code>mousemove</code>:</span> Mouse moves
                             over element
                         </div>
                         <div>
-                            <span class="text-cyan-400">mousedown:</span> Mouse button
+                            <span class="text-cyan-400"><code>mousedown</code>:</span> Mouse button
                             pressed down
                         </div>
                         <div>
-                            <span class="text-cyan-400">mouseup:</span> Mouse button
+                            <span class="text-cyan-400"><code>mouseup</code>:</span> Mouse button
                             released
                         </div>
                     </div>
                 </div>
 
                 <div>
-                    <div class="font-bold text-blue-300 text-[11px] mb-0.5">
-                        ⌨️ Keyboard Events
+                    <div class="font-bold text-blue-300 text-xs mb-0.5">
+                        Keyboard events
                     </div>
-                    <div class="font-mono text-[10px] pl-2 space-y-0.5">
+                    <div class="text-xs pl-2 space-y-0.5">
                         <div>
-                            <span class="text-green-400">keydown:</span> Key pressed
+                            <span class="text-green-400"><code>keydown</code>:</span> Key pressed
                             (repeats if held)
                         </div>
                         <div>
-                            <span class="text-green-400">keyup:</span> Key released
+                            <span class="text-green-400"><code>keyup</code>:</span> Key released
                         </div>
                         <div>
-                            <span class="text-green-400">keypress:</span> ⚠️ Deprecated
-                            - use keydown instead
+                            <span class="text-green-400"><code>keypress</code>:</span> <Mark type="warn" /> Deprecated.
+                            Use <code>keydown</code> instead.
                         </div>
                         <div class="text-gray-400 mt-0.5">
-                            Use event.key for key name, event.code for physical
-                            key
+                            Use <code>event.key</code> for the key name and <code>event.code</code> for the physical
+                            key.
                         </div>
                     </div>
                 </div>
 
                 <div>
-                    <div class="font-bold text-blue-300 text-[11px] mb-0.5">
-                        📝 Form Events
+                    <div class="font-bold text-blue-300 text-xs mb-0.5">
+                        Form events
                     </div>
-                    <div class="font-mono text-[10px] pl-2 space-y-0.5">
+                    <div class="text-xs pl-2 space-y-0.5">
                         <div>
-                            <span class="text-purple-400">input:</span> Value changes
+                            <span class="text-purple-400"><code>input</code>:</span> Value changes
                             (immediate, every keystroke)
                         </div>
                         <div>
-                            <span class="text-purple-400">change:</span> Value changes
+                            <span class="text-purple-400"><code>change</code>:</span> Value changes
                             + element loses focus
                         </div>
                         <div>
-                            <span class="text-purple-400">submit:</span> Form submitted
-                            (use e.preventDefault() to stop)
+                            <span class="text-purple-400"><code>submit</code>:</span> Form submitted
+                            (call <code>e.preventDefault()</code> to stop it)
                         </div>
                         <div>
-                            <span class="text-purple-400">focus:</span> Element receives
+                            <span class="text-purple-400"><code>focus</code>:</span> Element receives
                             focus (doesn't bubble)
                         </div>
                         <div>
-                            <span class="text-purple-400">blur:</span> Element loses
+                            <span class="text-purple-400"><code>blur</code>:</span> Element loses
                             focus (doesn't bubble)
                         </div>
                         <div>
-                            <span class="text-purple-400">focusin:</span> Element
+                            <span class="text-purple-400"><code>focusin</code>:</span> Element
                             receives focus (bubbles)
                         </div>
                         <div>
-                            <span class="text-purple-400">focusout:</span> Element
+                            <span class="text-purple-400"><code>focusout</code>:</span> Element
                             loses focus (bubbles)
                         </div>
                         <div>
-                            <span class="text-purple-400">select:</span> Text selected
+                            <span class="text-purple-400"><code>select</code>:</span> Text selected
                             in input/textarea
                         </div>
                     </div>
                 </div>
 
                 <div>
-                    <div class="font-bold text-blue-300 text-[11px] mb-0.5">
-                        📱 Touch/Pointer Events
+                    <div class="font-bold text-blue-300 text-xs mb-0.5">
+                        Touch/pointer events
                     </div>
-                    <div class="font-mono text-[10px] pl-2 space-y-0.5">
+                    <div class="text-xs pl-2 space-y-0.5">
                         <div>
-                            <span class="text-orange-400">touchstart:</span> Finger
+                            <span class="text-orange-400"><code>touchstart</code>:</span> Finger
                             touches screen
                         </div>
                         <div>
-                            <span class="text-orange-400">touchmove:</span> Finger
+                            <span class="text-orange-400"><code>touchmove</code>:</span> Finger
                             moves on screen
                         </div>
                         <div>
-                            <span class="text-orange-400">touchend:</span> Finger
+                            <span class="text-orange-400"><code>touchend</code>:</span> Finger
                             lifts from screen
                         </div>
                         <div>
-                            <span class="text-orange-400">pointerdown:</span> Pointer
+                            <span class="text-orange-400"><code>pointerdown</code>:</span> Pointer
                             (mouse/touch/pen) pressed
                         </div>
                         <div>
-                            <span class="text-orange-400">pointermove:</span> Pointer
+                            <span class="text-orange-400"><code>pointermove</code>:</span> Pointer
                             moves
                         </div>
                         <div>
-                            <span class="text-orange-400">pointerup:</span> Pointer
+                            <span class="text-orange-400"><code>pointerup</code>:</span> Pointer
                             released
                         </div>
                         <div class="text-gray-400 mt-0.5">
-                            Pointer events work for mouse, touch, and pen - most
-                            flexible
+                            Pointer events work for mouse, touch and pen, so they
+                            cover the most input types.
                         </div>
                     </div>
                 </div>
 
                 <div>
-                    <div class="font-bold text-blue-300 text-[11px] mb-0.5">
-                        📺 Window/Document Events
+                    <div class="font-bold text-blue-300 text-xs mb-0.5">
+                        Window/Document events
                     </div>
-                    <div class="font-mono text-[10px] pl-2 space-y-0.5">
+                    <div class="text-xs pl-2 space-y-0.5">
                         <div>
-                            <span class="text-yellow-400">scroll:</span> Element
+                            <span class="text-yellow-400"><code>scroll</code>:</span> Element
                             or window scrolled
                         </div>
                         <div>
-                            <span class="text-yellow-400">resize:</span> Window resized
+                            <span class="text-yellow-400"><code>resize</code>:</span> Window resized
                         </div>
                         <div>
-                            <span class="text-yellow-400">load:</span> Page/image
+                            <span class="text-yellow-400"><code>load</code>:</span> Page/image
                             fully loaded (including resources)
                         </div>
                         <div>
                             <span class="text-yellow-400"
-                                >DOMContentLoaded:</span
+                                ><code>DOMContentLoaded</code>:</span
                             > HTML parsed, DOM ready (before images)
                         </div>
                         <div>
-                            <span class="text-yellow-400">beforeunload:</span> Before
+                            <span class="text-yellow-400"><code>beforeunload</code>:</span> Before
                             page unloads (can prompt user)
                         </div>
                         <div>
-                            <span class="text-yellow-400">unload:</span> Page is
+                            <span class="text-yellow-400"><code>unload</code>:</span> Page is
                             unloading
                         </div>
                     </div>
                 </div>
 
                 <div>
-                    <div class="font-bold text-blue-300 text-[11px] mb-0.5">
-                        🎬 Media Events
+                    <div class="font-bold text-blue-300 text-xs mb-0.5">
+                        Media events
                     </div>
-                    <div class="font-mono text-[10px] pl-2 space-y-0.5">
+                    <div class="text-xs pl-2 space-y-0.5">
                         <div>
-                            <span class="text-pink-400">play:</span> Media (audio/video)
+                            <span class="text-pink-400"><code>play</code>:</span> Media (audio/video)
                             starts playing
                         </div>
                         <div>
-                            <span class="text-pink-400">pause:</span> Media paused
+                            <span class="text-pink-400"><code>pause</code>:</span> Media paused
                         </div>
                         <div>
-                            <span class="text-pink-400">ended:</span> Media playback
+                            <span class="text-pink-400"><code>ended</code>:</span> Media playback
                             finished
                         </div>
                         <div>
-                            <span class="text-pink-400">timeupdate:</span> Playback
+                            <span class="text-pink-400"><code>timeupdate</code>:</span> Playback
                             position changed
                         </div>
                         <div>
-                            <span class="text-pink-400">volumechange:</span> Volume
+                            <span class="text-pink-400"><code>volumechange</code>:</span> Volume
                             or mute state changed
                         </div>
                     </div>
                 </div>
 
                 <div>
-                    <div class="font-bold text-blue-300 text-[11px] mb-0.5">
-                        🖼️ Drag & Drop Events
+                    <div class="font-bold text-blue-300 text-xs mb-0.5">
+                        Drag & drop events
                     </div>
-                    <div class="font-mono text-[10px] pl-2 space-y-0.5">
+                    <div class="text-xs pl-2 space-y-0.5">
                         <div>
-                            <span class="text-indigo-400">dragstart:</span> User
+                            <span class="text-indigo-400"><code>dragstart</code>:</span> User
                             starts dragging element
                         </div>
                         <div>
-                            <span class="text-indigo-400">drag:</span> Element being
+                            <span class="text-indigo-400"><code>drag</code>:</span> Element being
                             dragged
                         </div>
                         <div>
-                            <span class="text-indigo-400">dragend:</span> Drag operation
+                            <span class="text-indigo-400"><code>dragend</code>:</span> Drag operation
                             ends
                         </div>
                         <div>
-                            <span class="text-indigo-400">dragenter:</span> Dragged
+                            <span class="text-indigo-400"><code>dragenter</code>:</span> Dragged
                             item enters drop target
                         </div>
                         <div>
-                            <span class="text-indigo-400">dragover:</span> Dragged
+                            <span class="text-indigo-400"><code>dragover</code>:</span> Dragged
                             item over drop target
                         </div>
                         <div>
-                            <span class="text-indigo-400">drop:</span> Item dropped
+                            <span class="text-indigo-400"><code>drop</code>:</span> Item dropped
                             on target
                         </div>
                         <div class="text-gray-400 mt-0.5">
-                            Use e.preventDefault() in dragover to allow drop
+                            Call <code>e.preventDefault()</code> in <code>dragover</code> to allow a drop.
                         </div>
                     </div>
                 </div>
 
                 <div>
-                    <div class="font-bold text-blue-300 text-[11px] mb-0.5">
-                        📋 Clipboard Events
+                    <div class="font-bold text-blue-300 text-xs mb-0.5">
+                        Clipboard events
                     </div>
-                    <div class="font-mono text-[10px] pl-2 space-y-0.5">
+                    <div class="text-xs pl-2 space-y-0.5">
                         <div>
-                            <span class="text-teal-400">copy:</span> User copies
+                            <span class="text-teal-400"><code>copy</code>:</span> User copies
                             content
                         </div>
                         <div>
-                            <span class="text-teal-400">cut:</span> User cuts content
+                            <span class="text-teal-400"><code>cut</code>:</span> User cuts content
                         </div>
                         <div>
-                            <span class="text-teal-400">paste:</span> User pastes
+                            <span class="text-teal-400"><code>paste</code>:</span> User pastes
                             content
                         </div>
                         <div class="text-gray-400 mt-0.5">
-                            Access clipboard data via e.clipboardData
+                            Read clipboard data from <code>e.clipboardData</code>.
                         </div>
                     </div>
                 </div>
 
                 <div>
-                    <div class="font-bold text-blue-300 text-[11px] mb-0.5">
-                        ⚡ Common Gotchas
+                    <div class="font-bold text-blue-300 text-xs mb-0.5">
+                        Common gotchas
                     </div>
-                    <div class="font-mono text-[10px] pl-2 space-y-0.5">
+                    <div class="text-xs pl-2 space-y-0.5">
                         <div>
-                            <span class="text-red-400">✗</span> focus/blur don't
-                            bubble - use focusin/focusout instead
+                            <span class="text-red-400"><Mark type="no" /></span> <code>focus</code> and <code>blur</code> don't
+                            bubble. Use <code>focusin</code> and <code>focusout</code> instead.
                         </div>
                         <div>
-                            <span class="text-red-400">✗</span> mouseenter/leave
-                            don't bubble - use mouseover/out for delegation
+                            <span class="text-red-400"><Mark type="no" /></span> <code>mouseenter</code> and <code>mouseleave</code>
+                            don't bubble. Use <code>mouseover</code> and <code>mouseout</code> for delegation.
                         </div>
                         <div>
-                            <span class="text-green-400">✓</span> Use passive: true
-                            for scroll/touch for better performance
+                            <span class="text-green-400"><Mark type="yes" /></span> Use <code>passive: true</code>
+                            on scroll and touch listeners for smoother scrolling.
                         </div>
                         <div>
-                            <span class="text-green-400">✓</span> Use once: true
-                            for one-time events (auto cleanup)
+                            <span class="text-green-400"><Mark type="yes" /></span> Use <code>once: true</code>
+                            for one-time events. The listener removes itself.
                         </div>
                     </div>
                 </div>
@@ -2131,20 +2125,20 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     <!-- EVENT DELEGATION -->
     <MethodCard
         id="event-delegation"
-        methodName="Event Delegation"
+        methodName="Event delegation"
         signature="Listen on parent, handle on children"
-        description="Efficient way to handle events on many elements"
+        description="Handle events on many elements with one listener"
         mutates={false}
     >
-        <div class="p-6 bg-gray-800 rounded">
+        <div class="p-6 rounded">
             <div class="space-y-4">
                 <!-- Bad way -->
                 <div>
                     <div class="text-red-400 text-xs mb-2">
-                        ❌ Bad - many listeners:
+                        <Mark type="no" /> Bad - many listeners:
                     </div>
                     <div
-                        class="bg-red-500/20 border border-red-500 rounded p-3"
+                        class="bg-red-900 rounded p-3"
                     >
                         <div class="text-red-300 font-mono text-xs space-y-0.5">
                             <div>items.forEach(item =&gt; {"{"}</div>
@@ -2160,10 +2154,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 <!-- Good way -->
                 <div>
                     <div class="text-green-400 text-xs mb-2">
-                        ✅ Good - one listener:
+                        <Mark type="yes" /> Good - one listener:
                     </div>
                     <div
-                        class="bg-green-500/20 border border-green-500 rounded p-3"
+                        class="bg-green-900 rounded p-3"
                     >
                         <div
                             class="text-green-300 font-mono text-xs space-y-0.5"
@@ -2187,21 +2181,21 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
         <ProTip>
             <div>Benefits of delegation:</div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="text-xs">
                     <span class="text-green-400"
-                        >✅ One listener instead of many</span>
+                        ><Mark type="yes" /> One listener instead of many</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="text-xs">
                     <span class="text-green-400"
-                        >✅ Works for dynamically added elements</span>
+                        ><Mark type="yes" /> Works for elements you add later</span>
                 </div>
-                <div class="font-mono text-[10px]">
-                    <span class="text-green-400">✅ Less memory usage</span>
+                <div class="text-xs">
+                    <span class="text-green-400"><Mark type="yes" /> Uses less memory</span>
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="text-xs mt-1">
                     <span class="text-gray-400"
-                        >Use e.target to find which child was clicked</span>
+                        >Use <code>e.target</code> to find which child was clicked.</span>
                 </div>
             </div>
         </ProTip>
@@ -2210,17 +2204,17 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     <!-- EVENT PROPAGATION -->
     <MethodCard
         id="event-propagation"
-        methodName="Event Propagation (Bubbling)"
+        methodName="Event propagation (bubbling)"
         signature="event.stopPropagation() / event.stopImmediatePropagation()"
         description="Control how events flow through the DOM tree"
         mutates={false}
     >
-        <div class="p-6 bg-gray-800 rounded">
+        <div class="p-6 rounded">
             <div class="space-y-4">
                 <!-- Bubbling flow -->
-                <div class="bg-blue-500/20 border border-blue-400 rounded p-3">
+                <div class="bg-blue-900 rounded p-3">
                     <div
-                        class="text-blue-300 font-mono text-[10px] space-y-0.5"
+                        class="text-blue-300 font-mono text-xs space-y-0.5"
                     >
                         <div class="text-yellow-400 mb-1">
                             Event flows from target → parents:
@@ -2245,7 +2239,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 </div>
 
                 <!-- stopPropagation -->
-                <div class="bg-red-500/20 border border-red-500 rounded p-3">
+                <div class="bg-red-900 rounded p-3">
                     <div class="text-red-300 font-mono text-xs space-y-0.5">
                         <div>
                             button.addEventListener('click', (e) =&gt; {"{"}
@@ -2256,15 +2250,15 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         </div>
                         <div>&nbsp;&nbsp;console.log('Button clicked')</div>
                         <div>{"}"})</div>
-                        <div class="text-gray-400 text-[10px] mt-1">
-                            Parent listeners won't fire
-                        </div>
+                    </div>
+                    <div class="text-gray-400 text-xs mt-1">
+                        Parent listeners don't fire.
                     </div>
                 </div>
 
                 <!-- stopImmediatePropagation -->
                 <div
-                    class="bg-purple-500/20 border border-purple-400 rounded p-3"
+                    class="bg-purple-900 rounded p-3"
                 >
                     <div class="text-purple-300 font-mono text-xs space-y-0.5">
                         <div>el.addEventListener('click', (e) =&gt; {"{"}</div>
@@ -2274,7 +2268,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         <div class="mt-1">
                             el.addEventListener('click', () =&gt; {"{"}
                         </div>
-                        <div>&nbsp;&nbsp;console.log('Never runs! ❌')</div>
+                        <div>&nbsp;&nbsp;console.log('Never runs! <Mark type="no" />')</div>
                         <div>{"}"})</div>
                     </div>
                 </div>
@@ -2283,23 +2277,23 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
         <ProTip>
             <div>
-                ⚠️ <strong
+                <Mark type="warn" /> <strong
                     >Common gotcha - event.target vs event.currentTarget:</strong>
             </div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     outer.addEventListener('click', (e) =&gt; {"{"}
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;e.target <span class="text-gray-400"
                         >// element that was actually clicked</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;e.currentTarget <span class="text-gray-400"
                         >// element with the listener (outer)</span>
                 </div>
-                <div class="font-mono text-[10px]">{"}"})</div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs">{"}"})</div>
+                <div class="font-mono text-xs mt-1">
                     <span class="text-yellow-400"
                         >// Click button inside outer → target=button,
                         currentTarget=outer</span>
@@ -2308,21 +2302,21 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         </ProTip>
 
         <ProTip>
-            <div>🎯 <strong>When to use stopPropagation:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div><strong>When to use stopPropagation:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     <span class="text-gray-400"
                         >// Prevent modal close when clicking content</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     modalContent.addEventListener('click', (e) =&gt; {"{"}
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;e.stopPropagation() <span class="text-gray-400"
                         >// don't bubble to overlay</span>
                 </div>
-                <div class="font-mono text-[10px]">{"}"})</div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">{"}"})</div>
+                <div class="font-mono text-xs">
                     overlay.addEventListener('click', () =&gt; modal.close())
                 </div>
             </div>
@@ -2330,11 +2324,11 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     </MethodCard>
 
     <!-- ============================================ -->
-    <!-- 📐 DIMENSIONS & POSITION -->
+    <!-- DIMENSIONS & POSITION -->
     <!-- ============================================ -->
 
     <SectionTitle id="dimensions" color="indigo">
-        📏 Dimensions & Position
+        Dimensions & position
     </SectionTitle>
 
     <!-- BOUNDING CLIENT RECT -->
@@ -2342,33 +2336,33 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="bounding-rect"
         methodName="getBoundingClientRect()"
         signature="element.getBoundingClientRect()"
-        description="Get element's size and position relative to viewport"
+        description="Get an element's size and position relative to the viewport"
         mutates={false}
     >
-        <div class="p-6 bg-gray-800 rounded">
+        <div class="p-6 rounded">
             <div class="space-y-4">
                 <!-- Return value -->
                 <div
-                    class="bg-indigo-500/20 border border-indigo-400 rounded p-3"
+                    class="bg-indigo-900 rounded p-3"
                 >
                     <div class="text-indigo-300 font-mono text-xs space-y-0.5">
                         <div>const rect = el.getBoundingClientRect()</div>
-                        <div class="text-gray-400 text-[10px] mt-1">
+                        <div class="text-gray-400 text-xs mt-1 font-sans">
                             Returns DOMRect with:
                         </div>
-                        <div class="text-gray-300 text-[10px] ml-2 mt-0.5">
+                        <div class="text-gray-300 text-xs ml-2 mt-0.5">
                             rect.top, rect.bottom <span class="text-gray-400"
                                 >// Y position</span>
                         </div>
-                        <div class="text-gray-300 text-[10px] ml-2">
+                        <div class="text-gray-300 text-xs ml-2">
                             rect.left, rect.right <span class="text-gray-400"
                                 >// X position</span>
                         </div>
-                        <div class="text-gray-300 text-[10px] ml-2">
+                        <div class="text-gray-300 text-xs ml-2">
                             rect.width, rect.height <span class="text-gray-400"
                                 >// dimensions</span>
                         </div>
-                        <div class="text-gray-300 text-[10px] ml-2">
+                        <div class="text-gray-300 text-xs ml-2">
                             rect.x, rect.y <span class="text-gray-400"
                                 >// same as left/top</span>
                         </div>
@@ -2377,7 +2371,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
                 <!-- Example -->
                 <div
-                    class="bg-green-500/20 border border-green-500 rounded p-3"
+                    class="bg-green-900 rounded p-3"
                 >
                     <div class="text-green-300 font-mono text-xs space-y-0.5">
                         <div>
@@ -2396,24 +2390,24 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         </div>
 
         <ProTip>
-            <div>⚠️ <strong>Relative to viewport, not document:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div><Mark type="warn" /> <strong>Relative to viewport, not document:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     <span class="text-gray-400"
                         >// Changes when you scroll!</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     rect.top <span class="text-gray-400"
                         >// distance from top of viewport</span>
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-gray-400"
                         >// For position in document:</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     const topInDoc = rect.top + window.scrollY
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     const leftInDoc = rect.left + window.scrollX
                 </div>
             </div>
@@ -2423,17 +2417,17 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     <!-- DIMENSIONS & SCROLL -->
     <MethodCard
         id="dimensions-scroll"
-        methodName="Element Dimensions & Scroll"
+        methodName="Element dimensions & scroll"
         signature="Width, height, and scroll properties"
-        description="Access element size and scroll position"
+        description="Get element size and scroll position"
         mutates={false}
     >
-        <div class="p-6 bg-gray-800 rounded">
+        <div class="p-6 rounded">
             <div class="space-y-3">
                 <!-- Dimensions -->
-                <div class="bg-blue-500/20 border border-blue-400 rounded p-3">
+                <div class="bg-blue-900 rounded p-3">
                     <div
-                        class="text-blue-300 font-mono text-[10px] space-y-0.5"
+                        class="text-blue-300 font-mono text-xs space-y-0.5"
                     >
                         <div class="text-yellow-400 mb-1">
                             Dimensions (read-only):
@@ -2456,10 +2450,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
                 <!-- Scroll position -->
                 <div
-                    class="bg-purple-500/20 border border-purple-400 rounded p-3"
+                    class="bg-purple-900 rounded p-3"
                 >
                     <div
-                        class="text-purple-300 font-mono text-[10px] space-y-0.5"
+                        class="text-purple-300 font-mono text-xs space-y-0.5"
                     >
                         <div class="text-yellow-400 mb-1">
                             Scroll position (read/write):
@@ -2481,12 +2475,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
                 <!-- Window -->
                 <div
-                    class="bg-green-500/20 border border-green-500 rounded p-3"
+                    class="bg-green-900 rounded p-3"
                 >
                     <div
-                        class="text-green-300 font-mono text-[10px] space-y-0.5"
+                        class="text-green-300 font-mono text-xs space-y-0.5"
                     >
-                        <div class="text-yellow-400 mb-1">Window/document:</div>
+                        <div class="text-yellow-400 mb-1 font-sans">Window/document:</div>
                         <div>
                             window.innerWidth, window.innerHeight <span
                                 class="text-gray-400">// viewport</span>
@@ -2505,27 +2499,27 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         </div>
 
         <ProTip>
-            <div>🎯 <strong>Common use cases:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div><strong>Common use cases:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     <span class="text-gray-400"
                         >// Check if scrolled to bottom</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     const atBottom = el.scrollTop + el.clientHeight &gt;=
                     el.scrollHeight
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-gray-400"
                         >// Smooth scroll element into view</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     el.scrollIntoView({"{"} behavior: 'smooth' {"}"})
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-gray-400">// Scroll to top of page</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     window.scrollTo({"{"} top: 0, behavior: 'smooth' {"}"})
                 </div>
             </div>
@@ -2537,11 +2531,11 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <li>
                 <a
                     href="#selecting"
-                    class="text-blue-300 font-semibold hover:text-blue-200 block py-1"
-                    >🔍 Selecting Elements</a
+                    class="text-ink font-semibold hover:underline block py-1"
+                    >Selecting elements</a
                 >
                 <ul
-                    class="ml-3 mt-1 space-y-1 border-l-2 border-blue-500/30 pl-2"
+                    class="ml-3 mt-1 space-y-1 border-l border-rule pl-2"
                 >
                     <li>
                         <a
@@ -2555,17 +2549,17 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <li class="mt-4">
                 <a
                     href="#traversing"
-                    class="text-pink-300 font-semibold hover:text-pink-200 block py-1"
-                    >🌳 DOM Traversal</a
+                    class="text-ink font-semibold hover:underline block py-1"
+                    >DOM traversal</a
                 >
                 <ul
-                    class="ml-3 mt-1 space-y-1 border-l-2 border-pink-500/30 pl-2"
+                    class="ml-3 mt-1 space-y-1 border-l border-rule pl-2"
                 >
                     <li>
                         <a
                             href="#traversal-up"
                             class="text-pink-200 hover:text-pink-100 block font-medium"
-                            >⬆️ Moving Up</a>
+                            >Moving up</a>
                     </li>
                     <li class="ml-2">
                         <a
@@ -2584,7 +2578,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         <a
                             href="#traversal-down"
                             class="text-pink-200 hover:text-pink-100 block font-medium"
-                            >⬇️ Moving Down</a>
+                            >Moving down</a>
                     </li>
                     <li class="ml-2">
                         <a
@@ -2597,7 +2591,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         <a
                             href="#traversal-sideways"
                             class="text-pink-200 hover:text-pink-100 block font-medium"
-                            >↔️ Moving Sideways</a>
+                            >Moving sideways</a>
                     </li>
                     <li class="ml-2">
                         <a
@@ -2610,7 +2604,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         <a
                             href="#traversal-testing"
                             class="text-pink-200 hover:text-pink-100 block font-medium"
-                            >✅ Testing Selectors</a>
+                            ><Mark type="yes" /> Testing selectors</a>
                     </li>
                     <li class="ml-2">
                         <a
@@ -2624,11 +2618,11 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <li class="mt-4">
                 <a
                     href="#creating"
-                    class="text-orange-300 font-semibold hover:text-orange-200 block py-1"
-                    >➕ Creating & Removing Elements</a
+                    class="text-ink font-semibold hover:underline block py-1"
+                    >Creating & removing elements</a
                 >
                 <ul
-                    class="ml-3 mt-1 space-y-1 border-l-2 border-orange-500/30 pl-2"
+                    class="ml-3 mt-1 space-y-1 border-l border-rule pl-2"
                 >
                     <li>
                         <a
@@ -2660,11 +2654,11 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <li class="mt-4">
                 <a
                     href="#content"
-                    class="text-purple-300 font-semibold hover:text-purple-200 block py-1"
-                    >✏️ Modifying Content</a
+                    class="text-ink font-semibold hover:underline block py-1"
+                    >Modifying content</a
                 >
                 <ul
-                    class="ml-3 mt-1 space-y-1 border-l-2 border-purple-500/30 pl-2"
+                    class="ml-3 mt-1 space-y-1 border-l border-rule pl-2"
                 >
                     <li>
                         <a
@@ -2678,11 +2672,11 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <li class="mt-4">
                 <a
                     href="#styling"
-                    class="text-green-300 font-semibold hover:text-green-200 block py-1"
-                    >� Styling & Classes</a
+                    class="text-ink font-semibold hover:underline block py-1"
+                    >Styling & classes</a
                 >
                 <ul
-                    class="ml-3 mt-1 space-y-1 border-l-2 border-green-500/30 pl-2"
+                    class="ml-3 mt-1 space-y-1 border-l border-rule pl-2"
                 >
                     <li>
                         <a
@@ -2696,11 +2690,11 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <li class="mt-4">
                 <a
                     href="#attributes"
-                    class="text-yellow-300 font-semibold hover:text-yellow-200 block py-1"
-                    >🏷️ Attributes & Properties</a
+                    class="text-ink font-semibold hover:underline block py-1"
+                    >Attributes & properties</a
                 >
                 <ul
-                    class="ml-3 mt-1 space-y-1 border-l-2 border-yellow-500/30 pl-2"
+                    class="ml-3 mt-1 space-y-1 border-l border-rule pl-2"
                 >
                     <li>
                         <a
@@ -2712,19 +2706,19 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         <a
                             href="#data-attributes"
                             class="text-gray-300 hover:text-blue-400 block"
-                            >dataset (Data Attributes)</a>
+                            >dataset (data attributes)</a>
                     </li>
                     <li>
                         <a
                             href="#common-attributes"
                             class="text-gray-300 hover:text-blue-400 block"
-                            >Common Attributes</a>
+                            >Common attributes</a>
                     </li>
                     <li>
                         <a
                             href="#form-properties"
                             class="text-gray-300 hover:text-blue-400 block"
-                            >Form Properties</a>
+                            >Form properties</a>
                     </li>
                 </ul>
             </li>
@@ -2732,11 +2726,11 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <li class="mt-4">
                 <a
                     href="#events"
-                    class="text-cyan-300 font-semibold hover:text-cyan-200 block py-1"
-                    >⚡ Event Handling</a
+                    class="text-ink font-semibold hover:underline block py-1"
+                    >Event handling</a
                 >
                 <ul
-                    class="ml-3 mt-1 space-y-1 border-l-2 border-cyan-500/30 pl-2"
+                    class="ml-3 mt-1 space-y-1 border-l border-rule pl-2"
                 >
                     <li>
                         <a
@@ -2748,13 +2742,13 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         <a
                             href="#event-delegation"
                             class="text-gray-300 hover:text-blue-400 block"
-                            >Event Delegation</a>
+                            >Event delegation</a>
                     </li>
                     <li>
                         <a
                             href="#event-propagation"
                             class="text-gray-300 hover:text-blue-400 block"
-                            >Event Propagation</a>
+                            >Event propagation</a>
                     </li>
                 </ul>
             </li>
@@ -2762,11 +2756,11 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <li class="mt-4">
                 <a
                     href="#dimensions"
-                    class="text-indigo-300 font-semibold hover:text-indigo-200 block py-1"
-                    >� Dimensions & Position</a
+                    class="text-ink font-semibold hover:underline block py-1"
+                    >Dimensions & position</a
                 >
                 <ul
-                    class="ml-3 mt-1 space-y-1 border-l-2 border-indigo-500/30 pl-2"
+                    class="ml-3 mt-1 space-y-1 border-l border-rule pl-2"
                 >
                     <li>
                         <a
@@ -2778,7 +2772,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         <a
                             href="#dimensions-scroll"
                             class="text-gray-300 hover:text-blue-400 block"
-                            >Dimensions & Scroll</a>
+                            >Dimensions & scroll</a>
                     </li>
                 </ul>
             </li>

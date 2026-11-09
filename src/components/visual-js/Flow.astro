@@ -1,0 +1,16 @@
+---
+interface Props {
+    class?: string;
+    bare?: boolean;
+}
+
+const { class: className = "", bare = false } = Astro.props;
+---
+
+<div class={`@container ${className}`}>
+    <div
+        class={`flex flex-col items-center gap-3 @3xl:flex-row @3xl:gap-4 @3xl:overflow-x-auto ${bare ? "" : "p-3 bg-gray-800"}`}
+    >
+        <slot />
+    </div>
+</div>

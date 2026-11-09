@@ -1,66 +1,74 @@
 ---
 import Layout from "~layouts/Layout.astro";
+import { groups, numberFor } from "../lib/topics";
+
+const sources = import.meta.glob("./visual/*/*.astro", { query: "?raw", import: "default", eager: true }) as Record<string, string>;
+const countsFor = (href: string) => {
+    const src = sources[`.${href}.astro`] ?? "";
+    return {
+        methods: (src.match(/<MethodCard\b/g) ?? []).length,
+        mutating: (src.match(/<MethodCard\b[^>]*?mutates=\{true\}/g) ?? []).length,
+    };
+};
 ---
 
-<Layout pageTitle="Visual Cheatsheets">
-    <div class="container mx-auto prose prose-sm py-8">
-        <h1>Visual Cheatsheets</h1>
-        <h4>Core Concepts:</h4>
-        <ul>
-            <li>
-                <a href="/visual/core-concepts/conditionals">conditionals</a>
-            </li>
-            <li>
-                <a href="/visual/core-concepts/dom-manipulation"
-                    >dom-manipulation</a
-                >
-            </li>
-            <li>
-                <a href="/visual/core-concepts/functions">functions</a>
-            </li>
-            <li><a href="/visual/core-concepts/loops">loops</a></li>
-            <li>
-                <a href="/visual/core-concepts/promises">promises</a>
-            </li>
-            <li>
-                <a href="/visual/core-concepts/variables">variables</a>
-            </li>
-        </ul>
+<Layout pageTitle="Visual cheatsheets">
+    <main class="max-w-[1200px] mx-auto px-4 sm:px-8 py-10 sm:py-16">
+        <header class="flex items-end gap-4 border-b-[3px] border-ink pb-5 mb-8">
+            <img src="/gideon-skull.svg" alt="" class="size-14 sm:size-20" />
+            <h1 class="font-extrabold text-3xl sm:text-6xl leading-none tracking-tight">
+                Visual cheatsheets
+            </h1>
+        </header>
 
-        <h4>Browser APIs:</h4>
-        <ul>
-            <li>
-                <a href="/visual/browser-apis/intersection-observer"
-                    >intersection-observer</a
-                >
-            </li>
-            <li>
-                <a href="/visual/browser-apis/pointer-events">pointer-events</a>
-            </li>
-            <li>
-                <a href="/visual/browser-apis/sanitizer-api">sanitizer-api</a>
-            </li>
-        </ul>
-        <h4>Primitives:</h4>
-        <ul>
-            <li>
-                <a href="/visual/primitives/arrays">arrays</a>
-            </li>
-            <li>
-                <a href="/visual/primitives/numbers">numbers</a>
-            </li>
-            <li>
-                <a href="/visual/primitives/objects">objects</a>
-            </li>
-            <li>
-                <a href="/visual/primitives/strings">strings</a>
-            </li>
-        </ul>
-        <h4>Git:</h4>
-        <ul>
-            <li>
-                <a href="/visual/git/how-git-works">how-git-works</a>
-            </li>
-        </ul>
-    </div>
+        <div class="grid gap-x-3 gap-y-8 grid-cols-2 lg:grid-cols-4">
+            {
+                groups.map((group) => (
+                    <section>
+                        <h2 class="flex items-center gap-2 mb-2 text-sm font-semibold uppercase tracking-wide">
+                            <span class={`size-3 ${group.swatch}`} />
+                            {group.name}
+                        </h2>
+                        <ul class="grid gap-1.5">
+                            {group.topics.map((topic) => {
+                                const { methods, mutating } = countsFor(topic.href);
+                                return (
+                                    <li>
+                                        <a
+                                            href={topic.href}
+                                            class={`${group.swatch} ${group.onSwatch} grid grid-rows-[auto_1fr_auto] h-28 sm:h-32 p-3 no-underline hover:outline-[3px] hover:outline-ink hover:-outline-offset-[3px]`}
+                                        >
+                                            <span class="flex justify-between font-mono text-xs font-semibold">
+                                                <span>{numberFor(topic.href)}</span>
+                                                {methods > 0 && (
+                                                    <span title={`${methods} methods, ${mutating} mutate`}>
+                                                        {methods}/{mutating}
+                                                    </span>
+                                                )}
+                                            </span>
+                                            <span class="self-center font-extrabold text-5xl sm:text-6xl leading-none tracking-tight">
+                                                {topic.symbol}
+                                            </span>
+                                            <span class="text-sm font-semibold leading-tight">{topic.label}</span>
+                                        </a>
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    </section>
+                ))
+            }
+        </div>
+
+        <dl class="mt-10 pt-4 border-t border-rule flex flex-wrap gap-x-8 gap-y-2 text-sm text-gray-400">
+            <div class="flex gap-2">
+                <dt class="font-mono font-semibold text-ink">12/5</dt>
+                <dd>12 methods, 5 mutate</dd>
+            </div>
+            <div class="flex items-center gap-2">
+                <dt class="flex gap-1"><span class="size-3 bg-mutates" /><span class="size-3 bg-immutable" /></dt>
+                <dd>Method tiles on each page: mutates, immutable</dd>
+            </div>
+        </dl>
+    </main>
 </Layout>

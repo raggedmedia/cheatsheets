@@ -5,6 +5,7 @@ import ProTip from "~components/visual-js/ProTip.astro";
 import SectionTitle from "~components/visual-js/SectionTitle.astro";
 import VisualLayout from "src/layouts/VisualLayout.astro";
 import InfoBox from "~components/visual-js/InfoBox.astro";
+import Mark from "~components/visual-js/Mark.astro";
 ---
 
 <VisualLayout pageTitle="Loops">
@@ -12,131 +13,119 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
         <div class="space-y-3">
             <div>
                 <strong class="text-blue-300"
-                    >🔄 When to Use Each Loop Type</strong
+                    >When to use each loop type</strong
                 >
             </div>
 
             <div class="space-y-2 text-sm">
-                <div class="border-l-2 border-blue-500/30 pl-3">
+                <div class="border-l border-rule pl-3">
                     <div class="text-blue-300 font-semibold mb-1">
-                        Arrays (Iterable)
+                        Arrays (iterable)
                     </div>
                     <div class="space-y-1 text-xs">
                         <div>
                             • <code
-                                class="bg-black/40 px-1 py-0.5 rounded text-blue-300"
                                 >.forEach()</code
-                            > — Best for simple iteration, very readable
+                            > - Simple iteration, easy to read
                         </div>
                         <div>
                             • <code
-                                class="bg-black/40 px-1 py-0.5 rounded text-blue-300"
                                 >for...of</code
-                            > — When you need break/continue/return/await
+                            > - When you need break/continue/return/await
                         </div>
                         <div>
                             • <code
-                                class="bg-black/40 px-1 py-0.5 rounded text-blue-300"
                                 >.map()</code
-                            > — Transform each item, returns NEW array
+                            > - Transform each item, return a new array
                         </div>
                         <div>
                             • <code
-                                class="bg-black/40 px-1 py-0.5 rounded text-blue-300"
                                 >for (i=0...)</code
-                            > — When you need index control or reverse iteration
+                            > - When you need index control or reverse iteration
                         </div>
                     </div>
                 </div>
 
-                <div class="border-l-2 border-purple-500/30 pl-3">
+                <div class="border-l border-rule pl-3">
                     <div class="text-purple-300 font-semibold mb-1">
-                        Objects (Key-Value Pairs)
+                        Objects (key-value pairs)
                     </div>
                     <div class="space-y-1 text-xs">
                         <div>
                             • <code
-                                class="bg-black/40 px-1 py-0.5 rounded text-purple-300"
                                 >for...in</code
-                            > — Loop over object keys (includes inherited)
+                            > - Loop over object keys (includes inherited)
                         </div>
                         <div>
                             • <code
-                                class="bg-black/40 px-1 py-0.5 rounded text-purple-300"
                                 >Object.keys(obj)</code
-                            > — Convert to array, then use array methods
+                            > - Convert to array, then use array methods
                         </div>
                         <div>
                             • <code
-                                class="bg-black/40 px-1 py-0.5 rounded text-purple-300"
                                 >Object.entries(obj)</code
-                            > — Get [key, value] pairs as array
+                            > - Get [key, value] pairs as array
                         </div>
                     </div>
                 </div>
 
-                <div class="border-l-2 border-yellow-500/30 pl-3">
+                <div class="border-l border-rule pl-3">
                     <div class="text-yellow-300 font-semibold mb-1">
-                        ⚠️ Primitives (Strings, Numbers, Booleans)
+                        <Mark type="warn" /> Primitives (strings, numbers, booleans)
                     </div>
                     <div class="space-y-1 text-xs">
                         <div>
                             • <strong>Strings:</strong> Convert to array first: <code
-                                class="bg-black/40 px-1 py-0.5 rounded"
                                 >[...str]</code
-                            > or <code class="bg-black/40 px-1 py-0.5 rounded"
+                            > or <code
                                 >str.split('')</code>
                         </div>
                         <div>
-                            • <strong>Numbers:</strong> Can't loop directly—use range
+                            • <strong>Numbers:</strong> Can't loop directly. Use range
                             helpers or Array(n)
                         </div>
                         <div>
-                            • <strong>Note:</strong> Strings ARE iterable with for...of,
+                            • <strong>Note:</strong> Strings 'are' iterable with for...of,
                             but array methods give more control
                         </div>
                     </div>
                 </div>
 
-                <div class="border-l-2 border-orange-500/30 pl-3">
+                <div class="border-l border-rule pl-3">
                     <div class="text-orange-300 font-semibold mb-1">
-                        While Loops
+                        While loops
                     </div>
                     <div class="space-y-1 text-xs">
                         <div>
                             • <code
-                                class="bg-black/40 px-1 py-0.5 rounded text-orange-300"
                                 >while</code
-                            > — Unknown iterations, keep going until condition false
+                            > - Unknown number of iterations, runs until the condition is false
                         </div>
                         <div>
                             • <code
-                                class="bg-black/40 px-1 py-0.5 rounded text-orange-300"
                                 >do...while</code
-                            > — Same but guaranteed to run at least once
+                            > - Same, but always runs at least once
                         </div>
                     </div>
                 </div>
 
-                <div class="border-l-2 border-red-500/30 pl-3">
+                <div class="border-l border-rule pl-3">
                     <div class="text-red-300 font-semibold mb-1">
-                        Control Flow (break/continue)
+                        Control flow (break/continue)
                     </div>
                     <div class="space-y-1 text-xs">
                         <div>
                             • <code
-                                class="bg-black/40 px-1 py-0.5 rounded text-red-300"
                                 >break</code
-                            > — Exit loop completely
+                            > - Exit loop completely
                         </div>
                         <div>
                             • <code
-                                class="bg-black/40 px-1 py-0.5 rounded text-red-300"
                                 >continue</code
-                            > — Skip to next iteration
+                            > - Skip to next iteration
                         </div>
                         <div>
-                            • <strong>⚠️ Don't work with .forEach()</strong> — Use
+                            • <strong><Mark type="warn" /> Don't work with .forEach()</strong> - use
                             for...of if you need these
                         </div>
                     </div>
@@ -146,10 +135,10 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
     </InfoBox>
 
     <!-- ============================================ -->
-    <!-- 🔄 ARRAY LOOPS -->
+    <!-- ARRAY LOOPS -->
     <!-- ============================================ -->
 
-    <SectionTitle id="array-loops" color="blue"> 🔄 Array Loops </SectionTitle>
+    <SectionTitle id="array-loops" color="blue"> Array loops </SectionTitle>
 
     <!-- FOR...OF -->
     <MethodCard
@@ -159,7 +148,7 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
         description="Loop over array values (modern, recommended)"
         mutates={false}
     >
-        <div class="p-4 bg-gray-800 rounded border border-gray-700">
+        <div class="p-4 rounded border-t border-rule">
             <!-- Code -->
             <div class="font-mono text-sm mb-4">
                 <span class="text-purple-300">for</span>
@@ -184,83 +173,83 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
                 </div>
 
                 <div
-                    class="p-2 bg-purple-500/10 border border-purple-500/30 rounded"
+                    class="bg-purple-900 p-2 rounded"
                 >
-                    <div class="text-purple-300 text-[10px] mb-1">
+                    <div class="text-purple-300 text-xs mb-1">
                         Iteration 1
                     </div>
                     <div class="font-mono text-sm">
                         item = <span class="text-green-300">'a'</span>
                     </div>
-                    <div class="text-gray-400 text-[10px] mt-1">
+                    <div class="text-gray-400 text-xs mt-1">
                         // executes loop body with 'a'
                     </div>
                 </div>
 
                 <div
-                    class="p-2 bg-purple-500/10 border border-purple-500/30 rounded"
+                    class="bg-purple-900 p-2 rounded"
                 >
-                    <div class="text-purple-300 text-[10px] mb-1">
+                    <div class="text-purple-300 text-xs mb-1">
                         Iteration 2
                     </div>
                     <div class="font-mono text-sm">
                         item = <span class="text-green-300">'b'</span>
                     </div>
-                    <div class="text-gray-400 text-[10px] mt-1">
+                    <div class="text-gray-400 text-xs mt-1">
                         // executes loop body with 'b'
                     </div>
                 </div>
 
                 <div
-                    class="p-2 bg-purple-500/10 border border-purple-500/30 rounded"
+                    class="bg-purple-900 p-2 rounded"
                 >
-                    <div class="text-purple-300 text-[10px] mb-1">
+                    <div class="text-purple-300 text-xs mb-1">
                         Iteration 3
                     </div>
                     <div class="font-mono text-sm">
                         item = <span class="text-green-300">'c'</span>
                     </div>
-                    <div class="text-gray-400 text-[10px] mt-1">
+                    <div class="text-gray-400 text-xs mt-1">
                         // executes loop body with 'c'
                     </div>
                 </div>
 
                 <div
-                    class="mt-3 p-2 bg-gray-700/30 rounded text-center text-gray-400"
+                    class="mt-3 p-2 rounded text-center text-gray-400"
                 >
-                    Loop complete!
+                    Loop complete
                 </div>
             </div>
         </div>
 
         <MutableOrNot mutates={false} message="">
-            Modern, clean syntax. Works with arrays, strings, Maps, Sets. <strong
-                >Cannot access index directly.</strong
+            Works with arrays, strings, Maps and Sets. <strong
+                >No direct access to the index.</strong
             >
         </MutableOrNot>
 
         <ProTip>
-            <div>✨ <strong>Recommended for most array iteration:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div><strong>Recommended for most array iteration:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     for (const item of arr) {"{"}
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;console.log(item) <span class="text-gray-400"
                         >// clean & readable</span>
                 </div>
-                <div class="font-mono text-[10px]">{"}"}</div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs">{"}"}</div>
+                <div class="font-mono text-xs mt-1">
                     <span class="text-gray-400"
                         >// Get index with entries()</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     for (const [i, item] of arr.entries()) {"{"}
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;console.log(i, item)
                 </div>
-                <div class="font-mono text-[10px]">{"}"}</div>
+                <div class="font-mono text-xs">{"}"}</div>
             </div>
         </ProTip>
     </MethodCard>
@@ -270,10 +259,10 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
         id="forEach"
         methodName="forEach()"
         signature="arr.forEach((item, index) => { })"
-        description="Execute function for each array element"
+        description="Run a function for each array element"
         mutates={false}
     >
-        <div class="p-4 bg-gray-800 rounded border border-gray-700">
+        <div class="p-4 rounded border-t border-rule">
             <!-- Code -->
             <div class="font-mono text-sm mb-4">
                 <span class="text-orange-300">['a', 'b', 'c']</span><span
@@ -293,56 +282,56 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
             <!-- Iteration visualization -->
             <div class="space-y-2 text-xs">
                 <div class="text-gray-400 mb-2">
-                    Calls callback function for each element:
+                    Calls the callback for each element:
                 </div>
 
                 <div
-                    class="p-2 bg-purple-500/10 border border-purple-500/30 rounded"
+                    class="bg-purple-900 p-2 rounded"
                 >
-                    <div class="text-purple-300 text-[10px] mb-1">
+                    <div class="text-purple-300 text-xs mb-1">
                         Callback 1
                     </div>
                     <div class="font-mono text-sm">
                         item = <span class="text-green-300">'a'</span>, index = <span
                             class="text-cyan-300">0</span>
                     </div>
-                    <div class="text-gray-400 text-[10px] mt-1">
+                    <div class="text-gray-400 text-xs mt-1">
                         // executes callback
                     </div>
                 </div>
 
                 <div
-                    class="p-2 bg-purple-500/10 border border-purple-500/30 rounded"
+                    class="bg-purple-900 p-2 rounded"
                 >
-                    <div class="text-purple-300 text-[10px] mb-1">
+                    <div class="text-purple-300 text-xs mb-1">
                         Callback 2
                     </div>
                     <div class="font-mono text-sm">
                         item = <span class="text-green-300">'b'</span>, index = <span
                             class="text-cyan-300">1</span>
                     </div>
-                    <div class="text-gray-400 text-[10px] mt-1">
+                    <div class="text-gray-400 text-xs mt-1">
                         // executes callback
                     </div>
                 </div>
 
                 <div
-                    class="p-2 bg-purple-500/10 border border-purple-500/30 rounded"
+                    class="bg-purple-900 p-2 rounded"
                 >
-                    <div class="text-purple-300 text-[10px] mb-1">
+                    <div class="text-purple-300 text-xs mb-1">
                         Callback 3
                     </div>
                     <div class="font-mono text-sm">
                         item = <span class="text-green-300">'c'</span>, index = <span
                             class="text-cyan-300">2</span>
                     </div>
-                    <div class="text-gray-400 text-[10px] mt-1">
+                    <div class="text-gray-400 text-xs mt-1">
                         // executes callback
                     </div>
                 </div>
 
                 <div
-                    class="mt-3 p-2 bg-gray-700/30 rounded text-center text-gray-400"
+                    class="mt-3 p-2 rounded text-center text-gray-400"
                 >
                     Returns undefined (no return value)
                 </div>
@@ -351,35 +340,34 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >undefined</code
-            >. ⚠️ Cannot break or return early. Cannot be chained.
+            >. <Mark type="warn" /> Cannot break or return early. Cannot be chained.
         </MutableOrNot>
 
         <ProTip>
-            <div>⚠️ <strong>Gotchas:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div><Mark type="warn" /> <strong>Gotchas:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     arr.forEach(item =&gt; {"{"}
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;if (item === 'stop') return <span
                         class="text-red-400"
-                        >// only exits callback, not loop! ⚠️</span>
+                        >// only exits callback, not loop! <Mark type="warn" /></span>
                 </div>
-                <div class="font-mono text-[10px]">{"}"})</div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs">{"}"})</div>
+                <div class="font-mono text-xs mt-1">
                     <span class="text-green-400"
                         >// Use for...of if you need to break:</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     for (const item of arr) {"{"}
                 </div>
-                <div class="font-mono text-[10px]">
-                    &nbsp;&nbsp;if (item === 'stop') break ✅ <span
+                <div class="font-mono text-xs">
+                    &nbsp;&nbsp;if (item === 'stop') break <Mark type="yes" /> <span
                         class="text-gray-400">// exits loop</span>
                 </div>
-                <div class="font-mono text-[10px]">{"}"}</div>
+                <div class="font-mono text-xs">{"}"}</div>
             </div>
         </ProTip>
     </MethodCard>
@@ -392,7 +380,7 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
         description="Classic indexed loop (C-style)"
         mutates={false}
     >
-        <div class="p-4 bg-gray-800 rounded border border-gray-700">
+        <div class="p-4 rounded border-t border-rule">
             <!-- Code -->
             <div class="font-mono text-sm mb-4">
                 <span class="text-gray-400">const</span>
@@ -428,9 +416,9 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
                 </div>
 
                 <div
-                    class="p-2 bg-purple-500/10 border border-purple-500/30 rounded"
+                    class="bg-purple-900 p-2 rounded"
                 >
-                    <div class="text-purple-300 text-[10px] mb-1">
+                    <div class="text-purple-300 text-xs mb-1">
                         Iteration 1
                     </div>
                     <div class="font-mono text-sm">
@@ -438,15 +426,15 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
                             class="text-cyan-300">0</span
                         >] = <span class="text-green-300">'a'</span>
                     </div>
-                    <div class="text-gray-400 text-[10px] mt-1">
-                        // check: 0 &lt; 3 ✓, execute body, then i++
+                    <div class="text-gray-400 text-xs mt-1">
+                        // check: 0 &lt; 3 <Mark type="yes" />, execute body, then i++
                     </div>
                 </div>
 
                 <div
-                    class="p-2 bg-purple-500/10 border border-purple-500/30 rounded"
+                    class="bg-purple-900 p-2 rounded"
                 >
-                    <div class="text-purple-300 text-[10px] mb-1">
+                    <div class="text-purple-300 text-xs mb-1">
                         Iteration 2
                     </div>
                     <div class="font-mono text-sm">
@@ -454,15 +442,15 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
                             class="text-cyan-300">1</span
                         >] = <span class="text-green-300">'b'</span>
                     </div>
-                    <div class="text-gray-400 text-[10px] mt-1">
-                        // check: 1 &lt; 3 ✓, execute body, then i++
+                    <div class="text-gray-400 text-xs mt-1">
+                        // check: 1 &lt; 3 <Mark type="yes" />, execute body, then i++
                     </div>
                 </div>
 
                 <div
-                    class="p-2 bg-purple-500/10 border border-purple-500/30 rounded"
+                    class="bg-purple-900 p-2 rounded"
                 >
-                    <div class="text-purple-300 text-[10px] mb-1">
+                    <div class="text-purple-300 text-xs mb-1">
                         Iteration 3
                     </div>
                     <div class="font-mono text-sm">
@@ -470,54 +458,54 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
                             class="text-cyan-300">2</span
                         >] = <span class="text-green-300">'c'</span>
                     </div>
-                    <div class="text-gray-400 text-[10px] mt-1">
-                        // check: 2 &lt; 3 ✓, execute body, then i++
+                    <div class="text-gray-400 text-xs mt-1">
+                        // check: 2 &lt; 3 <Mark type="yes" />, execute body, then i++
                     </div>
                 </div>
 
-                <div class="mt-3 p-2 bg-gray-700/30 rounded">
+                <div class="mt-3 p-2 rounded">
                     <div class="font-mono text-sm">
                         i = <span class="text-cyan-300">3</span>
                     </div>
-                    <div class="text-gray-400 text-[10px] mt-1">
-                        // check: 3 &lt; 3 ✗, exit loop
+                    <div class="text-gray-400 text-xs mt-1">
+                        // check: 3 &lt; 3 <Mark type="no" />, exit loop
                     </div>
                 </div>
             </div>
         </div>
 
         <MutableOrNot mutates={false} message="">
-            Full control over iteration. Can break/continue. Good for complex
-            iteration patterns.
+            Full control over iteration. Supports break and continue. Good for
+            complex iteration patterns.
         </MutableOrNot>
 
         <ProTip>
-            <div>When to use classic for loop:</div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div>When to use a classic for loop:</div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     <span class="text-gray-400">// Iterate backwards</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     for (let i = arr.length - 1; i &gt;= 0; i--) {"{"} ... {"}"}
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-gray-400">// Skip elements</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     for (let i = 0; i &lt; arr.length; i += 2) {"{"} ... {"}"}
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-gray-400">// Nested loops</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     for (let i = 0; i &lt; rows; i++) {"{"}
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;for (let j = 0; j &lt; cols; j++) {"{"} ... {
                         "}"
                     }
                 </div>
-                <div class="font-mono text-[10px]">{"}"}</div>
+                <div class="font-mono text-xs">{"}"}</div>
             </div>
         </ProTip>
     </MethodCard>
@@ -530,7 +518,7 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
         description="Transform each element, return new array"
         mutates={false}
     >
-        <div class="p-4 bg-gray-800 rounded border border-gray-700">
+        <div class="p-4 rounded border-t border-rule">
             <!-- Code -->
             <div class="font-mono text-sm mb-4">
                 <span class="text-gray-400">const</span>
@@ -549,24 +537,24 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
             <!-- Iteration visualization -->
             <div class="space-y-2 text-xs">
                 <div class="text-gray-400 mb-2">
-                    Iterates through each item, transforms it:
+                    Transforms each item:
                 </div>
 
                 <div class="flex items-center gap-2">
                     <div
-                        class="w-16 p-2 bg-blue-500/10 border border-blue-500/30 rounded text-center font-mono"
+                        class="bg-blue-900 w-16 p-2 rounded text-center font-mono"
                     >
                         1
                     </div>
                     <div class="text-purple-300">→</div>
                     <div
-                        class="flex-1 p-2 bg-purple-500/10 border border-purple-500/30 rounded font-mono text-center"
+                        class="bg-purple-900 flex-1 p-2 rounded font-mono text-center"
                     >
                         <span class="text-gray-400">x * 2</span>
                     </div>
                     <div class="text-purple-300">→</div>
                     <div
-                        class="w-16 p-2 bg-green-500/10 border border-green-500/30 rounded text-center font-mono"
+                        class="bg-green-900 w-16 p-2 rounded text-center font-mono"
                     >
                         2
                     </div>
@@ -574,19 +562,19 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
 
                 <div class="flex items-center gap-2">
                     <div
-                        class="w-16 p-2 bg-blue-500/10 border border-blue-500/30 rounded text-center font-mono"
+                        class="bg-blue-900 w-16 p-2 rounded text-center font-mono"
                     >
                         2
                     </div>
                     <div class="text-purple-300">→</div>
                     <div
-                        class="flex-1 p-2 bg-purple-500/10 border border-purple-500/30 rounded font-mono text-center"
+                        class="bg-purple-900 flex-1 p-2 rounded font-mono text-center"
                     >
                         <span class="text-gray-400">x * 2</span>
                     </div>
                     <div class="text-purple-300">→</div>
                     <div
-                        class="w-16 p-2 bg-green-500/10 border border-green-500/30 rounded text-center font-mono"
+                        class="bg-green-900 w-16 p-2 rounded text-center font-mono"
                     >
                         4
                     </div>
@@ -594,19 +582,19 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
 
                 <div class="flex items-center gap-2">
                     <div
-                        class="w-16 p-2 bg-blue-500/10 border border-blue-500/30 rounded text-center font-mono"
+                        class="bg-blue-900 w-16 p-2 rounded text-center font-mono"
                     >
                         3
                     </div>
                     <div class="text-purple-300">→</div>
                     <div
-                        class="flex-1 p-2 bg-purple-500/10 border border-purple-500/30 rounded font-mono text-center"
+                        class="bg-purple-900 flex-1 p-2 rounded font-mono text-center"
                     >
                         <span class="text-gray-400">x * 2</span>
                     </div>
                     <div class="text-purple-300">→</div>
                     <div
-                        class="w-16 p-2 bg-green-500/10 border border-green-500/30 rounded text-center font-mono"
+                        class="bg-green-900 w-16 p-2 rounded text-center font-mono"
                     >
                         6
                     </div>
@@ -616,7 +604,7 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
                 <div class="mt-3 pt-3 border-t border-gray-700">
                     <div class="text-gray-400 mb-1">Returns new array:</div>
                     <div
-                        class="p-2 bg-green-500/10 border border-green-500/30 rounded font-mono text-center"
+                        class="bg-green-900 p-2 rounded font-mono text-center"
                     >
                         [2, 4, 6]
                     </div>
@@ -626,28 +614,27 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >new array</code
             > with transformed elements. Original array unchanged. Can be chained.
         </MutableOrNot>
 
         <ProTip>
             <div>
-                💡 <strong>Use map() when you need a transformed array:</strong>
+                <strong>Use map() when you need a transformed array:</strong>
             </div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
-                    const doubled = arr.map(x =&gt; x * 2) ✅
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
+                    const doubled = arr.map(x =&gt; x * 2) <Mark type="yes" />
                 </div>
-                <div class="font-mono text-[10px]">
-                    const names = users.map(u =&gt; u.name) ✅
+                <div class="font-mono text-xs">
+                    const names = users.map(u =&gt; u.name) <Mark type="yes" />
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-red-400"
                         >// Don't use map if you don't need the result:</span>
                 </div>
-                <div class="font-mono text-[10px]">
-                    arr.map(x =&gt; console.log(x)) ❌ <span
+                <div class="font-mono text-xs">
+                    arr.map(x =&gt; console.log(x)) <Mark type="no" /> <span
                         class="text-gray-400">// use forEach instead</span>
                 </div>
             </div>
@@ -662,7 +649,7 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
         description="Keep only elements that pass the test"
         mutates={false}
     >
-        <div class="p-4 bg-gray-800 rounded border border-gray-700">
+        <div class="p-4 rounded border-t border-rule">
             <!-- Code -->
             <div class="font-mono text-sm mb-4">
                 <span class="text-gray-400">const</span>
@@ -686,101 +673,101 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
 
                 <div class="flex items-center gap-2">
                     <div
-                        class="w-16 p-2 bg-blue-500/10 border border-blue-500/30 rounded text-center font-mono"
+                        class="bg-blue-900 w-16 p-2 rounded text-center font-mono"
                     >
                         1
                     </div>
                     <div class="text-purple-300">→</div>
                     <div
-                        class="flex-1 p-2 bg-purple-500/10 border border-purple-500/30 rounded font-mono text-center text-xs"
+                        class="bg-purple-900 flex-1 p-2 rounded font-mono text-center text-xs"
                     >
                         <span class="text-gray-400">1 &gt; 2?</span>
                     </div>
                     <div class="text-purple-300">→</div>
                     <div
-                        class="w-20 p-2 bg-red-500/10 border border-red-500/30 rounded text-center font-mono text-red-300"
+                        class="bg-red-900 w-20 p-2 rounded text-center font-mono text-red-300"
                     >
-                        false ✗
+                        false <Mark type="no" />
                     </div>
                 </div>
 
                 <div class="flex items-center gap-2">
                     <div
-                        class="w-16 p-2 bg-blue-500/10 border border-blue-500/30 rounded text-center font-mono"
+                        class="bg-blue-900 w-16 p-2 rounded text-center font-mono"
                     >
                         2
                     </div>
                     <div class="text-purple-300">→</div>
                     <div
-                        class="flex-1 p-2 bg-purple-500/10 border border-purple-500/30 rounded font-mono text-center text-xs"
+                        class="bg-purple-900 flex-1 p-2 rounded font-mono text-center text-xs"
                     >
                         <span class="text-gray-400">2 &gt; 2?</span>
                     </div>
                     <div class="text-purple-300">→</div>
                     <div
-                        class="w-20 p-2 bg-red-500/10 border border-red-500/30 rounded text-center font-mono text-red-300"
+                        class="bg-red-900 w-20 p-2 rounded text-center font-mono text-red-300"
                     >
-                        false ✗
+                        false <Mark type="no" />
                     </div>
                 </div>
 
                 <div class="flex items-center gap-2">
                     <div
-                        class="w-16 p-2 bg-blue-500/10 border border-blue-500/30 rounded text-center font-mono"
+                        class="bg-blue-900 w-16 p-2 rounded text-center font-mono"
                     >
                         3
                     </div>
                     <div class="text-purple-300">→</div>
                     <div
-                        class="flex-1 p-2 bg-purple-500/10 border border-purple-500/30 rounded font-mono text-center text-xs"
+                        class="bg-purple-900 flex-1 p-2 rounded font-mono text-center text-xs"
                     >
                         <span class="text-gray-400">3 &gt; 2?</span>
                     </div>
                     <div class="text-purple-300">→</div>
                     <div
-                        class="w-20 p-2 bg-green-500/10 border border-green-500/30 rounded text-center font-mono text-green-300"
+                        class="bg-green-900 w-20 p-2 rounded text-center font-mono text-green-300"
                     >
-                        true ✓
+                        true <Mark type="yes" />
                     </div>
                 </div>
 
                 <div class="flex items-center gap-2">
                     <div
-                        class="w-16 p-2 bg-blue-500/10 border border-blue-500/30 rounded text-center font-mono"
+                        class="bg-blue-900 w-16 p-2 rounded text-center font-mono"
                     >
                         4
                     </div>
                     <div class="text-purple-300">→</div>
                     <div
-                        class="flex-1 p-2 bg-purple-500/10 border border-purple-500/30 rounded font-mono text-center text-xs"
+                        class="bg-purple-900 flex-1 p-2 rounded font-mono text-center text-xs"
                     >
                         <span class="text-gray-400">4 &gt; 2?</span>
                     </div>
                     <div class="text-purple-300">→</div>
                     <div
-                        class="w-20 p-2 bg-green-500/10 border border-green-500/30 rounded text-center font-mono text-green-300"
+                        class="bg-green-900 w-20 p-2 rounded text-center font-mono text-green-300"
                     >
-                        true ✓
+                        true <Mark type="yes" />
                     </div>
                 </div>
 
                 <div class="flex items-center gap-2">
                     <div
-                        class="w-16 p-2 bg-blue-500/10 border border-blue-500/30 rounded text-center font-mono"
+                        class="bg-blue-900 w-16 p-2 rounded text-center font-mono"
                     >
                         5
                     </div>
                     <div class="text-purple-300">→</div>
                     <div
-                        class="flex-1 p-2 bg-purple-500/10 border border-purple-500/30 rounded font-mono text-center text-xs"
+                        class="bg-purple-900 flex-1 p-2 rounded font-mono text-center text-xs"
                     >
                         <span class="text-gray-400">5 &gt; 2?</span>
                     </div>
                     <div class="text-purple-300">→</div>
                     <div
-                        class="w-20 p-2 bg-green-500/10 border border-green-500/30 rounded text-center font-mono text-green-300"
+                        class="bg-green-900 w-20 p-2 rounded text-center font-mono text-green-300"
                     >
-                        true ✓
+                        true <Mark type="yes" />
                     </div>
                 </div>
 
@@ -790,7 +777,7 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
                         Returns new array (only items that passed):
                     </div>
                     <div
-                        class="p-2 bg-green-500/10 border border-green-500/30 rounded font-mono text-center"
+                        class="bg-green-900 p-2 rounded font-mono text-center"
                     >
                         [3, 4, 5]
                     </div>
@@ -800,30 +787,29 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >new array</code
             > with items that pass the test. Original array unchanged.
         </MutableOrNot>
 
         <ProTip>
-            <div>🎯 <strong>Common patterns:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div><strong>Common patterns:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     const adults = users.filter(u =&gt; u.age &gt;= 18)
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     const active = items.filter(i =&gt; i.active)
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     const truthy = arr.filter(Boolean) <span
                         class="text-gray-400">// remove falsy values</span>
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-gray-400">// Chain with map:</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     const names = users.filter(u =&gt; u.active).map(u =&gt;
-                    u.name) ✅
+                    u.name) <Mark type="yes" />
                 </div>
             </div>
         </ProTip>
@@ -837,7 +823,7 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
         description="Reduce array to a single value"
         mutates={false}
     >
-        <div class="p-4 bg-gray-800 rounded border border-gray-700">
+        <div class="p-4 rounded border-t border-rule">
             <!-- Code -->
             <div class="font-mono text-sm mb-4">
                 <span class="text-gray-400">const</span>
@@ -868,20 +854,20 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
 
                 <div class="flex items-center gap-2">
                     <div
-                        class="w-20 p-2 bg-cyan-500/10 border border-cyan-500/30 rounded text-center"
+                        class="bg-cyan-900 w-20 p-2 rounded text-center"
                     >
-                        <div class="text-[10px] text-gray-400">acc</div>
+                        <div class="text-xs text-gray-400">acc</div>
                         <div class="font-mono">0</div>
                     </div>
                     <div class="text-purple-300">+</div>
                     <div
-                        class="w-16 p-2 bg-blue-500/10 border border-blue-500/30 rounded text-center font-mono"
+                        class="bg-blue-900 w-16 p-2 rounded text-center font-mono"
                     >
                         1
                     </div>
                     <div class="text-purple-300">→</div>
                     <div
-                        class="w-20 p-2 bg-green-500/10 border border-green-500/30 rounded text-center font-mono"
+                        class="bg-green-900 w-20 p-2 rounded text-center font-mono"
                     >
                         1
                     </div>
@@ -889,20 +875,20 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
 
                 <div class="flex items-center gap-2">
                     <div
-                        class="w-20 p-2 bg-cyan-500/10 border border-cyan-500/30 rounded text-center"
+                        class="bg-cyan-900 w-20 p-2 rounded text-center"
                     >
-                        <div class="text-[10px] text-gray-400">acc</div>
+                        <div class="text-xs text-gray-400">acc</div>
                         <div class="font-mono">1</div>
                     </div>
                     <div class="text-purple-300">+</div>
                     <div
-                        class="w-16 p-2 bg-blue-500/10 border border-blue-500/30 rounded text-center font-mono"
+                        class="bg-blue-900 w-16 p-2 rounded text-center font-mono"
                     >
                         2
                     </div>
                     <div class="text-purple-300">→</div>
                     <div
-                        class="w-20 p-2 bg-green-500/10 border border-green-500/30 rounded text-center font-mono"
+                        class="bg-green-900 w-20 p-2 rounded text-center font-mono"
                     >
                         3
                     </div>
@@ -910,20 +896,20 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
 
                 <div class="flex items-center gap-2">
                     <div
-                        class="w-20 p-2 bg-cyan-500/10 border border-cyan-500/30 rounded text-center"
+                        class="bg-cyan-900 w-20 p-2 rounded text-center"
                     >
-                        <div class="text-[10px] text-gray-400">acc</div>
+                        <div class="text-xs text-gray-400">acc</div>
                         <div class="font-mono">3</div>
                     </div>
                     <div class="text-purple-300">+</div>
                     <div
-                        class="w-16 p-2 bg-blue-500/10 border border-blue-500/30 rounded text-center font-mono"
+                        class="bg-blue-900 w-16 p-2 rounded text-center font-mono"
                     >
                         3
                     </div>
                     <div class="text-purple-300">→</div>
                     <div
-                        class="w-20 p-2 bg-green-500/10 border border-green-500/30 rounded text-center font-mono"
+                        class="bg-green-900 w-20 p-2 rounded text-center font-mono"
                     >
                         6
                     </div>
@@ -931,20 +917,20 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
 
                 <div class="flex items-center gap-2">
                     <div
-                        class="w-20 p-2 bg-cyan-500/10 border border-cyan-500/30 rounded text-center"
+                        class="bg-cyan-900 w-20 p-2 rounded text-center"
                     >
-                        <div class="text-[10px] text-gray-400">acc</div>
+                        <div class="text-xs text-gray-400">acc</div>
                         <div class="font-mono">6</div>
                     </div>
                     <div class="text-purple-300">+</div>
                     <div
-                        class="w-16 p-2 bg-blue-500/10 border border-blue-500/30 rounded text-center font-mono"
+                        class="bg-blue-900 w-16 p-2 rounded text-center font-mono"
                     >
                         4
                     </div>
                     <div class="text-purple-300">→</div>
                     <div
-                        class="w-20 p-2 bg-green-500/10 border border-green-500/30 rounded text-center font-mono"
+                        class="bg-green-900 w-20 p-2 rounded text-center font-mono"
                     >
                         10
                     </div>
@@ -956,7 +942,7 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
                         Returns final accumulated value:
                     </div>
                     <div
-                        class="p-2 bg-green-500/10 border border-green-500/30 rounded font-mono text-center text-lg"
+                        class="bg-green-900 p-2 rounded font-mono text-center text-lg"
                     >
                         10
                     </div>
@@ -965,45 +951,45 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
         </div>
 
         <MutableOrNot mutates={false} message="">
-            Most powerful array method. Accumulates values into single result.
-            Can build any data structure.
+            The most flexible array method. Accumulates values into a single
+            result. Can build any data structure.
         </MutableOrNot>
 
         <ProTip>
-            <div>💪 <strong>Versatile patterns:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div><strong>Common patterns:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     <span class="text-gray-400">// Sum numbers</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     arr.reduce((sum, x) =&gt; sum + x, 0)
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-gray-400">// Count occurrences</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     arr.reduce((counts, item) =&gt; {"{"}
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;counts[item] = (counts[item] || 0) + 1
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;return counts
                 </div>
-                <div class="font-mono text-[10px]">{"}"}, {"{"}{"}"})</div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs">{"}"}, {"{"}{"}"})</div>
+                <div class="font-mono text-xs mt-1">
                     <span class="text-gray-400">// Group by property</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     users.reduce((groups, u) =&gt; {"{"}
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;(groups[u.role] ||= []).push(u)
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;return groups
                 </div>
-                <div class="font-mono text-[10px]">{"}"}, {"{"}{"}"})</div>
+                <div class="font-mono text-xs">{"}"}, {"{"}{"}"})</div>
             </div>
         </ProTip>
     </MethodCard>
@@ -1016,7 +1002,7 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
         description="Return first element that passes the test"
         mutates={false}
     >
-        <div class="p-4 bg-gray-800 rounded border border-gray-700">
+        <div class="p-4 rounded border-t border-rule">
             <!-- Code -->
             <div class="font-mono text-sm mb-4">
                 <span class="text-gray-400">const</span>
@@ -1040,61 +1026,61 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
 
                 <div class="flex items-center gap-2">
                     <div
-                        class="w-16 p-2 bg-blue-500/10 border border-blue-500/30 rounded text-center font-mono"
+                        class="bg-blue-900 w-16 p-2 rounded text-center font-mono"
                     >
                         1
                     </div>
                     <div class="text-purple-300">→</div>
                     <div
-                        class="flex-1 p-2 bg-purple-500/10 border border-purple-500/30 rounded font-mono text-center text-xs"
+                        class="bg-purple-900 flex-1 p-2 rounded font-mono text-center text-xs"
                     >
                         <span class="text-gray-400">1 &gt; 2?</span>
                     </div>
                     <div class="text-purple-300">→</div>
                     <div
-                        class="w-28 p-2 bg-red-500/10 border border-red-500/30 rounded text-center font-mono text-red-300 text-[10px]"
+                        class="bg-red-900 w-28 p-2 rounded text-center text-red-300 text-xs"
                     >
-                        false, continue
+                        <code>false</code>, continue
                     </div>
                 </div>
 
                 <div class="flex items-center gap-2">
                     <div
-                        class="w-16 p-2 bg-blue-500/10 border border-blue-500/30 rounded text-center font-mono"
+                        class="bg-blue-900 w-16 p-2 rounded text-center font-mono"
                     >
                         2
                     </div>
                     <div class="text-purple-300">→</div>
                     <div
-                        class="flex-1 p-2 bg-purple-500/10 border border-purple-500/30 rounded font-mono text-center text-xs"
+                        class="bg-purple-900 flex-1 p-2 rounded font-mono text-center text-xs"
                     >
                         <span class="text-gray-400">2 &gt; 2?</span>
                     </div>
                     <div class="text-purple-300">→</div>
                     <div
-                        class="w-28 p-2 bg-red-500/10 border border-red-500/30 rounded text-center font-mono text-red-300 text-[10px]"
+                        class="bg-red-900 w-28 p-2 rounded text-center text-red-300 text-xs"
                     >
-                        false, continue
+                        <code>false</code>, continue
                     </div>
                 </div>
 
                 <div class="flex items-center gap-2">
                     <div
-                        class="w-16 p-2 bg-blue-500/10 border border-blue-500/30 rounded text-center font-mono"
+                        class="bg-blue-900 w-16 p-2 rounded text-center font-mono"
                     >
                         3
                     </div>
                     <div class="text-purple-300">→</div>
                     <div
-                        class="flex-1 p-2 bg-purple-500/10 border border-purple-500/30 rounded font-mono text-center text-xs"
+                        class="bg-purple-900 flex-1 p-2 rounded font-mono text-center text-xs"
                     >
                         <span class="text-gray-400">3 &gt; 2?</span>
                     </div>
                     <div class="text-purple-300">→</div>
                     <div
-                        class="w-28 p-2 bg-green-500/10 border border-green-500/30 rounded text-center font-mono text-green-300 text-[10px]"
+                        class="bg-green-900 w-28 p-2 rounded text-center text-green-300 text-xs"
                     >
-                        true, STOP! ✓
+                        <code>true</code>, stop <Mark type="yes" />
                     </div>
                 </div>
 
@@ -1106,7 +1092,7 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
                     </div>
                     <div class="text-gray-500">→</div>
                     <div
-                        class="flex-1 p-2 bg-gray-500/10 border border-gray-500/30 rounded font-mono text-center text-xs"
+                        class="flex-1 p-2 bg-gray-500/10 border border-gray-500/30 rounded text-center text-xs"
                     >
                         <span class="text-gray-500">not tested</span>
                     </div>
@@ -1120,7 +1106,7 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
                     </div>
                     <div class="text-gray-500">→</div>
                     <div
-                        class="flex-1 p-2 bg-gray-500/10 border border-gray-500/30 rounded font-mono text-center text-xs"
+                        class="flex-1 p-2 bg-gray-500/10 border border-gray-500/30 rounded text-center text-xs"
                     >
                         <span class="text-gray-500">not tested</span>
                     </div>
@@ -1132,11 +1118,11 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
                         Returns first matching element:
                     </div>
                     <div
-                        class="p-2 bg-green-500/10 border border-green-500/30 rounded font-mono text-center text-lg"
+                        class="bg-green-900 p-2 rounded font-mono text-center text-lg"
                     >
                         3
                     </div>
-                    <div class="text-gray-400 text-[10px] text-center mt-1">
+                    <div class="text-gray-400 text-xs text-center mt-1">
                         (or <code class="text-yellow-300">undefined</code> if no
                         match)
                     </div>
@@ -1146,28 +1132,26 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >first matching element</code
             > or <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >undefined</code
-            >. Stops after first match (efficient).
+            >. Stops at the first match and skips the rest.
         </MutableOrNot>
 
         <ProTip>
-            <div>🔍 <strong>Finding items:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div><strong>Finding items:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     const user = users.find(u =&gt; u.id === 123)
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     const first = arr.find(x =&gt; x &gt; 10)
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-gray-400"
                         >// Use findIndex() if you need the position:</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     const idx = arr.findIndex(x =&gt; x &gt; 10) <span
                         class="text-gray-400">// returns -1 if not found</span>
                 </div>
@@ -1180,10 +1164,10 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
         id="some-every"
         methodName="some() / every()"
         signature="arr.some(item => boolean) / arr.every(item => boolean)"
-        description="Test if any/all elements pass the test"
+        description="Check if any or all elements pass the test"
         mutates={false}
     >
-        <div class="p-4 bg-gray-800 rounded border border-gray-700 space-y-6">
+        <div class="p-4 rounded space-y-6 border-t border-rule">
             <!-- SOME -->
             <div>
                 <div class="font-mono text-sm mb-3">
@@ -1200,18 +1184,18 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
 
                 <div class="space-y-2 text-xs mb-3">
                     <div class="text-cyan-300 font-bold mb-1">
-                        some() - Is ANY item true?
+                        some() - is any item true?
                     </div>
 
                     <div class="flex items-center gap-2">
                         <div
-                            class="w-16 p-2 bg-blue-500/10 border border-blue-500/30 rounded text-center font-mono"
+                            class="bg-blue-900 w-16 p-2 rounded text-center font-mono"
                         >
                             1
                         </div>
                         <div class="text-gray-400">→ 1 &gt; 2?</div>
                         <div
-                            class="w-20 p-2 bg-red-500/10 border border-red-500/30 rounded text-center font-mono text-red-300 text-[10px]"
+                            class="bg-red-900 w-20 p-2 rounded text-center font-mono text-red-300 text-xs"
                         >
                             false
                         </div>
@@ -1219,13 +1203,13 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
 
                     <div class="flex items-center gap-2">
                         <div
-                            class="w-16 p-2 bg-blue-500/10 border border-blue-500/30 rounded text-center font-mono"
+                            class="bg-blue-900 w-16 p-2 rounded text-center font-mono"
                         >
                             2
                         </div>
                         <div class="text-gray-400">→ 2 &gt; 2?</div>
                         <div
-                            class="w-20 p-2 bg-red-500/10 border border-red-500/30 rounded text-center font-mono text-red-300 text-[10px]"
+                            class="bg-red-900 w-20 p-2 rounded text-center font-mono text-red-300 text-xs"
                         >
                             false
                         </div>
@@ -1233,23 +1217,23 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
 
                     <div class="flex items-center gap-2">
                         <div
-                            class="w-16 p-2 bg-blue-500/10 border border-blue-500/30 rounded text-center font-mono"
+                            class="bg-blue-900 w-16 p-2 rounded text-center font-mono"
                         >
                             3
                         </div>
                         <div class="text-gray-400">→ 3 &gt; 2?</div>
                         <div
-                            class="w-20 p-2 bg-green-500/10 border border-green-500/30 rounded text-center font-mono text-green-300 text-[10px]"
+                            class="bg-green-900 w-20 p-2 rounded text-center font-mono text-green-300 text-xs"
                         >
-                            true ✓
+                            true <Mark type="yes" />
                         </div>
                     </div>
                 </div>
 
                 <div
-                    class="p-2 bg-green-500/10 border border-green-500/30 rounded font-mono text-center text-green-300"
+                    class="bg-green-900 p-2 rounded font-mono text-center text-green-300"
                 >
-                    → true <span class="text-gray-400 text-[10px]"
+                    → true <span class="text-gray-400 text-xs"
                         >(at least one passed)</span
                     >
                 </div>
@@ -1273,20 +1257,20 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
 
                 <div class="space-y-2 text-xs mb-3">
                     <div class="text-purple-300 font-bold mb-1">
-                        every() - Are ALL items true?
+                        every() - are all items true?
                     </div>
 
                     <div class="flex items-center gap-2">
                         <div
-                            class="w-16 p-2 bg-blue-500/10 border border-blue-500/30 rounded text-center font-mono"
+                            class="bg-blue-900 w-16 p-2 rounded text-center font-mono"
                         >
                             1
                         </div>
                         <div class="text-gray-400">→ 1 &gt; 2?</div>
                         <div
-                            class="w-20 p-2 bg-red-500/10 border border-red-500/30 rounded text-center font-mono text-red-300 text-[10px]"
+                            class="bg-red-900 w-20 p-2 rounded text-center font-mono text-red-300 text-xs"
                         >
-                            false ✗
+                            false <Mark type="no" />
                         </div>
                     </div>
 
@@ -1314,9 +1298,9 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
                 </div>
 
                 <div
-                    class="p-2 bg-red-500/10 border border-red-500/30 rounded font-mono text-center text-red-300"
+                    class="bg-red-900 p-2 rounded font-mono text-center text-red-300"
                 >
-                    → false <span class="text-gray-400 text-[10px]"
+                    → false <span class="text-gray-400 text-xs"
                         >(not all passed)</span
                     >
                 </div>
@@ -1326,28 +1310,28 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
         <MutableOrNot mutates={false} message="">
             <div>
                 <strong>some():</strong> true if <strong>any</strong> element passes
-                (OR logic)
+                (logical 'or')
             </div>
             <div>
                 <strong>every():</strong> true if <strong>all</strong> elements pass
-                (AND logic)
+                (logical 'and')
             </div>
-            Both short-circuit (stop early when result is determined).
+            Both short-circuit. They stop as soon as the result is known.
         </MutableOrNot>
 
         <ProTip>
-            <div>✅ <strong>Validation patterns:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div><Mark type="yes" /> <strong>Validation patterns:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     const hasAdmin = users.some(u =&gt; u.role === 'admin')
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     const allActive = users.every(u =&gt; u.active)
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     const anyNegative = numbers.some(n =&gt; n &lt; 0)
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     const allValid = forms.every(f =&gt; f.isValid())
                 </div>
             </div>
@@ -1359,10 +1343,10 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
         id="findIndex"
         methodName="findIndex()"
         signature="arr.findIndex(item => boolean)"
-        description="Returns index of first matching element, or -1"
+        description="Return the index of the first match, or -1"
         mutates={false}
     >
-        <div class="p-4 bg-gray-800 rounded border border-gray-700">
+        <div class="p-4 rounded border-t border-rule">
             <!-- Code -->
             <div class="font-mono text-sm mb-4">
                 <span class="text-gray-400">const</span>
@@ -1397,23 +1381,23 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
             <!-- Flow visualization -->
             <div class="space-y-2 text-xs">
                 <div class="text-gray-400 mb-2">
-                    Tests each item until match found, returns index:
+                    Tests each item until one matches, then returns its index:
                 </div>
 
                 <div class="flex items-center gap-2">
                     <div
-                        class="w-12 p-1.5 bg-cyan-500/10 border border-cyan-500/30 rounded text-center font-mono text-[10px]"
+                        class="bg-cyan-900 w-12 p-1.5 rounded text-center font-mono text-xs"
                     >
                         i = 0
                     </div>
                     <div
-                        class="flex-1 p-2 bg-blue-500/10 border border-blue-500/30 rounded font-mono text-sm"
+                        class="bg-blue-900 flex-1 p-2 rounded font-mono text-sm"
                     >
                         {"{"}id: 10{"}"}
                     </div>
                     <div class="text-gray-400">→ 10 === 20?</div>
                     <div
-                        class="w-16 p-2 bg-red-500/10 border border-red-500/30 rounded text-center font-mono text-red-300 text-[10px]"
+                        class="bg-red-900 w-16 p-2 rounded text-center font-mono text-red-300 text-xs"
                     >
                         false
                     </div>
@@ -1421,26 +1405,26 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
 
                 <div class="flex items-center gap-2">
                     <div
-                        class="w-12 p-1.5 bg-cyan-500/10 border border-cyan-500/30 rounded text-center font-mono text-[10px]"
+                        class="bg-cyan-900 w-12 p-1.5 rounded text-center font-mono text-xs"
                     >
                         i = 1
                     </div>
                     <div
-                        class="flex-1 p-2 bg-blue-500/10 border border-blue-500/30 rounded font-mono text-sm"
+                        class="bg-blue-900 flex-1 p-2 rounded font-mono text-sm"
                     >
                         {"{"}id: 20{"}"}
                     </div>
                     <div class="text-gray-400">→ 20 === 20?</div>
                     <div
-                        class="w-16 p-2 bg-green-500/10 border border-green-500/30 rounded text-center font-mono text-green-300 text-[10px]"
+                        class="bg-green-900 w-16 p-2 rounded text-center font-mono text-green-300 text-xs"
                     >
-                        true ✓
+                        true <Mark type="yes" />
                     </div>
                 </div>
 
                 <div class="flex items-center gap-2 opacity-40">
                     <div
-                        class="w-12 p-1.5 bg-gray-500/10 border border-gray-500/30 rounded text-center font-mono text-[10px]"
+                        class="w-12 p-1.5 bg-gray-500/10 border border-gray-500/30 rounded text-center font-mono text-xs"
                     >
                         i = 2
                     </div>
@@ -1453,12 +1437,12 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
                 </div>
 
                 <div
-                    class="mt-3 p-3 bg-green-500/10 border border-green-500/30 rounded text-center"
+                    class="bg-green-900 mt-3 p-3 rounded text-center"
                 >
                     <div class="font-mono text-lg text-green-300 font-bold">
                         → 1
                     </div>
-                    <div class="text-gray-400 text-[10px] mt-1">
+                    <div class="text-gray-400 text-xs mt-1">
                         (index of matching element)
                     </div>
                 </div>
@@ -1471,26 +1455,26 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
         </MutableOrNot>
 
         <ProTip>
-            <div>🎯 <strong>Common use cases:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div><strong>Common use cases:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     <span class="text-gray-400"
                         >// Remove item by condition</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     const idx = arr.findIndex(x =&gt; x.id === targetId)
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     if (idx !== -1) arr.splice(idx, 1)
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-gray-400"
                         >// Update item by condition</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     const idx = users.findIndex(u =&gt; u.id === 123)
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     if (idx !== -1) users[idx].active = true
                 </div>
             </div>
@@ -1502,10 +1486,10 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
         id="flatMap"
         methodName="flatMap()"
         signature="arr.flatMap(item => [...result])"
-        description="Maps then flattens result one level"
+        description="Map, then flatten the result one level"
         mutates={false}
     >
-        <div class="p-4 bg-gray-800 rounded border border-gray-700">
+        <div class="p-4 rounded border-t border-rule">
             <!-- Code -->
             <div class="font-mono text-sm mb-4">
                 <span class="text-gray-400">const</span>
@@ -1534,57 +1518,57 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
             <!-- Flow visualization -->
             <div class="space-y-2 text-xs">
                 <div class="text-gray-400 mb-2">
-                    Map each item to array, then flatten one level:
+                    Maps each item to an array, then flattens one level:
                 </div>
 
                 <div
-                    class="p-2 bg-blue-500/10 border border-blue-500/30 rounded"
+                    class="bg-blue-900 p-2 rounded"
                 >
                     <div class="font-mono text-sm">
                         {"{"}name: 'Alice', pets: <span class="text-orange-300"
                             >['dog', 'cat']</span
                         >{"}"}
                     </div>
-                    <div class="text-gray-400 text-[10px] mt-1">
+                    <div class="text-gray-400 text-xs mt-1">
                         → map: <span class="text-purple-300"
                             >['dog', 'cat']</span>
                     </div>
                 </div>
 
                 <div
-                    class="p-2 bg-blue-500/10 border border-blue-500/30 rounded"
+                    class="bg-blue-900 p-2 rounded"
                 >
                     <div class="font-mono text-sm">
                         {"{"}name: 'Bob', pets: <span class="text-orange-300"
                             >['fish']</span
                         >{"}"}
                     </div>
-                    <div class="text-gray-400 text-[10px] mt-1">
+                    <div class="text-gray-400 text-xs mt-1">
                         → map: <span class="text-purple-300">['fish']</span>
                     </div>
                 </div>
 
                 <div
-                    class="p-2 bg-purple-500/10 border border-purple-500/30 rounded"
+                    class="bg-purple-900 p-2 rounded"
                 >
-                    <div class="text-gray-400 text-[10px] mb-1">
+                    <div class="text-gray-400 text-xs mb-1">
                         Before flatten: <span class="text-purple-300"
                             >[['dog', 'cat'], ['fish']]</span>
                     </div>
-                    <div class="text-gray-400 text-[10px]">
+                    <div class="text-gray-400 text-xs">
                         After flatten: <span class="text-green-300"
                             >['dog', 'cat', 'fish']</span>
                     </div>
                 </div>
 
                 <div
-                    class="mt-3 p-3 bg-green-500/10 border border-green-500/30 rounded"
+                    class="bg-green-900 mt-3 p-3 rounded"
                 >
                     <div class="font-mono text-sm text-green-300">
                         → <span class="text-orange-300"
                             >['dog', 'cat', 'fish']</span>
                     </div>
-                    <div class="text-gray-400 text-[10px] mt-1">
+                    <div class="text-gray-400 text-xs mt-1">
                         All pets in one flat array
                     </div>
                 </div>
@@ -1593,33 +1577,32 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
 
         <MutableOrNot mutates={false} message="">
             Equivalent to <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >.map().flat()</code
-            > but more efficient. Great for extracting nested arrays.
+            >, but more efficient. Use it to extract nested arrays.
         </MutableOrNot>
 
         <ProTip>
-            <div>🚀 <strong>Common patterns:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div><strong>Common patterns:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     <span class="text-gray-400"
                         >// Extract all tags from posts</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     const allTags = posts.flatMap(p =&gt; p.tags)
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-gray-400"
                         >// Split strings and flatten</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     const words = sentences.flatMap(s =&gt; s.split(' '))
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-gray-400"
                         >// Filter + map in one step</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     const evens = arr.flatMap(x =&gt; x % 2 === 0 ? [x * 2] :
                     [])
                 </div>
@@ -1635,7 +1618,7 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
         description="Reduce from right to left (reverse order)"
         mutates={false}
     >
-        <div class="p-4 bg-gray-800 rounded border border-gray-700">
+        <div class="p-4 rounded border-t border-rule">
             <!-- Code -->
             <div class="font-mono text-sm mb-4">
                 <span class="text-gray-400">const</span>
@@ -1663,53 +1646,53 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
 
                 <div class="flex items-center gap-2">
                     <div
-                        class="p-2 bg-gray-700/50 border border-gray-600 rounded font-mono text-xs"
+                        class="p-2 rounded font-mono text-xs border-t border-rule"
                     >
                         Start: <span class="text-green-300">acc = 0</span>
                     </div>
                 </div>
 
                 <div
-                    class="p-2 bg-blue-500/10 border border-blue-500/30 rounded"
+                    class="bg-blue-900 p-2 rounded"
                 >
-                    <div class="font-mono text-[10px]">
-                        4️⃣ <span class="text-yellow-300">num = 4</span> → <span
+                    <div class="font-mono text-xs">
+                        <span class="text-yellow-300">num = 4</span> → <span
                             class="text-cyan-300">acc = 0 + 4 = 4</span>
                     </div>
                 </div>
 
                 <div
-                    class="p-2 bg-blue-500/10 border border-blue-500/30 rounded"
+                    class="bg-blue-900 p-2 rounded"
                 >
-                    <div class="font-mono text-[10px]">
-                        3️⃣ <span class="text-yellow-300">num = 3</span> → <span
+                    <div class="font-mono text-xs">
+                        <span class="text-yellow-300">num = 3</span> → <span
                             class="text-cyan-300">acc = 4 + 3 = 7</span>
                     </div>
                 </div>
 
                 <div
-                    class="p-2 bg-blue-500/10 border border-blue-500/30 rounded"
+                    class="bg-blue-900 p-2 rounded"
                 >
-                    <div class="font-mono text-[10px]">
-                        2️⃣ <span class="text-yellow-300">num = 2</span> → <span
+                    <div class="font-mono text-xs">
+                        <span class="text-yellow-300">num = 2</span> → <span
                             class="text-cyan-300">acc = 7 + 2 = 9</span>
                     </div>
                 </div>
 
                 <div
-                    class="p-2 bg-blue-500/10 border border-blue-500/30 rounded"
+                    class="bg-blue-900 p-2 rounded"
                 >
-                    <div class="font-mono text-[10px]">
-                        1️⃣ <span class="text-yellow-300">num = 1</span> → <span
+                    <div class="font-mono text-xs">
+                        <span class="text-yellow-300">num = 1</span> → <span
                             class="text-cyan-300">acc = 9 + 1 = 10</span>
                     </div>
                 </div>
 
                 <div
-                    class="mt-3 p-3 bg-green-500/10 border border-green-500/30 rounded"
+                    class="bg-green-900 mt-3 p-3 rounded"
                 >
                     <div class="font-mono text-sm text-green-300">→ 10</div>
-                    <div class="text-gray-400 text-[10px] mt-1">
+                    <div class="text-gray-400 text-xs mt-1">
                         Final accumulated value
                     </div>
                 </div>
@@ -1718,32 +1701,31 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
 
         <MutableOrNot mutates={false} message="">
             Same as <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >.reduce()</code
             > but iterates from last to first element.
         </MutableOrNot>
 
         <ProTip>
-            <div>📚 <strong>When to use reduceRight:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div><strong>When to use reduceRight:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     <span class="text-gray-400"
                         >// Building strings in reverse</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     ['a', 'b', 'c'].reduceRight((acc, c) =&gt; acc + c) <span
                         class="text-gray-400">// 'cba'</span>
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-gray-400"
                         >// Processing nested structures from inside out</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     ['div', 'span', 'p'].reduceRight((acc, tag) =&gt; `&lt;${
                         "{"
                     }tag{"}"}&gt;${"{"}acc{"}"}&lt;/${"{"}tag{"}"}&gt;`, 'text')
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     <span class="text-gray-400"
                         >// →
                         '&lt;div&gt;&lt;span&gt;&lt;p&gt;text&lt;/p&gt;&lt;/span&gt;&lt;/div&gt;'</span>
@@ -1755,12 +1737,12 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
     <!-- NESTED LOOPS -->
     <MethodCard
         id="nested-loops"
-        methodName="Nested Loops"
+        methodName="Nested loops"
         signature="for (item of arr1) { for (item2 of arr2) { } }"
         description="Loop inside another loop (grid patterns, combinations)"
         mutates={false}
     >
-        <div class="p-4 bg-gray-800 rounded border border-gray-700">
+        <div class="p-4 rounded border-t border-rule">
             <!-- Code -->
             <div class="font-mono text-sm mb-4">
                 <span class="text-gray-400">const</span>
@@ -1801,77 +1783,77 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
             <!-- Flow visualization -->
             <div class="space-y-2 text-xs">
                 <div class="text-gray-400 mb-2">
-                    Outer loop × Inner loop = All combinations:
+                    Outer loop × inner loop = all combinations:
                 </div>
 
                 <div class="space-y-3">
                     <div
-                        class="p-2 bg-cyan-500/10 border border-cyan-500/30 rounded"
+                        class="bg-cyan-900 p-2 rounded"
                     >
-                        <div class="text-cyan-300 font-bold text-[10px] mb-2">
-                            Outer Loop - Iteration 1
+                        <div class="text-cyan-300 font-bold text-xs mb-2">
+                            Outer loop - iteration 1
                         </div>
-                        <div class="font-mono text-[10px]">
+                        <div class="font-mono text-xs">
                             <span class="text-cyan-300">row = [1, 2]</span>
                         </div>
                         <div
-                            class="ml-4 mt-2 space-y-1 border-l-2 border-yellow-500/30 pl-2"
+                            class="ml-4 mt-2 space-y-1 border-l border-rule pl-2"
                         >
-                            <div class="text-yellow-300 text-[10px]">
-                                Inner Loop:
+                            <div class="text-yellow-300 text-xs">
+                                Inner loop:
                             </div>
-                            <div class="font-mono text-[10px]">
+                            <div class="font-mono text-xs">
                                 num = 1 → console.log(1)
                             </div>
-                            <div class="font-mono text-[10px]">
+                            <div class="font-mono text-xs">
                                 num = 2 → console.log(2)
                             </div>
                         </div>
                     </div>
 
                     <div
-                        class="p-2 bg-cyan-500/10 border border-cyan-500/30 rounded"
+                        class="bg-cyan-900 p-2 rounded"
                     >
-                        <div class="text-cyan-300 font-bold text-[10px] mb-2">
-                            Outer Loop - Iteration 2
+                        <div class="text-cyan-300 font-bold text-xs mb-2">
+                            Outer loop - iteration 2
                         </div>
-                        <div class="font-mono text-[10px]">
+                        <div class="font-mono text-xs">
                             <span class="text-cyan-300">row = [3, 4]</span>
                         </div>
                         <div
-                            class="ml-4 mt-2 space-y-1 border-l-2 border-yellow-500/30 pl-2"
+                            class="ml-4 mt-2 space-y-1 border-l border-rule pl-2"
                         >
-                            <div class="text-yellow-300 text-[10px]">
-                                Inner Loop:
+                            <div class="text-yellow-300 text-xs">
+                                Inner loop:
                             </div>
-                            <div class="font-mono text-[10px]">
+                            <div class="font-mono text-xs">
                                 num = 3 → console.log(3)
                             </div>
-                            <div class="font-mono text-[10px]">
+                            <div class="font-mono text-xs">
                                 num = 4 → console.log(4)
                             </div>
                         </div>
                     </div>
 
                     <div
-                        class="p-2 bg-cyan-500/10 border border-cyan-500/30 rounded"
+                        class="bg-cyan-900 p-2 rounded"
                     >
-                        <div class="text-cyan-300 font-bold text-[10px] mb-2">
-                            Outer Loop - Iteration 3
+                        <div class="text-cyan-300 font-bold text-xs mb-2">
+                            Outer loop - iteration 3
                         </div>
-                        <div class="font-mono text-[10px]">
+                        <div class="font-mono text-xs">
                             <span class="text-cyan-300">row = [5, 6]</span>
                         </div>
                         <div
-                            class="ml-4 mt-2 space-y-1 border-l-2 border-yellow-500/30 pl-2"
+                            class="ml-4 mt-2 space-y-1 border-l border-rule pl-2"
                         >
-                            <div class="text-yellow-300 text-[10px]">
-                                Inner Loop:
+                            <div class="text-yellow-300 text-xs">
+                                Inner loop:
                             </div>
-                            <div class="font-mono text-[10px]">
+                            <div class="font-mono text-xs">
                                 num = 5 → console.log(5)
                             </div>
-                            <div class="font-mono text-[10px]">
+                            <div class="font-mono text-xs">
                                 num = 6 → console.log(6)
                             </div>
                         </div>
@@ -1879,13 +1861,13 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
                 </div>
 
                 <div
-                    class="mt-3 p-3 bg-green-500/10 border border-green-500/30 rounded"
+                    class="bg-green-900 mt-3 p-3 rounded"
                 >
-                    <div class="text-gray-400 text-[10px]">
+                    <div class="text-gray-400 text-xs">
                         Output: <span class="text-green-300"
                             >1, 2, 3, 4, 5, 6</span>
                     </div>
-                    <div class="text-gray-400 text-[10px] mt-1">
+                    <div class="text-gray-400 text-xs mt-1">
                         Inner loop completes fully before outer loop continues
                     </div>
                 </div>
@@ -1893,45 +1875,45 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
         </div>
 
         <MutableOrNot mutates={false} message="">
-            Outer loop runs N times, inner loop runs M times → Total iterations
+            Outer loop runs N times, inner loop runs M times → total iterations
             = N × M
         </MutableOrNot>
 
         <ProTip>
-            <div>⚠️ <strong>Common patterns & gotchas:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div><Mark type="warn" /> <strong>Common patterns & gotchas:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     <span class="text-gray-400">// Matrix/Grid traversal</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     for (let i = 0; i &lt; rows; i++) {"{"}
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;for (let j = 0; j &lt; cols; j++) {"{"}
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;&nbsp;&nbsp;grid[i][j]
                 </div>
-                <div class="font-mono text-[10px]">&nbsp;&nbsp;{"}"}</div>
-                <div class="font-mono text-[10px]">{"}"}</div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs">&nbsp;&nbsp;{"}"}</div>
+                <div class="font-mono text-xs">{"}"}</div>
+                <div class="font-mono text-xs mt-1">
                     <span class="text-gray-400">// All pairs/combinations</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     for (const a of arr1) {"{"}
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;for (const b of arr2) {"{"}
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;&nbsp;&nbsp;console.log(a, b) <span
                         class="text-gray-400">// every combo</span>
                 </div>
-                <div class="font-mono text-[10px]">&nbsp;&nbsp;{"}"}</div>
-                <div class="font-mono text-[10px]">{"}"}</div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs">&nbsp;&nbsp;{"}"}</div>
+                <div class="font-mono text-xs">{"}"}</div>
+                <div class="font-mono text-xs mt-1">
                     <span class="text-red-400"
-                        >// ⚠️ Watch time complexity: O(n²) or O(n³)</span>
+                        >// <Mark type="warn" /> Watch time complexity: O(n²) or O(n³)</span>
                 </div>
             </div>
         </ProTip>
@@ -1942,10 +1924,10 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
         id="for-await-of"
         methodName="for await...of"
         signature="for await (const item of asyncIterable) { }"
-        description="Loop over async iterables (promises, streams)"
+        description="Loop over async iterables (streams) or iterables of promises"
         mutates={false}
     >
-        <div class="p-4 bg-gray-800 rounded border border-gray-700">
+        <div class="p-4 rounded border-t border-rule">
             <!-- Code -->
             <div class="font-mono text-sm mb-4">
                 <span class="text-gray-400">const</span>
@@ -1991,112 +1973,112 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
             <!-- Flow visualization -->
             <div class="space-y-2 text-xs">
                 <div class="text-gray-400 mb-2">
-                    Waits for each promise to resolve in sequence:
+                    The fetches all start at once in <code>.map()</code>. The
+                    loop awaits each result in order:
                 </div>
 
                 <div
-                    class="p-2 bg-blue-500/10 border border-blue-500/30 rounded"
+                    class="bg-blue-900 p-2 rounded"
                 >
-                    <div class="text-blue-300 text-[10px] mb-1">
+                    <div class="text-blue-300 text-xs mb-1">
                         Step 1: Wait for first promise
                     </div>
-                    <div class="font-mono text-[10px]">
+                    <div class="font-mono text-xs">
                         fetch('url1') → response → data
                     </div>
-                    <div class="text-gray-400 text-[10px] mt-1">
-                        ⏳ Awaits completion, then continues
+                    <div class="text-gray-400 text-xs mt-1">
+                        Awaits completion, then continues
                     </div>
                 </div>
 
                 <div
-                    class="p-2 bg-blue-500/10 border border-blue-500/30 rounded"
+                    class="bg-blue-900 p-2 rounded"
                 >
-                    <div class="text-blue-300 text-[10px] mb-1">
+                    <div class="text-blue-300 text-xs mb-1">
                         Step 2: Wait for second promise
                     </div>
-                    <div class="font-mono text-[10px]">
+                    <div class="font-mono text-xs">
                         fetch('url2') → response → data
                     </div>
-                    <div class="text-gray-400 text-[10px] mt-1">
-                        ⏳ Awaits completion, then continues
+                    <div class="text-gray-400 text-xs mt-1">
+                        Awaits completion, then continues
                     </div>
                 </div>
 
                 <div
-                    class="p-2 bg-blue-500/10 border border-blue-500/30 rounded"
+                    class="bg-blue-900 p-2 rounded"
                 >
-                    <div class="text-blue-300 text-[10px] mb-1">
+                    <div class="text-blue-300 text-xs mb-1">
                         Step 3: Wait for third promise
                     </div>
-                    <div class="font-mono text-[10px]">
+                    <div class="font-mono text-xs">
                         fetch('url3') → response → data
                     </div>
-                    <div class="text-gray-400 text-[10px] mt-1">
-                        ⏳ Awaits completion, then continues
+                    <div class="text-gray-400 text-xs mt-1">
+                        Awaits completion, then continues
                     </div>
                 </div>
 
                 <div
-                    class="mt-3 p-3 bg-green-500/10 border border-green-500/30 rounded"
+                    class="bg-green-900 mt-3 p-3 rounded"
                 >
-                    <div class="text-gray-400 text-[10px]">
-                        All async operations processed in order
+                    <div class="text-gray-400 text-xs">
+                        Results are handled in order
                     </div>
-                    <div class="text-green-300 text-[10px] mt-1">
-                        ✅ Handles async/await in loops cleanly
+                    <div class="text-green-300 text-xs mt-1">
+                        <Mark type="yes" /> Handles async/await in loops cleanly
                     </div>
                 </div>
             </div>
         </div>
 
         <MutableOrNot mutates={false} message="">
-            Must be used inside an <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+            Works inside an <code
                 >async</code
-            > function. Processes promises sequentially.
+            > function or at the top level of an ES module. Awaits each
+            promise in order.
         </MutableOrNot>
 
         <ProTip>
-            <div>⚡ <strong>Sequential vs Parallel:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div><strong>Awaiting in order vs all at once:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     <span class="text-gray-400"
-                        >// Sequential (one at a time) - for await...of</span>
+                        >// In order (one at a time) - for await...of</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     for await (const res of promises) {"{"}
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;<span class="text-gray-400"
                         >// waits for each before next</span>
                 </div>
-                <div class="font-mono text-[10px]">{"}"}</div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs">{"}"}</div>
+                <div class="font-mono text-xs mt-1">
                     <span class="text-gray-400"
-                        >// Parallel (all at once) - Promise.all</span>
+                        >// All at once - Promise.all</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     const results = await Promise.all(promises)
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     <span class="text-gray-400"
-                        >// all start immediately, wait for all to finish</span>
+                        >// waits for all to finish</span>
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-green-400"
-                        >// Use Promise.all() when order doesn't matter & want
-                        speed ⚡</span>
+                        >// Use Promise.all() when you need all results together</span>
                 </div>
             </div>
         </ProTip>
     </MethodCard>
 
     <!-- ============================================ -->
-    <!-- 🔑 OBJECT LOOPS -->
+    <!-- OBJECT LOOPS -->
     <!-- ============================================ -->
 
     <SectionTitle id="object-loops" color="purple">
-        🔑 Object Loops
+        Object loops
     </SectionTitle>
 
     <!-- FOR...IN -->
@@ -2107,7 +2089,7 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
         description="Loop over object keys (includes inherited)"
         mutates={false}
     >
-        <div class="p-4 bg-gray-800 rounded border border-gray-700">
+        <div class="p-4 rounded border-t border-rule">
             <!-- Code -->
             <div class="font-mono text-sm mb-4">
                 <span class="text-gray-400">const</span>
@@ -2140,7 +2122,7 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
                 <div class="text-gray-400 mb-2">Iterates over each key:</div>
 
                 <div
-                    class="p-2 bg-blue-500/10 border border-blue-500/30 rounded"
+                    class="bg-blue-900 p-2 rounded"
                 >
                     <div class="font-mono text-sm">
                         obj = <span class="text-orange-300"
@@ -2149,30 +2131,30 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
                 </div>
 
                 <div
-                    class="p-2 bg-purple-500/10 border border-purple-500/30 rounded"
+                    class="bg-purple-900 p-2 rounded"
                 >
                     <div class="font-mono text-sm">
                         key = <span class="text-cyan-300">'name'</span>
                     </div>
-                    <div class="text-gray-400 text-[10px] mt-1">
+                    <div class="text-gray-400 text-xs mt-1">
                         obj['name'] → <span class="text-green-300"
                             >'Alice'</span>
                     </div>
                 </div>
 
                 <div
-                    class="p-2 bg-purple-500/10 border border-purple-500/30 rounded"
+                    class="bg-purple-900 p-2 rounded"
                 >
                     <div class="font-mono text-sm">
                         key = <span class="text-cyan-300">'age'</span>
                     </div>
-                    <div class="text-gray-400 text-[10px] mt-1">
+                    <div class="text-gray-400 text-xs mt-1">
                         obj['age'] → <span class="text-green-300">30</span>
                     </div>
                 </div>
 
                 <div
-                    class="mt-3 p-2 bg-green-500/10 border border-green-500/30 rounded text-center"
+                    class="bg-green-900 mt-3 p-2 rounded text-center"
                 >
                     <div class="text-green-300 font-bold">
                         Iterated over all keys
@@ -2182,51 +2164,51 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
         </div>
 
         <MutableOrNot mutates={false} message="">
-            ⚠️ Includes inherited properties from prototype chain. <strong
+            <Mark type="warn" /> Includes inherited properties from the prototype chain. <strong
                 >Always guard with Object.hasOwn().</strong
             >
         </MutableOrNot>
 
         <ProTip>
-            <div>⚠️ <strong>The inherited properties problem:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div><Mark type="warn" /> <strong>The inherited properties problem:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     const obj = {"{"}name: 'Alice', age: 30{"}"}
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     Object.prototype.debug = true <span class="text-red-400"
                         >// added to ALL objects</span>
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     for (const key in obj) {"{"}
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;console.log(key) <span class="text-red-400"
-                        >// 'name', 'age', 'debug' ❌</span>
+                        >// 'name', 'age', 'debug' <Mark type="no" /></span>
                 </div>
-                <div class="font-mono text-[10px]">{"}"}</div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs">{"}"}</div>
+                <div class="font-mono text-xs mt-1">
                     <span class="text-green-400"
                         >// Fix: Use hasOwn() to skip inherited properties</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     for (const key in obj) {"{"}
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;if (Object.hasOwn(obj, key)) {"{"}
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;&nbsp;&nbsp;console.log(key) <span
-                        class="text-green-400">// 'name', 'age' ✅</span>
+                        class="text-green-400">// 'name', 'age' <Mark type="yes" /></span>
                 </div>
-                <div class="font-mono text-[10px]">&nbsp;&nbsp;{"}"}</div>
-                <div class="font-mono text-[10px]">{"}"}</div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs">&nbsp;&nbsp;{"}"}</div>
+                <div class="font-mono text-xs">{"}"}</div>
+                <div class="font-mono text-xs mt-1">
                     <span class="text-green-400"
                         >// Better: Object.keys() automatically skips inherited:</span>
                 </div>
-                <div class="font-mono text-[10px]">
-                    Object.keys(obj).forEach(key =&gt; {"{"} ... {"}"}) ✅
+                <div class="font-mono text-xs">
+                    Object.keys(obj).forEach(key =&gt; {"{"} ... {"}"}) <Mark type="yes" />
                 </div>
             </div>
         </ProTip>
@@ -2240,7 +2222,7 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
         description="Loop over own keys only (modern, safe)"
         mutates={false}
     >
-        <div class="p-4 bg-gray-800 rounded border border-gray-700">
+        <div class="p-4 rounded border-t border-rule">
             <!-- Code -->
             <div class="font-mono text-sm mb-4">
                 <span class="text-gray-400">const</span>
@@ -2273,7 +2255,7 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
                 </div>
 
                 <div
-                    class="p-2 bg-blue-500/10 border border-blue-500/30 rounded"
+                    class="bg-blue-900 p-2 rounded"
                 >
                     <div class="font-mono text-sm">
                         Object.keys(obj) → <span class="text-cyan-300"
@@ -2282,43 +2264,43 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
                 </div>
 
                 <div
-                    class="p-2 bg-purple-500/10 border border-purple-500/30 rounded"
+                    class="bg-purple-900 p-2 rounded"
                 >
                     <div class="font-mono text-sm">
                         key = <span class="text-cyan-300">'a'</span>
                     </div>
-                    <div class="text-gray-400 text-[10px] mt-1">
+                    <div class="text-gray-400 text-xs mt-1">
                         obj['a'] → <span class="text-green-300">1</span>
                     </div>
                 </div>
 
                 <div
-                    class="p-2 bg-purple-500/10 border border-purple-500/30 rounded"
+                    class="bg-purple-900 p-2 rounded"
                 >
                     <div class="font-mono text-sm">
                         key = <span class="text-cyan-300">'b'</span>
                     </div>
-                    <div class="text-gray-400 text-[10px] mt-1">
+                    <div class="text-gray-400 text-xs mt-1">
                         obj['b'] → <span class="text-green-300">2</span>
                     </div>
                 </div>
 
                 <div
-                    class="p-2 bg-purple-500/10 border border-purple-500/30 rounded"
+                    class="bg-purple-900 p-2 rounded"
                 >
                     <div class="font-mono text-sm">
                         key = <span class="text-cyan-300">'c'</span>
                     </div>
-                    <div class="text-gray-400 text-[10px] mt-1">
+                    <div class="text-gray-400 text-xs mt-1">
                         obj['c'] → <span class="text-green-300">3</span>
                     </div>
                 </div>
 
                 <div
-                    class="mt-3 p-2 bg-green-500/10 border border-green-500/30 rounded text-center"
+                    class="bg-green-900 mt-3 p-2 rounded text-center"
                 >
                     <div class="text-green-300 font-bold">
-                        ✓ Safe - only own properties
+                        <Mark type="yes" /> Safe - only own properties
                     </div>
                 </div>
             </div>
@@ -2326,32 +2308,31 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >array</code
             > of own keys. Safe - no inherited properties. Recommended over for...in.
         </MutableOrNot>
 
         <ProTip>
-            <div>✨ <strong>Cleanest way to iterate objects:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div><strong>Cleanest way to iterate objects:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     Object.keys(obj).forEach(key =&gt; {"{"}
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;console.log(key, obj[key])
                 </div>
-                <div class="font-mono text-[10px]">{"}"})</div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs">{"}"})</div>
+                <div class="font-mono text-xs mt-1">
                     <span class="text-gray-400"
                         >// Or use Object.entries() for key+value:</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     Object.entries(obj).forEach(([key, value]) =&gt; {"{"}
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;console.log(key, value)
                 </div>
-                <div class="font-mono text-[10px]">{"}"})</div>
+                <div class="font-mono text-xs">{"}"})</div>
             </div>
         </ProTip>
     </MethodCard>
@@ -2364,7 +2345,7 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
         description="Loop over key-value pairs (cleanest syntax)"
         mutates={false}
     >
-        <div class="p-4 bg-gray-800 rounded border border-gray-700">
+        <div class="p-4 rounded border-t border-rule">
             <!-- Code -->
             <div class="font-mono text-sm mb-4">
                 <span class="text-gray-400">const</span>
@@ -2398,7 +2379,7 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
                 </div>
 
                 <div
-                    class="p-2 bg-blue-500/10 border border-blue-500/30 rounded"
+                    class="bg-blue-900 p-2 rounded"
                 >
                     <div class="font-mono text-sm">
                         Object.entries(obj) → <span class="text-orange-300"
@@ -2407,7 +2388,7 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
                 </div>
 
                 <div
-                    class="p-2 bg-purple-500/10 border border-purple-500/30 rounded"
+                    class="bg-purple-900 p-2 rounded"
                 >
                     <div class="font-mono text-sm">
                         [<span class="text-cyan-300">key</span>, <span
@@ -2416,13 +2397,13 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
                             class="text-green-300">10</span
                         >]
                     </div>
-                    <div class="text-gray-400 text-[10px] mt-1">
+                    <div class="text-gray-400 text-xs mt-1">
                         Destructured from ['x', 10]
                     </div>
                 </div>
 
                 <div
-                    class="p-2 bg-purple-500/10 border border-purple-500/30 rounded"
+                    class="bg-purple-900 p-2 rounded"
                 >
                     <div class="font-mono text-sm">
                         [<span class="text-cyan-300">key</span>, <span
@@ -2431,16 +2412,16 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
                             class="text-green-300">20</span
                         >]
                     </div>
-                    <div class="text-gray-400 text-[10px] mt-1">
+                    <div class="text-gray-400 text-xs mt-1">
                         Destructured from ['y', 20]
                     </div>
                 </div>
 
                 <div
-                    class="mt-3 p-2 bg-green-500/10 border border-green-500/30 rounded text-center"
+                    class="bg-green-900 mt-3 p-2 rounded text-center"
                 >
                     <div class="text-green-300 font-bold">
-                        ✓ Both key & value available directly
+                        <Mark type="yes" /> Key and value both available directly
                     </div>
                 </div>
             </div>
@@ -2448,22 +2429,21 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >array</code
             > of [key, value] pairs. Combine with for...of for cleanest syntax.
         </MutableOrNot>
 
         <ProTip>
-            <div>🌟 <strong>Best syntax for key+value access:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div><strong>Best syntax for key and value access:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     for (const [key, value] of Object.entries(obj)) {"{"}
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;console.log(key, value) <span
                         class="text-gray-400">// both available!</span>
                 </div>
-                <div class="font-mono text-[10px]">{"}"}</div>
+                <div class="font-mono text-xs">{"}"}</div>
             </div>
         </ProTip>
     </MethodCard>
@@ -2476,7 +2456,7 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
         description="Loop over values only (ignore keys)"
         mutates={false}
     >
-        <div class="p-4 bg-gray-800 rounded border border-gray-700">
+        <div class="p-4 rounded border-t border-rule">
             <!-- Code -->
             <div class="font-mono text-sm mb-4">
                 <span class="text-gray-400">const</span>
@@ -2508,7 +2488,7 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
                 </div>
 
                 <div
-                    class="p-2 bg-blue-500/10 border border-blue-500/30 rounded"
+                    class="bg-blue-900 p-2 rounded"
                 >
                     <div class="font-mono text-sm">
                         Object.values(scores) → <span class="text-green-300"
@@ -2517,43 +2497,43 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
                 </div>
 
                 <div
-                    class="p-2 bg-purple-500/10 border border-purple-500/30 rounded"
+                    class="bg-purple-900 p-2 rounded"
                 >
                     <div class="font-mono text-sm">
                         score = <span class="text-green-300">95</span>
                     </div>
-                    <div class="text-gray-400 text-[10px] mt-1">
+                    <div class="text-gray-400 text-xs mt-1">
                         (from alice, but key not available)
                     </div>
                 </div>
 
                 <div
-                    class="p-2 bg-purple-500/10 border border-purple-500/30 rounded"
+                    class="bg-purple-900 p-2 rounded"
                 >
                     <div class="font-mono text-sm">
                         score = <span class="text-green-300">87</span>
                     </div>
-                    <div class="text-gray-400 text-[10px] mt-1">
+                    <div class="text-gray-400 text-xs mt-1">
                         (from bob, but key not available)
                     </div>
                 </div>
 
                 <div
-                    class="p-2 bg-purple-500/10 border border-purple-500/30 rounded"
+                    class="bg-purple-900 p-2 rounded"
                 >
                     <div class="font-mono text-sm">
                         score = <span class="text-green-300">92</span>
                     </div>
-                    <div class="text-gray-400 text-[10px] mt-1">
+                    <div class="text-gray-400 text-xs mt-1">
                         (from charlie, but key not available)
                     </div>
                 </div>
 
                 <div
-                    class="mt-3 p-2 bg-green-500/10 border border-green-500/30 rounded text-center"
+                    class="bg-green-900 mt-3 p-2 rounded text-center"
                 >
                     <div class="text-green-300 font-bold">
-                        ✓ Values only - keys discarded
+                        <Mark type="yes" /> Values only - keys discarded
                     </div>
                 </div>
             </div>
@@ -2561,27 +2541,26 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >array</code
             > of values. Use when you don't care about keys.
         </MutableOrNot>
 
         <ProTip>
-            <div>💡 <strong>When values are all you need:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div><strong>When values are all you need:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     <span class="text-gray-400"
                         >// Sum all values in object</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     const total = Object.values(prices).reduce((a, b) =&gt; a +
                     b, 0)
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-gray-400"
                         >// Check if any value matches</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     const hasError = Object.values(fields).some(f =&gt; f.error)
                 </div>
             </div>
@@ -2589,11 +2568,11 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
     </MethodCard>
 
     <!-- ============================================ -->
-    <!-- 🔁 WHILE LOOPS -->
+    <!-- WHILE LOOPS -->
     <!-- ============================================ -->
 
     <SectionTitle id="while-loops" color="orange">
-        🔁 While Loops
+        While loops
     </SectionTitle>
 
     <!-- WHILE -->
@@ -2601,10 +2580,10 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
         id="while"
         methodName="while"
         signature="while (condition) { }"
-        description="Loop while condition is true"
+        description="Loop while the condition is true"
         mutates={false}
     >
-        <div class="p-4 bg-gray-800 rounded border border-gray-700">
+        <div class="p-4 rounded border-t border-rule">
             <!-- Code -->
             <div class="font-mono text-sm mb-4">
                 <span class="text-gray-400">let</span>
@@ -2633,106 +2612,106 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
             <!-- Iteration visualization -->
             <div class="space-y-2 text-xs">
                 <div class="text-gray-400 mb-2">
-                    Checks condition BEFORE each iteration:
+                    Checks the condition before each iteration:
                 </div>
 
                 <div class="flex items-center gap-2">
                     <div
-                        class="w-24 p-2 bg-orange-500/10 border border-orange-500/30 rounded text-center"
+                        class="bg-orange-900 w-24 p-2 rounded text-center"
                     >
-                        <div class="text-[10px] text-gray-400">Check</div>
+                        <div class="text-xs text-gray-400">Check</div>
                         <div class="font-mono">i &lt; 3?</div>
-                        <div class="text-cyan-300 text-[10px]">(0 &lt; 3)</div>
+                        <div class="text-cyan-300 text-xs">(0 &lt; 3)</div>
                     </div>
                     <div class="text-purple-300">→</div>
                     <div
-                        class="flex-1 p-2 bg-green-500/10 border border-green-500/30 rounded"
+                        class="bg-green-900 flex-1 p-2 rounded"
                     >
-                        <div class="text-green-300 text-[10px]">true ✓</div>
-                        <div class="font-mono text-sm">
-                            Execute body, i becomes 1
+                        <div class="text-green-300 text-xs">true <Mark type="yes" /></div>
+                        <div class="text-sm">
+                            Run the body, <code>i</code> becomes 1
                         </div>
                     </div>
                 </div>
 
                 <div class="flex items-center gap-2">
                     <div
-                        class="w-24 p-2 bg-orange-500/10 border border-orange-500/30 rounded text-center"
+                        class="bg-orange-900 w-24 p-2 rounded text-center"
                     >
-                        <div class="text-[10px] text-gray-400">Check</div>
+                        <div class="text-xs text-gray-400">Check</div>
                         <div class="font-mono">i &lt; 3?</div>
-                        <div class="text-cyan-300 text-[10px]">(1 &lt; 3)</div>
+                        <div class="text-cyan-300 text-xs">(1 &lt; 3)</div>
                     </div>
                     <div class="text-purple-300">→</div>
                     <div
-                        class="flex-1 p-2 bg-green-500/10 border border-green-500/30 rounded"
+                        class="bg-green-900 flex-1 p-2 rounded"
                     >
-                        <div class="text-green-300 text-[10px]">true ✓</div>
-                        <div class="font-mono text-sm">
-                            Execute body, i becomes 2
+                        <div class="text-green-300 text-xs">true <Mark type="yes" /></div>
+                        <div class="text-sm">
+                            Run the body, <code>i</code> becomes 2
                         </div>
                     </div>
                 </div>
 
                 <div class="flex items-center gap-2">
                     <div
-                        class="w-24 p-2 bg-orange-500/10 border border-orange-500/30 rounded text-center"
+                        class="bg-orange-900 w-24 p-2 rounded text-center"
                     >
-                        <div class="text-[10px] text-gray-400">Check</div>
+                        <div class="text-xs text-gray-400">Check</div>
                         <div class="font-mono">i &lt; 3?</div>
-                        <div class="text-cyan-300 text-[10px]">(2 &lt; 3)</div>
+                        <div class="text-cyan-300 text-xs">(2 &lt; 3)</div>
                     </div>
                     <div class="text-purple-300">→</div>
                     <div
-                        class="flex-1 p-2 bg-green-500/10 border border-green-500/30 rounded"
+                        class="bg-green-900 flex-1 p-2 rounded"
                     >
-                        <div class="text-green-300 text-[10px]">true ✓</div>
-                        <div class="font-mono text-sm">
-                            Execute body, i becomes 3
+                        <div class="text-green-300 text-xs">true <Mark type="yes" /></div>
+                        <div class="text-sm">
+                            Run the body, <code>i</code> becomes 3
                         </div>
                     </div>
                 </div>
 
                 <div class="flex items-center gap-2">
                     <div
-                        class="w-24 p-2 bg-orange-500/10 border border-orange-500/30 rounded text-center"
+                        class="bg-orange-900 w-24 p-2 rounded text-center"
                     >
-                        <div class="text-[10px] text-gray-400">Check</div>
+                        <div class="text-xs text-gray-400">Check</div>
                         <div class="font-mono">i &lt; 3?</div>
-                        <div class="text-cyan-300 text-[10px]">(3 &lt; 3)</div>
+                        <div class="text-cyan-300 text-xs">(3 &lt; 3)</div>
                     </div>
                     <div class="text-purple-300">→</div>
                     <div
-                        class="flex-1 p-2 bg-red-500/10 border border-red-500/30 rounded"
+                        class="bg-red-900 flex-1 p-2 rounded"
                     >
-                        <div class="text-red-300 text-[10px]">false ✗</div>
-                        <div class="font-mono text-sm">Exit loop</div>
+                        <div class="text-red-300 text-xs">false <Mark type="no" /></div>
+                        <div class="text-sm">Exit the loop</div>
                     </div>
                 </div>
             </div>
         </div>
 
         <MutableOrNot mutates={false} message="">
-            Checks condition <strong>before</strong> each iteration. May not execute
-            at all if condition is false initially.
+            Checks the condition <strong>before</strong> each iteration. Skips the
+            body if the condition is false at the start.
         </MutableOrNot>
 
         <ProTip>
-            <div>⚠️ <strong>Beware infinite loops:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">let i = 0</div>
-                <div class="font-mono text-[10px]">while (i &lt; 3) {"{"}</div>
-                <div class="font-mono text-[10px]">
+            <div><Mark type="warn" /> <strong>Watch for infinite loops:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">let i = 0</div>
+                <div class="font-mono text-xs">while (i &lt; 3) {"{"}</div>
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;console.log(i)
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;i++ <span class="text-green-400"
-                        >// don't forget to increment! ✅</span>
+                        >// don't forget to increment! <Mark type="yes" /></span>
                 </div>
-                <div class="font-mono text-[10px]">{"}"}</div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs">{"}"}</div>
+                <div class="font-mono text-xs mt-1">
                     <span class="text-red-400"
-                        >// Forgetting i++ causes infinite loop! ❌</span>
+                        >// Forgetting i++ causes infinite loop! <Mark type="no" /></span>
                 </div>
             </div>
         </ProTip>
@@ -2743,10 +2722,10 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
         id="do-while"
         methodName="do...while"
         signature="do { } while (condition)"
-        description="Execute once, then loop while condition is true"
+        description="Run once, then loop while the condition is true"
         mutates={false}
     >
-        <div class="p-4 bg-gray-800 rounded border border-gray-700">
+        <div class="p-4 rounded border-t border-rule">
             <!-- Code -->
             <div class="font-mono text-sm mb-4">
                 <span class="text-gray-400">let</span>
@@ -2777,73 +2756,73 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
             <!-- Iteration visualization -->
             <div class="space-y-2 text-xs">
                 <div class="text-gray-400 mb-2">
-                    Executes body FIRST, then checks condition:
+                    Runs the body first, then checks the condition:
                 </div>
 
                 <div class="flex items-center gap-2">
                     <div
-                        class="flex-1 p-2 bg-green-500/10 border border-green-500/30 rounded"
+                        class="bg-green-900 flex-1 p-2 rounded"
                     >
-                        <div class="text-green-300 text-[10px]">
+                        <div class="text-green-300 text-xs">
                             Execute body (i = 0)
                         </div>
-                        <div class="font-mono text-sm">i becomes 1</div>
+                        <div class="text-sm"><code>i</code> becomes 1</div>
                     </div>
                     <div class="text-purple-300">→</div>
                     <div
-                        class="w-24 p-2 bg-orange-500/10 border border-orange-500/30 rounded text-center"
+                        class="bg-orange-900 w-24 p-2 rounded text-center"
                     >
-                        <div class="text-[10px] text-gray-400">Check</div>
-                        <div class="text-cyan-300 text-[10px]">1 &lt; 3</div>
-                        <div class="text-green-300">true ✓</div>
+                        <div class="text-xs text-gray-400">Check</div>
+                        <div class="text-cyan-300 text-xs">1 &lt; 3</div>
+                        <div class="text-green-300">true <Mark type="yes" /></div>
                     </div>
                 </div>
 
                 <div class="flex items-center gap-2">
                     <div
-                        class="flex-1 p-2 bg-green-500/10 border border-green-500/30 rounded"
+                        class="bg-green-900 flex-1 p-2 rounded"
                     >
-                        <div class="text-green-300 text-[10px]">
+                        <div class="text-green-300 text-xs">
                             Execute body (i = 1)
                         </div>
-                        <div class="font-mono text-sm">i becomes 2</div>
+                        <div class="text-sm"><code>i</code> becomes 2</div>
                     </div>
                     <div class="text-purple-300">→</div>
                     <div
-                        class="w-24 p-2 bg-orange-500/10 border border-orange-500/30 rounded text-center"
+                        class="bg-orange-900 w-24 p-2 rounded text-center"
                     >
-                        <div class="text-[10px] text-gray-400">Check</div>
-                        <div class="text-cyan-300 text-[10px]">2 &lt; 3</div>
-                        <div class="text-green-300">true ✓</div>
+                        <div class="text-xs text-gray-400">Check</div>
+                        <div class="text-cyan-300 text-xs">2 &lt; 3</div>
+                        <div class="text-green-300">true <Mark type="yes" /></div>
                     </div>
                 </div>
 
                 <div class="flex items-center gap-2">
                     <div
-                        class="flex-1 p-2 bg-green-500/10 border border-green-500/30 rounded"
+                        class="bg-green-900 flex-1 p-2 rounded"
                     >
-                        <div class="text-green-300 text-[10px]">
+                        <div class="text-green-300 text-xs">
                             Execute body (i = 2)
                         </div>
-                        <div class="font-mono text-sm">i becomes 3</div>
+                        <div class="text-sm"><code>i</code> becomes 3</div>
                     </div>
                     <div class="text-purple-300">→</div>
                     <div
-                        class="w-24 p-2 bg-orange-500/10 border border-orange-500/30 rounded text-center"
+                        class="bg-orange-900 w-24 p-2 rounded text-center"
                     >
-                        <div class="text-[10px] text-gray-400">Check</div>
-                        <div class="text-cyan-300 text-[10px]">3 &lt; 3</div>
-                        <div class="text-red-300">false ✗</div>
+                        <div class="text-xs text-gray-400">Check</div>
+                        <div class="text-cyan-300 text-xs">3 &lt; 3</div>
+                        <div class="text-red-300">false <Mark type="no" /></div>
                     </div>
                 </div>
 
                 <div
-                    class="mt-3 p-2 bg-yellow-500/10 border border-yellow-500/30 rounded text-center"
+                    class="bg-yellow-900 mt-3 p-2 rounded text-center"
                 >
                     <div class="text-yellow-300 text-sm font-bold">
-                        ⭐ Always runs at least once!
+                        Always runs at least once
                     </div>
-                    <div class="text-gray-400 text-[10px] mt-1">
+                    <div class="text-gray-400 text-xs mt-1">
                         Body executes before first condition check
                     </div>
                 </div>
@@ -2851,20 +2830,20 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
         </div>
 
         <MutableOrNot mutates={false} message="">
-            Checks condition <strong>after</strong> each iteration. <strong
+            Checks the condition <strong>after</strong> each iteration. <strong
                 >Always executes at least once.</strong
             >
         </MutableOrNot>
 
         <ProTip>
-            <div>Use when you need at least one execution:</div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">let input</div>
-                <div class="font-mono text-[10px]">do {"{"}</div>
-                <div class="font-mono text-[10px]">
+            <div>Use when the body must run at least once:</div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">let input</div>
+                <div class="font-mono text-xs">do {"{"}</div>
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;input = prompt('Enter a number:')
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     {"}"} while (isNaN(input)) <span class="text-gray-400"
                         >// prompt at least once</span>
                 </div>
@@ -2873,10 +2852,10 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
     </MethodCard>
 
     <!-- ============================================ -->
-    <!-- 🎛️ CONTROL FLOW -->
+    <!-- CONTROL FLOW -->
     <!-- ============================================ -->
 
-    <SectionTitle id="control" color="red"> 🎛️ Control Flow </SectionTitle>
+    <SectionTitle id="control" color="red"> Control flow </SectionTitle>
 
     <!-- BREAK -->
     <MethodCard
@@ -2886,7 +2865,7 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
         description="Exit loop immediately"
         mutates={false}
     >
-        <div class="p-4 bg-gray-800 rounded border border-gray-700">
+        <div class="p-4 rounded border-t border-rule">
             <!-- Code -->
             <div class="font-mono text-sm mb-4">
                 <span class="text-purple-300">for</span>
@@ -2918,56 +2897,56 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
             <!-- Flow visualization -->
             <div class="space-y-2 text-xs">
                 <div class="text-gray-400 mb-2">
-                    Exits loop completely when break is hit:
+                    Exits the loop when it reaches break:
                 </div>
 
                 <div
-                    class="p-2 bg-green-500/10 border border-green-500/30 rounded"
+                    class="bg-green-900 p-2 rounded"
                 >
                     <div class="font-mono text-sm">
                         item = <span class="text-green-300">'a'</span>
                     </div>
-                    <div class="text-gray-400 text-[10px] mt-1">
-                        ✓ Not 'c', console.log('a')
+                    <div class="text-gray-400 text-xs mt-1">
+                        <Mark type="yes" /> Not 'c', console.log('a')
                     </div>
                 </div>
 
                 <div
-                    class="p-2 bg-green-500/10 border border-green-500/30 rounded"
+                    class="bg-green-900 p-2 rounded"
                 >
                     <div class="font-mono text-sm">
                         item = <span class="text-green-300">'b'</span>
                     </div>
-                    <div class="text-gray-400 text-[10px] mt-1">
-                        ✓ Not 'c', console.log('b')
+                    <div class="text-gray-400 text-xs mt-1">
+                        <Mark type="yes" /> Not 'c', console.log('b')
                     </div>
                 </div>
 
-                <div class="p-2 bg-red-500/10 border border-red-500/30 rounded">
+                <div class="bg-red-900 p-2 rounded">
                     <div class="font-mono text-sm">
                         item = <span class="text-red-300">'c'</span>
                     </div>
-                    <div class="text-red-300 text-[10px] mt-1 font-bold">
-                        ⚠️ BREAK - Exit loop now!
+                    <div class="text-red-300 text-xs mt-1 font-bold">
+                        <Mark type="warn" /> 'break' - exit the loop now
                     </div>
                 </div>
 
                 <div
-                    class="p-2 bg-gray-700/30 border border-gray-600/30 rounded opacity-40"
+                    class="p-2 rounded opacity-40 border-t border-rule"
                 >
                     <div class="font-mono text-sm">
                         item = <span class="text-gray-500">'d'</span>
                     </div>
-                    <div class="text-gray-500 text-[10px] mt-1">
+                    <div class="text-gray-500 text-xs mt-1">
                         Never reached
                     </div>
                 </div>
 
                 <div
-                    class="mt-3 p-2 bg-blue-500/10 border border-blue-500/30 rounded text-center"
+                    class="bg-blue-900 mt-3 p-2 rounded text-center"
                 >
                     <div class="text-blue-300 font-bold">
-                        Loop exits → Code after loop runs
+                        Loop exits → code after loop runs
                     </div>
                 </div>
             </div>
@@ -2975,29 +2954,28 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
 
         <MutableOrNot mutates={false} message="">
             Exits the innermost loop completely. Cannot be used in <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >forEach()</code
             >.
         </MutableOrNot>
 
         <ProTip>
             <div>Common use case - early exit:</div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     for (const item of arr) {"{"}
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;if (item === 'target') {"{"}
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;&nbsp;&nbsp;console.log('Found it!')
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;&nbsp;&nbsp;break <span class="text-gray-400"
                         >// stop searching</span>
                 </div>
-                <div class="font-mono text-[10px]">&nbsp;&nbsp;{"}"}</div>
-                <div class="font-mono text-[10px]">{"}"}</div>
+                <div class="font-mono text-xs">&nbsp;&nbsp;{"}"}</div>
+                <div class="font-mono text-xs">{"}"}</div>
             </div>
         </ProTip>
     </MethodCard>
@@ -3010,7 +2988,7 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
         description="Skip to next iteration"
         mutates={false}
     >
-        <div class="p-4 bg-gray-800 rounded border border-gray-700">
+        <div class="p-4 rounded border-t border-rule">
             <!-- Code -->
             <div class="font-mono text-sm mb-4">
                 <span class="text-purple-300">for</span>
@@ -3041,72 +3019,72 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
             <!-- Flow visualization -->
             <div class="space-y-2 text-xs">
                 <div class="text-gray-400 mb-2">
-                    Skips rest of iteration, moves to next:
+                    Skips the rest of the iteration, moves to the next:
                 </div>
 
                 <div
-                    class="p-2 bg-green-500/10 border border-green-500/30 rounded"
+                    class="bg-green-900 p-2 rounded"
                 >
                     <div class="font-mono text-sm">
                         item = <span class="text-green-300">'a'</span>
                     </div>
-                    <div class="text-gray-400 text-[10px] mt-1">
-                        ✓ Not null, console.log('a')
+                    <div class="text-gray-400 text-xs mt-1">
+                        <Mark type="yes" /> Not null, console.log('a')
                     </div>
                 </div>
 
                 <div
-                    class="p-2 bg-yellow-500/10 border border-yellow-500/30 rounded"
+                    class="bg-yellow-900 p-2 rounded"
                 >
                     <div class="font-mono text-sm">
                         item = <span class="text-yellow-300">null</span>
                     </div>
-                    <div class="text-yellow-300 text-[10px] mt-1 font-bold">
-                        ⚠️ CONTINUE - Skip to next!
+                    <div class="text-yellow-300 text-xs mt-1 font-bold">
+                        <Mark type="warn" /> 'continue' - skip to the next item
                     </div>
-                    <div class="text-gray-400 text-[10px]">
+                    <div class="text-gray-400 text-xs">
                         (console.log skipped)
                     </div>
                 </div>
 
                 <div
-                    class="p-2 bg-green-500/10 border border-green-500/30 rounded"
+                    class="bg-green-900 p-2 rounded"
                 >
                     <div class="font-mono text-sm">
                         item = <span class="text-green-300">'b'</span>
                     </div>
-                    <div class="text-gray-400 text-[10px] mt-1">
-                        ✓ Not null, console.log('b')
+                    <div class="text-gray-400 text-xs mt-1">
+                        <Mark type="yes" /> Not null, console.log('b')
                     </div>
                 </div>
 
                 <div
-                    class="p-2 bg-yellow-500/10 border border-yellow-500/30 rounded"
+                    class="bg-yellow-900 p-2 rounded"
                 >
                     <div class="font-mono text-sm">
                         item = <span class="text-yellow-300">null</span>
                     </div>
-                    <div class="text-yellow-300 text-[10px] mt-1 font-bold">
-                        ⚠️ CONTINUE - Skip to next!
+                    <div class="text-yellow-300 text-xs mt-1 font-bold">
+                        <Mark type="warn" /> 'continue' - skip to the next item
                     </div>
-                    <div class="text-gray-400 text-[10px]">
+                    <div class="text-gray-400 text-xs">
                         (console.log skipped)
                     </div>
                 </div>
 
                 <div
-                    class="p-2 bg-green-500/10 border border-green-500/30 rounded"
+                    class="bg-green-900 p-2 rounded"
                 >
                     <div class="font-mono text-sm">
                         item = <span class="text-green-300">'c'</span>
                     </div>
-                    <div class="text-gray-400 text-[10px] mt-1">
-                        ✓ Not null, console.log('c')
+                    <div class="text-gray-400 text-xs mt-1">
+                        <Mark type="yes" /> Not null, console.log('c')
                     </div>
                 </div>
 
                 <div
-                    class="mt-3 p-2 bg-blue-500/10 border border-blue-500/30 rounded text-center"
+                    class="bg-blue-900 mt-3 p-2 rounded text-center"
                 >
                     <div class="text-blue-300 font-bold">
                         Loop completes normally
@@ -3116,28 +3094,27 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
         </div>
 
         <MutableOrNot mutates={false} message="">
-            Skips remaining code in current iteration, proceeds to next. Cannot
+            Skips the rest of the current iteration and moves to the next. Cannot
             be used in <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >forEach()</code
             >.
         </MutableOrNot>
 
         <ProTip>
             <div>Common use case - skip unwanted items:</div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     for (const item of arr) {"{"}
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;if (item === null) continue <span
                         class="text-gray-400">// skip nulls</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;console.log(item) <span class="text-gray-400"
                         >// only runs for non-null</span>
                 </div>
-                <div class="font-mono text-[10px]">{"}"}</div>
+                <div class="font-mono text-xs">{"}"}</div>
             </div>
         </ProTip>
     </MethodCard>
@@ -3147,11 +3124,11 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
             <li>
                 <a
                     href="#array-loops"
-                    class="text-blue-300 font-semibold hover:text-blue-200 block py-1"
-                    >🔄 Array Loops</a
+                    class="text-ink font-semibold hover:underline block py-1"
+                    >Array loops</a
                 >
                 <ul
-                    class="ml-3 mt-1 space-y-1 border-l-2 border-blue-500/30 pl-2"
+                    class="ml-3 mt-1 space-y-1 border-l border-rule pl-2"
                 >
                     <li>
                         <a
@@ -3223,7 +3200,7 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
                         <a
                             href="#nested-loops"
                             class="text-gray-300 hover:text-blue-400 block"
-                            >Nested Loops</a>
+                            >Nested loops</a>
                     </li>
                     <li>
                         <a
@@ -3237,11 +3214,11 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
             <li class="mt-4">
                 <a
                     href="#object-loops"
-                    class="text-purple-300 font-semibold hover:text-purple-200 block py-1"
-                    >🔑 Object Loops</a
+                    class="text-ink font-semibold hover:underline block py-1"
+                    >Object loops</a
                 >
                 <ul
-                    class="ml-3 mt-1 space-y-1 border-l-2 border-purple-500/30 pl-2"
+                    class="ml-3 mt-1 space-y-1 border-l border-rule pl-2"
                 >
                     <li>
                         <a
@@ -3273,11 +3250,11 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
             <li class="mt-4">
                 <a
                     href="#while-loops"
-                    class="text-orange-300 font-semibold hover:text-orange-200 block py-1"
-                    >🔁 While Loops</a
+                    class="text-ink font-semibold hover:underline block py-1"
+                    >While loops</a
                 >
                 <ul
-                    class="ml-3 mt-1 space-y-1 border-l-2 border-orange-500/30 pl-2"
+                    class="ml-3 mt-1 space-y-1 border-l border-rule pl-2"
                 >
                     <li>
                         <a
@@ -3297,11 +3274,11 @@ import InfoBox from "~components/visual-js/InfoBox.astro";
             <li class="mt-4">
                 <a
                     href="#control"
-                    class="text-red-300 font-semibold hover:text-red-200 block py-1"
-                    >🎛️ Control Flow</a
+                    class="text-ink font-semibold hover:underline block py-1"
+                    >Control flow</a
                 >
                 <ul
-                    class="ml-3 mt-1 space-y-1 border-l-2 border-red-500/30 pl-2"
+                    class="ml-3 mt-1 space-y-1 border-l border-rule pl-2"
                 >
                     <li>
                         <a

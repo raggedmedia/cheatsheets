@@ -6,10 +6,19 @@ interface Props {
 const { label } = Astro.props;
 ---
 
-<div class="arrow shrink-0 w-[40px] h-[2px] bg-gray-600 relative">
-    {label && (
-        <div class="absolute -top-3 left-1/2 -translate-x-1/2 text-[9px] text-gray-500 whitespace-nowrap">
-            {label}
+<div class="arrow shrink-0">
+    <div class="flex items-center gap-2 @3xl:hidden">
+        <div class="relative w-[2px] h-6 bg-gray-500">
+            <span aria-hidden="true" class="absolute -bottom-0.5 -left-[4px] border-x-[5px] border-x-transparent border-t-[7px] border-t-gray-500"></span>
         </div>
-    )}
+        {label && <span class="text-xs text-gray-400">{label}</span>}
+    </div>
+    <div class="hidden @3xl:block relative w-[48px] h-[2px] bg-gray-500">
+        <span aria-hidden="true" class="absolute -right-0.5 -top-[4px] border-y-[5px] border-y-transparent border-l-[7px] border-l-gray-500"></span>
+        {label && (
+            <div class="absolute -top-5 left-1/2 -translate-x-1/2 text-xs text-gray-400 whitespace-nowrap">
+                {label}
+            </div>
+        )}
+    </div>
 </div>

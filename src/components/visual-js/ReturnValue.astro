@@ -7,7 +7,7 @@ interface Props {
 const { value, type } = Astro.props;
 ---
 
-<div class="py-2 px-3 bg-white/10 border border-white/30 rounded text-center font-mono font-semibold text-sm">
+<div class="py-2 px-3 bg-gray-900 border-b-[3px] border-gray-600 text-center font-mono font-semibold text-sm">
     {value}
-    <div class="text-[10px] text-gray-400 mt-0.5">{type}</div>
+    <div class="font-sans text-xs font-normal text-gray-400 mt-0.5">{type}</div>
 </div>

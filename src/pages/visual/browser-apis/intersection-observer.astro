@@ -4,54 +4,55 @@ import ProTip from '~components/visual-js/ProTip.astro';
 import SectionTitle from '~components/visual-js/SectionTitle.astro';
 import InfoBox from '~components/visual-js/InfoBox.astro';
 import VisualLayout from 'src/layouts/VisualLayout.astro';
+import Mark from "~components/visual-js/Mark.astro";
 ---
 
 <VisualLayout
     pageTitle="Intersection Observer API"
 >
     <!-- ============================================ -->
-    <!-- 🎯 Best Use Cases -->
+    <!-- Best Use Cases -->
     <!-- ============================================ -->
 
     <SectionTitle id="use-cases" color="cyan">
-        🎯 Best Use Cases (FED Perspective)
+        Best use cases (FED perspective)
     </SectionTitle>
 
     <MethodCard
         id="when-to-use"
         methodName="When to use Intersection Observer"
             signature="Performance-friendly visibility detection"
-            description="Perfect for scroll-triggered interactions"
+            description="Best for scroll-triggered interactions"
             mutates={false}
         >
-            <div class="p-6 bg-gray-800 rounded space-y-4">
+            <div class="p-6 rounded space-y-4">
                 <!-- Use cases grid -->
-                <div class="bg-slate-700 border border-slate-600 rounded p-4">
-                    <div class="text-slate-300 text-[11px] space-y-2">
-                        <div class="text-yellow-400 mb-2">Perfect for:</div>
+                <div class="rounded p-4 border-t border-rule">
+                    <div class="text-slate-300 text-xs space-y-2">
+                        <div class="text-yellow-400 mb-2">Good for:</div>
                         <div class="grid grid-cols-2 gap-x-4 gap-y-2">
                             <div class="flex items-start gap-2">
-                                <span class="text-green-400">✅</span>
+                                <span class="text-green-400"><Mark type="yes" /></span>
                                 <span>Fade-in animations on scroll</span>
                             </div>
                             <div class="flex items-start gap-2">
-                                <span class="text-green-400">✅</span>
+                                <span class="text-green-400"><Mark type="yes" /></span>
                                 <span>Infinite scroll pagination</span>
                             </div>
                             <div class="flex items-start gap-2">
-                                <span class="text-green-400">✅</span>
+                                <span class="text-green-400"><Mark type="yes" /></span>
                                 <span>Pausing videos when offscreen</span>
                             </div>
                             <div class="flex items-start gap-2">
-                                <span class="text-green-400">✅</span>
+                                <span class="text-green-400"><Mark type="yes" /></span>
                                 <span>Analytics (track element views)</span>
                             </div>
                             <div class="flex items-start gap-2">
-                                <span class="text-green-400">✅</span>
+                                <span class="text-green-400"><Mark type="yes" /></span>
                                 <span>Sticky nav active states</span>
                             </div>
                             <div class="flex items-start gap-2">
-                                <span class="text-green-400">✅</span>
+                                <span class="text-green-400"><Mark type="yes" /></span>
                                 <span>Triggering complex animations</span>
                             </div>
                         </div>
@@ -59,12 +60,12 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                 </div>
 
                 <!-- Why use it -->
-                <div class="bg-blue-500/20 border border-blue-400 rounded p-4">
-                    <div class="text-blue-300 text-[11px] space-y-2">
+                <div class="bg-blue-900 rounded p-4">
+                    <div class="text-blue-300 text-xs space-y-2">
                         <div class="text-yellow-400 mb-2">Why Intersection Observer beats scroll events:</div>
                         <div class="space-y-1">
-                            <div>• <strong>Performance</strong> - No scroll event listeners, runs off main thread</div>
-                            <div>• <strong>Battery friendly</strong> - Browser optimizes when to check</div>
+                            <div>• <strong>Performance</strong> - No scroll listeners or layout polling. The browser checks intersections, but your callback runs on the main thread.</div>
+                            <div>• <strong>Battery friendly</strong> - Browser optimises when to check</div>
                             <div>• <strong>Accurate</strong> - Handles iframes, CSS transforms, etc.</div>
                             <div>• <strong>Simple</strong> - No manual position calculations</div>
                         </div>
@@ -72,11 +73,11 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                 </div>
 
                 <!-- Don't use for -->
-                <div class="bg-red-500/20 border border-red-400 rounded p-4">
-                    <div class="text-red-300 text-[11px] space-y-2">
-                        <div class="text-yellow-400 mb-2">❌ Not ideal for:</div>
+                <div class="bg-red-900 rounded p-4">
+                    <div class="text-red-300 text-xs space-y-2">
+                        <div class="text-yellow-400 mb-2"><Mark type="no" /> Not ideal for:</div>
                         <div class="space-y-1">
-                            <div>• <strong>Lazy loading images</strong> - Use native <code class="bg-slate-800 px-1 py-0.5 rounded">&lt;img loading="lazy"&gt;</code> instead</div>
+                            <div>• <strong>Lazy loading images</strong> - Use native <code class="px-1 py-0.5 rounded">&lt;img loading="lazy"&gt;</code> instead</div>
                             <div>• <strong>Precise scroll position</strong> - Use scroll events instead</div>
                             <div>• <strong>Parallax effects</strong> - Too jumpy, use scroll events</div>
                             <div>• <strong>Hover interactions</strong> - Use CSS :hover or mouseenter</div>
@@ -86,29 +87,29 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
             </div>
 
             <ProTip>
-                <div>💡 <strong>Rule of thumb:</strong> If you need to know "is this element visible?", use Intersection Observer. If you need "where exactly is the scroll position?", use scroll events.</div>
+                <div><strong>Rule of thumb:</strong> If you need to know 'is this element visible?', use Intersection Observer. If you need 'where exactly is the scroll position?', use scroll events.</div>
             </ProTip>
         </MethodCard>
 
     <!-- ============================================ -->
-    <!-- 🚀 Quick Start -->
+    <!-- Quick Start -->
     <!-- ============================================ -->
 
     <SectionTitle id="quick-start" color="green">
-        🚀 Quick Start
+        Quick start
     </SectionTitle>
 
     <MethodCard
         id="basic-setup"
-        methodName="Basic Setup"
+        methodName="Basic setup"
             signature="new IntersectionObserver(callback, options)"
-            description="Create observer, observe elements"
+            description="Create an observer, then observe elements"
             mutates={false}
         >
-            <div class="p-6 bg-gray-800 rounded space-y-4">
+            <div class="p-6 rounded space-y-4">
                 <!-- Basic example -->
-                <div class="bg-green-500/20 border border-green-500 rounded p-4">
-                    <div class="text-green-300 font-mono text-[11px] space-y-1">
+                <div class="bg-green-900 rounded p-4">
+                    <div class="text-green-300 font-mono text-xs space-y-1">
                         <div class="text-yellow-400 mb-2">Basic pattern (fade in on scroll):</div>
                         <div><span class="text-gray-400">// 1. Create the observer</span></div>
                         <div>const observer = new IntersectionObserver((entries) => {`{`}</div>
@@ -128,9 +129,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                 </div>
 
                 <!-- CSS for fade-in -->
-                <div class="bg-purple-500/20 border border-purple-400 rounded p-4">
-                    <div class="text-purple-300 font-mono text-[11px] space-y-1">
-                        <div class="text-yellow-400 mb-2">CSS for fade-in:</div>
+                <div class="bg-purple-900 rounded p-4">
+                    <div class="text-purple-300 font-mono text-xs space-y-1">
+                        <div class="text-yellow-400 mb-2 font-sans">CSS for fade-in:</div>
                         <div>.fade-in {`{`}</div>
                         <div>&nbsp;&nbsp;opacity: 0;</div>
                         <div>&nbsp;&nbsp;transform: translateY(20px);</div>
@@ -145,42 +146,42 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                 </div>
 
                 <!-- What's happening -->
-                <div class="bg-slate-700 border border-slate-600 rounded p-4">
-                    <div class="text-slate-300 text-[10px] space-y-2">
+                <div class="rounded p-4 border-t border-rule">
+                    <div class="text-slate-300 text-xs space-y-2">
                         <div class="text-yellow-400 mb-2">What's happening:</div>
                         <div>1. <strong>Create observer</strong> with callback function</div>
-                        <div>2. <strong>Callback fires</strong> when element enters/leaves viewport</div>
-                        <div>3. <strong>Check isIntersecting</strong> - true means element is visible</div>
-                        <div>4. <strong>Add class</strong> to trigger CSS transition</div>
-                        <div>5. <strong>Unobserve</strong> to stop watching (optional, saves performance)</div>
+                        <div>2. <strong>Callback fires</strong> when an element enters or leaves the viewport</div>
+                        <div>3. <strong>Check isIntersecting</strong> - true means the element is visible</div>
+                        <div>4. <strong>Add class</strong> to start the CSS transition</div>
+                        <div>5. <strong>Unobserve</strong> to stop watching (optional, frees resources)</div>
                     </div>
                 </div>
             </div>
 
             <ProTip>
-                <div>💡 <strong>Always unobserve</strong> elements once you're done with them (like after fade-in) to free up resources.</div>
+                <div><strong>Always unobserve</strong> elements once you're done with them (like after fade-in) to free up resources.</div>
             </ProTip>
         </MethodCard>
 
     <!-- ============================================ -->
-    <!-- ⚙️ Options -->
+    <!-- Options -->
     <!-- ============================================ -->
 
     <SectionTitle id="options" color="orange">
-        ⚙️ Options
+        Options
     </SectionTitle>
 
     <MethodCard
         id="observer-options"
-        methodName="Configuration Options"
+        methodName="Configuration options"
             signature="{ root, rootMargin, threshold }"
-            description="Fine-tune when callback fires"
+            description="Control when the callback fires"
             mutates={false}
         >
-            <div class="p-6 bg-gray-800 rounded space-y-4">
+            <div class="p-6 rounded space-y-4">
                 <!-- Root -->
-                <div class="bg-blue-500/20 border border-blue-400 rounded p-4">
-                    <div class="text-blue-300 font-mono text-[11px] space-y-1">
+                <div class="bg-blue-900 rounded p-4">
+                    <div class="text-blue-300 font-mono text-xs space-y-1">
                         <div class="text-yellow-400 mb-2">root - What to observe against:</div>
                         <div>const observer = new IntersectionObserver(callback, {`{`}</div>
                         <div>&nbsp;&nbsp;root: null <span class="text-gray-400">// Default: viewport</span></div>
@@ -190,8 +191,8 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                 </div>
 
                 <!-- RootMargin -->
-                <div class="bg-green-500/20 border border-green-500 rounded p-4">
-                    <div class="text-green-300 font-mono text-[11px] space-y-1">
+                <div class="bg-green-900 rounded p-4">
+                    <div class="text-green-300 font-mono text-xs space-y-1">
                         <div class="text-yellow-400 mb-2">rootMargin - Trigger earlier/later:</div>
                         <div>const observer = new IntersectionObserver(callback, {`{`}</div>
                         <div>&nbsp;&nbsp;rootMargin: '0px' <span class="text-gray-400">// Default: no margin</span></div>
@@ -205,8 +206,8 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                 </div>
 
                 <!-- Threshold -->
-                <div class="bg-purple-500/20 border border-purple-400 rounded p-4">
-                    <div class="text-purple-300 font-mono text-[11px] space-y-1">
+                <div class="bg-purple-900 rounded p-4">
+                    <div class="text-purple-300 font-mono text-xs space-y-1">
                         <div class="text-yellow-400 mb-2">threshold - How much must be visible:</div>
                         <div>const observer = new IntersectionObserver(callback, {`{`}</div>
                         <div>&nbsp;&nbsp;threshold: 0 <span class="text-gray-400">// Default: any pixel visible</span></div>
@@ -218,8 +219,8 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                 </div>
 
                 <!-- Real-world example -->
-                <div class="bg-orange-500/20 border border-orange-400 rounded p-4">
-                    <div class="text-orange-300 font-mono text-[11px] space-y-1">
+                <div class="bg-orange-900 rounded p-4">
+                    <div class="text-orange-300 font-mono text-xs space-y-1">
                         <div class="text-yellow-400 mb-2">Real-world config (lazy load images early):</div>
                         <div>const observer = new IntersectionObserver(callback, {`{`}</div>
                         <div>&nbsp;&nbsp;root: null, <span class="text-gray-400">// Viewport</span></div>
@@ -231,38 +232,38 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
             </div>
 
             <ProTip>
-                <div>💡 <strong>Common configs:</strong> Lazy loading → <code class="bg-slate-800 px-1 py-0.5 rounded">rootMargin: '200px'</code> to preload. Animations → <code class="bg-slate-800 px-1 py-0.5 rounded">threshold: 0.2</code> so 20% is visible first.</div>
+                <div><strong>Common configs:</strong> Lazy loading → <code class="px-1 py-0.5 rounded">rootMargin: '200px'</code> to preload. Animations → <code class="px-1 py-0.5 rounded">threshold: 0.2</code> so 20% is visible first.</div>
             </ProTip>
         </MethodCard>
 
     <!-- ============================================ -->
-    <!-- 🎨 Common Patterns -->
+    <!-- Common Patterns -->
     <!-- ============================================ -->
 
     <SectionTitle id="patterns" color="purple">
-        🎨 Common FED Patterns
+        Common FED patterns
     </SectionTitle>
 
     <MethodCard
         id="fade-in-animation"
-        methodName="1. Fade-In Animations"
+        methodName="1. Fade-in animations"
         signature="Reveal content as user scrolls"
-        description="Most common use case for smooth UX"
+        description="The most common use case"
         mutates={false}
     >
-        <div class="p-6 bg-gray-800 rounded space-y-4">
+        <div class="p-6 rounded space-y-4">
             <!-- HTML -->
-            <div class="bg-slate-700 border border-slate-600 rounded p-4">
-                <div class="text-slate-300 font-mono text-[11px] space-y-1">
-                    <div class="text-yellow-400 mb-2">HTML:</div>
+            <div class="rounded p-4 border-t border-rule">
+                <div class="text-slate-300 font-mono text-xs space-y-1">
+                    <div class="text-yellow-400 mb-2 font-sans">HTML:</div>
                     <div>&lt;div class="fade-in"&gt;Content here&lt;/div&gt;</div>
                 </div>
             </div>
 
             <!-- JavaScript -->
-            <div class="bg-green-500/20 border border-green-500 rounded p-4">
-                <div class="text-green-300 font-mono text-[11px] space-y-1">
-                    <div class="text-yellow-400 mb-2">JavaScript:</div>
+            <div class="bg-green-900 rounded p-4">
+                <div class="text-green-300 font-mono text-xs space-y-1">
+                    <div class="text-yellow-400 mb-2 font-sans">JavaScript:</div>
                     <div>const fadeObserver = new IntersectionObserver((entries) => {`{`}</div>
                     <div>&nbsp;&nbsp;entries.forEach(entry => {`{`}</div>
                     <div>&nbsp;&nbsp;&nbsp;&nbsp;if (entry.isIntersecting) {`{`}</div>
@@ -281,9 +282,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
             </div>
 
             <!-- CSS -->
-            <div class="bg-blue-500/20 border border-blue-400 rounded p-4">
-                <div class="text-blue-300 font-mono text-[11px] space-y-1">
-                    <div class="text-yellow-400 mb-2">CSS:</div>
+            <div class="bg-blue-900 rounded p-4">
+                <div class="text-blue-300 font-mono text-xs space-y-1">
+                    <div class="text-yellow-400 mb-2 font-sans">CSS:</div>
                     <div>.fade-in {`{`}</div>
                     <div>&nbsp;&nbsp;opacity: 0;</div>
                     <div>&nbsp;&nbsp;transform: translateY(20px);</div>
@@ -298,9 +299,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
             </div>
 
             <!-- Variations -->
-            <div class="bg-purple-500/20 border border-purple-400 rounded p-4">
-                <div class="text-purple-300 font-mono text-[11px] space-y-1">
-                    <div class="text-yellow-400 mb-2">Other animation variations:</div>
+            <div class="bg-purple-900 rounded p-4">
+                <div class="text-purple-300 font-mono text-xs space-y-1">
+                    <div class="text-yellow-400 mb-2 font-sans">Other animation variations:</div>
                     <div><span class="text-gray-400">/* Slide from left */</span></div>
                     <div>.slide-left {`{`} transform: translateX(-50px); {'}'}</div>
                     <div></div>
@@ -316,20 +317,20 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
         </div>
 
         <ProTip>
-            <div>💡 <strong>Performance tip:</strong> CSS transitions are GPU-accelerated. Let CSS handle the animation, JavaScript just adds the class.</div>
+            <div><strong>Performance tip:</strong> Only <code>transform</code> and <code>opacity</code> transitions reliably run on the GPU. Let CSS run the animation. JavaScript only adds the class.</div>
         </ProTip>
     </MethodCard>    <MethodCard
         id="infinite-scroll"
-        methodName="2. Infinite Scroll"
+        methodName="2. Infinite scroll"
             signature="Load more content at bottom"
             description="Pagination without page reloads"
             mutates={false}
         >
-            <div class="p-6 bg-gray-800 rounded space-y-4">
+            <div class="p-6 rounded space-y-4">
                 <!-- HTML -->
-                <div class="bg-slate-700 border border-slate-600 rounded p-4">
-                    <div class="text-slate-300 font-mono text-[11px] space-y-1">
-                        <div class="text-yellow-400 mb-2">HTML:</div>
+                <div class="rounded p-4 border-t border-rule">
+                    <div class="text-slate-300 font-mono text-xs space-y-1">
+                        <div class="text-yellow-400 mb-2 font-sans">HTML:</div>
                         <div>&lt;div class="posts-container"&gt;</div>
                         <div>&nbsp;&nbsp;&lt;!-- Posts here --&gt;</div>
                         <div>&lt;/div&gt;</div>
@@ -338,9 +339,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                 </div>
 
                 <!-- JavaScript -->
-                <div class="bg-purple-500/20 border border-purple-400 rounded p-4">
-                    <div class="text-purple-300 font-mono text-[11px] space-y-1">
-                        <div class="text-yellow-400 mb-2">JavaScript:</div>
+                <div class="bg-purple-900 rounded p-4">
+                    <div class="text-purple-300 font-mono text-xs space-y-1">
+                        <div class="text-yellow-400 mb-2 font-sans">JavaScript:</div>
                         <div>let page = 1;</div>
                         <div>let loading = false;</div>
                         <div></div>
@@ -367,21 +368,21 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
             </div>
 
             <ProTip>
-                <div>💡 <strong>UX tip:</strong> Use <code class="bg-slate-800 px-1 py-0.5 rounded">rootMargin: '200px'</code> so content loads <em>before</em> user reaches the bottom. Feels instant!</div>
+                <div><strong>UX tip:</strong> Use <code class="px-1 py-0.5 rounded">rootMargin: '200px'</code> so content loads <em>before</em> the user reaches the bottom. The load feels instant.</div>
             </ProTip>
         </MethodCard>
 
     <MethodCard
         id="scroll-animations"
-        methodName="3. Staggered Animations"
+        methodName="3. Staggered animations"
         signature="Animate lists with delays"
         description="Create cascading reveal effects"
         mutates={false}
     >
-        <div class="p-6 bg-gray-800 rounded space-y-4">
+        <div class="p-6 rounded space-y-4">
             <!-- Multiple animation types -->
-            <div class="bg-green-500/20 border border-green-500 rounded p-4">
-                <div class="text-green-300 font-mono text-[11px] space-y-1">
+            <div class="bg-green-900 rounded p-4">
+                <div class="text-green-300 font-mono text-xs space-y-1">
                     <div class="text-yellow-400 mb-2">JavaScript (one observer for all):</div>
                     <div>const animateObserver = new IntersectionObserver((entries) => {`{`}</div>
                     <div>&nbsp;&nbsp;entries.forEach(entry => {`{`}</div>
@@ -401,9 +402,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
             </div>
 
             <!-- CSS -->
-            <div class="bg-blue-500/20 border border-blue-400 rounded p-4">
-                <div class="text-blue-300 font-mono text-[11px] space-y-1">
-                    <div class="text-yellow-400 mb-2">CSS:</div>
+            <div class="bg-blue-900 rounded p-4">
+                <div class="text-blue-300 font-mono text-xs space-y-1">
+                    <div class="text-yellow-400 mb-2 font-sans">CSS:</div>
                     <div>.fade-in {`{`}</div>
                     <div>&nbsp;&nbsp;opacity: 0;</div>
                     <div>&nbsp;&nbsp;transition: opacity 0.6s;</div>
@@ -427,8 +428,8 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
             </div>
 
             <!-- Stagger animations -->
-            <div class="bg-purple-500/20 border border-purple-400 rounded p-4">
-                <div class="text-purple-300 font-mono text-[11px] space-y-1">
+            <div class="bg-purple-900 rounded p-4">
+                <div class="text-purple-300 font-mono text-xs space-y-1">
                     <div class="text-yellow-400 mb-2">Stagger animations (delay each item):</div>
                     <div>document.querySelectorAll('.stagger-item').forEach((el, index) => {`{`}</div>
                     <div>&nbsp;&nbsp;el.style.transitionDelay = `${'{'}index * 0.1{'}'}s`;</div>
@@ -439,22 +440,22 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
         </div>
 
         <ProTip>
-            <div>💡 <strong>Performance:</strong> CSS transitions are GPU-accelerated. Let CSS do the animation, use JS only to add the class.</div>
+            <div><strong>Performance:</strong> Only <code>transform</code> and <code>opacity</code> transitions reliably run on the GPU. Let CSS run the animation. Use JS only to add the class.</div>
         </ProTip>
     </MethodCard>
 
     <MethodCard
         id="video-autoplay"
-        methodName="4. Pause Videos When Offscreen"
+        methodName="4. Pause videos when offscreen"
             signature="Save bandwidth & battery"
             description="Auto-pause when scrolled away"
             mutates={false}
         >
-            <div class="p-6 bg-gray-800 rounded space-y-4">
+            <div class="p-6 rounded space-y-4">
                 <!-- Video auto-pause -->
-                <div class="bg-orange-500/20 border border-orange-400 rounded p-4">
-                    <div class="text-orange-300 font-mono text-[11px] space-y-1">
-                        <div class="text-yellow-400 mb-2">Auto-pause/play videos:</div>
+                <div class="bg-orange-900 rounded p-4">
+                    <div class="text-orange-300 font-mono text-xs space-y-1">
+                        <div class="text-yellow-400 mb-2 font-sans">Auto-pause/play videos:</div>
                         <div>const videoObserver = new IntersectionObserver((entries) => {`{`}</div>
                         <div>&nbsp;&nbsp;entries.forEach(entry => {`{`}</div>
                         <div>&nbsp;&nbsp;&nbsp;&nbsp;const video = entry.target;</div>
@@ -477,22 +478,22 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
             </div>
 
             <ProTip>
-                <div>💡 <strong>Respect user preference:</strong> Check if video has <code class="bg-slate-800 px-1 py-0.5 rounded">autoplay</code> attribute before auto-playing.</div>
+                <div><strong>Respect user preference:</strong> Check if the video has the <code class="px-1 py-0.5 rounded">autoplay</code> attribute before auto-playing.</div>
             </ProTip>
         </MethodCard>
 
     <MethodCard
         id="analytics"
-        methodName="5. Track Element Views (Analytics)"
+        methodName="5. Track element views (analytics)"
             signature="Know what users actually see"
             description="Better than pageview tracking"
             mutates={false}
         >
-            <div class="p-6 bg-gray-800 rounded space-y-4">
+            <div class="p-6 rounded space-y-4">
                 <!-- View tracking -->
-                <div class="bg-pink-500/20 border border-pink-400 rounded p-4">
-                    <div class="text-pink-300 font-mono text-[11px] space-y-1">
-                        <div class="text-yellow-400 mb-2">Track when content is actually seen:</div>
+                <div class="bg-pink-900 rounded p-4">
+                    <div class="text-pink-300 font-mono text-xs space-y-1">
+                        <div class="text-yellow-400 mb-2 font-sans">Track when content is actually seen:</div>
                         <div>const viewTracker = new IntersectionObserver((entries) => {`{`}</div>
                         <div>&nbsp;&nbsp;entries.forEach(entry => {`{`}</div>
                         <div>&nbsp;&nbsp;&nbsp;&nbsp;if (entry.isIntersecting) {`{`}</div>
@@ -518,8 +519,8 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                 </div>
 
                 <!-- Time-based tracking -->
-                <div class="bg-blue-500/20 border border-blue-400 rounded p-4">
-                    <div class="text-blue-300 font-mono text-[11px] space-y-1">
+                <div class="bg-blue-900 rounded p-4">
+                    <div class="text-blue-300 font-mono text-xs space-y-1">
                         <div class="text-yellow-400 mb-2">Track viewing time (seen for 2+ seconds):</div>
                         <div>const viewTimers = new Map();</div>
                         <div></div>
@@ -542,39 +543,39 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
             </div>
 
             <ProTip>
-                <div>💡 <strong>Privacy:</strong> This is more privacy-friendly than scroll tracking since you only know what was <em>seen</em>, not exact behavior.</div>
+                <div><strong>Privacy:</strong> This is more privacy-friendly than scroll tracking. You only know what was <em>seen</em>, not exact behaviour.</div>
             </ProTip>
         </MethodCard>
 
     <!-- ============================================ -->
-    <!-- 🛠️ Cleanup & Performance -->
+    <!-- Cleanup & Performance -->
     <!-- ============================================ -->
 
     <SectionTitle id="cleanup" color="red">
-        🛠️ Cleanup & Performance
+        Cleanup & performance
     </SectionTitle>
 
     <MethodCard
         id="cleanup-patterns"
-        methodName="Proper Cleanup"
+        methodName="Proper cleanup"
             signature="disconnect(), unobserve()"
             description="Prevent memory leaks"
             mutates={false}
         >
-            <div class="p-6 bg-gray-800 rounded space-y-4">
+            <div class="p-6 rounded space-y-4">
                 <!-- Unobserve vs disconnect -->
-                <div class="bg-slate-700 border border-slate-600 rounded p-4">
-                    <div class="text-slate-300 text-[11px] space-y-2">
+                <div class="rounded p-4 border-t border-rule">
+                    <div class="text-slate-300 text-xs space-y-2">
                         <div class="text-yellow-400 mb-2">Two cleanup methods:</div>
-                        <div>• <code class="bg-slate-800 px-1 py-0.5 rounded">observer.unobserve(element)</code> - Stop watching one element</div>
-                        <div>• <code class="bg-slate-800 px-1 py-0.5 rounded">observer.disconnect()</code> - Stop watching all elements</div>
+                        <div>• <code class="px-1 py-0.5 rounded">observer.unobserve(element)</code> - Stop watching one element</div>
+                        <div>• <code class="px-1 py-0.5 rounded">observer.disconnect()</code> - Stop watching all elements</div>
                     </div>
                 </div>
 
                 <!-- When to unobserve -->
-                <div class="bg-green-500/20 border border-green-500 rounded p-4">
-                    <div class="text-green-300 font-mono text-[11px] space-y-1">
-                        <div class="text-yellow-400 mb-2">Unobserve after one-time animations:</div>
+                <div class="bg-green-900 rounded p-4">
+                    <div class="text-green-300 font-mono text-xs space-y-1">
+                        <div class="text-yellow-400 mb-2 font-sans">Unobserve after one-time animations:</div>
                         <div>if (entry.isIntersecting) {`{`}</div>
                         <div>&nbsp;&nbsp;entry.target.classList.add('visible');</div>
                         <div>&nbsp;&nbsp;observer.unobserve(entry.target); <span class="text-gray-400">// Done, stop watching</span></div>
@@ -583,9 +584,9 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                 </div>
 
                 <!-- When to disconnect -->
-                <div class="bg-blue-500/20 border border-blue-400 rounded p-4">
-                    <div class="text-blue-300 font-mono text-[11px] space-y-1">
-                        <div class="text-yellow-400 mb-2">Disconnect when component unmounts:</div>
+                <div class="bg-blue-900 rounded p-4">
+                    <div class="text-blue-300 font-mono text-xs space-y-1">
+                        <div class="text-yellow-400 mb-2 font-sans">Disconnect when component unmounts:</div>
                         <div><span class="text-gray-400">// React example</span></div>
                         <div>useEffect(() => {`{`}</div>
                         <div>&nbsp;&nbsp;const observer = new IntersectionObserver(callback);</div>
@@ -597,8 +598,8 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                 </div>
 
                 <!-- Performance tips -->
-                <div class="bg-purple-500/20 border border-purple-400 rounded p-4">
-                    <div class="text-purple-300 text-[11px] space-y-2">
+                <div class="bg-purple-900 rounded p-4">
+                    <div class="text-purple-300 text-xs space-y-2">
                         <div class="text-yellow-400 mb-2">Performance tips:</div>
                         <div>• Use <strong>one observer</strong> for multiple elements of the same type</div>
                         <div>• <strong>Unobserve</strong> elements you're done with (fade-ins, lazy load)</div>
@@ -609,30 +610,30 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
             </div>
 
             <ProTip>
-                <div>💡 <strong>Memory leak prevention:</strong> Always disconnect observers when removing elements from DOM or unmounting components.</div>
+                <div><strong>Memory leak prevention:</strong> Always disconnect observers when removing elements from the DOM or unmounting components.</div>
             </ProTip>
         </MethodCard>
 
     <!-- ============================================ -->
-    <!-- 🎯 Quick Reference -->
+    <!-- Quick Reference -->
     <!-- ============================================ -->
 
     <SectionTitle id="reference" color="yellow">
-        🎯 Quick Reference
+        Quick reference
     </SectionTitle>
 
     <MethodCard
         id="cheatsheet"
-        methodName="Cheat Sheet"
+        methodName="Cheat sheet"
             signature="Common patterns at a glance"
             description="Copy-paste ready"
             mutates={false}
         >
-            <div class="p-6 bg-gray-800 rounded space-y-4">
+            <div class="p-6 rounded space-y-4">
                 <!-- Quick patterns -->
-                <div class="bg-slate-900 border border-slate-600 rounded p-4">
-                    <div class="text-slate-300 font-mono text-[10px] space-y-2">
-                        <div class="text-yellow-400 mb-2">Common patterns:</div>
+                <div class="rounded p-4 border-t border-rule">
+                    <div class="text-slate-300 font-mono text-xs space-y-2">
+                        <div class="text-yellow-400 mb-2 font-sans">Common patterns:</div>
 
                         <div class="text-green-400 mt-3">// Fade in once</div>
                         <div>const fadeObserver = new IntersectionObserver(entries => entries.forEach(e => e.isIntersecting && (e.target.classList.add('visible'), fadeObserver.unobserve(e.target))));</div>
@@ -649,14 +650,14 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
                 </div>
 
                 <!-- Entry object properties -->
-                <div class="bg-blue-500/20 border border-blue-400 rounded p-4">
-                    <div class="text-blue-300 text-[11px] space-y-1">
+                <div class="bg-blue-900 rounded p-4">
+                    <div class="text-blue-300 text-xs space-y-1">
                         <div class="text-yellow-400 mb-2">Entry object properties:</div>
-                        <div>• <code class="bg-slate-800 px-1 py-0.5 rounded">entry.isIntersecting</code> - Is element visible? (boolean)</div>
-                        <div>• <code class="bg-slate-800 px-1 py-0.5 rounded">entry.intersectionRatio</code> - How much is visible? (0-1)</div>
-                        <div>• <code class="bg-slate-800 px-1 py-0.5 rounded">entry.target</code> - The observed element</div>
-                        <div>• <code class="bg-slate-800 px-1 py-0.5 rounded">entry.boundingClientRect</code> - Element's position</div>
-                        <div>• <code class="bg-slate-800 px-1 py-0.5 rounded">entry.rootBounds</code> - Viewport/root dimensions</div>
+                        <div>• <code class="px-1 py-0.5 rounded">entry.isIntersecting</code> - Is element visible? (boolean)</div>
+                        <div>• <code class="px-1 py-0.5 rounded">entry.intersectionRatio</code> - How much is visible? (0-1)</div>
+                        <div>• <code class="px-1 py-0.5 rounded">entry.target</code> - The observed element</div>
+                        <div>• <code class="px-1 py-0.5 rounded">entry.boundingClientRect</code> - Element's position</div>
+                        <div>• <code class="px-1 py-0.5 rounded">entry.rootBounds</code> - Viewport/root dimensions</div>
                     </div>
                 </div>
             </div>
@@ -665,48 +666,48 @@ import VisualLayout from 'src/layouts/VisualLayout.astro';
     <Fragment slot="page-nav">
         <ul class="space-y-2 text-xs">
             <li>
-                <a href="#use-cases" class="text-cyan-300 font-semibold hover:text-cyan-200 block py-1">🎯 Best Use Cases</a>
-                <ul class="ml-3 mt-1 space-y-1 border-l-2 border-cyan-500/30 pl-2">
+                <a href="#use-cases" class="text-ink font-semibold hover:underline block py-1">Best use cases</a>
+                <ul class="ml-3 mt-1 space-y-1 border-l border-rule pl-2">
                     <li><a href="#when-to-use" class="text-gray-300 hover:text-blue-400 block">When to use</a></li>
                 </ul>
             </li>
 
             <li class="mt-4">
-                <a href="#quick-start" class="text-green-300 font-semibold hover:text-green-200 block py-1">🚀 Quick Start</a>
-                <ul class="ml-3 mt-1 space-y-1 border-l-2 border-green-500/30 pl-2">
-                    <li><a href="#basic-setup" class="text-gray-300 hover:text-blue-400 block">Basic Setup</a></li>
+                <a href="#quick-start" class="text-ink font-semibold hover:underline block py-1">Quick start</a>
+                <ul class="ml-3 mt-1 space-y-1 border-l border-rule pl-2">
+                    <li><a href="#basic-setup" class="text-gray-300 hover:text-blue-400 block">Basic setup</a></li>
                 </ul>
             </li>
 
             <li class="mt-4">
-                <a href="#options" class="text-orange-300 font-semibold hover:text-orange-200 block py-1">⚙️ Options</a>
-                <ul class="ml-3 mt-1 space-y-1 border-l-2 border-orange-500/30 pl-2">
+                <a href="#options" class="text-ink font-semibold hover:underline block py-1">Options</a>
+                <ul class="ml-3 mt-1 space-y-1 border-l border-rule pl-2">
                     <li><a href="#observer-options" class="text-gray-300 hover:text-blue-400 block">Configuration</a></li>
                 </ul>
             </li>
 
             <li class="mt-4">
-                <a href="#patterns" class="text-purple-300 font-semibold hover:text-purple-200 block py-1">🎨 Common Patterns</a>
-                <ul class="ml-3 mt-1 space-y-1 border-l-2 border-purple-500/30 pl-2">
-                    <li><a href="#fade-in-animation" class="text-gray-300 hover:text-blue-400 block">Fade-In Animations</a></li>
-                    <li><a href="#infinite-scroll" class="text-gray-300 hover:text-blue-400 block">Infinite Scroll</a></li>
-                    <li><a href="#scroll-animations" class="text-gray-300 hover:text-blue-400 block">Staggered Animations</a></li>
-                    <li><a href="#video-autoplay" class="text-gray-300 hover:text-blue-400 block">Pause Videos</a></li>
-                    <li><a href="#analytics" class="text-gray-300 hover:text-blue-400 block">Track Views</a></li>
+                <a href="#patterns" class="text-ink font-semibold hover:underline block py-1">Common patterns</a>
+                <ul class="ml-3 mt-1 space-y-1 border-l border-rule pl-2">
+                    <li><a href="#fade-in-animation" class="text-gray-300 hover:text-blue-400 block">Fade-in animations</a></li>
+                    <li><a href="#infinite-scroll" class="text-gray-300 hover:text-blue-400 block">Infinite scroll</a></li>
+                    <li><a href="#scroll-animations" class="text-gray-300 hover:text-blue-400 block">Staggered animations</a></li>
+                    <li><a href="#video-autoplay" class="text-gray-300 hover:text-blue-400 block">Pause videos</a></li>
+                    <li><a href="#analytics" class="text-gray-300 hover:text-blue-400 block">Track views</a></li>
                 </ul>
             </li>
 
             <li class="mt-4">
-                <a href="#cleanup" class="text-red-300 font-semibold hover:text-red-200 block py-1">🛠️ Cleanup & Performance</a>
-                <ul class="ml-3 mt-1 space-y-1 border-l-2 border-red-500/30 pl-2">
-                    <li><a href="#cleanup-patterns" class="text-gray-300 hover:text-blue-400 block">Proper Cleanup</a></li>
+                <a href="#cleanup" class="text-ink font-semibold hover:underline block py-1">Cleanup & performance</a>
+                <ul class="ml-3 mt-1 space-y-1 border-l border-rule pl-2">
+                    <li><a href="#cleanup-patterns" class="text-gray-300 hover:text-blue-400 block">Proper cleanup</a></li>
                 </ul>
             </li>
 
             <li class="mt-4">
-                <a href="#reference" class="text-yellow-300 font-semibold hover:text-yellow-200 block py-1">🎯 Quick Reference</a>
-                <ul class="ml-3 mt-1 space-y-1 border-l-2 border-yellow-500/30 pl-2">
-                    <li><a href="#cheatsheet" class="text-gray-300 hover:text-blue-400 block">Cheat Sheet</a></li>
+                <a href="#reference" class="text-ink font-semibold hover:underline block py-1">Quick reference</a>
+                <ul class="ml-3 mt-1 space-y-1 border-l border-rule pl-2">
+                    <li><a href="#cheatsheet" class="text-gray-300 hover:text-blue-400 block">Cheat sheet</a></li>
                 </ul>
             </li>
         </ul>

@@ -11,29 +11,31 @@ import ProTip from "~components/visual-js/ProTip.astro";
 import SectionTitle from "~components/visual-js/SectionTitle.astro";
 import SubSectionTitle from "~components/visual-js/SubSectionTitle.astro";
 import VisualLayout from "src/layouts/VisualLayout.astro";
+import Flow from "~components/visual-js/Flow.astro";
+import Mark from "~components/visual-js/Mark.astro";
 ---
 
 <VisualLayout pageTitle="Arrays">
     <ProTip>
         <div>
-            � <strong>Arrays are iterable!</strong> Arrays (along with strings, Maps,
+            <strong>Arrays are iterable.</strong> Arrays (along with strings, Maps,
             and Sets) are one of the few iterable types in JavaScript.
         </div>
-        <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-            <div class="font-mono text-[10px]">
+        <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+            <div class="font-mono text-xs">
                 <span class="text-green-400">// Works with for...of loops:</span
                 >
             </div>
-            <div class="font-mono text-[10px]">
+            <div class="font-mono text-xs">
                 for (const item of [1, 2, 3]) {"{"} console.log(item) {"}"}
             </div>
-            <div class="font-mono text-[10px] mt-1">
+            <div class="font-mono text-xs mt-1">
                 <span class="text-green-400"
                     >// Works with spread operator:</span
                 >
             </div>
-            <div class="font-mono text-[10px]">const copy = [...arr]</div>
-            <div class="font-mono text-[10px] mt-1">
+            <div class="font-mono text-xs">const copy = [...arr]</div>
+            <div class="font-mono text-xs mt-1">
                 <span class="text-red-400"
                     >// Objects are NOT iterable (need
                     Object.keys/values/entries)</span
@@ -44,37 +46,36 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
     <ProTip>
         <div>
-            � <strong>Array length property:</strong> Get the number of elements
+            <strong>Array length property:</strong> Get the number of elements
             with <code
-                class="bg-black/30 px-1 py-0.5 rounded font-mono text-yellow-400"
                 >arr.length</code
             >
         </div>
-        <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-            <div class="font-mono text-[10px]">
+        <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+            <div class="font-mono text-xs">
                 const nums = [1, 2, 3, 4, 5];
             </div>
-            <div class="font-mono text-[10px]">nums.length → 5</div>
-            <div class="font-mono text-[10px] mt-1">
+            <div class="font-mono text-xs">nums.length → 5</div>
+            <div class="font-mono text-xs mt-1">
                 <span class="text-green-400"
                     >// Writable! Set length to truncate:</span
                 >
             </div>
-            <div class="font-mono text-[10px]">nums.length = 3 → [1, 2, 3]</div>
+            <div class="font-mono text-xs">nums.length = 3 → [1, 2, 3]</div>
         </div>
     </ProTip>
 
     <!-- ============================================ -->
-    <!-- � CONVERTING TO ARRAYS -->
+    <!-- CONVERTING TO ARRAYS -->
     <!-- ============================================ -->
 
     <SectionTitle id="converting" color="blue">
-        🔄 Converting to Arrays
+        Converting to arrays
     </SectionTitle>
 
     <!-- === STRING TO ARRAY === -->
     <SubSectionTitle id="string-to-array" parentColor="blue"
-        >String to Array</SubSectionTitle
+        >String to array</SubSectionTitle
     >
 
     <!-- SPLIT -->
@@ -85,9 +86,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Splits a string into an array of substrings"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="String" type="input">
                 <div class="text-center text-sm font-mono">"hello"</div>
             </Node>
@@ -97,7 +96,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Method" type="process">
                 <ProcessContent
                     name="split('')"
-                    description="Split into chars"
+                    description="Split into characters"
                 />
             </Node>
 
@@ -110,17 +109,14 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     highlightType="added"
                 />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns a <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >new array</code
             >. Use <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >split('')</code
             > for chars, <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >split(' ')</code
             > for words.
         </MutableOrNot>
@@ -131,12 +127,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="array-from-string"
         methodName="Array.from()"
         signature="Array.from(string)"
-        description="Creates array from string or iterable"
+        description="Creates an array from a string or other iterable"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="String" type="input">
                 <div class="text-center text-sm font-mono">"abc"</div>
             </Node>
@@ -159,11 +153,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     highlightType="added"
                 />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Static method. Returns a <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >new array</code
             > from any iterable or array-like object.
         </MutableOrNot>
@@ -174,12 +167,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="spread-string"
         methodName="Spread [...str]"
         signature="[...string]"
-        description="Uses spread operator to convert string to array"
+        description="Uses the spread operator to convert a string to an array"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="String" type="input">
                 <div class="text-center text-sm font-mono">"hello"</div>
             </Node>
@@ -202,11 +193,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     highlightType="added"
                 />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Modern syntax. Creates a <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >new array</code
             > with each character as an element.
         </MutableOrNot>
@@ -214,7 +204,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
     <!-- === NUMBER TO ARRAY === -->
     <SubSectionTitle id="number-to-array" parentColor="blue"
-        >Number to Array</SubSectionTitle
+        >Number to array</SubSectionTitle
     >
 
     <!-- NUMBER TO DIGITS -->
@@ -222,12 +212,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="number-to-digits"
         methodName="String() + split()"
         signature="String(num).split('')"
-        description="Converts number to array of digit strings"
+        description="Converts a number to an array of digit strings"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Number" type="input">
                 <div class="text-center text-sm font-mono">12345</div>
             </Node>
@@ -250,14 +238,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     highlightType="added"
                 />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
-            Returns array of <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+            Returns an array of <code
                 >digit strings</code
             >. Use <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >.map(Number)</code
             > to convert to numbers.
         </MutableOrNot>
@@ -268,12 +254,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="array-from-number"
         methodName="Array.from() + map"
         signature="Array.from(String(num), Number)"
-        description="Converts number to array of digit numbers"
+        description="Converts a number to an array of digit numbers"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Number" type="input">
                 <div class="text-center text-sm font-mono">123</div>
             </Node>
@@ -296,25 +280,24 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     highlightType="added"
                 />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
-            Returns array of <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+            Returns an array of <code
                 >digit numbers</code
-            >. Second parameter is mapping function.
+            >. The second parameter is a map function.
         </MutableOrNot>
     </MethodCard>
 
     <!-- ============================================ -->
-    <!-- �🛠 MUTATES THE ARRAY -->
+    <!-- MUTATES THE ARRAY -->
     <!-- ============================================ -->
 
-    <SectionTitle id="mutates" color="red"> 🛠 Mutates the Array </SectionTitle>
+    <SectionTitle id="mutates" color="red"> Mutates the array </SectionTitle>
 
     <!-- === INSERT / REMOVE === -->
     <SubSectionTitle id="insert-remove" parentColor="red"
-        >Insert / Remove</SubSectionTitle
+        >Insert / remove</SubSectionTitle
     >
 
     <!-- PUSH -->
@@ -325,9 +308,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Adds elements to the end of an array and returns the new length"
         mutates={true}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Array" type="input">
                 <ArrayDisplay values={["a", "b", "c"]} />
             </Node>
@@ -353,13 +334,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Return Value" type="output">
                 <ReturnValue value={4} type="new length" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={true} message="">
-            The original array is modified in place. Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+            Modifies the original array in place. Returns <code
                 >number</code
-            > (new length), not the array. ⚠️ Cannot be chained with other array
+            > (new length), not the array. <Mark type="warn" /> Cannot be chained with other array
             methods.
         </MutableOrNot>
     </MethodCard>
@@ -372,9 +352,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Removes and returns the last element from an array"
         mutates={true}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Array" type="input">
                 <ArrayDisplay values={["a", "b", "c"]} />
             </Node>
@@ -396,13 +374,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Return Value" type="output">
                 <ReturnValue value="'c'" type="removed item" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={true} message="">
-            The original array is shortened. Returns the removed <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+            Shortens the original array. Returns the removed <code
                 >element</code
-            > (or undefined if empty). ⚠️ Cannot be chained with other array methods.
+            > (or undefined if empty). <Mark type="warn" /> Cannot be chained with other array methods.
         </MutableOrNot>
     </MethodCard>
 
@@ -411,12 +388,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="unshift"
         methodName="unshift()"
         signature="arr.unshift(...items)"
-        description="Adds elements to the beginning of an array and returns the new length"
+        description="Adds elements to the start of an array and returns the new length"
         mutates={true}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Array" type="input">
                 <ArrayDisplay values={["b", "c", "d"]} />
             </Node>
@@ -426,7 +401,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Method" type="process">
                 <ProcessContent
                     name="unshift('a')"
-                    description="Add to beginning"
+                    description="Add to start"
                 />
             </Node>
 
@@ -445,14 +420,13 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Return Value" type="output">
                 <ReturnValue value={4} type="new length" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={true} message="">
-            The original array is modified in place. All existing elements shift
+            Modifies the original array in place. All existing elements shift
             to higher indices. Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >number</code
-            > (new length). ⚠️ Cannot be chained with other array methods.
+            > (new length). <Mark type="warn" /> Cannot be chained with other array methods.
         </MutableOrNot>
     </MethodCard>
 
@@ -464,9 +438,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Removes and returns the first element from an array"
         mutates={true}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Array" type="input">
                 <ArrayDisplay values={["a", "b", "c"]} />
             </Node>
@@ -488,14 +460,13 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Return Value" type="output">
                 <ReturnValue value="'a'" type="removed item" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={true} message="">
-            The original array is shortened. All remaining elements shift to
+            Shortens the original array. All remaining elements shift to
             lower indices. Returns the removed <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >element</code
-            > (or undefined if empty). ⚠️ Cannot be chained with other array methods.
+            > (or undefined if empty). <Mark type="warn" /> Cannot be chained with other array methods.
         </MutableOrNot>
     </MethodCard>
 
@@ -507,9 +478,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Removes, replaces, or adds elements at any position in the array"
         mutates={true}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Array" type="input">
                 <ArrayDisplay values={["a", "b", "c", "d"]} />
             </Node>
@@ -542,21 +511,20 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     highlightType="removed"
                 />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={true} message="">
-            The Swiss Army knife of array methods. Returns an <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+            Returns an <code
                 >array</code
-            > of removed elements. Can remove, add, or replace items at any index.
+            > of removed elements. Removes, adds or replaces items at any index.
         </MutableOrNot>
 
         <ProTip>
-            <div>Insert without deleting by setting deleteCount to 0:</div>
+            <div>Set deleteCount to 0 to insert without deleting:</div>
             <div
-                class="pl-2 border-l-2 border-yellow-500/60 font-mono text-[10px]"
+                class="pl-2 border-l border-rule text-xs"
             >
-                arr.splice(2, 0, 'x', 'y') → inserts 'x', 'y' at index 2
+                <code>arr.splice(2, 0, 'x', 'y')</code> inserts <code>'x'</code> and <code>'y'</code> at index 2.
             </div>
         </ProTip>
     </MethodCard>
@@ -572,9 +540,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Sorts the array in place and returns the same array"
         mutates={true}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Array" type="input">
                 <ArrayDisplay values={[3, 1, 4, 2]} />
             </Node>
@@ -597,43 +563,42 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     highlightType="transformed"
                 />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={true} message="">
             Sorts in place. Returns the <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >same array</code
             > (not a copy).
         </MutableOrNot>
 
         <ProTip>
             <div>
-                Without a compare function, sort treats values as strings!
+                Without a compare function, sort treats values as strings.
             </div>
 
-            <div class="pl-2 border-l-2 border-yellow-500/60">
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule">
+                <div class="font-mono text-xs">
                     ['b','d','a','c'].sort() → ['a','b','c','d']
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     ['b','d','a','c'].sort().reverse() → ['d','c','b','a']
                 </div>
             </div>
 
-            <div>For numbers, use compare function:</div>
+            <div>For numbers, use a compare function:</div>
 
-            <div class="pl-2 border-l-2 border-yellow-500/60">
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule">
+                <div class="font-mono text-xs">
                     [2,4,1,3].sort((a,b) => a-b) → [1,2,3,4] <span
                         class="text-gray-400">// ascending</span
                     >
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     [2,4,1,3].sort((a,b) => b-a) → [4,3,2,1] <span
                         class="text-gray-400">// descending</span
                     >
                 </div>
-                <div class="font-mono text-[10px] text-gray-400">
+                <div class="font-mono text-xs text-gray-400">
                     // OR: .sort((a,b) => a-b).reverse() → [4,3,2,1]
                 </div>
             </div>
@@ -648,9 +613,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Reverses the array in place and returns the same array"
         mutates={true}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Array" type="input">
                 <ArrayDisplay values={["a", "b", "c"]} />
             </Node>
@@ -670,11 +633,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     highlightType="transformed"
                 />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={true} message="">
             Reverses in place. Returns the <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >same array</code
             > (not a copy).
         </MutableOrNot>
@@ -682,7 +644,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
     <!-- === OVERWRITE / MOVE === -->
     <SubSectionTitle id="overwrite-move" parentColor="red"
-        >Overwrite / Move</SubSectionTitle
+        >Overwrite / move</SubSectionTitle
     >
 
     <!-- FILL -->
@@ -693,9 +655,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Overwrites a section of the array with a static value"
         mutates={true}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Array" type="input">
                 <ArrayDisplay values={[1, 2, 3, 4, 5]} />
             </Node>
@@ -718,24 +678,23 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     highlightType="transformed"
                 />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={true} message="">
             Overwrites in place. Returns the <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >same array</code
             >. End index is exclusive.
         </MutableOrNot>
 
         <ProTip>
-            <div>Useful for filling array holes (empty slots):</div>
-            <div class="pl-2 border-l-2 border-yellow-500/60 space-y-0.5">
-                <div class="font-mono text-[10px]">
+            <div>Use it to fill array holes (empty slots):</div>
+            <div class="pl-2 border-l border-rule space-y-0.5">
+                <div class="font-mono text-xs">
                     Array(5).fill(0) → [0, 0, 0, 0, 0] <span
                         class="text-gray-400">// no holes!</span
                     >
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     Array(5) → [empty × 5] <span class="text-gray-400"
                         >// has holes, methods skip these</span
                     >
@@ -749,12 +708,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="copyWithin"
         methodName="copyWithin()"
         signature="arr.copyWithin(target, start, end?)"
-        description="Copies part of array to another location within same array"
+        description="Copies part of an array to another position in the same array"
         mutates={true}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Array" type="input">
                 <ArrayDisplay values={[1, 2, 3, 4, 5]} />
             </Node>
@@ -777,32 +734,31 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     highlightType="transformed"
                 />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={true} message="">
             Copies within the same array. Returns the <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >same array</code
-            >. Doesn't change array length.
+            >. Does not change the array length.
         </MutableOrNot>
     </MethodCard>
 
     <!-- ============================================ -->
-    <!-- 🚫 DOES NOT MUTATE (returns new value) -->
+    <!-- DOES NOT MUTATE (returns new value) -->
     <!-- ============================================ -->
     <SectionTitle id="immutable" color="green">
-        🚫 Does Not Mutate (returns new value)
+        Does not mutate (returns new value)
     </SectionTitle>
 
     <ProTip>
         <div>
-            💪 Chain immutable methods together for cleaner, functional code:
+            Chain immutable methods for cleaner, functional code:
         </div>
-        <div class="pl-2 border-l-2 border-yellow-500/60 space-y-0.5">
-            <div class="font-mono text-[10px]">
+        <div class="pl-2 border-l border-rule space-y-0.5">
+            <div class="font-mono text-xs">
                 users.filter(u =&gt; u.active).map(u =&gt; u.name).slice(0, 10)
             </div>
-            <div class="font-mono text-[10px] text-gray-400">
+            <div class="font-mono text-xs text-gray-400">
                 // Filter → transform → take first 10 (all chainable!)
             </div>
         </div>
@@ -810,7 +766,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
     <!-- === BUILD NEW ARRAYS === -->
     <SubSectionTitle id="build-arrays" parentColor="green"
-        >Build New Arrays</SubSectionTitle
+        >Build new arrays</SubSectionTitle
     >
 
     <!-- MAP -->
@@ -821,9 +777,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Creates a new array by transforming each element with a function"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Array" type="input">
                 <ArrayDisplay values={[1, 2, 3]} />
             </Node>
@@ -846,30 +800,27 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     highlightType="transformed"
                 />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
-            Original array remains unchanged. Returns a <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+            Does not change the original array. Returns a <code
                 >new array</code
-            > with same length, transformed values.
+            > with the same length and transformed values.
         </MutableOrNot>
 
         <ProTip>
             <div>
                 Need the results? Use <code
-                    class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                     >map()</code
                 >. Just doing side effects? Use <code
-                    class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                     >forEach()</code
                 >.
             </div>
             <div
-                class="pl-2 border-l-2 border-yellow-500/60 font-mono text-[10px]"
+                class="pl-2 border-l border-rule font-mono text-xs"
             >
-                const ids = users.map(u => u.id) ✅<br />
-                users.forEach(u => console.log(u)) ✅
+                const ids = users.map(u => u.id) <Mark type="yes" /><br />
+                users.forEach(u => console.log(u)) <Mark type="yes" />
             </div>
         </ProTip>
     </MethodCard>
@@ -882,9 +833,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Creates a new array with elements that pass a test function"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Array" type="input">
                 <ArrayDisplay values={[1, 2, 3, 4, 5]} />
             </Node>
@@ -907,24 +856,22 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     highlightType="added"
                 />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
-            Original array remains unchanged. Returns a <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+            Does not change the original array. Returns a <code
                 >new array</code
-            > (may be shorter) with only passing items.
+            > (can be shorter) with only the items that pass.
         </MutableOrNot>
 
         <ProTip>
             <div>
                 Use <code
-                    class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                     >filter(Boolean)</code
-                > to remove all falsy values in one go!
+                > to remove all falsy values in one call.
             </div>
             <div
-                class="pl-2 border-l-2 border-yellow-500/60 font-mono text-[10px]"
+                class="pl-2 border-l border-rule font-mono text-xs"
             >
                 [0, 1, false, 2, '', 3, null].filter(Boolean) → [1, 2, 3]
             </div>
@@ -939,9 +886,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Returns a shallow copy of a portion of an array"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Array" type="input">
                 <ArrayDisplay values={["a", "b", "c", "d", "e"]} />
             </Node>
@@ -964,54 +909,53 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     highlightType="added"
                 />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
-            Original array remains unchanged. Returns a <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+            Does not change the original array. Returns a <code
                 >new array</code
-            > containing the extracted section. End index is exclusive. Supports
+            > with the extracted section. The end index is exclusive. Supports
             negative indices.
         </MutableOrNot>
 
         <ProTip>
-            <div class="pl-2 border-l-2 border-yellow-500/60">
-                <div class="font-mono text-[10px]">
-                    slice(1, -1) → removes first & last item
+            <div class="pl-2 border-l border-rule">
+                <div class="text-xs">
+                    <code>slice(1, -1)</code> removes the first and last items.
                 </div>
-                <div class="font-mono text-[10px]">
-                    slice(-3) → gets last 3 items
+                <div class="text-xs">
+                    <code>slice(-3)</code> gets the last 3 items.
                 </div>
-                <div class="font-mono text-[10px]">
-                    slice(0) or [...arr] → shallow copy entire array
+                <div class="text-xs">
+                    <code>slice(0)</code> or <code>[...arr]</code> makes a shallow copy of the whole array.
                 </div>
             </div>
-            <div class="mt-1.5 text-[10px]">
-                ⚠️ <strong>Shallow vs Deep Copy:</strong>
+            <div class="mt-1.5 text-xs">
+                <Mark type="warn" /> <strong>Shallow vs deep copy:</strong>
             </div>
-            <div class="pl-2 border-l-2 border-yellow-500/60 mt-1 space-y-1">
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule mt-1 space-y-1">
+                <div class="font-mono text-xs">
                     <span class="text-gray-400"
                         >// Simple values (strings/numbers) - shallow copy is
                         fine:</span
                     ><br />
                     const copy = [1, 2, 3].slice(0)<br />
-                    copy[0] = 999 → original unaffected ✅
+                    copy[0] = 999 → original unaffected <Mark type="yes" />
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     <span class="text-gray-400"
                         >// Nested objects - shallow copy shares references!</span
                     ><br />
                     const users = [{"{"}id:1{"}"}, {"{"}id:2{"}"}]<br />
                     const copy = users.slice(0)<br />
-                    copy[0].id = 999 → original[0].id is also 999 ❌
+                    copy[0].id = 999 → original[0].id is also 999 <Mark type="no" />
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     <span class="text-gray-400"
                         >// Deep copy - fully independent:</span
                     ><br />
                     const deep = structuredClone(users)<br />
-                    deep[0].id = 999 → original unaffected ✅
+                    deep[0].id = 999 → original unaffected <Mark type="yes" />
                 </div>
             </div>
         </ProTip>
@@ -1025,9 +969,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Merges two or more arrays into a new array"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Array" type="input">
                 <ArrayDisplay values={["a", "b"]} />
             </Node>
@@ -1050,21 +992,20 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     highlightType="added"
                 />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
-            Original array remains unchanged. Returns a <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+            Does not change the original array. Returns a <code
                 >new array</code
             > with all items combined.
         </MutableOrNot>
 
         <ProTip>
-            <div>Merge multiple arrays at once:</div>
+            <div>Merge many arrays in one call:</div>
             <div
-                class="pl-2 border-l-2 border-yellow-500/60 font-mono text-[10px]"
+                class="pl-2 border-l border-rule text-xs"
             >
-                arr1.concat(arr2, arr3, arr4) → combines all in one call
+                <code>arr1.concat(arr2, arr3, arr4)</code> combines all four arrays.
             </div>
         </ProTip>
     </MethodCard>
@@ -1077,9 +1018,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Flattens nested arrays into a single level"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Array" type="input">
                 <div class="text-center text-sm font-mono">
                     [1, [2, 3], [4, 5]]
@@ -1104,11 +1043,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     highlightType="transformed"
                 />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns a <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >new array</code
             > with sub-arrays flattened. Default depth is 1.
         </MutableOrNot>
@@ -1116,12 +1054,11 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         <ProTip>
             <div>
                 For deeply nested arrays, use <code
-                    class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                     >flat(Infinity)</code
                 > to flatten all levels:
             </div>
             <div
-                class="pl-2 border-l-2 border-yellow-500/60 font-mono text-[10px]"
+                class="pl-2 border-l border-rule font-mono text-xs"
             >
                 [1, [2, [3, [4]]]].flat(Infinity) → [1, 2, 3, 4]
             </div>
@@ -1133,12 +1070,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="flatMap"
         methodName="flatMap()"
         signature="arr.flatMap(fn)"
-        description="Maps each element then flattens result by one level"
+        description="Maps each element, then flattens the result by one level"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Array" type="input">
                 <ArrayDisplay values={[1, 2, 3]} />
             </Node>
@@ -1161,13 +1096,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     highlightType="added"
                 />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns a <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >new array</code
-            >. Equivalent to map() followed by flat(1).
+            >. Same as map() followed by flat(1).
         </MutableOrNot>
     </MethodCard>
 
@@ -1179,9 +1113,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Returns a copy with one element replaced"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Array" type="input">
                 <ArrayDisplay values={["a", "b", "c"]} />
             </Node>
@@ -1204,13 +1136,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     highlightType="transformed"
                 />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns a <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >new array</code
-            > with one element changed. Original array unchanged.
+            > with one element changed. Does not change the original array.
         </MutableOrNot>
     </MethodCard>
 
@@ -1219,12 +1150,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="toSpliced"
         methodName="toSpliced()"
         signature="arr.toSpliced(start, deleteCount, ...items)"
-        description="Immutable version of splice - returns new array"
+        description="Immutable version of splice(). Returns a new array"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Array" type="input">
                 <ArrayDisplay values={["a", "b", "c", "d"]} />
             </Node>
@@ -1247,13 +1176,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     highlightType="transformed"
                 />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns a <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >new array</code
-            >. Like splice() but doesn't mutate original.
+            >. Like splice(), but does not change the original array.
         </MutableOrNot>
     </MethodCard>
 
@@ -1262,12 +1190,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="toSorted"
         methodName="toSorted()"
         signature="arr.toSorted(compareFn?)"
-        description="Immutable version of sort - returns new sorted array"
+        description="Immutable version of sort(). Returns a new sorted array"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Array" type="input">
                 <ArrayDisplay values={[3, 1, 4, 2]} />
             </Node>
@@ -1290,13 +1216,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     highlightType="transformed"
                 />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns a <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >new sorted array</code
-            >. Original array remains unchanged.
+            >. Does not change the original array.
         </MutableOrNot>
     </MethodCard>
 
@@ -1305,12 +1230,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="toReversed"
         methodName="toReversed()"
         signature="arr.toReversed()"
-        description="Immutable version of reverse - returns new reversed array"
+        description="Immutable version of reverse(). Returns a new reversed array"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Array" type="input">
                 <ArrayDisplay values={["a", "b", "c"]} />
             </Node>
@@ -1333,19 +1256,18 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     highlightType="transformed"
                 />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns a <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >new reversed array</code
-            >. Original array remains unchanged.
+            >. Does not change the original array.
         </MutableOrNot>
     </MethodCard>
 
     <!-- === FIND / TEST === -->
     <SubSectionTitle id="find-test" parentColor="green"
-        >Find / Test</SubSectionTitle
+        >Find / test</SubSectionTitle
     >
 
     <!-- ARRAY.ISARRAY -->
@@ -1356,9 +1278,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Checks if a value is an array"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Value" type="input">
                 <div class="text-center text-sm font-mono">[1, 2, 3]</div>
             </Node>
@@ -1377,35 +1297,34 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Result" type="output">
                 <ReturnValue value="true" type="boolean" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Static method. Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >boolean</code
-            >. Most reliable way to check if something is an array.
+            >. The most reliable way to check if a value is an array.
         </MutableOrNot>
 
         <ProTip>
             <div><strong>Why use Array.isArray():</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
-                    Array.isArray([1, 2]) → true ✅
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
+                    Array.isArray([1, 2]) → true <Mark type="yes" />
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     Array.isArray("hello") → false <span class="text-gray-400"
                         >// strings have .length too!</span
                     >
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     Array.isArray({"{"}0: 'a'{"}"}) → false <span
                         class="text-gray-400">// array-like but not array</span
                     >
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-green-400">// Common pattern:</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     const data = Array.isArray(input) ? input : [input];
                 </div>
             </div>
@@ -1420,9 +1339,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Returns the first element that passes a test function"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Array" type="input">
                 <ArrayDisplay values={[1, 5, 8, 12]} />
             </Node>
@@ -1441,13 +1358,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="First Match" type="output">
                 <ReturnValue value={12} type="item | undefined" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns the <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >first matching item</code
-            > or undefined if none found. ⚠️ Cannot be chained.
+            > or undefined if there is no match. <Mark type="warn" /> Cannot be chained.
         </MutableOrNot>
     </MethodCard>
 
@@ -1456,12 +1372,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="includes"
         methodName="includes()"
         signature="arr.includes(value)"
-        description="Checks if array contains a specific value"
+        description="Checks if an array contains a value"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Array" type="input">
                 <ArrayDisplay values={["a", "b", "c"]} />
             </Node>
@@ -1480,13 +1394,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Boolean Result" type="output">
                 <ReturnValue value="true" type="boolean" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >boolean</code
-            >. ⚠️ Cannot be chained. Works with NaN unlike indexOf().
+            >. <Mark type="warn" /> Cannot be chained. Unlike indexOf(), it finds NaN.
         </MutableOrNot>
     </MethodCard>
 
@@ -1498,9 +1411,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Returns the first index at which a value is found"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Array" type="input">
                 <ArrayDisplay values={["a", "b", "c", "b"]} />
             </Node>
@@ -1519,13 +1430,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Index" type="output">
                 <ReturnValue value={1} type="number | -1" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >number</code
-            > (index) or -1 if not found. ⚠️ Cannot be chained. Doesn't work with
+            > (index) or -1 if not found. <Mark type="warn" /> Cannot be chained. Does not find
             NaN.
         </MutableOrNot>
     </MethodCard>
@@ -1538,9 +1448,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Tests whether at least one element passes the test"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Array" type="input">
                 <ArrayDisplay values={[1, 2, 3, 4, 5]} />
             </Node>
@@ -1559,13 +1467,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Boolean Result" type="output">
                 <ReturnValue value="true" type="boolean" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >boolean</code
-            >. ⚠️ Cannot be chained. Returns true if ANY element passes the
+            >. <Mark type="warn" /> Cannot be chained. Returns true if 'any' element passes the
             test.
         </MutableOrNot>
     </MethodCard>
@@ -1578,9 +1485,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Tests whether all elements pass the test"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Array" type="input">
                 <ArrayDisplay values={[2, 4, 6, 8]} />
             </Node>
@@ -1599,13 +1504,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Boolean Result" type="output">
                 <ReturnValue value="true" type="boolean" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >boolean</code
-            >. ⚠️ Cannot be chained. Returns true only if ALL elements pass the
+            >. <Mark type="warn" /> Cannot be chained. Returns true only if 'all' elements pass the
             test.
         </MutableOrNot>
     </MethodCard>
@@ -1618,9 +1522,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Returns the last index at which a value is found"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Array" type="input">
                 <ArrayDisplay values={["a", "b", "c", "b"]} />
             </Node>
@@ -1639,13 +1541,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Index" type="output">
                 <ReturnValue value={3} type="number | -1" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >number</code
-            > (last index) or -1 if not found. ⚠️ Cannot be chained.
+            > (last index) or -1 if not found. <Mark type="warn" /> Cannot be chained.
         </MutableOrNot>
     </MethodCard>
 
@@ -1657,9 +1558,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Returns the last element that passes a test function"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Array" type="input">
                 <ArrayDisplay values={[1, 5, 8, 12, 7]} />
             </Node>
@@ -1678,13 +1577,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Last Match" type="output">
                 <ReturnValue value={12} type="item | undefined" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns the <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >last matching item</code
-            > or undefined. ⚠️ Cannot be chained. Searches from end to start.
+            > or undefined. <Mark type="warn" /> Cannot be chained. Searches from end to start.
         </MutableOrNot>
     </MethodCard>
 
@@ -1693,12 +1591,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="findIndex"
         methodName="findIndex()"
         signature="arr.findIndex(fn)"
-        description="Returns the index of first element that passes test"
+        description="Returns the index of the first element that passes a test"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Array" type="input">
                 <ArrayDisplay values={[1, 5, 8, 12]} />
             </Node>
@@ -1717,25 +1613,24 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Index" type="output">
                 <ReturnValue value={3} type="number | -1" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >index</code
-            > of first match or -1 if not found. ⚠️ Cannot be chained.
+            > of the first match, or -1 if not found. <Mark type="warn" /> Cannot be chained.
         </MutableOrNot>
 
         <ProTip>
             <div>
-                Common pattern: Find and remove an item by combining with
-                splice:
+                Common pattern: combine with splice() to find and remove an
+                item:
             </div>
-            <div class="pl-2 border-l-2 border-yellow-500/60 space-y-0.5">
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule space-y-0.5">
+                <div class="font-mono text-xs">
                     const idx = users.findIndex(u =&gt; u.id === 5)
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     if (idx !== -1) users.splice(idx, 1) <span
                         class="text-gray-400">// removes user</span
                     >
@@ -1749,12 +1644,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="findLastIndex"
         methodName="findLastIndex()"
         signature="arr.findLastIndex(fn)"
-        description="Returns the index of last element that passes test"
+        description="Returns the index of the last element that passes a test"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Array" type="input">
                 <ArrayDisplay values={[1, 5, 8, 12, 7]} />
             </Node>
@@ -1773,13 +1666,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Index" type="output">
                 <ReturnValue value={3} type="number | -1" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >index</code
-            > of last match or -1. ⚠️ Cannot be chained. Searches from end to start.
+            > of the last match, or -1. <Mark type="warn" /> Cannot be chained. Searches from end to start.
         </MutableOrNot>
     </MethodCard>
 
@@ -1788,12 +1680,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="at"
         methodName="at()"
         signature="arr.at(index)"
-        description="Returns element at given index (supports negative indices)"
+        description="Returns the element at an index (supports negative indices)"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Array" type="input">
                 <ArrayDisplay values={["a", "b", "c", "d"]} />
             </Node>
@@ -1809,27 +1699,25 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Item" type="output">
                 <ReturnValue value="'d'" type="item | undefined" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >item</code
-            > at index. ⚠️ Cannot be chained. Negative indices count from end (-1
-            = last item).
+            > at index. <Mark type="warn" /> Cannot be chained. Negative indices count from the end (-1
+            is the last item).
         </MutableOrNot>
 
         <ProTip>
             <div>
-                Much cleaner than <code
-                    class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+                Cleaner than <code
                     >arr[arr.length - 1]</code
-                > for getting the last item:
+                > to get the last item:
             </div>
             <div
-                class="pl-2 border-l-2 border-yellow-500/60 font-mono text-[10px]"
+                class="pl-2 border-l border-rule text-xs"
             >
-                arr.at(-1) → last item, arr.at(-2) → second to last
+                <code>arr.at(-1)</code> gets the last item. <code>arr.at(-2)</code> gets the second to last.
             </div>
         </ProTip>
     </MethodCard>
@@ -1844,12 +1732,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="reduce"
         methodName="reduce()"
         signature="arr.reduce(fn, initialValue)"
-        description="Reduces array to a single value by applying function with accumulator"
+        description="Reduces an array to a single value with an accumulator function"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Array" type="input">
                 <ArrayDisplay values={[1, 2, 3, 4]} />
             </Node>
@@ -1868,30 +1754,29 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Single Value" type="output">
                 <ReturnValue value={10} type="accumulated result" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns a <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >single value</code
-            > of any type. ⚠️ Cannot be chained. The accumulator carries forward
+            > of any type. <Mark type="warn" /> Cannot be chained. The accumulator carries forward
             through each iteration.
         </MutableOrNot>
 
         <ProTip>
-            <div>Reduce is super versatile! Common patterns:</div>
-            <div class="pl-2 border-l-2 border-yellow-500/60 space-y-1">
-                <div class="font-mono text-[10px]">
+            <div>Common reduce() patterns:</div>
+            <div class="pl-2 border-l border-rule space-y-1">
+                <div class="font-mono text-xs">
                     <span class="text-gray-400">// Count occurrences</span><br
                     />items.reduce((acc,v) =&gt; ({"{"}...acc, [v]:
                     (acc[v]||0)+1{"}"}), {"{"}{"}"})
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     <span class="text-gray-400">// Group by property</span><br
                     />users.reduce((acc,u) =&gt; ({"{"}...acc, [u.role]:
                     [...(acc[u.role]||[]),u]{"}"}), {"{"}{"}"})
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     <span class="text-gray-400">// Build object from array</span
                     ><br />arr.reduce((acc,v,i) =&gt; ({"{"}...acc, [i]: v{
                         "}"
@@ -1906,12 +1791,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="reduceRight"
         methodName="reduceRight()"
         signature="arr.reduceRight(fn, initialValue)"
-        description="Reduces array from right to left with an accumulator"
+        description="Reduces an array from right to left with an accumulator"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Array" type="input">
                 <ArrayDisplay values={["a", "b", "c"]} />
             </Node>
@@ -1930,19 +1813,18 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Single Value" type="output">
                 <ReturnValue value="'cba'" type="string" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Like reduce() but processes from <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >right to left</code
-            >. Returns a single value. ⚠️ Cannot be chained.
+            >. Returns a single value. <Mark type="warn" /> Cannot be chained.
         </MutableOrNot>
     </MethodCard>
 
     <!-- === ITERATE / INSPECT === -->
     <SubSectionTitle id="iterate-inspect" parentColor="green"
-        >Iterate / Inspect</SubSectionTitle
+        >Iterate / inspect</SubSectionTitle
     >
 
     <!-- FOREACH -->
@@ -1950,12 +1832,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="forEach"
         methodName="forEach()"
         signature="arr.forEach(fn)"
-        description="Executes a function for each array element"
+        description="Runs a function for each array element"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Array" type="input">
                 <ArrayDisplay values={["a", "b", "c"]} />
             </Node>
@@ -1974,11 +1854,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Return Value" type="output">
                 <ReturnValue value="undefined" type="undefined" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Always returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >undefined</code
             >. Cannot be chained. Use for side effects only.
         </MutableOrNot>
@@ -1986,16 +1865,15 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         <ProTip>
             <div>
                 For large arrays (10,000+ items), regular <code
-                    class="bg-black/30 px-1 py-0.5 rounded font-mono text-yellow-400"
                     >for</code
                 > loops are faster:
             </div>
-            <div class="pl-2 border-l-2 border-yellow-500/60 space-y-0.5">
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule space-y-0.5">
+                <div class="font-mono text-xs">
                     for (let i = 0; i &lt; arr.length; i++) {"{"} ... {"}"}
                     <span class="text-gray-400">// fastest</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     arr.forEach(item =&gt; {"{"} ... {"}"}) <span
                         class="text-gray-400">// cleaner, slightly slower</span
                     >
@@ -2012,9 +1890,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Returns an iterator of [index, value] pairs"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Array" type="input">
                 <ArrayDisplay values={["a", "b", "c"]} />
             </Node>
@@ -2035,13 +1911,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     [0,'a'], [1,'b'], [2,'c']
                 </div>
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns an <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >iterator</code
-            >. ⚠️ Cannot be chained directly. Use with for...of or Array.from().
+            >. <Mark type="warn" /> Cannot be chained directly. Use with for...of or Array.from().
         </MutableOrNot>
     </MethodCard>
 
@@ -2053,9 +1928,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Returns an iterator of array indices"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Array" type="input">
                 <ArrayDisplay values={["a", "b", "c"]} />
             </Node>
@@ -2071,13 +1944,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Iterator" type="output">
                 <div class="text-center text-xs font-mono">0, 1, 2</div>
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns an <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >iterator</code
-            > of array indices. ⚠️ Cannot be chained directly.
+            > of array indices. <Mark type="warn" /> Cannot be chained directly.
         </MutableOrNot>
     </MethodCard>
 
@@ -2089,9 +1961,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Returns an iterator of array values"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Array" type="input">
                 <ArrayDisplay values={["a", "b", "c"]} />
             </Node>
@@ -2107,13 +1977,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Iterator" type="output">
                 <div class="text-center text-xs font-mono">'a', 'b', 'c'</div>
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns an <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >iterator</code
-            > of array values. ⚠️ Cannot be chained directly.
+            > of array values. <Mark type="warn" /> Cannot be chained directly.
         </MutableOrNot>
     </MethodCard>
 
@@ -2130,9 +1999,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Joins all elements into a string"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Array" type="input">
                 <ArrayDisplay values={["a", "b", "c"]} />
             </Node>
@@ -2148,13 +2015,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="String" type="output">
                 <ReturnValue value="'a-b-c'" type="string" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns a <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >string</code
-            >. ⚠️ Cannot be chained. Default separator is comma.
+            >. <Mark type="warn" /> Cannot be chained. The default separator is a comma.
         </MutableOrNot>
     </MethodCard>
 
@@ -2163,12 +2029,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="toString"
         methodName="toString()"
         signature="arr.toString()"
-        description="Converts array to comma-separated string"
+        description="Converts an array to a comma-separated string"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Array" type="input">
                 <ArrayDisplay values={[1, 2, 3]} />
             </Node>
@@ -2187,13 +2051,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="String" type="output">
                 <ReturnValue value="'1,2,3'" type="string" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns a <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >string</code
-            >. ⚠️ Cannot be chained. Equivalent to join() without separator.
+            >. <Mark type="warn" /> Cannot be chained. Same as join() with no separator.
         </MutableOrNot>
     </MethodCard>
 
@@ -2202,12 +2065,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="toLocaleString"
         methodName="toLocaleString()"
         signature="arr.toLocaleString()"
-        description="Converts array to locale-specific string"
+        description="Converts an array to a locale-specific string"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Array" type="input">
                 <ArrayDisplay values={[1000, 2000]} />
             </Node>
@@ -2226,13 +2087,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="String" type="output">
                 <ReturnValue value="'1,000, 2,000'" type="string" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns a <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >string</code
-            > with locale-specific formatting. ⚠️ Cannot be chained.
+            > with locale-specific formatting. <Mark type="warn" /> Cannot be chained.
         </MutableOrNot>
     </MethodCard>
 
@@ -2242,14 +2102,14 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <li>
                 <a
                     href="#converting"
-                    class="text-blue-300 font-semibold hover:text-blue-200 block py-1"
-                    >🔄 Converting</a
+                    class="text-ink font-semibold hover:underline block py-1"
+                    >Converting</a
                 >
                 <ul
-                    class="ml-3 mt-1 space-y-1 border-l-2 border-blue-500/30 pl-2"
+                    class="ml-3 mt-1 space-y-1 border-l border-rule pl-2"
                 >
                     <li>
-                        <span class="text-gray-400 text-[10px] uppercase"
+                        <span class="text-gray-400 text-xs uppercase"
                             >String to Array</span
                         >
                         <ul class="ml-2 mt-0.5 space-y-0.5">
@@ -2277,7 +2137,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         </ul>
                     </li>
                     <li class="mt-2">
-                        <span class="text-gray-400 text-[10px] uppercase"
+                        <span class="text-gray-400 text-xs uppercase"
                             >Number to Array</span
                         >
                         <ul class="ml-2 mt-0.5 space-y-0.5">
@@ -2304,14 +2164,14 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <li class="mt-4">
                 <a
                     href="#mutates"
-                    class="text-red-300 font-semibold hover:text-red-200 block py-1"
-                    >🛠 Mutates</a
+                    class="text-ink font-semibold hover:underline block py-1"
+                    >Mutates</a
                 >
                 <ul
-                    class="ml-3 mt-1 space-y-1 border-l-2 border-red-500/30 pl-2"
+                    class="ml-3 mt-1 space-y-1 border-l border-rule pl-2"
                 >
                     <li>
-                        <span class="text-gray-400 text-[10px] uppercase"
+                        <span class="text-gray-400 text-xs uppercase"
                             >Insert / Remove</span
                         >
                         <ul class="ml-2 mt-0.5 space-y-0.5">
@@ -2353,7 +2213,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         </ul>
                     </li>
                     <li class="mt-2">
-                        <span class="text-gray-400 text-[10px] uppercase"
+                        <span class="text-gray-400 text-xs uppercase"
                             >Reorder</span
                         >
                         <ul class="ml-2 mt-0.5 space-y-0.5">
@@ -2374,7 +2234,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         </ul>
                     </li>
                     <li class="mt-2">
-                        <span class="text-gray-400 text-[10px] uppercase"
+                        <span class="text-gray-400 text-xs uppercase"
                             >Overwrite / Move</span
                         >
                         <ul class="ml-2 mt-0.5 space-y-0.5">
@@ -2401,14 +2261,14 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <li class="mt-4">
                 <a
                     href="#immutable"
-                    class="text-green-300 font-semibold hover:text-green-200 block py-1"
-                    >🚫 Immutable</a
+                    class="text-ink font-semibold hover:underline block py-1"
+                    >Immutable</a
                 >
                 <ul
-                    class="ml-3 mt-1 space-y-1 border-l-2 border-green-500/30 pl-2"
+                    class="ml-3 mt-1 space-y-1 border-l border-rule pl-2"
                 >
                     <li>
-                        <span class="text-gray-400 text-[10px] uppercase"
+                        <span class="text-gray-400 text-xs uppercase"
                             >Build Arrays</span
                         >
                         <ul class="ml-2 mt-0.5 space-y-0.5">
@@ -2485,7 +2345,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         </ul>
                     </li>
                     <li class="mt-2">
-                        <span class="text-gray-400 text-[10px] uppercase"
+                        <span class="text-gray-400 text-xs uppercase"
                             >Find / Test</span
                         >
                         <ul class="ml-2 mt-0.5 space-y-0.5">
@@ -2562,7 +2422,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         </ul>
                     </li>
                     <li class="mt-2">
-                        <span class="text-gray-400 text-[10px] uppercase"
+                        <span class="text-gray-400 text-xs uppercase"
                             >Reduce</span
                         >
                         <ul class="ml-2 mt-0.5 space-y-0.5">
@@ -2583,7 +2443,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         </ul>
                     </li>
                     <li class="mt-2">
-                        <span class="text-gray-400 text-[10px] uppercase"
+                        <span class="text-gray-400 text-xs uppercase"
                             >Iterate / Inspect</span
                         >
                         <ul class="ml-2 mt-0.5 space-y-0.5">
@@ -2618,7 +2478,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         </ul>
                     </li>
                     <li class="mt-2">
-                        <span class="text-gray-400 text-[10px] uppercase"
+                        <span class="text-gray-400 text-xs uppercase"
                             >Stringify</span
                         >
                         <ul class="ml-2 mt-0.5 space-y-0.5">

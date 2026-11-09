@@ -10,122 +10,119 @@ import ProTip from "~components/visual-js/ProTip.astro";
 import SectionTitle from "~components/visual-js/SectionTitle.astro";
 import SubSectionTitle from "~components/visual-js/SubSectionTitle.astro";
 import VisualLayout from "src/layouts/VisualLayout.astro";
+import Flow from "~components/visual-js/Flow.astro";
+import Mark from "~components/visual-js/Mark.astro";
 ---
 
 <VisualLayout pageTitle="Objects">
     <ProTip>
         <div>
-            ⚠️ <strong>Objects are NOT iterable!</strong> Unlike arrays and strings,
-            you can't directly use for...of or spread on objects.
+            <Mark type="warn" /> <strong>Objects are not iterable.</strong> Unlike arrays and strings,
+            objects don't work with <code>for...of</code> or array spread (<code>[...obj]</code>).
+            Object spread (<code>{"{"} ...obj {"}"}</code>) works.
         </div>
-        <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-            <div class="font-mono text-[10px]">
+        <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+            <div class="font-mono text-xs">
                 <span class="text-red-400">// This won't work:</span>
             </div>
-            <div class="font-mono text-[10px]">
+            <div class="font-mono text-xs">
                 for (const item of obj) {"{"} ... {"}"}
-                <span class="text-red-400">// TypeError! ❌</span>
+                <span class="text-red-400">// TypeError! <Mark type="no" /></span>
             </div>
-            <div class="font-mono text-[10px] mt-1">
+            <div class="font-mono text-xs mt-1">
                 <span class="text-green-400">// Use these instead:</span>
             </div>
-            <div class="font-mono text-[10px]">
+            <div class="font-mono text-xs">
                 Object.keys(obj) → array of keys
             </div>
-            <div class="font-mono text-[10px]">
+            <div class="font-mono text-xs">
                 Object.values(obj) → array of values
             </div>
-            <div class="font-mono text-[10px]">
+            <div class="font-mono text-xs">
                 Object.entries(obj) → array of [key, value] pairs
             </div>
-            <div class="font-mono text-[10px] mt-1">
+            <div class="font-mono text-xs mt-1">
                 <span class="text-green-400">// Then you can iterate:</span>
             </div>
-            <div class="font-mono text-[10px]">
-                for (const [k, v] of Object.entries(obj)) {"{"} ... {"}"} ✅
+            <div class="font-mono text-xs">
+                for (const [k, v] of Object.entries(obj)) {"{"} ... {"}"} <Mark type="yes" />
             </div>
         </div>
     </ProTip>
 
     <ProTip>
         <div>
-            ⚡ Objects are <strong>mutable</strong> — you can change properties even
+            Objects are <strong>mutable</strong> - you can change properties even
             with <code
-                class="bg-black/30 px-1 py-0.5 rounded font-mono text-yellow-400"
                 >const</code
             >
         </div>
         <div
-            class="pl-2 border-l-2 border-yellow-500/30 mt-1 font-mono text-[10px]"
+            class="pl-2 border-l border-rule mt-1 font-mono text-xs"
         >
-            const obj = {"{"}a: 1{"}"}; obj.a = 2 ✅ <span class="text-gray-400"
+            const obj = {"{"}a: 1{"}"}; obj.a = 2 <Mark type="yes" /> <span class="text-gray-400"
                 >// allowed!</span
             >
         </div>
-        <div class="mt-1.5 text-[10px]">
+        <div class="mt-1.5 text-xs">
             Use spread (<code
-                class="bg-black/30 px-1 py-0.5 rounded font-mono text-yellow-400"
                 >{"{"} ...obj {"}"}</code
             >) or <code
-                class="bg-black/30 px-1 py-0.5 rounded font-mono text-yellow-400"
                 >structuredClone()</code
-            > for safe, immutable copies.
+            > to copy an object. A copy is not immutable.
         </div>
     </ProTip>
 
     <ProTip>
         <div>
-            📏 <strong>Getting object "length":</strong> Objects don't have a <code
-                class="bg-black/30 px-1 py-0.5 rounded font-mono text-yellow-400"
+            <strong>Getting object 'length':</strong> Objects don't have a <code
                 >.length</code
             > property, but you can count properties:
         </div>
-        <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-            <div class="font-mono text-[10px]">
+        <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+            <div class="font-mono text-xs">
                 const user = {"{"} name: "Alice", age: 25, city: "NYC" {"}"};
             </div>
-            <div class="font-mono text-[10px]">
+            <div class="font-mono text-xs">
                 Object.keys(user).length → 3 <span class="text-green-400"
                     >// count of properties</span
                 >
             </div>
-            <div class="font-mono text-[10px] mt-1">
+            <div class="font-mono text-xs mt-1">
                 <span class="text-blue-400">// Other ways to count:</span>
             </div>
-            <div class="font-mono text-[10px]">
+            <div class="font-mono text-xs">
                 Object.values(user).length → 3
             </div>
-            <div class="font-mono text-[10px]">
+            <div class="font-mono text-xs">
                 Object.entries(user).length → 3
             </div>
         </div>
     </ProTip>
 
     <!-- ============================================ -->
-    <!-- 🛠 MUTATES THE OBJECT -->
+    <!-- MUTATES THE OBJECT -->
     <!-- ============================================ -->
 
     <SectionTitle id="mutates" color="red">
-        🛠 Mutates the Object
+        Mutates the object
     </SectionTitle>
 
     <!-- === ADD / REMOVE / CHANGE === -->
     <SubSectionTitle id="add-remove-change" parentColor="red"
-        >Add / Remove / Change</SubSectionTitle
+        >Add / remove / change</SubSectionTitle
     >
 
     <!-- PROPERTY ASSIGNMENT -->
     <MethodCard
         id="property-assignment"
-        methodName="Property Assignment"
+        methodName="Property assignment"
         signature="obj.key = value"
         description="Adds or overwrites a property on an object"
         mutates={true}
     >
         <!-- ADD EXAMPLE -->
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Object" type="input">
                 <div class="text-center text-sm font-mono">{"{"}a: 1{"}"}</div>
             </Node>
@@ -146,12 +143,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     {"{"}a: 1, b: 2{"}"}
                 </div>
             </Node>
-        </div>
+        </Flow>
 
         <!-- CHANGE EXAMPLE -->
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto mt-2"
-        >
+        <Flow class="mt-2">
             <Node label="Input Object" type="input">
                 <div class="text-center text-sm font-mono">
                     {"{"}a: 1, b: 2{"}"}
@@ -174,12 +169,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     {"{"}a: 99, b: 2{"}"}
                 </div>
             </Node>
-        </div>
+        </Flow>
 
         <!-- REMOVE EXAMPLE -->
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto mt-2"
-        >
+        <Flow class="mt-2">
             <Node label="Input Object" type="input">
                 <div class="text-center text-sm font-mono">
                     {"{"}a: 99, b: 2{"}"}
@@ -200,7 +193,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Modified Object" type="output">
                 <div class="text-center text-sm font-mono">{"{"}a: 99{"}"}</div>
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={true} message="">
             Modifies the original object. Returns the assigned value (or true
@@ -216,9 +209,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Removes a property from an object"
         mutates={true}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Object" type="input">
                 <div class="text-center text-sm font-mono">
                     {"{"}a: 1, b: 2{"}"}
@@ -245,27 +236,24 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Return Value" type="output">
                 <ReturnValue value="true" type="boolean" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={true} message="">
-            Removes property from original object. Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+            Removes the property from the original object. Returns <code
                 >true</code
-            > if deleted successfully.
+            > if the delete succeeds.
         </MutableOrNot>
     </MethodCard>
 
     <!-- PROPERTY SHORTHAND -->
     <MethodCard
         id="property-shorthand"
-        methodName="Property Shorthand"
+        methodName="Property shorthand"
         signature="{ name, age }"
-        description="Create object properties from variables with same name"
+        description="Create object properties from variables with the same name"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Variables" type="input">
                 <div class="text-center text-sm font-mono">name = "Alice"</div>
                 <div class="text-center text-sm font-mono">age = 25</div>
@@ -287,14 +275,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     {"{"}name: "Alice", age: 25{"}"}
                 </div>
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             ES6 shorthand: <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >{"{"} name {"}"}</code
-            > is equivalent to <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+            > is the same as <code
                 >{"{"} name: name {"}"}</code
             >.
         </MutableOrNot>
@@ -303,20 +289,20 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <div>
                 <strong>Common in function returns and destructuring:</strong>
             </div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     function getUser() {"{"}
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;const name = "Bob", age = 30;
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;return {"{"} name, age {"}"}; <span
                         class="text-green-400"
                         >// instead of {"{"}name: name, age: age{"}"}</span
                     >
                 </div>
-                <div class="font-mono text-[10px]">{"}"}</div>
+                <div class="font-mono text-xs">{"}"}</div>
             </div>
         </ProTip>
     </MethodCard>
@@ -324,14 +310,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     <!-- COMPUTED PROPERTY NAMES -->
     <MethodCard
         id="computed-property"
-        methodName="Computed Property Names"
+        methodName="Computed property names"
         signature="{ [key]: value }"
         description="Use dynamic expressions as property keys"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Dynamic Key" type="input">
                 <div class="text-center text-sm font-mono">
                     key = "username"
@@ -354,32 +338,30 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     {"{"}username: "Alice"{"}"}
                 </div>
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns a <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >new object</code
-            > with property key computed from expression in <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+            >. The expression in <code
                 >[brackets]</code
-            >.
+            > sets the property key.
         </MutableOrNot>
 
         <ProTip>
             <div><strong>Useful for dynamic object building:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">const field = "email";</div>
-                <div class="font-mono text-[10px]">const user = {"{"}</div>
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">const field = "email";</div>
+                <div class="font-mono text-xs">const user = {"{"}</div>
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;name: "Alice",
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;[field]: "alice@email.com" <span
                         class="text-green-400">// key is "email"</span
                     >
                 </div>
-                <div class="font-mono text-[10px]">{"}"};</div>
+                <div class="font-mono text-xs">{"}"};</div>
             </div>
         </ProTip>
     </MethodCard>
@@ -392,9 +374,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Copies properties from source objects into target"
         mutates={true}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Target" type="input">
                 <div class="text-center text-sm font-mono">{"{"}a: 1{"}"}</div>
             </Node>
@@ -404,7 +384,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Method" type="process">
                 <ProcessContent
                     name="Object.assign(target, {b: 2})"
-                    description="Copy props to target"
+                    description="Copy properties to target"
                 />
             </Node>
 
@@ -415,7 +395,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     {"{"}a: 1, b: 2{"}"}
                 </div>
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={true} message="">
             Mutates the target object. Returns the modified target. Later
@@ -423,18 +403,18 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         </MutableOrNot>
 
         <ProTip>
-            <div>Use empty object as target for immutable merge:</div>
+            <div>Use an empty object as the target to merge without mutation:</div>
             <div
-                class="pl-2 border-l-2 border-yellow-500/30 font-mono text-[10px]"
+                class="pl-2 border-l border-rule font-mono text-xs"
             >
-                Object.assign({"{"}{"}"}, obj1, obj2) → new merged object ✅
+                Object.assign({"{"}{"}"}, obj1, obj2) → new merged object <Mark type="yes" />
             </div>
         </ProTip>
     </MethodCard>
 
     <!-- === LOCK OR PROTECT === -->
     <SubSectionTitle id="lock-protect" parentColor="red"
-        >Lock or Protect</SubSectionTitle
+        >Lock or protect</SubSectionTitle
     >
 
     <!-- OBJECT.FREEZE -->
@@ -442,12 +422,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="freeze"
         methodName="Object.freeze()"
         signature="Object.freeze(obj)"
-        description="Makes object immutable (shallow) - no add/remove/edit"
+        description="Makes an object immutable (shallow). No add, remove or edit."
         mutates={true}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Object" type="input">
                 <div class="text-center text-sm font-mono">{"{"}a: 1{"}"}</div>
             </Node>
@@ -465,40 +443,40 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
             <Node label="Frozen Object" type="output">
                 <div class="text-center text-sm font-mono">
-                    {"{"}a: 1{"}"} 🔒
+                    {"{"}a: 1{"}"} 
                 </div>
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={true} message="">
-            Modifies object to be immutable. Returns the same object. Silently
-            fails in non-strict mode.
+            Makes the object immutable. Returns the same object. Later changes
+            fail silently in non-strict mode.
         </MutableOrNot>
 
         <ProTip>
-            <div><strong>What happens if you try to modify?</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div><strong>What happens if you try to change it?</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     const obj = Object.freeze({"{"}a: 1{"}"})
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     obj.a = 99 <span class="text-red-400"
                         >// silently ignored (non-strict mode)</span
                     >
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     obj.b = 2 <span class="text-red-400"
                         >// silently ignored (non-strict mode)</span
                     >
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     delete obj.a <span class="text-red-400"
                         >// silently ignored (non-strict mode)</span
                     >
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     'use strict'; obj.a = 99 <span class="text-red-400"
-                        >// TypeError ❌</span
+                        >// TypeError <Mark type="no" /></span
                     >
                 </div>
             </div>
@@ -506,15 +484,15 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
         <ProTip>
             <div>
-                ⚠️ <strong>Shallow freeze</strong> - nested objects can still be
-                modified:
+                <Mark type="warn" /> <strong>Shallow freeze.</strong> You can still change nested
+                objects:
             </div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     const obj = Object.freeze({"{"}user: {"{"}id: 1{"}"}{"}"})
                 </div>
-                <div class="font-mono text-[10px]">
-                    obj.user.id = 999 ✅ <span class="text-gray-400"
+                <div class="font-mono text-xs">
+                    obj.user.id = 999 <Mark type="yes" /> <span class="text-gray-400"
                         >// nested still mutable!</span
                     >
                 </div>
@@ -527,12 +505,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="seal"
         methodName="Object.seal()"
         signature="Object.seal(obj)"
-        description="Prevents add/remove but allows editing existing properties"
+        description="Prevents adding or removing properties, but allows edits to existing ones"
         mutates={true}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Object" type="input">
                 <div class="text-center text-sm font-mono">{"{"}a: 1{"}"}</div>
             </Node>
@@ -550,40 +526,40 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
             <Node label="Sealed Object" type="output">
                 <div class="text-center text-sm font-mono">
-                    {"{"}a: 1{"}"} 🔐
+                    {"{"}a: 1{"}"} 
                 </div>
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={true} message="">
-            Prevents adding/removing properties but allows editing values.
+            Prevents adding or removing properties. You can still edit values.
             Returns the same object.
         </MutableOrNot>
 
         <ProTip>
-            <div><strong>What happens if you try to add/remove?</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div><strong>What happens if you try to add or remove?</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     const obj = Object.seal({"{"}a: 1{"}"})
                 </div>
-                <div class="font-mono text-[10px]">
-                    obj.a = 99 ✅ <span class="text-green-400"
+                <div class="font-mono text-xs">
+                    obj.a = 99 <Mark type="yes" /> <span class="text-green-400"
                         >// editing works!</span
                     >
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     obj.b = 2 <span class="text-red-400"
                         >// silently ignored (can't add)</span
                     >
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     delete obj.a <span class="text-red-400"
                         >// silently ignored (can't remove)</span
                     >
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     'use strict'; obj.b = 2 <span class="text-red-400"
-                        >// TypeError ❌</span
+                        >// TypeError <Mark type="no" /></span
                     >
                 </div>
             </div>
@@ -591,22 +567,21 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     </MethodCard>
 
     <!-- ============================================ -->
-    <!-- 🚫 DOES NOT MUTATE -->
+    <!-- DOES NOT MUTATE -->
     <!-- ============================================ -->
 
     <SectionTitle id="immutable" color="green">
-        🚫 Does Not Mutate (returns new value)
+        Does not mutate (returns new value)
     </SectionTitle>
 
     <ProTip>
         <div>
             Use spread or <code
-                class="bg-black/30 px-1 py-0.5 rounded font-mono text-yellow-400"
                 >Object.assign({"{"}{"}"}, obj)</code
             > for shallow copies
         </div>
         <div
-            class="pl-2 border-l-2 border-yellow-500/30 font-mono text-[10px] mt-1"
+            class="pl-2 border-l border-rule font-mono text-xs mt-1"
         >
             const copy = {"{"} ...original {"}"}
             <span class="text-gray-400">// cleaner than Object.assign</span>
@@ -615,7 +590,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
     <!-- === CLONE / MERGE === -->
     <SubSectionTitle id="clone-merge" parentColor="green"
-        >Clone / Merge</SubSectionTitle
+        >Clone / merge</SubSectionTitle
     >
 
     <!-- SPREAD -->
@@ -626,9 +601,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Creates a shallow copy of an object"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Object" type="input">
                 <div class="text-center text-sm font-mono">
                     {"{"}a: 1, b: 2{"}"}
@@ -648,23 +621,22 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     {"{"}a: 1, b: 2{"}"}
                 </div>
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Creates a <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >new object</code
-            > with copied properties. Original unchanged.
+            > with copied properties. The original stays unchanged.
         </MutableOrNot>
 
         <ProTip>
             <div>Spread is the modern way to clone and merge objects:</div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     const merged = {"{"} ...obj1, ...obj2 {"}"}
                     <span class="text-gray-400">// merge</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     const updated = {"{"} ...obj, key: newValue {"}"}
                     <span class="text-gray-400">// update</span>
                 </div>
@@ -680,9 +652,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Creates a deep copy of an object (all nested levels)"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Object" type="input">
                 <div class="text-center text-sm font-mono">
                     {"{"}user: {"{"}id: 1{"}"}{"}"}
@@ -705,19 +675,18 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     {"{"}user: {"{"}id: 1{"}"}{"}"}
                 </div>
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
-            Creates fully independent <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+            Creates a fully independent <code
                 >deep copy</code
-            >. Nested objects are also cloned.
+            >. It also clones nested objects.
         </MutableOrNot>
     </MethodCard>
 
     <!-- === INSPECT / READ === -->
     <SubSectionTitle id="inspect-read" parentColor="green"
-        >Inspect / Read</SubSectionTitle
+        >Inspect / read</SubSectionTitle
     >
 
     <!-- OBJECT.KEYS -->
@@ -725,12 +694,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="keys"
         methodName="Object.keys()"
         signature="Object.keys(obj)"
-        description="Returns array of object's own property names"
+        description="Returns an array of the object's own property names"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Object" type="input">
                 <div class="text-center text-sm font-mono">
                     {"{"}a: 1, b: 2, c: 3{"}"}
@@ -751,13 +718,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Array" type="output">
                 <div class="text-center text-sm font-mono">['a', 'b', 'c']</div>
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >array</code
-            > of own enumerable property names. ⚠️ Cannot be chained.
+            > of own enumerable property names. You can chain array methods on it.
         </MutableOrNot>
     </MethodCard>
 
@@ -766,12 +732,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="values"
         methodName="Object.values()"
         signature="Object.values(obj)"
-        description="Returns array of object's own property values"
+        description="Returns an array of the object's own property values"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Object" type="input">
                 <div class="text-center text-sm font-mono">
                     {"{"}a: 1, b: 2, c: 3{"}"}
@@ -792,13 +756,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Array" type="output">
                 <div class="text-center text-sm font-mono">[1, 2, 3]</div>
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >array</code
-            > of own enumerable property values. ⚠️ Cannot be chained.
+            > of own enumerable property values. You can chain array methods on it.
         </MutableOrNot>
     </MethodCard>
 
@@ -807,12 +770,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="entries"
         methodName="Object.entries()"
         signature="Object.entries(obj)"
-        description="Returns array of [key, value] pairs"
+        description="Returns an array of [key, value] pairs"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Object" type="input">
                 <div class="text-center text-sm font-mono">
                     {"{"}a: 1, b: 2{"}"}
@@ -835,32 +796,30 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     [['a', 1], ['b', 2]]
                 </div>
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >array</code
-            > of [key, value] pairs. ⚠️ Cannot be chained. Perfect for iteration
-            and transformation.
+            > of [key, value] pairs. Chain array methods on it to iterate and
+            transform.
         </MutableOrNot>
 
         <ProTip>
             <div>
-                Combo with <code
-                    class="bg-black/30 px-1 py-0.5 rounded font-mono text-yellow-400"
+                Combine with <code
                     >Object.fromEntries()</code
-                > for map/filter on objects:
+                > to map or filter objects:
             </div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     <span class="text-gray-400">// Double all values</span>
                 </div>
-                <div class="font-mono text-[10px]">Object.fromEntries(</div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">Object.fromEntries(</div>
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;Object.entries(obj).map(([k,v]) =&gt; [k, v*2])
                 </div>
-                <div class="font-mono text-[10px]">)</div>
+                <div class="font-mono text-xs">)</div>
             </div>
         </ProTip>
     </MethodCard>
@@ -870,12 +829,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="hasOwn"
         methodName="Object.hasOwn()"
         signature="Object.hasOwn(obj, key)"
-        description="Checks if object has its own property (not inherited)"
+        description="Checks if an object has its own property (not inherited)"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Object" type="input">
                 <div class="text-center text-sm font-mono">{"{"}a: 1{"}"}</div>
             </Node>
@@ -894,14 +851,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Boolean" type="output">
                 <ReturnValue value="true" type="boolean" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >boolean</code
-            >. ⚠️ Cannot be chained. Safer than <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+            >. <Mark type="warn" /> Cannot be chained. Safer than <code
                 >hasOwnProperty()</code
             >.
         </MutableOrNot>
@@ -915,9 +870,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Checks if property exists (includes inherited properties)"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Object" type="input">
                 <div class="text-center text-sm font-mono">{"{"}a: 1{"}"}</div>
             </Node>
@@ -936,29 +889,28 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Boolean" type="output">
                 <ReturnValue value="true" type="boolean" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >boolean</code
-            >. ⚠️ Checks entire prototype chain (includes inherited properties).
+            >. <Mark type="warn" /> Checks the entire prototype chain (includes inherited properties).
         </MutableOrNot>
 
         <ProTip>
             <div><strong>Difference from Object.hasOwn():</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     const obj = {"{"}a: 1{"}"}
                 </div>
-                <div class="font-mono text-[10px]">'a' in obj → true ✅</div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">'a' in obj → true <Mark type="yes" /></div>
+                <div class="font-mono text-xs">
                     'toString' in obj → true <span class="text-orange-400"
                         >// inherited from prototype!</span
                     >
                 </div>
-                <div class="font-mono text-[10px] mt-1">
-                    Object.hasOwn(obj, 'toString') → false ✅ <span
+                <div class="font-mono text-xs mt-1">
+                    Object.hasOwn(obj, 'toString') → false <Mark type="yes" /> <span
                         class="text-gray-400">// own only</span
                     >
                 </div>
@@ -974,9 +926,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Extract properties from object into variables"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Object" type="input">
                 <div class="text-center text-sm font-mono">
                     {"{"}name: "Alice", age: 25{"}"}
@@ -998,7 +948,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 <div class="text-center text-sm font-mono">name = "Alice"</div>
                 <div class="text-center text-sm font-mono">age = 25</div>
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Creates variables from object properties. Original object unchanged.
@@ -1006,27 +956,27 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
         <ProTip>
             <div><strong>Advanced destructuring patterns:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     <span class="text-gray-400">// Rename variables</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     const {"{"} name: userName {"}"} = obj; <span
                         class="text-green-400">// userName = "Alice"</span
                     >
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-gray-400">// Default values</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     const {"{"} country = "USA" {"}"} = obj; <span
                         class="text-green-400">// if missing</span
                     >
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-gray-400">// Rest operator</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     const {"{"} name, ...rest {"}"} = obj; <span
                         class="text-green-400">// rest = remaining props</span
                     >
@@ -1043,9 +993,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Stricter equality check than ==="
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Two Values" type="input">
                 <div class="text-center text-sm font-mono">NaN, NaN</div>
             </Node>
@@ -1064,33 +1012,31 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Result" type="output">
                 <ReturnValue value="true" type="boolean" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >boolean</code
-            >. Handles edge cases better than <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+            >. Handles NaN and -0 better than <code
                 >===</code
             >.
         </MutableOrNot>
 
         <ProTip>
             <div><strong>Key differences from ===:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     <span class="text-orange-400">// NaN comparison</span>
                 </div>
-                <div class="font-mono text-[10px]">NaN === NaN → false ❌</div>
-                <div class="font-mono text-[10px]">
-                    Object.is(NaN, NaN) → true ✅
+                <div class="font-mono text-xs">NaN === NaN → false <Mark type="no" /></div>
+                <div class="font-mono text-xs">
+                    Object.is(NaN, NaN) → true <Mark type="yes" />
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-orange-400">// -0 vs +0</span>
                 </div>
-                <div class="font-mono text-[10px]">-0 === +0 → true</div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">-0 === +0 → true</div>
+                <div class="font-mono text-xs">
                     Object.is(-0, +0) → false <span class="text-green-400"
                         >// distinguishes!</span
                     >
@@ -1104,12 +1050,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="fromEntries"
         methodName="Object.fromEntries()"
         signature="Object.fromEntries(pairs)"
-        description="Builds object from [key, value] pairs"
+        description="Builds an object from [key, value] pairs"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Array" type="input">
                 <div class="text-center text-sm font-mono">
                     [['a', 1], ['b', 2]]
@@ -1132,14 +1076,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     {"{"}a: 1, b: 2{"}"}
                 </div>
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns a <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >new object</code
             >. Opposite of <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >Object.entries()</code
             >.
         </MutableOrNot>
@@ -1147,7 +1089,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
     <!-- === ITERATE / LOOP === -->
     <SubSectionTitle id="iterate-loop" parentColor="green"
-        >Iterate / Loop</SubSectionTitle
+        >Iterate / loop</SubSectionTitle
     >
 
     <!-- FOR...IN LOOP -->
@@ -1158,9 +1100,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Loop over all enumerable properties (including inherited)"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Object" type="input">
                 <div class="text-center text-sm font-mono">
                     {"{"}a: 1, b: 2{"}"}
@@ -1180,34 +1120,34 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
             <Node label="Process Each" type="output">
                 <div class="text-center text-sm font-mono">k → 'a', 'b'</div>
-                <div class="text-center text-[10px] text-gray-400 mt-1">
+                <div class="text-center text-xs text-gray-400 mt-1">
                     obj[k] → 1, 2
                 </div>
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
-            Loops over enumerable properties. ⚠️ Includes inherited props from
-            prototype chain.
+            Loops over enumerable properties. <Mark type="warn" /> Includes inherited properties from
+            the prototype chain.
         </MutableOrNot>
 
         <ProTip>
             <div>
-                ⚠️ <strong>Always guard with Object.hasOwn()</strong> to skip inherited
+                <Mark type="warn" /> <strong>Always guard with Object.hasOwn()</strong> to skip inherited
                 properties:
             </div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     for (const k in obj) {"{"}
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;if (Object.hasOwn(obj, k)) {"{"}
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;&nbsp;&nbsp;console.log(k, obj[k])
                 </div>
-                <div class="font-mono text-[10px]">&nbsp;&nbsp;{"}"}</div>
-                <div class="font-mono text-[10px]">{"}"}</div>
+                <div class="font-mono text-xs">&nbsp;&nbsp;{"}"}</div>
+                <div class="font-mono text-xs">{"}"}</div>
             </div>
         </ProTip>
     </MethodCard>
@@ -1220,9 +1160,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Loop over own property keys only (safe, modern)"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Object" type="input">
                 <div class="text-center text-sm font-mono">
                     {"{"}a: 1, b: 2{"}"}
@@ -1242,27 +1180,27 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
             <Node label="forEach" type="output">
                 <div class="text-center text-sm font-mono">k → 'a', 'b'</div>
-                <div class="text-center text-[10px] text-gray-400 mt-1">
+                <div class="text-center text-xs text-gray-400 mt-1">
                     obj[k] → 1, 2
                 </div>
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
-            Safe, modern approach. Only iterates own properties (not inherited).
-            No guard needed.
+            Iterates own properties only (not inherited), so it needs no
+            guard.
         </MutableOrNot>
 
         <ProTip>
-            <div>💡 <strong>Recommended for most cases:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div><strong>Recommended for most cases:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     Object.keys(obj).forEach(k =&gt; {"{"}
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;console.log(k, obj[k])
                 </div>
-                <div class="font-mono text-[10px]">{"}"})</div>
+                <div class="font-mono text-xs">{"}"})</div>
             </div>
         </ProTip>
     </MethodCard>
@@ -1275,9 +1213,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Loop over [key, value] pairs (cleanest syntax)"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Object" type="input">
                 <div class="text-center text-sm font-mono">
                     {"{"}a: 1, b: 2{"}"}
@@ -1297,11 +1233,11 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
             <Node label="for...of [k, v]" type="output">
                 <div class="text-center text-sm font-mono">[k, v]</div>
-                <div class="text-center text-[10px] text-gray-400 mt-1">
+                <div class="text-center text-xs text-gray-400 mt-1">
                     ['a', 1], ['b', 2]
                 </div>
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Cleanest syntax with destructuring. Direct access to both key and
@@ -1310,19 +1246,19 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
         <ProTip>
             <div>
-                ✨ <strong>Cleanest option</strong> - destructure directly in the
+                <strong>Cleanest option</strong> - destructure directly in the
                 loop:
             </div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     for (const [key, value] of Object.entries(obj)) {"{"}
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;console.log(key, value) <span
                         class="text-gray-400">// both available!</span
                     >
                 </div>
-                <div class="font-mono text-[10px]">{"}"}</div>
+                <div class="font-mono text-xs">{"}"}</div>
             </div>
         </ProTip>
     </MethodCard>
@@ -1335,9 +1271,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Loop over values only (when keys don't matter)"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Object" type="input">
                 <div class="text-center text-sm font-mono">
                     {"{"}a: 1, b: 2{"}"}
@@ -1358,20 +1292,20 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="forEach" type="output">
                 <div class="text-center text-sm font-mono">v → 1, 2</div>
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Use when you only need values, not keys. Simpler than
-            Object.entries() when keys are irrelevant.
+            Object.entries() in that case.
         </MutableOrNot>
 
         <ProTip>
-            <div>Perfect for summing, filtering, or transforming values:</div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div>Use it to sum, filter or transform values:</div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     const sum = Object.values(obj).reduce((a,b) =&gt; a+b, 0)
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     const doubled = Object.values(obj).map(v =&gt; v*2)
                 </div>
             </div>
@@ -1380,20 +1314,18 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
     <!-- === TRANSFORM PATTERNS === -->
     <SubSectionTitle id="transform" parentColor="green"
-        >Transform Patterns</SubSectionTitle
+        >Transform patterns</SubSectionTitle
     >
 
     <!-- MAP OBJECT VALUES -->
     <MethodCard
         id="map-values"
-        methodName="Map Object Values"
+        methodName="Map object values"
         signature="Object.fromEntries(Object.entries(obj).map(([k,v]) => [k, newV]))"
         description="Transform all values while keeping keys"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Object" type="input">
                 <div class="text-center text-sm font-mono">
                     {"{"}a: 1, b: 2{"}"}
@@ -1425,29 +1357,28 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     {"{"}a: 2, b: 4{"}"}
                 </div>
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns a <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >new object</code
-            >. Chain entries → map → fromEntries pattern.
+            >. Uses the entries → map → fromEntries chain.
         </MutableOrNot>
 
         <ProTip>
             <div>Common transformations:</div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     <span class="text-gray-400">// Double all values</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     Object.fromEntries(Object.entries(obj).map(([k,v]) =&gt; [k,
                     v*2]))
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-gray-400">// Convert to uppercase</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     Object.fromEntries(Object.entries(obj).map(([k,v]) =&gt; [k,
                     v.toUpperCase()]))
                 </div>
@@ -1458,14 +1389,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     <!-- FILTER OBJECT -->
     <MethodCard
         id="filter-object"
-        methodName="Filter Object"
+        methodName="Filter object"
         signature="Object.fromEntries(Object.entries(obj).filter(([k,v]) => condition))"
         description="Remove properties based on condition"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Object" type="input">
                 <div class="text-center text-sm font-mono">
                     {"{"}a: 1, b: null, c: 3{"}"}
@@ -1497,29 +1426,28 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     {"{"}a: 1, c: 3{"}"}
                 </div>
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns a <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >new object</code
-            >. Removes properties that don't match condition.
+            >. Removes properties that don't match the condition.
         </MutableOrNot>
 
         <ProTip>
             <div>Common filters:</div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     <span class="text-gray-400">// Remove null/undefined</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     Object.fromEntries(Object.entries(obj).filter(([k,v]) =&gt;
                     v != null))
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-gray-400">// Keep only numbers > 10</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     Object.fromEntries(Object.entries(obj).filter(([k,v]) =&gt;
                     v &gt; 10))
                 </div>
@@ -1530,14 +1458,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     <!-- RENAME KEYS -->
     <MethodCard
         id="rename-keys"
-        methodName="Rename Keys"
+        methodName="Rename keys"
         signature="Object.fromEntries(Object.entries(obj).map(([k,v]) => [newKey, v]))"
         description="Transform property names"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Object" type="input">
                 <div class="text-center text-sm font-mono">
                     {"{"}first_name: 'Jo'{"}"}
@@ -1569,48 +1495,45 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     {"{"}firstName: 'Jo'{"}"}
                 </div>
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns a <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >new object</code
-            >. Useful for API response transformations.
+            >. Useful to transform API responses.
         </MutableOrNot>
 
         <ProTip>
             <div>Snake case to camel case converter:</div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     const toCamelCase = k =&gt; k.replace(/_([a-z])/g, (_, l)
                     =&gt; l.toUpperCase())
                 </div>
-                <div class="font-mono text-[10px]">Object.fromEntries(</div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">Object.fromEntries(</div>
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;Object.entries(obj).map(([k,v]) =&gt;
                     [toCamelCase(k), v])
                 </div>
-                <div class="font-mono text-[10px]">)</div>
+                <div class="font-mono text-xs">)</div>
             </div>
         </ProTip>
     </MethodCard>
 
     <!-- === NESTED OBJECTS === -->
     <SubSectionTitle id="nested" parentColor="green"
-        >Nested Objects</SubSectionTitle
+        >Nested objects</SubSectionTitle
     >
 
     <!-- OPTIONAL CHAINING -->
     <MethodCard
         id="optional-chaining"
-        methodName="Optional Chaining"
+        methodName="Optional chaining"
         signature="obj?.prop?.nested"
         description="Safely access nested properties without errors"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Object" type="input">
                 <div class="text-center text-sm font-mono">
                     {"{"}user: undefined{"}"}
@@ -1631,33 +1554,32 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Result" type="output">
                 <ReturnValue value="undefined" type="undefined" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >undefined</code
-            > if any part is null/undefined. No errors thrown!
+            > if any part is null or undefined. It throws no error.
         </MutableOrNot>
 
         <ProTip>
-            <div>⚠️ <strong>Old way vs modern way:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div><Mark type="warn" /> <strong>Old way vs modern way:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     <span class="text-red-400"
                         >// Old: verbose and error-prone</span
                     >
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     const name = obj &amp;&amp; obj.user &amp;&amp;
                     obj.user.name
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-green-400"
-                        >// Modern: clean and safe ✨</span
+                        >// Modern: clean and safe </span
                     >
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     const name = obj?.user?.name
                 </div>
             </div>
@@ -1667,17 +1589,15 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     <!-- NULLISH COALESCING -->
     <MethodCard
         id="nullish-coalescing"
-        methodName="Nullish Coalescing"
+        methodName="Nullish coalescing"
         signature="value ?? defaultValue"
-        description="Provide default value for null/undefined only"
+        description="Provide a default value for null or undefined only"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Value" type="input">
                 <div class="text-center text-sm font-mono">obj.count</div>
-                <div class="text-center text-[10px] text-gray-400 mt-1">
+                <div class="text-center text-xs text-gray-400 mt-1">
                     (could be null/undefined)
                 </div>
             </Node>
@@ -1701,49 +1621,46 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     value (otherwise)
                 </div>
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
-            Returns right side only if left is <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+            Returns the right side only if the left side is <code
                 >null</code
             > or <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >undefined</code
             >. Unlike <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >||</code
             >, keeps falsy values like 0, "", false.
         </MutableOrNot>
 
         <ProTip>
-            <div><strong>?? vs || (important difference!):</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">const count = 0;</div>
-                <div class="font-mono text-[10px] mt-1">
-                    <span class="text-red-400">// || treats 0 as falsy ❌</span>
+            <div><strong>?? vs || (important difference):</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">const count = 0;</div>
+                <div class="font-mono text-xs mt-1">
+                    <span class="text-red-400">// || treats 0 as falsy <Mark type="no" /></span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     count || 10 → 10 <span class="text-gray-400"
                         >// loses your 0!</span
                     >
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-green-400"
-                        >// ?? only checks null/undefined ✅</span
+                        >// ?? only checks null/undefined <Mark type="yes" /></span
                     >
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     count ?? 10 → 0 <span class="text-gray-400"
                         >// keeps your 0!</span
                     >
                 </div>
-                <div class="font-mono text-[10px] mt-1.5">
+                <div class="font-mono text-xs mt-1.5">
                     <span class="text-blue-400"
                         >// Perfect with optional chaining:</span
                     >
                 </div>
-                <div class="font-mono text-[10px]">obj?.user?.age ?? 18</div>
+                <div class="font-mono text-xs">obj?.user?.age ?? 18</div>
             </div>
         </ProTip>
     </MethodCard>
@@ -1751,14 +1668,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     <!-- DEEP CLONE -->
     <MethodCard
         id="deep-clone"
-        methodName="Deep Clone"
+        methodName="Deep clone"
         signature="structuredClone(obj)"
-        description="Create deep copy of nested objects"
+        description="Create a deep copy of nested objects"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Object" type="input">
                 <div class="text-center text-sm font-mono">
                     {"{"}user: {"{"}id: 1{"}"}{"}"}
@@ -1780,52 +1695,51 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 <div class="text-center text-sm font-mono">
                     {"{"}user: {"{"}id: 1{"}"}{"}"}
                 </div>
-                <div class="text-center text-[10px] text-gray-400 mt-1">
+                <div class="text-center text-xs text-gray-400 mt-1">
                     fully independent
                 </div>
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns a <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >new object</code
-            > with all nested levels cloned. Modifying nested objects won't affect
-            original.
+            > with all nested levels cloned. Changes to nested objects don't
+            affect the original.
         </MutableOrNot>
 
         <ProTip>
             <div>
-                <strong>Shallow vs Deep clone with nested objects:</strong>
+                <strong>Shallow vs deep clone with nested objects:</strong>
             </div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     const obj = {"{"}user: {"{"}id: 1{"}"}{"}"}
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-red-400"
-                        >// Shallow: nested still shared! ⚠️</span
+                        >// Shallow: nested still shared! <Mark type="warn" /></span
                     >
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     const shallow = {"{"} ...obj {"}"}
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     shallow.user.id = 999 <span class="text-red-400"
                         >// obj.user.id also becomes 999!</span
                     >
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-green-400"
-                        >// Deep: fully independent ✅</span
+                        >// Deep: fully independent <Mark type="yes" /></span
                     >
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     const deep = structuredClone(obj)
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     deep.user.id = 999 <span class="text-green-400"
-                        >// obj.user.id stays 1 ✅</span
+                        >// obj.user.id stays 1 <Mark type="yes" /></span
                     >
                 </div>
             </div>
@@ -1835,14 +1749,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     <!-- DEEP MERGE -->
     <MethodCard
         id="deep-merge"
-        methodName="Deep Merge Pattern"
+        methodName="Deep merge pattern"
         signature="Custom recursive merge function"
         description="Merge nested objects recursively"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Two Objects" type="input">
                 <div class="text-center text-sm font-mono">
                     {"{"}a: {"{"}x: 1{"}"}{"}"}
@@ -1868,50 +1780,49 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     {"{"}a: {"{"}x: 1, y: 2{"}"}{"}"}
                 </div>
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns a <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >new object</code
-            >. Requires custom function or library (lodash.merge).
+            >. Needs a custom function or a library (lodash.merge).
         </MutableOrNot>
 
         <ProTip>
             <div><strong>Simple deep merge function:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     function deepMerge(target, source) {"{"}
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;const result = {"{"} ...target {"}"}
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;for (const key in source) {"{"}
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;&nbsp;&nbsp;if (source[key] instanceof Object
                     &amp;&amp; key in target) {"{"}
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result[key] =
                     deepMerge(target[key], source[key])
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;&nbsp;&nbsp;{"}"} else {"{"}
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result[key] =
                     source[key]
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;&nbsp;&nbsp;{"}"}
                 </div>
-                <div class="font-mono text-[10px]">&nbsp;&nbsp;{"}"}</div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">&nbsp;&nbsp;{"}"}</div>
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;return result
                 </div>
-                <div class="font-mono text-[10px]">{"}"}</div>
+                <div class="font-mono text-xs">{"}"}</div>
             </div>
         </ProTip>
     </MethodCard>
@@ -1922,14 +1833,14 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <li>
                 <a
                     href="#mutates"
-                    class="text-red-300 font-semibold hover:text-red-200 block py-1"
-                    >🛠 Mutates</a
+                    class="text-ink font-semibold hover:underline block py-1"
+                    >Mutates</a
                 >
                 <ul
-                    class="ml-3 mt-1 space-y-1 border-l-2 border-red-500/30 pl-2"
+                    class="ml-3 mt-1 space-y-1 border-l border-rule pl-2"
                 >
                     <li>
-                        <span class="text-gray-400 text-[10px] uppercase"
+                        <span class="text-gray-400 text-xs uppercase"
                             >Add / Remove / Change</span
                         >
                         <ul class="ml-2 mt-0.5 space-y-0.5">
@@ -1951,14 +1862,14 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                                 <a
                                     href="#property-shorthand"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >Property Shorthand</a
+                                    >Property shorthand</a
                                 >
                             </li>
                             <li>
                                 <a
                                     href="#computed-property"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >Computed Property Names</a
+                                    >Computed property names</a
                                 >
                             </li>
                             <li>
@@ -1971,7 +1882,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         </ul>
                     </li>
                     <li class="mt-2">
-                        <span class="text-gray-400 text-[10px] uppercase"
+                        <span class="text-gray-400 text-xs uppercase"
                             >Lock / Protect</span
                         >
                         <ul class="ml-2 mt-0.5 space-y-0.5">
@@ -1998,14 +1909,14 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <li class="mt-4">
                 <a
                     href="#immutable"
-                    class="text-green-300 font-semibold hover:text-green-200 block py-1"
-                    >🚫 Immutable</a
+                    class="text-ink font-semibold hover:underline block py-1"
+                    >Immutable</a
                 >
                 <ul
-                    class="ml-3 mt-1 space-y-1 border-l-2 border-green-500/30 pl-2"
+                    class="ml-3 mt-1 space-y-1 border-l border-rule pl-2"
                 >
                     <li>
-                        <span class="text-gray-400 text-[10px] uppercase"
+                        <span class="text-gray-400 text-xs uppercase"
                             >Clone / Merge</span
                         >
                         <ul class="ml-2 mt-0.5 space-y-0.5">
@@ -2026,7 +1937,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         </ul>
                     </li>
                     <li class="mt-2">
-                        <span class="text-gray-400 text-[10px] uppercase"
+                        <span class="text-gray-400 text-xs uppercase"
                             >Inspect / Read</span
                         >
                         <ul class="ml-2 mt-0.5 space-y-0.5">
@@ -2089,7 +2000,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         </ul>
                     </li>
                     <li class="mt-2">
-                        <span class="text-gray-400 text-[10px] uppercase"
+                        <span class="text-gray-400 text-xs uppercase"
                             >Iterate / Loop</span
                         >
                         <ul class="ml-2 mt-0.5 space-y-0.5">
@@ -2124,7 +2035,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         </ul>
                     </li>
                     <li class="mt-2">
-                        <span class="text-gray-400 text-[10px] uppercase"
+                        <span class="text-gray-400 text-xs uppercase"
                             >Transform Patterns</span
                         >
                         <ul class="ml-2 mt-0.5 space-y-0.5">
@@ -2132,27 +2043,27 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                                 <a
                                     href="#map-values"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >Map Values</a
+                                    >Map values</a
                                 >
                             </li>
                             <li>
                                 <a
                                     href="#filter-object"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >Filter Object</a
+                                    >Filter object</a
                                 >
                             </li>
                             <li>
                                 <a
                                     href="#rename-keys"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >Rename Keys</a
+                                    >Rename keys</a
                                 >
                             </li>
                         </ul>
                     </li>
                     <li class="mt-2">
-                        <span class="text-gray-400 text-[10px] uppercase"
+                        <span class="text-gray-400 text-xs uppercase"
                             >Nested Objects</span
                         >
                         <ul class="ml-2 mt-0.5 space-y-0.5">
@@ -2160,28 +2071,28 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                                 <a
                                     href="#optional-chaining"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >Optional Chaining (?.)</a
+                                    >Optional chaining (?.)</a
                                 >
                             </li>
                             <li>
                                 <a
                                     href="#nullish-coalescing"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >Nullish Coalescing (??)</a
+                                    >Nullish coalescing (??)</a
                                 >
                             </li>
                             <li>
                                 <a
                                     href="#deep-clone"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >Deep Clone</a
+                                    >Deep clone</a
                                 >
                             </li>
                             <li>
                                 <a
                                     href="#deep-merge"
                                     class="text-gray-300 hover:text-blue-400 block"
-                                    >Deep Merge</a
+                                    >Deep merge</a
                                 >
                             </li>
                         </ul>

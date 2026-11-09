@@ -1,0 +1,523 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-09T00:52:04+00:00",
+  "title": "Design System: Visual cheatsheets",
+  "extensions": {
+    "colorMeta": {
+      "ground": {
+        "role": "neutral",
+        "displayName": "Chart ground",
+        "tonalRamp": [
+          "oklch(0.2 0.008 250)",
+          "oklch(0.33 0.008 250)",
+          "oklch(0.4 0.008 250)",
+          "oklch(0.47 0.008 250)",
+          "oklch(0.56 0.008 250)",
+          "oklch(0.78 0.008 250)",
+          "oklch(0.86 0.008 250)",
+          "oklch(0.955 0.008 250)"
+        ],
+        "note": "Ramps for neutrals are the remapped gray scale (dark to light)."
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "tonalRamp": [
+          "oklch(0.2 0.008 250)",
+          "oklch(0.33 0.008 250)",
+          "oklch(0.4 0.008 250)",
+          "oklch(0.47 0.008 250)",
+          "oklch(0.56 0.008 250)",
+          "oklch(0.78 0.008 250)",
+          "oklch(0.86 0.008 250)",
+          "oklch(0.955 0.008 250)"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "tonalRamp": [
+          "oklch(0.2 0.008 250)",
+          "oklch(0.33 0.008 250)",
+          "oklch(0.4 0.008 250)",
+          "oklch(0.47 0.008 250)",
+          "oklch(0.56 0.008 250)",
+          "oklch(0.78 0.008 250)",
+          "oklch(0.86 0.008 250)",
+          "oklch(0.955 0.008 250)"
+        ]
+      },
+      "muted-ink": {
+        "role": "neutral",
+        "displayName": "Muted ink",
+        "tonalRamp": [
+          "oklch(0.2 0.008 250)",
+          "oklch(0.33 0.008 250)",
+          "oklch(0.4 0.008 250)",
+          "oklch(0.47 0.008 250)",
+          "oklch(0.56 0.008 250)",
+          "oklch(0.78 0.008 250)",
+          "oklch(0.86 0.008 250)",
+          "oklch(0.955 0.008 250)"
+        ]
+      },
+      "paper-shade": {
+        "role": "neutral",
+        "displayName": "Paper shade",
+        "note": "Tailwind 'black' remapped; used at 30% opacity as the hover fill."
+      },
+      "cell": {
+        "role": "neutral",
+        "displayName": "Cell",
+        "tonalRamp": [
+          "oklch(0.2 0.008 250)",
+          "oklch(0.33 0.008 250)",
+          "oklch(0.4 0.008 250)",
+          "oklch(0.47 0.008 250)",
+          "oklch(0.56 0.008 250)",
+          "oklch(0.78 0.008 250)",
+          "oklch(0.86 0.008 250)",
+          "oklch(0.955 0.008 250)"
+        ]
+      },
+      "cell-rule": {
+        "role": "neutral",
+        "displayName": "Cell rule",
+        "tonalRamp": [
+          "oklch(0.2 0.008 250)",
+          "oklch(0.33 0.008 250)",
+          "oklch(0.4 0.008 250)",
+          "oklch(0.47 0.008 250)",
+          "oklch(0.56 0.008 250)",
+          "oklch(0.78 0.008 250)",
+          "oklch(0.86 0.008 250)",
+          "oklch(0.955 0.008 250)"
+        ]
+      },
+      "node-fill": {
+        "role": "neutral",
+        "displayName": "Node fill",
+        "tonalRamp": [
+          "oklch(0.2 0.008 250)",
+          "oklch(0.33 0.008 250)",
+          "oklch(0.4 0.008 250)",
+          "oklch(0.47 0.008 250)",
+          "oklch(0.56 0.008 250)",
+          "oklch(0.78 0.008 250)",
+          "oklch(0.86 0.008 250)",
+          "oklch(0.955 0.008 250)"
+        ]
+      },
+      "group-primitives": {
+        "role": "primary",
+        "displayName": "Saffron",
+        "tonalRamp": [
+          "oklch(0.24 0.11 70)",
+          "oklch(0.36 0.13 70)",
+          "oklch(0.42 0.14 70)",
+          "oklch(0.48 0.14 70)",
+          "oklch(0.6 0.16 70)",
+          "oklch(0.8 0.08 70)",
+          "oklch(0.87 0.05 70)",
+          "oklch(0.96 0.02 70)"
+        ]
+      },
+      "group-core": {
+        "role": "primary",
+        "displayName": "Cobalt",
+        "tonalRamp": [
+          "oklch(0.24 0.11 262)",
+          "oklch(0.36 0.13 262)",
+          "oklch(0.42 0.14 262)",
+          "oklch(0.48 0.14 262)",
+          "oklch(0.6 0.16 262)",
+          "oklch(0.8 0.08 262)",
+          "oklch(0.87 0.05 262)",
+          "oklch(0.96 0.02 262)"
+        ]
+      },
+      "group-browser": {
+        "role": "primary",
+        "displayName": "Viridian",
+        "tonalRamp": [
+          "oklch(0.24 0.11 158)",
+          "oklch(0.36 0.13 158)",
+          "oklch(0.42 0.14 158)",
+          "oklch(0.48 0.14 158)",
+          "oklch(0.6 0.16 158)",
+          "oklch(0.8 0.08 158)",
+          "oklch(0.87 0.05 158)",
+          "oklch(0.96 0.02 158)"
+        ]
+      },
+      "group-git": {
+        "role": "primary",
+        "displayName": "Vermilion",
+        "tonalRamp": [
+          "oklch(0.24 0.11 32)",
+          "oklch(0.36 0.13 32)",
+          "oklch(0.42 0.14 32)",
+          "oklch(0.48 0.14 32)",
+          "oklch(0.6 0.16 32)",
+          "oklch(0.8 0.08 32)",
+          "oklch(0.87 0.05 32)",
+          "oklch(0.96 0.02 32)"
+        ]
+      },
+      "mutates": {
+        "role": "secondary",
+        "displayName": "Mutation vermilion",
+        "tonalRamp": [
+          "oklch(0.24 0.11 32)",
+          "oklch(0.36 0.13 32)",
+          "oklch(0.42 0.14 32)",
+          "oklch(0.48 0.14 32)",
+          "oklch(0.6 0.16 32)",
+          "oklch(0.8 0.08 32)",
+          "oklch(0.87 0.05 32)",
+          "oklch(0.96 0.02 32)"
+        ]
+      },
+      "immutable": {
+        "role": "secondary",
+        "displayName": "Return viridian",
+        "tonalRamp": [
+          "oklch(0.24 0.11 158)",
+          "oklch(0.36 0.13 158)",
+          "oklch(0.42 0.14 158)",
+          "oklch(0.48 0.14 158)",
+          "oklch(0.6 0.16 158)",
+          "oklch(0.8 0.08 158)",
+          "oklch(0.87 0.05 158)",
+          "oklch(0.96 0.02 158)"
+        ]
+      },
+      "mutates-tint": {
+        "role": "secondary",
+        "displayName": "Mutation tint",
+        "tonalRamp": [
+          "oklch(0.24 0.11 32)",
+          "oklch(0.36 0.13 32)",
+          "oklch(0.42 0.14 32)",
+          "oklch(0.48 0.14 32)",
+          "oklch(0.6 0.16 32)",
+          "oklch(0.8 0.08 32)",
+          "oklch(0.87 0.05 32)",
+          "oklch(0.96 0.02 32)"
+        ]
+      },
+      "immutable-tint": {
+        "role": "secondary",
+        "displayName": "Return tint",
+        "tonalRamp": [
+          "oklch(0.24 0.11 158)",
+          "oklch(0.36 0.13 158)",
+          "oklch(0.42 0.14 158)",
+          "oklch(0.48 0.14 158)",
+          "oklch(0.6 0.16 158)",
+          "oklch(0.8 0.08 158)",
+          "oklch(0.87 0.05 158)",
+          "oklch(0.96 0.02 158)"
+        ]
+      },
+      "info-tint": {
+        "role": "tertiary",
+        "displayName": "Info tint",
+        "tonalRamp": [
+          "oklch(0.24 0.11 262)",
+          "oklch(0.36 0.13 262)",
+          "oklch(0.42 0.14 262)",
+          "oklch(0.48 0.14 262)",
+          "oklch(0.6 0.16 262)",
+          "oklch(0.8 0.08 262)",
+          "oklch(0.87 0.05 262)",
+          "oklch(0.96 0.02 262)"
+        ]
+      },
+      "tip-tint": {
+        "role": "tertiary",
+        "displayName": "Tip tint",
+        "tonalRamp": [
+          "oklch(0.24 0.11 85)",
+          "oklch(0.36 0.13 85)",
+          "oklch(0.42 0.14 85)",
+          "oklch(0.48 0.14 85)",
+          "oklch(0.6 0.16 85)",
+          "oklch(0.8 0.08 85)",
+          "oklch(0.87 0.05 85)",
+          "oklch(0.96 0.02 85)"
+        ]
+      },
+      "flow-input": {
+        "role": "tertiary",
+        "displayName": "Flow blue",
+        "tonalRamp": [
+          "oklch(0.24 0.11 262)",
+          "oklch(0.36 0.13 262)",
+          "oklch(0.42 0.14 262)",
+          "oklch(0.48 0.14 262)",
+          "oklch(0.6 0.16 262)",
+          "oklch(0.8 0.08 262)",
+          "oklch(0.87 0.05 262)",
+          "oklch(0.96 0.02 262)"
+        ]
+      },
+      "flow-process": {
+        "role": "tertiary",
+        "displayName": "Flow violet",
+        "tonalRamp": [
+          "oklch(0.24 0.11 302)",
+          "oklch(0.36 0.13 302)",
+          "oklch(0.42 0.14 302)",
+          "oklch(0.48 0.14 302)",
+          "oklch(0.6 0.16 302)",
+          "oklch(0.8 0.08 302)",
+          "oklch(0.87 0.05 302)",
+          "oklch(0.96 0.02 302)"
+        ]
+      },
+      "flow-output": {
+        "role": "tertiary",
+        "displayName": "Flow green",
+        "tonalRamp": [
+          "oklch(0.24 0.11 158)",
+          "oklch(0.36 0.13 158)",
+          "oklch(0.42 0.14 158)",
+          "oklch(0.48 0.14 158)",
+          "oklch(0.6 0.16 158)",
+          "oklch(0.8 0.08 158)",
+          "oklch(0.87 0.05 158)",
+          "oklch(0.96 0.02 158)"
+        ]
+      },
+      "process-ink": {
+        "role": "tertiary",
+        "displayName": "Violet ink",
+        "tonalRamp": [
+          "oklch(0.24 0.11 302)",
+          "oklch(0.36 0.13 302)",
+          "oklch(0.42 0.14 302)",
+          "oklch(0.48 0.14 302)",
+          "oklch(0.6 0.16 302)",
+          "oklch(0.8 0.08 302)",
+          "oklch(0.87 0.05 302)",
+          "oklch(0.96 0.02 302)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Index page title only."
+      },
+      "page-title": {
+        "displayName": "Page title",
+        "purpose": "Topic page title; 2.25rem below 640px."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section titles on a 3px ink bar."
+      },
+      "title-code": {
+        "displayName": "Title code",
+        "purpose": "Method names."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Category names in index bands."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Index topics; method descriptions at 15px, max 70ch."
+      },
+      "body-sm": {
+        "displayName": "Body sm",
+        "purpose": "Notes, nav links, rails."
+      },
+      "code": {
+        "displayName": "Code",
+        "purpose": "Signatures and inline code."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Uppercase rail headings, nav group names, subsection headings, badges, node captions."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "scroll-smooth",
+        "value": "scroll-behavior: smooth; scroll-padding-top: 24px",
+        "purpose": "Anchor jumps from the on-this-page rail."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "xl",
+        "value": "1280px"
+      },
+      {
+        "name": "2xl",
+        "value": "1536px"
+      }
+    ],
+    "focus": {
+      "value": "outline: 2px solid group-core; outline-offset: 2px",
+      "purpose": "Global :focus-visible ring."
+    },
+    "rules": [
+      {
+        "name": "hairline",
+        "value": "1px solid rule"
+      },
+      {
+        "name": "section-bar",
+        "value": "3px solid ink"
+      },
+      {
+        "name": "title-bar",
+        "value": "6px solid group colour"
+      },
+      {
+        "name": "cell-tab",
+        "value": "3px bottom border, cell-rule or full hue"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Topic rail navigation",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Grouped topic list with colour swatches; the active topic fills with its group colour.",
+      "html": "<nav class=\"ds-nav\"><div class=\"ds-nav-group\"><span class=\"ds-swatch\" style=\"background:var(--color-group-primitives, oklch(0.78 0.15 80))\"></span>Primitives</div><a href=\"#\" class=\"ds-nav-link ds-active-primitives\" aria-current=\"page\">Arrays</a><a href=\"#\" class=\"ds-nav-link\">Objects</a><div class=\"ds-nav-group\"><span class=\"ds-swatch\" style=\"background:var(--color-group-core, oklch(0.52 0.17 262))\"></span>Core concepts</div><a href=\"#\" class=\"ds-nav-link ds-active-core\" aria-current=\"page\">Functions</a><a href=\"#\" class=\"ds-nav-link\">Loops</a></nav>",
+      "css": ".ds-nav { font-family: var(--font-sans, Archivo, ui-sans-serif, system-ui, sans-serif); width: 200px; background: var(--color-ground, #f3f4f1); padding: 20px 16px; } .ds-nav-group { display: flex; align-items: center; gap: 8px; margin: 12px 0 6px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.025em; color: var(--color-muted-ink, oklch(0.47 0.008 250)); } .ds-swatch { width: 10px; height: 10px; } .ds-nav-link { display: block; padding: 3px 8px; font-size: 0.875rem; color: var(--color-ink, #17191e); text-decoration: none; } .ds-nav-link:hover { background: color-mix(in oklab, var(--color-paper-shade, oklch(0.8 0.01 95)) 30%, transparent); } .ds-nav-link:focus-visible { outline: 2px solid var(--color-group-core, oklch(0.52 0.17 262)); outline-offset: 2px; } .ds-nav-link.ds-active-primitives, .ds-nav-link.ds-active-primitives:hover { background: var(--color-group-primitives, oklch(0.78 0.15 80)); color: var(--color-ink, #17191e); font-weight: 600; } .ds-nav-link.ds-active-core, .ds-nav-link.ds-active-core:hover { background: var(--color-group-core, oklch(0.52 0.17 262)); color: var(--color-ground, #f3f4f1); font-weight: 600; }"
+    },
+    {
+      "name": "Index band",
+      "kind": "card",
+      "refersTo": "index-band-core",
+      "description": "Chart-key column: a solid group band over a hairline-divided topic list.",
+      "html": "<section class=\"ds-band-col\"><h2 class=\"ds-band\">Core concepts</h2><ul class=\"ds-band-list\"><li><a href=\"#\">Functions</a></li><li><a href=\"#\">Loops</a></li><li><a href=\"#\">Promises</a></li></ul></section>",
+      "css": ".ds-band-col { font-family: var(--font-sans, Archivo, ui-sans-serif, system-ui, sans-serif); width: 260px; } .ds-band { margin: 0; padding: 8px 12px; background: var(--color-group-core, oklch(0.52 0.17 262)); color: var(--color-ground, #f3f4f1); font-size: 1.125rem; font-weight: 800; } .ds-band-list { list-style: none; margin: 0; padding: 0; border: 1px solid var(--color-rule, #d3d6cf); border-top: 0; } .ds-band-list li + li { border-top: 1px solid var(--color-rule, #d3d6cf); } .ds-band-list a { display: block; padding: 10px 12px; color: var(--color-ink, #17191e); text-decoration: none; } .ds-band-list a:hover { background: color-mix(in oklab, var(--color-paper-shade, oklch(0.8 0.01 95)) 30%, transparent); } .ds-band-list a:focus-visible { outline: 2px solid var(--color-group-core, oklch(0.52 0.17 262)); outline-offset: 2px; }"
+    },
+    {
+      "name": "Mutates badge",
+      "kind": "chip",
+      "refersTo": "badge-mutates",
+      "description": "Square badge beside a method name; filled dot means the method mutates.",
+      "html": "<span class=\"ds-badge ds-badge-mutates\"><svg aria-hidden=\"true\" viewBox=\"0 0 10 10\" width=\"10\" height=\"10\"><circle cx=\"5\" cy=\"5\" r=\"4\" fill=\"currentColor\" stroke=\"currentColor\" stroke-width=\"1.6\"/></svg>Mutates</span>",
+      "css": ".ds-badge { display: inline-flex; align-items: center; gap: 6px; padding: 2px 8px; font-family: var(--font-sans, Archivo, ui-sans-serif, system-ui, sans-serif); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.025em; color: var(--color-ground, #f3f4f1); } .ds-badge-mutates { background: var(--color-mutates, oklch(0.52 0.17 32)); }"
+    },
+    {
+      "name": "Immutable badge",
+      "kind": "chip",
+      "refersTo": "badge-immutable",
+      "description": "Square badge beside a method name; open dot means a new value is returned.",
+      "html": "<span class=\"ds-badge ds-badge-immutable\"><svg aria-hidden=\"true\" viewBox=\"0 0 10 10\" width=\"10\" height=\"10\"><circle cx=\"5\" cy=\"5\" r=\"4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"/></svg>Immutable</span>",
+      "css": ".ds-badge { display: inline-flex; align-items: center; gap: 6px; padding: 2px 8px; font-family: var(--font-sans, Archivo, ui-sans-serif, system-ui, sans-serif); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.025em; color: var(--color-ground, #f3f4f1); } .ds-badge-immutable { background: var(--color-immutable, oklch(0.47 0.12 158)); }"
+    },
+    {
+      "name": "Method entry",
+      "kind": "custom",
+      "refersTo": "title-code",
+      "description": "Rule-separated method heading: mono name, badge, muted signature, short description.",
+      "html": "<section class=\"ds-method\"><div class=\"ds-method-head\"><h4 class=\"ds-method-name\">push()</h4><span class=\"ds-badge ds-badge-mutates\"><svg aria-hidden=\"true\" viewBox=\"0 0 10 10\" width=\"10\" height=\"10\"><circle cx=\"5\" cy=\"5\" r=\"4\" fill=\"currentColor\" stroke=\"currentColor\" stroke-width=\"1.6\"/></svg>Mutates</span></div><div class=\"ds-sig\">arr.push(...items)</div><p class=\"ds-desc\">Adds items to the end and returns the new length.</p></section>",
+      "css": ".ds-method { font-family: var(--font-sans, Archivo, ui-sans-serif, system-ui, sans-serif); border-top: 1px solid var(--color-rule, #d3d6cf); padding: 20px 0 28px; color: var(--color-ink, #17191e); } .ds-method-head { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 4px; } .ds-method-name { margin: 0; font-family: var(--font-mono, 'JetBrains Mono', ui-monospace, monospace); font-size: 1.5rem; font-weight: 600; } .ds-badge { display: inline-flex; align-items: center; gap: 6px; padding: 2px 8px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.025em; color: var(--color-ground, #f3f4f1); } .ds-badge-mutates { background: var(--color-mutates, oklch(0.52 0.17 32)); } .ds-sig { font-family: var(--font-mono, 'JetBrains Mono', ui-monospace, monospace); font-size: 0.875rem; color: var(--color-muted-ink, oklch(0.47 0.008 250)); margin-bottom: 4px; } .ds-desc { margin: 0; font-size: 15px; max-width: 70ch; }"
+    },
+    {
+      "name": "Mutation note",
+      "kind": "custom",
+      "refersTo": "note-mutates",
+      "description": "Tinted note under a diagram stating whether the original is changed.",
+      "html": "<div class=\"ds-mnote\"><span class=\"ds-mdot\"><svg aria-hidden=\"true\" viewBox=\"0 0 10 10\" width=\"10\" height=\"10\"><circle cx=\"5\" cy=\"5\" r=\"4\" fill=\"currentColor\" stroke=\"currentColor\" stroke-width=\"1.6\"/></svg></span><div>Changes the original array.</div></div>",
+      "css": ".ds-mnote { display: flex; gap: 8px; padding: 10px 12px; background: var(--color-mutates-tint, oklch(0.96 0.02 32)); color: var(--color-ink, #17191e); font-family: var(--font-sans, Archivo, ui-sans-serif, system-ui, sans-serif); font-size: 0.875rem; line-height: 1.375; } .ds-mdot { flex-shrink: 0; margin-top: 5px; line-height: 0; color: var(--color-mutates, oklch(0.52 0.17 32)); }"
+    },
+    {
+      "name": "Info note",
+      "kind": "card",
+      "refersTo": "note-info",
+      "description": "Square tinted well for context; tips use the tip tint instead.",
+      "html": "<div class=\"ds-note\"><strong>Arrays are iterable.</strong> Works with for...of and spread.</div>",
+      "css": ".ds-note { padding: 10px 12px; background: var(--color-info-tint, oklch(0.96 0.02 262)); color: var(--color-ink, #17191e); font-family: var(--font-sans, Archivo, ui-sans-serif, system-ui, sans-serif); font-size: 0.875rem; line-height: 1.375; }"
+    },
+    {
+      "name": "Flow diagram",
+      "kind": "custom",
+      "refersTo": "diagram-node",
+      "description": "Input, arrow, process, arrow, output; nodes outlined in their flow colour, array cells with a 3px tab.",
+      "html": "<div class=\"ds-flow\"><div class=\"ds-node\"><div class=\"ds-cap\">String</div><div class=\"ds-box ds-in\">\"hi\"</div></div><div class=\"ds-arrow\"></div><div class=\"ds-node\"><div class=\"ds-cap\">Method</div><div class=\"ds-box ds-proc\"><div class=\"ds-pname\">split('')</div><div class=\"ds-pdesc\">Split into chars</div></div></div><div class=\"ds-arrow\"></div><div class=\"ds-node\"><div class=\"ds-cap\">Array</div><div class=\"ds-box ds-out\"><span class=\"ds-cell\">'h'</span><span class=\"ds-cell\">'i'</span></div></div></div>",
+      "css": ".ds-flow { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 16px; font-family: var(--font-sans, Archivo, ui-sans-serif, system-ui, sans-serif); color: var(--color-ink, #17191e); } .ds-node { min-width: 140px; } .ds-cap { text-align: center; margin-bottom: 4px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.025em; color: var(--color-muted-ink, oklch(0.47 0.008 250)); } .ds-box { border: 2px solid; background: var(--color-node-fill, oklch(0.975 0.008 250)); padding: 8px; text-align: center; font-family: var(--font-mono, 'JetBrains Mono', ui-monospace, monospace); } .ds-in { border-color: var(--color-flow-input, oklch(0.6 0.16 262)); } .ds-proc { border-color: var(--color-flow-process, oklch(0.6 0.16 302)); padding: 12px 8px; } .ds-out { border-color: var(--color-flow-output, oklch(0.6 0.16 158)); display: flex; gap: 4px; justify-content: center; } .ds-pname { font-weight: 600; font-size: 0.875rem; } .ds-pdesc { font-family: var(--font-sans, Archivo, ui-sans-serif, system-ui, sans-serif); font-size: 0.75rem; color: var(--color-process-ink, oklch(0.42 0.14 302)); } .ds-arrow { position: relative; width: 48px; height: 2px; margin-bottom: 20px; background: oklch(0.56 0.008 250); } .ds-arrow::after { content: ''; position: absolute; right: -2px; top: -4px; border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-left: 7px solid oklch(0.56 0.008 250); } .ds-cell { min-width: 40px; padding: 8px 12px; background: var(--color-cell, oklch(0.955 0.008 250)); border-bottom: 3px solid var(--color-cell-rule, oklch(0.78 0.008 250)); font-weight: 600; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The laminated reference chart",
+    "overview": "\n**Creative North Star: \"The laminated reference chart\"**\n\nThe site reads like a chart pinned beside a workbench. A cool off-white ground, near-black ink and four flat category colours do the wayfinding. Rules do the structure. Diagrams carry the behaviour. Nothing floats, nothing glows, and nothing is decorated for its own sake.\n\nDensity is high on purpose. The reader is mid-task on a second screen, so every page is a lookup surface: a left rail of topics grouped by colour, a right rail of methods, and a centre column of rule-separated method entries with a small diagram each. Colour is reserved for meaning: which group a page belongs to, whether a method mutates, and which part of a flow is input, process or output.",
+    "keyCharacteristics": [
+      "Flat category fills on a cool off-white ground.",
+      "1px rules divide, 3px ink bars head sections, a 6px group-colour bar closes each page title.",
+      "Square corners on every built component.",
+      "Archivo for all text, JetBrains Mono for code only.",
+      "Mutation is coded twice: colour plus a filled or open dot."
+    ],
+    "rules": [
+      {
+        "name": "The Inverted Ramp Rule",
+        "body": "Every Tailwind hue ramp is remapped to the chart palette and inverted for a light ground: steps 50 to 400 are ink-dark, 500 is the full hue, 600 to 950 are tints. `white` is ink and `black` is a paper shade. Write new markup against these meanings; `text-white` renders ink, not white.",
+        "section": "colors"
+      },
+      {
+        "name": "The Colour Means Something Rule",
+        "body": "Group colours mark group membership, mutation colours mark mutation, flow colours mark flow roles. A colour never appears as decoration. The two system exceptions are saffron selection and the cobalt focus ring.",
+        "section": "colors"
+      },
+      {
+        "name": "The Never Colour Alone Rule",
+        "body": "Mutation always pairs colour with a glyph: a filled dot for mutates, an open dot for immutable, drawn as inline SVG.",
+        "section": "colors"
+      },
+      {
+        "name": "The Mono Is Code Rule",
+        "body": "JetBrains Mono sets code, method names, signatures and array values. It never sets prose, labels or navigation.",
+        "section": "typography"
+      },
+      {
+        "name": "The 12px Floor Rule",
+        "body": "Nothing renders below 0.75rem. The theme lifts legacy 9 to 11px label classes to 0.75rem in one place.",
+        "section": "typography"
+      },
+      {
+        "name": "The Three Weights Rule",
+        "body": "Structure is drawn with three rule weights only: 1px hairline to divide, 3px ink to head a section or the index, 6px group colour to close a page title.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do take colour from the theme tokens (`ground`, `ink`, `rule`, `group-*`, `mutates`, `immutable`) and read every ramp step through the Inverted Ramp Rule.",
+      "Do mark a new topic with its group colour in exactly the existing places: nav swatch, active fill, index band, 6px title bar.",
+      "Do pair mutation colour with the filled or open dot.",
+      "Do keep components square and flat, separated by 1px hairlines.",
+      "Do strip leading emoji from any slotted or rendered rail content."
+    ],
+    "donts": [
+      "Don't add shadows, glows or lifted cards.",
+      "Don't nest cards; a note or diagram well sits directly in the method entry.",
+      "Don't use the periodic-element motif: no symbol tiles, no atomic numbers.",
+      "Don't return to dark navy card stacks or emoji headings.",
+      "Don't set prose or labels in JetBrains Mono.",
+      "Don't set text below 0.75rem."
+    ]
+  }
+}

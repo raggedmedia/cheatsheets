@@ -8,22 +8,24 @@ import ProcessContent from "~components/visual-js/ProcessContent.astro";
 import ProTip from "~components/visual-js/ProTip.astro";
 import SectionTitle from "~components/visual-js/SectionTitle.astro";
 import VisualLayout from "src/layouts/VisualLayout.astro";
+import Flow from "~components/visual-js/Flow.astro";
+import Mark from "~components/visual-js/Mark.astro";
 ---
 
 <VisualLayout pageTitle="Numbers">
     <ProTip>
         <div>
-            ⚡ <strong>Numbers are immutable!</strong> All methods return a new value
-            — the original never changes.
+            <strong>Numbers are immutable.</strong> All methods return a new value.
+            The original never changes.
         </div>
         <div
-            class="pl-2 border-l-2 border-yellow-500/30 font-mono text-[10px] mt-1"
+            class="pl-2 border-l border-rule font-mono text-xs mt-1"
         >
             const num = 3.14159<br />
             num.toFixed(2) <span class="text-red-400"
                 >// returns '3.14' but num stays 3.14159</span
             ><br />
-            const rounded = num.toFixed(2) ✅ <span class="text-gray-400"
+            const rounded = num.toFixed(2) <Mark type="yes" /> <span class="text-gray-400"
                 >// always save the result!</span
             >
         </div>
@@ -31,32 +33,32 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
     <ProTip>
         <div>
-            ⚡ <strong>Why is JavaScript bad at math?</strong> Computers store numbers
+            <strong>Why is JavaScript bad at maths?</strong> Computers store numbers
             in binary (1s and 0s), not decimals.
         </div>
-        <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-            <div class="font-mono text-[10px]">
+        <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+            <div class="font-mono text-xs">
                 0.1 + 0.2 === 0.3 <span class="text-red-400"
-                    >// false! ❌ (0.30000000000000004)</span>
+                    >// false! <Mark type="no" /> (0.30000000000000004)</span>
             </div>
-            <div class="font-mono text-[10px] mt-1">
+            <div class="font-mono text-xs mt-1">
                 <span class="text-gray-400"
                     >// In binary, 0.1 = 0.00011001100110011... (infinite
                     repeat)</span>
             </div>
-            <div class="font-mono text-[10px]">
+            <div class="font-mono text-xs">
                 <span class="text-gray-400"
                     >// Computer cuts it off → tiny rounding error</span>
             </div>
-            <div class="font-mono text-[10px]">
+            <div class="font-mono text-xs">
                 <span class="text-gray-400"
                     >// 0.1 + 0.2 = two tiny errors combined = 0.30000...4</span>
             </div>
-            <div class="font-mono text-[10px] mt-1">
+            <div class="font-mono text-xs mt-1">
                 Number.MAX_SAFE_INTEGER <span class="text-gray-400"
                     >// 9007199254740991</span>
             </div>
-            <div class="font-mono text-[10px]">
+            <div class="font-mono text-xs">
                 <span class="text-yellow-400"
                     >// Above this, integers skip numbers (9007199254740992 =
                     9007199254740993)</span>
@@ -66,35 +68,34 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
     <ProTip>
         <div>
-            ⚡ <strong>NaN = "Not a Number"</strong> but ironically <code
-                class="bg-black/30 px-1 py-0.5 rounded text-yellow-400"
+            <strong>NaN means 'not a number'</strong>, but <code
                 >typeof NaN === "number"</code
-            > 🤦
+            > 
         </div>
-        <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-            <div class="font-mono text-[10px]">
+        <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+            <div class="font-mono text-xs">
                 NaN === NaN <span class="text-red-400"
-                    >// false ❌ (only value not equal to itself!)</span>
+                    >// false <Mark type="no" /> (only value not equal to itself!)</span>
             </div>
-            <div class="font-mono text-[10px]">
+            <div class="font-mono text-xs">
                 Number.isNaN(NaN) <span class="text-green-400"
-                    >// true ✅ (use this!)</span>
+                    >// true <Mark type="yes" /> (use this!)</span>
             </div>
-            <div class="font-mono text-[10px] mt-1">
+            <div class="font-mono text-xs mt-1">
                 <span class="text-gray-400">// When does NaN appear?</span>
             </div>
-            <div class="font-mono text-[10px]">
+            <div class="font-mono text-xs">
                 0 / 0 <span class="text-gray-400">// NaN (invalid math)</span>
             </div>
-            <div class="font-mono text-[10px]">
+            <div class="font-mono text-xs">
                 Math.sqrt(-1) <span class="text-gray-400"
                     >// NaN (impossible)</span>
             </div>
-            <div class="font-mono text-[10px]">
+            <div class="font-mono text-xs">
                 parseInt('hello') <span class="text-gray-400"
                     >// NaN (failed parse)</span>
             </div>
-            <div class="font-mono text-[10px] mt-1">
+            <div class="font-mono text-xs mt-1">
                 <span class="text-yellow-400"
                     >// It's JavaScript's "math operation failed" signal</span>
             </div>
@@ -102,10 +103,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     </ProTip>
 
     <!-- ============================================ -->
-    <!-- 🔢 PARSING & CONVERTING -->
+    <!-- PARSING & CONVERTING -->
     <!-- ============================================ -->
     <SectionTitle id="parsing" color="blue">
-        🔢 Parsing & Converting
+        Parsing & converting
     </SectionTitle>
 
     <!-- PARSEINT -->
@@ -116,9 +117,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Parse a string and return an integer"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input" type="input">
                 <div class="text-center text-sm font-mono">'42px'</div>
             </Node>
@@ -137,37 +136,36 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Result" type="output">
                 <ReturnValue value="42" type="number" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
-            Parses until it hits a non-digit. Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+            Parses until it reaches a non-digit. Returns <code
                 >NaN</code
-            > if no valid digits found.
+            > if it finds no valid digits.
         </MutableOrNot>
 
         <ProTip>
-            <div>⚠️ <strong>Always specify radix (base 10):</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div><Mark type="warn" /> <strong>Always set the radix (base 10):</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     parseInt('10') <span class="text-gray-400">// 10</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     parseInt('10', 10) <span class="text-green-400"
-                        >// 10 ✅ explicit</span>
+                        >// 10 <Mark type="yes" /> explicit</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     parseInt('0x10') <span class="text-gray-400"
                         >// 16 (hex)</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     parseInt('08') <span class="text-gray-400"
                         >// 8 (but was 0 in old browsers!)</span>
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     parseInt('42px') <span class="text-gray-400">// 42</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     parseInt('px42') <span class="text-red-400"
                         >// NaN (starts with non-digit)</span>
                 </div>
@@ -180,12 +178,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="parse-float"
         methodName="parseFloat()"
         signature="parseFloat(string)"
-        description="Parse a string and return a floating point number"
+        description="Parse a string and return a floating-point number"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input" type="input">
                 <div class="text-center text-sm font-mono">'3.14rem'</div>
             </Node>
@@ -204,27 +200,26 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Result" type="output">
                 <ReturnValue value="3.14" type="number" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Like <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >parseInt</code
-            > but keeps decimal point.
+            >, but keeps the decimal point.
         </MutableOrNot>
 
         <ProTip>
             <div>Examples:</div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     parseFloat('3.14') <span class="text-gray-400"
                         >// 3.14</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     parseFloat('3.14.15') <span class="text-gray-400"
                         >// 3.14 (stops at 2nd dot)</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     parseFloat(' 3.14 ') <span class="text-gray-400"
                         >// 3.14 (trims whitespace)</span>
                 </div>
@@ -240,9 +235,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Convert any value to a number"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input" type="input">
                 <div class="text-center text-sm font-mono space-y-1">
                     <div>'42'</div>
@@ -273,41 +266,40 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     <div class="text-red-400">NaN</div>
                 </div>
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
-            More strict than <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+            Stricter than <code
                 >parseInt</code
-            > - entire string must be a valid number.
+            >. The entire string must be a valid number.
         </MutableOrNot>
 
         <ProTip>
-            <div>💡 <strong>Unary + operator does the same:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div><strong>The unary + operator does the same:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     Number('42') <span class="text-gray-400">// 42</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     +'42' <span class="text-gray-400">// 42 (shorthand)</span>
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     Number('42px') <span class="text-red-400">// NaN</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     parseInt('42px') <span class="text-green-400"
-                        >// 42 ✅</span>
+                        >// 42 <Mark type="yes" /></span>
                 </div>
             </div>
         </ProTip>
     </MethodCard>
 
     <!-- ============================================ -->
-    <!-- 🎯 CHECKING & VALIDATION -->
+    <!-- CHECKING & VALIDATION -->
     <!-- ============================================ -->
 
     <SectionTitle id="checking" color="purple">
-        🎯 Checking & Validation
+        Checking & validation
     </SectionTitle>
 
     <!-- NUMBER.ISNAN -->
@@ -315,12 +307,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="is-nan"
         methodName="Number.isNaN()"
         signature="Number.isNaN(value)"
-        description="Check if value is NaN (Not a Number)"
+        description="Check if a value is NaN (not a number)"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input" type="input">
                 <div class="text-center text-sm font-mono space-y-1">
                     <div>NaN</div>
@@ -342,47 +332,45 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
             <Node label="Result" type="output">
                 <div class="text-center text-sm font-mono space-y-1">
-                    <div class="text-green-400">true ✅</div>
-                    <div class="text-red-400">false ❌</div>
-                    <div class="text-red-400">false ❌</div>
+                    <div class="text-green-400">true <Mark type="yes" /></div>
+                    <div class="text-red-400">false <Mark type="no" /></div>
+                    <div class="text-red-400">false <Mark type="no" /></div>
                 </div>
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Only returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >true</code
             > if the value is actually <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >NaN</code
             >.
         </MutableOrNot>
 
         <ProTip>
-            <div>⚠️ <strong>Don't use global isNaN():</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div><Mark type="warn" /> <strong>Don't use global isNaN():</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     <span class="text-red-400"
-                        >// Global isNaN() coerces to number first ❌</span>
+                        >// Global isNaN() coerces to number first <Mark type="no" /></span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     isNaN('hello') <span class="text-gray-400"
                         >// true (coerces to NaN)</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     isNaN(undefined) <span class="text-gray-400"
                         >// true (coerces to NaN)</span>
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-green-400"
-                        >// Number.isNaN() is strict ✅</span>
+                        >// Number.isNaN() is strict <Mark type="yes" /></span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     Number.isNaN('hello') <span class="text-gray-400"
                         >// false (not NaN)</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     Number.isNaN(NaN) <span class="text-gray-400">// true</span>
                 </div>
             </div>
@@ -394,12 +382,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="is-integer"
         methodName="Number.isInteger()"
         signature="Number.isInteger(value)"
-        description="Check if value is an integer"
+        description="Check if a value is an integer"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input" type="input">
                 <div class="text-center text-sm font-mono space-y-1">
                     <div>42</div>
@@ -421,26 +407,25 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
             <Node label="Result" type="output">
                 <div class="text-center text-sm font-mono space-y-1">
-                    <div class="text-green-400">true ✅</div>
-                    <div class="text-green-400">true ✅</div>
-                    <div class="text-red-400">false ❌</div>
+                    <div class="text-green-400">true <Mark type="yes" /></div>
+                    <div class="text-green-400">true <Mark type="yes" /></div>
+                    <div class="text-red-400">false <Mark type="no" /></div>
                 </div>
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >true</code
-            > if value is a number with no fractional part.
+            > if the value is a number with no fractional part.
         </MutableOrNot>
     </MethodCard>
 
     <!-- ============================================ -->
-    <!-- 📊 MATH OPERATIONS -->
+    <!-- MATH OPERATIONS -->
     <!-- ============================================ -->
 
-    <SectionTitle id="math" color="green"> 📊 Math Operations </SectionTitle>
+    <SectionTitle id="math" color="green"> Math operations </SectionTitle>
 
     <!-- MATH.ROUND/FLOOR/CEIL -->
     <MethodCard
@@ -452,14 +437,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     >
         <div class="space-y-4">
             <!-- Math.floor -->
-            <div
-                class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-            >
+            <Flow>
                 <Node label="Input" type="input">
                     <div class="text-center text-sm font-mono">3.7</div>
                 </Node>
 
-                <Arrow label="floor ⬇️" />
+                <Arrow label="floor ↓" />
 
                 <Node label="Method" type="process">
                     <ProcessContent
@@ -473,12 +456,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 <Node label="Result" type="output">
                     <ReturnValue value="3" type="number" />
                 </Node>
-            </div>
+            </Flow>
 
             <!-- Math.round -->
-            <div
-                class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-            >
+            <Flow>
                 <Node label="Input" type="input">
                     <div class="text-center text-sm font-mono">3.7</div>
                 </Node>
@@ -488,7 +469,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 <Node label="Method" type="process">
                     <ProcessContent
                         name="Math.round(3.7)"
-                        description="Round nearest"
+                        description="Round to nearest"
                     />
                 </Node>
 
@@ -497,17 +478,15 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 <Node label="Result" type="output">
                     <ReturnValue value="4" type="number" />
                 </Node>
-            </div>
+            </Flow>
 
             <!-- Math.ceil -->
-            <div
-                class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-            >
+            <Flow>
                 <Node label="Input" type="input">
                     <div class="text-center text-sm font-mono">3.7</div>
                 </Node>
 
-                <Arrow label="ceil ⬆️" />
+                <Arrow label="ceil ↑" />
 
                 <Node label="Method" type="process">
                     <ProcessContent
@@ -521,7 +500,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 <Node label="Result" type="output">
                     <ReturnValue value="4" type="number" />
                 </Node>
-            </div>
+            </Flow>
         </div>
 
         <MutableOrNot mutates={false} message="">
@@ -532,16 +511,16 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
         <ProTip>
             <div>Round to decimal places:</div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     Math.round(3.14159 * 100) / 100 <span class="text-gray-400"
                         >// 3.14</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     (3.14159).toFixed(2) <span class="text-gray-400"
                         >// '3.14' (string)</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     Number((3.14159).toFixed(2)) <span class="text-gray-400"
                         >// 3.14 (number)</span>
                 </div>
@@ -554,14 +533,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="trunc"
         methodName="Math.trunc()"
         signature="Math.trunc(number)"
-        description="Remove decimal part (truncate)"
+        description="Remove the decimal part (truncate)"
         mutates={false}
     >
         <div class="space-y-4">
             <!-- Positive -->
-            <div
-                class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-            >
+            <Flow>
                 <Node label="Input" type="input">
                     <div class="text-center text-sm font-mono">3.7</div>
                 </Node>
@@ -580,12 +557,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 <Node label="Result" type="output">
                     <ReturnValue value="3" type="number" />
                 </Node>
-            </div>
+            </Flow>
 
             <!-- Negative -->
-            <div
-                class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-            >
+            <Flow>
                 <Node label="Input" type="input">
                     <div class="text-center text-sm font-mono">-3.7</div>
                 </Node>
@@ -604,30 +579,29 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 <Node label="Result" type="output">
                     <ReturnValue value="-3" type="number" />
                 </Node>
-            </div>
+            </Flow>
         </div>
 
         <MutableOrNot mutates={false} message="">
-            Simply removes everything after the decimal point. Always rounds
-            toward zero (unlike <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+            Removes everything after the decimal point. Always rounds
+            towards zero (unlike <code
                 >floor()</code
             >).
         </MutableOrNot>
 
         <ProTip>
-            <div>💡 <strong>Difference from floor:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div><strong>Difference from floor:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     Math.trunc(3.7) → 3 <span class="text-gray-400"
                         >// same as floor</span>
                 </div>
-                <div class="font-mono text-[10px]">Math.floor(3.7) → 3</div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs">Math.floor(3.7) → 3</div>
+                <div class="font-mono text-xs mt-1">
                     Math.trunc(-3.7) → -3 <span class="text-green-400"
                         >// toward zero</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     Math.floor(-3.7) → -4 <span class="text-yellow-400"
                         >// always down</span>
                 </div>
@@ -640,14 +614,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="abs"
         methodName="Math.abs()"
         signature="Math.abs(number)"
-        description="Get absolute value (remove negative sign)"
+        description="Get the absolute value (remove the negative sign)"
         mutates={false}
     >
         <div class="space-y-4">
             <!-- Negative -->
-            <div
-                class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-            >
+            <Flow>
                 <Node label="Input" type="input">
                     <div class="text-center text-sm font-mono">-42</div>
                 </Node>
@@ -666,12 +638,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 <Node label="Result" type="output">
                     <ReturnValue value="42" type="number" />
                 </Node>
-            </div>
+            </Flow>
 
             <!-- Positive -->
-            <div
-                class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-            >
+            <Flow>
                 <Node label="Input" type="input">
                     <div class="text-center text-sm font-mono">42</div>
                 </Node>
@@ -690,7 +660,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 <Node label="Result" type="output">
                     <ReturnValue value="42" type="number" />
                 </Node>
-            </div>
+            </Flow>
         </div>
 
         <MutableOrNot mutates={false} message="">
@@ -699,20 +669,20 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
         <ProTip>
             <div>Common use cases:</div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     <span class="text-gray-400"
                         >// Calculate distance between two points</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     Math.abs(x1 - x2) <span class="text-gray-400"
                         >// distance on number line</span>
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-gray-400"
                         >// Get magnitude regardless of direction</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     const speed = Math.abs(velocity)
                 </div>
             </div>
@@ -729,9 +699,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     >
         <div class="space-y-4">
             <!-- Positive -->
-            <div
-                class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-            >
+            <Flow>
                 <Node label="Input" type="input">
                     <div class="text-center text-sm font-mono">42</div>
                 </Node>
@@ -741,12 +709,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 <Node label="Result" type="output">
                     <ReturnValue value="1" type="number" />
                 </Node>
-            </div>
+            </Flow>
 
             <!-- Negative -->
-            <div
-                class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-            >
+            <Flow>
                 <Node label="Input" type="input">
                     <div class="text-center text-sm font-mono">-42</div>
                 </Node>
@@ -756,12 +722,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 <Node label="Result" type="output">
                     <ReturnValue value="-1" type="number" />
                 </Node>
-            </div>
+            </Flow>
 
             <!-- Zero -->
-            <div
-                class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-            >
+            <Flow>
                 <Node label="Input" type="input">
                     <div class="text-center text-sm font-mono">0</div>
                 </Node>
@@ -771,38 +735,35 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 <Node label="Result" type="output">
                     <ReturnValue value="0" type="number" />
                 </Node>
-            </div>
+            </Flow>
         </div>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >1</code
             > for positive, <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >-1</code
             > for negative, <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >0</code
             > for zero.
         </MutableOrNot>
 
         <ProTip>
-            <div>Perfect for animations & game dev:</div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div>Useful for animation and game development:</div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     <span class="text-gray-400"
                         >// Flip sprite based on movement direction</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     sprite.scaleX = Math.sign(velocity.x) <span
                         class="text-gray-400">// -1 or 1</span>
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-gray-400"
                         >// Preserve direction while clamping magnitude</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     const clamped = Math.sign(v) * Math.min(Math.abs(v), max)
                 </div>
             </div>
@@ -814,14 +775,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="pow"
         methodName="Math.pow() / **"
         signature="Math.pow(base, exponent) or base ** exponent"
-        description="Raise number to a power (exponentiation)"
+        description="Raise a number to a power (exponentiation)"
         mutates={false}
     >
         <div class="space-y-4">
             <!-- Square -->
-            <div
-                class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-            >
+            <Flow>
                 <Node label="Base" type="input">
                     <div class="text-center text-sm font-mono">5</div>
                 </Node>
@@ -837,12 +796,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 <Node label="Result" type="output">
                     <ReturnValue value="25" type="number" />
                 </Node>
-            </div>
+            </Flow>
 
             <!-- Cube -->
-            <div
-                class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-            >
+            <Flow>
                 <Node label="Base" type="input">
                     <div class="text-center text-sm font-mono">2</div>
                 </Node>
@@ -858,41 +815,39 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 <Node label="Result" type="output">
                     <ReturnValue value="8" type="number" />
                 </Node>
-            </div>
+            </Flow>
         </div>
 
         <MutableOrNot mutates={false} message="">
-            <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+            Prefer the <code
                 >**</code
-            > operator is preferred over <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+            > operator over <code
                 >Math.pow()</code
             > (cleaner syntax).
         </MutableOrNot>
 
         <ProTip>
             <div>Common patterns:</div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     x ** 2 <span class="text-gray-400">// square (x²)</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     x ** 3 <span class="text-gray-400">// cube (x³)</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     2 ** 8 <span class="text-gray-400"
                         >// 256 (powers of 2)</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     10 ** 6 <span class="text-gray-400"
                         >// 1000000 (scientific)</span>
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-gray-400"
                         >// Fractional exponents = roots!</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     x ** 0.5 <span class="text-gray-400"
                         >// same as Math.sqrt(x)</span>
                 </div>
@@ -908,9 +863,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Calculate square root"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input" type="input">
                 <div class="text-center text-sm font-mono">25</div>
             </Node>
@@ -929,33 +882,32 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Result" type="output">
                 <ReturnValue value="5" type="number" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >NaN</code
-            > for negative numbers. The inverse of squaring: √(x²) = x.
+            > for negative numbers. Undoes squaring for non-negative x, since √(x²) = |x|.
         </MutableOrNot>
 
         <ProTip>
             <div>Common use: distance formula (Pythagorean theorem):</div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     <span class="text-gray-400"
                         >// Distance between two points</span>
                 </div>
-                <div class="font-mono text-[10px]">const dx = x2 - x1</div>
-                <div class="font-mono text-[10px]">const dy = y2 - y1</div>
-                <div class="font-mono text-[10px]">
-                    const distance = Math.sqrt(dx**2 + dy**2) ✅
+                <div class="font-mono text-xs">const dx = x2 - x1</div>
+                <div class="font-mono text-xs">const dy = y2 - y1</div>
+                <div class="font-mono text-xs">
+                    const distance = Math.sqrt(dx**2 + dy**2) <Mark type="yes" />
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-yellow-400"
                         >// Pro tip: avoid sqrt if you only need to compare
                         distances</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     if (dx**2 + dy**2 &lt; radius**2) <span
                         class="text-gray-400">// faster!</span>
                 </div>
@@ -968,14 +920,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="min-max"
         methodName="Math.min() / Math.max()"
         signature="Math.min/max(...numbers)"
-        description="Find smallest or largest number"
+        description="Find the smallest or largest number"
         mutates={false}
     >
         <div class="space-y-4">
             <!-- Math.max -->
-            <div
-                class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-            >
+            <Flow>
                 <Node label="Input" type="input">
                     <div class="text-center text-sm font-mono">5, 2, 8, 1</div>
                 </Node>
@@ -994,12 +944,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 <Node label="Result" type="output">
                     <ReturnValue value="8" type="number" />
                 </Node>
-            </div>
+            </Flow>
 
             <!-- Math.min -->
-            <div
-                class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-            >
+            <Flow>
                 <Node label="Input" type="input">
                     <div class="text-center text-sm font-mono">5, 2, 8, 1</div>
                 </Node>
@@ -1018,31 +966,30 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 <Node label="Result" type="output">
                     <ReturnValue value="1" type="number" />
                 </Node>
-            </div>
+            </Flow>
         </div>
 
         <MutableOrNot mutates={false} message="">
-            Takes multiple arguments. Use spread operator <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+            Takes multiple arguments. Use the spread operator <code
                 >...</code
-            > to find min/max in arrays.
+            > to find the min or max of an array.
         </MutableOrNot>
 
         <ProTip>
             <div>Common use cases:</div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     <span class="text-gray-400"
                         >// Clamp value between min and max</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     Math.min(Math.max(value, 0), 100) <span
                         class="text-gray-400">// 0-100</span>
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-gray-400">// Find max in array</span>
                 </div>
-                <div class="font-mono text-[10px]">Math.max(...prices)</div>
+                <div class="font-mono text-xs">Math.max(...prices)</div>
             </div>
         </ProTip>
     </MethodCard>
@@ -1052,57 +999,57 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="random"
         methodName="Math.random()"
         signature="Math.random()"
-        description="Generate random number between 0 and 1"
+        description="Generate a random number between 0 and 1"
         mutates={false}
     >
         <!-- Important callout -->
-        <div class="bg-yellow-500/20 border border-yellow-500 rounded p-4 mb-4">
+        <div class="bg-yellow-900 rounded p-4 mb-4">
             <div class="text-yellow-300 font-bold text-sm mb-2">
-                ⚠️ Math.random() ONLY gives 0-1
+                <Mark type="warn" /> Math.random() 'only' gives 0-1
             </div>
             <div class="text-gray-300 text-xs mb-3">
-                For other ranges (1-10, 1-100, etc.) you MUST multiply and add:
+                For other ranges (1-10, 1-100 and so on), multiply and add:
             </div>
 
-            <div class="bg-black/30 rounded p-3 space-y-0.5">
-                <div class="font-mono text-[10px] text-gray-300">
+            <div class="rounded space-y-0.5 border-t border-rule pt-2 mt-2">
+                <div class="font-mono text-xs text-gray-300">
                     function randomInt(min, max) {"{"}
                 </div>
-                <div class="font-mono text-[10px] text-gray-300">
+                <div class="font-mono text-xs text-gray-300">
                     &nbsp;&nbsp;return Math.floor(Math.random() * (max - min +
                     1)) + min
                 </div>
-                <div class="font-mono text-[10px] text-gray-300">{"}"}</div>
-                <div class="font-mono text-[10px] mt-2">
+                <div class="font-mono text-xs text-gray-300">{"}"}</div>
+                <div class="font-mono text-xs mt-2">
                     <span class="text-gray-400"
                         >// How it works for randomInt(1, 6):</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     <span class="text-yellow-400">(max - min + 1)</span>
                     <span class="text-gray-400"
                         >→ (6 - 1 + 1) = 6 possible values</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     <span class="text-yellow-400">Math.random() * 6</span>
                     <span class="text-gray-400">→ 0 to 5.999...</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     <span class="text-yellow-400">Math.floor(...)</span>
                     <span class="text-gray-400">→ 0, 1, 2, 3, 4, or 5</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     <span class="text-yellow-400">+ min</span>
-                    <span class="text-gray-400">→ 1, 2, 3, 4, 5, or 6 ✅</span>
+                    <span class="text-gray-400">→ 1, 2, 3, 4, 5, or 6 <Mark type="yes" /></span>
                 </div>
-                <div class="font-mono text-[10px] mt-2">
+                <div class="font-mono text-xs mt-2">
                     randomInt(1, 6) <span class="text-gray-400"
                         >// dice roll (1-6)</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     randomInt(1, 100) <span class="text-gray-400"
                         >// 1-100</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     randomInt(50, 100) <span class="text-gray-400"
                         >// 50-100</span>
                 </div>
@@ -1110,30 +1057,27 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         </div>
 
         <MutableOrNot mutates={false} message="">
-            Returns decimal from 0 (inclusive) to 1 (exclusive). Want 1-100? Do <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+            Returns a decimal from 0 (inclusive) to 1 (exclusive). For 1-100, use <code
                 >Math.floor(Math.random() * 100) + 1</code
             >
         </MutableOrNot>
     </MethodCard>
 
     <!-- ============================================ -->
-    <!-- 🔧 FORMATTING -->
+    <!-- FORMATTING -->
     <!-- ============================================ -->
 
-    <SectionTitle id="formatting" color="orange"> 🔧 Formatting </SectionTitle>
+    <SectionTitle id="formatting" color="orange"> Formatting </SectionTitle>
 
     <!-- TOFIXED -->
     <MethodCard
         id="to-fixed"
         methodName=".toFixed()"
         signature="number.toFixed(digits)"
-        description="Format number with fixed decimal places"
+        description="Format a number with fixed decimal places"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input" type="input">
                 <div class="text-center text-sm font-mono">3.14159</div>
             </Node>
@@ -1152,44 +1096,44 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Result" type="output">
                 <ReturnValue value="'3.14'" type="string" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
-            Returns <strong>string</strong> with specified decimal places. Rounds
-            if necessary.
+            Returns a <strong>string</strong> with the set number of decimal
+            places. Rounds if needed.
         </MutableOrNot>
 
         <ProTip>
-            <div>⚠️ <strong>Returns string, not number!</strong></div>
+            <div><Mark type="warn" /> <strong>Returns a string, not a number.</strong></div>
             <div class="text-xs mt-2 mb-3">
-                It's a <strong>formatting method</strong> for display, not math.
-                Preserves trailing zeros like <span
+                It's a <strong>formatting method</strong> for display, not maths.
+                Keeps trailing zeros like <span
                     class="font-mono text-orange-400">"42.00"</span
                 > that numbers can't have.
             </div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-1 mt-2">
-                <div class="text-[10px] text-gray-400">Perfect for UI:</div>
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule space-y-1 mt-2">
+                <div class="text-xs text-gray-400">Use for UI:</div>
+                <div class="font-mono text-xs">
                     "$" + price.toFixed(2) <span class="text-gray-400"
                         >// "$42.00"</span>
                 </div>
 
-                <div class="text-[10px] text-gray-400 mt-2">
-                    ❌ Never for math:
+                <div class="text-xs text-gray-400 mt-2">
+                    <Mark type="no" /> Never for maths:
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     "10.50" + "2.30" <span class="text-gray-400"
-                        >// "10.502.30" 😱</span>
+                        >// "10.502.30" </span>
                 </div>
 
-                <div class="text-[10px] text-gray-400 mt-2">
-                    ✅ Convert back if needed:
+                <div class="text-xs text-gray-400 mt-2">
+                    <Mark type="yes" /> Convert back if needed:
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     Number((3.14).toFixed(2)) <span class="text-gray-400"
                         >// 3.14</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     +(3.14).toFixed(2) <span class="text-gray-400"
                         >// 3.14 (shorthand)</span>
                 </div>
@@ -1202,12 +1146,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="to-locale-string"
         methodName=".toLocaleString()"
         signature="number.toLocaleString(locale, options)"
-        description="Format number with locale-specific formatting"
+        description="Format a number for a specific locale"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input" type="input">
                 <div class="text-center text-sm font-mono">1234567.89</div>
             </Node>
@@ -1226,39 +1168,39 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Result" type="output">
                 <ReturnValue value="'1,234,567.89'" type="string" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
-            Format with thousands separators, currency, percentages. Returns <strong
+            Formats with thousands separators, currency and percentages. Returns a <strong
                 >string</strong
             >.
         </MutableOrNot>
 
         <ProTip>
             <div>Currency formatting:</div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     (1234.5).toLocaleString('en-US', {"{"}
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;style: 'currency',
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;currency: 'USD'
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     {"}"}) <span class="text-gray-400">// '$1,234.50'</span>
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-gray-400">// Percentage</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     (0.42).toLocaleString('en-US', {"{"}
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;style: 'percent'
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     {"}"}) <span class="text-gray-400">// '42%'</span>
                 </div>
             </div>
@@ -1270,11 +1212,11 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <li>
                 <a
                     href="#parsing"
-                    class="text-blue-300 font-semibold hover:text-blue-200 block py-1"
-                    >🔢 Parsing & Converting</a
+                    class="text-ink font-semibold hover:underline block py-1"
+                    >Parsing & converting</a
                 >
                 <ul
-                    class="ml-3 mt-1 space-y-1 border-l-2 border-blue-500/30 pl-2"
+                    class="ml-3 mt-1 space-y-1 border-l border-rule pl-2"
                 >
                     <li>
                         <a
@@ -1300,11 +1242,11 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <li class="mt-4">
                 <a
                     href="#checking"
-                    class="text-purple-300 font-semibold hover:text-purple-200 block py-1"
-                    >🎯 Checking & Validation</a
+                    class="text-ink font-semibold hover:underline block py-1"
+                    >Checking & validation</a
                 >
                 <ul
-                    class="ml-3 mt-1 space-y-1 border-l-2 border-purple-500/30 pl-2"
+                    class="ml-3 mt-1 space-y-1 border-l border-rule pl-2"
                 >
                     <li>
                         <a
@@ -1324,11 +1266,11 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <li class="mt-4">
                 <a
                     href="#math"
-                    class="text-green-300 font-semibold hover:text-green-200 block py-1"
-                    >📊 Math Operations</a
+                    class="text-ink font-semibold hover:underline block py-1"
+                    >Math operations</a
                 >
                 <ul
-                    class="ml-3 mt-1 space-y-1 border-l-2 border-green-500/30 pl-2"
+                    class="ml-3 mt-1 space-y-1 border-l border-rule pl-2"
                 >
                     <li>
                         <a
@@ -1384,11 +1326,11 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <li class="mt-4">
                 <a
                     href="#formatting"
-                    class="text-orange-300 font-semibold hover:text-orange-200 block py-1"
-                    >🔧 Formatting</a
+                    class="text-ink font-semibold hover:underline block py-1"
+                    >Formatting</a
                 >
                 <ul
-                    class="ml-3 mt-1 space-y-1 border-l-2 border-orange-500/30 pl-2"
+                    class="ml-3 mt-1 space-y-1 border-l border-rule pl-2"
                 >
                     <li>
                         <a

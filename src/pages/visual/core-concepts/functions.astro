@@ -5,47 +5,47 @@ import ProTip from "~components/visual-js/ProTip.astro";
 import SectionTitle from "~components/visual-js/SectionTitle.astro";
 import SubSectionTitle from "~components/visual-js/SubSectionTitle.astro";
 import VisualLayout from "src/layouts/VisualLayout.astro";
+import Mark from "~components/visual-js/Mark.astro";
 ---
 
-<VisualLayout pageTitle="Functions - Best Practices">
+<VisualLayout pageTitle="Functions - best practices">
     <!-- QUICK DECISION GUIDE -->
     <InfoBox>
-        <div class="font-bold text-blue-300 mb-2">🎯 Quick Decision Guide</div>
+        <div class="font-bold text-blue-300 mb-2">Quick decision guide</div>
         <div class="space-y-3">
             <div>
                 <div class="font-bold text-green-300 text-sm mb-1">
-                    ✅ Default Choice (90% of the time):
+                    <Mark type="yes" /> Default choice (90% of the time):
                 </div>
                 <div
-                    class="bg-green-500/20 border border-green-400 rounded p-2"
+                    class="rounded border-t border-rule pt-2 mt-2"
                 >
                     <div class="font-mono text-xs text-green-300">
                         const myFunction = (param) => {"{"} ... {"}"}
                     </div>
-                    <div class="text-[10px] text-gray-300 mt-1">
-                        Arrow functions - Clean, predictable, modern
+                    <div class="text-xs text-gray-300 mt-1">
+                        Arrow functions - clean, predictable, modern
                     </div>
                 </div>
             </div>
 
             <div>
                 <div class="font-bold text-yellow-300 text-sm mb-1">
-                    ⚠️ Use Regular Functions When:
+                    <Mark type="warn" /> Use regular functions when:
                 </div>
                 <div
-                    class="bg-yellow-500/20 border border-yellow-400 rounded p-2"
+                    class="rounded border-t border-rule pt-2 mt-2"
                 >
                     <div
-                        class="font-mono text-[10px] text-yellow-300 space-y-0.5"
+                        class="text-xs text-yellow-300 space-y-0.5"
                     >
                         <div>
-                            • Object methods that need <code
-                                class="bg-black/30 px-1 rounded">this</code
+                            • Object methods that need <code>this</code
                             >
                         </div>
-                        <div>• Constructors (though use classes instead)</div>
+                        <div>• Constructors (but use classes instead)</div>
                         <div>
-                            • Need <code class="bg-black/30 px-1 rounded"
+                            • Code that needs the <code
                                 >arguments</code
                             > object
                         </div>
@@ -54,47 +54,47 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 </div>
             </div>
 
-            <div class="text-[11px] text-gray-400 italic">
-                👉 When in doubt, use arrow functions. You'll know when you need
-                regular functions.
+            <div class="text-xs text-gray-400 italic">
+                If you're not sure, use an arrow function. You'll know when you
+                need a regular function.
             </div>
         </div>
     </InfoBox>
 
     <!-- ============================================ -->
-    <!-- 📚 FUNCTION TYPES & HOISTING -->
+    <!-- FUNCTION TYPES & HOISTING -->
     <!-- ============================================ -->
 
     <SectionTitle id="function-types" color="cyan">
-        📚 Function Types & Hoisting
+        Function types & hoisting
     </SectionTitle>
 
     <MethodCard
         id="three-types"
-        methodName="Three Ways to Define Functions"
+        methodName="Three ways to define functions"
         signature="Understanding declarations, expressions, and arrows"
         description="Why hoisting matters (but rarely in practice)"
         mutates={false}
     >
-        <div class="p-6 bg-gray-800 rounded">
+        <div class="p-6 rounded">
             <div class="space-y-4">
                 <!-- Function Declaration -->
-                <div class="bg-blue-500/20 border border-blue-400 rounded p-3">
+                <div class="bg-blue-900 rounded p-3">
                     <div class="text-blue-300 font-mono text-xs space-y-1">
                         <div class="text-yellow-400 mb-2">
-                            1️⃣ Function Declaration
+                            Function Declaration
                         </div>
                         <div>function greet(name) {"{"}</div>
                         <div>&nbsp;&nbsp;return `Hello ${"{"}name{"}"}`</div>
                         <div>{"}"}</div>
-                        <div class="mt-2 text-[10px] text-gray-300">
-                            <span class="text-green-400">✅ Hoisted:</span> Can call
+                        <div class="mt-2 text-xs text-gray-300">
+                            <span class="text-green-400 font-sans"><Mark type="yes" /> Hoisted:</span> Can call
                             before definition
                         </div>
-                        <div class="mt-1 bg-green-500/20 rounded p-2">
+                        <div class="mt-1 rounded border-t border-rule pt-2 mt-2">
                             <div>
                                 greet('Alice') <span class="text-gray-400"
-                                    >// Works! ✅</span>
+                                    >// Works! <Mark type="yes" /></span>
                             </div>
                             <div>function greet(name) {"{"} ... {"}"}</div>
                         </div>
@@ -103,24 +103,24 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
                 <!-- Function Expression -->
                 <div
-                    class="bg-purple-500/20 border border-purple-400 rounded p-3"
+                    class="bg-purple-900 rounded p-3"
                 >
                     <div class="text-purple-300 font-mono text-xs space-y-1">
                         <div class="text-yellow-400 mb-2">
-                            2️⃣ Function Expression
+                            Function Expression
                         </div>
                         <div>const greet = function(name) {"{"}</div>
                         <div>&nbsp;&nbsp;return `Hello ${"{"}name{"}"}`</div>
                         <div>{"}"}</div>
-                        <div class="mt-2 text-[10px] text-gray-300">
+                        <div class="mt-2 text-xs text-gray-300">
                             <span class="text-orange-400"
-                                >⚠️ Variable hoisted, but undefined:</span
+                                ><Mark type="warn" /> Hoisted, but not initialised (temporal dead zone):</span
                             > Can't call before definition
                         </div>
-                        <div class="mt-1 bg-red-500/20 rounded p-2">
+                        <div class="mt-1 rounded border-t border-rule pt-2 mt-2">
                             <div>
                                 greet('Alice') <span class="text-gray-400"
-                                    >// TypeError! ❌</span>
+                                    >// ReferenceError! <Mark type="no" /></span>
                             </div>
                             <div>
                                 const greet = function(name) {"{"} ... {"}"}
@@ -131,24 +131,24 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
                 <!-- Arrow Function -->
                 <div
-                    class="bg-green-500/20 border border-green-400 rounded p-3"
+                    class="bg-green-900 rounded p-3"
                 >
                     <div class="text-green-300 font-mono text-xs space-y-1">
                         <div class="text-yellow-400 mb-2">
-                            3️⃣ Arrow Function (Expression)
+                            Arrow Function (Expression)
                         </div>
                         <div>
                             const greet = (name) =&gt; `Hello ${"{"}name{"}"}`
                         </div>
-                        <div class="mt-2 text-[10px] text-gray-300">
-                            <span class="text-orange-400"
-                                >⚠️ Same as function expression:</span
+                        <div class="mt-2 text-xs text-gray-300">
+                            <span class="text-orange-400 font-sans"
+                                ><Mark type="warn" /> Same as function expression:</span
                             > Can't call before definition
                         </div>
-                        <div class="mt-1 bg-red-500/20 rounded p-2">
+                        <div class="mt-1 rounded border-t border-rule pt-2 mt-2">
                             <div>
                                 greet('Alice') <span class="text-gray-400"
-                                    >// TypeError! ❌</span>
+                                    >// ReferenceError! <Mark type="no" /></span>
                             </div>
                             <div>
                                 const greet = (name) =&gt; `Hello ${"{"}name{
@@ -156,8 +156,8 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                                 }`
                             </div>
                         </div>
-                        <div class="mt-2 text-[10px] text-green-300 font-bold">
-                            💚 Arrow functions ARE function expressions
+                        <div class="mt-2 text-xs text-green-300 font-bold">
+                            Arrow functions are function expressions
                         </div>
                     </div>
                 </div>
@@ -166,13 +166,13 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
         <InfoBox>
             <div class="font-bold text-cyan-300 mb-2">
-                🤔 So when does hoisting matter?
+                So when does hoisting matter?
             </div>
             <div class="space-y-3">
                 <div
-                    class="bg-orange-500/20 border border-orange-400 rounded p-2"
+                    class="rounded border-t border-rule pt-2 mt-2"
                 >
-                    <div class="text-orange-300 text-[10px] space-y-1">
+                    <div class="text-orange-300 text-xs space-y-1">
                         <div class="font-bold mb-1">
                             Function declarations (hoisted) - old school:
                         </div>
@@ -194,9 +194,9 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 </div>
 
                 <div
-                    class="bg-green-500/20 border border-green-400 rounded p-2"
+                    class="rounded border-t border-rule pt-2 mt-2"
                 >
-                    <div class="text-green-300 text-[10px] space-y-1">
+                    <div class="text-green-300 text-xs space-y-1">
                         <div class="font-bold mb-1">
                             Function expressions (not hoisted) - modern:
                         </div>
@@ -211,39 +211,39 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                             </div>
                         </div>
                         <div class="text-gray-300 mt-2 italic">
-                            Forces you to organize code in logical order (good!)
+                            Makes you organise code in a logical order, which is good
                         </div>
                     </div>
                 </div>
 
-                <div class="text-[10px] text-gray-400 italic mt-2">
-                    💡 With modern modules and proper code organization,
-                    hoisting is rarely needed. Top-to-bottom flow is clearer.
+                <div class="text-xs text-gray-400 italic mt-2">
+                    With modules and good code organisation, you rarely need
+                    hoisting. Top-to-bottom flow is clearer.
                 </div>
             </div>
         </InfoBox>
 
         <ProTip>
-            <div>🎯 <strong>Practical takeaway:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="text-[10px]">
+            <div><strong>Practical takeaway:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="text-xs">
                     <span class="text-green-400"
-                        >✅ Use arrow functions (expressions)</span
-                    > - Modern, concise, predictable `this`
+                        ><Mark type="yes" /> Use arrow functions (expressions)</span
+                    > - modern, concise, predictable `this`
                 </div>
-                <div class="text-[10px]">
+                <div class="text-xs">
                     <span class="text-gray-400"
-                        >⚪ Use function declarations</span
-                    > - Only if you genuinely need hoisting (rare)
+                        >Use function declarations</span
+                    > - only if you need hoisting (rare)
                 </div>
-                <div class="text-[10px]">
+                <div class="text-xs">
                     <span class="text-red-400"
-                        >❌ Avoid function expressions</span
-                    > - Just use arrows instead
+                        ><Mark type="no" /> Avoid <code>function</code> expressions</span
+                    > - use arrow functions instead
                 </div>
-                <div class="font-mono text-[10px] mt-2 text-gray-400">
-                    // In modern JS, 99% arrow functions, 1% regular for object
-                    methods
+                <div class="text-xs mt-2 text-gray-400">
+                    In modern JS, use arrow functions almost everywhere. Use
+                    regular functions for object methods.
                 </div>
             </div>
         </ProTip>
@@ -252,14 +252,14 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     <!-- Key Differences Summary -->
     <MethodCard
         id="key-differences"
-        methodName="Key Differences at a Glance"
+        methodName="Key differences at a glance"
         signature="What actually matters"
-        description="TL;DR for the three types"
+        description="Summary of the three types"
         mutates={false}
     >
-        <div class="p-6 bg-gray-800 rounded">
+        <div class="p-6 rounded">
             <div class="overflow-x-auto">
-                <table class="w-full text-[10px] text-left">
+                <table class="w-full text-xs text-left">
                     <thead class="text-yellow-400 border-b border-gray-600">
                         <tr>
                             <th class="pb-2 pr-4">Feature</th>
@@ -286,42 +286,42 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         <tr class="border-b border-gray-700">
                             <td class="py-2 pr-4 font-bold">Hoisted?</td>
                             <td class="py-2 pr-4"
-                                ><span class="text-green-400">✅ Yes</span> (fully)</td
+                                ><span class="text-green-400"><Mark type="yes" /> Yes</span> (fully)</td
                             >
                             <td class="py-2 pr-4"
                                 ><span class="text-orange-400"
-                                    >⚠️ Variable only</span
+                                    ><Mark type="warn" /> Variable only</span
                                 ></td
                             >
                             <td class="py-2"
                                 ><span class="text-orange-400"
-                                    >⚠️ Variable only</span
+                                    ><Mark type="warn" /> Variable only</span
                                 ></td
                             >
                         </tr>
                         <tr class="border-b border-gray-700">
                             <td class="py-2 pr-4 font-bold">Has own `this`?</td>
                             <td class="py-2 pr-4"
-                                ><span class="text-green-400">✅ Yes</span></td
+                                ><span class="text-green-400"><Mark type="yes" /> Yes</span></td
                             >
                             <td class="py-2 pr-4"
-                                ><span class="text-green-400">✅ Yes</span></td
+                                ><span class="text-green-400"><Mark type="yes" /> Yes</span></td
                             >
                             <td class="py-2"
-                                ><span class="text-red-400">❌ No</span> (lexical)</td
+                                ><span class="text-red-400"><Mark type="no" /> No</span> (lexical)</td
                             >
                         </tr>
                         <tr class="border-b border-gray-700">
                             <td class="py-2 pr-4 font-bold">Has `arguments`?</td
                             >
                             <td class="py-2 pr-4"
-                                ><span class="text-green-400">✅ Yes</span></td
+                                ><span class="text-green-400"><Mark type="yes" /> Yes</span></td
                             >
                             <td class="py-2 pr-4"
-                                ><span class="text-green-400">✅ Yes</span></td
+                                ><span class="text-green-400"><Mark type="yes" /> Yes</span></td
                             >
                             <td class="py-2"
-                                ><span class="text-red-400">❌ No</span></td
+                                ><span class="text-red-400"><Mark type="no" /> No</span></td
                             >
                         </tr>
                         <tr class="border-b border-gray-700">
@@ -329,13 +329,13 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                                 >Can be constructor?</td
                             >
                             <td class="py-2 pr-4"
-                                ><span class="text-green-400">✅ Yes</span></td
+                                ><span class="text-green-400"><Mark type="yes" /> Yes</span></td
                             >
                             <td class="py-2 pr-4"
-                                ><span class="text-green-400">✅ Yes</span></td
+                                ><span class="text-green-400"><Mark type="yes" /> Yes</span></td
                             >
                             <td class="py-2"
-                                ><span class="text-red-400">❌ No</span></td
+                                ><span class="text-red-400"><Mark type="no" /> No</span></td
                             >
                         </tr>
                         <tr>
@@ -347,7 +347,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                                 >Don't (use arrow)</td
                             >
                             <td class="py-2 text-green-300 font-bold"
-                                >Default choice! 🎯</td
+                                >Default choice</td
                             >
                         </tr>
                     </tbody>
@@ -356,27 +356,27 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         </div>
 
         <ProTip>
-            <div>🧠 <strong>Remember this:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="text-[10px]">
+            <div><strong>Remember this:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="text-xs">
                     <strong
                         >Arrow functions are a subset of function expressions</strong
-                    > - they're both expressions!
+                    > - both are expressions.
                 </div>
-                <div class="text-[10px]">
-                    The difference is arrows don't have their own `this` or
-                    `arguments` (which is usually what you want).
+                <div class="text-xs">
+                    Arrows don't have their own `this` or `arguments`. That is
+                    usually what you want.
                 </div>
-                <div class="text-[10px] mt-2">
-                    <span class="text-green-400">✅ Arrow =</span> Concise + Predictable
-                    `this` + Modern
+                <div class="text-xs mt-2">
+                    <span class="text-green-400"><Mark type="yes" /> Arrow =</span> concise, predictable
+                    `this`, modern
                 </div>
-                <div class="text-[10px]">
-                    <span class="text-blue-400">⚪ Declaration =</span> Hoisting
+                <div class="text-xs">
+                    <span class="text-blue-400">Declaration =</span> hoisting
                     (rarely needed)
                 </div>
-                <div class="text-[10px]">
-                    <span class="text-red-400">❌ Expression =</span> Just use arrow
+                <div class="text-xs">
+                    <span class="text-red-400"><Mark type="no" /> Expression =</span> use an arrow
                     instead
                 </div>
             </div>
@@ -384,27 +384,27 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     </MethodCard>
 
     <!-- ============================================ -->
-    <!-- ✨ MODERN DEFAULT: ARROW FUNCTIONS -->
+    <!-- MODERN DEFAULT: ARROW FUNCTIONS -->
     <!-- ============================================ -->
 
     <SectionTitle id="arrow-functions" color="blue">
-        ✨ Modern Default: Arrow Functions
+        Modern default: arrow functions
     </SectionTitle>
 
     <!-- BASIC ARROW FUNCTIONS -->
     <MethodCard
         id="arrow-basics"
-        methodName="Arrow Function Syntax"
+        methodName="Arrow function syntax"
         signature="const fn = () => {}"
         description="Your default choice for modern JavaScript"
         mutates={false}
     >
-        <div class="p-6 bg-gray-800 rounded">
+        <div class="p-6 rounded">
             <div class="space-y-4">
                 <!-- All syntax variations -->
-                <div class="bg-blue-500/20 border border-blue-400 rounded p-3">
+                <div class="bg-blue-900 rounded p-3">
                     <div class="text-blue-300 font-mono text-xs space-y-1">
-                        <div class="text-yellow-400 mb-2">
+                        <div class="text-yellow-400 mb-2 font-sans">
                             All the ways to write arrow functions:
                         </div>
 
@@ -459,16 +459,16 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
         <InfoBox>
             <div class="font-bold text-blue-300 mb-2">
-                ✨ Why Arrow Functions Are Better
+                Why arrow functions are better
             </div>
             <div class="space-y-3">
                 <!-- Concise -->
                 <div
-                    class="bg-green-500/20 border border-green-400 rounded p-2"
+                    class="rounded border-t border-rule pt-2 mt-2"
                 >
-                    <div class="text-green-300 font-mono text-[10px] space-y-1">
-                        <div class="text-yellow-400 font-bold mb-1">
-                            ✅ More concise:
+                    <div class="text-green-300 font-mono text-xs space-y-1">
+                        <div class="text-yellow-400 font-bold mb-1 font-sans">
+                            <Mark type="yes" /> More concise:
                         </div>
                         <div><span class="text-red-400">// Old way</span></div>
                         <div>
@@ -484,10 +484,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 </div>
 
                 <!-- Predictable this -->
-                <div class="bg-cyan-500/20 border border-cyan-400 rounded p-2">
-                    <div class="text-cyan-300 font-mono text-[10px] space-y-1">
+                <div class="rounded border-t border-rule pt-2 mt-2">
+                    <div class="text-cyan-300 font-mono text-xs space-y-1">
                         <div class="text-yellow-400 font-bold mb-1">
-                            ✅ Predictable `this` (lexical binding):
+                            <Mark type="yes" /> Predictable `this` (lexical binding):
                         </div>
                         <div>class Timer {"{"}</div>
                         <div>&nbsp;&nbsp;start() {"{"}</div>
@@ -497,7 +497,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         <div>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.tick() <span
                                 class="text-gray-400"
-                                >// 'this' is Timer instance ✅</span
+                                >// 'this' is Timer instance <Mark type="yes" /></span
                             >
                         </div>
                         <div>&nbsp;&nbsp;&nbsp;&nbsp;{"}"}, 1000)</div>
@@ -508,13 +508,13 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
                 <!-- Best for callbacks -->
                 <div
-                    class="bg-purple-500/20 border border-purple-400 rounded p-2"
+                    class="rounded border-t border-rule pt-2 mt-2"
                 >
                     <div
-                        class="text-purple-300 font-mono text-[10px] space-y-1"
+                        class="text-purple-300 font-mono text-xs space-y-1"
                     >
-                        <div class="text-yellow-400 font-bold mb-1">
-                            ✅ Perfect for callbacks:
+                        <div class="text-yellow-400 font-bold mb-1 font-sans">
+                            <Mark type="yes" /> Perfect for callbacks:
                         </div>
                         <div>
                             button.addEventListener('click', () =&gt;
@@ -525,72 +525,72 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     </div>
                 </div>
 
-                <div class="text-[10px] text-gray-300 mt-2 italic">
-                    🎯 Use arrow functions for everything EXCEPT object methods
-                    and constructors. Especially great for: array methods,
-                    callbacks, promises, event handlers.
+                <div class="text-xs text-gray-300 mt-2 italic">
+                    Use arrow functions for everything except object methods
+                    and constructors. They work best for array methods,
+                    callbacks, promises and event handlers.
                 </div>
             </div>
         </InfoBox>
 
         <ProTip>
             <div>
-                💡 <strong>When to use implicit vs explicit return:</strong>
+                <strong>When to use implicit vs explicit return:</strong>
             </div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     <span class="text-green-400"
-                        >// ✅ Implicit - one expression, no braces</span
+                        >// <Mark type="yes" /> Implicit - one expression, no braces</span
                     >
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     const double = n =&gt; n * 2
                 </div>
-                <div class="font-mono text-[10px]">items.map(x =&gt; x.id)</div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs">items.map(x =&gt; x.id)</div>
+                <div class="font-mono text-xs mt-1">
                     <span class="text-green-400"
-                        >// ✅ Explicit - multiple statements, braces + return</span
+                        >// <Mark type="yes" /> Explicit - multiple statements, braces + return</span
                     >
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     const process = n =&gt; {"{"}
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;console.log(n)
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;return n * 2
                 </div>
-                <div class="font-mono text-[10px]">{"}"}</div>
+                <div class="font-mono text-xs">{"}"}</div>
             </div>
         </ProTip>
     </MethodCard>
 
     <!-- ============================================ -->
-    <!-- ⚠️ WHEN TO USE REGULAR FUNCTIONS -->
+    <!-- WHEN TO USE REGULAR FUNCTIONS -->
     <!-- ============================================ -->
 
     <SectionTitle id="regular-functions" color="orange">
-        ⚠️ When to Use Regular Functions
+        <Mark type="warn" /> When to use regular functions
     </SectionTitle>
 
     <!-- OBJECT METHODS -->
     <MethodCard
         id="object-methods"
-        methodName="Object Methods"
+        methodName="Object methods"
         signature="Use regular functions for 'this' binding"
         description="When you need dynamic 'this' context"
         mutates={false}
     >
-        <div class="p-6 bg-gray-800 rounded">
+        <div class="p-6 rounded">
             <div class="space-y-4">
                 <!-- Correct -->
                 <div
-                    class="bg-green-500/20 border border-green-400 rounded p-3"
+                    class="bg-green-900 rounded p-3"
                 >
                     <div class="text-green-300 font-mono text-xs space-y-1">
-                        <div class="text-yellow-400 mb-1">
-                            ✅ Correct - Regular function:
+                        <div class="text-yellow-400 mb-1 font-sans">
+                            <Mark type="yes" /> Correct - Regular function:
                         </div>
                         <div>const user = {"{"}</div>
                         <div>&nbsp;&nbsp;name: 'Alice',</div>
@@ -608,10 +608,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 </div>
 
                 <!-- Wrong -->
-                <div class="bg-red-500/20 border border-red-400 rounded p-3">
+                <div class="bg-red-900 rounded p-3">
                     <div class="text-red-300 font-mono text-xs space-y-1">
-                        <div class="text-yellow-400 mb-1">
-                            ❌ Wrong - Arrow function:
+                        <div class="text-yellow-400 mb-1 font-sans">
+                            <Mark type="no" /> Wrong - Arrow function:
                         </div>
                         <div>const user = {"{"}</div>
                         <div>&nbsp;&nbsp;name: 'Alice',</div>
@@ -625,7 +625,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         </div>
                         <div>&nbsp;&nbsp;{"}"}</div>
                         <div>{"}"}</div>
-                        <div class="mt-2 text-[10px]">
+                        <div class="mt-2 text-xs">
                             <span class="text-gray-400"
                                 >// Arrow functions don't have their own 'this'</span
                             >
@@ -636,18 +636,18 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         </div>
 
         <ProTip>
-            <div>💡 <strong>Modern shorthand syntax:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">const obj = {"{"}</div>
-                <div class="font-mono text-[10px]">
+            <div><strong>Modern shorthand syntax:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">const obj = {"{"}</div>
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;method() {"{"} ... {"}"}
                     <span class="text-gray-400">// Shorthand - use this!</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     &nbsp;&nbsp;method: function() {"{"} ... {"}"}
                     <span class="text-gray-400">// Old way - verbose</span>
                 </div>
-                <div class="font-mono text-[10px]">{"}"}</div>
+                <div class="font-mono text-xs">{"}"}</div>
             </div>
         </ProTip>
     </MethodCard>
@@ -655,19 +655,19 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     <!-- OTHER CASES -->
     <MethodCard
         id="other-regular-cases"
-        methodName="Other Regular Function Cases"
+        methodName="Other regular function cases"
         signature="Special situations"
-        description="Rare cases where you need function keyword"
+        description="Rare cases that need the function keyword"
         mutates={false}
     >
-        <div class="p-6 bg-gray-800 rounded">
+        <div class="p-6 rounded">
             <div class="space-y-3">
                 <!-- Constructors -->
                 <div
-                    class="bg-orange-500/20 border border-orange-400 rounded p-3"
+                    class="bg-orange-900 rounded p-3"
                 >
                     <div
-                        class="text-orange-300 font-mono text-[10px] space-y-1"
+                        class="text-orange-300 font-mono text-xs space-y-1"
                     >
                         <div class="text-yellow-400 mb-1">
                             Constructors (but use classes instead):
@@ -691,10 +691,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
                 <!-- Arguments object -->
                 <div
-                    class="bg-purple-500/20 border border-purple-400 rounded p-3"
+                    class="bg-purple-900 rounded p-3"
                 >
                     <div
-                        class="text-purple-300 font-mono text-[10px] space-y-1"
+                        class="text-purple-300 font-mono text-xs space-y-1"
                     >
                         <div class="text-yellow-400 mb-1">
                             Need `arguments` object (use rest params instead):
@@ -718,8 +718,8 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 </div>
 
                 <!-- Generators -->
-                <div class="bg-cyan-500/20 border border-cyan-400 rounded p-3">
-                    <div class="text-cyan-300 font-mono text-[10px] space-y-1">
+                <div class="bg-cyan-900 rounded p-3">
+                    <div class="text-cyan-300 font-mono text-xs space-y-1">
                         <div class="text-yellow-400 mb-1">
                             Generator functions (must use function*):
                         </div>
@@ -733,46 +733,46 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         </div>
 
         <ProTip>
-            <div>🎯 <strong>Reality check:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="text-[10px]">
+            <div><strong>Reality check:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="text-xs">
                     99% of your functions should be arrow functions.
                 </div>
-                <div class="text-[10px]">
-                    The only time you'll regularly use regular functions is for
-                    object methods.
+                <div class="text-xs">
+                    Object methods are the only common use for regular
+                    functions.
                 </div>
-                <div class="text-[10px]">
-                    If you're reaching for `function` keyword, ask yourself: "Do
-                    I really need `this` binding?"
+                <div class="text-xs">
+                    Before you use the `function` keyword, check that you need
+                    `this` binding.
                 </div>
             </div>
         </ProTip>
     </MethodCard>
 
     <!-- ============================================ -->
-    <!-- 📦 PARAMETERS BEST PRACTICES -->
+    <!-- PARAMETERS BEST PRACTICES -->
     <!-- ============================================ -->
 
     <SectionTitle id="parameters" color="purple">
-        📦 Parameters Best Practices
+        Parameters best practices
     </SectionTitle>
 
     <!-- DEFAULT PARAMETERS -->
     <MethodCard
         id="default-params"
-        methodName="Default Parameters"
+        methodName="Default parameters"
         signature="fn(param = defaultValue)"
         description="Set fallback values for parameters"
         mutates={false}
     >
-        <div class="p-6 bg-gray-800 rounded">
+        <div class="p-6 rounded">
             <div class="space-y-4">
                 <div
-                    class="bg-purple-500/20 border border-purple-400 rounded p-3"
+                    class="bg-purple-900 rounded p-3"
                 >
                     <div class="text-purple-300 font-mono text-xs space-y-1">
-                        <div class="text-yellow-400 mb-1">Basic usage:</div>
+                        <div class="text-yellow-400 mb-1 font-sans">Basic usage:</div>
                         <div>
                             const greet = (name = 'Guest') =&gt; `Hello ${
                                 "{"
@@ -791,9 +791,9 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     </div>
                 </div>
 
-                <div class="bg-cyan-500/20 border border-cyan-400 rounded p-3">
-                    <div class="text-cyan-300 font-mono text-[10px] space-y-1">
-                        <div class="text-yellow-400 mb-1">
+                <div class="bg-cyan-900 rounded p-3">
+                    <div class="text-cyan-300 font-mono text-xs space-y-1">
+                        <div class="text-yellow-400 mb-1 font-sans">
                             Multiple defaults:
                         </div>
                         <div>
@@ -818,22 +818,22 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         </div>
 
         <ProTip>
-            <div>💡 <strong>Best practice:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="text-[10px]">
-                    Always put required parameters first, optional parameters
-                    with defaults last.
+            <div><strong>Best practice:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="text-xs">
+                    Put required parameters first and optional parameters with
+                    defaults last.
                 </div>
-                <div class="font-mono text-[10px] mt-1">
-                    <span class="text-green-400">// ✅ Good</span>
+                <div class="font-mono text-xs mt-1">
+                    <span class="text-green-400">// <Mark type="yes" /> Good</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     fn(required, optional = 'default')
                 </div>
-                <div class="font-mono text-[10px] mt-1">
-                    <span class="text-red-400">// ❌ Bad</span>
+                <div class="font-mono text-xs mt-1">
+                    <span class="text-red-400">// <Mark type="no" /> Bad</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     fn(optional = 'default', required)
                 </div>
             </div>
@@ -843,18 +843,18 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     <!-- REST PARAMETERS -->
     <MethodCard
         id="rest-params"
-        methodName="Rest Parameters (...args)"
+        methodName="Rest parameters (...args)"
         signature="fn(...args)"
-        description="Collect remaining arguments into array"
+        description="Collect remaining arguments into an array"
         mutates={false}
     >
-        <div class="p-6 bg-gray-800 rounded">
+        <div class="p-6 rounded">
             <div class="space-y-4">
                 <div
-                    class="bg-purple-500/20 border border-purple-400 rounded p-3"
+                    class="bg-purple-900 rounded p-3"
                 >
                     <div class="text-purple-300 font-mono text-xs space-y-1">
-                        <div class="text-yellow-400 mb-1">Basic usage:</div>
+                        <div class="text-yellow-400 mb-1 font-sans">Basic usage:</div>
                         <div>
                             const sum = (...numbers) =&gt; numbers.reduce((a, b)
                             =&gt; a + b, 0)
@@ -870,9 +870,9 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     </div>
                 </div>
 
-                <div class="bg-cyan-500/20 border border-cyan-400 rounded p-3">
-                    <div class="text-cyan-300 font-mono text-[10px] space-y-1">
-                        <div class="text-yellow-400 mb-1">
+                <div class="bg-cyan-900 rounded p-3">
+                    <div class="text-cyan-300 font-mono text-xs space-y-1">
+                        <div class="text-yellow-400 mb-1 font-sans">
                             With named parameters:
                         </div>
                         <div>
@@ -900,23 +900,23 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         </div>
 
         <ProTip>
-            <div>⚠️ <strong>Rest parameter rules:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
-                    <span class="text-green-400">// ✅ Good - rest at end</span>
+            <div><Mark type="warn" /> <strong>Rest parameter rules:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
+                    <span class="text-green-400">// <Mark type="yes" /> Good - rest at end</span>
                 </div>
-                <div class="font-mono text-[10px]">fn(a, b, ...rest)</div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs">fn(a, b, ...rest)</div>
+                <div class="font-mono text-xs mt-1">
                     <span class="text-red-400"
-                        >// ❌ Bad - rest must be last</span
+                        >// <Mark type="no" /> Bad - rest must be last</span
                     >
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     fn(...rest, a, b) <span class="text-gray-400"
                         >// SyntaxError!</span
                     >
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     fn(a, ...rest, b) <span class="text-gray-400"
                         >// SyntaxError!</span
                     >
@@ -928,16 +928,16 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     <!-- DESTRUCTURING PARAMETERS -->
     <MethodCard
         id="destructuring-params"
-        methodName="Destructuring Parameters"
+        methodName="Destructuring parameters"
         signature="fn({ prop1, prop2 })"
-        description="Extract properties directly in parameter list"
+        description="Extract properties in the parameter list"
         mutates={false}
     >
-        <div class="p-6 bg-gray-800 rounded">
+        <div class="p-6 rounded">
             <div class="space-y-4">
                 <!-- Object destructuring -->
                 <div
-                    class="bg-purple-500/20 border border-purple-400 rounded p-3"
+                    class="bg-purple-900 rounded p-3"
                 >
                     <div class="text-purple-300 font-mono text-xs space-y-1">
                         <div class="text-yellow-400 mb-1">
@@ -963,10 +963,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
                 <!-- With defaults -->
                 <div
-                    class="bg-green-500/20 border border-green-400 rounded p-3"
+                    class="bg-green-900 rounded p-3"
                 >
-                    <div class="text-green-300 font-mono text-[10px] space-y-1">
-                        <div class="text-yellow-400 mb-1">
+                    <div class="text-green-300 font-mono text-xs space-y-1">
+                        <div class="text-yellow-400 mb-1 font-sans">
                             Combine with defaults:
                         </div>
                         <div>
@@ -987,9 +987,9 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 </div>
 
                 <!-- Array destructuring -->
-                <div class="bg-cyan-500/20 border border-cyan-400 rounded p-3">
-                    <div class="text-cyan-300 font-mono text-[10px] space-y-1">
-                        <div class="text-yellow-400 mb-1">
+                <div class="bg-cyan-900 rounded p-3">
+                    <div class="text-cyan-300 font-mono text-xs space-y-1">
+                        <div class="text-yellow-400 mb-1 font-sans">
                             Array destructuring:
                         </div>
                         <div>const swap = ([a, b]) =&gt; [b, a]</div>
@@ -1004,24 +1004,24 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         </div>
 
         <ProTip>
-            <div>🎯 <strong>When to use destructuring:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="text-[10px]">
-                    <span class="text-green-400">✅ Use when:</span> You only need
+            <div><strong>When to use destructuring:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="text-xs">
+                    <span class="text-green-400"><Mark type="yes" /> Use when:</span> you only need
                     a few properties from an object
                 </div>
-                <div class="text-[10px]">
-                    <span class="text-green-400">✅ Use when:</span> Making API clear
-                    (shows exactly what props you use)
+                <div class="text-xs">
+                    <span class="text-green-400"><Mark type="yes" /> Use when:</span> you want a clear API
+                    (it shows which props you use)
                 </div>
-                <div class="text-[10px]">
-                    <span class="text-red-400">❌ Don't use when:</span> You need
+                <div class="text-xs">
+                    <span class="text-red-400"><Mark type="no" /> Don't use when:</span> you need
                     the whole object or many properties
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-gray-400">// Popular in React:</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     const Button = ({"{"} label, onClick, disabled = false {
                         "}"
                     }) =&gt; ...
@@ -1031,28 +1031,28 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     </MethodCard>
 
     <!-- ============================================ -->
-    <!-- 🔧 COMMON PATTERNS -->
+    <!-- COMMON PATTERNS -->
     <!-- ============================================ -->
 
     <SectionTitle id="patterns" color="green">
-        🔧 Common Real-World Patterns
+        Common real-world patterns
     </SectionTitle>
 
     <!-- ASYNC/AWAIT FUNCTIONS -->
     <MethodCard
         id="async-await"
-        methodName="Async/Await Functions"
+        methodName="Async/await functions"
         signature="const fn = async () => {}"
         description="Modern way to handle asynchronous code"
         mutates={false}
     >
-        <div class="p-6 bg-gray-800 rounded">
+        <div class="p-6 rounded">
             <div class="space-y-4">
                 <div
-                    class="bg-green-500/20 border border-green-400 rounded p-3"
+                    class="bg-green-900 rounded p-3"
                 >
                     <div class="text-green-300 font-mono text-xs space-y-1">
-                        <div class="text-yellow-400 mb-1">
+                        <div class="text-yellow-400 mb-1 font-sans">
                             Basic async function:
                         </div>
                         <div>const fetchUser = async (id) =&gt; {"{"}</div>
@@ -1068,12 +1068,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 </div>
 
                 <div
-                    class="bg-purple-500/20 border border-purple-400 rounded p-3"
+                    class="bg-purple-900 rounded p-3"
                 >
                     <div
-                        class="text-purple-300 font-mono text-[10px] space-y-1"
+                        class="text-purple-300 font-mono text-xs space-y-1"
                     >
-                        <div class="text-yellow-400 mb-1">
+                        <div class="text-yellow-400 mb-1 font-sans">
                             Error handling with try/catch:
                         </div>
                         <div>const fetchUser = async (id) =&gt; {"{"}</div>
@@ -1100,9 +1100,9 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     </div>
                 </div>
 
-                <div class="bg-cyan-500/20 border border-cyan-400 rounded p-3">
-                    <div class="text-cyan-300 font-mono text-[10px] space-y-1">
-                        <div class="text-yellow-400 mb-1">
+                <div class="bg-cyan-900 rounded p-3">
+                    <div class="text-cyan-300 font-mono text-xs space-y-1">
+                        <div class="text-yellow-400 mb-1 font-sans">
                             Parallel requests:
                         </div>
                         <div>
@@ -1126,17 +1126,17 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         </div>
 
         <ProTip>
-            <div>⚡ <strong>Async/await vs .then():</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="text-[10px]">
-                    <span class="text-green-400">✅ Use async/await when:</span>
-                    You have multiple sequential async operations (cleaner)
+            <div><strong>Async/await vs .then():</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="text-xs">
+                    <span class="text-green-400"><Mark type="yes" /> Use async/await when:</span>
+                    you run multiple async operations in sequence (cleaner)
                 </div>
-                <div class="text-[10px]">
-                    <span class="text-green-400">✅ Use .then() when:</span> Simple
-                    one-off fetch or you're chaining transformations
+                <div class="text-xs">
+                    <span class="text-green-400"><Mark type="yes" /> Use .then() when:</span> you make
+                    one simple fetch or chain transformations
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-gray-400"
                         >// Remember: async functions always return a Promise</span
                     >
@@ -1148,17 +1148,17 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     <!-- EARLY RETURNS / GUARD CLAUSES -->
     <MethodCard
         id="guard-clauses"
-        methodName="Early Returns (Guard Clauses)"
+        methodName="Early returns (guard clauses)"
         signature="Validate early, exit early"
-        description="Keep your code clean and readable"
+        description="Keep your code flat and readable"
         mutates={false}
     >
-        <div class="p-6 bg-gray-800 rounded">
+        <div class="p-6 rounded">
             <div class="space-y-4">
-                <div class="bg-red-500/20 border border-red-400 rounded p-3">
-                    <div class="text-red-300 font-mono text-[10px] space-y-1">
-                        <div class="text-yellow-400 mb-1">
-                            ❌ Bad - nested logic:
+                <div class="bg-red-900 rounded p-3">
+                    <div class="text-red-300 font-mono text-xs space-y-1">
+                        <div class="text-yellow-400 mb-1 font-sans">
+                            <Mark type="no" /> Bad - nested logic:
                         </div>
                         <div>const processUser = (user) =&gt; {"{"}</div>
                         <div>&nbsp;&nbsp;if (user) {"{"}</div>
@@ -1188,11 +1188,11 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 </div>
 
                 <div
-                    class="bg-green-500/20 border border-green-400 rounded p-3"
+                    class="bg-green-900 rounded p-3"
                 >
-                    <div class="text-green-300 font-mono text-[10px] space-y-1">
-                        <div class="text-yellow-400 mb-1">
-                            ✅ Good - guard clauses:
+                    <div class="text-green-300 font-mono text-xs space-y-1">
+                        <div class="text-yellow-400 mb-1 font-sans">
+                            <Mark type="yes" /> Good - guard clauses:
                         </div>
                         <div>const processUser = (user) =&gt; {"{"}</div>
                         <div>&nbsp;&nbsp;if (!user) return null;</div>
@@ -1209,9 +1209,9 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     </div>
                 </div>
 
-                <div class="bg-cyan-500/20 border border-cyan-400 rounded p-3">
-                    <div class="text-cyan-300 font-mono text-[10px] space-y-1">
-                        <div class="text-yellow-400 mb-1">
+                <div class="bg-cyan-900 rounded p-3">
+                    <div class="text-cyan-300 font-mono text-xs space-y-1">
+                        <div class="text-yellow-400 mb-1 font-sans">
                             Real-world example:
                         </div>
                         <div>
@@ -1237,21 +1237,21 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         </div>
 
         <ProTip>
-            <div>🎯 <strong>Benefits of guard clauses:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="text-[10px]">
-                    <span class="text-green-400">✅ Reduces nesting</span> - Code
+            <div><strong>Benefits of guard clauses:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="text-xs">
+                    <span class="text-green-400"><Mark type="yes" /> Reduces nesting</span> - code
                     stays flat and readable
                 </div>
-                <div class="text-[10px]">
-                    <span class="text-green-400">✅ Clear validation</span> - All
-                    checks at the top
+                <div class="text-xs">
+                    <span class="text-green-400"><Mark type="yes" /> Clear validation</span> - all
+                    checks sit at the top
                 </div>
-                <div class="text-[10px]">
-                    <span class="text-green-400">✅ Easier to test</span> - Each
-                    condition is obvious
+                <div class="text-xs">
+                    <span class="text-green-400"><Mark type="yes" /> Easier to test</span> - each
+                    condition is easy to see
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-gray-400"
                         >// Rule: Handle edge cases first, happy path last</span
                     >
@@ -1263,17 +1263,17 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     <!-- CALLBACKS AND ARRAY METHODS -->
     <MethodCard
         id="callbacks-arrays"
-        methodName="Callbacks & Array Methods"
+        methodName="Callbacks & Array methods"
         signature="Array methods with arrow functions"
         description="Most common use case in modern JS"
         mutates={false}
     >
-        <div class="p-6 bg-gray-800 rounded">
+        <div class="p-6 rounded">
             <div class="space-y-3">
                 <div
-                    class="bg-green-500/20 border border-green-400 rounded p-3"
+                    class="bg-green-900 rounded p-3"
                 >
-                    <div class="text-green-300 font-mono text-[10px] space-y-1">
+                    <div class="text-green-300 font-mono text-xs space-y-1">
                         <div class="text-yellow-400 mb-1">
                             Array methods (use arrows):
                         </div>
@@ -1287,9 +1287,9 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     </div>
                 </div>
 
-                <div class="bg-cyan-500/20 border border-cyan-400 rounded p-3">
-                    <div class="text-cyan-300 font-mono text-[10px] space-y-1">
-                        <div class="text-yellow-400 mb-1">Event handlers:</div>
+                <div class="bg-cyan-900 rounded p-3">
+                    <div class="text-cyan-300 font-mono text-xs space-y-1">
+                        <div class="text-yellow-400 mb-1 font-sans">Event handlers:</div>
                         <div>
                             button.addEventListener('click', () =&gt;
                             handleClick())
@@ -1304,12 +1304,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                 </div>
 
                 <div
-                    class="bg-purple-500/20 border border-purple-400 rounded p-3"
+                    class="bg-purple-900 rounded p-3"
                 >
                     <div
-                        class="text-purple-300 font-mono text-[10px] space-y-1"
+                        class="text-purple-300 font-mono text-xs space-y-1"
                     >
-                        <div class="text-yellow-400 mb-1">
+                        <div class="text-yellow-400 mb-1 font-sans">
                             Promises & async:
                         </div>
                         <div>fetch(url)</div>
@@ -1329,15 +1329,15 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     <!-- IIFE PATTERN -->
     <MethodCard
         id="iife"
-        methodName="IIFE (Immediately Invoked Function Expression)"
+        methodName="IIFE (immediately invoked function expression)"
         signature="(() => {})() or (function() {})()"
         description="Run a function immediately"
         mutates={false}
     >
-        <div class="p-6 bg-gray-800 rounded">
+        <div class="p-6 rounded">
             <div class="space-y-4">
                 <div
-                    class="bg-green-500/20 border border-green-400 rounded p-3"
+                    class="bg-green-900 rounded p-3"
                 >
                     <div class="text-green-300 font-mono text-xs space-y-1">
                         <div class="text-yellow-400 mb-1">
@@ -1352,9 +1352,9 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                     </div>
                 </div>
 
-                <div class="bg-cyan-500/20 border border-cyan-400 rounded p-3">
-                    <div class="text-cyan-300 font-mono text-[10px] space-y-1">
-                        <div class="text-yellow-400 mb-1">When to use:</div>
+                <div class="bg-cyan-900 rounded p-3">
+                    <div class="text-cyan-300 font-mono text-xs space-y-1">
+                        <div class="text-yellow-400 mb-1 font-sans">When to use:</div>
                         <div>
                             <span class="text-gray-400"
                                 >• Isolate variables (create private scope)</span
@@ -1387,23 +1387,23 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         </div>
 
         <ProTip>
-            <div>💡 <strong>Modern alternative:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="text-[10px]">
+            <div><strong>Modern alternative:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="text-xs">
                     IIFE was important before ES6 modules. Now you rarely need
                     it.
                 </div>
-                <div class="text-[10px]">
-                    If you need to run code immediately, just... run it. ES6
-                    modules are already isolated.
+                <div class="text-xs">
+                    To run code immediately, run it. ES6 modules are already
+                    isolated.
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-gray-400"
                         >// No IIFE needed in modules</span
                     >
                 </div>
-                <div class="font-mono text-[10px]">const value = 42</div>
-                <div class="font-mono text-[10px]">console.log(value)</div>
+                <div class="font-mono text-xs">const value = 42</div>
+                <div class="font-mono text-xs">console.log(value)</div>
             </div>
         </ProTip>
     </MethodCard>
@@ -1413,24 +1413,24 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <li>
                 <a
                     href="#function-types"
-                    class="text-cyan-300 font-semibold hover:text-cyan-200 block py-1"
-                    >📚 Function Types & Hoisting</a
+                    class="text-ink font-semibold hover:underline block py-1"
+                    >Function types & hoisting</a
                 >
                 <ul
-                    class="ml-3 mt-1 space-y-1 border-l-2 border-cyan-500/30 pl-2"
+                    class="ml-3 mt-1 space-y-1 border-l border-rule pl-2"
                 >
                     <li>
                         <a
                             href="#three-types"
                             class="text-gray-300 hover:text-blue-400 block"
-                            >Three Ways</a
+                            >Three ways</a
                         >
                     </li>
                     <li>
                         <a
                             href="#key-differences"
                             class="text-gray-300 hover:text-blue-400 block"
-                            >Key Differences</a
+                            >Key differences</a
                         >
                     </li>
                 </ul>
@@ -1439,24 +1439,17 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <li class="mt-4">
                 <a
                     href="#arrow-functions"
-                    class="text-blue-300 font-semibold hover:text-blue-200 block py-1"
-                    >✨ Arrow Functions (Default)</a
+                    class="text-ink font-semibold hover:underline block py-1"
+                    >Arrow functions (default)</a
                 >
                 <ul
-                    class="ml-3 mt-1 space-y-1 border-l-2 border-blue-500/30 pl-2"
+                    class="ml-3 mt-1 space-y-1 border-l border-rule pl-2"
                 >
                     <li>
                         <a
                             href="#arrow-basics"
                             class="text-gray-300 hover:text-blue-400 block"
-                            >Arrow Syntax</a
-                        >
-                    </li>
-                    <li>
-                        <a
-                            href="#why-arrows"
-                            class="text-gray-300 hover:text-blue-400 block"
-                            >Why Use Arrows</a
+                            >Arrow syntax</a
                         >
                     </li>
                 </ul>
@@ -1465,24 +1458,24 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <li class="mt-4">
                 <a
                     href="#regular-functions"
-                    class="text-orange-300 font-semibold hover:text-orange-200 block py-1"
-                    >⚠️ Regular Functions</a
+                    class="text-ink font-semibold hover:underline block py-1"
+                    ><Mark type="warn" /> Regular functions</a
                 >
                 <ul
-                    class="ml-3 mt-1 space-y-1 border-l-2 border-orange-500/30 pl-2"
+                    class="ml-3 mt-1 space-y-1 border-l border-rule pl-2"
                 >
                     <li>
                         <a
                             href="#object-methods"
                             class="text-gray-300 hover:text-blue-400 block"
-                            >Object Methods</a
+                            >Object methods</a
                         >
                     </li>
                     <li>
                         <a
                             href="#other-regular-cases"
                             class="text-gray-300 hover:text-blue-400 block"
-                            >Other Cases</a
+                            >Other cases</a
                         >
                     </li>
                 </ul>
@@ -1491,24 +1484,24 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <li class="mt-4">
                 <a
                     href="#parameters"
-                    class="text-purple-300 font-semibold hover:text-purple-200 block py-1"
-                    >📦 Parameters</a
+                    class="text-ink font-semibold hover:underline block py-1"
+                    >Parameters</a
                 >
                 <ul
-                    class="ml-3 mt-1 space-y-1 border-l-2 border-purple-500/30 pl-2"
+                    class="ml-3 mt-1 space-y-1 border-l border-rule pl-2"
                 >
                     <li>
                         <a
                             href="#default-params"
                             class="text-gray-300 hover:text-blue-400 block"
-                            >Default Parameters</a
+                            >Default parameters</a
                         >
                     </li>
                     <li>
                         <a
                             href="#rest-params"
                             class="text-gray-300 hover:text-blue-400 block"
-                            >Rest Parameters</a
+                            >Rest parameters</a
                         >
                     </li>
                     <li>
@@ -1524,31 +1517,31 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <li class="mt-4">
                 <a
                     href="#patterns"
-                    class="text-green-300 font-semibold hover:text-green-200 block py-1"
-                    >🔧 Common Patterns</a
+                    class="text-ink font-semibold hover:underline block py-1"
+                    >Common patterns</a
                 >
                 <ul
-                    class="ml-3 mt-1 space-y-1 border-l-2 border-green-500/30 pl-2"
+                    class="ml-3 mt-1 space-y-1 border-l border-rule pl-2"
                 >
                     <li>
                         <a
                             href="#async-await"
                             class="text-gray-300 hover:text-blue-400 block"
-                            >Async/Await</a
+                            >Async/await</a
                         >
                     </li>
                     <li>
                         <a
                             href="#guard-clauses"
                             class="text-gray-300 hover:text-blue-400 block"
-                            >Guard Clauses</a
+                            >Guard clauses</a
                         >
                     </li>
                     <li>
                         <a
                             href="#callbacks-arrays"
                             class="text-gray-300 hover:text-blue-400 block"
-                            >Callbacks & Arrays</a
+                            >Callbacks & arrays</a
                         >
                     </li>
                     <li>

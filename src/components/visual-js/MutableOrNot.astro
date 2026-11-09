@@ -7,11 +7,11 @@ interface Props {
 const { mutates, message } = Astro.props;
 ---
 
-<div class={`border rounded p-2 mt-3 ${mutates ? 'bg-red-500/10 border-red-500' : 'bg-green-500/10 border-green-500'}`}>
-    <div class={`font-semibold mb-1 text-[11px] ${mutates ? 'text-red-400' : 'text-green-400'}`}>
-        {mutates ? '⚠️ Mutates Original' : '✅ Immutable'}
-    </div>
-    <div class="text-[11px] text-gray-300 leading-snug">
+<div class={`mt-3 px-3 py-2.5 flex gap-2 text-sm text-ink leading-snug ${mutates ? "bg-red-900" : "bg-green-900"}`}>
+    <svg aria-label={mutates ? "Mutates original" : "Immutable"} role="img" viewBox="0 0 10 10" class={`size-2.5 shrink-0 mt-[5px] ${mutates ? "text-mutates" : "text-immutable"}`}>
+        <circle cx="5" cy="5" r="4" fill={mutates ? "currentColor" : "none"} stroke="currentColor" stroke-width="1.6" />
+    </svg>
+    <div>
         <slot />
         {message}
     </div>

@@ -1,8 +1,27 @@
 ---
 import "~styles/styles.css";
 import GlobalNav from "~components/visual-js/GlobalNav.astro";
+import { groupFor, topicFor, numberFor } from "../lib/topics";
+import { stripLeadingEmoji } from "../lib/strip-emoji";
+import { looksLikeCode } from "../lib/code-name";
 
 const { pageTitle } = Astro.props;
+const group = groupFor(Astro.url.pathname);
+const topic = topicFor(Astro.url.pathname);
+const pageNav = Astro.slots.has("page-nav") ? stripLeadingEmoji(await Astro.slots.render("page-nav")) : "";
+const body = await Astro.slots.render("default");
+
+// Summary row: one tile per MethodCard, read back from the rendered page.
+const unescape = (s: string) => s.replace(/&#(\d+);/g, (_, n) => String.fromCharCode(+n)).replace(/&quot;/g, '"').replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
+const methods = [...body.matchAll(/<section id="([^"]+)" data-method="([^"]*)" data-state="([^"]+)"/g)].map(
+    ([, id, name, state]) => ({ id, name: unescape(name), state }),
+);
+// Mutation colours only mean something on pages where some methods mutate.
+const tracksMutation = methods.some((m) => m.state === "mutates");
+const tileTone = (state: string) =>
+    !tracksMutation || state === "none"
+        ? `${group?.swatch ?? "bg-gray-800"} ${group?.onSwatch ?? "text-ink"}`
+        : state === "mutates" ? "bg-mutates text-ground" : "bg-immutable text-ground";
 ---
 
 <html lang="en">
@@ -10,41 +29,100 @@ const { pageTitle } = Astro.props;
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" type="image/svg+xml" href="/gideon-skull.svg" />
-        <title>{pageTitle} - Visual Cheatsheet</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap"
+            rel="stylesheet"
+        />
+        <title>{pageTitle} - Visual cheatsheets</title>
     </head>
-    <body class="m-0 p-4 bg-[#1a1d29] text-gray-200">
-        <div class="flex gap-6 max-w-[1600px] mx-auto">
-            <!-- Main Content -->
-            <main class="flex-1 min-w-0">
-                <h1 class="text-white mb-1 text-2xl font-bold">{pageTitle}</h1>
+    <body class="m-0 bg-ground text-ink">
+        <div
+            class="grid grid-cols-1 md:grid-cols-[200px_minmax(0,1fr)] xl:grid-cols-[220px_minmax(0,1fr)_220px] max-w-[1680px] mx-auto"
+        >
+            <aside
+                class="hidden md:block sticky top-0 self-start h-screen overflow-y-auto border-r border-rule px-4 py-5"
+            >
+                <GlobalNav />
+                {pageNav && (
+                    <div class="xl:hidden border-t border-rule pt-4 mt-2 text-sm">
+                        <h2 class="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-3">
+                            On this page
+                        </h2>
+                        <Fragment set:html={pageNav} />
+                    </div>
+                )}
+            </aside>
 
-                <slot />
+            <main class="min-w-0 px-4 sm:px-8 py-6">
+                <header
+                    class={`mb-6 border-b-[6px] pb-4 ${group ? group.rule : "border-ink"}`}
+                >
+                    <a href="/" class="md:hidden block mb-4 text-xs font-semibold uppercase tracking-wide text-gray-400">&larr; All cheatsheets</a>
+                    <div class="flex items-end gap-4">
+                        {
+                            group && topic && (
+                                <div
+                                    class={`${group.swatch} ${group.onSwatch} shrink-0 size-20 sm:size-24 p-2 flex flex-col justify-between`}
+                                    aria-hidden="true"
+                                >
+                                    <span class="font-mono text-xs font-semibold">{numberFor(topic.href)}</span>
+                                    <span class="font-extrabold text-4xl sm:text-5xl leading-none tracking-tight">{topic.symbol}</span>
+                                </div>
+                            )
+                        }
+                        <h1
+                            class="font-extrabold text-4xl sm:text-5xl leading-none tracking-tight text-balance"
+                        >
+                            {pageTitle}
+                        </h1>
+                    </div>
+                </header>
+
+                {
+                    methods.length > 0 && (
+                        <nav aria-label="Methods on this page" class="mb-8">
+                            <ul class="grid grid-cols-[repeat(auto-fill,minmax(88px,1fr))] sm:grid-cols-[repeat(auto-fill,minmax(104px,1fr))] gap-1">
+                                {methods.map((m, i) => (
+                                    <li>
+                                        <a
+                                            href={`#${m.id}`}
+                                            title={m.name}
+                                            class={`${tileTone(m.state)} flex flex-col justify-between h-12 sm:h-16 p-1.5 no-underline hover:outline-2 hover:outline-ink hover:-outline-offset-2`}
+                                        >
+                                            <span class="flex justify-between font-mono text-xs leading-none">
+                                                <span>{i + 1}</span>
+                                                {tracksMutation && m.state !== "none" && (
+                                                    <svg aria-label={m.state === "mutates" ? "Mutates" : "Immutable"} role="img" viewBox="0 0 10 10" class="size-2.5">
+                                                        <circle cx="5" cy="5" r="4" fill={m.state === "mutates" ? "currentColor" : "none"} stroke="currentColor" stroke-width="1.6" />
+                                                    </svg>
+                                                )}
+                                            </span>
+                                            <span class={`text-sm font-semibold leading-tight truncate ${looksLikeCode(m.name) ? "font-mono" : ""}`}>{m.name}</span>
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    )
+                }
+
+                <Fragment set:html={body} />
             </main>
 
-            <!-- Sidebar Navigation -->
             <aside
-                class="w-64 shrink-0 sticky top-4 self-start hidden lg:block max-h-[calc(100vh-2rem)] overflow-y-auto"
+                class="hidden xl:block sticky top-0 self-start h-screen overflow-y-auto border-l border-rule px-4 py-6 text-sm"
             >
-                <!-- Global Navigation -->
-                <GlobalNav />
-
-                <!-- Page Navigation -->
-                <nav class="bg-[#252936] rounded-lg p-4 border border-gray-700">
-                    <h3
-                        class="text-white text-sm font-bold mb-3 uppercase tracking-wide"
-                    >
-                        On This Page
-                    </h3>
-                    <slot name="page-nav" />
-                </nav>
+                {pageNav && (
+                    <>
+                        <h2 class="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-3">
+                            On this page
+                        </h2>
+                        <Fragment set:html={pageNav} />
+                    </>
+                )}
             </aside>
         </div>
-
-        <style>
-            html {
-                scroll-behavior: smooth;
-                scroll-padding-top: 20px;
-            }
-        </style>
     </body>
 </html>

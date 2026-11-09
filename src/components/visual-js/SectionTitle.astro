@@ -1,12 +1,17 @@
 ---
+import { stripLeadingEmoji } from "../../lib/strip-emoji";
+
 interface Props {
     id: string;
-    color: string;
+    color?: string;
 }
 
-const { id, color } = Astro.props;
+const { id } = Astro.props;
+const html = stripLeadingEmoji(await Astro.slots.render("default"));
 ---
 
-<h2 id={id} class={`text-${color}-300 text-xl mt-12 mb-4 pb-2 border-b-2 border-${color}-600`}>
-    <slot />
-</h2>
+<h2
+    id={id}
+    class="font-extrabold text-3xl tracking-tight text-ink mt-14 mb-2 pb-2 border-b-[3px] border-ink scroll-mt-6"
+    set:html={html}
+/>

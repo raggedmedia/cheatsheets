@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0}
+body{width:1440px;height:900px;overflow:hidden;background:#0b1120;color:#cbd5e1;font:15px/1.6 Inter,sans-serif;display:grid;grid-template-columns:260px 1fr 240px}
+nav{border-right:1px solid #1e293b;padding:24px 20px}
+nav .b{color:#fff;font-weight:700;margin-bottom:24px}
+nav h4{font-size:12px;color:#fff;margin:18px 0 6px}
+nav a{display:block;font-size:14px;padding:3px 10px;border-left:1px solid #1e293b;color:#94a3b8}
+nav a.on{border-color:#38bdf8;color:#38bdf8}
+main{padding:40px 64px;max-width:860px}
+.eb{color:#38bdf8;font-size:13px;font-weight:600}
+h1{color:#fff;font-size:36px;font-weight:700;margin:6px 0 10px}
+h2{color:#fff;font-size:22px;margin:36px 0 10px}
+pre{background:#111a2e;border:1px solid #1e293b;border-radius:8px;padding:16px;font:13px/1.7 JetBrains Mono;color:#e2e8f0;margin:14px 0}
+.k{color:#c084fc}.s{color:#86efac}.c{color:#8a9ab3}
+.badge{font-size:11px;background:#14532d;color:#86efac;border-radius:999px;padding:2px 8px;margin-left:8px}
+aside{padding:40px 20px;font-size:13px}
+aside h4{color:#fff;margin-bottom:8px}
+aside a{display:block;color:#94a3b8;padding:2px 0}
+</style></head><body>
+<nav><div class="b">Visual Cheatsheets</div>
+<h4>Primitives</h4><a class="on">Arrays</a><a>Objects</a><a>Strings</a><a>Numbers</a>
+<h4>Core concepts</h4><a>Functions</a><a>Loops</a><a>Conditionals</a><a>Promises</a><a>Variables</a>
+<h4>Browser APIs</h4><a>Intersection Observer</a><a>Pointer Events</a><a>Sanitizer API</a>
+<h4>Git</h4><a>How Git works</a></nav>
+<main><div class="eb">Primitives</div><h1>Arrays</h1>
+<p>Arrays are iterable, along with strings, Maps and Sets.</p>
+<pre><span class="c">// Works with for...of loops:</span>
+<span class="k">for</span> (<span class="k">const</span> item <span class="k">of</span> [1, 2, 3]) { console.log(item) }</pre>
+<h2>split() <span class="badge">Immutable</span></h2>
+<p>Splits a string into an array of substrings.</p>
+<pre><span class="s">"hello"</span>.split(<span class="s">''</span>) <span class="c">// ['h', 'e', 'l', 'l', 'o']</span></pre>
+<h2>Array.from() <span class="badge">Immutable</span></h2>
+<p>Creates array from string or iterable.</p>
+<pre>Array.from(<span class="s">"abc"</span>) <span class="c">// ['a', 'b', 'c']</span></pre>
+</main>
+<aside><h4>On this page</h4><a>Converting</a><a>split()</a><a>Array.from()</a><a>Mutates</a><a>push()</a><a>pop()</a></aside>
+</body></html>

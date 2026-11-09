@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#111;--red:#c8102e;--mute:#6b6b6b;--rule:#cfcfcf}
+*{box-sizing:border-box;margin:0}
+body{width:1440px;height:900px;overflow:hidden;background:#fff;color:var(--ink);font:15px/1.5 Archivo,sans-serif;padding:0 56px}
+.run{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--ink);padding:14px 0 8px;font:600 12px JetBrains Mono}
+.run b{color:var(--red)}
+.title{display:grid;grid-template-columns:1fr 360px;gap:40px;padding:28px 0 18px;border-bottom:1px solid var(--rule)}
+h1{font:800 52px/1 Archivo}
+.pn{font:600 14px JetBrains Mono;color:var(--red);margin-bottom:8px}
+.feat li{font-size:14px;margin-left:16px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:48px;padding-top:22px}
+h2{font:800 15px Archivo;text-transform:uppercase;letter-spacing:.04em;border-bottom:2px solid var(--ink);padding-bottom:4px;margin-bottom:12px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{font:600 11px JetBrains Mono;text-transform:uppercase;text-align:left;border-bottom:1px solid var(--ink);padding:5px 6px}
+td{border-bottom:1px solid var(--rule);padding:6px}
+td.m{font:600 13px JetBrains Mono}
+.y{color:var(--red);font-weight:700}
+.pin{display:flex;align-items:center;gap:0;margin:8px 0 20px}
+.chip{border:2px solid var(--ink);padding:16px 22px;font:600 18px JetBrains Mono}
+.leg{display:flex;flex-direction:column;gap:10px;font:12px JetBrains Mono}
+.leg span{display:flex;align-items:center;gap:8px}.leg span:before{content:"";width:28px;border-top:2px solid var(--ink)}
+.r span:before{order:2}
+.diag{display:flex;align-items:center;gap:12px;border:1px solid var(--rule);padding:18px}
+.blk{border:2px solid var(--ink);padding:8px 12px;font:600 14px JetBrains Mono}
+.blk.o{border-color:var(--red)}
+.cap{font:12px JetBrains Mono;color:var(--mute);margin-top:6px}
+</style></head><body>
+<div class="run"><span>VISUAL CHEATSHEETS · PRIMITIVES</span><span><b>ARR-01</b> · Arrays · Rev 2025</span></div>
+<div class="title"><div><div class="pn">ARR-01</div><h1>Arrays</h1><p style="margin-top:10px;max-width:620px">Ordered, iterable collections. 32 methods; 9 mutate in place.</p></div>
+<ul class="feat"><li>Iterable with for...of and spread</li><li>Writable length truncates</li><li>Objects are not iterable</li></ul></div>
+<div class="cols">
+<div><h2>1 Pin configuration</h2>
+<div class="pin"><div class="leg"><span>str</span><span>separator</span></div><div class="chip">split()</div><div class="leg r"><span>string[]</span></div></div>
+<h2>2 Characteristics</h2>
+<table><tr><th>Method</th><th>Signature</th><th>Mutates</th><th>Returns</th></tr>
+<tr><td class="m">split()</td><td>str.split(sep)</td><td>No</td><td>new array</td></tr>
+<tr><td class="m">Array.from()</td><td>Array.from(iter)</td><td>No</td><td>new array</td></tr>
+<tr><td class="m">push()</td><td>arr.push(...items)</td><td class="y">Yes</td><td>new length</td></tr>
+<tr><td class="m">splice()</td><td>arr.splice(i, n, ...)</td><td class="y">Yes</td><td>removed items</td></tr>
+<tr><td class="m">sort()</td><td>arr.sort(fn)</td><td class="y">Yes</td><td>same array</td></tr>
+</table></div>
+<div><h2>3 Typical application</h2>
+<div class="diag"><div class="blk">"hello"</div>→<div class="blk">split('')</div>→<div class="blk o">['h','e','l','l','o']</div></div>
+<div class="cap">Figure 1. split('') yields characters; split(' ') yields words.</div>
+<h2 style="margin-top:22px">4 Application notes</h2>
+<p style="font-size:14px">Array.from() accepts any iterable or array-like object and returns a new array.</p></div>
+</div>
+</body></html>

@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--ground:#f3f4f1;--ink:#17191e;--mute:#4c5059;--rule:#d6d8d2;--mut:#c2401c;--imm:#226b44;--in:#3f74c9;--proc:#7b55b8;--prim:#e9b53c;}
+*{box-sizing:border-box;margin:0}
+body{width:1440px;height:900px;overflow:hidden;background:var(--ground);color:var(--ink);font:15px/1.5 Archivo,sans-serif;display:grid;grid-template-columns:232px 1fr 220px}
+nav{border-right:1px solid var(--rule);padding:20px 16px}
+.mark{display:flex;gap:10px;align-items:center;font-weight:800;font-size:13px;letter-spacing:.02em;margin-bottom:22px}
+.mark i{width:28px;height:28px;background:var(--ink);border-radius:3px;display:block}
+.grp{font:600 11px JetBrains Mono,monospace;text-transform:uppercase;color:var(--mute);margin:16px 0 6px;display:flex;gap:6px;align-items:center}
+.grp b{width:10px;height:10px;display:inline-block}
+nav a{display:block;padding:3px 8px;font-size:14px;color:var(--ink);text-decoration:none}
+nav a.on{background:var(--prim);font-weight:600}
+main{padding:24px 36px;overflow:hidden}
+.head{display:flex;align-items:flex-end;gap:20px;border-bottom:3px solid var(--ink);padding-bottom:14px}
+.big{width:96px;height:96px;background:var(--prim);padding:8px;display:flex;flex-direction:column;justify-content:space-between}
+.big small{font:600 12px JetBrains Mono}
+.big strong{font:800 40px/1 Archivo}
+.big span{font-size:11px}
+h1{font:800 44px/1 Archivo;letter-spacing:-.01em}
+.sub{color:var(--mute);font-size:14px}
+.row{display:grid;grid-template-columns:repeat(9,1fr);gap:4px;margin:18px 0 26px}
+.t{height:70px;padding:6px;display:flex;flex-direction:column;justify-content:space-between;color:#fff}
+.t small{font:600 10px JetBrains Mono}
+.t strong{font:700 15px JetBrains Mono}
+.t.m{background:var(--mut)}.t.i{background:var(--imm)}
+h2{font:800 22px Archivo;margin:0 0 4px;display:flex;gap:10px;align-items:baseline}
+h2 small{font:600 12px JetBrains Mono;color:var(--mute)}
+.method{display:grid;grid-template-columns:260px 1fr;gap:28px;padding:18px 0;border-top:1px solid var(--rule)}
+.sig{font:600 22px JetBrains Mono;color:var(--ink)}
+.sig2{font:13px JetBrains Mono;color:var(--mute);margin:4px 0 8px}
+.tag{display:inline-flex;gap:6px;align-items:center;font:600 11px JetBrains Mono;text-transform:uppercase;padding:2px 8px;color:#fff;background:var(--imm)}
+.flow{display:flex;align-items:center;gap:14px;background:#fff;padding:16px;border-left:4px solid var(--ink)}
+.node{text-align:center}
+.node small{display:block;font:600 10px JetBrains Mono;text-transform:uppercase;color:var(--mute);margin-bottom:4px}
+.box{font:600 15px JetBrains Mono;padding:8px 12px;border:2px solid}
+.arr{color:var(--mute);font:12px JetBrains Mono}
+.cells{display:flex;gap:3px}.cells span{font:600 15px JetBrains Mono;padding:8px 10px;background:color-mix(in srgb,var(--imm) 18%,white);border-bottom:3px solid var(--imm)}
+.note{font-size:14px;margin-top:10px;color:var(--ink)}
+code{font:13px JetBrains Mono;background:#e6e8e3;padding:1px 4px}
+aside{border-left:1px solid var(--rule);padding:24px 16px;font-size:13px}
+aside h3{font:600 11px JetBrains Mono;text-transform:uppercase;color:var(--mute);margin-bottom:10px}
+aside a{display:block;padding:2px 0;color:var(--ink);text-decoration:none}
+aside a.sec{font-weight:700;margin-top:10px}
+</style></head><body>
+<nav>
+<div class="mark"><i></i>VISUAL CHEATSHEETS</div>
+<div class="grp"><b style="background:var(--prim)"></b>Primitives</div>
+<a class="on">Arrays</a><a>Objects</a><a>Strings</a><a>Numbers</a>
+<div class="grp"><b style="background:var(--in)"></b>Core concepts</div>
+<a>Functions</a><a>Loops</a><a>Conditionals</a><a>Promises</a><a>Variables</a><a>DOM manipulation</a>
+<div class="grp"><b style="background:var(--imm)"></b>Browser APIs</div>
+<a>Intersection Observer</a><a>Pointer Events</a><a>Sanitizer API</a>
+<div class="grp"><b style="background:var(--mut)"></b>Git</div>
+<a>How Git works</a>
+</nav>
+<main>
+<div class="head"><div class="big"><small>01</small><strong>Ar</strong><span>Primitives</span></div>
+<div><h1>Arrays</h1><div class="sub">Iterable. 32 methods. Red tiles mutate, green tiles return new.</div></div></div>
+<div class="row">
+<div class="t i"><small>01 ○</small><strong>split</strong></div><div class="t i"><small>02 ○</small><strong>from</strong></div><div class="t i"><small>03 ○</small><strong>[...s]</strong></div>
+<div class="t m"><small>04 ●</small><strong>push</strong></div><div class="t m"><small>05 ●</small><strong>pop</strong></div><div class="t m"><small>06 ●</small><strong>shift</strong></div>
+<div class="t m"><small>07 ●</small><strong>splice</strong></div><div class="t m"><small>08 ●</small><strong>sort</strong></div><div class="t i"><small>09 ○</small><strong>map</strong></div>
+</div>
+<h2>Converting to arrays <small>§1 · string to array</small></h2>
+<div class="method">
+<div><div class="sig">split()</div><div class="sig2">str.split(separator)</div><span class="tag">○ Returns new</span>
+<p class="note">Splits a string into an array of substrings.</p></div>
+<div><div class="flow">
+<div class="node"><small>String</small><div class="box" style="border-color:var(--in)">"hello"</div></div><span class="arr">splits →</span>
+<div class="node"><small>Method</small><div class="box" style="border-color:var(--proc)">split('')</div></div><span class="arr">returns →</span>
+<div class="node"><small>Array</small><div class="cells"><span>'h'</span><span>'e'</span><span>'l'</span><span>'l'</span><span>'o'</span></div></div>
+</div><p class="note">Use <code>split('')</code> for chars, <code>split(' ')</code> for words.</p></div>
+</div>
+<div class="method">
+<div><div class="sig">Array.from()</div><div class="sig2">Array.from(string)</div><span class="tag">○ Returns new</span>
+<p class="note">Creates array from string or iterable.</p></div>
+<div><div class="flow">
+<div class="node"><small>String</small><div class="box" style="border-color:var(--in)">"abc"</div></div><span class="arr">converts →</span>
+<div class="node"><small>Method</small><div class="box" style="border-color:var(--proc)">Array.from(str)</div></div><span class="arr">returns →</span>
+<div class="node"><small>Array</small><div class="cells"><span>'a'</span><span>'b'</span><span>'c'</span></div></div>
+</div></div>
+</div>
+</main>
+<aside><h3>On this page</h3>
+<a class="sec">Converting</a><a>split()</a><a>Array.from()</a><a>[...str]</a>
+<a class="sec">Mutates</a><a>push()</a><a>pop()</a><a>unshift()</a><a>shift()</a><a>splice()</a>
+<a class="sec">Reorder</a><a>sort()</a><a>reverse()</a></aside>
+</body></html>

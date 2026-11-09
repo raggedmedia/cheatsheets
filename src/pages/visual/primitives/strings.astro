@@ -9,31 +9,33 @@ import ProcessContent from "~components/visual-js/ProcessContent.astro";
 import ProTip from "~components/visual-js/ProTip.astro";
 import SectionTitle from "~components/visual-js/SectionTitle.astro";
 import VisualLayout from "src/layouts/VisualLayout.astro";
+import Flow from "~components/visual-js/Flow.astro";
+import Mark from "~components/visual-js/Mark.astro";
 ---
 
 <VisualLayout pageTitle="Strings">
     <ProTip>
         <div>
-            🔄 <strong>Strings are iterable!</strong> Strings (along with arrays,
-            Maps, and Sets) are one of the few iterable types in JavaScript.
+            <strong>Strings are iterable.</strong> Strings (along with arrays,
+            Maps and Sets) are one of the few iterable types in JavaScript.
         </div>
-        <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-            <div class="font-mono text-[10px]">
+        <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+            <div class="font-mono text-xs">
                 <span class="text-green-400">// Works with for...of loops:</span
                 >
             </div>
-            <div class="font-mono text-[10px]">
+            <div class="font-mono text-xs">
                 for (const char of "hello") {"{"} console.log(char) {"}"}
             </div>
-            <div class="font-mono text-[10px] mt-1">
+            <div class="font-mono text-xs mt-1">
                 <span class="text-green-400"
                     >// Works with spread operator:</span
                 >
             </div>
-            <div class="font-mono text-[10px]">
+            <div class="font-mono text-xs">
                 [...'hello'] → ['h', 'e', 'l', 'l', 'o']
             </div>
-            <div class="font-mono text-[10px] mt-1">
+            <div class="font-mono text-xs mt-1">
                 <span class="text-red-400"
                     >// Objects are NOT iterable (need
                     Object.keys/values/entries)</span
@@ -44,17 +46,17 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
     <ProTip>
         <div>
-            ⚡ <strong>Strings are immutable!</strong> All methods return a new string
-            — the original never changes.
+            <strong>Strings are immutable.</strong> All methods return a new string.
+            The original never changes.
         </div>
         <div
-            class="pl-2 border-l-2 border-yellow-500/30 font-mono text-[10px] mt-1"
+            class="pl-2 border-l border-rule font-mono text-xs mt-1"
         >
             const str = 'hello'<br />
             str.toUpperCase() <span class="text-red-400"
                 >// returns 'HELLO' but str stays 'hello'</span
             ><br />
-            const upper = str.toUpperCase() ✅ <span class="text-gray-400"
+            const upper = str.toUpperCase() <Mark type="yes" /> <span class="text-gray-400"
                 >// always save the result!</span
             >
         </div>
@@ -62,21 +64,20 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
 
     <ProTip>
         <div>
-            📏 <strong>String length property:</strong> Get the number of characters
+            <strong>String length property:</strong> Get the number of characters
             with <code
-                class="bg-black/30 px-1 py-0.5 rounded font-mono text-yellow-400"
                 >str.length</code
             >
         </div>
-        <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-            <div class="font-mono text-[10px]">const text = "hello";</div>
-            <div class="font-mono text-[10px]">text.length → 5</div>
-            <div class="font-mono text-[10px] mt-1">
+        <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+            <div class="font-mono text-xs">const text = "hello";</div>
+            <div class="font-mono text-xs">text.length → 5</div>
+            <div class="font-mono text-xs mt-1">
                 <span class="text-orange-400"
                     >// Read-only! Can't change it:</span
                 >
             </div>
-            <div class="font-mono text-[10px]">
+            <div class="font-mono text-xs">
                 text.length = 3 <span class="text-red-400"
                     >// doesn't work (strings immutable)</span
                 >
@@ -85,10 +86,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     </ProTip>
 
     <!-- ============================================ -->
-    <!-- 🔍 INSPECT / CHECK -->
+    <!-- INSPECT / CHECK -->
     <!-- ============================================ -->
 
-    <SectionTitle id="inspect" color="blue"> 🔍 Inspect / Check </SectionTitle>
+    <SectionTitle id="inspect" color="blue"> Inspect / check </SectionTitle>
 
     <!-- CHARAT -->
     <MethodCard
@@ -98,9 +99,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Get character at position"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input String" type="input">
                 <div class="text-center text-sm font-mono">'hello'</div>
             </Node>
@@ -119,14 +118,13 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Character" type="output">
                 <ReturnValue value="'e'" type="string" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >string</code
-            > (length 1). <strong>Index starts at 0.</strong> Returns empty string
-            if out of bounds.
+            > (length 1). <strong>Index starts at 0.</strong> Returns an empty string
+            if the index is out of bounds.
         </MutableOrNot>
     </MethodCard>
 
@@ -138,9 +136,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Check if substring exists"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input String" type="input">
                 <div class="text-center text-sm font-mono">'hello world'</div>
             </Node>
@@ -159,13 +155,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Boolean" type="output">
                 <ReturnValue value="true" type="boolean" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >boolean</code
-            >. ⚠️ Cannot be chained. Case-sensitive.
+            >. <Mark type="warn" /> Cannot be chained. Case-sensitive.
         </MutableOrNot>
     </MethodCard>
 
@@ -174,12 +169,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="indexOf"
         methodName="indexOf()"
         signature="str.indexOf(substring)"
-        description="Find first occurrence index"
+        description="Find index of first occurrence"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input String" type="input">
                 <div class="text-center text-sm font-mono">'hello'</div>
             </Node>
@@ -198,16 +191,14 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Index" type="output">
                 <ReturnValue value="2" type="number" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >number</code
             > (index) or <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >-1</code
-            > if not found. ⚠️ Cannot be chained.
+            > if not found. <Mark type="warn" /> Cannot be chained.
         </MutableOrNot>
     </MethodCard>
 
@@ -216,12 +207,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="lastIndexOf"
         methodName="lastIndexOf()"
         signature="str.lastIndexOf(substring)"
-        description="Find last occurrence index"
+        description="Find index of last occurrence"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input String" type="input">
                 <div class="text-center text-sm font-mono">'hello'</div>
             </Node>
@@ -240,16 +229,14 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Index" type="output">
                 <ReturnValue value="3" type="number" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >number</code
             > (index) or <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >-1</code
-            > if not found. ⚠️ Cannot be chained. Searches from the end.
+            > if not found. <Mark type="warn" /> Cannot be chained. Searches from the end.
         </MutableOrNot>
     </MethodCard>
 
@@ -261,9 +248,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Check if string starts with substring"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input String" type="input">
                 <div class="text-center text-sm font-mono">'hello world'</div>
             </Node>
@@ -282,13 +267,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Boolean" type="output">
                 <ReturnValue value="true" type="boolean" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >boolean</code
-            >. ⚠️ Cannot be chained.
+            >. <Mark type="warn" /> Cannot be chained.
         </MutableOrNot>
     </MethodCard>
 
@@ -300,9 +284,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Check if string ends with substring"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input String" type="input">
                 <div class="text-center text-sm font-mono">'hello world'</div>
             </Node>
@@ -321,24 +303,22 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Boolean" type="output">
                 <ReturnValue value="true" type="boolean" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >boolean</code
-            >. ⚠️ Cannot be chained. Opposite of <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+            >. <Mark type="warn" /> Cannot be chained. Opposite of <code
                 >startsWith()</code
             >.
         </MutableOrNot>
     </MethodCard>
 
     <!-- ============================================ -->
-    <!-- ✂️ EXTRACT PIECES -->
+    <!-- EXTRACT PIECES -->
     <!-- ============================================ -->
 
-    <SectionTitle id="extract" color="purple"> ✂️ Extract Pieces </SectionTitle>
+    <SectionTitle id="extract" color="purple"> Extract pieces </SectionTitle>
 
     <!-- SLICE -->
     <MethodCard
@@ -348,9 +328,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Extract substring by indexes"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input String" type="input">
                 <div class="text-center text-sm font-mono">'hello world'</div>
             </Node>
@@ -369,24 +347,23 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="New String" type="output">
                 <ReturnValue value="'hello'" type="string" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >string</code
-            >. Accepts negative indexes (counts from end).
+            >. Accepts negative indexes (counts from the end).
         </MutableOrNot>
 
         <ProTip>
-            <div>💡 <strong>Negative indexes are super useful:</strong></div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div><strong>Negative indexes count from the end:</strong></div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     'hello'.slice(-2) → 'lo' <span class="text-gray-400"
                         >// last 2 chars</span
                     >
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     'hello'.slice(1, -1) → 'ell' <span class="text-gray-400"
                         >// remove first and last</span
                     >
@@ -400,12 +377,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         id="substring"
         methodName="substring()"
         signature="str.substring(start, end?)"
-        description="Extract substring (swaps args if wrong order)"
+        description="Extract substring (swaps arguments if start is greater than end)"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input String" type="input">
                 <div class="text-center text-sm font-mono">'hello'</div>
             </Node>
@@ -424,14 +399,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="New String" type="output">
                 <ReturnValue value="'ell'" type="string" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >string</code
-            >. Does NOT accept negative indexes. Prefer <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+            >. Does not accept negative indexes. Prefer <code
                 >slice()</code
             > for consistency.
         </MutableOrNot>
@@ -445,9 +418,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Break string into array"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input String" type="input">
                 <div class="text-center text-sm font-mono">'a,b,c'</div>
             </Node>
@@ -466,29 +437,28 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Array" type="output">
                 <ArrayDisplay values={["a", "b", "c"]} />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >array</code
-            > of strings. ⚠️ Cannot be chained with string methods.
+            > of strings. <Mark type="warn" /> Cannot be chained with string methods.
         </MutableOrNot>
 
         <ProTip>
             <div>Common patterns:</div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     'hello'.split('') → ['h','e','l','l','o'] <span
                         class="text-gray-400">// split into chars</span
                     >
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     'a b c'.split(' ') → ['a','b','c'] <span
                         class="text-gray-400">// split on space</span
                     >
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     Array.from('hello') <span class="text-green-400"
                         >// better for Unicode (emoji safe)</span
                     >
@@ -498,10 +468,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     </MethodCard>
 
     <!-- ============================================ -->
-    <!-- 🔁 CHANGE CASE -->
+    <!-- CHANGE CASE -->
     <!-- ============================================ -->
 
-    <SectionTitle id="case" color="orange"> 🔁 Change Case </SectionTitle>
+    <SectionTitle id="case" color="orange"> Change case </SectionTitle>
 
     <!-- TOUPPERCASE -->
     <MethodCard
@@ -511,9 +481,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Convert to uppercase"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input String" type="input">
                 <div class="text-center text-sm font-mono">'hello'</div>
             </Node>
@@ -532,11 +500,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="New String" type="output">
                 <ReturnValue value="'HELLO'" type="string" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >string</code
             >. Converts all characters to uppercase.
         </MutableOrNot>
@@ -550,9 +517,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Convert to lowercase"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input String" type="input">
                 <div class="text-center text-sm font-mono">'HELLO'</div>
             </Node>
@@ -571,11 +536,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="New String" type="output">
                 <ReturnValue value="'hello'" type="string" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >string</code
             >. Converts all characters to lowercase.
         </MutableOrNot>
@@ -584,14 +548,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     <!-- CAPITALIZE WORDS -->
     <MethodCard
         id="capitalize"
-        methodName="Capitalize Words"
+        methodName="Capitalize words"
         signature="str.replace(/\\b\\w/g, c => c.toUpperCase())"
-        description="Capitalize first letter of each word"
+        description="Capitalise first letter of each word"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input String" type="input">
                 <div class="text-center text-sm font-mono">'hello world'</div>
             </Node>
@@ -601,7 +563,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Regex Replace" type="process">
                 <ProcessContent
                     name="replace(/\\b\\w/g, ...)"
-                    description="Cap each word"
+                    description="Capitalise each word"
                 />
             </Node>
 
@@ -610,31 +572,30 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="New String" type="output">
                 <ReturnValue value="'Hello World'" type="string" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >string</code
-            >. No built-in method for this - requires regex.
+            >. No built-in method does this. Use a regex.
         </MutableOrNot>
 
         <ProTip>
             <div>Breaking down the regex:</div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     \b <span class="text-gray-400">// word boundary</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     \w <span class="text-gray-400"
                         >// first character of word</span
                     >
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     /g <span class="text-gray-400">// global (all matches)</span
                     >
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     c =&gt; c.toUpperCase() <span class="text-gray-400"
                         >// capitalize it</span
                     >
@@ -644,10 +605,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     </MethodCard>
 
     <!-- ============================================ -->
-    <!-- 🧹 TRIM / PAD -->
+    <!-- TRIM / PAD -->
     <!-- ============================================ -->
 
-    <SectionTitle id="trim-pad" color="green"> 🧹 Trim / Pad </SectionTitle>
+    <SectionTitle id="trim-pad" color="green"> Trim / pad </SectionTitle>
 
     <!-- TRIM -->
     <MethodCard
@@ -657,9 +618,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Remove whitespace from both ends"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input String" type="input">
                 <div class="text-center text-sm font-mono">' hello '</div>
             </Node>
@@ -675,17 +634,14 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="New String" type="output">
                 <ReturnValue value="'hello'" type="string" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >string</code
             >. Use <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >trimStart()</code
             > or <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >trimEnd()</code
             > for one side only.
         </MutableOrNot>
@@ -699,9 +655,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Pad string to target length (adds padding to the left)"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input String" type="input">
                 <div class="text-center text-sm font-mono">'5'</div>
             </Node>
@@ -720,36 +674,34 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="New String" type="output">
                 <ReturnValue value="'005'" type="string" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >string</code
             >. Use <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >padEnd()</code
             > for right padding.
         </MutableOrNot>
 
         <ProTip>
-            <div>Common real-world use cases:</div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div>Common uses:</div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     <span class="text-gray-400"
                         >// Time formatting: display '5' as '05' in times like
                         05:30</span
                     >
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     '5'.padStart(2, '0') → '05'
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     <span class="text-gray-400"
                         >// Leading zeros for IDs/invoice numbers</span
                     >
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     '123'.padStart(6, '0') → '000123'
                 </div>
             </div>
@@ -764,9 +716,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Pad string to target length (adds padding to the right)"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input String" type="input">
                 <div class="text-center text-sm font-mono">'hi'</div>
             </Node>
@@ -785,27 +735,25 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="New String" type="output">
                 <ReturnValue value="'hi...'" type="string" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >string</code
-            >. The mirror opposite of <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+            >. The opposite of <code
                 >padStart()</code
             >.
         </MutableOrNot>
 
         <ProTip>
             <div>
-                💡 <strong>Perfect for creating tables or aligned text:</strong>
+                <strong>Use it to build tables or align text:</strong>
             </div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
-                    'Name'.padEnd(10, ' ') + 'Age' → 'Name Age'
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
+                    'Name'.padEnd(10, ' ') + 'Age' → 'Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Age'
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     'Task'.padEnd(20, '.') + 'Done' → 'Task................Done'
                 </div>
             </div>
@@ -813,10 +761,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     </MethodCard>
 
     <!-- ============================================ -->
-    <!-- 🔨 MANIPULATION -->
+    <!-- MANIPULATION -->
     <!-- ============================================ -->
 
-    <SectionTitle id="manipulation" color="red"> 🔨 Manipulation </SectionTitle>
+    <SectionTitle id="manipulation" color="red"> Manipulation </SectionTitle>
 
     <!-- CONCAT -->
     <MethodCard
@@ -826,9 +774,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Join strings together"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Strings" type="input">
                 <div class="text-center text-sm font-mono">
                     'hello', ' ', 'world'
@@ -849,14 +795,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="New String" type="output">
                 <ReturnValue value="'hello world'" type="string" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >string</code
             >. Prefer template literals <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >`${"{"}a{"}"} ${"{"}b{"}"}`</code
             > for readability.
         </MutableOrNot>
@@ -870,9 +814,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Repeat string n times"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input String" type="input">
                 <div class="text-center text-sm font-mono">'ha'</div>
             </Node>
@@ -891,11 +833,10 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="New String" type="output">
                 <ReturnValue value="'hahaha'" type="string" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >string</code
             >. Useful for creating patterns or dividers.
         </MutableOrNot>
@@ -909,9 +850,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Replace first match"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input String" type="input">
                 <div class="text-center text-sm font-mono">'hello hello'</div>
             </Node>
@@ -930,33 +869,31 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="New String" type="output">
                 <ReturnValue value="'hi hello'" type="string" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >string</code
-            >. Only replaces FIRST match. Use <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+            >. Only replaces the first match. Use <code
                 >replaceAll()</code
             > for all matches.
         </MutableOrNot>
 
         <ProTip>
-            <div>⚠️ <strong>Gotcha:</strong> Only replaces first match!</div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div><Mark type="warn" /> <strong>Gotcha:</strong> Only replaces the first match.</div>
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     'a a a'.replace('a', 'b') → 'b a a' <span
                         class="text-red-400">// only first!</span
                     >
                 </div>
-                <div class="font-mono text-[10px]">
-                    'a a a'.replaceAll('a', 'b') → 'b b b' ✅ <span
+                <div class="font-mono text-xs">
+                    'a a a'.replaceAll('a', 'b') → 'b b b' <Mark type="yes" /> <span
                         class="text-green-400">// all matches</span
                     >
                 </div>
-                <div class="font-mono text-[10px]">
-                    'a a a'.replace(/a/g, 'b') → 'b b b' ✅ <span
+                <div class="font-mono text-xs">
+                    'a a a'.replace(/a/g, 'b') → 'b b b' <Mark type="yes" /> <span
                         class="text-gray-400">// regex global flag</span
                     >
                 </div>
@@ -972,9 +909,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Replace all matches"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input String" type="input">
                 <div class="text-center text-sm font-mono">'a a a'</div>
             </Node>
@@ -993,21 +928,20 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="New String" type="output">
                 <ReturnValue value="'b b b'" type="string" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >string</code
-            >. Replaces ALL occurrences. Modern browsers only (ES2021).
+            >. Replaces all matches. Modern browsers only (ES2021).
         </MutableOrNot>
     </MethodCard>
 
     <!-- ============================================ -->
-    <!-- 🔍 PATTERN MATCHING -->
+    <!-- PATTERN MATCHING -->
     <!-- ============================================ -->
 
-    <SectionTitle id="pattern" color="pink"> 🔍 Pattern Matching </SectionTitle>
+    <SectionTitle id="pattern" color="pink"> Pattern matching </SectionTitle>
 
     <!-- MATCH -->
     <MethodCard
@@ -1017,9 +951,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Find matches using regex"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input String" type="input">
                 <div class="text-center text-sm font-mono">'hello123'</div>
             </Node>
@@ -1038,16 +970,14 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Array or null" type="output">
                 <ArrayDisplay values={["123"]} />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >array</code
             > of matches or <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >null</code
-            >. ⚠️ Cannot be chained.
+            >. <Mark type="warn" /> Cannot be chained.
         </MutableOrNot>
     </MethodCard>
 
@@ -1059,9 +989,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
         description="Find index of first regex match"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input String" type="input">
                 <div class="text-center text-sm font-mono">'hello123'</div>
             </Node>
@@ -1080,38 +1008,34 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Index" type="output">
                 <ReturnValue value="5" type="number" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >number</code
             > (index) or <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >-1</code
-            > if not found. ⚠️ Cannot be chained.
+            > if not found. <Mark type="warn" /> Cannot be chained.
         </MutableOrNot>
     </MethodCard>
 
     <!-- ============================================ -->
-    <!-- 🔄 CONVERTING TO STRINGS -->
+    <!-- CONVERTING TO STRINGS -->
     <!-- ============================================ -->
 
     <SectionTitle id="converting" color="yellow">
-        🔄 Converting to Strings
+        Converting to strings
     </SectionTitle>
 
     <!-- ARRAY TO STRING -->
     <MethodCard
         id="array-to-string"
-        methodName="Array to String"
+        methodName="Array to string"
         signature="arr.join(separator)"
         description="Convert array to string with separator"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Array" type="input">
                 <ArrayDisplay values={["a", "b", "c"]} />
             </Node>
@@ -1130,37 +1054,35 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="String" type="output">
                 <ReturnValue value="'a,b,c'" type="string" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >string</code
-            >. Default separator is comma. Use <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+            >. The default separator is a comma. Use <code
                 >''</code
-            > to concatenate without separator.
+            > to join without a separator.
         </MutableOrNot>
 
         <ProTip>
             <div>Common use cases:</div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     ['a','b','c'].join(', ') → 'a, b, c' <span
                         class="text-gray-400">// comma + space</span
                     >
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     ['hi','there'].join(' ') → 'hi there' <span
                         class="text-gray-400">// words with spaces</span
                     >
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     ['h','i'].join('') → 'hi' <span class="text-gray-400"
                         >// no separator</span
                     >
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     arr.toString() → 'a,b,c' <span class="text-gray-400"
                         >// same as join() with comma</span
                     >
@@ -1172,14 +1094,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     <!-- NUMBER TO STRING -->
     <MethodCard
         id="number-to-string"
-        methodName="Number to String"
+        methodName="Number to string"
         signature="String(num) or num.toString()"
         description="Convert number to string"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Number" type="input">
                 <div class="text-center text-sm font-mono">123</div>
             </Node>
@@ -1195,45 +1115,42 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="String" type="output">
                 <ReturnValue value="'123'" type="string" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >string</code
             >. Both <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >String(num)</code
             > and <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >num.toString()</code
             > work.
         </MutableOrNot>
 
         <ProTip>
             <div>Three ways to convert numbers:</div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
-                    String(123) → '123' ✅ <span class="text-gray-400"
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
+                    String(123) → '123' <Mark type="yes" /> <span class="text-gray-400"
                         >// recommended</span
                     >
                 </div>
-                <div class="font-mono text-[10px]">
-                    (123).toString() → '123' ✅ <span class="text-gray-400"
+                <div class="font-mono text-xs">
+                    (123).toString() → '123' <Mark type="yes" /> <span class="text-gray-400"
                         >// works too</span
                     >
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     '' + 123 → '123' <span class="text-gray-400"
                         >// quick but less readable</span
                     >
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="font-mono text-xs mt-1">
                     (42).toString(2) → '101010' <span class="text-green-400"
                         >// binary! (base 2)</span
                     >
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     (255).toString(16) → 'ff' <span class="text-green-400"
                         >// hexadecimal! (base 16)</span
                     >
@@ -1245,14 +1162,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     <!-- OBJECT TO STRING -->
     <MethodCard
         id="object-to-string"
-        methodName="Object to String"
+        methodName="Object to string"
         signature="JSON.stringify(obj)"
         description="Convert object to JSON string"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input Object" type="input">
                 <div class="text-center text-sm font-mono">
                     {"{"}a: 1, b: 2{"}"}
@@ -1273,36 +1188,35 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="JSON String" type="output">
                 <ReturnValue value='{"a":1,"b":2}' type="string" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >string</code
-            > (JSON format). Use for serialization, API requests, localStorage, etc.
+            > (JSON format). Use it for serialisation, API requests and localStorage.
         </MutableOrNot>
 
         <ProTip>
             <div>Formatting options:</div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     JSON.stringify(obj) → '{"{"}"a":1{"}"}' <span
                         class="text-gray-400">// compact</span
                     >
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     JSON.stringify(obj, null, 2) <span class="text-gray-400"
                         >// pretty-print with 2-space indent</span
                     >
                 </div>
-                <div class="font-mono text-[10px] mt-1">
+                <div class="text-xs mt-1">
                     <span class="text-red-400"
-                        >⚠️ Drops: functions, undefined, symbols</span
+                        ><Mark type="warn" /> Skips functions, <code>undefined</code> and symbols.</span
                     >
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="text-xs">
                     <span class="text-red-400"
-                        >⚠️ Circular references throw errors</span
+                        ><Mark type="warn" /> Circular references throw a <code>TypeError</code>.</span
                     >
                 </div>
             </div>
@@ -1310,22 +1224,20 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     </MethodCard>
 
     <!-- ============================================ -->
-    <!-- 🧩 COMMON PATTERNS -->
+    <!-- COMMON PATTERNS -->
     <!-- ============================================ -->
 
-    <SectionTitle id="patterns" color="cyan"> 🧩 Common Patterns </SectionTitle>
+    <SectionTitle id="patterns" color="cyan"> Common patterns </SectionTitle>
 
     <!-- PREPEND/APPEND -->
     <MethodCard
         id="prepend-append"
-        methodName="Prepend / Append"
+        methodName="Prepend / append"
         signature="`prefix${str}suffix`"
-        description="Add text before or after string"
+        description="Add text before or after a string"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input String" type="input">
                 <div class="text-center text-sm font-mono">'hello'</div>
             </Node>
@@ -1335,7 +1247,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Template Literal" type="process">
                 <ProcessContent
                     name="`#${str}-end`"
-                    description="Add prefix & suffix"
+                    description="Add prefix and suffix"
                 />
             </Node>
 
@@ -1344,32 +1256,30 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="New String" type="output">
                 <ReturnValue value="'#hello-end'" type="string" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >string</code
-            >. No built-in prepend/append - use template literals or <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
+            >. No built-in prepend or append. Use template literals or <code
                 >concat()</code
             >.
         </MutableOrNot>
 
         <ProTip>
             <div>Common use cases:</div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     `#${"{"}hashtag{"}"}` <span class="text-gray-400"
                         >// add # prefix</span
                     >
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     `${"{"}url{"}"}?v=123` <span class="text-gray-400"
                         >// add query param</span
                     >
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     `${"{"}name{"}"}.js` <span class="text-gray-400"
                         >// add file extension</span
                     >
@@ -1381,14 +1291,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     <!-- REVERSE STRING -->
     <MethodCard
         id="reverse"
-        methodName="Reverse String"
+        methodName="Reverse string"
         signature="str.split('').reverse().join('')"
         description="Reverse character order"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input String" type="input">
                 <div class="text-center text-sm font-mono">'hello'</div>
             </Node>
@@ -1416,29 +1324,28 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Result" type="output">
                 <ReturnValue value="'olleh'" type="string" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >string</code
-            >. No built-in reverse - chain array methods.
+            >. No built-in reverse. Chain array methods instead.
         </MutableOrNot>
 
         <ProTip>
             <div>
-                ⚠️ <strong>Not Unicode-safe!</strong> Use for simple ASCII only:
+                <Mark type="warn" /> <strong>Not Unicode-safe.</strong> Use for simple ASCII only:
             </div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
-                    'hello'.split('').reverse().join('') → 'olleh' ✅
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
+                    'hello'.split('').reverse().join('') → 'olleh' <Mark type="yes" />
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     '👨‍👩‍👧'.split('').reverse().join('') <span class="text-red-400"
-                        >// breaks emoji! ❌</span
+                        >// breaks emoji! <Mark type="no" /></span
                     >
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     Array.from('👨‍👩‍👧').reverse().join('') <span
                         class="text-green-400">// better for Unicode</span
                     >
@@ -1450,14 +1357,12 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
     <!-- CHECK IF EMPTY -->
     <MethodCard
         id="is-empty"
-        methodName="Check if Empty"
+        methodName="Check if empty"
         signature="str.trim() === ''"
         description="Check if string is empty or only whitespace"
         mutates={false}
     >
-        <div
-            class="flex items-center gap-4 p-3 bg-gray-800 rounded overflow-x-auto"
-        >
+        <Flow>
             <Node label="Input String" type="input">
                 <div class="text-center text-sm font-mono">' '</div>
             </Node>
@@ -1476,32 +1381,31 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <Node label="Boolean" type="output">
                 <ReturnValue value="true" type="boolean" />
             </Node>
-        </div>
+        </Flow>
 
         <MutableOrNot mutates={false} message="">
             Returns <code
-                class="bg-black/30 px-1.5 py-0.5 rounded font-mono text-yellow-400"
                 >boolean</code
             >. Trim first to catch whitespace-only strings.
         </MutableOrNot>
 
         <ProTip>
             <div>Different empty checks:</div>
-            <div class="pl-2 border-l-2 border-yellow-500/30 space-y-0.5 mt-1">
-                <div class="font-mono text-[10px]">
+            <div class="pl-2 border-l border-rule space-y-0.5 mt-1">
+                <div class="font-mono text-xs">
                     str === '' <span class="text-gray-400">// truly empty</span>
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     str.length === 0 <span class="text-gray-400"
                         >// same as above</span
                     >
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     str.trim() === '' <span class="text-gray-400"
                         >// empty or whitespace only</span
                     >
                 </div>
-                <div class="font-mono text-[10px]">
+                <div class="font-mono text-xs">
                     !str <span class="text-gray-400"
                         >// falsy (includes empty string)</span
                     >
@@ -1515,11 +1419,11 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <li>
                 <a
                     href="#inspect"
-                    class="text-blue-300 font-semibold hover:text-blue-200 block py-1"
-                    >🔍 Inspect / Check</a
+                    class="text-ink font-semibold hover:underline block py-1"
+                    >Inspect / check</a
                 >
                 <ul
-                    class="ml-3 mt-1 space-y-1 border-l-2 border-blue-500/30 pl-2"
+                    class="ml-3 mt-1 space-y-1 border-l border-rule pl-2"
                 >
                     <li>
                         <a
@@ -1569,11 +1473,11 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <li class="mt-4">
                 <a
                     href="#extract"
-                    class="text-purple-300 font-semibold hover:text-purple-200 block py-1"
-                    >✂️ Extract Pieces</a
+                    class="text-ink font-semibold hover:underline block py-1"
+                    >Extract pieces</a
                 >
                 <ul
-                    class="ml-3 mt-1 space-y-1 border-l-2 border-purple-500/30 pl-2"
+                    class="ml-3 mt-1 space-y-1 border-l border-rule pl-2"
                 >
                     <li>
                         <a
@@ -1602,11 +1506,11 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <li class="mt-4">
                 <a
                     href="#case"
-                    class="text-orange-300 font-semibold hover:text-orange-200 block py-1"
-                    >🔁 Change Case</a
+                    class="text-ink font-semibold hover:underline block py-1"
+                    >Change case</a
                 >
                 <ul
-                    class="ml-3 mt-1 space-y-1 border-l-2 border-orange-500/30 pl-2"
+                    class="ml-3 mt-1 space-y-1 border-l border-rule pl-2"
                 >
                     <li>
                         <a
@@ -1626,7 +1530,7 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
                         <a
                             href="#capitalize"
                             class="text-gray-300 hover:text-blue-400 block"
-                            >Capitalize Words</a
+                            >Capitalize words</a
                         >
                     </li>
                 </ul>
@@ -1635,11 +1539,11 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <li class="mt-4">
                 <a
                     href="#trim-pad"
-                    class="text-green-300 font-semibold hover:text-green-200 block py-1"
-                    >🧹 Trim / Pad</a
+                    class="text-ink font-semibold hover:underline block py-1"
+                    >Trim / pad</a
                 >
                 <ul
-                    class="ml-3 mt-1 space-y-1 border-l-2 border-green-500/30 pl-2"
+                    class="ml-3 mt-1 space-y-1 border-l border-rule pl-2"
                 >
                     <li>
                         <a
@@ -1668,11 +1572,11 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <li class="mt-4">
                 <a
                     href="#manipulation"
-                    class="text-red-300 font-semibold hover:text-red-200 block py-1"
-                    >🔨 Manipulation</a
+                    class="text-ink font-semibold hover:underline block py-1"
+                    >Manipulation</a
                 >
                 <ul
-                    class="ml-3 mt-1 space-y-1 border-l-2 border-red-500/30 pl-2"
+                    class="ml-3 mt-1 space-y-1 border-l border-rule pl-2"
                 >
                     <li>
                         <a
@@ -1708,11 +1612,11 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <li class="mt-4">
                 <a
                     href="#pattern"
-                    class="text-pink-300 font-semibold hover:text-pink-200 block py-1"
-                    >🔍 Pattern Matching</a
+                    class="text-ink font-semibold hover:underline block py-1"
+                    >Pattern matching</a
                 >
                 <ul
-                    class="ml-3 mt-1 space-y-1 border-l-2 border-pink-500/30 pl-2"
+                    class="ml-3 mt-1 space-y-1 border-l border-rule pl-2"
                 >
                     <li>
                         <a
@@ -1734,31 +1638,31 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <li class="mt-4">
                 <a
                     href="#converting"
-                    class="text-yellow-300 font-semibold hover:text-yellow-200 block py-1"
-                    >🔄 Converting to Strings</a
+                    class="text-ink font-semibold hover:underline block py-1"
+                    >Converting to strings</a
                 >
                 <ul
-                    class="ml-3 mt-1 space-y-1 border-l-2 border-yellow-500/30 pl-2"
+                    class="ml-3 mt-1 space-y-1 border-l border-rule pl-2"
                 >
                     <li>
                         <a
                             href="#array-to-string"
                             class="text-gray-300 hover:text-blue-400 block"
-                            >Array to String</a
+                            >Array to string</a
                         >
                     </li>
                     <li>
                         <a
                             href="#number-to-string"
                             class="text-gray-300 hover:text-blue-400 block"
-                            >Number to String</a
+                            >Number to string</a
                         >
                     </li>
                     <li>
                         <a
                             href="#object-to-string"
                             class="text-gray-300 hover:text-blue-400 block"
-                            >Object to String</a
+                            >Object to string</a
                         >
                     </li>
                 </ul>
@@ -1767,31 +1671,31 @@ import VisualLayout from "src/layouts/VisualLayout.astro";
             <li class="mt-4">
                 <a
                     href="#patterns"
-                    class="text-cyan-300 font-semibold hover:text-cyan-200 block py-1"
-                    >🧩 Common Patterns</a
+                    class="text-ink font-semibold hover:underline block py-1"
+                    >Common patterns</a
                 >
                 <ul
-                    class="ml-3 mt-1 space-y-1 border-l-2 border-cyan-500/30 pl-2"
+                    class="ml-3 mt-1 space-y-1 border-l border-rule pl-2"
                 >
                     <li>
                         <a
                             href="#prepend-append"
                             class="text-gray-300 hover:text-blue-400 block"
-                            >Prepend / Append</a
+                            >Prepend / append</a
                         >
                     </li>
                     <li>
                         <a
                             href="#reverse"
                             class="text-gray-300 hover:text-blue-400 block"
-                            >Reverse String</a
+                            >Reverse string</a
                         >
                     </li>
                     <li>
                         <a
                             href="#is-empty"
                             class="text-gray-300 hover:text-blue-400 block"
-                            >Check if Empty</a
+                            >Check if empty</a
                         >
                     </li>
                 </ul>
